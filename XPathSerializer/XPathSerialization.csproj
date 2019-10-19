@@ -44,9 +44,11 @@
     <Compile Include="Adaptable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeExtensions.cs" />
+    <Compile Include="XElementExtensions.cs" />
     <Compile Include="XPathConfiguration.cs" />
     <Compile Include="XPathMap.cs" />
     <Compile Include="XPathScope.cs" />
+    <Compile Include="XPathSearch.cs" />
     <Compile Include="XPathSerializer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

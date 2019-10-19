@@ -6,6 +6,8 @@ namespace XPathSerialization
 {
     internal class XPathScope : XPathConfiguration
     {
+        public XPathScope(string xPath, string objectPath) : base(xPath, objectPath) { }
+
         public override void DeSerialize(XElement root, Adaptable adaptable)
         {
             var xScope = root.XPathSelectElements(XPath);
