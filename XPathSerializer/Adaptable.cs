@@ -18,6 +18,18 @@ namespace XPathSerialization
             adaptable.SetValue(propertyName, value);
         }
 
+        public string GetPropertyValue(string objectPath)
+        {
+            var path = new Stack<string>(GetPath(objectPath));
+            string propertyName = path.Pop();
+
+            Adaptable adaptable = this;
+            if (path.Count > 0)
+                adaptable = GetChild(new Queue<string>(path));
+
+            return adaptable.GetValue(propertyName);
+        }
+
         public IList GetProperty(string objectPath)
         {
             var path = new Stack<string>(GetPath(objectPath));
@@ -51,6 +63,12 @@ namespace XPathSerialization
         {
             PropertyInfo property = GetType().GetProperty(propertyName);
             property.SetValue(this, value);
+        }
+
+        private string GetValue(string propertyName)
+        {
+            PropertyInfo property = GetType().GetProperty(propertyName);
+            return property.GetValue(this).ToString();
         }
 
         private static IEnumerable<string> GetPath(string objectPath)

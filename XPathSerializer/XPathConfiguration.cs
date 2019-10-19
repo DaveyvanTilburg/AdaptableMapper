@@ -35,6 +35,8 @@ namespace XPathSerialization
             XPathConfigurations = xPathConfigurations;
         }
 
-        public abstract void DeSerialize(XElement root, Adaptable adaptable);
+        public abstract void DeSerialize(XElement source, Adaptable target);
+
+        public abstract void Serialize(XElement target, Adaptable source);
     }
 }

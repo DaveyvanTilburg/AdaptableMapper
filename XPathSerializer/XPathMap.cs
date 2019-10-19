@@ -7,12 +7,19 @@ namespace XPathSerialization
     {
         public XPathMap(string xPath, string objectPath) : base(xPath, objectPath) { }
 
-        public override void DeSerialize(XElement root, Adaptable adaptable)
+        public override void DeSerialize(XElement source, Adaptable target)
         {
-            IEnumerable<string> elementValues = root.GetXPathValues(XPath);
+            IEnumerable<string> elementValues = source.GetXPathValues(XPath);
 
             foreach (string elementValue in elementValues)
-                adaptable.SetPropertyValue(ObjectPath, elementValue);
+                target.SetPropertyValue(ObjectPath, elementValue);
+        }
+
+        public override void Serialize(XElement target, Adaptable source)
+        {
+            var value = source.GetPropertyValue(ObjectPath);
+
+            target.SetXPathValues(XPath, value);
         }
     }
 }

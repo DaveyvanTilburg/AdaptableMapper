@@ -15,18 +15,27 @@ namespace Web.Controllers
 
         public HttpResponseMessage Get()
         {
-            XPathConfigurationEntry roomStayCodeMap = new XPathConfigurationEntry() { Type = "Map", XPath = "./RoomTypes/RoomType/@RoomTypeCode", ObjectPath = "Code" };
-            var roomStayConfiguration = new List<XPathConfigurationEntry>() { roomStayCodeMap };
-            XPathConfigurationEntry roomStayScope = new XPathConfigurationEntry() { Type = "Scope", XPath = "./RoomStays/RoomStay", ObjectPath = "RoomStays", Configurations = roomStayConfiguration };
+            string searchPath = "./ResGuestRPHs/ResGuestRPH/@RPH";
+            string placementPath = @"../../ResGuests/ResGuest[@ResGuestRPH=""{{searchResult}}""]/Profiles/ProfileInfo/Profile/Customer/PersonName/GivenName";
+            string objectPath = "GuestName";
 
-            XPathConfigurationEntry guestGivenNameMap = new XPathConfigurationEntry() { Type = "Map", XPath = "./Profiles/ProfileInfo/Profile/Customer/PersonName/GivenName", ObjectPath = "GivenName" };
-            XPathConfigurationEntry guestSurNameMap = new XPathConfigurationEntry() { Type = "Map", XPath = "./Profiles/ProfileInfo/Profile/Customer/PersonName/Surname", ObjectPath = "Surname" };
-            var guestConfiguration = new List<XPathConfigurationEntry>() { guestGivenNameMap, guestSurNameMap };
-            XPathConfigurationEntry guestScope = new XPathConfigurationEntry() { Type = "Scope", XPath = "./ResGuests/ResGuest", ObjectPath = "Guests", Configurations = guestConfiguration };
+            XPathConfiguration roomStayGuestName = XPathConfiguration.CreateXPathSearch(placementPath, objectPath, searchPath);
+            XPathConfiguration roomStayCodeMap = XPathConfiguration.CreateXPathMap("./RoomTypes/RoomType/@RoomTypeCode", "Code");
+            XPathConfiguration roomStayRateCodeMap = XPathConfiguration.CreateXPathMap("./RoomRates/RoomRate/@RatePlanCode", "RateCode");
+            List<XPathConfiguration> roomStayConfiguration = new List<XPathConfiguration>() { roomStayCodeMap, roomStayGuestName, roomStayRateCodeMap };
+            XPathConfiguration roomStayScope = XPathConfiguration.CreateXPathScope("./RoomStays/RoomStay", "RoomStays");
+            roomStayScope.SetConfigurations(roomStayConfiguration);
 
-            XPathConfigurationEntry reservationIdMap = new XPathConfigurationEntry() { Type = "Map", XPath = @"./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type=""18""]/@ResID_Value", ObjectPath = "Id" };
-            var reservationConfiguration = new List<XPathConfigurationEntry>() { reservationIdMap, roomStayScope, guestScope };
-            XPathConfigurationEntry reservationScope = new XPathConfigurationEntry() { Type = "Scope", XPath = "//HotelReservations/HotelReservation", ObjectPath = "Reservations", Configurations = reservationConfiguration };
+            XPathConfiguration guestGivenNameMap = XPathConfiguration.CreateXPathMap("./Profiles/ProfileInfo/Profile/Customer/PersonName/GivenName", "GivenName");
+            XPathConfiguration guestSurNameMap = XPathConfiguration.CreateXPathMap("./Profiles/ProfileInfo/Profile/Customer/PersonName/Surname", "Surname");
+            List<XPathConfiguration> guestConfiguration = new List<XPathConfiguration>() { guestGivenNameMap, guestSurNameMap };
+            XPathConfiguration guestScope = XPathConfiguration.CreateXPathScope("./ResGuests/ResGuest", "Guests");
+            guestScope.SetConfigurations(guestConfiguration);
+
+            XPathConfiguration reservationHotelCodeMap = XPathConfiguration.CreateXPathMap(@"./RoomStays/RoomStay/BasicPropertyInfo/@HotelCode", "HotelCode");
+            XPathConfiguration reservationIdMap = XPathConfiguration.CreateXPathMap(@"./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type=""18""]/@ResID_Value", "Id");
+            List<XPathConfiguration> reservationConfiguration = new List<XPathConfiguration>() { reservationIdMap, roomStayScope, guestScope, reservationHotelCodeMap };
+            XPathConfiguration reservationScope = XPathConfiguration.CreateXPathScope("//HotelReservations/HotelReservation", "Reservations");
 
             HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.OK);
             response.Content = new StringContent(JsonConvert.SerializeObject(reservationScope), Encoding.UTF8, "application/json");
@@ -48,7 +57,7 @@ namespace Web.Controllers
             var bytes = System.Convert.FromBase64String(request.XML);
             string input = System.Text.ASCIIEncoding.ASCII.GetString(bytes);
             var target = new Root();
-            XPathSerializer.Adept(configuration, input, target);
+            XPathSerializer.Deserialize(configuration, input, target);
 
             HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.OK);
             response.Content = new StringContent(JsonConvert.SerializeObject(target), Encoding.UTF8, "application/json");

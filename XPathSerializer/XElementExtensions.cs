@@ -17,5 +17,16 @@ namespace XPathSerialization
                     yield return attribute.Value;
             }
         }
+
+        public static void SetXPathValues(this XElement node, string xPath, string value)
+        {
+            foreach (XObject xObject in (IEnumerable)node.XPathEvaluate(xPath))
+            {
+                if (xObject is XElement element)
+                    element.Value = value;
+                else if (xObject is XAttribute attribute)
+                    attribute.Value = value;
+            }
+        }
     }
 }
