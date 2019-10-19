@@ -15,12 +15,11 @@ namespace XPathSerialization
 
         public override void DeSerialize(XElement source, Adaptable target)
         {
-            string searchValue = source.GetXPathValues(_searchPath).First();
+            string searchValue = null;
+            if (!string.IsNullOrWhiteSpace(_searchPath))
+                searchValue = source.GetXPathValues(_searchPath).First();
 
-            if (string.IsNullOrWhiteSpace(searchValue))
-                throw new Exception($"Path {_searchPath} gives so search results");
-
-            string actualXPath = XPath.Replace("{{searchResult}}", searchValue);
+            string actualXPath = string.IsNullOrWhiteSpace(searchValue) ? XPath : XPath.Replace("{{searchResult}}", searchValue);
             string value = source.GetXPathValues(actualXPath).First();
 
             target.SetPropertyValue(ObjectPath, value);
@@ -28,7 +27,14 @@ namespace XPathSerialization
 
         public override void Serialize(XElement target, Adaptable source)
         {
-            throw new NotImplementedException();
+            //string searchValue = null;
+            //if (!string.IsNullOrWhiteSpace(_searchPath))
+            //    searchValue = source.GetXPathValues(_searchPath).First();
+
+            //string actualXPath = string.IsNullOrWhiteSpace(searchValue) ? XPath : XPath.Replace("{{searchResult}}", searchValue);
+            string value = source.GetPropertyValue(ObjectPath);
+
+            target.SetXPathValues(XPath, value);
         }
     }
 }

@@ -13,11 +13,12 @@ namespace XPathSerialization
         public override void DeSerialize(XElement source, Adaptable target)
         {
             IEnumerable<XElement> xScope = source.XPathSelectElements(XPath);
-            IList objectScope = target.GetProperty(ObjectPath);
+            (IList objectScope, Adaptable parent) = target.GetProperty(ObjectPath);
 
             foreach (XElement xElement in xScope)
             {
                 Adaptable entry = objectScope.GetType().CreateAdaptable();
+                entry.SetParent(parent);
 
                 foreach (XPathConfiguration xPathConfiguration in XPathConfigurations)
                     xPathConfiguration.DeSerialize(xElement, entry);
@@ -29,7 +30,7 @@ namespace XPathSerialization
         public override void Serialize(XElement target, Adaptable source)
         {
             XElement xScope = target.XPathSelectElements(XPath).First();
-            IList objectScope = source.GetProperty(ObjectPath);
+            (IList objectScope, Adaptable parent) = source.GetProperty(ObjectPath);
 
             XElement xParent = xScope.Parent;
             xScope.Remove();

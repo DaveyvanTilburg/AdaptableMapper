@@ -6,6 +6,10 @@ namespace XPathSerialization
 {
     public abstract class Adaptable
     {
+        private Adaptable _parent;
+        public void SetParent(Adaptable parent)
+            => _parent = parent;
+
         public void SetPropertyValue(string objectPath, string value)
         {
             var path = new Stack<string>(GetPath(objectPath));
@@ -13,7 +17,7 @@ namespace XPathSerialization
 
             Adaptable adaptable = this;
             if (path.Count > 0)
-                adaptable = GetChild(new Queue<string>(path));
+                adaptable = NavigateToPath(new Queue<string>(path));
 
             adaptable.SetValue(propertyName, value);
         }
@@ -25,38 +29,44 @@ namespace XPathSerialization
 
             Adaptable adaptable = this;
             if (path.Count > 0)
-                adaptable = GetChild(new Queue<string>(path));
+                adaptable = NavigateToPath(new Queue<string>(path));
 
             return adaptable.GetValue(propertyName);
         }
 
-        public IList GetProperty(string objectPath)
+        public (IList property, Adaptable parent) GetProperty(string objectPath)
         {
             var path = new Stack<string>(GetPath(objectPath));
             string propertyName = path.Pop();
 
             Adaptable adaptable = this;
             if (path.Count > 0)
-                adaptable = GetChild(new Queue<string>(path));
+                adaptable = NavigateToPath(new Queue<string>(path));
 
             PropertyInfo property = adaptable.GetType().GetProperty(propertyName);
-            return property.GetValue(adaptable) as IList;
+            return (property.GetValue(adaptable) as IList, adaptable);
         }
 
-        private Adaptable GetChild(Queue<string> path)
+        private Adaptable NavigateToPath(Queue<string> path)
         {
             string step = path.Dequeue();
 
-            PropertyInfo property = GetType().GetProperty(step);
-            var propertyValue = property.GetValue(this) as IList;
+            Adaptable next;
+            if (step.Equals(".."))
+                next = _parent;
+            else
+            {
+                PropertyInfo property = GetType().GetProperty(step);
+                var propertyValue = property.GetValue(this) as IList;
 
-            Adaptable entry = property.PropertyType.CreateAdaptable();
-            propertyValue.Add(entry);
+                next = property.PropertyType.CreateAdaptable();
+                propertyValue.Add(next);
+            }
 
             if (path.Count > 0)
-                return entry.GetChild(path);
+                return next.NavigateToPath(path);
 
-            return entry;
+            return next;
         }
 
         private void SetValue(string propertyName, string value)
