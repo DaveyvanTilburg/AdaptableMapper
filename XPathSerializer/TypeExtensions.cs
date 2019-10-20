@@ -7,7 +7,12 @@ namespace XPathSerialization
         public static Adaptable CreateAdaptable(this Type type)
         {
             Type listItemType = type.GetGenericArguments()[0];
-            return Activator.CreateInstance(listItemType) as Adaptable;
+            object instance = Activator.CreateInstance(listItemType);
+
+            if (!(instance is Adaptable result))
+                throw new InvalidAdaptablePathException($"Adaptable has property with type {type.Name} that is not an adaptable, that is being traversed");
+
+            return result;
         }
     }
 }

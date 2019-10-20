@@ -17,7 +17,7 @@ namespace XPathSerialization.XPathConfigurations
             ObjectPath path = ObjectPath.CreateObjectPath(AdaptablePath);
 
             Adaptable pathTarget = target.GetOrCreateAdaptable(new Queue<string>(path.Path));
-            IList objectScope = pathTarget.GetProperty(path.PropertyName);
+            IList objectScope = pathTarget.GetListProperty(path.PropertyName);
 
             foreach (XElement xElement in xScope)
             {
@@ -38,7 +38,7 @@ namespace XPathSerialization.XPathConfigurations
             ObjectPath path = ObjectPath.CreateObjectPath(AdaptablePath);
 
             Adaptable pathTarget = source.NavigateToAdaptable(new Queue<string>(path.Path));
-            IList objectScope = pathTarget.GetProperty(path.PropertyName);
+            IList objectScope = pathTarget.GetListProperty(path.PropertyName);
 
             XElement xParent = xScope.Parent;
             xScope.Remove();

@@ -20,18 +20,12 @@ namespace XPathSerialization
             return adaptable;
         }
 
-        public IList GetProperty(string propertyName)
-        {
-            PropertyInfo property = this.GetType().GetProperty(propertyName);
-            return property.GetValue(this) as IList;
-        }
-
         private Adaptable NavigateAndCreatePath(Queue<string> path)
         {
             string step = path.Dequeue();
 
-            PropertyInfo property = GetType().GetProperty(step);
-            var propertyValue = property.GetValue(this) as IList;
+            PropertyInfo property = GetPropertyInfo(step);
+            IList propertyValue = GetIListFromProperty(property, step);
 
             Adaptable next = property.PropertyType.CreateAdaptable();
             propertyValue.Add(next);
@@ -40,6 +34,25 @@ namespace XPathSerialization
                 return next.NavigateAndCreatePath(path);
 
             return next;
+        }
+
+        public IList GetListProperty(string propertyName)
+        {
+            PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
+            return GetIListFromProperty(propertyInfo, propertyName);
+        }
+
+        private IList GetIListFromProperty(PropertyInfo propertyInfo, string propertyName)
+        {
+            object property = propertyInfo.GetValue(this);
+
+            if (property == null)
+                throw new InvalidAdaptablePathException($"Property {propertyName} does not exist on {this.GetType().Name}");
+
+            if (!(property is IList listProperty))
+                throw new InvalidAdaptablePathException($"Property {propertyName} is not traversable, it is not a list of adaptable");
+
+            return listProperty;
         }
 
         public Adaptable NavigateToAdaptable(Queue<string> path)
@@ -54,17 +67,19 @@ namespace XPathSerialization
                 next = _parent;
             else if(step.TryGetObjectFilter(out AdaptableFilter filter))
             {
-                PropertyInfo property = GetType().GetProperty(filter.PropertyName);
-                var propertyValue = property.GetValue(this) as IEnumerable<Adaptable>;
-
+                IEnumerable<Adaptable> propertyValue = GetEnumerableProperty(filter.PropertyName);
                 next = propertyValue.FirstOrDefault(a => a.GetValue(filter.Name).Equals(filter.Value));
+
+                if (next == null)
+                    throw new InvalidAdaptablePathException($"No match found for filter on list with name {filter.PropertyName} with a value that has a {filter.Name} with value {filter.Value}");
             }
             else
             {
-                PropertyInfo property = GetType().GetProperty(step);
-                var propertyValue = property.GetValue(this) as IEnumerable<Adaptable>;
+                IEnumerable<Adaptable> propertyValue = GetEnumerableProperty(step);
+                next = propertyValue.FirstOrDefault();
 
-                next = propertyValue.First() as Adaptable;
+                if (next == null)
+                    throw new InvalidAdaptablePathException($"No items found in {step} in type {this.GetType().Name}");
             }
 
             if (path.Count > 0)
@@ -73,16 +88,40 @@ namespace XPathSerialization
             return next;
         }
 
+        private IEnumerable<Adaptable> GetEnumerableProperty(string propertyName)
+        {
+            PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
+            object property = propertyInfo.GetValue(this);
+
+            if(property == null)
+                throw new InvalidAdaptablePathException($"Property {propertyName} does not exist on {this.GetType().Name}");
+
+            if (!(property is IEnumerable<Adaptable> enumerableProperty))
+                throw new InvalidAdaptablePathException($"Property {propertyName} is not traversable, it is not a list of adaptable");
+
+            return enumerableProperty;
+        }
+
         public void SetValue(string propertyName, string value)
         {
-            PropertyInfo property = GetType().GetProperty(propertyName);
-            property.SetValue(this, value);
+            PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
+            propertyInfo.SetValue(this, value);
         }
 
         public string GetValue(string propertyName)
         {
-            PropertyInfo property = GetType().GetProperty(propertyName);
-            return property.GetValue(this).ToString();
+            PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
+            return propertyInfo.GetValue(this).ToString();
+        }
+
+        private PropertyInfo GetPropertyInfo(string propertyName)
+        {
+            PropertyInfo propertyInfo = this.GetType().GetProperty(propertyName);
+
+            if (propertyInfo == null)
+                throw new InvalidAdaptablePathException($"Property {propertyName} is not a part of {this.GetType().Name}");
+
+            return propertyInfo;
         }
     }
 }
