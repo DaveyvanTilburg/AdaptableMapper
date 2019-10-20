@@ -6,7 +6,7 @@ using System.Xml.XPath;
 
 namespace XPathSerialization.XPathConfigurations
 {
-    internal class XPathScope : XPathConfiguration
+    internal partial class XPathScope : XPathConfiguration
     {
         public XPathScope(string xPath, string objectPath) : base(xPath, objectPath) { }
 

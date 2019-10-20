@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http;
+using Web.Controllers.XPath;
 using XPathSerialization;
 
 namespace Web.Controllers
@@ -11,10 +12,11 @@ namespace Web.Controllers
     {
         public HttpResponseMessage Get()
         {
-            //convert to entries
+            XPathConfigurationEntry example = XPathConfigurationEntry.Convert(GetFakedSerializationConfigurations());
+            var request = new Request() { XPathConfigurationEntry = example };
 
             HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.OK);
-            response.Content = new StringContent(JsonConvert.SerializeObject(null), Encoding.UTF8, "application/json");
+            response.Content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
             return response;
         }
 

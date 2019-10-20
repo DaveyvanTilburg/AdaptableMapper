@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace XPathSerialization.XPathConfigurations
 {
-    public class XPathSearch : XPathConfiguration
+    internal partial class XPathSearch : XPathConfiguration
     {
         private string _searchPath;
 

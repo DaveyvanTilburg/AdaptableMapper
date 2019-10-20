@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace XPathSerialization.XPathConfigurations
 {
-    internal class XPathMap : XPathConfiguration
+    internal partial class XPathMap : XPathConfiguration
     {
         public XPathMap(string xPath, string objectPath) : base(xPath, objectPath) { }
 

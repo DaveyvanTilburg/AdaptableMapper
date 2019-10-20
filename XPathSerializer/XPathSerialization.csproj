@@ -48,10 +48,14 @@
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="XElementExtensions.cs" />
     <Compile Include="XPathConfiguration.cs" />
+    <Compile Include="XPathConfigurationInternalsTEMP.cs" />
     <Compile Include="XPathConfigurations\AdaptablePath.cs" />
     <Compile Include="XPathConfigurations\XPathMap.cs" />
+    <Compile Include="XPathConfigurations\XPathMap.Internals.cs" />
     <Compile Include="XPathConfigurations\XPathScope.cs" />
+    <Compile Include="XPathConfigurations\XPathScope.Internals.cs" />
     <Compile Include="XPathConfigurations\XPathSearch.cs" />
+    <Compile Include="XPathConfigurations\XPathSearch.Internals.cs" />
     <Compile Include="XPathSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
