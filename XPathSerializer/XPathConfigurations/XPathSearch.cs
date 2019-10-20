@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Xml.Linq;
 
 namespace XPathSerialization.XPathConfigurations
 {
     internal partial class XPathSearch : XPathConfiguration
     {
-        private string _searchPath;
+        private readonly string _searchPath;
 
-        public XPathSearch(string xPath, string objectPath, string searchPath) : base(xPath, objectPath)
+        public XPathSearch(string xPath, string adaptableScope, string searchPath) : base(xPath, adaptableScope)
         {
             _searchPath = searchPath;
         }
@@ -22,10 +21,10 @@ namespace XPathSerialization.XPathConfigurations
             string actualXPath = string.IsNullOrWhiteSpace(searchValue) ? XPath : XPath.Replace("{{searchResult}}", searchValue);
             string value = source.GetXPathValues(actualXPath).First();
 
-            ObjectPath path = ObjectPath.CreateObjectPath(AdaptablePath);
+            var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(AdaptablePath);
 
-            Adaptable pathTarget = target.GetOrCreateAdaptable(new Queue<string>(path.Path));
-            pathTarget.SetValue(path.PropertyName, value);
+            Adaptable pathTarget = target.GetOrCreateAdaptable(adaptablePathContainer.GetPath());
+            pathTarget.SetValue(adaptablePathContainer.PropertyName, value);
         }
 
         public override void Serialize(XElement target, Adaptable source)
@@ -33,18 +32,17 @@ namespace XPathSerialization.XPathConfigurations
             string searchValue = null;
             if (!string.IsNullOrWhiteSpace(_searchPath))
             {
-                var searchPath = new Stack<string>(_searchPath.Split('/'));
-                string searchPropertyName = searchPath.Pop();
+                var searchAdaptablePath = AdaptablePathContainer.CreateAdaptablePath(_searchPath);
 
-                Adaptable searchPathTarget = source.NavigateToAdaptable(new Queue<string>(searchPath));
-                searchValue = searchPathTarget.GetValue(searchPropertyName);
+                Adaptable searchPathTarget = source.NavigateToAdaptable(searchAdaptablePath.GetPath());
+                searchValue = searchPathTarget.GetValue(searchAdaptablePath.PropertyName);
             }
 
             string actualAdaptablePath = string.IsNullOrWhiteSpace(searchValue) ? AdaptablePath : AdaptablePath.Replace("{{searchResult}}", searchValue);
-            ObjectPath path = ObjectPath.CreateObjectPath(actualAdaptablePath);
+            var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(actualAdaptablePath);
 
-            Adaptable pathTarget = source.NavigateToAdaptable(new Queue<string>(path.Path));
-            string value = pathTarget.GetValue(path.PropertyName);
+            Adaptable pathTarget = source.NavigateToAdaptable(adaptablePathContainer.GetPath());
+            string value = pathTarget.GetValue(adaptablePathContainer.PropertyName);
 
             target.SetXPathValues(XPath, value);
         }

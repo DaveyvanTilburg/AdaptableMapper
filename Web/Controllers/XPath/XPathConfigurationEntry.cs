@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using XPathSerialization;
 
 namespace Web.Controllers.XPath
@@ -22,8 +24,11 @@ namespace Web.Controllers.XPath
             else if (step.Type.Equals("Search"))
                 current = XPathConfiguration.CreateXPathSearch(step.XPath, step.AdaptablePath, step.SearchPath);
 
+            if (current == null)
+                throw new Exception($"Type is empty of entry {JsonConvert.SerializeObject(step)}");
+
             var children = step.Configurations?
-                .Select(c => Convert(c))
+                .Select(Convert)
                 .ToList();
 
             current.SetConfigurations(children);
@@ -33,7 +38,7 @@ namespace Web.Controllers.XPath
 
         public static XPathConfigurationEntry Convert(XPathConfiguration step)
         {
-            XPathConfigurationInternalsTEMP exposed = step as XPathConfigurationInternalsTEMP;
+            var exposed = step as XPathConfigurationInternalsTEMP;
 
             var current = new XPathConfigurationEntry()
             {
@@ -44,7 +49,7 @@ namespace Web.Controllers.XPath
             };
 
             var children = exposed.XPathConfigurations?
-                .Select(c => Convert(c))
+                .Select(Convert)
                 .ToList();
 
             current.Configurations = children;

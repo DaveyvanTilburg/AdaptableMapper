@@ -50,7 +50,7 @@
     <Compile Include="XElementExtensions.cs" />
     <Compile Include="XPathConfiguration.cs" />
     <Compile Include="XPathConfigurationInternalsTEMP.cs" />
-    <Compile Include="XPathConfigurations\AdaptablePath.cs" />
+    <Compile Include="XPathConfigurations\AdaptablePathContainer.cs" />
     <Compile Include="XPathConfigurations\XPathMap.cs" />
     <Compile Include="XPathConfigurations\XPathMap.Internals.cs" />
     <Compile Include="XPathConfigurations\XPathScope.cs" />

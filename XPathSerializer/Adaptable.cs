@@ -64,7 +64,11 @@ namespace XPathSerialization
 
             Adaptable next;
             if (step.Equals(".."))
+            {
                 next = _parent;
+                if (next == null)
+                    throw new InvalidAdaptablePathException($"Parent node was null while navigating to .. of type {this.GetType().Name}");
+            }
             else if(step.TryGetObjectFilter(out AdaptableFilter filter))
             {
                 IEnumerable<Adaptable> propertyValue = GetEnumerableProperty(filter.PropertyName);

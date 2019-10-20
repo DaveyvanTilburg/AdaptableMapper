@@ -22,8 +22,8 @@ namespace Web.Controllers
             Request request = JsonConvert.DeserializeObject<Request>(requestBody);
             XPathConfiguration configuration = XPathConfigurationEntry.Convert(request.XPathConfigurationEntry);
 
-            var bytes = System.Convert.FromBase64String(request.XML);
-            string input = ASCIIEncoding.ASCII.GetString(bytes);
+            var bytes = System.Convert.FromBase64String(request.Xml);
+            string input = Encoding.ASCII.GetString(bytes);
             var target = new Root();
             XPathSerializer.Deserialize(configuration, input, target);
 

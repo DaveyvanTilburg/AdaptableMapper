@@ -1,4 +1,6 @@
-﻿namespace XPathSerialization
+﻿using System.Collections.Generic;
+
+namespace XPathSerialization
 {
     internal static class StringExtensions
     {
@@ -17,6 +19,11 @@
             filter = Newtonsoft.Json.JsonConvert.DeserializeObject<AdaptableFilter>(value.Substring(positionStart, positionEnd - positionStart));
             filter.PropertyName = value.Substring(0, positionStart);
             return true;
+        }
+
+        public static Stack<string> ToStack(this string value)
+        {
+            return new Stack<string>(value.Split('/'));
         }
     }
 }
