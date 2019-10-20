@@ -4,7 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-namespace XPathSerialization
+namespace XPathSerialization.XPathConfigurations
 {
     internal class XPathScope : XPathConfiguration
     {
@@ -13,12 +13,16 @@ namespace XPathSerialization
         public override void DeSerialize(XElement source, Adaptable target)
         {
             IEnumerable<XElement> xScope = source.XPathSelectElements(XPath);
-            (IList objectScope, Adaptable parent) = target.GetProperty(ObjectPath);
+
+            ObjectPath path = ObjectPath.CreateObjectPath(AdaptablePath);
+
+            Adaptable pathTarget = target.GetOrCreateAdaptable(new Queue<string>(path.Path));
+            IList objectScope = pathTarget.GetProperty(path.PropertyName);
 
             foreach (XElement xElement in xScope)
             {
                 Adaptable entry = objectScope.GetType().CreateAdaptable();
-                entry.SetParent(parent);
+                entry.SetParent(pathTarget);
 
                 foreach (XPathConfiguration xPathConfiguration in XPathConfigurations)
                     xPathConfiguration.DeSerialize(xElement, entry);
@@ -30,7 +34,11 @@ namespace XPathSerialization
         public override void Serialize(XElement target, Adaptable source)
         {
             XElement xScope = target.XPathSelectElements(XPath).First();
-            (IList objectScope, Adaptable parent) = source.GetProperty(ObjectPath);
+
+            ObjectPath path = ObjectPath.CreateObjectPath(AdaptablePath);
+
+            Adaptable pathTarget = source.NavigateToAdaptable(new Queue<string>(path.Path));
+            IList objectScope = pathTarget.GetProperty(path.PropertyName);
 
             XElement xParent = xScope.Parent;
             xScope.Remove();

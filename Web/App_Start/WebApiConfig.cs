@@ -20,6 +20,18 @@ namespace Web
                 routeTemplate: "Template",
                 defaults: new { Controller = "Template" }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "DeserializeExample",
+                routeTemplate: "DeserializeExample",
+                defaults: new { Controller = "DeserializeExample" }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "SerializeExample",
+                routeTemplate: "SerializeExample",
+                defaults: new { Controller = "SerializeExample" }
+            );
         }
     }
 }

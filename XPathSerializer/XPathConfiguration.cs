@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
+using XPathSerialization.XPathConfigurations;
 
 namespace XPathSerialization
 {
     public abstract class XPathConfiguration
     {
         protected string XPath;
-        protected string ObjectPath;
+        protected string AdaptablePath;
         protected IList<XPathConfiguration> XPathConfigurations = new List<XPathConfiguration>();
 
         protected XPathConfiguration(string xPath, string objectPath)
         {
             XPath = xPath;
-            ObjectPath = objectPath;
+            AdaptablePath = objectPath;
         }
 
         public static XPathConfiguration CreateXPathMap(string xPath, string objectPath)

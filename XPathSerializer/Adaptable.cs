@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace XPathSerialization
@@ -10,80 +11,78 @@ namespace XPathSerialization
         public void SetParent(Adaptable parent)
             => _parent = parent;
 
-        public void SetPropertyValue(string objectPath, string value)
+        public Adaptable GetOrCreateAdaptable(Queue<string> path)
         {
-            var path = new Stack<string>(GetPath(objectPath));
-            string propertyName = path.Pop();
-
             Adaptable adaptable = this;
             if (path.Count > 0)
-                adaptable = NavigateToPath(new Queue<string>(path));
+                adaptable = NavigateAndCreatePath(new Queue<string>(path));
 
-            adaptable.SetValue(propertyName, value);
+            return adaptable;
         }
 
-        public string GetPropertyValue(string objectPath)
+        public IList GetProperty(string propertyName)
         {
-            var path = new Stack<string>(GetPath(objectPath));
-            string propertyName = path.Pop();
+            PropertyInfo property = this.GetType().GetProperty(propertyName);
+            return property.GetValue(this) as IList;
+        }
 
-            Adaptable adaptable = this;
+        private Adaptable NavigateAndCreatePath(Queue<string> path)
+        {
+            string step = path.Dequeue();
+
+            PropertyInfo property = GetType().GetProperty(step);
+            var propertyValue = property.GetValue(this) as IList;
+
+            Adaptable next = property.PropertyType.CreateAdaptable();
+            propertyValue.Add(next);
+
             if (path.Count > 0)
-                adaptable = NavigateToPath(new Queue<string>(path));
+                return next.NavigateAndCreatePath(path);
 
-            return adaptable.GetValue(propertyName);
+            return next;
         }
 
-        public (IList property, Adaptable parent) GetProperty(string objectPath)
+        public Adaptable NavigateToAdaptable(Queue<string> path)
         {
-            var path = new Stack<string>(GetPath(objectPath));
-            string propertyName = path.Pop();
+            if (path.Count == 0)
+                return this;
 
-            Adaptable adaptable = this;
-            if (path.Count > 0)
-                adaptable = NavigateToPath(new Queue<string>(path));
-
-            PropertyInfo property = adaptable.GetType().GetProperty(propertyName);
-            return (property.GetValue(adaptable) as IList, adaptable);
-        }
-
-        private Adaptable NavigateToPath(Queue<string> path)
-        {
             string step = path.Dequeue();
 
             Adaptable next;
             if (step.Equals(".."))
                 next = _parent;
+            else if(step.TryGetObjectFilter(out AdaptableFilter filter))
+            {
+                PropertyInfo property = GetType().GetProperty(filter.PropertyName);
+                var propertyValue = property.GetValue(this) as IEnumerable<Adaptable>;
+
+                next = propertyValue.FirstOrDefault(a => a.GetValue(filter.Name).Equals(filter.Value));
+            }
             else
             {
                 PropertyInfo property = GetType().GetProperty(step);
-                var propertyValue = property.GetValue(this) as IList;
+                var propertyValue = property.GetValue(this) as IEnumerable<Adaptable>;
 
-                next = property.PropertyType.CreateAdaptable();
-                propertyValue.Add(next);
+                next = propertyValue.First() as Adaptable;
             }
 
             if (path.Count > 0)
-                return next.NavigateToPath(path);
+                return next.NavigateToAdaptable(path);
 
             return next;
         }
 
-        private void SetValue(string propertyName, string value)
+        public void SetValue(string propertyName, string value)
         {
             PropertyInfo property = GetType().GetProperty(propertyName);
             property.SetValue(this, value);
         }
 
-        private string GetValue(string propertyName)
+        public string GetValue(string propertyName)
         {
             PropertyInfo property = GetType().GetProperty(propertyName);
             return property.GetValue(this).ToString();
-        }
-
-        private static IEnumerable<string> GetPath(string objectPath)
-        {
-            return objectPath.Split('/');
         }
     }
 }

@@ -12,7 +12,7 @@ namespace XPathSerialization.TDD
         public void Deserialize()
         {
             var result = new Root();
-            XPathSerializer.Deserialize(GetFakedConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), result);
+            XPathSerializer.Deserialize(GetFakedDeserializationConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), result);
 
             result.Reservations.Count.Should().Be(2);
             result.Reservations[0].Id.Should().Be("03a804fa");
@@ -24,28 +24,44 @@ namespace XPathSerialization.TDD
             result.Reservations[0].RoomStays[0].Code.Should().Be("6281801");
             result.Reservations[0].RoomStays[0].GuestName.Should().Be("S*****");
             result.Reservations[0].RoomStays[0].RateCode.Should().Be("65090");
+            result.Reservations[0].RoomStays[0].GuestId.Should().Be("1");
             result.Reservations[0].RoomStays[1].Code.Should().Be("6281802");
             result.Reservations[0].RoomStays[1].GuestName.Should().Be("D****");
             result.Reservations[0].RoomStays[1].RateCode.Should().Be("65090");
+            result.Reservations[0].RoomStays[1].GuestId.Should().Be("2");
 
             result.Reservations[0].Guests.Count.Should().Be(2);
             result.Reservations[0].Guests[0].GivenName.Should().Be("S*****");
             result.Reservations[0].Guests[0].Surname.Should().Be("K**************");
+            result.Reservations[0].Guests[0].GuestId.Should().Be("1");
             result.Reservations[0].Guests[1].GivenName.Should().Be("D****");
             result.Reservations[0].Guests[1].Surname.Should().Be("T**************");
+            result.Reservations[0].Guests[1].GuestId.Should().Be("2");
         }
 
         [Fact]
         public void Serialize()
         {
             var source = new Root();
-            XPathSerializer.Deserialize(GetFakedConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), source);
+            XPathSerializer.Deserialize(GetFakedDeserializationConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), source);
 
-            string searchPath = "";
-            string xPath = "./RoomTypes/RoomType/RoomDescription/@Name";
-            string objectPath = "../HotelCode";
+            string template = System.IO.File.ReadAllText(@".\Xmls\SandboxTemplate.xml");
+            string result = XPathSerializer.Serialize(GetFakedSerializationConfigurations(), template, source);
 
-            XPathConfiguration roomDescriptionNameHotel = XPathConfiguration.CreateXPathSearch(xPath, objectPath, searchPath);
+            string expectedResult = System.IO.File.ReadAllText(@".\Xmls\ExpectedSandboxResult.xml");
+            XElement xResult = XElement.Parse(result);
+            XElement xExpectedResult = XElement.Parse(expectedResult);
+
+            xResult.Should().BeEquivalentTo(xExpectedResult);
+        }
+
+        private XPathConfiguration GetFakedSerializationConfigurations()
+        {
+            string searchPath = "GuestId";
+            string xPath = "./RoomTypes/RoomType/RoomDescription/@GuestLastName";
+            string adaptablePath = "../Guests{'Name':'GuestId','Value':'{{searchResult}}'}/Surname";
+
+            XPathConfiguration roomDescriptionNameHotel = XPathConfiguration.CreateXPathSearch(xPath, adaptablePath, searchPath);
             XPathConfiguration roomStayCodeMap = XPathConfiguration.CreateXPathMap("./RoomTypes/RoomType/@RoomTypeCode", "Code");
             List<XPathConfiguration> roomStayConfiguration = new List<XPathConfiguration>() { roomStayCodeMap, roomDescriptionNameHotel };
             XPathConfiguration roomStayScope = XPathConfiguration.CreateXPathScope("./RoomStays/RoomStay", "RoomStays");
@@ -57,32 +73,27 @@ namespace XPathSerialization.TDD
             XPathConfiguration reservationScope = XPathConfiguration.CreateXPathScope("//ReservationsList/HotelReservation", "Reservations");
             reservationScope.SetConfigurations(reservationConfiguration);
 
-            string template = System.IO.File.ReadAllText(@".\Xmls\SandboxTemplate.xml");
-            string result = XPathSerializer.Serialize(reservationScope, template, source);
-
-            string expectedResult = System.IO.File.ReadAllText(@".\Xmls\ExpectedSandboxResult.xml");
-            XElement xResult = XElement.Parse(result);
-            XElement xExpectedResult = XElement.Parse(expectedResult);
-
-            xResult.Should().BeEquivalentTo(xExpectedResult);
+            return reservationScope;
         }
 
-        private XPathConfiguration GetFakedConfigurations()
+        private XPathConfiguration GetFakedDeserializationConfigurations()
         {
             string searchPath = "./ResGuestRPHs/ResGuestRPH/@RPH";
             string xPath = @"../../ResGuests/ResGuest[@ResGuestRPH=""{{searchResult}}""]/Profiles/ProfileInfo/Profile/Customer/PersonName/GivenName";
-            string objectPath = "GuestName";
+            string adaptablePath = "GuestName";
 
-            XPathConfiguration roomStayGuestName = XPathConfiguration.CreateXPathSearch(xPath, objectPath, searchPath);
+            XPathConfiguration roomStayGuestName = XPathConfiguration.CreateXPathSearch(xPath, adaptablePath, searchPath);
+            XPathConfiguration roomStayGuestId = XPathConfiguration.CreateXPathMap("./ResGuestRPHs/ResGuestRPH/@RPH", "GuestId");
             XPathConfiguration roomStayCodeMap = XPathConfiguration.CreateXPathMap("./RoomTypes/RoomType/@RoomTypeCode", "Code");
             XPathConfiguration roomStayRateCodeMap = XPathConfiguration.CreateXPathMap("./RoomRates/RoomRate/@RatePlanCode", "RateCode");
-            List<XPathConfiguration> roomStayConfiguration = new List<XPathConfiguration>() { roomStayCodeMap, roomStayGuestName, roomStayRateCodeMap };
+            List<XPathConfiguration> roomStayConfiguration = new List<XPathConfiguration>() { roomStayCodeMap, roomStayGuestName, roomStayRateCodeMap, roomStayGuestId };
             XPathConfiguration roomStayScope = XPathConfiguration.CreateXPathScope("./RoomStays/RoomStay", "RoomStays");
             roomStayScope.SetConfigurations(roomStayConfiguration);
 
+            XPathConfiguration guestIdMap = XPathConfiguration.CreateXPathMap("./@ResGuestRPH", "GuestId");
             XPathConfiguration guestGivenNameMap = XPathConfiguration.CreateXPathMap("./Profiles/ProfileInfo/Profile/Customer/PersonName/GivenName", "GivenName");
             XPathConfiguration guestSurNameMap = XPathConfiguration.CreateXPathMap("./Profiles/ProfileInfo/Profile/Customer/PersonName/Surname", "Surname");
-            List<XPathConfiguration> guestConfiguration = new List<XPathConfiguration>() { guestGivenNameMap, guestSurNameMap };
+            List<XPathConfiguration> guestConfiguration = new List<XPathConfiguration>() { guestGivenNameMap, guestSurNameMap, guestIdMap };
             XPathConfiguration guestScope = XPathConfiguration.CreateXPathScope("./ResGuests/ResGuest", "Guests");
             guestScope.SetConfigurations(guestConfiguration);
 

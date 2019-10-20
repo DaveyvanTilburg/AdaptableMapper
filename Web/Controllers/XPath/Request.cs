@@ -1,4 +1,4 @@
-﻿namespace Web
+﻿namespace Web.Controllers.XPath
 {
     public class Request
     {

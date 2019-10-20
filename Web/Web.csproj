@@ -46,14 +46,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DeserializeExampleController.cs" />
+    <Compile Include="Controllers\SerializeExampleController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\XPathConfigurationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Request.cs" />
-    <Compile Include="XPathConfigurationEntry.cs" />
+    <Compile Include="Controllers\XPath\Request.cs" />
+    <Compile Include="Controllers\XPath\XPathConfigurationEntry.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
