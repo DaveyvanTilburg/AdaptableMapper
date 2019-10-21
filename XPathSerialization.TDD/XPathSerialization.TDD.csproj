@@ -73,7 +73,7 @@
       <Project>{590cb8ec-396d-4012-8385-25ba2149ee9a}</Project>
       <Name>XPathObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\XPathSerializer\XPathSerialization.csproj">
+    <ProjectReference Include="..\XPathSerialization\XPathSerialization.csproj">
       <Project>{67899dec-ec73-4a4b-8e12-6915045573ce}</Project>
       <Name>XPathSerialization</Name>
     </ProjectReference>
