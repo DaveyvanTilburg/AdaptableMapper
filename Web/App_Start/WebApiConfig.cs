@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Web
 {
@@ -6,6 +7,9 @@ namespace Web
     {
         public static void Register(HttpConfiguration config)
         {
+            EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "GET,POST");
+            config.EnableCors(cors);
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
