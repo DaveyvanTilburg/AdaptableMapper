@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
 namespace XPathSerialization.XPathConfigurations
 {
@@ -9,12 +8,12 @@ namespace XPathSerialization.XPathConfigurations
 
         public override void DeSerialize(XElement source, Adaptable target)
         {
-            string elementValue = source.GetXPathValues(XPath).First();
+            string value = source.GetXPathValue(XPath);
 
             var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(AdaptablePath);
-
             Adaptable pathTarget = target.GetOrCreateAdaptable(adaptablePathContainer.GetPath());
-            pathTarget.SetValue(adaptablePathContainer.PropertyName, elementValue);
+
+            pathTarget.SetValue(adaptablePathContainer.PropertyName, value);
         }
 
         public override void Serialize(XElement target, Adaptable source)

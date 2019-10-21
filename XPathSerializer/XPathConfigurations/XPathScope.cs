@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
-using System.Xml.XPath;
 
 namespace XPathSerialization.XPathConfigurations
 {
@@ -12,7 +10,7 @@ namespace XPathSerialization.XPathConfigurations
 
         public override void DeSerialize(XElement source, Adaptable target)
         {
-            IEnumerable<XElement> xScope = source.XPathSelectElements(XPath);
+            IEnumerable<XElement> xScope = source.NavigateToPathSelectAll(XPath);
 
             var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(AdaptablePath);
 
@@ -28,27 +26,23 @@ namespace XPathSerialization.XPathConfigurations
                     xPathConfiguration.DeSerialize(xElement, entry);
 
                 adaptableScope.Add(entry);
-            } 
+            }
         }
 
         public override void Serialize(XElement target, Adaptable source)
         {
-            XElement xScope = target.XPathSelectElements(XPath).First();
+            XElement xTemplate = target.NavigateToPath(XPath);
+            XElement xParent = xTemplate.GetParent();
+            xTemplate.Remove();
 
             var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(AdaptablePath);
 
             Adaptable pathTarget = source.NavigateToAdaptable(adaptablePathContainer.GetPath());
             IList adaptableScope = pathTarget.GetListProperty(adaptablePathContainer.PropertyName);
 
-            if (xScope.Parent == null)
-                throw new InvalidXPathException($"parent of node {xScope} is null");
-
-            XElement xParent = xScope.Parent;
-            xScope.Remove();
-
             foreach (Adaptable sourceItem in adaptableScope)
             {
-                var copy = new XElement(xScope);
+                var copy = new XElement(xTemplate);
                 foreach (XPathConfiguration xPathConfiguration in XPathConfigurations)
                     xPathConfiguration.Serialize(copy, sourceItem);
 
