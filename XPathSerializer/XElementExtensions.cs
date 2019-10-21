@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Linq;
+using System.Collections;
 
 namespace XPathSerialization
 {
@@ -24,7 +25,7 @@ namespace XPathSerialization
             if(!allMatches.Any())
                 throw new InvalidXPathException($"Path could not be traversed : {xPath}");
 
-            if(allMatches.Count > 0)
+            if(allMatches.Count > 1)
                 throw new InvalidXPathException($"Path has multiple of the same node, when only one is expected : {xPath}");
 
             return allMatches.First();
@@ -32,7 +33,8 @@ namespace XPathSerialization
 
         public static IEnumerable<string> GetXPathValues(this XElement xElement, string xPath)
         {
-            var xObjects = xElement.XPathEvaluate(xPath) as IEnumerable<XObject>;
+            var enumerable = xElement.XPathEvaluate(xPath) as IEnumerable;
+            var xObjects = enumerable.Cast<XObject>();
 
             if (!xObjects.Any())
                 throw new InvalidXPathException($"Path could not be traversed : {xPath}");
@@ -48,12 +50,11 @@ namespace XPathSerialization
 
         public static string GetXPathValue(this XElement xElement, string xPath)
         {
-            var xObjects = xElement.XPathEvaluate(xPath) as IEnumerable<XObject>;
+            var enumerable = xElement.XPathEvaluate(xPath) as IEnumerable;
+            var xObject = enumerable.Cast<XObject>().First();
 
-            if (!xObjects.Any())
+            if (xObject == null)
                 throw new InvalidXPathException($"Path could not be traversed : {xPath}");
-
-            XObject xObject = xObjects.First();
 
             if (xObject is XElement element)
                 return element.Value;
@@ -65,7 +66,8 @@ namespace XPathSerialization
 
         public static void SetXPathValues(this XElement xElement, string xPath, string value)
         {
-            var xObjects = xElement.XPathEvaluate(xPath) as IEnumerable<XObject>;
+            var enumerable = xElement.XPathEvaluate(xPath) as IEnumerable;
+            var xObjects = enumerable.Cast<XObject>();
 
             if (!xObjects.Any())
                 throw new InvalidXPathException($"Path could not be traversed : {xPath}");
