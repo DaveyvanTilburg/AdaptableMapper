@@ -7,7 +7,11 @@
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A package for serializing string to memory objects via configuration</description>
+    <description>
+      A package for serializing string to memory objects via configuration
+      
+      https://github.com/DaveyvanTilburg/XPathSerialization
+    </description>
     <copyright>Copyright 2019</copyright>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="12.0.2" />
