@@ -19,8 +19,8 @@
       Abstraction added to the XPathConfiguration implementations
     </releaseNotes>
     <license type="file">License.txt</license>
-    <files>
-      <file src="License.txt" />
-    </files>
   </metadata>
+  <files>
+    <file src="License.txt" />
+  </files>
 </package>
