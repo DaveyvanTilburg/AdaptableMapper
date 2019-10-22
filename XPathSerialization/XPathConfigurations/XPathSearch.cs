@@ -3,20 +3,23 @@ using System.Xml.Linq;
 
 namespace XPathSerialization.XPathConfigurations
 {
-    internal partial class XPathSearch : XPathConfiguration
+    internal class XPathSearch : XPathConfigurationBase, XPathConfiguration
     {
-        private readonly string _searchPath;
+        private const string TYPE = "Scope";
+        public string Type => TYPE;
+
+        public string SearchPath { get; protected set; }
 
         public XPathSearch(string xPath, string adaptableScope, string searchPath) : base(xPath, adaptableScope)
         {
-            _searchPath = searchPath;
+            SearchPath = searchPath;
         }
 
         public override void DeSerialize(XElement source, Adaptable target)
         {
             string searchValue = null;
-            if (!string.IsNullOrWhiteSpace(_searchPath))
-                searchValue = source.GetXPathValues(_searchPath).First();
+            if (!string.IsNullOrWhiteSpace(SearchPath))
+                searchValue = source.GetXPathValues(SearchPath).First();
 
             string actualXPath = string.IsNullOrWhiteSpace(searchValue) ? XPath : XPath.Replace("{{searchResult}}", searchValue);
             string value = source.GetXPathValues(actualXPath).First();
@@ -30,9 +33,9 @@ namespace XPathSerialization.XPathConfigurations
         public override void Serialize(XElement target, Adaptable source)
         {
             string searchValue = null;
-            if (!string.IsNullOrWhiteSpace(_searchPath))
+            if (!string.IsNullOrWhiteSpace(SearchPath))
             {
-                var searchAdaptablePath = AdaptablePathContainer.CreateAdaptablePath(_searchPath);
+                var searchAdaptablePath = AdaptablePathContainer.CreateAdaptablePath(SearchPath);
 
                 Adaptable searchPathTarget = source.NavigateToAdaptable(searchAdaptablePath.GetPath());
                 searchValue = searchPathTarget.GetValue(searchAdaptablePath.PropertyName);

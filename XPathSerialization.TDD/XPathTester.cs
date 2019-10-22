@@ -61,16 +61,16 @@ namespace XPathSerialization.TDD
             string xPath = "./RoomTypes/RoomType/RoomDescription/@GuestLastName";
             string adaptablePath = "../Guests{'Name':'GuestId','Value':'{{searchResult}}'}/Surname";
 
-            XPathConfiguration roomDescriptionNameHotel = XPathConfiguration.CreateXPathSearch(xPath, adaptablePath, searchPath);
-            XPathConfiguration roomStayCodeMap = XPathConfiguration.CreateXPathMap("./RoomTypes/RoomType/@RoomTypeCode", "Code");
+            XPathConfiguration roomDescriptionNameHotel = XPathConfigurationBase.CreateXPathSearch(xPath, adaptablePath, searchPath);
+            XPathConfiguration roomStayCodeMap = XPathConfigurationBase.CreateXPathMap("./RoomTypes/RoomType/@RoomTypeCode", "Code");
             List<XPathConfiguration> roomStayConfiguration = new List<XPathConfiguration>() { roomStayCodeMap, roomDescriptionNameHotel };
-            XPathConfiguration roomStayScope = XPathConfiguration.CreateXPathScope("./RoomStays/RoomStay", "RoomStays");
+            XPathConfiguration roomStayScope = XPathConfigurationBase.CreateXPathScope("./RoomStays/RoomStay", "RoomStays");
             roomStayScope.SetConfigurations(roomStayConfiguration);
 
-            XPathConfiguration reservationHotelCodeMap = XPathConfiguration.CreateXPathMap(@"./ResGlobalInfo/BasicPropertyInfo/@HotelCode", "HotelCode");
-            XPathConfiguration reservationIdMap = XPathConfiguration.CreateXPathMap(@"./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type=""5""]/@ResID_Value", "Id");
+            XPathConfiguration reservationHotelCodeMap = XPathConfigurationBase.CreateXPathMap(@"./ResGlobalInfo/BasicPropertyInfo/@HotelCode", "HotelCode");
+            XPathConfiguration reservationIdMap = XPathConfigurationBase.CreateXPathMap(@"./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type=""5""]/@ResID_Value", "Id");
             List<XPathConfiguration> reservationConfiguration = new List<XPathConfiguration>() { reservationIdMap, reservationHotelCodeMap, roomStayScope };
-            XPathConfiguration reservationScope = XPathConfiguration.CreateXPathScope("//ReservationsList/HotelReservation", "Reservations");
+            XPathConfiguration reservationScope = XPathConfigurationBase.CreateXPathScope("//ReservationsList/HotelReservation", "Reservations");
             reservationScope.SetConfigurations(reservationConfiguration);
 
             return reservationScope;
@@ -82,25 +82,25 @@ namespace XPathSerialization.TDD
             string xPath = @"../../ResGuests/ResGuest[@ResGuestRPH=""{{searchResult}}""]/Profiles/ProfileInfo/Profile/Customer/PersonName/GivenName";
             string adaptablePath = "GuestName";
 
-            XPathConfiguration roomStayGuestName = XPathConfiguration.CreateXPathSearch(xPath, adaptablePath, searchPath);
-            XPathConfiguration roomStayGuestId = XPathConfiguration.CreateXPathMap("./ResGuestRPHs/ResGuestRPH/@RPH", "GuestId");
-            XPathConfiguration roomStayCodeMap = XPathConfiguration.CreateXPathMap("./RoomTypes/RoomType/@RoomTypeCode", "Code");
-            XPathConfiguration roomStayRateCodeMap = XPathConfiguration.CreateXPathMap("./RoomRates/RoomRate/@RatePlanCode", "RateCode");
+            XPathConfiguration roomStayGuestName = XPathConfigurationBase.CreateXPathSearch(xPath, adaptablePath, searchPath);
+            XPathConfiguration roomStayGuestId = XPathConfigurationBase.CreateXPathMap("./ResGuestRPHs/ResGuestRPH/@RPH", "GuestId");
+            XPathConfiguration roomStayCodeMap = XPathConfigurationBase.CreateXPathMap("./RoomTypes/RoomType/@RoomTypeCode", "Code");
+            XPathConfiguration roomStayRateCodeMap = XPathConfigurationBase.CreateXPathMap("./RoomRates/RoomRate/@RatePlanCode", "RateCode");
             List<XPathConfiguration> roomStayConfiguration = new List<XPathConfiguration>() { roomStayCodeMap, roomStayGuestName, roomStayRateCodeMap, roomStayGuestId };
-            XPathConfiguration roomStayScope = XPathConfiguration.CreateXPathScope("./RoomStays/RoomStay", "RoomStays");
+            XPathConfiguration roomStayScope = XPathConfigurationBase.CreateXPathScope("./RoomStays/RoomStay", "RoomStays");
             roomStayScope.SetConfigurations(roomStayConfiguration);
 
-            XPathConfiguration guestIdMap = XPathConfiguration.CreateXPathMap("./@ResGuestRPH", "GuestId");
-            XPathConfiguration guestGivenNameMap = XPathConfiguration.CreateXPathMap("./Profiles/ProfileInfo/Profile/Customer/PersonName/GivenName", "GivenName");
-            XPathConfiguration guestSurNameMap = XPathConfiguration.CreateXPathMap("./Profiles/ProfileInfo/Profile/Customer/PersonName/Surname", "Surname");
+            XPathConfiguration guestIdMap = XPathConfigurationBase.CreateXPathMap("./@ResGuestRPH", "GuestId");
+            XPathConfiguration guestGivenNameMap = XPathConfigurationBase.CreateXPathMap("./Profiles/ProfileInfo/Profile/Customer/PersonName/GivenName", "GivenName");
+            XPathConfiguration guestSurNameMap = XPathConfigurationBase.CreateXPathMap("./Profiles/ProfileInfo/Profile/Customer/PersonName/Surname", "Surname");
             List<XPathConfiguration> guestConfiguration = new List<XPathConfiguration>() { guestGivenNameMap, guestSurNameMap, guestIdMap };
-            XPathConfiguration guestScope = XPathConfiguration.CreateXPathScope("./ResGuests/ResGuest", "Guests");
+            XPathConfiguration guestScope = XPathConfigurationBase.CreateXPathScope("./ResGuests/ResGuest", "Guests");
             guestScope.SetConfigurations(guestConfiguration);
 
-            XPathConfiguration reservationHotelCodeMap = XPathConfiguration.CreateXPathMap(@"./RoomStays/RoomStay/BasicPropertyInfo/@HotelCode", "HotelCode");
-            XPathConfiguration reservationIdMap = XPathConfiguration.CreateXPathMap(@"./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type=""18""]/@ResID_Value", "Id");
+            XPathConfiguration reservationHotelCodeMap = XPathConfigurationBase.CreateXPathMap(@"./RoomStays/RoomStay/BasicPropertyInfo/@HotelCode", "HotelCode");
+            XPathConfiguration reservationIdMap = XPathConfigurationBase.CreateXPathMap(@"./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type=""18""]/@ResID_Value", "Id");
             List<XPathConfiguration> reservationConfiguration = new List<XPathConfiguration>() { reservationIdMap, roomStayScope, guestScope, reservationHotelCodeMap };
-            XPathConfiguration reservationScope = XPathConfiguration.CreateXPathScope("//HotelReservations/HotelReservation", "Reservations");
+            XPathConfiguration reservationScope = XPathConfigurationBase.CreateXPathScope("//HotelReservations/HotelReservation", "Reservations");
             reservationScope.SetConfigurations(reservationConfiguration);
 
             return reservationScope;

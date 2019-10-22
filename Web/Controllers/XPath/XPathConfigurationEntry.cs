@@ -18,11 +18,11 @@ namespace Web.Controllers.XPath
         {
             XPathConfiguration current = null;
             if (step.Type.Equals("Scope"))
-                current = XPathConfiguration.CreateXPathScope(step.XPath, step.AdaptablePath);
+                current = XPathConfigurationBase.CreateXPathScope(step.XPath, step.AdaptablePath);
             else if (step.Type.Equals("Map"))
-                current = XPathConfiguration.CreateXPathMap(step.XPath, step.AdaptablePath);
+                current = XPathConfigurationBase.CreateXPathMap(step.XPath, step.AdaptablePath);
             else if (step.Type.Equals("Search"))
-                current = XPathConfiguration.CreateXPathSearch(step.XPath, step.AdaptablePath, step.SearchPath);
+                current = XPathConfigurationBase.CreateXPathSearch(step.XPath, step.AdaptablePath, step.SearchPath);
 
             if (current == null)
                 throw new Exception($"Type is empty of entry {JsonConvert.SerializeObject(step)}");
@@ -38,7 +38,7 @@ namespace Web.Controllers.XPath
 
         public static XPathConfigurationEntry Convert(XPathConfiguration step)
         {
-            var exposed = step as XPathConfigurationInternalsTEMP;
+            var exposed = step as XPathConfiguration;
 
             var current = new XPathConfigurationEntry()
             {
