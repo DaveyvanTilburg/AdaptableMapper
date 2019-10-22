@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPathSerialization.TDD", "X
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPathObjects", "XPathObjects\XPathObjects.csproj", "{590CB8EC-396D-4012-8385-25BA2149EE9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{CA0BBE3C-1571-42B0-8C54-56A1CA65B80F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{590CB8EC-396D-4012-8385-25BA2149EE9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{590CB8EC-396D-4012-8385-25BA2149EE9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{590CB8EC-396D-4012-8385-25BA2149EE9A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA0BBE3C-1571-42B0-8C54-56A1CA65B80F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA0BBE3C-1571-42B0-8C54-56A1CA65B80F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA0BBE3C-1571-42B0-8C54-56A1CA65B80F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA0BBE3C-1571-42B0-8C54-56A1CA65B80F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
