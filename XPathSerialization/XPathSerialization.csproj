@@ -48,21 +48,24 @@
     <Compile Include="StringExtensions.cs" />
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="XElementExtensions.cs" />
+    <Compile Include="XPathConfigurationBase.cs" />
     <Compile Include="XPathConfiguration.cs" />
-    <Compile Include="XPathConfigurationInternalsTEMP.cs" />
     <Compile Include="XPathConfigurations\AdaptablePathContainer.cs" />
     <Compile Include="XPathConfigurations\XPathMap.cs" />
-    <Compile Include="XPathConfigurations\XPathMap.Internals.cs" />
     <Compile Include="XPathConfigurations\XPathScope.cs" />
-    <Compile Include="XPathConfigurations\XPathScope.Internals.cs" />
     <Compile Include="XPathConfigurations\XPathSearch.cs" />
-    <Compile Include="XPathConfigurations\XPathSearch.Internals.cs" />
     <Compile Include="XPathSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.2</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XPathSerialization.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="License.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

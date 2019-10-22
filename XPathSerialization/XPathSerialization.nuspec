@@ -15,5 +15,9 @@
     <dependencies>
 		  <dependency id="Newtonsoft.Json" version="12.0.2" />
     </dependencies>
+    <releaseNotes>
+      Abstraction added to the XPathConfiguration implementations
+    </releaseNotes>
+    <license type="file">License.txt</license>
   </metadata>
 </package>

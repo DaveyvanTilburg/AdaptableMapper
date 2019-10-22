@@ -4,8 +4,13 @@ using System.Xml.Linq;
 
 namespace XPathSerialization.XPathConfigurations
 {
-    internal partial class XPathScope : XPathConfiguration
+    internal class XPathScope : XPathConfigurationBase, XPathConfiguration
     {
+        private const string TYPE = "Scope";
+        public string Type => TYPE;
+
+        public string SearchPath => string.Empty;
+
         public XPathScope(string xPath, string adaptablePath) : base(xPath, adaptablePath) { }
 
         public override void DeSerialize(XElement source, Adaptable target)
@@ -22,7 +27,7 @@ namespace XPathSerialization.XPathConfigurations
                 Adaptable entry = adaptableScope.GetType().CreateAdaptable();
                 entry.SetParent(pathTarget);
 
-                foreach (XPathConfiguration xPathConfiguration in XPathConfigurations)
+                foreach (XPathConfigurationBase xPathConfiguration in XPathConfigurations)
                     xPathConfiguration.DeSerialize(xElement, entry);
 
                 adaptableScope.Add(entry);
@@ -43,7 +48,7 @@ namespace XPathSerialization.XPathConfigurations
             foreach (Adaptable sourceItem in adaptableScope)
             {
                 var copy = new XElement(xTemplate);
-                foreach (XPathConfiguration xPathConfiguration in XPathConfigurations)
+                foreach (XPathConfigurationBase xPathConfiguration in XPathConfigurations)
                     xPathConfiguration.Serialize(copy, sourceItem);
 
                 xParent.Add(copy);

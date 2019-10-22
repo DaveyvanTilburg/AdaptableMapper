@@ -2,8 +2,13 @@
 
 namespace XPathSerialization.XPathConfigurations
 {
-    internal partial class XPathMap : XPathConfiguration
+    internal class XPathMap : XPathConfigurationBase, XPathConfiguration
     {
+        private const string TYPE = "Map";
+        public string Type => TYPE;
+
+        public string SearchPath => string.Empty;
+
         public XPathMap(string xPath, string adaptablePath) : base(xPath, adaptablePath) { }
 
         public override void DeSerialize(XElement source, Adaptable target)
