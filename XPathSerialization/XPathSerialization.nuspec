@@ -13,7 +13,9 @@
     </description>
     <copyright>Copyright 2019</copyright>
     <dependencies>
-		  <dependency id="Newtonsoft.Json" version="12.0.2" />
+      <group targetFramework="net472">
+        <dependency id="Newtonsoft.Json" version="12.0.2" />
+      </group>
     </dependencies>
     <releaseNotes>
       Abstraction added to the XPathConfiguration implementations
