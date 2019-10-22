@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>XPathSerialization</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <title>$title$</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -19,5 +19,8 @@
       Abstraction added to the XPathConfiguration implementations
     </releaseNotes>
     <license type="file">License.txt</license>
+    <files>
+      <file src="License.txt" />
+    </files>
   </metadata>
 </package>
