@@ -89,7 +89,7 @@ namespace XPathSerialization.TDD
         private XPathConfiguration GetFakedSerializationConfigurations()
         {
             string searchPath = "./ResGuestRPHs/ResGuestRPH/@RPH";
-            string xPath = @"../../ResGuests/ResGuest[@ResGuestRPH=""{{searchResult}}""]/Profiles/ProfileInfo/Profile/Customer/PersonName/GivenName";
+            string xPath = @"../../ResGuests/ResGuest[@ResGuestRPH='{{searchResult}}']/Profiles/ProfileInfo/Profile/Customer/PersonName/GivenName";
             string adaptablePath = "GuestName";
 
             var roomStayGuestNameSearch = XPathConfiguration.CreateSearchConfiguration(xPath, adaptablePath, searchPath);
