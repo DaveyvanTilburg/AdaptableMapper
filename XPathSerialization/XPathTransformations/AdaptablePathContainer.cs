@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace XPathSerialization.XPathConfigurations
 {
-    public class AdaptablePathContainer
+    internal class AdaptablePathContainer
     {
         private readonly IReadOnlyList<string> _path;
         public string PropertyName { get; }

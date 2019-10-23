@@ -48,12 +48,14 @@
     <Compile Include="StringExtensions.cs" />
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="XElementExtensions.cs" />
-    <Compile Include="XPathConfigurationBase.cs" />
+    <Compile Include="XPathTransformation.cs" />
+    <Compile Include="XPathTransformations\AdaptablePathContainer.cs" />
+    <Compile Include="XPathTransformations\XPathConfigurationRepository.cs" />
+    <Compile Include="XPathTransformations\XPathConfigurationRepository.Singleton.cs" />
     <Compile Include="XPathConfiguration.cs" />
-    <Compile Include="XPathConfigurations\AdaptablePathContainer.cs" />
-    <Compile Include="XPathConfigurations\XPathMap.cs" />
-    <Compile Include="XPathConfigurations\XPathScope.cs" />
-    <Compile Include="XPathConfigurations\XPathSearch.cs" />
+    <Compile Include="XPathTransformations\XPathMap.cs" />
+    <Compile Include="XPathTransformations\XPathScope.cs" />
+    <Compile Include="XPathTransformations\XPathSearch.cs" />
     <Compile Include="XPathSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
