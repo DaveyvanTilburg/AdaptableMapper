@@ -11,4 +11,9 @@ namespace XPathSerialization
     {
         public InvalidXPathException(string message) : base(message) { }
     }
+
+    public class XPathConfigurationException : Exception
+    {
+        public XPathConfigurationException(string message) : base(message) { }
+    }
 }

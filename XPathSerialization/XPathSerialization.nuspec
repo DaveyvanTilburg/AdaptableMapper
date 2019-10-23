@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>XPathSerialization</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <title>$title$</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -13,11 +13,16 @@
     </description>
     <copyright>Copyright 2019</copyright>
     <dependencies>
-		  <dependency id="Newtonsoft.Json" version="12.0.2" />
+      <group targetFramework="net472">
+        <dependency id="Newtonsoft.Json" version="12.0.2" />
+      </group>
     </dependencies>
     <releaseNotes>
       Abstraction added to the XPathConfiguration implementations
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
+  <files>
+    <file src="License.txt" />
+  </files>
 </package>

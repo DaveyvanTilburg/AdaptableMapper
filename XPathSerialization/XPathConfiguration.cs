@@ -1,18 +1,48 @@
 ﻿using System.Collections.Generic;
-using System.Xml.Linq;
 
 namespace XPathSerialization
 {
-    public interface XPathConfiguration
+    public class XPathConfiguration
     {
-        string Type { get; }
-        string XPath { get; }
-        string AdaptablePath { get; }
-        string SearchPath { get; }
-        IList<XPathConfiguration> XPathConfigurations { get; }
+        public string Type { get; set; }
+        public string XPath { get; set; }
+        public string AdaptablePath { get; set; }
+        public string SearchPath { get; set; }
+        public List<XPathConfiguration> Configurations { get; set; } = new List<XPathConfiguration>();
 
-        void SetConfigurations(IList<XPathConfiguration> xPathConfigurations);
-        void DeSerialize(XElement source, Adaptable target);
-        void Serialize(XElement target, Adaptable source);
+        public static XPathConfiguration CreateMapConfiguration(string xPath, string adaptablePath)
+        {
+            var result = new XPathConfiguration()
+            {
+                Type = "Map",
+                XPath = xPath,
+                AdaptablePath = adaptablePath
+            };
+            return result;
+        }
+
+        public static XPathConfiguration CreateSearchConfiguration(string xPath, string adaptablePath, string searchPath)
+        {
+            var result = new XPathConfiguration()
+            {
+                Type = "Search",
+                XPath = xPath,
+                AdaptablePath = adaptablePath,
+                SearchPath = searchPath
+            };
+            return result;
+        }
+
+        public static XPathConfiguration CreateScopeConfiguration(string xPath, string adaptablePath, List<XPathConfiguration> configurations)
+        {
+            var result = new XPathConfiguration()
+            {
+                Type = "Scope",
+                XPath = xPath,
+                AdaptablePath = adaptablePath,
+                Configurations = configurations
+            };
+            return result;
+        }
     }
 }
