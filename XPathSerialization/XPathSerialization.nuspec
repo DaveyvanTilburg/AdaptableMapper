@@ -18,7 +18,18 @@
       </group>
     </dependencies>
     <releaseNotes>
-      Abstraction added to the XPathConfiguration implementations
+      1.1.0:
+      - Updated release notes to have a history, and since 1.0.4 actually has breaking changes it shouldn't have been only a minor version update
+      1.0.4:
+      - Seperated configuration from prosessing objects so that it reinstantiated
+      1.0.3:
+      - Abstraction added to the XPathConfiguration implementations
+      1.0.2:
+      - Attempt at adding dependencies in nuspec
+      1.0.1:
+      - Attempt at adding dependencies in nuspec (failed build)
+      1.0.0:
+      - First setup for serialization to and from XML to in memory objects without hard coded configurations
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
