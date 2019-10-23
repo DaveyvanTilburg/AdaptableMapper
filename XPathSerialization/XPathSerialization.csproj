@@ -43,6 +43,10 @@
   <ItemGroup>
     <Compile Include="Adaptable.cs" />
     <Compile Include="AdaptableFilter.cs" />
+    <Compile Include="Errors\Error.cs" />
+    <Compile Include="Errors\ErrorObservable.Singleton.cs" />
+    <Compile Include="Errors\ErrorObservable.cs" />
+    <Compile Include="Errors\ErrorObserver.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringExtensions.cs" />

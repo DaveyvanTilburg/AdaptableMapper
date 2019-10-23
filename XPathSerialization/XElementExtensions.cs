@@ -13,7 +13,10 @@ namespace XPathSerialization
             IReadOnlyCollection<XElement> allMatches = xElement.XPathSelectElements(xPath).ToList();
 
             if (!allMatches.Any())
-                throw new InvalidXPathException($"Path could not be traversed : {xPath}");
+            {
+                Errors.ErrorObservable.GetInstance().Raise($"Path could not be traversed : {xPath}");
+                return new List<XElement>();
+            }
 
             return allMatches;
         }
@@ -23,12 +26,12 @@ namespace XPathSerialization
             IList<XElement> allMatches = xElement.XPathSelectElements(xPath).ToList();
 
             if(!allMatches.Any())
-                throw new InvalidXPathException($"Path could not be traversed : {xPath}");
+                Errors.ErrorObservable.GetInstance().Raise($"Path could not be traversed : {xPath}");
 
             if(allMatches.Count > 1)
-                throw new InvalidXPathException($"Path has multiple of the same node, when only one is expected : {xPath}");
+                Errors.ErrorObservable.GetInstance().Raise($"Path has multiple of the same node, when only one is expected : {xPath}");
 
-            return allMatches.First();
+            return allMatches?.First() ?? new XElement(string.Empty);
         }
 
         public static IEnumerable<string> GetXPathValues(this XElement xElement, string xPath)
@@ -37,31 +40,37 @@ namespace XPathSerialization
             var xObjects = enumerable.Cast<XObject>();
 
             if (!xObjects.Any())
-                throw new InvalidXPathException($"Path could not be traversed : {xPath}");
-
-            foreach (XObject xObject in xObjects)
+                Errors.ErrorObservable.GetInstance().Raise($"Path could not be traversed : {xPath}");
+            else
             {
-                if (xObject is XElement element)
-                    yield return element.Value;
-                else if (xObject is XAttribute attribute)
-                    yield return attribute.Value;
+                foreach (XObject xObject in xObjects)
+                {
+                    if (xObject is XElement element)
+                        yield return element.Value;
+                    else if (xObject is XAttribute attribute)
+                        yield return attribute.Value;
+                }
             }
         }
 
         public static string GetXPathValue(this XElement xElement, string xPath)
         {
             var enumerable = xElement.XPathEvaluate(xPath) as IEnumerable;
-            var xObject = enumerable.Cast<XObject>().First();
+            var xObject = enumerable.Cast<XObject>().FirstOrDefault();
 
             if (xObject == null)
-                throw new InvalidXPathException($"Path could not be traversed : {xPath}");
+            {
+                Errors.ErrorObservable.GetInstance().Raise($"Path could not be traversed : {xPath}");
+                return string.Empty;
+            }
 
             if (xObject is XElement element)
                 return element.Value;
             else if (xObject is XAttribute attribute)
                 return attribute.Value;
 
-            throw new InvalidXPathException($"Path did not end in an attribute or element : {xPath}");
+            Errors.ErrorObservable.GetInstance().Raise($"Path did not end in an attribute or element : {xPath}");
+            return string.Empty;
         }
 
         public static void SetXPathValues(this XElement xElement, string xPath, string value)
@@ -70,23 +79,25 @@ namespace XPathSerialization
             var xObjects = enumerable.Cast<XObject>();
 
             if (!xObjects.Any())
-                throw new InvalidXPathException($"Path could not be traversed : {xPath}");
-
-            foreach (XObject xObject in xObjects)
+                Errors.ErrorObservable.GetInstance().Raise($"Path could not be traversed : {xPath}");
+            else
             {
-                if (xObject is XElement element)
-                    element.Value = value;
-                else if (xObject is XAttribute attribute)
-                    attribute.Value = value;
+                foreach (XObject xObject in xObjects)
+                {
+                    if (xObject is XElement element)
+                        element.Value = value;
+                    else if (xObject is XAttribute attribute)
+                        attribute.Value = value;
+                }
             }
         }
 
         public static XElement GetParent(this XElement xElement)
         {
             if (xElement.Parent == null)
-                throw new InvalidXPathException($"parent of node {xElement} is null");
+                Errors.ErrorObservable.GetInstance().Raise($"parent of node {xElement} is null");
 
-            return xElement.Parent;
+            return xElement?.Parent ?? new XElement(string.Empty);
         }
     }
 }

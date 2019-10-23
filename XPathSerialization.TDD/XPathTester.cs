@@ -12,6 +12,9 @@ namespace XPathSerialization.TDD
         [Fact]
         public void Serialize()
         {
+            var errorObserver = new TestErrorObserver();
+            Errors.ErrorObservable.GetInstance().Register(errorObserver);
+
             var result = new Root();
             XPathSerializer.Serialize(GetFakedSerializationConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), result);
 
@@ -26,6 +29,8 @@ namespace XPathSerialization.TDD
             result.Reservations[0].RoomStays[0].GuestName.Should().Be("S*****");
             result.Reservations[0].RoomStays[0].RateCode.Should().Be("65090");
             result.Reservations[0].RoomStays[0].GuestId.Should().Be("1");
+            result.Reservations[0].RoomStays[0].Text.Should().BeEmpty();
+            result.Reservations[0].RoomStays[0].Name.Should().BeEmpty();
             result.Reservations[0].RoomStays[1].Code.Should().Be("6281802");
             result.Reservations[0].RoomStays[1].GuestName.Should().Be("D****");
             result.Reservations[0].RoomStays[1].RateCode.Should().Be("65090");
@@ -38,13 +43,20 @@ namespace XPathSerialization.TDD
             result.Reservations[0].Guests[1].GivenName.Should().Be("D****");
             result.Reservations[0].Guests[1].Surname.Should().Be("T**************");
             result.Reservations[0].Guests[1].GuestId.Should().Be("2");
+
+            errorObserver.GetErrors().Count.Should().Be(8);
         }
 
         [Fact]
         public void Deserialize()
         {
+            //Setup - for simplicities sake i just use what the test above already tests
             var source = new Root();
             XPathSerializer.Serialize(GetFakedSerializationConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), source);
+
+            //Actual test
+            var errorObserver = new TestErrorObserver();
+            Errors.ErrorObservable.GetInstance().Register(errorObserver);
 
             string template = System.IO.File.ReadAllText(@".\Xmls\SandboxTemplate.xml");
             string result = XPathSerializer.Deserialize(GetFakedDeserializationConfiguration(), template, source);
@@ -54,6 +66,8 @@ namespace XPathSerialization.TDD
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
             xResult.Should().BeEquivalentTo(xExpectedResult);
+
+            errorObserver.GetErrors().Count.Should().Be(12);
         }
 
         [Fact]
@@ -73,9 +87,11 @@ namespace XPathSerialization.TDD
             string xPath = "./RoomTypes/RoomType/RoomDescription/@GuestLastName";
             string adaptablePath = "../Guests{'Name':'GuestId','Value':'{{searchResult}}'}/Surname";
 
+            var roomStayTestObjectFail = XPathConfiguration.CreateMapConfiguration("./RoomTypes/RoomType/RoomDescription/Text", "Test");
+            var roomStayNameXPathFail = XPathConfiguration.CreateMapConfiguration("./RoomTypes/RoomType/RoomDescription/@Naem", "Name");
             var roomGuestLastNameSearch = XPathConfiguration.CreateSearchConfiguration(xPath, adaptablePath, searchPath);
             var roomStayCodeMap = XPathConfiguration.CreateMapConfiguration("./RoomTypes/RoomType/@RoomTypeCode", "Code");
-            var roomStayConfiguration = new List<XPathConfiguration>() { roomStayCodeMap, roomGuestLastNameSearch };
+            var roomStayConfiguration = new List<XPathConfiguration>() { roomStayCodeMap, roomGuestLastNameSearch, roomStayNameXPathFail, roomStayTestObjectFail };
             var roomStayScope = XPathConfiguration.CreateScopeConfiguration("./RoomStays/RoomStay", "RoomStays", roomStayConfiguration);
 
             var reservationHotelCodeMap = XPathConfiguration.CreateMapConfiguration(@"./ResGlobalInfo/BasicPropertyInfo/@HotelCode", "HotelCode");
@@ -93,10 +109,12 @@ namespace XPathSerialization.TDD
             string adaptablePath = "GuestName";
 
             var roomStayGuestNameSearch = XPathConfiguration.CreateSearchConfiguration(xPath, adaptablePath, searchPath);
+            var roomStayTestObjectFail = XPathConfiguration.CreateMapConfiguration("./RoomTypes/RoomType/RoomDescription/Text", "Test");
+            var roomStayNameXPathFail = XPathConfiguration.CreateMapConfiguration("./RoomTypes/RoomType/RoomDescription/@Naem", "Name");
             var roomStayGuestId = XPathConfiguration.CreateMapConfiguration("./ResGuestRPHs/ResGuestRPH/@RPH", "GuestId");
             var roomStayCodeMap = XPathConfiguration.CreateMapConfiguration("./RoomTypes/RoomType/@RoomTypeCode", "Code");
             var roomStayRateCodeMap = XPathConfiguration.CreateMapConfiguration("./RoomRates/RoomRate/@RatePlanCode", "RateCode");
-            var roomStayConfiguration = new List<XPathConfiguration>() { roomStayCodeMap, roomStayGuestNameSearch, roomStayRateCodeMap, roomStayGuestId };
+            var roomStayConfiguration = new List<XPathConfiguration>() { roomStayCodeMap, roomStayGuestNameSearch, roomStayRateCodeMap, roomStayGuestId, roomStayNameXPathFail, roomStayTestObjectFail };
             var roomStayScope = XPathConfiguration.CreateScopeConfiguration("./RoomStays/RoomStay", "RoomStays", roomStayConfiguration);
 
             var guestIdMap = XPathConfiguration.CreateMapConfiguration("./@ResGuestRPH", "GuestId");
