@@ -79,7 +79,7 @@ namespace XPathSerialization.TDD
             var roomStayScope = XPathConfiguration.CreateScopeConfiguration("./RoomStays/RoomStay", "RoomStays", roomStayConfiguration);
 
             var reservationHotelCodeMap = XPathConfiguration.CreateMapConfiguration(@"./ResGlobalInfo/BasicPropertyInfo/@HotelCode", "HotelCode");
-            var reservationIdMap = XPathConfiguration.CreateMapConfiguration(@"./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type=""5""]/@ResID_Value", "Id");
+            var reservationIdMap = XPathConfiguration.CreateMapConfiguration(@"./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type='5']/@ResID_Value", "Id");
             var reservationConfiguration = new List<XPathConfiguration>() { reservationIdMap, reservationHotelCodeMap, roomStayScope };
             var reservationScope = XPathConfiguration.CreateScopeConfiguration("//ReservationsList/HotelReservation", "Reservations", reservationConfiguration);
 
@@ -106,7 +106,7 @@ namespace XPathSerialization.TDD
             var guestScope = XPathConfiguration.CreateScopeConfiguration("./ResGuests/ResGuest", "Guests", guestConfiguration);
 
             var reservationHotelCodeMap = XPathConfiguration.CreateMapConfiguration(@"./RoomStays/RoomStay/BasicPropertyInfo/@HotelCode", "HotelCode");
-            var reservationIdMap = XPathConfiguration.CreateMapConfiguration(@"./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type=""18""]/@ResID_Value", "Id");
+            var reservationIdMap = XPathConfiguration.CreateMapConfiguration(@"./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type='18']/@ResID_Value", "Id");
             var reservationConfiguration = new List<XPathConfiguration>() { reservationIdMap, roomStayScope, guestScope, reservationHotelCodeMap };
             var reservationScope = XPathConfiguration.CreateScopeConfiguration("//HotelReservations/HotelReservation", "Reservations", reservationConfiguration);
 
