@@ -16,6 +16,11 @@ namespace XPathSerialization.Errors
             _observers.Add(errorObserver);
         }
 
+        public void Unregister(ErrorObserver errorObserver)
+        {
+            _observers.Remove(errorObserver);
+        }
+
         public void Raise(string message)
         {
             var error = new Error(message);

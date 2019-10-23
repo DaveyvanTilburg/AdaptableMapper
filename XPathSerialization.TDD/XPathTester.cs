@@ -18,6 +18,8 @@ namespace XPathSerialization.TDD
             var result = new Root();
             XPathSerializer.Serialize(GetFakedSerializationConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), result);
 
+            Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
+
             result.Reservations.Count.Should().Be(2);
             result.Reservations[0].Id.Should().Be("03a804fa");
             result.Reservations[0].HotelCode.Should().Be("62818");
@@ -60,6 +62,8 @@ namespace XPathSerialization.TDD
 
             string template = System.IO.File.ReadAllText(@".\Xmls\SandboxTemplate.xml");
             string result = XPathSerializer.Deserialize(GetFakedDeserializationConfiguration(), template, source);
+
+            Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
             string expectedResult = System.IO.File.ReadAllText(@".\Xmls\ExpectedSandboxResult.xml");
             XElement xResult = XElement.Parse(result);

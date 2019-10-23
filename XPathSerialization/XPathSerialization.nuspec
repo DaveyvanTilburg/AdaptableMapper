@@ -18,6 +18,8 @@
       </group>
     </dependencies>
     <releaseNotes>
+1.1.2:
+  - Added unregister option for observers
 1.1.1:
   - Removed hard throwing of exceptions
   - Added an Errors/ErrorObserver singleton where observer can subscribe to read errors
