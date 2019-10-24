@@ -85,6 +85,22 @@ namespace XPathSerialization.TDD
             source.Should().BeEquivalentTo(target);
         }
 
+        [Fact]
+        public void FailedScopeXPathTraversionSerialization()
+        {
+            XPathConfiguration reservationScope = XPathConfiguration.CreateScopeConfiguration("//ReservationsList/HotelReservation", "Reservations", new List<XPathConfiguration>());
+
+            var errorObserver = new TestErrorObserver();
+            Errors.ErrorObservable.GetInstance().Register(errorObserver);
+
+            var result = new Root();
+            XPathSerializer.Serialize(reservationScope, System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), result);
+
+            Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
+
+            errorObserver.GetErrors().Should().NotBeEmpty();
+        }
+
         private XPathConfiguration GetFakedDeserializationConfiguration()
         {
             string searchPath = "GuestId";
