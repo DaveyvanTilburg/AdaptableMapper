@@ -7,9 +7,9 @@ A package for serializing string objects to memory objects via configuration
 Completed plans:
  - Xml to memory objects
  - Soft error handling (through observer)
+ - Write documentation
 
 Future plans in relative priority order:
- - Write documentation
  - Json to memory objects
  - Xml directly to xml
  - Json directly to json
