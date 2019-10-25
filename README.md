@@ -12,8 +12,8 @@ Completed plans:
  - Write documentation
 
 Future plans in relative priority order:
- - Json to memory objects
  - Xml directly to xml
+ - Json to memory objects
  - Json directly to json
  - Xml directly to json and vice versa
  
