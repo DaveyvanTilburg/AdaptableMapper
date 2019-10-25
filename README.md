@@ -1,3 +1,5 @@
+!! I stil dont know if this should be categorized as mapping or serialization... any thoughts?
+
 # XPathSerialization
 
 A package for serializing string objects to memory objects via configuration
