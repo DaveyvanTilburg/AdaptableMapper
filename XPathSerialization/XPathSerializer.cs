@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using Newtonsoft.Json;
+using System.Xml.Linq;
 using XPathSerialization.XPathConfigurations;
 
 namespace XPathSerialization
@@ -32,6 +33,27 @@ namespace XPathSerialization
             foreach (var node in element.DescendantNodes())
                 if (node is XElement xElement)
                     RemoveAllNamespaces(xElement);
+        }
+
+        public static string GetMemento(XPathConfiguration xPathConfiguration)
+        {
+            Formatting indented = Formatting.Indented;
+            var settings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+            string serialized = JsonConvert.SerializeObject(xPathConfiguration, indented, settings);
+            return serialized;
+        }
+
+        public static XPathConfiguration LoadMemento(string memento)
+        {
+            var settings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+            var deserialized = JsonConvert.DeserializeObject<XPathConfiguration>(memento, settings);
+            return deserialized;
         }
     }
 }

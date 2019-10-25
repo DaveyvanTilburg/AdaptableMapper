@@ -1,7 +1,18 @@
 ﻿using System.Xml.Linq;
+using XPathSerialization.Navigations;
 
 namespace XPathSerialization.XPathConfigurations
 {
+    internal class XPathMap
+    {
+        public void Serialize(Navigation source, Navigation target, Context context)
+        {
+            string value = source.GetValue(context.Source);
+
+            target.SetValue(context.Target, value);
+        }
+    }
+
     internal class XPathMap : XPathTransformation
     {
         public void Serialize(XPathConfiguration configuration, XElement source, Adaptable target)
