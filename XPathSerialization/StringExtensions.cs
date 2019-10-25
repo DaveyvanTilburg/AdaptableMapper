@@ -17,7 +17,7 @@ namespace XPathSerialization
                 return false;
 
             filter = Newtonsoft.Json.JsonConvert.DeserializeObject<AdaptableFilter>(value.Substring(positionStart, positionEnd - positionStart));
-            filter.PropertyName = value.Substring(0, positionStart);
+            filter.AdaptableName = value.Substring(0, positionStart);
             return true;
         }
 

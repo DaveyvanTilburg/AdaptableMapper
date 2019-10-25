@@ -74,11 +74,11 @@ namespace XPathSerialization
             }
             else if(step.TryGetObjectFilter(out AdaptableFilter filter))
             {
-                IEnumerable<Adaptable> propertyValue = GetEnumerableProperty(filter.PropertyName);
-                next = propertyValue.FirstOrDefault(a => a.GetValue(filter.Name).Equals(filter.Value));
+                IEnumerable<Adaptable> propertyValue = GetEnumerableProperty(filter.AdaptableName);
+                next = propertyValue.FirstOrDefault(a => a.GetValue(filter.PropertyName).Equals(filter.Value));
 
                 if (next == null)
-                    Errors.ErrorObservable.GetInstance().Raise($"No match found for filter on list with name {filter.PropertyName} with a value that has a {filter.Name} with value {filter.Value}");
+                    Errors.ErrorObservable.GetInstance().Raise($"No match found for filter on list with name {filter.AdaptableName} with a value that has a {filter.PropertyName} with value {filter.Value}");
             }
             else
             {

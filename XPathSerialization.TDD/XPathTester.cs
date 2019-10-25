@@ -105,7 +105,7 @@ namespace XPathSerialization.TDD
         {
             string searchPath = "GuestId";
             string xPath = "./RoomTypes/RoomType/RoomDescription/@GuestLastName";
-            string adaptablePath = "../Guests{'Name':'GuestId','Value':'{{searchResult}}'}/Surname";
+            string adaptablePath = "../Guests{'PropertyName':'GuestId','Value':'{{searchResult}}'}/Surname";
 
             var roomStayTestObjectFail = XPathConfiguration.CreateMapConfiguration("./RoomTypes/RoomType/RoomDescription/Text", "Test");
             var roomStayNameXPathFail = XPathConfiguration.CreateMapConfiguration("./RoomTypes/RoomType/RoomDescription/@Naem", "Name");
