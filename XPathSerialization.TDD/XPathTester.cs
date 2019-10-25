@@ -52,7 +52,7 @@ namespace XPathSerialization.TDD
         [Fact]
         public void Deserialize()
         {
-            //Setup - for simplicities sake i just use what the test above already tests
+            //Setup - for simplicities sake i just use what the test above already tests, for now tho, if above test breaks, this one breaks too
             var source = new Root();
             XPathSerializer.Serialize(GetFakedSerializationConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), source);
 
