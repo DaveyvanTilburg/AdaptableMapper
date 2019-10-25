@@ -1,4 +1,4 @@
-!! I stil dont know if this should be categorized as mapping or serialization... any thoughts?
+!! I don't know if this should be categorized as mapping or serialization... any thoughts?
 
 # XPathSerialization
 
