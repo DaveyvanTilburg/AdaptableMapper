@@ -1,11 +1,11 @@
 ﻿using System.Xml.Linq;
-using XPathSerialization.Navigations;
+using XPathSerialization.Traversions;
 
 namespace XPathSerialization.XPathConfigurations
 {
     internal class XPathMap
     {
-        public void Serialize(Navigation source, Navigation target, Context context)
+        public void Serialize(GetTraversion source, SetTraversion target, Context context)
         {
             string value = source.GetValue(context.Source);
 

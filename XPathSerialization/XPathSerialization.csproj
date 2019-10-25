@@ -51,7 +51,7 @@
     <Compile Include="Traversions\Context.cs" />
     <Compile Include="Traversions\GetTraversion.cs" />
     <Compile Include="Traversions\Map.cs" />
-    <Compile Include="Traversions\ScopeTraversionBase.cs" />
+    <Compile Include="Traversions\ScopeTraversionComposite.cs" />
     <Compile Include="Traversions\SetTraversion.cs" />
     <Compile Include="Traversions\XmlTraversions\XmlGet.cs" />
     <Compile Include="Traversions\XmlTraversions\XmlGetScope.cs" />
