@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace AdaptableMapper.Traversals.AdaptableTraversals
+namespace AdaptableMapper.Memory.Language
 {
     internal class AdaptablePathContainer
     {

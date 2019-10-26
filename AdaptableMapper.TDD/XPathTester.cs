@@ -16,7 +16,7 @@ namespace AdaptableMapper.TDD
             Errors.ErrorObservable.GetInstance().Register(errorObserver);
 
             var result = new Root();
-            XPathSerializer.Serialize(GetFakedSerializationConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), result);
+            Mapper.Serialize(GetFakedSerializationConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), result);
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
@@ -54,14 +54,14 @@ namespace AdaptableMapper.TDD
         {
             //Setup - for simplicities sake i just use what the test above already tests, for now tho, if above test breaks, this one breaks too
             var source = new Root();
-            XPathSerializer.Serialize(GetFakedSerializationConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), source);
+            Mapper.Serialize(GetFakedSerializationConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), source);
 
             //Actual test
             var errorObserver = new TestErrorObserver();
             Errors.ErrorObservable.GetInstance().Register(errorObserver);
 
             string template = System.IO.File.ReadAllText(@".\Xmls\SandboxTemplate.xml");
-            string result = XPathSerializer.Deserialize(GetFakedDeserializationConfiguration(), template, source);
+            string result = Mapper.Deserialize(GetFakedDeserializationConfiguration(), template, source);
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
@@ -94,7 +94,7 @@ namespace AdaptableMapper.TDD
             Errors.ErrorObservable.GetInstance().Register(errorObserver);
 
             var result = new Root();
-            XPathSerializer.Serialize(reservationScope, System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), result);
+            Mapper.Serialize(reservationScope, System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), result);
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 

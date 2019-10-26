@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using AdaptableMapper.Memory.Language;
+using System.Collections.Generic;
 
-namespace AdaptableMapper
+namespace AdaptableMapper.Memory
 {
     internal static class StringExtensions
     {

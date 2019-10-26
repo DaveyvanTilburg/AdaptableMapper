@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using AdaptableMapper.Traversals;
+using System.Linq;
 using System.Xml.Linq;
 
-namespace AdaptableMapper.Traversals.XmlTraversals
+namespace AdaptableMapper.Xml
 {
     public class XmlGetSearch : GetTraversal
     {

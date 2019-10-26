@@ -1,4 +1,6 @@
-﻿namespace AdaptableMapper.Traversals
+﻿using AdaptableMapper.Contexts;
+
+namespace AdaptableMapper.Traversals
 {
     public sealed class Mapping
     {

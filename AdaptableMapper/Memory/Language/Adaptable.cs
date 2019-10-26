@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace AdaptableMapper
+namespace AdaptableMapper.Memory.Language
 {
     public abstract class Adaptable
     {

@@ -1,4 +1,7 @@
-﻿namespace AdaptableMapper.Traversals.AdaptableTraversals
+﻿using AdaptableMapper.Memory.Language;
+using AdaptableMapper.Traversals;
+
+namespace AdaptableMapper.Memory
 {
     public class AdaptableTraversal : Traversal
     {

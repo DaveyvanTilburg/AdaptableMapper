@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using AdaptableMapper.Memory.Language;
+using AdaptableMapper.Traversals;
+using System.Collections;
 
-namespace AdaptableMapper.Traversals.AdaptableTraversals
+namespace AdaptableMapper.Memory
 {
     public class AdaptableCreateNewChild : CreateNewChild
     {

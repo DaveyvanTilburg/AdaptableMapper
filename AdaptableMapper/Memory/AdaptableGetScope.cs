@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using AdaptableMapper.Memory.Language;
+using AdaptableMapper.Traversals;
+using System.Collections;
 using System.Collections.Generic;
 
-namespace AdaptableMapper.Traversals.AdaptableTraversals
+namespace AdaptableMapper.Memory
 {
     public class AdaptableGetScope : GetScopeTraversal
     {

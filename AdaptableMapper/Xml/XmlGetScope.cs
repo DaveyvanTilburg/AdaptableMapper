@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using AdaptableMapper.Traversals;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace AdaptableMapper.Traversals.XmlTraversals
+namespace AdaptableMapper.Xml
 {
     public class XmlScope : GetScopeTraversal
     {

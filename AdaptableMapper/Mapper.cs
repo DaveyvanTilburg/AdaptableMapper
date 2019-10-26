@@ -1,14 +1,19 @@
-﻿using AdaptableMapper.Traversals;
+﻿using AdaptableMapper.Contexts;
+using AdaptableMapper.Traversals;
 using Newtonsoft.Json;
 using System.Xml.Linq;
 
 namespace AdaptableMapper
 {
-    public static class XPathSerializer
+    public static class Mapper
     {
-        public static void Serialize(ScopeTraversionComposite data, Context context)
+        public static void Serialize(MappingConfiguration mappingConfiguration, object source, object targetInstantiationMaterial)
         {
-            XElement root = XElement.Parse(source);
+            Context context = mappingConfiguration.ContextFactory.Create(source, targetInstantiationMaterial);
+
+            mappingConfiguration.ScopeTraversalComposite.Traverse(context);
+
+            
             RemoveAllNamespaces(root);
 
             XPathTransformation childConfiguration = XPathConfigurationRepository.GetInstance().GetConfiguration(data.Type);
@@ -26,14 +31,7 @@ namespace AdaptableMapper
             return target.ToString();
         }
 
-        private static void RemoveAllNamespaces(XElement element)
-        {
-            element.Name = element.Name.LocalName;
-
-            foreach (var node in element.DescendantNodes())
-                if (node is XElement xElement)
-                    RemoveAllNamespaces(xElement);
-        }
+        
 
         public static string GetMemento(XPathConfiguration xPathConfiguration)
         {

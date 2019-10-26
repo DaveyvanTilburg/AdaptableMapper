@@ -1,6 +1,7 @@
-﻿using System;
+﻿using AdaptableMapper.Memory.Language;
+using System;
 
-namespace AdaptableMapper
+namespace AdaptableMapper.Memory
 {
     public static class TypeExtensions
     {

@@ -1,11 +1,11 @@
-﻿namespace AdaptableMapper.Traversals
+﻿namespace AdaptableMapper.Contexts
 {
     public class Context
     {
         public object Source { get; set; }
         public object Target { get; set; }
 
-        public Context(
+        internal Context(
             object source, 
             object target)
         {

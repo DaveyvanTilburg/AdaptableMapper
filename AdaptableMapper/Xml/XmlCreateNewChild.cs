@@ -1,6 +1,7 @@
-﻿using System.Xml.Linq;
+﻿using AdaptableMapper.Traversals;
+using System.Xml.Linq;
 
-namespace AdaptableMapper.Traversals.XmlTraversals
+namespace AdaptableMapper.Xml
 {
     public class XmlCreateNewChild : CreateNewChild
     {
