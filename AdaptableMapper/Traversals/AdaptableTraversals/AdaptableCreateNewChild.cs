@@ -1,39 +1,28 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 
 namespace AdaptableMapper.Traversals.AdaptableTraversals
 {
     public class AdaptableCreateNewChild : CreateNewChild
     {
-        private IList _parent;
-
-        protected override object DuplicateTemplate(object template)
+        public object CreateChildOn(object parent, object template)
         {
-            if (!(template is Type listType))
+            if (!(parent is Adaptable adaptable))
             {
                 Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Adaptable");
                 return string.Empty;
             }
 
-            Adaptable newEntry = listType.CreateAdaptable();
-            newEntry.SetParent()
-        }
-
-        protected override object GetTemplate(object target)
-        {
-            if (!(target is IList parent))
+            if (!(template is IList parentProperty))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Adaptable");
+                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type IList");
                 return string.Empty;
             }
 
-            _parent = parent;
+            Adaptable newEntry = parentProperty.GetType().CreateAdaptable();
+            newEntry.SetParent(adaptable);
+            parentProperty.Add(newEntry);
 
-            return _parent.GetType();
+            return newEntry;
         }
     }
 }

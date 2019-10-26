@@ -1,6 +1,4 @@
-﻿using AdaptableMapper.XPathConfigurations;
-
-namespace AdaptableMapper.Traversals.AdaptableTraversals
+﻿namespace AdaptableMapper.Traversals.AdaptableTraversals
 {
     public class AdaptableGet : GetTraversal
     {

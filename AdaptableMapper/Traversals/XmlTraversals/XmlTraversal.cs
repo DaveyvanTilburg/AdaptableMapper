@@ -2,7 +2,7 @@
 
 namespace AdaptableMapper.Traversals.XmlTraversals
 {
-    public class XmlTraversal : Traversal
+    public class XmlTraversal : Traversal, TraversalTemplate
     {
         public string Path { get; set; }
 

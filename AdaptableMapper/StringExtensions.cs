@@ -25,5 +25,10 @@ namespace AdaptableMapper
         {
             return new Stack<string>(value.Split('/'));
         }
+
+        public static Queue<string> ToQueue(this string value)
+        {
+            return new Queue<string>(value.Split('/'));
+        }
     }
 }

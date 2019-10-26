@@ -4,10 +4,14 @@ namespace AdaptableMapper.Traversals.XmlTraversals
 {
     public class XmlCreateNewChild : CreateNewChild
     {
-        private XElement _parent;
-
-        protected override object DuplicateTemplate(object template)
+        public object CreateChildOn(object parent, object template)
         {
+            if(!(parent is XElement xElement))
+            {
+                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type XElement");
+                return new XElement("");
+            }
+
             if (!(template is XElement xTemplate))
             {
                 Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type XElement");
@@ -15,23 +19,9 @@ namespace AdaptableMapper.Traversals.XmlTraversals
             }
 
             var xTemplateCopy = new XElement(xTemplate);
-            _parent.Add(xTemplateCopy);
+            xElement.Add(xTemplateCopy);
 
             return xTemplateCopy;
-        }
-
-        protected override object GetTemplate(object target)
-        {
-            if (!(target is XElement xElement))
-            {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type XElement");
-                return new XElement("");
-            }
-
-            _parent = xElement.GetParent();
-            xElement.Remove();
-
-            return xElement;
         }
     }
 }

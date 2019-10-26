@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using AdaptableMapper.XPathConfigurations;
 
 namespace AdaptableMapper.Traversals.AdaptableTraversals
 {
-    public class AdaptableTraverseToList : Traversal
+    public class AdaptableTraversalTemplate : TraversalTemplate
     {
         public string Path { get; set; }
 
