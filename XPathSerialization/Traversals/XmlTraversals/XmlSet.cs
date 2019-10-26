@@ -1,8 +1,8 @@
 ﻿using System.Xml.Linq;
 
-namespace XPathSerialization.Traversions.XmlTraversions
+namespace XPathSerialization.Traversals.XmlTraversals
 {
-    public class XmlSet : SetTraversion
+    public class XmlSet : SetTraversal
     {
         public string Path { get; set; }
 

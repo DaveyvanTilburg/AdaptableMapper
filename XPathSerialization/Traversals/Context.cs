@@ -1,4 +1,4 @@
-﻿namespace XPathSerialization.Traversions
+﻿namespace XPathSerialization.Traversals
 {
     public class Context
     {

@@ -16,7 +16,7 @@ namespace XPathSerialization.XPathConfigurations
 
             var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(configuration.AdaptablePath);
 
-            Adaptable pathTarget = target.GetOrCreateAdaptable(adaptablePathContainer.GetPath());
+            Adaptable pathTarget = target.GetOrCreateAdaptable(adaptablePathContainer.CreatePathQueue());
             pathTarget.SetValue(adaptablePathContainer.PropertyName, value);
         }
 
@@ -27,14 +27,14 @@ namespace XPathSerialization.XPathConfigurations
             {
                 var searchAdaptablePath = AdaptablePathContainer.CreateAdaptablePath(configuration.SearchPath);
 
-                Adaptable searchPathTarget = source.NavigateToAdaptable(searchAdaptablePath.GetPath());
+                Adaptable searchPathTarget = source.NavigateToAdaptable(searchAdaptablePath.CreatePathQueue());
                 searchValue = searchPathTarget.GetValue(searchAdaptablePath.PropertyName);
             }
 
             string actualAdaptablePath = string.IsNullOrWhiteSpace(searchValue) ? configuration.AdaptablePath : configuration.AdaptablePath.Replace("{{searchResult}}", searchValue);
             var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(actualAdaptablePath);
 
-            Adaptable pathTarget = source.NavigateToAdaptable(adaptablePathContainer.GetPath());
+            Adaptable pathTarget = source.NavigateToAdaptable(adaptablePathContainer.CreatePathQueue());
             string value = pathTarget.GetValue(adaptablePathContainer.PropertyName);
 
             target.SetXPathValues(configuration.XPath, value);

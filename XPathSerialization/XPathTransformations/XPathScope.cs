@@ -12,7 +12,7 @@ namespace XPathSerialization.XPathConfigurations
 
             var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(configuration.AdaptablePath);
 
-            Adaptable pathTarget = target.GetOrCreateAdaptable(adaptablePathContainer.GetPath());
+            Adaptable pathTarget = target.GetOrCreateAdaptable(adaptablePathContainer.CreatePathQueue());
             IList adaptableScope = pathTarget.GetListProperty(adaptablePathContainer.PropertyName);
 
             foreach (XElement xScopeElement in xScope)
@@ -38,7 +38,7 @@ namespace XPathSerialization.XPathConfigurations
 
             var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(configuration.AdaptablePath);
 
-            Adaptable pathTarget = source.NavigateToAdaptable(adaptablePathContainer.GetPath());
+            Adaptable pathTarget = source.NavigateToAdaptable(adaptablePathContainer.CreatePathQueue());
             IList adaptableScope = pathTarget.GetListProperty(adaptablePathContainer.PropertyName);
 
             foreach (Adaptable sourceItem in adaptableScope)

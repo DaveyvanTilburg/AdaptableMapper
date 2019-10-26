@@ -7,7 +7,7 @@ namespace XPathSerialization.XPathConfigurations
     {
         private readonly IReadOnlyList<string> _path;
         public string PropertyName { get; }
-        public Queue<string> GetPath()
+        public Queue<string> CreatePathQueue()
         {
             return new Queue<string>(_path);
         }

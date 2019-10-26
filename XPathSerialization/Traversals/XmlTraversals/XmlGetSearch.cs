@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Xml.Linq;
 
-namespace XPathSerialization.Traversions.XmlTraversions
+namespace XPathSerialization.Traversals.XmlTraversals
 {
-    public class XmlGetSearch : GetTraversion
+    public class XmlGetSearch : GetTraversal
     {
         public string Path { get; set; }
         public string SearchPath { get; set; }

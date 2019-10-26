@@ -1,18 +1,7 @@
 ﻿using System.Xml.Linq;
-using XPathSerialization.Traversions;
 
 namespace XPathSerialization.XPathConfigurations
 {
-    internal class XPathMap
-    {
-        public void Serialize(GetTraversion source, SetTraversion target, Context context)
-        {
-            string value = source.GetValue(context.Source);
-
-            target.SetValue(context.Target, value);
-        }
-    }
-
     internal class XPathMap : XPathTransformation
     {
         public void Serialize(XPathConfiguration configuration, XElement source, Adaptable target)
@@ -20,7 +9,7 @@ namespace XPathSerialization.XPathConfigurations
             string value = source.GetXPathValue(configuration.XPath);
 
             var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(configuration.AdaptablePath);
-            Adaptable pathTarget = target.GetOrCreateAdaptable(adaptablePathContainer.GetPath());
+            Adaptable pathTarget = target.GetOrCreateAdaptable(adaptablePathContainer.CreatePathQueue());
 
             pathTarget.SetValue(adaptablePathContainer.PropertyName, value);
         }
@@ -29,7 +18,7 @@ namespace XPathSerialization.XPathConfigurations
         {
             var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(configuration.AdaptablePath);
 
-            Adaptable pathTarget = source.NavigateToAdaptable(adaptablePathContainer.GetPath());
+            Adaptable pathTarget = source.NavigateToAdaptable(adaptablePathContainer.CreatePathQueue());
             string value = pathTarget.GetValue(adaptablePathContainer.PropertyName);
 
             target.SetXPathValues(configuration.XPath, value);
