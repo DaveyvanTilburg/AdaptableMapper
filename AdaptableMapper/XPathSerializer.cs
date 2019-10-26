@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using AdaptableMapper.Traversals;
+using Newtonsoft.Json;
 using System.Xml.Linq;
-using AdaptableMapper.XPathConfigurations;
 
 namespace AdaptableMapper
 {
     public static class XPathSerializer
     {
-        public static void Serialize(XPathConfiguration data, string source, Adaptable target)
+        public static void Serialize(ScopeTraversionComposite data, Context context)
         {
             XElement root = XElement.Parse(source);
             RemoveAllNamespaces(root);
