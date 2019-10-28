@@ -16,7 +16,7 @@ namespace AdaptableMapper.TDD
             Errors.ErrorObservable.GetInstance().Register(errorObserver);
 
             var result = new Root();
-            Mapper.Serialize(GetFakedSerializationConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), result);
+            Mapper.Map(GetFakedSerializationConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), result);
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
@@ -54,14 +54,14 @@ namespace AdaptableMapper.TDD
         {
             //Setup - for simplicities sake i just use what the test above already tests, for now tho, if above test breaks, this one breaks too
             var source = new Root();
-            Mapper.Serialize(GetFakedSerializationConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), source);
+            Mapper.Map(GetFakedSerializationConfigurations(), System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"), source);
 
             //Actual test
             var errorObserver = new TestErrorObserver();
             Errors.ErrorObservable.GetInstance().Register(errorObserver);
 
             string template = System.IO.File.ReadAllText(@".\Xmls\SandboxTemplate.xml");
-            string result = Mapper.Deserialize(GetFakedDeserializationConfiguration(), template, source);
+            string result = Mapper.Map(GetFakedDeserializationConfiguration(), template, source);
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
@@ -75,12 +75,12 @@ namespace AdaptableMapper.TDD
         }
 
         [Fact]
-        public void SaveAndLoadThroughJsonSerialization()
+        public void CheckIfSaveAndLoadMementoWorks()
         {
-            XPathConfiguration source = GetFakedDeserializationConfiguration();
+            MappingConfiguration source = GetFakedDeserializationConfiguration();
 
-            string serialized = JsonConvert.SerializeObject(source);
-            XPathConfiguration target = JsonConvert.DeserializeObject<XPathConfiguration>(serialized);
+            string serialized = Mapper.GetMemento(source);
+            MappingConfiguration target = Mapper.LoadMemento(serialized);
 
             source.Should().BeEquivalentTo(target);
         }
