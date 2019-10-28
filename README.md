@@ -20,6 +20,10 @@ Future plans in relative priority order:
 
 ## How to use
 
+Mock up of structure and flow:
+
+![UML](https://raw.githubusercontent.com/DaveyvanTilburg/AdaptableMapper/branch/master/mapping.jpg)
+
 --Todo
 
 ## Versioning
