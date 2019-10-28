@@ -16,6 +16,7 @@ namespace AdaptableMapper.TDD
             Errors.ErrorObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration deserializationConfiguration = GetFakedDeserializationConfiguration();
+
             Adaptable source = GetSource();
             XElement result = Mapper.Map(deserializationConfiguration, source) as XElement;
 
