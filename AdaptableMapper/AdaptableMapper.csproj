@@ -55,7 +55,6 @@
     <Compile Include="Errors\ErrorObservable.Singleton.cs" />
     <Compile Include="Errors\ErrorObservable.cs" />
     <Compile Include="Errors\ErrorObserver.cs" />
-    <Compile Include="Exceptions.cs" />
     <Compile Include="Memory\AdaptableCreateNewChild.cs" />
     <Compile Include="Memory\AdaptableGet.cs" />
     <Compile Include="Memory\AdaptableGetSearch.cs" />
