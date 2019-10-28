@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>AdaptableMapper</id>
+    <version>0.0.1-alpha28102019-01</version>
+    <title>AdaptableMapper</title>
+    <authors>Davey van Tilburg</authors>
+    <owners>Davey van Tilburg</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/DaveyvanTilburg/XPathSerialization</projectUrl>
+    <description>
+      A package for a multitude of softcoded mapping via configuration
+
+      See https://github.com/DaveyvanTilburg/AdaptableMaper/ for documentation
+    </description>
+    <copyright>Copyright 2019</copyright>
+    <dependencies>
+      <group targetFramework="net472">
+        <dependency id="Newtonsoft.Json" version="12.0.2" />
+      </group>
+    </dependencies>
+    <releaseNotes>
+      0.0.1
+       - Created an abstraction for mapping to and from:
+         - Xml
+         - In memory objects (through the adaptable abstraction)
+    </releaseNotes>
+    <license type="file">License.txt</license>
+  </metadata>
+  <files>
+    <file src="License.txt" />
+  </files>
+</package>
