@@ -9,7 +9,7 @@ namespace AdaptableMapper.Xml
         {
             if (!(source is string input))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type XElement");
+                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type String");
                 return string.Empty;
             }
 
