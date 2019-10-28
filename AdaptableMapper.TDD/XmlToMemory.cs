@@ -20,6 +20,8 @@ namespace AdaptableMapper.TDD
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
+            errorObserver.GetErrors().Count.Should().Be(8);
+
             result.Reservations.Count.Should().Be(2);
             result.Reservations[0].Id.Should().Be("03a804fa");
             result.Reservations[0].HotelCode.Should().Be("62818");
@@ -45,8 +47,6 @@ namespace AdaptableMapper.TDD
             result.Reservations[0].Guests[1].GivenName.Should().Be("D****");
             result.Reservations[0].Guests[1].Surname.Should().Be("T**************");
             result.Reservations[0].Guests[1].GuestId.Should().Be("2");
-
-            errorObserver.GetErrors().Count.Should().Be(8);
         }
 
         public static MappingConfiguration GetFakedSerializationConfiguration()

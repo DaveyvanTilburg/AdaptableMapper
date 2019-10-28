@@ -23,9 +23,9 @@ namespace AdaptableMapper.TDD
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\ExpectedSandboxResult.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
-            result.Should().BeEquivalentTo(xExpectedResult);
-
             errorObserver.GetErrors().Count.Should().Be(0);
+
+            result.Should().BeEquivalentTo(xExpectedResult);
         }
 
         private static MappingConfiguration GetFakedSerializationConfiguration()

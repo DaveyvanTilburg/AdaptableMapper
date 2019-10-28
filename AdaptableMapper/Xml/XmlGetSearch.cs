@@ -1,4 +1,5 @@
 ﻿using AdaptableMapper.Traversals;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -27,9 +28,16 @@ namespace AdaptableMapper.Xml
             if (!string.IsNullOrWhiteSpace(SearchPath))
                 searchValue = xElement.GetXPathValues(SearchPath).First();
 
-            string actualXPath = string.IsNullOrWhiteSpace(searchValue) ? Path : Path.Replace("{{searchResult}}", searchValue);
-            string value = xElement.GetXPathValues(actualXPath).First();
+            string actualPath = string.IsNullOrWhiteSpace(searchValue) ? Path : Path.Replace("{{searchResult}}", searchValue);
 
+            IEnumerable<string> values = xElement.GetXPathValues(actualPath);
+            if(!values.Any())
+            {
+                Errors.ErrorObservable.GetInstance().Raise($"Search resulted in no results, path : {Path}; SearchPath : {SearchPath}; ActualPath : {actualPath}");
+                return string.Empty;
+            }
+
+            string value = values.First();
             return value;
         }
     }
