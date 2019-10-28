@@ -7,6 +7,11 @@ namespace AdaptableMapper.Memory
 {
     public class AdaptableGetScope : GetScopeTraversal
     {
+        public AdaptableGetScope(string path)
+        {
+            Path = path;
+        }
+
         public string Path { get; set; }
 
         public IEnumerable<object> GetScope(object source)

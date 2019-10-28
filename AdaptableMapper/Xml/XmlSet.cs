@@ -5,6 +5,11 @@ namespace AdaptableMapper.Xml
 {
     public class XmlSet : SetTraversal
     {
+        public XmlSet(string path)
+        {
+            Path = path;
+        }
+
         public string Path { get; set; }
 
         public void SetValue(object target, string value)

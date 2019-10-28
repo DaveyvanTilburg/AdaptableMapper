@@ -5,6 +5,11 @@ namespace AdaptableMapper.Xml
 {
     public class XmlGet : GetTraversal
     {
+        public XmlGet(string path)
+        {
+            Path = path;
+        }
+
         public string Path { get; set; }
 
         public string GetValue(object source)

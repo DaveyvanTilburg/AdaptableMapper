@@ -3,15 +3,8 @@ using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Memory
 {
-    public class AdaptableTraversal : Traversal
+    public class AdaptableTraversalThis : Traversal
     {
-        public AdaptableTraversal(string path)
-        {
-            Path = path;
-        }
-
-        private string Path { get; set; }
-
         public object Traverse(object target)
         {
             if (!(target is Adaptable adaptable))
@@ -20,9 +13,7 @@ namespace AdaptableMapper.Memory
                 return string.Empty;
             }
 
-            Adaptable pathTarget = adaptable.NavigateToAdaptable(Path.ToQueue());
-
-            return pathTarget;
+            return adaptable;
         }
     }
 }

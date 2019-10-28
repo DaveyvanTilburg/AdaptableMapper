@@ -45,6 +45,8 @@
     <Compile Include="Contexts\ObjectConverter.cs" />
     <Compile Include="Contexts\TargetInstantiator.cs" />
     <Compile Include="MappingConfiguration.cs" />
+    <Compile Include="Memory\AdaptableTargetInstantiator.cs" />
+    <Compile Include="Memory\AdaptableTraversalThis.cs" />
     <Compile Include="Memory\Language\Adaptable.cs" />
     <Compile Include="Memory\Language\AdaptableFilter.cs" />
     <Compile Include="Errors\Error.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Xml\XElementExtensions.cs" />
     <Compile Include="Memory\Language\AdaptablePathContainer.cs" />
     <Compile Include="Mapper.cs" />
+    <Compile Include="Xml\XmlTraversalThis.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">

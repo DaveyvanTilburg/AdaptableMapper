@@ -4,8 +4,13 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public class XmlScope : GetScopeTraversal
+    public class XmlGetScope : GetScopeTraversal
     {
+        public XmlGetScope(string path)
+        {
+            Path = path;
+        }
+
         public string Path { get; set; }
 
         public IEnumerable<object> GetScope(object source)

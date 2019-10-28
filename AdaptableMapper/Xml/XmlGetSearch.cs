@@ -6,6 +6,12 @@ namespace AdaptableMapper.Xml
 {
     public class XmlGetSearch : GetTraversal
     {
+        public XmlGetSearch(string path, string searchPath)
+        {
+            Path = path;
+            SearchPath = searchPath;
+        }
+
         public string Path { get; set; }
         public string SearchPath { get; set; }
 

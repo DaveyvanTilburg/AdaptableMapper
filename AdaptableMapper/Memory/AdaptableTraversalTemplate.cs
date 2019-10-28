@@ -6,6 +6,11 @@ namespace AdaptableMapper.Memory
 {
     public class AdaptableTraversalTemplate : TraversalTemplate
     {
+        public AdaptableTraversalTemplate(string path)
+        {
+            Path = path;
+        }
+
         public string Path { get; set; }
 
         public object Traverse(object target)

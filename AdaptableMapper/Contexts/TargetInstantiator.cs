@@ -2,6 +2,6 @@
 {
     public interface TargetInstantiator
     {
-        object Create(object targetInstantiationMaterial);
+        object Create();
     }
 }

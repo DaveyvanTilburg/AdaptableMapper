@@ -1,4 +1,4 @@
-﻿using AdaptableMapper;
+﻿using AdaptableMapper.Memory.Language;
 
 namespace AdaptableMapper
 {

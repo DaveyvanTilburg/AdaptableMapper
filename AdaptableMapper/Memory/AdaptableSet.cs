@@ -5,6 +5,11 @@ namespace AdaptableMapper.Memory
 {
     public class AdaptableSet : SetTraversal
     {
+        public AdaptableSet(string path)
+        {
+            Path = path;
+        }
+
         public string Path { get; set; }
 
         public void SetValue(object target, string value)

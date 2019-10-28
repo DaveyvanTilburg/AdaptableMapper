@@ -5,6 +5,12 @@ namespace AdaptableMapper.Memory
 {
     public class AdaptableGetSearch : GetTraversal
     {
+        public AdaptableGetSearch(string path, string searchPath)
+        {
+            Path = path;
+            SearchPath = searchPath;
+        }
+
         public string Path { get; set; }
         public string SearchPath { get; set; }
 

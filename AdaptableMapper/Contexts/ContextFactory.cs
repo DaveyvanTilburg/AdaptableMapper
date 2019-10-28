@@ -11,9 +11,9 @@
             TargetInstantiator = targetInstantiator;
         }
 
-        public Context Create(object source, object targetInstantiationMaterial)
+        public Context Create(object source)
         {
-            return new Context(source: SourceConverter.Convert(source), target: TargetInstantiator.Create(targetInstantiationMaterial));
+            return new Context(source: SourceConverter.Convert(source), target: TargetInstantiator.Create());
         }
     }
 }

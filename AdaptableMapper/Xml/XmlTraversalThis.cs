@@ -3,15 +3,8 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public class XmlTraversal : Traversal, TraversalTemplate
+    public class XmlTraversalThis : Traversal
     {
-        public XmlTraversal(string path)
-        {
-            Path = path;
-        }
-
-        public string Path { get; set; }
-
         public object Traverse(object target)
         {
             if (!(target is XElement xElement))
@@ -20,8 +13,7 @@ namespace AdaptableMapper.Xml
                 return string.Empty;
             }
 
-            XElement result = xElement.NavigateToPath(Path);
-            return result;
+            return xElement;
         }
     }
 }

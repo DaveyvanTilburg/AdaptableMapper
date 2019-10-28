@@ -7,5 +7,11 @@ namespace AdaptableMapper
     {
         public ScopeTraversalComposite ScopeTraversalComposite { get; set; }
         public ContextFactory ContextFactory { get; set; }
+
+        public MappingConfiguration(ScopeTraversalComposite scopeTraversalComposite, ContextFactory contextFactory)
+        {
+            ScopeTraversalComposite = scopeTraversalComposite;
+            ContextFactory = contextFactory;
+        }
     }
 }
