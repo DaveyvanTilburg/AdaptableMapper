@@ -21,7 +21,7 @@ namespace AdaptableMapper.Memory
             }
 
             Adaptable newEntry = parentProperty.GetType().CreateAdaptable();
-            newEntry.SetParent(adaptable);
+            newEntry.Parent = adaptable;
             parentProperty.Add(newEntry);
 
             return newEntry;

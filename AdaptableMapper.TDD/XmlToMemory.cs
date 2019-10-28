@@ -1,21 +1,20 @@
-﻿using FluentAssertions;
+﻿using AdaptableMapper.Traversals;
+using FluentAssertions;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using Xunit;
-using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.TDD
 {
-    public class XPathTester
+    public class XmlToMemory
     {
         [Fact]
-        public void Serialize()
+        public void XmlToMemoryTest()
         {
             var errorObserver = new TestErrorObserver();
             Errors.ErrorObservable.GetInstance().Register(errorObserver);
 
             var configuration = GetFakedSerializationConfiguration();
-            object resultObject = Mapper.Map(configuration, System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"));
+            object resultObject = Mapper.Map(configuration, System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml"));
 
             Root result = resultObject as Root;
 
@@ -50,149 +49,7 @@ namespace AdaptableMapper.TDD
             errorObserver.GetErrors().Count.Should().Be(8);
         }
 
-        [Fact]
-        public void Deserialize()
-        {
-            //Setup - for simplicities sake i just use what the test above already tests, for now tho, if above test breaks, this one breaks too
-            var serializationConfiguration = GetFakedSerializationConfiguration();
-            object resultObject = Mapper.Map(serializationConfiguration, System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"));
-
-            //Actual test
-            var errorObserver = new TestErrorObserver();
-            Errors.ErrorObservable.GetInstance().Register(errorObserver);
-
-            var deserializationConfiguration = GetFakedDeserializationConfiguration();
-            XElement result = Mapper.Map(deserializationConfiguration, resultObject) as XElement;
-
-            Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
-
-            string expectedResult = System.IO.File.ReadAllText(@".\Xmls\ExpectedSandboxResult.xml");
-            XElement xExpectedResult = XElement.Parse(expectedResult);
-
-            result.Should().BeEquivalentTo(xExpectedResult);
-
-            errorObserver.GetErrors().Count.Should().Be(12);
-        }
-
-        [Fact]
-        public void CheckIfSaveAndLoadMementoWorks()
-        {
-            MappingConfiguration source = GetFakedDeserializationConfiguration();
-
-            string serialized = Mapper.GetMemento(source);
-            MappingConfiguration target = Mapper.LoadMemento(serialized);
-
-            source.Should().BeEquivalentTo(target);
-        }
-
-        [Fact]
-        public void FailedScopeXPathTraversalMapping()
-        {
-            System.Type testType = typeof(Root);
-
-            var reservationScope = new ScopeTraversalComposite(
-                new List<ScopeTraversalComposite>(),
-                new List<Mapping>(),
-                new Xml.XmlGetScope("//ReservationsList/HotelReservation"),
-                new Memory.AdaptableTraversalThis(),
-                new Memory.AdaptableTraversalTemplate("Reservations"),
-                new Memory.AdaptableCreateNewChild()
-            );
-
-            var contextFactory = new Contexts.ContextFactory(
-                new Xml.XmlObjectConverter(),
-                new Memory.AdaptableTargetInstantiator(testType.Assembly.FullName, testType.FullName)
-            );
-
-            var mappingConfiguration = new MappingConfiguration(reservationScope, contextFactory);
-
-            var errorObserver = new TestErrorObserver();
-            Errors.ErrorObservable.GetInstance().Register(errorObserver);
-
-            object result = Mapper.Map(mappingConfiguration, System.IO.File.ReadAllText(@".\Xmls\BOO_Reservation.xml"));
-
-            Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
-
-            errorObserver.GetErrors().Should().NotBeEmpty();
-        }
-
-        private MappingConfiguration GetFakedDeserializationConfiguration()
-        {
-            var roomGuestLastNameSearch = new Mapping(
-                new Memory.AdaptableGetSearch(
-                    "../Guests{'PropertyName':'GuestId','Value':'{{searchResult}}'}/Surname",
-                    "GuestId"
-                ),
-                new Xml.XmlSet("./RoomTypes/RoomType/RoomDescription/@GuestLastName")
-            );
-
-            var roomStayTestObjectFail = new Mapping(
-                new Memory.AdaptableGet("Test"),
-                new Xml.XmlSet("./RoomTypes/RoomType/RoomDescription/Text")
-            );
-
-            var roomStayNameXPathFail = new Mapping(
-                new Memory.AdaptableGet("Name"),
-                new Xml.XmlSet("./RoomTypes/RoomType/RoomDescription/@Naem")
-            );
-
-            var roomStayCodeMap = new Mapping(
-                new Memory.AdaptableGet("Code"),
-                new Xml.XmlSet("./RoomTypes/RoomType/@RoomTypeCode")
-            );
-
-            var roomStayScope = new ScopeTraversalComposite(
-                new List<ScopeTraversalComposite>(),
-                new List<Mapping>()
-                {
-                    roomGuestLastNameSearch,
-                    roomStayTestObjectFail,
-                    roomStayNameXPathFail,
-                    roomStayCodeMap
-                },
-                new Memory.AdaptableGetScope("RoomStays"),
-                new Xml.XmlTraversal("./RoomStays"),
-                new Xml.XmlTraversalTemplate("./RoomStay"),
-                new Xml.XmlCreateNewChild()
-            );
-
-            var reservationHotelCodeMap = new Mapping(
-                new Memory.AdaptableGet("HotelCode"),
-                new Xml.XmlSet("./ResGlobalInfo/BasicPropertyInfo/@HotelCode")
-            );
-
-            var reservationIdMap = new Mapping(
-                new Memory.AdaptableGet("Id"),
-                new Xml.XmlSet("./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type='5']/@ResID_Value")
-            );
-
-            var reservationScope = new ScopeTraversalComposite(
-                new List<ScopeTraversalComposite>()
-                {
-                    roomStayScope
-                },
-                new List<Mapping>()
-                {
-                    reservationIdMap,
-                    reservationHotelCodeMap
-                },
-                new Memory.AdaptableGetScope("Reservations"),
-                new Xml.XmlTraversal("./ReservationsList"),
-                new Xml.XmlTraversalTemplate("//HotelReservation"),
-                new Xml.XmlCreateNewChild()
-            );
-
-            var contextFactory = new Contexts.ContextFactory(
-                new Memory.AdaptableObjectConverter(),
-                new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Xmls\SandboxTemplate.xml"))
-            );
-
-            var mappingConfiguration = new MappingConfiguration(reservationScope, contextFactory);
-
-            return mappingConfiguration;
-        }
-
-        private MappingConfiguration GetFakedSerializationConfiguration()
+        public static MappingConfiguration GetFakedSerializationConfiguration()
         {
             var roomStayGuestNameSearchMap = new Mapping(
                 new Xml.XmlGetSearch(

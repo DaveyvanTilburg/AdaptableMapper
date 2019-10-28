@@ -7,9 +7,7 @@ namespace AdaptableMapper.Memory.Language
 {
     public abstract class Adaptable
     {
-        private Adaptable _parent;
-        public void SetParent(Adaptable parent)
-            => _parent = parent;
+        public Adaptable Parent { get; set; }
 
         public Adaptable GetOrCreateAdaptable(Queue<string> path)
         {
@@ -68,7 +66,7 @@ namespace AdaptableMapper.Memory.Language
             Adaptable next;
             if (step.Equals(".."))
             {
-                next = _parent;
+                next = Parent;
                 if (next == null)
                     Errors.ErrorObservable.GetInstance().Raise($"Parent node was null while navigating to .. of type {this.GetType().Name}");
             }
