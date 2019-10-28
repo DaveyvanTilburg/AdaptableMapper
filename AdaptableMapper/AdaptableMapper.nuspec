@@ -9,9 +9,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <projectUrl>https://github.com/DaveyvanTilburg/XPathSerialization</projectUrl>
     <description>
-      A package for a multitude of softcoded mapping via configuration
+A package for any to any mapping without hardcoding
 
-      See https://github.com/DaveyvanTilburg/AdaptableMaper/ for documentation
+See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
     </description>
     <copyright>Copyright 2019</copyright>
     <dependencies>
@@ -20,10 +20,10 @@
       </group>
     </dependencies>
     <releaseNotes>
-      0.0.1
-       - Created an abstraction for mapping to and from:
-         - Xml
-         - In memory objects (through the adaptable abstraction)
+0.0.1
+  - Created an abstraction for mapping to and from:
+    - Xml
+    - In memory objects (through the adaptable abstraction)
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
