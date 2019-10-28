@@ -1,8 +1,6 @@
 ﻿using FluentAssertions;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using AdaptableMapper;
 using Xunit;
 using AdaptableMapper.Traversals;
 
