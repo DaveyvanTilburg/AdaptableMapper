@@ -14,6 +14,8 @@ namespace AdaptableMapper.Xml
             }
 
             XElement root = XElement.Parse(input);
+            RemoveAllNamespaces(root);
+
             return root;
         }
 

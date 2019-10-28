@@ -3,14 +3,14 @@ using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Memory
 {
-    public class AdaptableSet : SetTraversal
+    public class AdaptableSetOnProperty : SetTraversal
     {
-        public AdaptableSet(string path)
+        public AdaptableSetOnProperty(string propertyName)
         {
-            Path = path;
+            PropertyName = propertyName;
         }
 
-        public string Path { get; set; }
+        public string PropertyName { get; set; }
 
         public void SetValue(object target, string value)
         {
@@ -20,10 +20,7 @@ namespace AdaptableMapper.Memory
                 return;
             }
 
-            var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(Path);
-            Adaptable pathTarget = adaptable.GetOrCreateAdaptable(adaptablePathContainer.CreatePathQueue());
-
-            pathTarget.SetValue(adaptablePathContainer.PropertyName, value);
+            adaptable.SetValue(PropertyName, value);
         }
     }
 }

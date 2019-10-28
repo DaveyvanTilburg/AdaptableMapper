@@ -45,6 +45,7 @@
     <Compile Include="Contexts\ObjectConverter.cs" />
     <Compile Include="Contexts\TargetInstantiator.cs" />
     <Compile Include="MappingConfiguration.cs" />
+    <Compile Include="Memory\AdaptableSetOnProperty.cs" />
     <Compile Include="Memory\AdaptableTargetInstantiator.cs" />
     <Compile Include="Memory\AdaptableTraversalThis.cs" />
     <Compile Include="Memory\Language\Adaptable.cs" />
@@ -58,7 +59,7 @@
     <Compile Include="Memory\AdaptableGet.cs" />
     <Compile Include="Memory\AdaptableGetSearch.cs" />
     <Compile Include="Memory\AdaptableGetScope.cs" />
-    <Compile Include="Memory\AdaptableSet.cs" />
+    <Compile Include="Memory\AdaptableSetOnPath.cs" />
     <Compile Include="Memory\AdaptableTraversal.cs" />
     <Compile Include="Memory\AdaptableTraversalTemplate.cs" />
     <Compile Include="Contexts\Context.cs" />
