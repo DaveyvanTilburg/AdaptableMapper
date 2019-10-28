@@ -15,7 +15,7 @@ namespace AdaptableMapper.Traversals
             SetTraversion = setTraversion;
         }
 
-        public void Map(Context context)
+        internal void Map(Context context)
         {
             string value = GetTraversion.GetValue(context.Source);
 

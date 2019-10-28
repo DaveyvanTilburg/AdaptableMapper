@@ -63,6 +63,7 @@
     <Compile Include="Memory\AdaptableTraversal.cs" />
     <Compile Include="Memory\AdaptableTraversalTemplate.cs" />
     <Compile Include="Contexts\Context.cs" />
+    <Compile Include="Memory\Language\NullAdaptable.cs" />
     <Compile Include="Traversals\CreateNewChild.cs" />
     <Compile Include="Traversals\GetScopeTraversal.cs" />
     <Compile Include="Traversals\GetTraversal.cs" />

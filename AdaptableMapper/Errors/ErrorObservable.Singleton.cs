@@ -1,6 +1,6 @@
 ﻿namespace AdaptableMapper.Errors
 {
-    public partial class ErrorObservable
+    public sealed partial class ErrorObservable
     {
         private static ErrorObservable _instance;
         public static ErrorObservable GetInstance()

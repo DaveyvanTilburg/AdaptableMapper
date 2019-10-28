@@ -11,7 +11,7 @@
             TargetInstantiator = targetInstantiator;
         }
 
-        public Context Create(object source)
+        internal Context Create(object source)
         {
             return new Context(source: SourceConverter.Convert(source), target: TargetInstantiator.Create());
         }

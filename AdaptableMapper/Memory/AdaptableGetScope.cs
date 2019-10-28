@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace AdaptableMapper.Memory
 {
-    public class AdaptableGetScope : GetScopeTraversal
+    public sealed class AdaptableGetScope : GetScopeTraversal
     {
         public AdaptableGetScope(string path)
         {

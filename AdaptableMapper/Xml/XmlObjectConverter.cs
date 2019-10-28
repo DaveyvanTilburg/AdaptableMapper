@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public class XmlObjectConverter : ObjectConverter
+    public sealed class XmlObjectConverter : ObjectConverter
     {
         public object Convert(object source)
         {

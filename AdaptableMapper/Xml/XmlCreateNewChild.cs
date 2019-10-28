@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public class XmlCreateNewChild : CreateNewChild
+    public sealed class XmlCreateNewChild : CreateNewChild
     {
         public object CreateChildOn(object parent, object template)
         {

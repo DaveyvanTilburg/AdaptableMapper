@@ -3,7 +3,7 @@ using System;
 
 namespace AdaptableMapper.Memory
 {
-    public class AdaptableTargetInstantiator : TargetInstantiator
+    public sealed class AdaptableTargetInstantiator : TargetInstantiator
     {
         public AdaptableTargetInstantiator(string assemblyName, string typeName)
         {

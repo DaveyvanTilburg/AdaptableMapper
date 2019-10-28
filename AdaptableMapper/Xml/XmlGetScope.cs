@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public class XmlGetScope : GetScopeTraversal
+    public sealed class XmlGetScope : GetScopeTraversal
     {
         public XmlGetScope(string path)
         {

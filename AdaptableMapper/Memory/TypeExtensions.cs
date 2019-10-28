@@ -11,7 +11,10 @@ namespace AdaptableMapper.Memory
             object instance = Activator.CreateInstance(listItemType);
 
             if (!(instance is Adaptable result))
-                throw new InvalidAdaptablePathException($"Adaptable has property with type {type.Name} that is not an adaptable, that is being traversed");
+            {
+                Errors.ErrorObservable.GetInstance().Raise($"Adaptable has property with type {type.Name} that is not an adaptable, that is being traversed");
+                return new NullAdaptable();
+            }
 
             return result;
         }

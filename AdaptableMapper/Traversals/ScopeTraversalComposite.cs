@@ -28,7 +28,7 @@ namespace AdaptableMapper.Traversals
             CreateNewChild = createNewChild;
         }
 
-        public void Traverse(Context context)
+        internal void Traverse(Context context)
         {
             IEnumerable<object> scope = GetScopeTraversion.GetScope(context.Source);
 

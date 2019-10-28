@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace AdaptableMapper.Memory
 {
-    public class AdaptableTraversalTemplate : TraversalTemplate
+    public sealed class AdaptableTraversalTemplate : TraversalTemplate
     {
         public AdaptableTraversalTemplate(string path)
         {

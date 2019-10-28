@@ -3,7 +3,7 @@ using AdaptableMapper.Memory.Language;
 
 namespace AdaptableMapper.Memory
 {
-    public class AdaptableObjectConverter : ObjectConverter
+    public sealed class AdaptableObjectConverter : ObjectConverter
     {
         public object Convert(object source)
         {

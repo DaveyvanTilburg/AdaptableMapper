@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace AdaptableMapper.Memory
 {
-    public class AdaptableCreateNewChild : CreateNewChild
+    public sealed class AdaptableCreateNewChild : CreateNewChild
     {
         public object CreateChildOn(object parent, object template)
         {

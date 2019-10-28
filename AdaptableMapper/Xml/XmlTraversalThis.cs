@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public class XmlTraversalThis : Traversal
+    public sealed class XmlTraversalThis : Traversal
     {
         public object Traverse(object target)
         {

@@ -3,7 +3,7 @@ using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Memory
 {
-    public class AdaptableGet : GetTraversal
+    public sealed class AdaptableGet : GetTraversal
     {
         public AdaptableGet(string path)
         {

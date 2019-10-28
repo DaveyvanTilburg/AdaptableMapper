@@ -2,7 +2,7 @@
 
 namespace AdaptableMapper.Errors
 {
-    public class Error : EventArgs
+    public sealed class Error : EventArgs
     {
         public string Message { get; }
 

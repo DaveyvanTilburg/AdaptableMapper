@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public class XmlTargetInstantiator : TargetInstantiator
+    public sealed class XmlTargetInstantiator : TargetInstantiator
     {
         public XmlTargetInstantiator(string template)
         {
