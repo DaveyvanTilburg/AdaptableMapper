@@ -3,9 +3,9 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public class XmlTraversal : Traversal
+    public class XmlTraversalTemplate : TraversalTemplate
     {
-        public XmlTraversal(string path)
+        public XmlTraversalTemplate(string path)
         {
             Path = path;
         }
@@ -21,6 +21,8 @@ namespace AdaptableMapper.Xml
             }
 
             XElement result = xElement.NavigateToPath(Path);
+            result.Remove();
+
             return result;
         }
     }

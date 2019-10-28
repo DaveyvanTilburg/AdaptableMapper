@@ -45,6 +45,7 @@
     <Compile Include="Contexts\ObjectConverter.cs" />
     <Compile Include="Contexts\TargetInstantiator.cs" />
     <Compile Include="MappingConfiguration.cs" />
+    <Compile Include="Memory\AdaptableObjectConverter.cs" />
     <Compile Include="Memory\AdaptableSetOnProperty.cs" />
     <Compile Include="Memory\AdaptableTargetInstantiator.cs" />
     <Compile Include="Memory\AdaptableTraversalThis.cs" />
@@ -79,11 +80,13 @@
     <Compile Include="Memory\StringExtensions.cs" />
     <Compile Include="Xml\XmlObjectConverter.cs" />
     <Compile Include="Xml\XmlSet.cs" />
+    <Compile Include="Xml\XmlTargetInstantiator.cs" />
     <Compile Include="Xml\XmlTraversal.cs" />
     <Compile Include="Memory\TypeExtensions.cs" />
     <Compile Include="Xml\XElementExtensions.cs" />
     <Compile Include="Memory\Language\AdaptablePathContainer.cs" />
     <Compile Include="Mapper.cs" />
+    <Compile Include="Xml\XmlTraversalTemplate.cs" />
     <Compile Include="Xml\XmlTraversalThis.cs" />
   </ItemGroup>
   <ItemGroup>
