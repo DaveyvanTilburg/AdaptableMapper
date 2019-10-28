@@ -22,7 +22,7 @@ Future plans in relative priority order:
 
 Mock up of structure and flow:
 
-![UML](AdaptableMapper/Mapping.jpg)
+![UML](Mapping.jpg)
 
 --Todo
 
