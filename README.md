@@ -22,7 +22,7 @@ Future plans in relative priority order:
 
 Mock up of structure and flow:
 
-![UML](https://raw.githubusercontent.com/DaveyvanTilburg/AdaptableMapper/branch/master/mapping.jpg)
+![UML](AdaptableMapper/Mapping.jpg)
 
 --Todo
 
@@ -36,7 +36,7 @@ I use [SemVer](http://semver.org/) for versioning. (But forgive me if i mess tha
 
 ## License
 
-This project is licensed under the WTFPL License - see the [License.txt](XPathSerialization/License.txt) file for details
+This project is licensed under the WTFPL License - see the [License.txt](AdaptableMapper/License.txt) file for details
 
 ## Acknowledgments
 
