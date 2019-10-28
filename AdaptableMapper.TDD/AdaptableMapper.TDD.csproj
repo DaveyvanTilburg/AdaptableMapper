@@ -46,6 +46,7 @@
     <Compile Include="XmlToMemory.cs" />
     <Compile Include="MemoryToXml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XmlToXml.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentAssertions">
