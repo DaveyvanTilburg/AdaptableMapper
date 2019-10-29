@@ -171,8 +171,8 @@ namespace AdaptableMapper.TDD
                 new Xml.XmlSet("./RoomTypes/RoomType/@RoomTypeCode")
             );
 
-            var roomStayScope = new ScopeTraversalComposite(
-                new List<ScopeTraversalComposite>(),
+            var roomStayScope = new MappingScopeComposite(
+                new List<MappingScopeComposite>(),
                 new List<Mapping>()
                 {
                     roomGuestLastNameSearch,
@@ -196,8 +196,8 @@ namespace AdaptableMapper.TDD
                 new Xml.XmlSet("./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type='5']/@ResID_Value")
             );
 
-            var reservationScope = new ScopeTraversalComposite(
-                new List<ScopeTraversalComposite>()
+            var reservationScope = new MappingScopeComposite(
+                new List<MappingScopeComposite>()
                 {
                     roomStayScope
                 },

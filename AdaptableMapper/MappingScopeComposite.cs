@@ -1,19 +1,20 @@
 ﻿using AdaptableMapper.Contexts;
+using AdaptableMapper.Traversals;
 using System.Collections.Generic;
 
-namespace AdaptableMapper.Traversals
+namespace AdaptableMapper
 {
-    public sealed class ScopeTraversalComposite
+    public sealed class MappingScopeComposite
     {
-        public List<ScopeTraversalComposite> Children { get; set; }
+        public List<MappingScopeComposite> Children { get; set; }
         public List<Mapping> Mappings { get; set; }
         public GetScopeTraversal GetScopeTraversion { get; set; }
         public Traversal TemplateParentTraversal { get; set; }
         public TraversalTemplate TemplateTraversal { get; set; }
         public CreateNewChild CreateNewChild { get; set; }
 
-        public ScopeTraversalComposite(
-            List<ScopeTraversalComposite> children, 
+        public MappingScopeComposite(
+            List<MappingScopeComposite> children, 
             List<Mapping> mappings, 
             GetScopeTraversal getScopeTraversion, 
             Traversal templateParentTraversal, 
@@ -49,7 +50,7 @@ namespace AdaptableMapper.Traversals
             foreach(Mapping mapping in Mappings)
                 mapping.Map(context);
 
-            foreach(ScopeTraversalComposite child in Children)
+            foreach(MappingScopeComposite child in Children)
                 child.Traverse(context);
         }
     }

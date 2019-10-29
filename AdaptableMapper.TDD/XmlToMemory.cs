@@ -84,8 +84,8 @@ namespace AdaptableMapper.TDD
                 new Memory.AdaptableSetOnProperty("RateCode")
             );
 
-            var roomStayScope = new ScopeTraversalComposite(
-                new List<ScopeTraversalComposite>(),
+            var roomStayScope = new MappingScopeComposite(
+                new List<MappingScopeComposite>(),
                 new List<Mapping>()
                 {
                     roomStayGuestNameSearchMap,
@@ -116,8 +116,8 @@ namespace AdaptableMapper.TDD
                 new Memory.AdaptableSetOnProperty("Surname")
             );
 
-            var guestScope = new ScopeTraversalComposite(
-                new List<ScopeTraversalComposite>(),
+            var guestScope = new MappingScopeComposite(
+                new List<MappingScopeComposite>(),
                 new List<Mapping>()
                 {
                     guestIdMap,
@@ -140,8 +140,8 @@ namespace AdaptableMapper.TDD
                 new Memory.AdaptableSetOnProperty("Id")
             );
 
-            var reservationScope = new ScopeTraversalComposite(
-                new List<ScopeTraversalComposite>()
+            var reservationScope = new MappingScopeComposite(
+                new List<MappingScopeComposite>()
                 {
                     roomStayScope,
                     guestScope

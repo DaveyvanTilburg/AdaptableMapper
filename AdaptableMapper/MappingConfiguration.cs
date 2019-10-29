@@ -5,10 +5,10 @@ namespace AdaptableMapper
 {
     public sealed class MappingConfiguration
     {
-        public ScopeTraversalComposite ScopeTraversalComposite { get; set; }
+        public MappingScopeComposite ScopeTraversalComposite { get; set; }
         public ContextFactory ContextFactory { get; set; }
 
-        public MappingConfiguration(ScopeTraversalComposite scopeTraversalComposite, ContextFactory contextFactory)
+        public MappingConfiguration(MappingScopeComposite scopeTraversalComposite, ContextFactory contextFactory)
         {
             ScopeTraversalComposite = scopeTraversalComposite;
             ContextFactory = contextFactory;

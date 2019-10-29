@@ -67,8 +67,8 @@
     <Compile Include="Traversals\CreateNewChild.cs" />
     <Compile Include="Traversals\GetScopeTraversal.cs" />
     <Compile Include="Traversals\GetTraversal.cs" />
-    <Compile Include="Traversals\Mapping.cs" />
-    <Compile Include="Traversals\ScopeTraversalComposite.cs" />
+    <Compile Include="Mapping.cs" />
+    <Compile Include="MappingScopeComposite.cs" />
     <Compile Include="Traversals\SetTraversal.cs" />
     <Compile Include="Traversals\Traversal.cs" />
     <Compile Include="Traversals\TraversalTemplate.cs" />
