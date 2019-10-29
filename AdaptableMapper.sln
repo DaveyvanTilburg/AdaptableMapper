@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaptableMapper", "Adaptabl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaptableMapper.TDD", "AdaptableMapper.TDD\AdaptableMapper.TDD.csproj", "{CA567CD1-EFC3-4ED4-B852-C7A0D103039A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaptableObjects", "AdaptableObjects\AdaptableObjects.csproj", "{590CB8EC-396D-4012-8385-25BA2149EE9A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelObjects", "ModelObjects\ModelObjects.csproj", "{590CB8EC-396D-4012-8385-25BA2149EE9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
