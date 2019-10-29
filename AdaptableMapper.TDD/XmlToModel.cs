@@ -13,7 +13,7 @@ namespace AdaptableMapper.TDD
             Errors.ErrorObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
-            object resultObject = Mapper.Map(mappingConfiguration, System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml"));
+            object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml"));
 
             Root result = resultObject as Root;
 

@@ -15,7 +15,7 @@ namespace AdaptableMapper.TDD
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
 
-            XElement result = Mapper.Map(mappingConfiguration, System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml")) as XElement;
+            XElement result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml")) as XElement;
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
@@ -36,7 +36,7 @@ namespace AdaptableMapper.TDD
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
             mappingConfiguration.ResultConverter = new Xml.XElementToStringObjectConverter();
 
-            object result = Mapper.Map(mappingConfiguration, System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml"));
+            object result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml"));
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 

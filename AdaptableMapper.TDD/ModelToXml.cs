@@ -17,7 +17,7 @@ namespace AdaptableMapper.TDD
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
 
             ModelBase source = GetSource();
-            XElement result = Mapper.Map(mappingConfiguration, source) as XElement;
+            XElement result = mappingConfiguration.Map(source) as XElement;
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
