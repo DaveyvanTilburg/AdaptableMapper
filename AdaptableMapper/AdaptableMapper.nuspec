@@ -27,7 +27,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
 0.0.1
   - Created an abstraction for mapping to and from:
     - Xml
-    - In memory objects (through the adaptable abstraction)
+    - In memory objects (through the model abstraction)
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace AdaptableMapper.Memory.Language
+namespace AdaptableMapper.Model.Language
 {
     public abstract class ModelBase
     {
         public ModelBase Parent { get; set; }
 
-        public ModelBase GetOrCreateAdaptable(Queue<string> path)
-        {
-            ModelBase adaptable = this;
-            if (path.Count > 0)
-                adaptable = NavigateAndCreatePath(new Queue<string>(path));
+        public ModelBase() { }
 
-            return adaptable;
+        public ModelBase GetOrCreateModel(Queue<string> path)
+        {
+            ModelBase model = this;
+            if (path.Count > 0)
+                model = NavigateAndCreatePath(new Queue<string>(path));
+
+            return model;
         }
 
         private ModelBase NavigateAndCreatePath(Queue<string> path)
@@ -25,7 +27,7 @@ namespace AdaptableMapper.Memory.Language
             PropertyInfo property = GetPropertyInfo(step);
             IList propertyValue = GetIListFromProperty(property, step);
 
-            ModelBase next = property.PropertyType.CreateAdaptable();
+            ModelBase next = property.PropertyType.CreateModel();
             propertyValue.Add(next);
 
             if (path.Count > 0)
@@ -51,12 +53,12 @@ namespace AdaptableMapper.Memory.Language
                 return listProperty;
             else
             {
-                Errors.ErrorObservable.GetInstance().Raise($"Property {propertyName} is not traversable, it is not a list of adaptable");
+                Errors.ErrorObservable.GetInstance().Raise($"Property {propertyName} is not traversable, it is not a list of Model");
                 return new List<ModelBase>();
             }
         }
 
-        public ModelBase NavigateToAdaptable(Queue<string> path)
+        public ModelBase NavigateToModel(Queue<string> path)
         {
             if (path.Count == 0)
                 return this;
@@ -72,11 +74,11 @@ namespace AdaptableMapper.Memory.Language
             }
             else if(step.TryGetObjectFilter(out ModelFilter filter))
             {
-                IEnumerable<ModelBase> propertyValue = GetEnumerableProperty(filter.AdaptableName);
+                IEnumerable<ModelBase> propertyValue = GetEnumerableProperty(filter.ModelName);
                 next = propertyValue.FirstOrDefault(a => a.GetValue(filter.PropertyName).Equals(filter.Value));
 
                 if (next == null)
-                    Errors.ErrorObservable.GetInstance().Raise($"No match found for filter on list with name {filter.AdaptableName} with a value that has a {filter.PropertyName} with value {filter.Value}");
+                    Errors.ErrorObservable.GetInstance().Raise($"No match found for filter on list with name {filter.ModelName} with a value that has a {filter.PropertyName} with value {filter.Value}");
             }
             else
             {
@@ -91,7 +93,7 @@ namespace AdaptableMapper.Memory.Language
                 return this;
 
             if (path.Count > 0)
-                return next.NavigateToAdaptable(path);
+                return next.NavigateToModel(path);
 
             return next;
         }
@@ -110,7 +112,7 @@ namespace AdaptableMapper.Memory.Language
             }
             else
             {
-                Errors.ErrorObservable.GetInstance().Raise($"Property {propertyName} is not traversable, it is not a list of adaptable");
+                Errors.ErrorObservable.GetInstance().Raise($"Property {propertyName} is not traversable, it is not a list of Model");
                 return new List<ModelBase>();
             }
         }

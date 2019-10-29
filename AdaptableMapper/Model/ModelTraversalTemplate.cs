@@ -1,8 +1,8 @@
-﻿using AdaptableMapper.Memory.Language;
+﻿using AdaptableMapper.Model.Language;
 using AdaptableMapper.Traversals;
 using System.Collections;
 
-namespace AdaptableMapper.Memory
+namespace AdaptableMapper.Model
 {
     public sealed class ModelTraversalTemplate : TraversalToGetTemplate
     {
@@ -15,18 +15,18 @@ namespace AdaptableMapper.Memory
 
         public object Traverse(object target)
         {
-            if (!(target is ModelBase adaptable))
+            if (!(target is ModelBase model))
             {
                 Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
                 return string.Empty;
             }
 
-            var adaptablePathContainer = ModelPathContainer.CreateAdaptablePath(Path);
+            var modelPathContainer = ModelPathContainer.CreateModelPath(Path);
 
-            ModelBase pathTarget = adaptable.GetOrCreateAdaptable(adaptablePathContainer.CreatePathQueue());
-            IList adaptableScope = pathTarget.GetListProperty(adaptablePathContainer.PropertyName);
+            ModelBase pathTarget = model.GetOrCreateModel(modelPathContainer.CreatePathQueue());
+            IList modelScope = pathTarget.GetListProperty(modelPathContainer.PropertyName);
 
-            return adaptableScope;
+            return modelScope;
         }
     }
 }

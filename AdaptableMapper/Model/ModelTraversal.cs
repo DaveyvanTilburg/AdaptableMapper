@@ -1,7 +1,7 @@
-﻿using AdaptableMapper.Memory.Language;
+﻿using AdaptableMapper.Model.Language;
 using AdaptableMapper.Traversals;
 
-namespace AdaptableMapper.Memory
+namespace AdaptableMapper.Model
 {
     public sealed class ModelTraversal : Traversal
     {
@@ -14,13 +14,13 @@ namespace AdaptableMapper.Memory
 
         public object Traverse(object target)
         {
-            if (!(target is ModelBase adaptable))
+            if (!(target is ModelBase model))
             {
                 Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
                 return string.Empty;
             }
 
-            ModelBase pathTarget = adaptable.NavigateToAdaptable(Path.ToQueue());
+            ModelBase pathTarget = model.NavigateToModel(Path.ToQueue());
 
             return pathTarget;
         }

@@ -1,6 +1,6 @@
 ﻿using AdaptableMapper.Traversals;
 
-namespace AdaptableMapper.Memory
+namespace AdaptableMapper.Model
 {
     public sealed class ModelTraversalThis : Traversal
     {

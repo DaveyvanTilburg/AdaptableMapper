@@ -1,7 +1,7 @@
-﻿using AdaptableMapper.Memory.Language;
+﻿using AdaptableMapper.Model.Language;
 using AdaptableMapper.Traversals;
 
-namespace AdaptableMapper.Memory
+namespace AdaptableMapper.Model
 {
     public sealed class ModelSetOnProperty : SetValueTraversal
     {
@@ -14,13 +14,13 @@ namespace AdaptableMapper.Memory
 
         public void SetValue(object target, string value)
         {
-            if (!(target is ModelBase adaptable))
+            if (!(target is ModelBase model))
             {
                 Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
                 return;
             }
 
-            adaptable.SetValue(PropertyName, value);
+            model.SetValue(PropertyName, value);
         }
     }
 }

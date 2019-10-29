@@ -1,7 +1,7 @@
-﻿using AdaptableMapper.Memory.Language;
+﻿using AdaptableMapper.Model.Language;
 using AdaptableMapper.Traversals;
 
-namespace AdaptableMapper.Memory
+namespace AdaptableMapper.Model
 {
     public sealed class ModelGetSearch : GetValueTraversal
     {
@@ -16,7 +16,7 @@ namespace AdaptableMapper.Memory
 
         public string GetValue(object source)
         {
-            if (!(source is ModelBase adaptable))
+            if (!(source is ModelBase model))
             {
                 Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
                 return string.Empty;
@@ -25,17 +25,17 @@ namespace AdaptableMapper.Memory
             string searchValue = null;
             if (!string.IsNullOrWhiteSpace(SearchPath))
             {
-                var searchAdaptablePath = ModelPathContainer.CreateAdaptablePath(SearchPath);
+                var searchModelPath = ModelPathContainer.CreateModelPath(SearchPath);
 
-                ModelBase searchPathTarget = adaptable.NavigateToAdaptable(searchAdaptablePath.CreatePathQueue());
-                searchValue = searchPathTarget.GetValue(searchAdaptablePath.PropertyName);
+                ModelBase searchPathTarget = model.NavigateToModel(searchModelPath.CreatePathQueue());
+                searchValue = searchPathTarget.GetValue(searchModelPath.PropertyName);
             }
 
-            string actualAdaptablePath = string.IsNullOrWhiteSpace(searchValue) ? Path : Path.Replace("{{searchResult}}", searchValue);
-            var adaptablePathContainer = ModelPathContainer.CreateAdaptablePath(actualAdaptablePath);
+            string actualModelPath = string.IsNullOrWhiteSpace(searchValue) ? Path : Path.Replace("{{searchResult}}", searchValue);
+            var modelPathContainer = ModelPathContainer.CreateModelPath(actualModelPath);
 
-            ModelBase pathTarget = adaptable.NavigateToAdaptable(adaptablePathContainer.CreatePathQueue());
-            string value = pathTarget.GetValue(adaptablePathContainer.PropertyName);
+            ModelBase pathTarget = model.NavigateToModel(modelPathContainer.CreatePathQueue());
+            string value = pathTarget.GetValue(modelPathContainer.PropertyName);
 
             return value;
         }

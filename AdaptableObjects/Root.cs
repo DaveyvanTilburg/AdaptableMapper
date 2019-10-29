@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AdaptableMapper.Memory.Language;
+using AdaptableMapper.Model.Language;
 
 namespace AdaptableMapper
 {

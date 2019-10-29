@@ -1,7 +1,7 @@
-﻿using AdaptableMapper.Memory.Language;
+﻿using AdaptableMapper.Model.Language;
 using System.Collections.Generic;
 
-namespace AdaptableMapper.Memory
+namespace AdaptableMapper.Model
 {
     internal static class StringExtensions
     {
@@ -18,7 +18,7 @@ namespace AdaptableMapper.Memory
                 return false;
 
             filter = Newtonsoft.Json.JsonConvert.DeserializeObject<ModelFilter>(value.Substring(positionStart, positionEnd - positionStart));
-            filter.AdaptableName = value.Substring(0, positionStart);
+            filter.ModelName = value.Substring(0, positionStart);
             return true;
         }
 

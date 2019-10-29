@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Xunit;
-using AdaptableMapper.Memory.Language;
+using AdaptableMapper.Model.Language;
 
 namespace AdaptableMapper.TDD
 {
@@ -148,7 +148,7 @@ namespace AdaptableMapper.TDD
         private MappingConfiguration GetFakedMappingConfiguration()
         {
             var roomGuestLastNameSearch = new Mapping(
-                new Memory.ModelGetSearch(
+                new Model.ModelGetSearch(
                     "../Guests{'PropertyName':'GuestId','Value':'{{searchResult}}'}/Surname",
                     "GuestId"
                 ),
@@ -156,17 +156,17 @@ namespace AdaptableMapper.TDD
             );
 
             var roomStayTestObjectFail = new Mapping(
-                new Memory.ModelGet("Test"),
+                new Model.ModelGet("Test"),
                 new Xml.XmlSet("./RoomTypes/RoomType/RoomDescription/Text")
             );
 
             var roomStayNameXPathFail = new Mapping(
-                new Memory.ModelGet("Name"),
+                new Model.ModelGet("Name"),
                 new Xml.XmlSet("./RoomTypes/RoomType/RoomDescription/@Naem")
             );
 
             var roomStayCodeMap = new Mapping(
-                new Memory.ModelGet("Code"),
+                new Model.ModelGet("Code"),
                 new Xml.XmlSet("./RoomTypes/RoomType/@RoomTypeCode")
             );
 
@@ -179,19 +179,19 @@ namespace AdaptableMapper.TDD
                     roomStayNameXPathFail,
                     roomStayCodeMap
                 },
-                new Memory.ModelGetScope("RoomStays"),
+                new Model.ModelGetScope("RoomStays"),
                 new Xml.XmlTraversal("./RoomStays"),
                 new Xml.XmlTraversalTemplate("./RoomStay"),
                 new Xml.XmlChildCreator()
             );
 
             var reservationHotelCodeMap = new Mapping(
-                new Memory.ModelGet("HotelCode"),
+                new Model.ModelGet("HotelCode"),
                 new Xml.XmlSet("./ResGlobalInfo/BasicPropertyInfo/@HotelCode")
             );
 
             var reservationIdMap = new Mapping(
-                new Memory.ModelGet("Id"),
+                new Model.ModelGet("Id"),
                 new Xml.XmlSet("./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type='5']/@ResID_Value")
             );
 
@@ -205,14 +205,14 @@ namespace AdaptableMapper.TDD
                     reservationIdMap,
                     reservationHotelCodeMap
                 },
-                new Memory.ModelGetScope("Reservations"),
+                new Model.ModelGetScope("Reservations"),
                 new Xml.XmlTraversal("./ReservationsList"),
                 new Xml.XmlTraversalTemplate("//HotelReservation"),
                 new Xml.XmlChildCreator()
             );
 
             var contextFactory = new Contexts.ContextFactory(
-                new Memory.ModelObjectConverter(),
+                new Model.ModelObjectConverter(),
                 new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\SandboxTemplate.xml"))
             );
 

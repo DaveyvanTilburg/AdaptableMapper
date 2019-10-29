@@ -1,7 +1,7 @@
 ﻿using AdaptableMapper.Contexts;
 using System;
 
-namespace AdaptableMapper.Memory
+namespace AdaptableMapper.Model
 {
     public sealed class ModelTargetInstantiator : TargetInstantiator
     {

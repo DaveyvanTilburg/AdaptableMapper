@@ -1,4 +1,4 @@
-﻿using AdaptableMapper.Memory.Language;
+﻿using AdaptableMapper.Model.Language;
 using Newtonsoft.Json;
 
 namespace AdaptableMapper.Model
@@ -7,13 +7,13 @@ namespace AdaptableMapper.Model
     {
         public object Convert(object source)
         {
-            if (!(source is ModelBase adaptable))
+            if (!(source is ModelBase model))
             {
                 Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
                 return string.Empty;
             }
 
-            string result = JsonConvert.SerializeObject(adaptable);
+            string result = JsonConvert.SerializeObject(model);
             return result;
         }
     }

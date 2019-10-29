@@ -1,7 +1,7 @@
-﻿using AdaptableMapper.Memory.Language;
+﻿using AdaptableMapper.Model.Language;
 using AdaptableMapper.Traversals;
 
-namespace AdaptableMapper.Memory
+namespace AdaptableMapper.Model
 {
     public sealed class ModelSetOnPath : SetValueTraversal
     {
@@ -14,16 +14,16 @@ namespace AdaptableMapper.Memory
 
         public void SetValue(object target, string value)
         {
-            if (!(target is ModelBase adaptable))
+            if (!(target is ModelBase model))
             {
                 Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
                 return;
             }
 
-            var adaptablePathContainer = ModelPathContainer.CreateAdaptablePath(Path);
-            ModelBase pathTarget = adaptable.GetOrCreateAdaptable(adaptablePathContainer.CreatePathQueue());
+            var modelPathContainer = ModelPathContainer.CreateModelPath(Path);
+            ModelBase pathTarget = model.GetOrCreateModel(modelPathContainer.CreatePathQueue());
 
-            pathTarget.SetValue(adaptablePathContainer.PropertyName, value);
+            pathTarget.SetValue(modelPathContainer.PropertyName, value);
         }
     }
 }

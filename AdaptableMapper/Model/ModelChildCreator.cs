@@ -1,13 +1,13 @@
-﻿using AdaptableMapper.Memory.Language;
+﻿using AdaptableMapper.Model.Language;
 using System.Collections;
 
-namespace AdaptableMapper.Memory
+namespace AdaptableMapper.Model
 {
     public sealed class ModelChildCreator : ChildCreator
     {
         public object CreateChildOn(object parent, object template)
         {
-            if (!(parent is ModelBase adaptable))
+            if (!(parent is ModelBase model))
             {
                 Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
                 return string.Empty;
@@ -19,8 +19,8 @@ namespace AdaptableMapper.Memory
                 return string.Empty;
             }
 
-            ModelBase newEntry = parentProperty.GetType().CreateAdaptable();
-            newEntry.Parent = adaptable;
+            ModelBase newEntry = parentProperty.GetType().CreateModel();
+            newEntry.Parent = model;
             parentProperty.Add(newEntry);
 
             return newEntry;

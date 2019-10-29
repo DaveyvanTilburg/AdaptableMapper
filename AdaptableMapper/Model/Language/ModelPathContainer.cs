@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace AdaptableMapper.Memory.Language
+namespace AdaptableMapper.Model.Language
 {
     internal class ModelPathContainer
     {
@@ -18,9 +18,9 @@ namespace AdaptableMapper.Memory.Language
             PropertyName = propertyName;
         }
 
-        public static ModelPathContainer CreateAdaptablePath(string adaptablePath)
+        public static ModelPathContainer CreateModelPath(string modelPath)
         {
-            Stack<string> pathStack = adaptablePath.ToStack();
+            Stack<string> pathStack = modelPath.ToStack();
             string propertyName = pathStack.Pop();
 
             var path = pathStack.Reverse().ToList();
