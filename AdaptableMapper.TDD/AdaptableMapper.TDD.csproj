@@ -71,13 +71,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ModelObjects\ModelObjects.csproj">
-      <Project>{590cb8ec-396d-4012-8385-25ba2149ee9a}</Project>
-      <Name>ModelObjects</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AdaptableMapper\AdaptableMapper.csproj">
       <Project>{67899dec-ec73-4a4b-8e12-6915045573ce}</Project>
       <Name>AdaptableMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModelObjects\ModelObjects.csproj">
+      <Project>{590cb8ec-396d-4012-8385-25ba2149ee9a}</Project>
+      <Name>ModelObjects</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

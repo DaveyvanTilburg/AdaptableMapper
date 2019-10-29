@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using AdaptableObjects;
+using FluentAssertions;
 using System.Collections.Generic;
 using Xunit;
 
@@ -13,157 +14,152 @@ namespace AdaptableMapper.TDD
             Errors.ErrorObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
-            object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml"));
+            object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"));
 
             Root result = resultObject as Root;
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
-            errorObserver.GetErrors().Count.Should().Be(8);
+            errorObserver.GetErrors().Count.Should().Be(2);
 
-            result.Reservations.Count.Should().Be(2);
-            result.Reservations[0].Id.Should().Be("03a804fa");
-            result.Reservations[0].HotelCode.Should().Be("62818");
-            result.Reservations[1].Id.Should().Be("03a804fb");
-            result.Reservations[1].HotelCode.Should().Be("62818");
+            result.Leaders.Count.Should().Be(3);
+            result.Leaders[0].Reference.Should().Be("alpha-bravo-tango-delta");
+            result.Leaders[2].Name.Should().Be("John J. Pershing");
 
-            result.Reservations[0].RoomStays.Count.Should().Be(2);
-            result.Reservations[0].RoomStays[0].Code.Should().Be("6281801");
-            result.Reservations[0].RoomStays[0].GuestName.Should().Be("S*****");
-            result.Reservations[0].RoomStays[0].RateCode.Should().Be("65090");
-            result.Reservations[0].RoomStays[0].GuestId.Should().Be("1");
-            result.Reservations[0].RoomStays[0].Text.Should().BeEmpty();
-            result.Reservations[0].RoomStays[0].Name.Should().BeEmpty();
-            result.Reservations[0].RoomStays[1].Code.Should().Be("6281802");
-            result.Reservations[0].RoomStays[1].GuestName.Should().Be("D****");
-            result.Reservations[0].RoomStays[1].RateCode.Should().Be("65090");
-            result.Reservations[0].RoomStays[1].GuestId.Should().Be("2");
-
-            result.Reservations[0].Guests.Count.Should().Be(2);
-            result.Reservations[0].Guests[0].GivenName.Should().Be("S*****");
-            result.Reservations[0].Guests[0].Surname.Should().Be("K**************");
-            result.Reservations[0].Guests[0].GuestId.Should().Be("1");
-            result.Reservations[0].Guests[1].GivenName.Should().Be("D****");
-            result.Reservations[0].Guests[1].Surname.Should().Be("T**************");
-            result.Reservations[0].Guests[1].GuestId.Should().Be("2");
+            result.Armies.Count.Should().Be(2);
+            result.Armies[0].Code.Should().Be("naval");
+            result.Armies[1].Platoons.Count.Should().Be(2);
+            result.Armies[0].Platoons[0].Members.Count.Should().Be(1);
+            result.Armies[0].Platoons[0].Members[0].Name.Should().Be("FlagShip-Alpha");
+            result.Armies[1].Platoons[0].Members[1].CrewMembers[0].Name.Should().Be("John");
+            result.Armies[1].Platoons[1].LeaderReference.Should().Be("");
+            result.Armies[0].Platoons[1].LeaderReference.Should().Be("Ween");
         }
 
         public static MappingConfiguration GetMappingConfiguration()
         {
-            var roomStayGuestNameSearchMap = new Mapping(
-                new Xml.XmlGetSearch(
-                    "../../ResGuests/ResGuest[@ResGuestRPH='{{searchResult}}']/Profiles/ProfileInfo/Profile/Customer/PersonName/GivenName",
-                    "./ResGuestRPHs/ResGuestRPH/@RPH"
-                ),
-                new Model.ModelSetOnProperty("GuestName")
+            var crewMember = new Mapping(
+                new Xml.XmlGetThisValue(),
+                new Model.ModelSetValueOnProperty("Name")
             );
 
-            var roomStayTestObjectFail = new Mapping(
-                new Xml.XmlGet("./RoomTypes/RoomType/RoomDescription/Text"),
-                new Model.ModelSetOnProperty("Test")
-            );
-
-            var roomStayNameXPathFail = new Mapping(
-                new Xml.XmlGet("./RoomTypes/RoomType/RoomDescription/@Naem"),
-                new Model.ModelSetOnProperty("Name")
-            );
-
-            var roomStayGuestId = new Mapping(
-                new Xml.XmlGet("./ResGuestRPHs/ResGuestRPH/@RPH"),
-                new Model.ModelSetOnProperty("GuestId")
-            );
-
-            var roomStayCodeMap = new Mapping(
-                new Xml.XmlGet("./RoomTypes/RoomType/@RoomTypeCode"),
-                new Model.ModelSetOnProperty("Code")
-            );
-
-            var roomStayRateCodeMap = new Mapping(
-                new Xml.XmlGet("./RoomRates/RoomRate/@RatePlanCode"),
-                new Model.ModelSetOnProperty("RateCode")
-            );
-
-            var roomStayScope = new MappingScopeComposite(
+            var crewMemberScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
                 new List<Mapping>()
                 {
-                    roomStayGuestNameSearchMap,
-                    roomStayTestObjectFail,
-                    roomStayNameXPathFail,
-                    roomStayGuestId,
-                    roomStayCodeMap,
-                    roomStayRateCodeMap
+                    crewMember
                 },
-                new Xml.XmlGetScope("./RoomStays/RoomStay"),
+                new Xml.XmlGetScope("./crew/crewMember"),
                 new Model.ModelTraversalThis(),
-                new Model.ModelTraversalTemplate("RoomStays"),
+                new Model.ModelTraversalTemplate("CrewMembers"),
                 new Model.ModelChildCreator()
             );
 
-            var guestIdMap = new Mapping(
-                new Xml.XmlGet("./@ResGuestRPH"),
-                new Model.ModelSetOnProperty("GuestId")
+            var memberName = new Mapping(
+                new Xml.XmlGetValue("./@name"),
+                new Model.ModelSetValueOnProperty("Name")
             );
 
-            var guestGivenNameMap = new Mapping(
-                new Xml.XmlGet("./Profiles/ProfileInfo/Profile/Customer/PersonName/GivenName"),
-                new Model.ModelSetOnProperty("GivenName")
-            );
-
-            var guestSurNameMap = new Mapping(
-                new Xml.XmlGet("./Profiles/ProfileInfo/Profile/Customer/PersonName/Surname"),
-                new Model.ModelSetOnProperty("Surname")
-            );
-
-            var guestScope = new MappingScopeComposite(
-                new List<MappingScopeComposite>(),
-                new List<Mapping>()
-                {
-                    guestIdMap,
-                    guestGivenNameMap,
-                    guestSurNameMap
-                },
-                new Xml.XmlGetScope("./ResGuests/ResGuest"),
-                new Model.ModelTraversalThis(),
-                new Model.ModelTraversalTemplate("Guests"),
-                new Model.ModelChildCreator()
-            );
-
-            var reservationHotelCodeMap = new Mapping(
-                new Xml.XmlGet("./RoomStays/RoomStay/BasicPropertyInfo/@HotelCode"),
-                new Model.ModelSetOnProperty("HotelCode")
-            );
-
-            var reservationIdMap = new Mapping(
-                new Xml.XmlGet("./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type='18']/@ResID_Value"),
-                new Model.ModelSetOnProperty("Id")
-            );
-
-            var reservationScope = new MappingScopeComposite(
+            var memberScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>()
                 {
-                    roomStayScope,
-                    guestScope
+                    crewMemberScope
                 },
                 new List<Mapping>()
                 {
-                    reservationHotelCodeMap,
-                    reservationIdMap
+                    memberName
                 },
-                new Xml.XmlGetScope("//HotelReservations/HotelReservation"),
+                new Xml.XmlGetScope("./members/member"),
                 new Model.ModelTraversalThis(),
-                new Model.ModelTraversalTemplate("Reservations"),
+                new Model.ModelTraversalTemplate("Members"),
                 new Model.ModelChildCreator()
             );
 
-            System.Type testType = typeof(Root);
+            var platoonCode = new Mapping(
+                new Xml.XmlGetValue("./@code"),
+                new Model.ModelSetValueOnProperty("Code")
+            );
+
+            var leaderReference = new Mapping(
+                new Xml.XmlGetValue("./leaderReference"),
+                new Model.ModelSetValueOnProperty("LeaderReference")
+            );
+
+            var platoonScope = new MappingScopeComposite(
+                new List<MappingScopeComposite>()
+                {
+                    memberScope
+                },
+                new List<Mapping>()
+                {
+                    platoonCode,
+                    leaderReference
+                },
+                new Xml.XmlGetScope("./platoon"),
+                new Model.ModelTraversalThis(),
+                new Model.ModelTraversalTemplate("Platoons"),
+                new Model.ModelChildCreator()
+            );
+
+            var armyCode = new Mapping(
+                new Xml.XmlGetValue("./@code"),
+                new Model.ModelSetValueOnProperty("Code")
+            );
+
+            var armyScope = new MappingScopeComposite(
+                new List<MappingScopeComposite>()
+                {
+                    platoonScope
+                },
+                new List<Mapping>()
+                {
+                    armyCode
+                },
+                new Xml.XmlGetScope("./army"),
+                new Model.ModelTraversalThis(),
+                new Model.ModelTraversalTemplate("Armies"),
+                new Model.ModelChildCreator()
+            );
+
+            var reference = new Mapping(
+                new Xml.XmlGetValue("./@reference"),
+                new Model.ModelSetValueOnProperty("Reference")
+            );
+
+            var leaderName = new Mapping(
+                new Xml.XmlGetThisValue(),
+                new Model.ModelSetValueOnProperty("Name")
+            );
+
+            var leadersScope = new MappingScopeComposite(
+                new List<MappingScopeComposite>(),
+                new List<Mapping>()
+                {
+                    reference,
+                    leaderName
+                },
+                new Xml.XmlGetScope("./leaders/leader"),
+                new Model.ModelTraversalThis(),
+                new Model.ModelTraversalTemplate("Leaders"),
+                new Model.ModelChildCreator()
+            );
+
+            var rootScope = new MappingScopeRoot(
+                new List<MappingScopeComposite>()
+                {
+                    leadersScope,
+                    armyScope
+                }
+            );
+
+            var rootType = typeof(Root);
 
             var contextFactory = new Contexts.ContextFactory(
                 new Xml.XmlObjectConverter(),
-                new Model.ModelTargetInstantiator(testType.Assembly.FullName, testType.FullName)
+                new Model.ModelTargetInstantiator(rootType.Assembly.FullName, rootType.FullName)
             );
 
-            var mappingConfiguration = new MappingConfiguration(reservationScope, contextFactory, new NullObjectConverter());
+            var mappingConfiguration = new MappingConfiguration(rootScope, contextFactory, new NullObjectConverter());
 
             return mappingConfiguration;
         }
