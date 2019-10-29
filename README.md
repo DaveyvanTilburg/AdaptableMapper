@@ -1,6 +1,4 @@
-!! I don't know if this should be categorized as mapping or serialization... any thoughts?
-
-# XPathSerialization
+# AdaptableMapper
 
 A package for any to any mapping without hardcoding
 
