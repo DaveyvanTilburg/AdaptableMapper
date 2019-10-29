@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public sealed class XmlTraversalTemplate : TraversalTemplate
+    public sealed class XmlTraversalTemplate : TraversalToGetTemplate
     {
         public XmlTraversalTemplate(string path)
         {

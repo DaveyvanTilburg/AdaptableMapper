@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public sealed class XmlSet : SetTraversal
+    public sealed class XmlSet : SetValueTraversal
     {
         public XmlSet(string path)
         {

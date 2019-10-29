@@ -3,7 +3,7 @@ using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Memory
 {
-    public sealed class AdaptableSetOnProperty : SetTraversal
+    public sealed class AdaptableSetOnProperty : SetValueTraversal
     {
         public AdaptableSetOnProperty(string propertyName)
         {

@@ -1,6 +1,6 @@
 ﻿namespace AdaptableMapper.Traversals
 {
-    public interface GetTraversal
+    public interface GetValueTraversal
     {
         string GetValue(object source);
     }

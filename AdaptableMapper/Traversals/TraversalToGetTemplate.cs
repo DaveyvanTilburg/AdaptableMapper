@@ -1,6 +1,6 @@
 ﻿namespace AdaptableMapper.Traversals
 {
-    public interface TraversalTemplate
+    public interface TraversalToGetTemplate
     {
         object Traverse(object target);
     }

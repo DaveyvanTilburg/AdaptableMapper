@@ -1,6 +1,6 @@
-﻿namespace AdaptableMapper.Traversals
+﻿namespace AdaptableMapper
 {
-    public interface CreateNewChild
+    public interface ChildCreator
     {
         object CreateChildOn(object parent, object template);
     }

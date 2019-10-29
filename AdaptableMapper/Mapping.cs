@@ -5,12 +5,12 @@ namespace AdaptableMapper
 {
     public sealed class Mapping
     {
-        public GetTraversal GetTraversion { get; set; }
-        public SetTraversal SetTraversion { get; set; }
+        public GetValueTraversal GetTraversion { get; set; }
+        public SetValueTraversal SetTraversion { get; set; }
 
         public Mapping(
-            GetTraversal getTraversion, 
-            SetTraversal setTraversion)
+            GetValueTraversal getTraversion, 
+            SetValueTraversal setTraversion)
         {
             GetTraversion = getTraversion;
             SetTraversion = setTraversion;

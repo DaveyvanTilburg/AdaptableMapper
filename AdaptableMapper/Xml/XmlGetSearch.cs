@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public sealed class XmlGetSearch : GetTraversal
+    public sealed class XmlGetSearch : GetValueTraversal
     {
         public XmlGetSearch(string path, string searchPath)
         {

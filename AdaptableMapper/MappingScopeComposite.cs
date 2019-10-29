@@ -8,25 +8,27 @@ namespace AdaptableMapper
     {
         public List<MappingScopeComposite> Children { get; set; }
         public List<Mapping> Mappings { get; set; }
+
         public GetScopeTraversal GetScopeTraversion { get; set; }
         public Traversal TemplateParentTraversal { get; set; }
-        public TraversalTemplate TemplateTraversal { get; set; }
-        public CreateNewChild CreateNewChild { get; set; }
+        public TraversalToGetTemplate TemplateTraversal { get; set; }
+
+        public ChildCreator ChildCreator { get; set; }
 
         public MappingScopeComposite(
             List<MappingScopeComposite> children, 
             List<Mapping> mappings, 
             GetScopeTraversal getScopeTraversion, 
             Traversal templateParentTraversal, 
-            TraversalTemplate templateTraversal, 
-            CreateNewChild createNewChild)
+            TraversalToGetTemplate templateTraversal, 
+            ChildCreator childCreator)
         {
             Children = children;
             Mappings = mappings;
             GetScopeTraversion = getScopeTraversion;
             TemplateParentTraversal = templateParentTraversal;
             TemplateTraversal = templateTraversal;
-            CreateNewChild = createNewChild;
+            ChildCreator = childCreator;
         }
 
         internal void Traverse(Context context)
@@ -38,7 +40,7 @@ namespace AdaptableMapper
 
             foreach (object item in scope)
             {
-                object newChild = CreateNewChild.CreateChildOn(parent, template);
+                object newChild = ChildCreator.CreateChildOn(parent, template);
 
                 Context childContext = new Context(source:item, target:newChild);
                 TraverseChild(childContext);
