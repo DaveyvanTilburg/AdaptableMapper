@@ -24,8 +24,11 @@ namespace AdaptableMapper.Model
 
             var modelPathContainer = ModelPathContainer.CreateModelPath(Path);
 
+            //Todo Add NavigateToAllModels
             ModelBase pathTarget = model.NavigateToModel(modelPathContainer.CreatePathQueue());
             IList modelScope = pathTarget.GetListProperty(modelPathContainer.PropertyName);
+
+            //Todo concat navigate results
 
             return (IEnumerable<object>)modelScope;
         }

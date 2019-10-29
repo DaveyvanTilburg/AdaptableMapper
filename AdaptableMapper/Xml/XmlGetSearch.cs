@@ -33,10 +33,9 @@ namespace AdaptableMapper.Xml
                     Errors.ErrorObservable.GetInstance().Raise("SearchPath resulted in empty string");
                     return string.Empty;
                 }
-
             }
 
-            string actualPath = string.IsNullOrWhiteSpace(searchValue) ? Path : Path.Replace("{{searchResult}}", searchValue);
+            string actualPath = string.IsNullOrWhiteSpace(searchValue) ? Path : Path.Replace("{{searchValue}}", searchValue);
 
             IEnumerable<string> values = xElement.GetXPathValues(actualPath);
             if(!values.Any())

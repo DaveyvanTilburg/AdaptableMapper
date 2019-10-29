@@ -44,7 +44,7 @@ namespace AdaptableMapper.Model.Language
 
         private IList GetIListFromProperty(PropertyInfo propertyInfo, string propertyName)
         {
-            object property = propertyInfo.GetValue(this);
+            object property = propertyInfo?.GetValue(this);
 
             if (property == null)
                 Errors.ErrorObservable.GetInstance().Raise($"Property {propertyName} does not exist on {this.GetType().Name}");
@@ -101,7 +101,7 @@ namespace AdaptableMapper.Model.Language
         private IEnumerable<ModelBase> GetEnumerableProperty(string propertyName)
         {
             PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
-            object property = propertyInfo.GetValue(this);
+            object property = propertyInfo?.GetValue(this);
 
             if(property == null)
                 Errors.ErrorObservable.GetInstance().Raise($"Property {propertyName} does not exist on {this.GetType().Name}");

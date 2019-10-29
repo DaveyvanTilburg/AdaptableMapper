@@ -90,7 +90,7 @@ namespace AdaptableMapper.TDD
 
             var leaderNameSearch = new Mapping(
                 new Xml.XmlGetSearch(
-                    "../../leaders/leader[@reference='{{searchResult}}']",
+                    "../../leaders/leader[@reference='{{searchValue}}']",
                     "./leaderReference"
                 ),
                 new Xml.XmlSetValue("./leaderName")

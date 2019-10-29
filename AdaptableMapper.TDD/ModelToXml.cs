@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Xunit;
 using AdaptableMapper.Model.Language;
+using AdaptableObjects;
 
 namespace AdaptableMapper.TDD
 {
@@ -21,202 +22,263 @@ namespace AdaptableMapper.TDD
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
-            string expectedResult = System.IO.File.ReadAllText(@".\Resources\ExpectedSandboxResult.xml");
+            string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_Expected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
-            errorObserver.GetErrors().Count.Should().Be(12);
+            errorObserver.GetErrors().Count.Should().Be(0);
 
             result.Should().BeEquivalentTo(xExpectedResult);
         }
 
         private Root GetSource()
         {
-            var reservation1roomstay1 = new RoomStay()
-            {
-                Code = "6281801",
-                GuestId = "1",
-                GuestName = "S*****",
-                RateCode = "65090",
-                Name = "",
-                Text = ""
-            };
-            var reservation1roomstay2 = new RoomStay()
-            {
-                Code = "6281802",
-                GuestId = "2",
-                GuestName = "D****",
-                RateCode = "65090",
-                Name = "",
-                Text = ""
-            };
+            var leader1 = new Leader() { Name = "Christopher columbus", Reference = "alpha-bravo-tango-delta" };
+            var leader2 = new Leader() { Name = "Ocean man", Reference = "Ween" };
+            var leader3 = new Leader() { Name = "John J. Pershing", Reference = "Pershing" };
 
-            var reservation1guest1 = new Guest()
-            {
-                GuestId = "1",
-                GivenName = "S*****",
-                Surname = "K**************"
-            };
-
-            var reservation1guest2 = new Guest()
-            {
-                GuestId = "2",
-                GivenName = "D****",
-                Surname = "T**************"
-            };
-
-            var reservation1 = new Reservation()
-            {
-                Id = "03a804fa",
-                HotelCode = "62818",
-                RoomStays = new List<RoomStay>()
-                {
-                    reservation1roomstay1,
-                    reservation1roomstay2
-                },
-                Guests = new List<Guest>()
-                {
-                    reservation1guest1,
-                    reservation1guest2
-                }
-            };
-
-            reservation1roomstay1.Parent = reservation1;
-            reservation1roomstay2.Parent = reservation1;
-            reservation1guest1.Parent = reservation1;
-            reservation1guest2.Parent = reservation1;
-
-            var reservation2roomstay1 = new RoomStay()
-            {
-                Code = "6281801",
-                GuestId = "1",
-                GuestName = "S*****",
-                RateCode = "65090",
-                Name = "",
-                Text = ""
-            };
-            var reservation2roomstay2 = new RoomStay()
-            {
-                Code = "6281801",
-                GuestId = "1",
-                GuestName = "S*****",
-                RateCode = "65090",
-                Name = "",
-                Text = ""
-            };
-
-            var reservation2guest1 = new Guest()
-            {
-                GuestId = "1",
-                GivenName = "S*****",
-                Surname = "K**************"
-            };
-
-            var reservation2 = new Reservation()
-            {
-                Id = "03a804fb",
-                HotelCode = "62818",
-                RoomStays = new List<RoomStay>()
-                {
-                    reservation2roomstay1,
-                    reservation2roomstay2
-                },
-                Guests = new List<Guest>()
-                {
-                    reservation2guest1
-                }
-            };
-
-            reservation2roomstay1.Parent = reservation2;
-            reservation2roomstay2.Parent = reservation2;
-            reservation2guest1.Parent = reservation2;
+            Army army1 = CreateArmy1();
+            Army army2 = CreateArmy2();
 
             var root = new Root()
             {
-                Reservations = new List<Reservation>()
+                Armies = new List<Army>()
                 {
-                    reservation1,
-                    reservation2
+                    army1,
+                    army2
+                },
+                Leaders = new List<Leader>()
+                {
+                    leader1,
+                    leader2,
+                    leader3
                 }
             };
-
-            reservation1.Parent = root;
-            reservation2.Parent = root;
+            army1.Parent = root;
+            leader1.Parent = root;
+            leader2.Parent = root;
+            leader3.Parent = root;
 
             return root;
         }
 
+        private static Army CreateArmy1()
+        {
+            var army1platoon2member1crewMmeber1 = new CrewMember() { Name = "Natasha" };
+            var army1platoon2member1crewMmeber2 = new CrewMember() { Name = "Yuri" };
+
+            var army1platoon2member1 = new Member()
+            {
+                Name = "Sub-Zero",
+                CrewMembers = new List<CrewMember>()
+                {
+                    army1platoon2member1crewMmeber1,
+                    army1platoon2member1crewMmeber2
+                }
+            };
+            army1platoon2member1crewMmeber1.Parent = army1platoon2member1;
+            army1platoon2member1crewMmeber2.Parent = army1platoon2member1;
+
+
+            var army1platoon2 = new Platoon()
+            {
+                Members = new List<Member>()
+                {
+                    army1platoon2member1
+                },
+                Code = "clean-floors",
+                LeaderReference = "Ween"
+            };
+            army1platoon2member1.Parent = army1platoon2;
+
+            var army1platoon1member1crewMmeber1 = new CrewMember() { Name = "John" };
+            var army1platoon1member1crewMmeber2 = new CrewMember() { Name = "Jane" };
+
+            var army1platoon1member1 = new Member()
+            {
+                Name = "FlagShip-Alpha",
+                CrewMembers = new List<CrewMember>()
+                {
+                    army1platoon1member1crewMmeber1,
+                    army1platoon1member1crewMmeber2
+                }
+            };
+            army1platoon1member1crewMmeber1.Parent = army1platoon1member1;
+            army1platoon1member1crewMmeber2.Parent = army1platoon1member1;
+
+
+            var army1platoon1 = new Platoon()
+            {
+                Members = new List<Member>()
+                {
+                    army1platoon1member1
+                },
+                Code = "black-sky",
+                LeaderReference = "alpha-bravo-tango-delta"
+            };
+            army1platoon1member1.Parent = army1platoon1;
+
+            var army1 = new Army()
+            {
+                Code = "navel",
+                Platoons = new List<Platoon>()
+                {
+                    army1platoon1,
+                    army1platoon2
+                }
+            };
+            army1platoon1.Parent = army1;
+            army1platoon2.Parent = army1;
+            return army1;
+        }
+
+        private static Army CreateArmy2()
+        {
+            var army1platoon2member1 = new Member()
+            {
+                Name = "Pharah",
+                CrewMembers = new List<CrewMember>()
+            };
+
+            var army2platoon2 = new Platoon()
+            {
+                Members = new List<Member>()
+                {
+                    army1platoon2member1
+                },
+                Code = "air-soldier",
+                LeaderReference = ""
+            };
+            army1platoon2member1.Parent = army2platoon2;
+
+            var army2platoon1member2crewMmeber1 = new CrewMember() { Name = "John" };
+
+            var army2platoon1member2 = new Member()
+            {
+                Name = "Boeing B-17",
+                CrewMembers = new List<CrewMember>()
+                {
+                    army2platoon1member2crewMmeber1
+                }
+            };
+
+            var army2platoon1member1crewMmeber1 = new CrewMember() { Name = "Hans" };
+
+            var army2platoon1member1 = new Member()
+            {
+                Name = "Messerschmitt Bf 109",
+                CrewMembers = new List<CrewMember>()
+                {
+                    army2platoon1member1crewMmeber1
+                }
+            };
+            army2platoon1member1crewMmeber1.Parent = army2platoon1member1;
+
+
+            var army2platoon1 = new Platoon()
+            {
+                Members = new List<Member>()
+                {
+                    army2platoon1member1,
+                    army2platoon1member2
+                },
+                Code = "death-rains-from-above",
+                LeaderReference = "Pershing"
+            };
+            army2platoon1member1.Parent = army2platoon1;
+
+            var army2 = new Army()
+            {
+                Code = "thunder-struck",
+                Platoons = new List<Platoon>()
+                {
+                    army2platoon1,
+                    army2platoon2
+                }
+            };
+            army2platoon1.Parent = army2;
+            army2platoon2.Parent = army2;
+            return army2;
+        }
+
         private MappingConfiguration GetFakedMappingConfiguration()
         {
-            var roomGuestLastNameSearch = new Mapping(
-                new Model.ModelGetSearch(
-                    "../Guests{'PropertyName':'GuestId','Value':'{{searchResult}}'}/Surname",
-                    "GuestId"
-                ),
-                new Xml.XmlSet("./RoomTypes/RoomType/RoomDescription/@GuestLastName")
+            var memberName = new Mapping(
+                new Model.ModelGetValue("Name"),
+                new Xml.XmlSetThisValue()
             );
 
-            var roomStayTestObjectFail = new Mapping(
-                new Model.ModelGet("Test"),
-                new Xml.XmlSet("./RoomTypes/RoomType/RoomDescription/Text")
-            );
-
-            var roomStayNameXPathFail = new Mapping(
-                new Model.ModelGet("Name"),
-                new Xml.XmlSet("./RoomTypes/RoomType/RoomDescription/@Naem")
-            );
-
-            var roomStayCodeMap = new Mapping(
-                new Model.ModelGet("Code"),
-                new Xml.XmlSet("./RoomTypes/RoomType/@RoomTypeCode")
-            );
-
-            var roomStayScope = new MappingScopeComposite(
+            var memberScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
                 new List<Mapping>()
                 {
-                    roomGuestLastNameSearch,
-                    roomStayTestObjectFail,
-                    roomStayNameXPathFail,
-                    roomStayCodeMap
+                    memberName
                 },
-                new Model.ModelGetScope("RoomStays"),
-                new Xml.XmlTraversal("./RoomStays"),
-                new Xml.XmlTraversalTemplate("./RoomStay"),
+                new Model.ModelGetScope("Members"),
+                new Xml.XmlTraversal("./memberNames"),
+                new Xml.XmlTraversalTemplate("./memberName"),
                 new Xml.XmlChildCreator()
             );
 
-            var reservationHotelCodeMap = new Mapping(
-                new Model.ModelGet("HotelCode"),
-                new Xml.XmlSet("./ResGlobalInfo/BasicPropertyInfo/@HotelCode")
+            var platoonCode = new Mapping(
+                new Model.ModelGetValue("Code"),
+                new Xml.XmlSetValue("./@code")
             );
 
-            var reservationIdMap = new Mapping(
-                new Model.ModelGet("Id"),
-                new Xml.XmlSet("./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type='5']/@ResID_Value")
+            var leaderName = new Mapping(
+                new Model.ModelGetSearch(
+                    "../../Leaders{'PropertyName':'Reference','Value':'{{searchValue}}'}/Name",
+                    "LeaderReference"
+                ),
+                new Xml.XmlSetValue("./leaderName")
             );
 
-            var reservationScope = new MappingScopeComposite(
+            var platoonScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>()
                 {
-                    roomStayScope
+                    memberScope
                 },
                 new List<Mapping>()
                 {
-                    reservationIdMap,
-                    reservationHotelCodeMap
+                    platoonCode,
+                    leaderName
                 },
-                new Model.ModelGetScope("Reservations"),
-                new Xml.XmlTraversal("./ReservationsList"),
-                new Xml.XmlTraversalTemplate("//HotelReservation"),
+                new Model.ModelGetScope("Armies/Platoons"),
+                new Xml.XmlTraversal("./platoons"),
+                new Xml.XmlTraversalTemplate("./platoon"),
                 new Xml.XmlChildCreator()
+            );
+
+            var crewMemberName = new Mapping(
+                new Model.ModelGetValue("Name"),
+                new Xml.XmlSetThisValue()
+            );
+
+            var crewMemberNamesScope = new MappingScopeComposite(
+                new List<MappingScopeComposite>(),
+                new List<Mapping>()
+                {
+                    crewMemberName,
+                },
+                new Model.ModelGetScope("Armies/Platoons/Members/CrewMembers"),
+                new Xml.XmlTraversal("./crewMemberNames"),
+                new Xml.XmlTraversalTemplate("./crewMemberName"),
+                new Xml.XmlChildCreator()
+            );
+
+            var rootScope = new MappingScopeRoot(
+                new List<MappingScopeComposite>()
+                {
+                    crewMemberNamesScope,
+                    platoonScope
+                }
             );
 
             var contextFactory = new Contexts.ContextFactory(
                 new Model.ModelObjectConverter(),
-                new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\SandboxTemplate.xml"))
+                new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\XmlTarget_Template.xml"))
             );
 
-            var mappingConfiguration = new MappingConfiguration(reservationScope, contextFactory, new NullObjectConverter());
+            var mappingConfiguration = new MappingConfiguration(rootScope, contextFactory, new NullObjectConverter());
 
             return mappingConfiguration;
         }
