@@ -1,19 +1,9 @@
-﻿using AdaptableMapper.Contexts;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace AdaptableMapper
 {
     public static class Mapper
     {
-        public static object Map(MappingConfiguration mappingConfiguration, object source)
-        {
-            Context context = mappingConfiguration.ContextFactory.Create(source);
-
-            mappingConfiguration.ScopeTraversalComposite.Traverse(context);
-
-            return context.Target;
-        }
-
         public static string GetMemento(MappingConfiguration mappingConfiguration)
         {
             Formatting indented = Formatting.Indented;

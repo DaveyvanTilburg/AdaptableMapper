@@ -8,10 +8,20 @@ namespace AdaptableMapper
         public ContextFactory ContextFactory { get; set; }
         public ObjectConverter ResultConverter { get; set; }
 
-        public MappingConfiguration(MappingScopeComposite scopeTraversalComposite, ContextFactory contextFactory)
+        public MappingConfiguration(MappingScopeComposite scopeTraversalComposite, ContextFactory contextFactory, ObjectConverter resultConverter)
         {
             ScopeTraversalComposite = scopeTraversalComposite;
             ContextFactory = contextFactory;
+            ResultConverter = resultConverter;
+        }
+
+        public object Map(object source)
+        {
+            Context context = ContextFactory.Create(source);
+            ScopeTraversalComposite.Traverse(context);
+
+            object result = ResultConverter.Convert(context.Target);
+            return result;
         }
     }
 }

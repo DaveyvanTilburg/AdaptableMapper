@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexts\ContextFactory.cs" />
-    <Compile Include="Contexts\ObjectConverter.cs" />
+    <Compile Include="Model\ModelToStringObjectConverter.cs" />
+    <Compile Include="NullObjectConverter.cs" />
+    <Compile Include="ObjectConverter.cs" />
     <Compile Include="Contexts\TargetInstantiator.cs" />
     <Compile Include="MappingConfiguration.cs" />
     <Compile Include="Model\ModelObjectConverter.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Xml\XmlObjectConverter.cs" />
     <Compile Include="Xml\XmlSet.cs" />
     <Compile Include="Xml\XmlTargetInstantiator.cs" />
+    <Compile Include="Xml\XElementToStringObjectConverter.cs" />
     <Compile Include="Xml\XmlTraversal.cs" />
     <Compile Include="Model\TypeExtensions.cs" />
     <Compile Include="Xml\XElementExtensions.cs" />

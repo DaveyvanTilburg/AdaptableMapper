@@ -1,4 +1,4 @@
-﻿namespace AdaptableMapper.Contexts
+﻿namespace AdaptableMapper
 {
     public interface ObjectConverter
     {

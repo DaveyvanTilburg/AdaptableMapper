@@ -216,7 +216,7 @@ namespace AdaptableMapper.TDD
                 new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\SandboxTemplate.xml"))
             );
 
-            var mappingConfiguration = new MappingConfiguration(reservationScope, contextFactory);
+            var mappingConfiguration = new MappingConfiguration(reservationScope, contextFactory, new NullObjectConverter());
 
             return mappingConfiguration;
         }

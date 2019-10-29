@@ -27,6 +27,26 @@ namespace AdaptableMapper.TDD
             result.Should().BeEquivalentTo(xExpectedResult);
         }
 
+        [Fact]
+        public void XmlTestIfResultIsString()
+        {
+            var errorObserver = new TestErrorObserver();
+            Errors.ErrorObservable.GetInstance().Register(errorObserver);
+
+            MappingConfiguration mappingConfiguration = GetMappingConfiguration();
+            mappingConfiguration.ResultConverter = new Xml.XElementToStringObjectConverter();
+
+            object result = Mapper.Map(mappingConfiguration, System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml"));
+
+            Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
+
+            XElement resultXElement = result as XElement;
+            resultXElement.Should().BeNull();
+
+            string resultString = result as string;
+            resultString.Should().NotBeNull();
+        }
+
         private static MappingConfiguration GetMappingConfiguration()
         {
             var roomStayGuestNameSearchMap = new Mapping(
@@ -86,7 +106,7 @@ namespace AdaptableMapper.TDD
                 new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\SandboxTemplate.xml"))
             );
 
-            var mappingConfiguration = new MappingConfiguration(reservationScope, contextFactory);
+            var mappingConfiguration = new MappingConfiguration(reservationScope, contextFactory, new NullObjectConverter());
 
             return mappingConfiguration;
         }

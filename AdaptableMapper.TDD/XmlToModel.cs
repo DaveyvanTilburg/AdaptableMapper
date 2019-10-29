@@ -163,7 +163,7 @@ namespace AdaptableMapper.TDD
                 new Memory.ModelTargetInstantiator(testType.Assembly.FullName, testType.FullName)
             );
 
-            var mappingConfiguration = new MappingConfiguration(reservationScope, contextFactory);
+            var mappingConfiguration = new MappingConfiguration(reservationScope, contextFactory, new NullObjectConverter());
 
             return mappingConfiguration;
         }
