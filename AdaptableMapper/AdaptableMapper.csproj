@@ -55,7 +55,7 @@
     <Compile Include="Errors\ErrorObservable.Singleton.cs" />
     <Compile Include="Errors\ErrorObservable.cs" />
     <Compile Include="Errors\ErrorObserver.cs" />
-    <Compile Include="Memory\AdaptableCreateNewChild.cs" />
+    <Compile Include="Memory\AdaptableChildCreator.cs" />
     <Compile Include="Memory\AdaptableGet.cs" />
     <Compile Include="Memory\AdaptableGetSearch.cs" />
     <Compile Include="Memory\AdaptableGetScope.cs" />
@@ -72,7 +72,7 @@
     <Compile Include="Traversals\SetValueTraversal.cs" />
     <Compile Include="Traversals\Traversal.cs" />
     <Compile Include="Traversals\TraversalToGetTemplate.cs" />
-    <Compile Include="Xml\XmlCreateNewChild.cs" />
+    <Compile Include="Xml\XmlChildCreator.cs" />
     <Compile Include="Xml\XmlGet.cs" />
     <Compile Include="Xml\XmlGetScope.cs" />
     <Compile Include="Xml\XmlGetSearch.cs" />

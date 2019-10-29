@@ -98,7 +98,7 @@ namespace AdaptableMapper.TDD
                 new Xml.XmlGetScope("./RoomStays/RoomStay"),
                 new Memory.AdaptableTraversalThis(),
                 new Memory.AdaptableTraversalTemplate("RoomStays"),
-                new Memory.AdaptableCreateNewChild()
+                new Memory.AdaptableChildCreator()
             );
 
             var guestIdMap = new Mapping(
@@ -127,7 +127,7 @@ namespace AdaptableMapper.TDD
                 new Xml.XmlGetScope("./ResGuests/ResGuest"),
                 new Memory.AdaptableTraversalThis(),
                 new Memory.AdaptableTraversalTemplate("Guests"),
-                new Memory.AdaptableCreateNewChild()
+                new Memory.AdaptableChildCreator()
             );
 
             var reservationHotelCodeMap = new Mapping(
@@ -154,7 +154,7 @@ namespace AdaptableMapper.TDD
                 new Xml.XmlGetScope("//HotelReservations/HotelReservation"),
                 new Memory.AdaptableTraversalThis(),
                 new Memory.AdaptableTraversalTemplate("Reservations"),
-                new Memory.AdaptableCreateNewChild()
+                new Memory.AdaptableChildCreator()
             );
 
             System.Type testType = typeof(Root);

@@ -53,7 +53,7 @@ namespace AdaptableMapper.TDD
                 new Xml.XmlGetScope("./RoomStays/RoomStay"),
                 new Xml.XmlTraversal("./RoomStays"),
                 new Xml.XmlTraversalTemplate("./RoomStay"),
-                new Xml.XmlCreateNewChild()
+                new Xml.XmlChildCreator()
             );
 
             var reservationHotelCodeMap = new Mapping(
@@ -79,7 +79,7 @@ namespace AdaptableMapper.TDD
                 new Xml.XmlGetScope("//HotelReservations/HotelReservation"),
                 new Xml.XmlTraversal("./ReservationsList"),
                 new Xml.XmlTraversalTemplate("//HotelReservation"),
-                new Xml.XmlCreateNewChild()
+                new Xml.XmlChildCreator()
             );
 
             var contextFactory = new Contexts.ContextFactory(
