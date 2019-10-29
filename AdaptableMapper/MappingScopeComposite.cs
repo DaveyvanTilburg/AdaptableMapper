@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AdaptableMapper
 {
-    public sealed class MappingScopeComposite
+    public sealed class MappingScopeComposite : MappingScope
     {
         public List<MappingScopeComposite> Children { get; set; }
         public List<Mapping> Mappings { get; set; }
@@ -31,7 +31,7 @@ namespace AdaptableMapper
             ChildCreator = childCreator;
         }
 
-        internal void Traverse(Context context)
+        public void Traverse(Context context)
         {
             IEnumerable<object> scope = GetScopeTraversion.GetScope(context.Source);
 

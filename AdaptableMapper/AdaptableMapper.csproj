@@ -42,13 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexts\ContextFactory.cs" />
+    <Compile Include="MappingScopeRoot.cs" />
     <Compile Include="Model\ModelToStringObjectConverter.cs" />
     <Compile Include="NullObjectConverter.cs" />
     <Compile Include="ObjectConverter.cs" />
     <Compile Include="Contexts\TargetInstantiator.cs" />
     <Compile Include="MappingConfiguration.cs" />
     <Compile Include="Model\ModelObjectConverter.cs" />
-    <Compile Include="Model\ModelSetOnProperty.cs" />
+    <Compile Include="Model\ModelSetValueOnProperty.cs" />
     <Compile Include="Model\ModelTargetInstantiator.cs" />
     <Compile Include="Model\ModelTraversalThis.cs" />
     <Compile Include="Model\Language\ModelBase.cs" />
@@ -58,10 +59,10 @@
     <Compile Include="Errors\ErrorObservable.cs" />
     <Compile Include="Errors\ErrorObserver.cs" />
     <Compile Include="Model\ModelChildCreator.cs" />
-    <Compile Include="Model\ModelGet.cs" />
+    <Compile Include="Model\ModelGetValue.cs" />
     <Compile Include="Model\ModelGetSearch.cs" />
     <Compile Include="Model\ModelGetScope.cs" />
-    <Compile Include="Model\ModelSetOnPath.cs" />
+    <Compile Include="Model\ModelSetValueOnPath.cs" />
     <Compile Include="Model\ModelTraversal.cs" />
     <Compile Include="Model\ModelTraversalTemplate.cs" />
     <Compile Include="Contexts\Context.cs" />
@@ -74,14 +75,17 @@
     <Compile Include="Traversals\SetValueTraversal.cs" />
     <Compile Include="Traversals\Traversal.cs" />
     <Compile Include="Traversals\TraversalToGetTemplate.cs" />
+    <Compile Include="MappingScope.cs" />
     <Compile Include="Xml\XmlChildCreator.cs" />
-    <Compile Include="Xml\XmlGet.cs" />
+    <Compile Include="Xml\XmlGetValue.cs" />
     <Compile Include="Xml\XmlGetScope.cs" />
     <Compile Include="Xml\XmlGetSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\StringExtensions.cs" />
+    <Compile Include="Xml\XmlGetThisValue.cs" />
     <Compile Include="Xml\XmlObjectConverter.cs" />
-    <Compile Include="Xml\XmlSet.cs" />
+    <Compile Include="Xml\XmlSetValue.cs" />
+    <Compile Include="Xml\XmlSetThisValue.cs" />
     <Compile Include="Xml\XmlTargetInstantiator.cs" />
     <Compile Include="Xml\XElementToStringObjectConverter.cs" />
     <Compile Include="Xml\XmlTraversal.cs" />

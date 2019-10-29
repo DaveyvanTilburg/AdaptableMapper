@@ -1,6 +1,6 @@
 ﻿namespace AdaptableMapper.Contexts
 {
-    internal sealed class Context
+    public sealed class Context
     {
         public object Source { get; set; }
         public object Target { get; set; }

@@ -3,27 +3,29 @@ using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Model
 {
-    public sealed class ModelSetOnPath : SetValueTraversal
+    public sealed class ModelGetValue : GetValueTraversal
     {
-        public ModelSetOnPath(string path)
+        public ModelGetValue(string path)
         {
             Path = path;
         }
 
         public string Path { get; set; }
 
-        public void SetValue(object target, string value)
+        public string GetValue(object source)
         {
-            if (!(target is ModelBase model))
+            if(!(source is ModelBase model))
             {
                 Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
-                return;
+                return string.Empty;
             }
 
             var modelPathContainer = ModelPathContainer.CreateModelPath(Path);
-            ModelBase pathTarget = model.GetOrCreateModel(modelPathContainer.CreatePathQueue());
 
-            pathTarget.SetValue(modelPathContainer.PropertyName, value);
+            ModelBase pathTarget = model.NavigateToModel(modelPathContainer.CreatePathQueue());
+            string value = pathTarget.GetValue(modelPathContainer.PropertyName);
+
+            return value;
         }
     }
 }

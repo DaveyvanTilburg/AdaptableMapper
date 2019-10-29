@@ -26,7 +26,15 @@ namespace AdaptableMapper.Xml
 
             string searchValue = null;
             if (!string.IsNullOrWhiteSpace(SearchPath))
-                searchValue = xElement.GetXPathValues(SearchPath).First();
+            {
+                searchValue = xElement.GetXPathValues(SearchPath).FirstOrDefault();
+                if (string.IsNullOrWhiteSpace(searchValue))
+                {
+                    Errors.ErrorObservable.GetInstance().Raise("SearchPath resulted in empty string");
+                    return string.Empty;
+                }
+
+            }
 
             string actualPath = string.IsNullOrWhiteSpace(searchValue) ? Path : Path.Replace("{{searchResult}}", searchValue);
 
@@ -37,7 +45,7 @@ namespace AdaptableMapper.Xml
                 return string.Empty;
             }
 
-            string value = values.First();
+            string value = values.FirstOrDefault();
             return value;
         }
     }

@@ -3,9 +3,9 @@ using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Model
 {
-    public sealed class ModelSetOnProperty : SetValueTraversal
+    public sealed class ModelSetValueOnProperty : SetValueTraversal
     {
-        public ModelSetOnProperty(string propertyName)
+        public ModelSetValueOnProperty(string propertyName)
         {
             PropertyName = propertyName;
         }

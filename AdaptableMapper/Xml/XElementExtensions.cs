@@ -31,7 +31,7 @@ namespace AdaptableMapper.Xml
             if(allMatches.Count > 1)
                 Errors.ErrorObservable.GetInstance().Raise($"Path has multiple of the same node, when only one is expected : {xPath}");
 
-            return allMatches?.First() ?? new XElement(string.Empty);
+            return allMatches.FirstOrDefault() ?? new XElement(string.Empty);
         }
 
         public static IEnumerable<string> GetXPathValues(this XElement xElement, string xPath)

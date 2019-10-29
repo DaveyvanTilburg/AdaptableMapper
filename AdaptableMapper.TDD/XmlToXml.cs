@@ -15,14 +15,14 @@ namespace AdaptableMapper.TDD
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
 
-            XElement result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml")) as XElement;
+            XElement result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml")) as XElement;
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
-            string expectedResult = System.IO.File.ReadAllText(@".\Resources\ExpectedSandboxResult.xml");
+            string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_Expected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
-            errorObserver.GetErrors().Count.Should().Be(0);
+            errorObserver.GetErrors().Count.Should().Be(2);
 
             result.Should().BeEquivalentTo(xExpectedResult);
         }
@@ -36,7 +36,7 @@ namespace AdaptableMapper.TDD
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
             mappingConfiguration.ResultConverter = new Xml.XElementToStringObjectConverter();
 
-            object result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml"));
+            object result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"));
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
@@ -49,64 +49,83 @@ namespace AdaptableMapper.TDD
 
         private static MappingConfiguration GetMappingConfiguration()
         {
-            var roomStayGuestNameSearchMap = new Mapping(
-                new Xml.XmlGetSearch(
-                    "../../ResGuests/ResGuest[@ResGuestRPH='{{searchResult}}']/Profiles/ProfileInfo/Profile/Customer/PersonName/Surname",
-                    "./ResGuestRPHs/ResGuestRPH/@RPH"
-                ),
-                new Xml.XmlSet("./RoomTypes/RoomType/RoomDescription/@GuestLastName")
+            var crewMemberName = new Mapping(
+                new Xml.XmlGetThisValue(),
+                new Xml.XmlSetThisValue()
             );
 
-            var roomStayCodeMap = new Mapping(
-                new Xml.XmlGet("./RoomTypes/RoomType/@RoomTypeCode"),
-                new Xml.XmlSet("./RoomTypes/RoomType/@RoomTypeCode")
-            );
-
-            var roomStayScope = new MappingScopeComposite(
+            var crewScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
                 new List<Mapping>()
                 {
-                    roomStayGuestNameSearchMap,
-                    roomStayCodeMap
+                    crewMemberName
                 },
-                new Xml.XmlGetScope("./RoomStays/RoomStay"),
-                new Xml.XmlTraversal("./RoomStays"),
-                new Xml.XmlTraversalTemplate("./RoomStay"),
+                new Xml.XmlGetScope("./army/platoon/members/member/crew/crewMember"),
+                new Xml.XmlTraversal("./crewMemberNames"),
+                new Xml.XmlTraversalTemplate("./crewMemberName"),
                 new Xml.XmlChildCreator()
             );
 
-            var reservationHotelCodeMap = new Mapping(
-                new Xml.XmlGet("./RoomStays/RoomStay/BasicPropertyInfo/@HotelCode"),
-                new Xml.XmlSet("./ResGlobalInfo/BasicPropertyInfo/@HotelCode")
+            var memberName = new Mapping(
+                new Xml.XmlGetValue("./@name"),
+                new Xml.XmlSetThisValue()
             );
 
-            var reservationIdMap = new Mapping(
-                new Xml.XmlGet("./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type='18']/@ResID_Value"),
-                new Xml.XmlSet("./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type='5']/@ResID_Value")
+            var memberScope = new MappingScopeComposite(
+                new List<MappingScopeComposite>(),
+                new List<Mapping>()
+                {
+                    memberName
+                },
+                new Xml.XmlGetScope("./members/member"),
+                new Xml.XmlTraversal("./memberNames"),
+                new Xml.XmlTraversalTemplate("./memberName"),
+                new Xml.XmlChildCreator()
             );
 
-            var reservationScope = new MappingScopeComposite(
+            var platoonCode = new Mapping(
+                new Xml.XmlGetValue("./@code"),
+                new Xml.XmlSetValue("./@code")
+            );
+
+            var leaderNameSearch = new Mapping(
+                new Xml.XmlGetSearch(
+                    "../../leaders/leader[@reference='{{searchResult}}']",
+                    "./leaderReference"
+                ),
+                new Xml.XmlSetValue("./leaderName")
+            );
+
+            var platoonScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>()
                 {
-                    roomStayScope
+                    memberScope
                 },
                 new List<Mapping>()
                 {
-                    reservationHotelCodeMap,
-                    reservationIdMap
+                    platoonCode,
+                    leaderNameSearch
                 },
-                new Xml.XmlGetScope("//HotelReservations/HotelReservation"),
-                new Xml.XmlTraversal("./ReservationsList"),
-                new Xml.XmlTraversalTemplate("//HotelReservation"),
+                new Xml.XmlGetScope("./army/platoon"),
+                new Xml.XmlTraversal("./platoons"),
+                new Xml.XmlTraversalTemplate("./platoon"),
                 new Xml.XmlChildCreator()
+            );
+
+            var stolenIntelScope = new MappingScopeRoot(
+                new List<MappingScopeComposite>()
+                {
+                    crewScope,
+                    platoonScope
+                }
             );
 
             var contextFactory = new Contexts.ContextFactory(
                 new Xml.XmlObjectConverter(),
-                new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\SandboxTemplate.xml"))
+                new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\XmlTarget_Template.xml"))
             );
 
-            var mappingConfiguration = new MappingConfiguration(reservationScope, contextFactory, new NullObjectConverter());
+            var mappingConfiguration = new MappingConfiguration(stolenIntelScope, contextFactory, new NullObjectConverter());
 
             return mappingConfiguration;
         }

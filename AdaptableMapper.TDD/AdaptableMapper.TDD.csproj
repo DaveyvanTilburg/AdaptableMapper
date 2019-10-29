@@ -41,10 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationSaveAndLoad.cs" />
     <Compile Include="TestErrorObserver.cs" />
-    <Compile Include="XmlToModel.cs" />
-    <Compile Include="ModelToXml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlToXml.cs" />
   </ItemGroup>
@@ -62,13 +59,13 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\BOO_Reservation.xml">
+    <Content Include="Resources\XmlSource_ArmyComposition.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\ExpectedSandboxResult.xml">
+    <Content Include="Resources\XmlTarget_Expected.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\SandboxTemplate.xml">
+    <Content Include="Resources\XmlTarget_Template.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<stolen_intel>
+  <crewMemberNames>
+    <crewMemberName>John</crewMemberName>
+    <crewMemberName>Jane</crewMemberName>
+    <crewMemberName>Natasha</crewMemberName>
+    <crewMemberName>Yuri</crewMemberName>
+    <crewMemberName>Hans</crewMemberName>
+    <crewMemberName>John</crewMemberName>
+  </crewMemberNames>
+  <platoons>
+    <platoon code="black-sky">
+      <memberNames>
+        <memberName>FlagShip-Alpha</memberName>
+      </memberNames>
+      <leaderName>Christopher columbus</leaderName>
+    </platoon>
+    <platoon code="clean-floors">
+      <memberNames>
+        <memberName>Sub-Zero</memberName>
+      </memberNames>
+      <leaderName>Ocean man</leaderName>
+    </platoon>
+    <platoon code="death-rains-from-above">
+      <memberNames>
+        <memberName>Messerschmitt Bf 109</memberName>
+        <memberName>Boeing B-17</memberName>
+      </memberNames>
+      <leaderName>John J. Pershing</leaderName>
+    </platoon>
+    <platoon code="air-soldier">
+      <memberNames>
+        <memberName>Pharah</memberName>
+      </memberNames>
+      <leaderName></leaderName>
+    </platoon>
+  </platoons>
+</stolen_intel>

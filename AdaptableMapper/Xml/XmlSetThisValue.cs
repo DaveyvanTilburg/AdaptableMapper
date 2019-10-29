@@ -3,15 +3,8 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public sealed class XmlSet : SetValueTraversal
+    public sealed class XmlSetThisValue : SetValueTraversal
     {
-        public XmlSet(string path)
-        {
-            Path = path;
-        }
-
-        public string Path { get; set; }
-
         public void SetValue(object target, string value)
         {
             if (!(target is XElement xElement))
@@ -20,7 +13,7 @@ namespace AdaptableMapper.Xml
                 return;
             }
 
-            xElement.SetXPathValues(Path, value);
+            xElement.Value = value;
         }
     }
 }
