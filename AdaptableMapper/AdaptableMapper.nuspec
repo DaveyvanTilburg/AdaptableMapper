@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.0.1-beta20191029-02</version>
+    <version>0.1.0-beta20191029-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -20,6 +20,8 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       </group>
     </dependencies>
     <releaseNotes>
+0.1.0
+  - Renamed object Adaptable to ModelBase (and all related objects)
 0.0.1
   - Created an abstraction for mapping to and from:
     - Xml
