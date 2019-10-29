@@ -20,6 +20,10 @@ Future plans in relative priority order:
 
 ## How to use
 
+Mock up of structure and flow:
+
+![UML](Mapping.jpg)
+
 --Todo
 
 ## Versioning
@@ -32,7 +36,7 @@ I use [SemVer](http://semver.org/) for versioning. (But forgive me if i mess tha
 
 ## License
 
-This project is licensed under the WTFPL License - see the [License.txt](XPathSerialization/License.txt) file for details
+This project is licensed under the WTFPL License - see the [License.txt](AdaptableMapper/License.txt) file for details
 
 ## Acknowledgments
 
