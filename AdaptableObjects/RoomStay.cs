@@ -2,7 +2,7 @@
 
 namespace AdaptableMapper
 {
-    public class RoomStay : Adaptable
+    public class RoomStay : ModelBase
     {
         public string Code { get; set; } = string.Empty;
         public string GuestId { get; set; } = string.Empty;

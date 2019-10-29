@@ -3,7 +3,7 @@ using AdaptableMapper.Memory.Language;
 
 namespace AdaptableMapper
 {
-    public class Reservation : Adaptable
+    public class Reservation : ModelBase
     {
         public string Id { get; set; } = string.Empty;
 

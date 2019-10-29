@@ -1,5 +1,4 @@
 ﻿using AdaptableMapper.Contexts;
-using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper
 {
@@ -7,6 +6,7 @@ namespace AdaptableMapper
     {
         public MappingScopeComposite ScopeTraversalComposite { get; set; }
         public ContextFactory ContextFactory { get; set; }
+        public ObjectConverter ResultConverter { get; set; }
 
         public MappingConfiguration(MappingScopeComposite scopeTraversalComposite, ContextFactory contextFactory)
         {

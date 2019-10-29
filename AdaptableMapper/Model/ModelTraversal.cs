@@ -3,9 +3,9 @@ using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Memory
 {
-    public sealed class AdaptableTraversal : Traversal
+    public sealed class ModelTraversal : Traversal
     {
-        public AdaptableTraversal(string path)
+        public ModelTraversal(string path)
         {
             Path = path;
         }
@@ -14,13 +14,13 @@ namespace AdaptableMapper.Memory
 
         public object Traverse(object target)
         {
-            if (!(target is Adaptable adaptable))
+            if (!(target is ModelBase adaptable))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Adaptable");
+                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
                 return string.Empty;
             }
 
-            Adaptable pathTarget = adaptable.NavigateToAdaptable(Path.ToQueue());
+            ModelBase pathTarget = adaptable.NavigateToAdaptable(Path.ToQueue());
 
             return pathTarget;
         }

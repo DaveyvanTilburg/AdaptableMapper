@@ -3,9 +3,9 @@ using System;
 
 namespace AdaptableMapper.Memory
 {
-    public sealed class AdaptableTargetInstantiator : TargetInstantiator
+    public sealed class ModelTargetInstantiator : TargetInstantiator
     {
-        public AdaptableTargetInstantiator(string assemblyName, string typeName)
+        public ModelTargetInstantiator(string assemblyName, string typeName)
         {
             AssemblyName = assemblyName;
             TypeName = typeName;

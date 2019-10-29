@@ -2,7 +2,7 @@
 
 namespace AdaptableMapper
 {
-    public class Guest : Adaptable
+    public class Guest : ModelBase
     {
         public string GuestId { get; set; } = string.Empty;
         public string GivenName { get; set; } = string.Empty;

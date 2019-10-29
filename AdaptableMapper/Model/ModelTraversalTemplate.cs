@@ -4,9 +4,9 @@ using System.Collections;
 
 namespace AdaptableMapper.Memory
 {
-    public sealed class AdaptableTraversalTemplate : TraversalToGetTemplate
+    public sealed class ModelTraversalTemplate : TraversalToGetTemplate
     {
-        public AdaptableTraversalTemplate(string path)
+        public ModelTraversalTemplate(string path)
         {
             Path = path;
         }
@@ -15,15 +15,15 @@ namespace AdaptableMapper.Memory
 
         public object Traverse(object target)
         {
-            if (!(target is Adaptable adaptable))
+            if (!(target is ModelBase adaptable))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Adaptable");
+                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
                 return string.Empty;
             }
 
-            var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(Path);
+            var adaptablePathContainer = ModelPathContainer.CreateAdaptablePath(Path);
 
-            Adaptable pathTarget = adaptable.GetOrCreateAdaptable(adaptablePathContainer.CreatePathQueue());
+            ModelBase pathTarget = adaptable.GetOrCreateAdaptable(adaptablePathContainer.CreatePathQueue());
             IList adaptableScope = pathTarget.GetListProperty(adaptablePathContainer.PropertyName);
 
             return adaptableScope;

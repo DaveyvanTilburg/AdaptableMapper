@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace AdaptableMapper.Memory
 {
-    public sealed class AdaptableGetScope : GetScopeTraversal
+    public sealed class ModelGetScope : GetScopeTraversal
     {
-        public AdaptableGetScope(string path)
+        public ModelGetScope(string path)
         {
             Path = path;
         }
@@ -16,15 +16,15 @@ namespace AdaptableMapper.Memory
 
         public IEnumerable<object> GetScope(object source)
         {
-            if (!(source is Adaptable adaptable))
+            if (!(source is ModelBase adaptable))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Adaptable");
+                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
                 return new List<object>();
             }
 
-            var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(Path);
+            var adaptablePathContainer = ModelPathContainer.CreateAdaptablePath(Path);
 
-            Adaptable pathTarget = adaptable.NavigateToAdaptable(adaptablePathContainer.CreatePathQueue());
+            ModelBase pathTarget = adaptable.NavigateToAdaptable(adaptablePathContainer.CreatePathQueue());
             IList adaptableScope = pathTarget.GetListProperty(adaptablePathContainer.PropertyName);
 
             return (IEnumerable<object>)adaptableScope;

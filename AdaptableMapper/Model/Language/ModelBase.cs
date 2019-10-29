@@ -5,27 +5,27 @@ using System.Reflection;
 
 namespace AdaptableMapper.Memory.Language
 {
-    public abstract class Adaptable
+    public abstract class ModelBase
     {
-        public Adaptable Parent { get; set; }
+        public ModelBase Parent { get; set; }
 
-        public Adaptable GetOrCreateAdaptable(Queue<string> path)
+        public ModelBase GetOrCreateAdaptable(Queue<string> path)
         {
-            Adaptable adaptable = this;
+            ModelBase adaptable = this;
             if (path.Count > 0)
                 adaptable = NavigateAndCreatePath(new Queue<string>(path));
 
             return adaptable;
         }
 
-        private Adaptable NavigateAndCreatePath(Queue<string> path)
+        private ModelBase NavigateAndCreatePath(Queue<string> path)
         {
             string step = path.Dequeue();
 
             PropertyInfo property = GetPropertyInfo(step);
             IList propertyValue = GetIListFromProperty(property, step);
 
-            Adaptable next = property.PropertyType.CreateAdaptable();
+            ModelBase next = property.PropertyType.CreateAdaptable();
             propertyValue.Add(next);
 
             if (path.Count > 0)
@@ -52,27 +52,27 @@ namespace AdaptableMapper.Memory.Language
             else
             {
                 Errors.ErrorObservable.GetInstance().Raise($"Property {propertyName} is not traversable, it is not a list of adaptable");
-                return new List<Adaptable>();
+                return new List<ModelBase>();
             }
         }
 
-        public Adaptable NavigateToAdaptable(Queue<string> path)
+        public ModelBase NavigateToAdaptable(Queue<string> path)
         {
             if (path.Count == 0)
                 return this;
 
             string step = path.Dequeue();
 
-            Adaptable next;
+            ModelBase next;
             if (step.Equals(".."))
             {
                 next = Parent;
                 if (next == null)
                     Errors.ErrorObservable.GetInstance().Raise($"Parent node was null while navigating to .. of type {this.GetType().Name}");
             }
-            else if(step.TryGetObjectFilter(out AdaptableFilter filter))
+            else if(step.TryGetObjectFilter(out ModelFilter filter))
             {
-                IEnumerable<Adaptable> propertyValue = GetEnumerableProperty(filter.AdaptableName);
+                IEnumerable<ModelBase> propertyValue = GetEnumerableProperty(filter.AdaptableName);
                 next = propertyValue.FirstOrDefault(a => a.GetValue(filter.PropertyName).Equals(filter.Value));
 
                 if (next == null)
@@ -80,7 +80,7 @@ namespace AdaptableMapper.Memory.Language
             }
             else
             {
-                IEnumerable<Adaptable> propertyValue = GetEnumerableProperty(step);
+                IEnumerable<ModelBase> propertyValue = GetEnumerableProperty(step);
                 next = propertyValue.FirstOrDefault();
 
                 if (next == null)
@@ -96,7 +96,7 @@ namespace AdaptableMapper.Memory.Language
             return next;
         }
 
-        private IEnumerable<Adaptable> GetEnumerableProperty(string propertyName)
+        private IEnumerable<ModelBase> GetEnumerableProperty(string propertyName)
         {
             PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
             object property = propertyInfo.GetValue(this);
@@ -104,14 +104,14 @@ namespace AdaptableMapper.Memory.Language
             if(property == null)
                 Errors.ErrorObservable.GetInstance().Raise($"Property {propertyName} does not exist on {this.GetType().Name}");
 
-            if ((property is IEnumerable<Adaptable> enumerableProperty))
+            if ((property is IEnumerable<ModelBase> enumerableProperty))
             {
                 return enumerableProperty;
             }
             else
             {
                 Errors.ErrorObservable.GetInstance().Raise($"Property {propertyName} is not traversable, it is not a list of adaptable");
-                return new List<Adaptable>();
+                return new List<ModelBase>();
             }
         }
 

@@ -3,9 +3,9 @@ using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Memory
 {
-    public sealed class AdaptableGetSearch : GetValueTraversal
+    public sealed class ModelGetSearch : GetValueTraversal
     {
-        public AdaptableGetSearch(string path, string searchPath)
+        public ModelGetSearch(string path, string searchPath)
         {
             Path = path;
             SearchPath = searchPath;
@@ -16,25 +16,25 @@ namespace AdaptableMapper.Memory
 
         public string GetValue(object source)
         {
-            if (!(source is Adaptable adaptable))
+            if (!(source is ModelBase adaptable))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Adaptable");
+                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
                 return string.Empty;
             }
 
             string searchValue = null;
             if (!string.IsNullOrWhiteSpace(SearchPath))
             {
-                var searchAdaptablePath = AdaptablePathContainer.CreateAdaptablePath(SearchPath);
+                var searchAdaptablePath = ModelPathContainer.CreateAdaptablePath(SearchPath);
 
-                Adaptable searchPathTarget = adaptable.NavigateToAdaptable(searchAdaptablePath.CreatePathQueue());
+                ModelBase searchPathTarget = adaptable.NavigateToAdaptable(searchAdaptablePath.CreatePathQueue());
                 searchValue = searchPathTarget.GetValue(searchAdaptablePath.PropertyName);
             }
 
             string actualAdaptablePath = string.IsNullOrWhiteSpace(searchValue) ? Path : Path.Replace("{{searchResult}}", searchValue);
-            var adaptablePathContainer = AdaptablePathContainer.CreateAdaptablePath(actualAdaptablePath);
+            var adaptablePathContainer = ModelPathContainer.CreateAdaptablePath(actualAdaptablePath);
 
-            Adaptable pathTarget = adaptable.NavigateToAdaptable(adaptablePathContainer.CreatePathQueue());
+            ModelBase pathTarget = adaptable.NavigateToAdaptable(adaptablePathContainer.CreatePathQueue());
             string value = pathTarget.GetValue(adaptablePathContainer.PropertyName);
 
             return value;

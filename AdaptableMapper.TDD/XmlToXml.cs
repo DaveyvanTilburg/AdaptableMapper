@@ -1,5 +1,4 @@
-﻿using AdaptableMapper.Traversals;
-using FluentAssertions;
+﻿using FluentAssertions;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Xunit;
@@ -14,9 +13,9 @@ namespace AdaptableMapper.TDD
             var errorObserver = new TestErrorObserver();
             Errors.ErrorObservable.GetInstance().Register(errorObserver);
 
-            MappingConfiguration deserializationConfiguration = GetFakedSerializationConfiguration();
+            MappingConfiguration mappingConfiguration = GetMappingConfiguration();
 
-            XElement result = Mapper.Map(deserializationConfiguration, System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml")) as XElement;
+            XElement result = Mapper.Map(mappingConfiguration, System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml")) as XElement;
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
@@ -28,7 +27,7 @@ namespace AdaptableMapper.TDD
             result.Should().BeEquivalentTo(xExpectedResult);
         }
 
-        private static MappingConfiguration GetFakedSerializationConfiguration()
+        private static MappingConfiguration GetMappingConfiguration()
         {
             var roomStayGuestNameSearchMap = new Mapping(
                 new Xml.XmlGetSearch(

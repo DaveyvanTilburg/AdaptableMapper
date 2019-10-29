@@ -1,6 +1,6 @@
 ﻿namespace AdaptableMapper.Memory.Language
 {
-    internal class NullAdaptable : Adaptable
+    internal class NullModel : ModelBase
     {
     }
 }

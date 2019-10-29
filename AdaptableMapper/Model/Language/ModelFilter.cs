@@ -1,6 +1,6 @@
 ﻿namespace AdaptableMapper.Memory.Language
 {
-    internal class AdaptableFilter
+    internal class ModelFilter
     {
         public string AdaptableName { get; set; }
         public string PropertyName { get; set; }

@@ -3,9 +3,9 @@ using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Memory
 {
-    public sealed class AdaptableSetOnProperty : SetValueTraversal
+    public sealed class ModelSetOnProperty : SetValueTraversal
     {
-        public AdaptableSetOnProperty(string propertyName)
+        public ModelSetOnProperty(string propertyName)
         {
             PropertyName = propertyName;
         }
@@ -14,9 +14,9 @@ namespace AdaptableMapper.Memory
 
         public void SetValue(object target, string value)
         {
-            if (!(target is Adaptable adaptable))
+            if (!(target is ModelBase adaptable))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Adaptable");
+                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
                 return;
             }
 

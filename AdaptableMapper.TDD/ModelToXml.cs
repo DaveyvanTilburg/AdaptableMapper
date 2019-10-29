@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Xunit;
-using AdaptableMapper.Traversals;
 using AdaptableMapper.Memory.Language;
 
 namespace AdaptableMapper.TDD
 {
-    public class MemoryToXml
+    public class ModelToXml
     {
         [Fact]
-        public void MemoryToXmlTest()
+        public void ModelToXmlTest()
         {
             var errorObserver = new TestErrorObserver();
             Errors.ErrorObservable.GetInstance().Register(errorObserver);
 
-            MappingConfiguration deserializationConfiguration = GetFakedDeserializationConfiguration();
+            MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
 
-            Adaptable source = GetSource();
-            XElement result = Mapper.Map(deserializationConfiguration, source) as XElement;
+            ModelBase source = GetSource();
+            XElement result = Mapper.Map(mappingConfiguration, source) as XElement;
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
@@ -146,10 +145,10 @@ namespace AdaptableMapper.TDD
             return root;
         }
 
-        private MappingConfiguration GetFakedDeserializationConfiguration()
+        private MappingConfiguration GetFakedMappingConfiguration()
         {
             var roomGuestLastNameSearch = new Mapping(
-                new Memory.AdaptableGetSearch(
+                new Memory.ModelGetSearch(
                     "../Guests{'PropertyName':'GuestId','Value':'{{searchResult}}'}/Surname",
                     "GuestId"
                 ),
@@ -157,17 +156,17 @@ namespace AdaptableMapper.TDD
             );
 
             var roomStayTestObjectFail = new Mapping(
-                new Memory.AdaptableGet("Test"),
+                new Memory.ModelGet("Test"),
                 new Xml.XmlSet("./RoomTypes/RoomType/RoomDescription/Text")
             );
 
             var roomStayNameXPathFail = new Mapping(
-                new Memory.AdaptableGet("Name"),
+                new Memory.ModelGet("Name"),
                 new Xml.XmlSet("./RoomTypes/RoomType/RoomDescription/@Naem")
             );
 
             var roomStayCodeMap = new Mapping(
-                new Memory.AdaptableGet("Code"),
+                new Memory.ModelGet("Code"),
                 new Xml.XmlSet("./RoomTypes/RoomType/@RoomTypeCode")
             );
 
@@ -180,19 +179,19 @@ namespace AdaptableMapper.TDD
                     roomStayNameXPathFail,
                     roomStayCodeMap
                 },
-                new Memory.AdaptableGetScope("RoomStays"),
+                new Memory.ModelGetScope("RoomStays"),
                 new Xml.XmlTraversal("./RoomStays"),
                 new Xml.XmlTraversalTemplate("./RoomStay"),
                 new Xml.XmlChildCreator()
             );
 
             var reservationHotelCodeMap = new Mapping(
-                new Memory.AdaptableGet("HotelCode"),
+                new Memory.ModelGet("HotelCode"),
                 new Xml.XmlSet("./ResGlobalInfo/BasicPropertyInfo/@HotelCode")
             );
 
             var reservationIdMap = new Mapping(
-                new Memory.AdaptableGet("Id"),
+                new Memory.ModelGet("Id"),
                 new Xml.XmlSet("./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type='5']/@ResID_Value")
             );
 
@@ -206,14 +205,14 @@ namespace AdaptableMapper.TDD
                     reservationIdMap,
                     reservationHotelCodeMap
                 },
-                new Memory.AdaptableGetScope("Reservations"),
+                new Memory.ModelGetScope("Reservations"),
                 new Xml.XmlTraversal("./ReservationsList"),
                 new Xml.XmlTraversalTemplate("//HotelReservation"),
                 new Xml.XmlChildCreator()
             );
 
             var contextFactory = new Contexts.ContextFactory(
-                new Memory.AdaptableObjectConverter(),
+                new Memory.ModelObjectConverter(),
                 new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\SandboxTemplate.xml"))
             );
 

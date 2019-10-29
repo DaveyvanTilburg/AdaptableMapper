@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace AdaptableMapper.Memory.Language
 {
-    internal class AdaptablePathContainer
+    internal class ModelPathContainer
     {
         private readonly IReadOnlyList<string> _path;
         public string PropertyName { get; }
@@ -12,20 +12,20 @@ namespace AdaptableMapper.Memory.Language
             return new Queue<string>(_path);
         }
 
-        private AdaptablePathContainer(IReadOnlyList<string> path, string propertyName)
+        private ModelPathContainer(IReadOnlyList<string> path, string propertyName)
         {
             _path = path;
             PropertyName = propertyName;
         }
 
-        public static AdaptablePathContainer CreateAdaptablePath(string adaptablePath)
+        public static ModelPathContainer CreateAdaptablePath(string adaptablePath)
         {
             Stack<string> pathStack = adaptablePath.ToStack();
             string propertyName = pathStack.Pop();
 
             var path = pathStack.Reverse().ToList();
 
-            return new AdaptablePathContainer(path, propertyName);
+            return new ModelPathContainer(path, propertyName);
         }
     }
 }

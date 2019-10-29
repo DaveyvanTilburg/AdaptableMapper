@@ -5,7 +5,7 @@ namespace AdaptableMapper.Memory
 {
     internal static class StringExtensions
     {
-        public static bool TryGetObjectFilter(this string value, out AdaptableFilter filter)
+        public static bool TryGetObjectFilter(this string value, out ModelFilter filter)
         {
             filter = null;
 
@@ -17,7 +17,7 @@ namespace AdaptableMapper.Memory
             if (positionEnd == -1)
                 return false;
 
-            filter = Newtonsoft.Json.JsonConvert.DeserializeObject<AdaptableFilter>(value.Substring(positionStart, positionEnd - positionStart));
+            filter = Newtonsoft.Json.JsonConvert.DeserializeObject<ModelFilter>(value.Substring(positionStart, positionEnd - positionStart));
             filter.AdaptableName = value.Substring(0, positionStart);
             return true;
         }

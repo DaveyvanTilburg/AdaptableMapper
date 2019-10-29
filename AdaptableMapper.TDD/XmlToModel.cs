@@ -1,20 +1,19 @@
-﻿using AdaptableMapper.Traversals;
-using FluentAssertions;
+﻿using FluentAssertions;
 using System.Collections.Generic;
 using Xunit;
 
 namespace AdaptableMapper.TDD
 {
-    public class XmlToMemory
+    public class XmlToModel
     {
         [Fact]
-        public void XmlToMemoryTest()
+        public void XmlToModelTest()
         {
             var errorObserver = new TestErrorObserver();
             Errors.ErrorObservable.GetInstance().Register(errorObserver);
 
-            var configuration = GetFakedSerializationConfiguration();
-            object resultObject = Mapper.Map(configuration, System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml"));
+            MappingConfiguration mappingConfiguration = GetMappingConfiguration();
+            object resultObject = Mapper.Map(mappingConfiguration, System.IO.File.ReadAllText(@".\Resources\BOO_Reservation.xml"));
 
             Root result = resultObject as Root;
 
@@ -49,39 +48,39 @@ namespace AdaptableMapper.TDD
             result.Reservations[0].Guests[1].GuestId.Should().Be("2");
         }
 
-        public static MappingConfiguration GetFakedSerializationConfiguration()
+        public static MappingConfiguration GetMappingConfiguration()
         {
             var roomStayGuestNameSearchMap = new Mapping(
                 new Xml.XmlGetSearch(
                     "../../ResGuests/ResGuest[@ResGuestRPH='{{searchResult}}']/Profiles/ProfileInfo/Profile/Customer/PersonName/GivenName",
                     "./ResGuestRPHs/ResGuestRPH/@RPH"
                 ),
-                new Memory.AdaptableSetOnProperty("GuestName")
+                new Memory.ModelSetOnProperty("GuestName")
             );
 
             var roomStayTestObjectFail = new Mapping(
                 new Xml.XmlGet("./RoomTypes/RoomType/RoomDescription/Text"),
-                new Memory.AdaptableSetOnProperty("Test")
+                new Memory.ModelSetOnProperty("Test")
             );
 
             var roomStayNameXPathFail = new Mapping(
                 new Xml.XmlGet("./RoomTypes/RoomType/RoomDescription/@Naem"),
-                new Memory.AdaptableSetOnProperty("Name")
+                new Memory.ModelSetOnProperty("Name")
             );
 
             var roomStayGuestId = new Mapping(
                 new Xml.XmlGet("./ResGuestRPHs/ResGuestRPH/@RPH"),
-                new Memory.AdaptableSetOnProperty("GuestId")
+                new Memory.ModelSetOnProperty("GuestId")
             );
 
             var roomStayCodeMap = new Mapping(
                 new Xml.XmlGet("./RoomTypes/RoomType/@RoomTypeCode"),
-                new Memory.AdaptableSetOnProperty("Code")
+                new Memory.ModelSetOnProperty("Code")
             );
 
             var roomStayRateCodeMap = new Mapping(
                 new Xml.XmlGet("./RoomRates/RoomRate/@RatePlanCode"),
-                new Memory.AdaptableSetOnProperty("RateCode")
+                new Memory.ModelSetOnProperty("RateCode")
             );
 
             var roomStayScope = new MappingScopeComposite(
@@ -96,24 +95,24 @@ namespace AdaptableMapper.TDD
                     roomStayRateCodeMap
                 },
                 new Xml.XmlGetScope("./RoomStays/RoomStay"),
-                new Memory.AdaptableTraversalThis(),
-                new Memory.AdaptableTraversalTemplate("RoomStays"),
-                new Memory.AdaptableChildCreator()
+                new Memory.ModelTraversalThis(),
+                new Memory.ModelTraversalTemplate("RoomStays"),
+                new Memory.ModelChildCreator()
             );
 
             var guestIdMap = new Mapping(
                 new Xml.XmlGet("./@ResGuestRPH"),
-                new Memory.AdaptableSetOnProperty("GuestId")
+                new Memory.ModelSetOnProperty("GuestId")
             );
 
             var guestGivenNameMap = new Mapping(
                 new Xml.XmlGet("./Profiles/ProfileInfo/Profile/Customer/PersonName/GivenName"),
-                new Memory.AdaptableSetOnProperty("GivenName")
+                new Memory.ModelSetOnProperty("GivenName")
             );
 
             var guestSurNameMap = new Mapping(
                 new Xml.XmlGet("./Profiles/ProfileInfo/Profile/Customer/PersonName/Surname"),
-                new Memory.AdaptableSetOnProperty("Surname")
+                new Memory.ModelSetOnProperty("Surname")
             );
 
             var guestScope = new MappingScopeComposite(
@@ -125,19 +124,19 @@ namespace AdaptableMapper.TDD
                     guestSurNameMap
                 },
                 new Xml.XmlGetScope("./ResGuests/ResGuest"),
-                new Memory.AdaptableTraversalThis(),
-                new Memory.AdaptableTraversalTemplate("Guests"),
-                new Memory.AdaptableChildCreator()
+                new Memory.ModelTraversalThis(),
+                new Memory.ModelTraversalTemplate("Guests"),
+                new Memory.ModelChildCreator()
             );
 
             var reservationHotelCodeMap = new Mapping(
                 new Xml.XmlGet("./RoomStays/RoomStay/BasicPropertyInfo/@HotelCode"),
-                new Memory.AdaptableSetOnProperty("HotelCode")
+                new Memory.ModelSetOnProperty("HotelCode")
             );
 
             var reservationIdMap = new Mapping(
                 new Xml.XmlGet("./ResGlobalInfo/HotelReservationIDs/HotelReservationID[@ResID_Type='18']/@ResID_Value"),
-                new Memory.AdaptableSetOnProperty("Id")
+                new Memory.ModelSetOnProperty("Id")
             );
 
             var reservationScope = new MappingScopeComposite(
@@ -152,16 +151,16 @@ namespace AdaptableMapper.TDD
                     reservationIdMap
                 },
                 new Xml.XmlGetScope("//HotelReservations/HotelReservation"),
-                new Memory.AdaptableTraversalThis(),
-                new Memory.AdaptableTraversalTemplate("Reservations"),
-                new Memory.AdaptableChildCreator()
+                new Memory.ModelTraversalThis(),
+                new Memory.ModelTraversalTemplate("Reservations"),
+                new Memory.ModelChildCreator()
             );
 
             System.Type testType = typeof(Root);
 
             var contextFactory = new Contexts.ContextFactory(
                 new Xml.XmlObjectConverter(),
-                new Memory.AdaptableTargetInstantiator(testType.Assembly.FullName, testType.FullName)
+                new Memory.ModelTargetInstantiator(testType.Assembly.FullName, testType.FullName)
             );
 
             var mappingConfiguration = new MappingConfiguration(reservationScope, contextFactory);

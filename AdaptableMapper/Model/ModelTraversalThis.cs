@@ -1,8 +1,8 @@
 ﻿using AdaptableMapper.Traversals;
 
-namespace AdaptableMapper.Xml
+namespace AdaptableMapper.Memory
 {
-    public sealed class XmlTraversalThis : Traversal
+    public sealed class ModelTraversalThis : Traversal
     {
         public object Traverse(object target)
         {

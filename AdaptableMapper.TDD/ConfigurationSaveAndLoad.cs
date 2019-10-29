@@ -8,7 +8,7 @@ namespace AdaptableMapper.TDD
         [Fact]
         public void CheckIfSaveAndLoadMementoWorks()
         {
-            MappingConfiguration source = XmlToMemory.GetFakedSerializationConfiguration();
+            MappingConfiguration source = XmlToModel.GetMappingConfiguration();
 
             string serialized = Mapper.GetMemento(source);
             MappingConfiguration target = Mapper.LoadMemento(serialized);
