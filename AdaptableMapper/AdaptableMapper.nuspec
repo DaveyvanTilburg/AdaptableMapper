@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.2.0-beta20191029-02</version>
+    <version>0.3.0-beta20191030-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -20,6 +20,8 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       </group>
     </dependencies>
     <releaseNotes>
+0.3.0
+  - Added model navigation to behave like XPath navigation, scopes now return every match, not only first in each step of the path
 0.2.0
   - Added a way to change the result type
 0.1.0
