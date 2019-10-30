@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.3.1-beta20191030-01</version>
+    <version>0.3.2-beta20191030-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -20,8 +20,10 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       </group>
     </dependencies>
     <releaseNotes>
+0.3.2
+  - Added jsonignore to parent property of ModelBase so Json doesn't give the recursive error. (ModelBase should not be serialized for storage anyway)
 0.3.1
-  - release bugfix
+  - Release bugfix
 0.3.0
   - Added model scope traversal to behave like XPath scope traversal, it now return every match, not only first in each step of the path
 0.2.0
