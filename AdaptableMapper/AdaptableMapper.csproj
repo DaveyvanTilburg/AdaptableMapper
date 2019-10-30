@@ -42,6 +42,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexts\ContextFactory.cs" />
+    <Compile Include="Json\JsonChildCreator.cs" />
+    <Compile Include="Json\JsonGetScope.cs" />
+    <Compile Include="Json\JsonGetSearch.cs" />
+    <Compile Include="Json\JsonGetThisValue.cs" />
+    <Compile Include="Json\JsonGetValue.cs" />
+    <Compile Include="Json\JsonObjectConverter.cs" />
+    <Compile Include="Json\JsonSetThisValue.cs" />
+    <Compile Include="Json\JsonSetValue.cs" />
+    <Compile Include="Json\JsonTargetInstantiator.cs" />
+    <Compile Include="Json\JsonTraversal.cs" />
+    <Compile Include="Json\JsonTraversalTemplate.cs" />
+    <Compile Include="Json\JsonTraversalThis.cs" />
+    <Compile Include="Json\JTokenToStringObjectConverter.cs" />
     <Compile Include="MappingScopeRoot.cs" />
     <Compile Include="Model\ModelToStringObjectConverter.cs" />
     <Compile Include="NullObjectConverter.cs" />

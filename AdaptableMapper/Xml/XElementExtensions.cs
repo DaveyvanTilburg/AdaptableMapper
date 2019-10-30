@@ -31,7 +31,7 @@ namespace AdaptableMapper.Xml
             if(allMatches.Count > 1)
                 Errors.ErrorObservable.GetInstance().Raise($"Path has multiple of the same node, when only one is expected : {xPath}");
 
-            return allMatches.FirstOrDefault() ?? new XElement(string.Empty);
+            return allMatches.FirstOrDefault() ?? new XElement("nullObject");
         }
 
         public static IEnumerable<string> GetXPathValues(this XElement xElement, string xPath)
@@ -97,7 +97,7 @@ namespace AdaptableMapper.Xml
             if (xElement.Parent == null)
                 Errors.ErrorObservable.GetInstance().Raise($"parent of node {xElement} is null");
 
-            return xElement?.Parent ?? new XElement(string.Empty);
+            return xElement?.Parent ?? new XElement("nullObject");
         }
     }
 }

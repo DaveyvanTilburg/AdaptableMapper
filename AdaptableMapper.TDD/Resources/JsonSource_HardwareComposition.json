@@ -1,0 +1,107 @@
+﻿{
+  "Computer": {
+    "Motherboard": [
+      {
+        "Brand": "MSI",
+        "CPU": [
+          {
+            "Name": "Intel",
+            "Cores": "2",
+            "Speed": "slow"
+          }
+        ],
+        "GraphicalCard": [
+          {
+            "CPU": [
+              {
+                "Name": "Intel",
+                "Cores": "4",
+                "Speed": "medium"
+              }
+            ],
+            "MemoryChip": [
+              {
+                "Size": "512"
+              },
+              {
+                "Size": "512"
+              },
+              {
+                "Size": "512"
+              },
+              {
+                "Size": "512"
+              }
+            ]
+          }
+        ],
+        "Memory": [
+          {
+            "MemoryChip": [
+              {
+                "Size": "512"
+              },
+              {
+                "Size": "512"
+              }
+            ],
+            "Brand": "HyperX"
+          }
+        ],
+        "HardDrive": {
+          "Size": "524288",
+          "Speed": "Rotating"
+        }
+      },
+      {
+        "Brand": "Biostar",
+        "CPU": [
+          {
+            "Name": "Intel",
+            "Cores": "2",
+            "Speed": "slow"
+          }
+        ],
+        "GraphicalCard": [
+          {
+            "CPU": [
+              {
+                "Name": "Intel",
+                "Cores": "6",
+                "Speed": "medium"
+              }
+            ],
+            "MemoryChip": [
+              {
+                "Size": "512"
+              },
+              {
+                "Size": "512"
+              },
+              {
+                "Size": "512"
+              },
+              {
+                "Size": "512"
+              }
+            ]
+          }
+        ],
+        "Memory": [
+          {
+            "MemoryChip": [
+              {
+                "Size": "2048"
+              }
+            ],
+            "Brand": "Corsair"
+          }
+        ],
+        "HardDrive": {
+          "Size": "262144",
+          "Speed": "Rotating"
+        }
+      }
+    ]
+  }
+}

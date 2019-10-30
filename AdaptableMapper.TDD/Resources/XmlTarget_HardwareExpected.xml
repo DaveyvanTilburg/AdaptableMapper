@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<availableHardware>
+  <allMemories>
+    <memory size="512" onMotherboardWithBrand="MSI" brand="HyperX" />
+    <memory size="512" onMotherboardWithBrand="MSI" brand="HyperX" />
+    <memory size="2048" onMotherboardWithBrand="Biostar" brand="Corsair" />
+  </allMemories>
+  <computers>
+    <computer motherboardBrand="MSI" cpuBrand="Intel" totalStorage="524288">
+      <graphicalCard>
+        <cpu cores="4" speed="medium" />
+      </graphicalCard>
+    </computer>
+    <computer motherboardBrand="Biostar" cpuBrand="Intel" totalStorage="262144">
+      <graphicalCard>
+        <cpu cores="6" speed="medium" />
+      </graphicalCard>
+    </computer>
+  </computers>
+</availableHardware>

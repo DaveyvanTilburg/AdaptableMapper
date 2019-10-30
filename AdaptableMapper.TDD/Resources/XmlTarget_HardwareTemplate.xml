@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<availableHardware>
+  <allMemories>
+    <memory size="" onMotherboardWithBrand="" brand="" />
+  </allMemories>
+  <computers>
+    <computer motherboardBrand="" cpuBrand="" totalStorage="">
+      <graphicalCard>
+        <cpu cores="" speed="" />
+      </graphicalCard>
+    </computer>
+  </computers>
+</availableHardware>

@@ -21,7 +21,8 @@ namespace AdaptableMapper.Xml
             }
 
             XElement result = xElement.NavigateToPath(Path);
-            result.Remove();
+            if(result.Parent != null)
+                result.Remove();
 
             return result;
         }

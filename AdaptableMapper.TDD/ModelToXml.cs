@@ -22,7 +22,7 @@ namespace AdaptableMapper.TDD
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
-            string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_Expected.xml");
+            string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyExpected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
             errorObserver.GetErrors().Count.Should().Be(1);
@@ -276,7 +276,7 @@ namespace AdaptableMapper.TDD
 
             var contextFactory = new Contexts.ContextFactory(
                 new Model.ModelObjectConverter(),
-                new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\XmlTarget_Template.xml"))
+                new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml"))
             );
 
             var mappingConfiguration = new MappingConfiguration(rootScope, contextFactory, new NullObjectConverter());

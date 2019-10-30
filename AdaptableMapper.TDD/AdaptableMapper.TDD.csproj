@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JsonToXml.cs" />
     <Compile Include="ModelToXml.cs" />
     <Compile Include="TestErrorObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,10 +65,16 @@
     <Content Include="Resources\XmlSource_ArmyComposition.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\XmlTarget_Expected.xml">
+    <Content Include="Resources\XmlTarget_ArmyExpected.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\XmlTarget_Template.xml">
+    <Content Include="Resources\XmlTarget_ArmyTemplate.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\XmlTarget_HardwareExpected.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\XmlTarget_HardwareTemplate.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -80,6 +87,11 @@
       <Project>{590cb8ec-396d-4012-8385-25ba2149ee9a}</Project>
       <Name>ModelObjects</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\JsonSource_HardwareComposition.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
