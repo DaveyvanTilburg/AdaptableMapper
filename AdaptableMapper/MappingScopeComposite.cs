@@ -6,28 +6,28 @@ namespace AdaptableMapper
 {
     public sealed class MappingScopeComposite : MappingScope
     {
-        public List<MappingScopeComposite> Children { get; set; }
+        public List<MappingScopeComposite> MappingScopeComposites { get; set; }
         public List<Mapping> Mappings { get; set; }
 
         public GetScopeTraversal GetScopeTraversion { get; set; }
-        public Traversal TemplateParentTraversal { get; set; }
-        public TraversalToGetTemplate TemplateTraversal { get; set; }
+        public Traversal Traversal { get; set; }
+        public TraversalToGetTemplate TraversalToGetTemplate { get; set; }
 
         public ChildCreator ChildCreator { get; set; }
 
         public MappingScopeComposite(
-            List<MappingScopeComposite> children, 
+            List<MappingScopeComposite> mappingScopeComposites, 
             List<Mapping> mappings, 
             GetScopeTraversal getScopeTraversion, 
-            Traversal templateParentTraversal, 
-            TraversalToGetTemplate templateTraversal, 
+            Traversal traversal, 
+            TraversalToGetTemplate traversalToGetTemplate, 
             ChildCreator childCreator)
         {
-            Children = children;
+            MappingScopeComposites = mappingScopeComposites;
             Mappings = mappings;
             GetScopeTraversion = getScopeTraversion;
-            TemplateParentTraversal = templateParentTraversal;
-            TemplateTraversal = templateTraversal;
+            Traversal = traversal;
+            TraversalToGetTemplate = traversalToGetTemplate;
             ChildCreator = childCreator;
         }
 
@@ -35,8 +35,8 @@ namespace AdaptableMapper
         {
             IEnumerable<object> scope = GetScopeTraversion.GetScope(context.Source);
 
-            object parent = TemplateParentTraversal.Traverse(context.Target);
-            object template = TemplateTraversal.Traverse(parent);
+            object parent = Traversal.Traverse(context.Target);
+            object template = TraversalToGetTemplate.Traverse(parent);
 
             foreach (object item in scope)
             {
@@ -52,8 +52,8 @@ namespace AdaptableMapper
             foreach(Mapping mapping in Mappings)
                 mapping.Map(context);
 
-            foreach(MappingScopeComposite child in Children)
-                child.Traverse(context);
+            foreach(MappingScopeComposite mappingScopeComposite in MappingScopeComposites)
+                mappingScopeComposite.Traverse(context);
         }
     }
 }

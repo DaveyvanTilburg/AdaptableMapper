@@ -6,13 +6,13 @@ namespace AdaptableMapper
     {
         public MappingScope MappingScope { get; set; }
         public ContextFactory ContextFactory { get; set; }
-        public ObjectConverter ResultConverter { get; set; }
+        public ObjectConverter ObjectConverter { get; set; }
 
-        public MappingConfiguration(MappingScope mappingScope, ContextFactory contextFactory, ObjectConverter resultConverter)
+        public MappingConfiguration(MappingScope mappingScope, ContextFactory contextFactory, ObjectConverter objectConverter)
         {
             MappingScope = mappingScope;
             ContextFactory = contextFactory;
-            ResultConverter = resultConverter;
+            ObjectConverter = objectConverter;
         }
 
         public object Map(object source)
@@ -20,7 +20,7 @@ namespace AdaptableMapper
             Context context = ContextFactory.Create(source);
             MappingScope.Traverse(context);
 
-            object result = ResultConverter.Convert(context.Target);
+            object result = ObjectConverter.Convert(context.Target);
             return result;
         }
     }
