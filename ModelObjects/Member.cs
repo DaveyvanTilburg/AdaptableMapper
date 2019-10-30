@@ -1,7 +1,7 @@
 ﻿using AdaptableMapper.Model.Language;
 using System.Collections.Generic;
 
-namespace Hercules.ModelObjects
+namespace AdaptableObjects
 {
     public class Member : ModelBase
     {

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,6 +8,7 @@ namespace AdaptableMapper.Model.Language
 {
     public abstract class ModelBase
     {
+        [JsonIgnore]
         public ModelBase Parent { get; set; }
 
         public ModelBase() { }
