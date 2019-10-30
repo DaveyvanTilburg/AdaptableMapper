@@ -21,7 +21,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
     </dependencies>
     <releaseNotes>
 0.3.0
-  - Added model navigation to behave like XPath navigation, scopes now return every match, not only first in each step of the path
+  - Added model scope traversal to behave like XPath scope traversal, it now return every match, not only first in each step of the path
 0.2.0
   - Added a way to change the result type
 0.1.0
