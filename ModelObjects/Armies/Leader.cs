@@ -1,6 +1,6 @@
 ﻿using AdaptableMapper.Model.Language;
 
-namespace AdaptableObjects
+namespace ModelObjects.Armies
 {
     public class Leader : ModelBase
     {

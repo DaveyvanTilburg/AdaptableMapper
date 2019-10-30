@@ -1,5 +1,4 @@
-﻿using AdaptableObjects;
-using FluentAssertions;
+﻿using FluentAssertions;
 using System.Collections.Generic;
 using Xunit;
 
@@ -16,7 +15,7 @@ namespace AdaptableMapper.TDD
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
             object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"));
 
-            Root result = resultObject as Root;
+            var result = resultObject as ModelObjects.Armies.Root;
 
             Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
 
@@ -152,7 +151,7 @@ namespace AdaptableMapper.TDD
                 }
             );
 
-            var rootType = typeof(Root);
+            var rootType = typeof(ModelObjects.Armies.Root);
 
             var contextFactory = new Contexts.ContextFactory(
                 new Xml.XmlObjectConverter(),

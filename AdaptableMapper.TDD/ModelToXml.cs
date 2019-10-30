@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Xunit;
 using AdaptableMapper.Model.Language;
-using AdaptableObjects;
+using ModelObjects.Armies;
 
 namespace AdaptableMapper.TDD
 {

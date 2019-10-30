@@ -1,7 +1,7 @@
 ﻿using AdaptableMapper.Model.Language;
 using System.Collections.Generic;
 
-namespace AdaptableObjects
+namespace ModelObjects.Armies
 {
     public class Root : ModelBase
     {
