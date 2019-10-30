@@ -25,7 +25,7 @@ namespace AdaptableMapper.TDD
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_Expected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
-            errorObserver.GetErrors().Count.Should().Be(0);
+            errorObserver.GetErrors().Count.Should().Be(1);
 
             result.Should().BeEquivalentTo(xExpectedResult);
         }
@@ -54,6 +54,7 @@ namespace AdaptableMapper.TDD
                 }
             };
             army1.Parent = root;
+            army2.Parent = root;
             leader1.Parent = root;
             leader2.Parent = root;
             leader3.Parent = root;

@@ -1,7 +1,7 @@
 ﻿using AdaptableMapper.Model.Language;
 using AdaptableMapper.Traversals;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AdaptableMapper.Model
 {
@@ -24,13 +24,14 @@ namespace AdaptableMapper.Model
 
             var modelPathContainer = ModelPathContainer.CreateModelPath(Path);
 
-            //Todo Add NavigateToAllModels
-            ModelBase pathTarget = model.NavigateToModel(modelPathContainer.CreatePathQueue());
-            IList modelScope = pathTarget.GetListProperty(modelPathContainer.PropertyName);
+            List<ModelBase> pathTargets = model.NavigateToAllModels(modelPathContainer.CreatePathQueue()).ToList();
 
-            //Todo concat navigate results
+            List<object> modelScopes = pathTargets
+                .Select(p => p.GetListProperty(modelPathContainer.PropertyName))
+                .SelectMany(l => (IEnumerable<object>)l)
+                .ToList();
 
-            return (IEnumerable<object>)modelScope;
+            return modelScopes;
         }
     }
 }

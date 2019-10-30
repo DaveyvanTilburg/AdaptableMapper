@@ -98,6 +98,58 @@ namespace AdaptableMapper.Model.Language
             return next;
         }
 
+        public IEnumerable<ModelBase> NavigateToAllModels(Queue<string> path)
+        {
+            if(path.Count == 0)
+            {
+                yield return this;
+                yield break;
+            }
+
+            string step = path.Dequeue();
+
+            foreach (ModelBase modelBase in NavigateToAllModels(step))
+            {
+                if(path.Count == 0)
+                    yield return modelBase;
+                else
+                {
+                    foreach (ModelBase result in modelBase.NavigateToAllModels(new Queue<string>(path)))
+                        yield return result;
+                }
+            }
+        }
+
+        private IEnumerable<ModelBase> NavigateToAllModels(string step)
+        {
+            if (step.Equals(".."))
+            {
+                if(Parent == null)
+                {
+                    Errors.ErrorObservable.GetInstance().Raise($"Parent node was null while navigating to .. of type {this.GetType().Name}");
+                    yield break;
+                }
+
+                yield return Parent;
+                yield break;
+            }
+            else if (step.TryGetObjectFilter(out ModelFilter filter))
+            {
+                IEnumerable<ModelBase> propertyValue = GetEnumerableProperty(filter.ModelName);
+                foreach (ModelBase modelBase in propertyValue.Where(a => a.GetValue(filter.PropertyName).Equals(filter.Value)))
+                    yield return modelBase;
+
+                yield break;
+            }
+            else
+            {
+                IEnumerable<ModelBase> propertyValue = GetEnumerableProperty(step);
+
+                foreach (ModelBase modelBase in propertyValue)
+                    yield return modelBase;
+            }
+        }
+
         private IEnumerable<ModelBase> GetEnumerableProperty(string propertyName)
         {
             PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
