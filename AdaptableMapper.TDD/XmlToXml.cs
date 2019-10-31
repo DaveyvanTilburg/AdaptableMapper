@@ -34,7 +34,7 @@ namespace AdaptableMapper.TDD
             Errors.ErrorObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
-            mappingConfiguration.ResultConverter = new Xml.XElementToStringObjectConverter();
+            mappingConfiguration.ObjectConverter = new Xml.XElementToStringObjectConverter();
 
             object result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"));
 
