@@ -5,22 +5,22 @@ namespace AdaptableMapper
 {
     public sealed class Mapping
     {
-        public GetValueTraversal GetTraversion { get; set; }
-        public SetValueTraversal SetTraversion { get; set; }
+        public GetValueTraversal GetValueTraversal { get; set; }
+        public SetValueTraversal SetValueTraversal { get; set; }
 
         public Mapping(
-            GetValueTraversal getTraversion, 
-            SetValueTraversal setTraversion)
+            GetValueTraversal getValueTraversal, 
+            SetValueTraversal setValueTraversal)
         {
-            GetTraversion = getTraversion;
-            SetTraversion = setTraversion;
+            GetValueTraversal = getValueTraversal;
+            SetValueTraversal = setValueTraversal;
         }
 
         internal void Map(Context context)
         {
-            string value = GetTraversion.GetValue(context.Source);
+            string value = GetValueTraversal.GetValue(context.Source);
 
-            SetTraversion.SetValue(context.Target, value);
+            SetValueTraversal.SetValue(context.Target, value);
         }
     }
 }
