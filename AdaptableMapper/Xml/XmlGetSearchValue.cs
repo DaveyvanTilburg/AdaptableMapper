@@ -5,16 +5,16 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public sealed class XmlGetSearch : GetValueTraversal
+    public sealed class XmlGetSearchValue : GetValueTraversal
     {
-        public XmlGetSearch(string path, string searchPath)
+        public XmlGetSearchValue(string searchPath, string searchValuePath)
         {
-            Path = path;
             SearchPath = searchPath;
+            SearchValuePath = searchValuePath;
         }
 
-        public string Path { get; set; }
         public string SearchPath { get; set; }
+        public string SearchValuePath { get; set; }
 
         public string GetValue(object source)
         {
@@ -25,9 +25,9 @@ namespace AdaptableMapper.Xml
             }
 
             string searchValue = null;
-            if (!string.IsNullOrWhiteSpace(SearchPath))
+            if (!string.IsNullOrWhiteSpace(SearchValuePath))
             {
-                searchValue = xElement.GetXPathValues(SearchPath).FirstOrDefault();
+                searchValue = xElement.GetXPathValues(SearchValuePath).FirstOrDefault();
                 if (string.IsNullOrWhiteSpace(searchValue))
                 {
                     Errors.ErrorObservable.GetInstance().Raise("SearchPath resulted in empty string");
@@ -35,17 +35,17 @@ namespace AdaptableMapper.Xml
                 }
             }
 
-            string actualPath = string.IsNullOrWhiteSpace(searchValue) ? Path : Path.Replace("{{searchValue}}", searchValue);
+            string actualPath = string.IsNullOrWhiteSpace(searchValue) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue);
 
-            IEnumerable<string> values = xElement.GetXPathValues(actualPath);
-            if(!values.Any())
+            IEnumerable<string> searchResults = xElement.GetXPathValues(actualPath);
+            if(!searchResults.Any())
             {
-                Errors.ErrorObservable.GetInstance().Raise($"Search resulted in no results, path : {Path}; SearchPath : {SearchPath}; ActualPath : {actualPath}");
+                Errors.ErrorObservable.GetInstance().Raise($"Search resulted in no results, path : {SearchPath}; SearchPath : {SearchValuePath}; ActualPath : {actualPath}");
                 return string.Empty;
             }
 
-            string value = values.FirstOrDefault();
-            return value;
+            string searchResult = searchResults.FirstOrDefault();
+            return searchResult;
         }
     }
 }

@@ -5,7 +5,7 @@
         "Brand": "MSI",
         "CPU": [
           {
-            "Name": "Intel",
+            "Brand": "Intel",
             "Cores": "2",
             "Speed": "slow"
           }
@@ -14,7 +14,7 @@
           {
             "CPU": [
               {
-                "Name": "Intel",
+                "Brand": "Intel",
                 "Cores": "4",
                 "Speed": "medium"
               }
@@ -48,16 +48,18 @@
             "Brand": "HyperX"
           }
         ],
-        "HardDrive": {
-          "Size": "524288",
-          "Speed": "Rotating"
-        }
+        "HardDrive": [
+          {
+            "Size": "524288",
+            "Speed": "Rotating"
+          }
+        ]
       },
       {
         "Brand": "Biostar",
         "CPU": [
           {
-            "Name": "Intel",
+            "Brand": "Intel",
             "Cores": "2",
             "Speed": "slow"
           }
@@ -66,7 +68,7 @@
           {
             "CPU": [
               {
-                "Name": "Intel",
+                "Brand": "Intel",
                 "Cores": "6",
                 "Speed": "medium"
               }
@@ -97,11 +99,23 @@
             "Brand": "Corsair"
           }
         ],
-        "HardDrive": {
-          "Size": "262144",
-          "Speed": "Rotating"
-        }
+        "HardDrive": [
+          {
+            "Size": "262144",
+            "Speed": "Rotating"
+          }
+        ]
       }
     ]
-  }
+  },
+  "Brand": [
+    {
+      "Name": "MSI",
+      "Partner": "No"
+    },
+    {
+      "Name": "Biostar",
+      "Partner": "Yes"
+    }
+  ]
 }

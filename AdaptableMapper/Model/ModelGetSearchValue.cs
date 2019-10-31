@@ -3,16 +3,16 @@ using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Model
 {
-    public sealed class ModelGetSearch : GetValueTraversal
+    public sealed class ModelGetSearchValue : GetValueTraversal
     {
-        public ModelGetSearch(string path, string searchPath)
+        public ModelGetSearchValue(string searchPath, string searchValuePath)
         {
-            Path = path;
             SearchPath = searchPath;
+            SearchValuePath = searchValuePath;
         }
 
-        public string Path { get; set; }
         public string SearchPath { get; set; }
+        public string SearchValuePath { get; set; }
 
         public string GetValue(object source)
         {
@@ -23,9 +23,9 @@ namespace AdaptableMapper.Model
             }
 
             string searchValue = null;
-            if (!string.IsNullOrWhiteSpace(SearchPath))
+            if (!string.IsNullOrWhiteSpace(SearchValuePath))
             {
-                var searchModelPath = PathContainer.Create(SearchPath);
+                var searchModelPath = PathContainer.Create(SearchValuePath);
 
                 ModelBase searchPathTarget = model.NavigateToModel(searchModelPath.CreatePathQueue());
                 searchValue = searchPathTarget.GetValue(searchModelPath.LastInPath);
@@ -37,13 +37,13 @@ namespace AdaptableMapper.Model
                 }
             }
 
-            string actualModelPath = string.IsNullOrWhiteSpace(searchValue) ? Path : Path.Replace("{{searchValue}}", searchValue);
+            string actualModelPath = string.IsNullOrWhiteSpace(searchValue) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue);
             var modelPathContainer = PathContainer.Create(actualModelPath);
 
             ModelBase pathTarget = model.NavigateToModel(modelPathContainer.CreatePathQueue());
-            string value = pathTarget.GetValue(modelPathContainer.LastInPath);
+            string searchResult = pathTarget.GetValue(modelPathContainer.LastInPath);
 
-            return value;
+            return searchResult;
         }
     }
 }

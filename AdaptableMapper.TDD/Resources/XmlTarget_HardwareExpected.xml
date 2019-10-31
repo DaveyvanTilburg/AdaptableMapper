@@ -6,12 +6,12 @@
     <memory size="2048" onMotherboardWithBrand="Biostar" brand="Corsair" />
   </allMemories>
   <computers>
-    <computer motherboardBrand="MSI" cpuBrand="Intel" totalStorage="524288">
+    <computer motherboardBrand="MSI" cpuBrand="Intel" storage="524288" brandPartner="No">
       <graphicalCard>
         <cpu cores="4" speed="medium" />
       </graphicalCard>
     </computer>
-    <computer motherboardBrand="Biostar" cpuBrand="Intel" totalStorage="262144">
+    <computer motherboardBrand="Biostar" cpuBrand="Intel" storage="262144" brandPartner="Yes">
       <graphicalCard>
         <cpu cores="6" speed="medium" />
       </graphicalCard>

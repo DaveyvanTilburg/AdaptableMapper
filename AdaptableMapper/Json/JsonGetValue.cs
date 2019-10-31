@@ -21,6 +21,12 @@ namespace AdaptableMapper.Json
             }
 
             JToken result = jToken.Traverse(Path);
+            if (result == null)
+            {
+                Errors.ErrorObservable.GetInstance().Raise("Json GetValue did not result in a token");
+                return string.Empty;
+            }
+
             return result.Value<string>();
         }
     }

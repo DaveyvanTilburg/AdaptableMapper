@@ -226,7 +226,7 @@ namespace AdaptableMapper.TDD
             );
 
             var leaderName = new Mapping(
-                new Model.ModelGetSearch(
+                new Model.ModelGetSearchValue(
                     "../../Leaders{'PropertyName':'Reference','Value':'{{searchValue}}'}/Name",
                     "LeaderReference"
                 ),
