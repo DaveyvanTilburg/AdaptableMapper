@@ -9,7 +9,7 @@ namespace AdaptableMapper
         public List<MappingScopeComposite> MappingScopeComposites { get; set; }
         public List<Mapping> Mappings { get; set; }
 
-        public GetScopeTraversal GetScopeTraversion { get; set; }
+        public GetScopeTraversal GetScopeTraversal { get; set; }
         public Traversal Traversal { get; set; }
         public TraversalToGetTemplate TraversalToGetTemplate { get; set; }
 
@@ -18,14 +18,14 @@ namespace AdaptableMapper
         public MappingScopeComposite(
             List<MappingScopeComposite> mappingScopeComposites, 
             List<Mapping> mappings, 
-            GetScopeTraversal getScopeTraversion, 
+            GetScopeTraversal getScopeTraversal, 
             Traversal traversal, 
             TraversalToGetTemplate traversalToGetTemplate, 
             ChildCreator childCreator)
         {
             MappingScopeComposites = mappingScopeComposites;
             Mappings = mappings;
-            GetScopeTraversion = getScopeTraversion;
+            GetScopeTraversal = getScopeTraversal;
             Traversal = traversal;
             TraversalToGetTemplate = traversalToGetTemplate;
             ChildCreator = childCreator;
@@ -33,7 +33,7 @@ namespace AdaptableMapper
 
         public void Traverse(Context context)
         {
-            IEnumerable<object> scope = GetScopeTraversion.GetScope(context.Source);
+            IEnumerable<object> scope = GetScopeTraversal.GetScope(context.Source);
 
             object parent = Traversal.Traverse(context.Target);
             object template = TraversalToGetTemplate.Traverse(parent);

@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.4.1-beta20191031-01</version>
+    <version>0.4.2-beta20191031-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -20,6 +20,8 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       </group>
     </dependencies>
     <releaseNotes>
+0.4.2
+  - Rename inconsistency
 0.4.1
   - Rename inconsistency
 0.4.0
@@ -37,8 +39,8 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
   - Renamed object Adaptable to ModelBase (and all related objects)
 0.0.1
   - Created an abstraction for mapping to and from:
-    - Xml
-    - In memory objects (through the model abstraction)
+  - Xml
+  - In memory objects (through the model abstraction)
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
