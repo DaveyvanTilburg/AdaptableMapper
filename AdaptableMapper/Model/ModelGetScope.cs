@@ -22,12 +22,12 @@ namespace AdaptableMapper.Model
                 return new List<object>();
             }
 
-            var modelPathContainer = ModelPathContainer.CreateModelPath(Path);
+            var modelPathContainer = PathContainer.Create(Path);
 
             List<ModelBase> pathTargets = model.NavigateToAllModels(modelPathContainer.CreatePathQueue()).ToList();
 
             List<object> modelScopes = pathTargets
-                .Select(p => p.GetListProperty(modelPathContainer.PropertyName))
+                .Select(p => p.GetListProperty(modelPathContainer.LastInPath))
                 .SelectMany(l => (IEnumerable<object>)l)
                 .ToList();
 

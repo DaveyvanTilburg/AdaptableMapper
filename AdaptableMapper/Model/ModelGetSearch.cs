@@ -25,10 +25,10 @@ namespace AdaptableMapper.Model
             string searchValue = null;
             if (!string.IsNullOrWhiteSpace(SearchPath))
             {
-                var searchModelPath = ModelPathContainer.CreateModelPath(SearchPath);
+                var searchModelPath = PathContainer.Create(SearchPath);
 
                 ModelBase searchPathTarget = model.NavigateToModel(searchModelPath.CreatePathQueue());
-                searchValue = searchPathTarget.GetValue(searchModelPath.PropertyName);
+                searchValue = searchPathTarget.GetValue(searchModelPath.LastInPath);
 
                 if (string.IsNullOrWhiteSpace(searchValue))
                 {
@@ -38,10 +38,10 @@ namespace AdaptableMapper.Model
             }
 
             string actualModelPath = string.IsNullOrWhiteSpace(searchValue) ? Path : Path.Replace("{{searchValue}}", searchValue);
-            var modelPathContainer = ModelPathContainer.CreateModelPath(actualModelPath);
+            var modelPathContainer = PathContainer.Create(actualModelPath);
 
             ModelBase pathTarget = model.NavigateToModel(modelPathContainer.CreatePathQueue());
-            string value = pathTarget.GetValue(modelPathContainer.PropertyName);
+            string value = pathTarget.GetValue(modelPathContainer.LastInPath);
 
             return value;
         }

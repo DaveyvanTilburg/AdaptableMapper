@@ -13,6 +13,12 @@ namespace AdaptableMapper.Json
             }
 
             JToken jToken = JToken.Parse(input);
+            if(jToken == null)
+            {
+                Errors.ErrorObservable.GetInstance().Raise("Source could not be parsed to JToken");
+                return new JObject();
+            }
+
             return jToken;
         }
     }

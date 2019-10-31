@@ -21,7 +21,7 @@ namespace AdaptableMapper.Json
                 return;
             }
 
-            IEnumerable<JToken> jTokens = jToken.SelectTokens(Path);
+            IEnumerable<JToken> jTokens = jToken.TraverseAll(Path);
 
             foreach(JToken jTokenTarget in jTokens)
             {

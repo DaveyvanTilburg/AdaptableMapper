@@ -14,6 +14,12 @@ namespace AdaptableMapper.Json
         public object Create()
         {
             JToken jToken = JToken.Parse(Template);
+            if (jToken == null)
+            {
+                Errors.ErrorObservable.GetInstance().Raise("Source could not be parsed to JToken");
+                return new JObject();
+            }
+
             return jToken;
         }
     }

@@ -21,10 +21,10 @@ namespace AdaptableMapper.Model
                 return string.Empty;
             }
 
-            var modelPathContainer = ModelPathContainer.CreateModelPath(Path);
+            var modelPathContainer = PathContainer.Create(Path);
 
             ModelBase pathTarget = model.GetOrCreateModel(modelPathContainer.CreatePathQueue());
-            IList modelScope = pathTarget.GetListProperty(modelPathContainer.PropertyName);
+            IList modelScope = pathTarget.GetListProperty(modelPathContainer.LastInPath);
 
             return modelScope;
         }

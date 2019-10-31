@@ -22,7 +22,7 @@ namespace AdaptableMapper.Json
                 return new JObject();
             }
 
-            IEnumerable<JToken> jTokens = jToken.SelectTokens(Path).ToList();
+            IEnumerable<JToken> jTokens = jToken.TraverseAll(Path).ToList();
 
             if(!jTokens.Any())
                 Errors.ErrorObservable.GetInstance().Raise("Json GetScope resulted in no tokens");

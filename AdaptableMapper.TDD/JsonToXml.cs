@@ -36,12 +36,12 @@ namespace AdaptableMapper.TDD
             );
 
             var memoryBrand = new Mapping(
-                new Json.JsonGetValue("$..Memory.Brand"),
+                new Json.JsonGetValue("../../../.Brand"),
                 new Xml.XmlSetValue("./@brand")
             );
 
             var memoryMotherboardBrand = new Mapping(
-                new Json.JsonGetValue("$..Motherboard.Brand"),
+                new Json.JsonGetValue("../../../../../../.Brand"),
                 new Xml.XmlSetValue("./@onMotherboardWithBrand")
             );
 

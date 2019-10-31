@@ -20,13 +20,7 @@ namespace AdaptableMapper.Json
                 return string.Empty;
             }
 
-            JToken result = jToken.SelectToken(Path);
-            if(result == null)
-            {
-                Errors.ErrorObservable.GetInstance().Raise($"Path {Path} resulted in no jTokens");
-                return string.Empty;
-            }
-
+            JToken result = jToken.Traverse(Path);
             return result.Value<string>();
         }
     }

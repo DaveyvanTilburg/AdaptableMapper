@@ -48,6 +48,7 @@
     <Compile Include="Json\JsonGetThisValue.cs" />
     <Compile Include="Json\JsonGetValue.cs" />
     <Compile Include="Json\JsonObjectConverter.cs" />
+    <Compile Include="Json\JsonPathParentOperation.cs" />
     <Compile Include="Json\JsonSetThisValue.cs" />
     <Compile Include="Json\JsonSetValue.cs" />
     <Compile Include="Json\JsonTargetInstantiator.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Contexts\Context.cs" />
     <Compile Include="Model\Language\NullModel.cs" />
     <Compile Include="ChildCreator.cs" />
+    <Compile Include="StringExtensions.cs" />
     <Compile Include="Traversals\GetScopeTraversal.cs" />
     <Compile Include="Traversals\GetValueTraversal.cs" />
     <Compile Include="Mapping.cs" />
@@ -104,7 +106,7 @@
     <Compile Include="Xml\XmlTraversal.cs" />
     <Compile Include="Model\TypeExtensions.cs" />
     <Compile Include="Xml\XElementExtensions.cs" />
-    <Compile Include="Model\Language\ModelPathContainer.cs" />
+    <Compile Include="PathContainer.cs" />
     <Compile Include="Mapper.cs" />
     <Compile Include="Xml\XmlTraversalTemplate.cs" />
     <Compile Include="Xml\XmlTraversalThis.cs" />

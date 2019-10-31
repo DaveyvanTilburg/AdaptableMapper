@@ -20,10 +20,10 @@ namespace AdaptableMapper.Json
                 return new JObject();
             }
 
-            JToken result = jToken.SelectToken(Path);
+            JToken result = jToken.Traverse(Path);
             if (result == null)
             {
-                Errors.ErrorObservable.GetInstance().Raise($"Path {Path} resulted in no jTokens");
+                Errors.ErrorObservable.GetInstance().Raise($"Path {Path} resulted in no jToken");
                 return string.Empty;
             }
 

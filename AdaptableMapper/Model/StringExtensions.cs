@@ -21,15 +21,5 @@ namespace AdaptableMapper.Model
             filter.ModelName = value.Substring(0, positionStart);
             return true;
         }
-
-        public static Stack<string> ToStack(this string value)
-        {
-            return new Stack<string>(value.Split('/'));
-        }
-
-        public static Queue<string> ToQueue(this string value)
-        {
-            return new Queue<string>(value.Split('/'));
-        }
     }
 }

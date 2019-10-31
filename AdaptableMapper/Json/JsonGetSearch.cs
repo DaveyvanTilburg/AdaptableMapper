@@ -1,7 +1,5 @@
 ﻿using AdaptableMapper.Traversals;
 using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace AdaptableMapper.Json
 {
@@ -37,15 +35,15 @@ namespace AdaptableMapper.Json
 
             string actualPath = string.IsNullOrWhiteSpace(searchValue) ? Path : Path.Replace("{{searchValue}}", searchValue);
 
-            IEnumerable<JToken> values = jToken.SelectTokens(actualPath);
-            if (!values.Any())
+            JToken value = jToken.Traverse(actualPath);
+            if (value == null)
             {
-                Errors.ErrorObservable.GetInstance().Raise($"Search resulted in no results, path : {Path}; SearchPath : {SearchPath}; ActualPath : {actualPath}");
+                Errors.ErrorObservable.GetInstance().Raise($"Search resulted in no result, path : {Path}; SearchPath : {SearchPath}; ActualPath : {actualPath}");
                 return string.Empty;
             }
 
-            string value = values.FirstOrDefault().Value<string>();
-            return value;
+            string result = value.Value<string>();
+            return result;
         }
     }
 }
