@@ -9,11 +9,11 @@ Completed plans:
  - Soft error handling (through observer)
 
 Current plans:
- - Fully test and create the Xml conversion implementation
- - Fully test and create the Memory conversion implementation
+ - Implement Xml conversion
+ - Implement Model conversion
+ - Implement Json conversion
 
 Future plans in relative priority order:
- - Implement Json conversion
  - Write documentation
 
 ## How to use
