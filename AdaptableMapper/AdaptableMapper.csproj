@@ -107,7 +107,7 @@
     <Compile Include="Model\TypeExtensions.cs" />
     <Compile Include="Xml\XElementExtensions.cs" />
     <Compile Include="PathContainer.cs" />
-    <Compile Include="Mapper.cs" />
+    <Compile Include="JsonSerializer.cs" />
     <Compile Include="Xml\XmlTraversalTemplate.cs" />
     <Compile Include="Xml\XmlTraversalThis.cs" />
   </ItemGroup>

@@ -2,26 +2,26 @@
 
 namespace AdaptableMapper
 {
-    public static class Mapper
+    public static class JsonSerializer
     {
-        public static string GetMemento(MappingConfiguration mappingConfiguration)
+        public static string Serialize(object source)
         {
             Formatting indented = Formatting.Indented;
             var settings = new JsonSerializerSettings()
             {
                 TypeNameHandling = TypeNameHandling.All
             };
-            string serialized = JsonConvert.SerializeObject(mappingConfiguration, indented, settings);
+            string serialized = JsonConvert.SerializeObject(source, indented, settings);
             return serialized;
         }
 
-        public static MappingConfiguration LoadMemento(string memento)
+        public static T Deserialize<T>(string memento)
         {
             var settings = new JsonSerializerSettings()
             {
                 TypeNameHandling = TypeNameHandling.All
             };
-            var deserialized = JsonConvert.DeserializeObject<MappingConfiguration>(memento, settings);
+            var deserialized = JsonConvert.DeserializeObject<T>(memento, settings);
             return deserialized;
         }
     }
