@@ -13,6 +13,12 @@ namespace AdaptableMapper.Xml
             }
 
             XElement root = XElement.Parse(input);
+            if (root == null)
+            {
+                Errors.ErrorObservable.GetInstance().Raise("Source could not be parsed to XElement");
+                return new XElement("nullObject");
+            }
+
             RemoveAllNamespaces(root);
 
             return root;

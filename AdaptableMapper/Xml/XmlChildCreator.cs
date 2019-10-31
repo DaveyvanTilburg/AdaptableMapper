@@ -10,13 +10,13 @@ namespace AdaptableMapper.Xml
             if(!(parent is XElement xElement))
             {
                 Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type XElement");
-                return new XElement("");
+                return new XElement("nullObject");
             }
 
             if (!(template is XElement xTemplate))
             {
                 Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type XElement");
-                return new XElement("");
+                return new XElement("nullObject");
             }
 
             var xTemplateCopy = new XElement(xTemplate);
