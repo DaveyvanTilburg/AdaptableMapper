@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErrorObserverTester.cs" />
     <Compile Include="JsonToXml.cs" />
     <Compile Include="ModelToXml.cs" />
     <Compile Include="TestErrorObserver.cs" />

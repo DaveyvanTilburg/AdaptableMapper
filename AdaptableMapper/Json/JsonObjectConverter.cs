@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 
 namespace AdaptableMapper.Json
 {
@@ -8,15 +9,19 @@ namespace AdaptableMapper.Json
         {
             if (!(source is string input))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type String");
+                Errors.ErrorObservable.GetInstance().Raise("JSON#12; Source is not of expected type String", source);
                 return string.Empty;
             }
 
-            JToken jToken = JToken.Parse(input);
-            if(jToken == null)
+            JToken jToken;
+            try
             {
-                Errors.ErrorObservable.GetInstance().Raise("Source could not be parsed to JToken");
-                return new JObject();
+                jToken = JToken.Parse(input);
+            }
+            catch (Exception exception)
+            {
+                Errors.ErrorObservable.GetInstance().Raise("JSON#13; Source could not be parsed to JToken", source, exception);
+                jToken = new JObject();
             }
 
             return jToken;

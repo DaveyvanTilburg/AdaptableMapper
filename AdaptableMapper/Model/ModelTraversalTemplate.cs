@@ -17,7 +17,7 @@ namespace AdaptableMapper.Model
         {
             if (!(target is ModelBase model))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
+                Errors.ErrorObservable.GetInstance().Raise("MODEL#22; target is not of expected type Model", Path, target);
                 return string.Empty;
             }
 

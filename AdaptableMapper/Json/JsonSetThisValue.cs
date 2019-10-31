@@ -9,7 +9,7 @@ namespace AdaptableMapper.Json
         {
             if (!(target is JValue jValue))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type JValue");
+                Errors.ErrorObservable.GetInstance().Raise("JSON#17; Target is not of expected type JValue", target);
                 return;
             }
 

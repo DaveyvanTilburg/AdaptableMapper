@@ -16,7 +16,7 @@ namespace AdaptableMapper.Json
             JToken jToken = JToken.Parse(Template);
             if (jToken == null)
             {
-                Errors.ErrorObservable.GetInstance().Raise("Source could not be parsed to JToken");
+                Errors.ErrorObservable.GetInstance().Raise("JSON#20; Template could not be parsed to JToken", Template);
                 return new JObject();
             }
 

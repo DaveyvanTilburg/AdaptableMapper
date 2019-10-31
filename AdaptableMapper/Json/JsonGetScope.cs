@@ -18,14 +18,14 @@ namespace AdaptableMapper.Json
         {
             if (!(source is JToken jToken))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type JToken");
+                Errors.ErrorObservable.GetInstance().Raise("JSON#3; Source is not of expected type jToken", Path, source);
                 return new JObject();
             }
 
             IEnumerable<JToken> jTokens = jToken.TraverseAll(Path).ToList();
 
             if(!jTokens.Any())
-                Errors.ErrorObservable.GetInstance().Raise("Json GetScope resulted in no tokens");
+                Errors.ErrorObservable.GetInstance().Raise("JSON#4; Path has no results", Path);
 
             return jTokens;
         }

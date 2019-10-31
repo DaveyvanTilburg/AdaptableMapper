@@ -14,7 +14,7 @@ namespace AdaptableMapper.Xml
 
             if (!allMatches.Any())
             {
-                Errors.ErrorObservable.GetInstance().Raise($"Path could not be traversed : {xPath}");
+                Errors.ErrorObservable.GetInstance().Raise("XML#1; Path could not be traversed", xPath, xElement);
                 return new List<XElement>();
             }
 
@@ -26,10 +26,10 @@ namespace AdaptableMapper.Xml
             IList<XElement> allMatches = xElement.XPathSelectElements(xPath).ToList();
 
             if(!allMatches.Any())
-                Errors.ErrorObservable.GetInstance().Raise($"Path could not be traversed : {xPath}");
+                Errors.ErrorObservable.GetInstance().Raise("XML#2; Path could not be traversed", xPath, xElement);
 
             if(allMatches.Count > 1)
-                Errors.ErrorObservable.GetInstance().Raise($"Path has multiple of the same node, when only one is expected : {xPath}");
+                Errors.ErrorObservable.GetInstance().Raise("XML#3; Path has multiple of the same node, when only one is expected", xPath, xElement);
 
             return allMatches.FirstOrDefault() ?? new XElement("nullObject");
         }
@@ -40,7 +40,7 @@ namespace AdaptableMapper.Xml
             var xObjects = enumerable.Cast<XObject>();
 
             if (!xObjects.Any())
-                Errors.ErrorObservable.GetInstance().Raise($"Path could not be traversed : {xPath}");
+                Errors.ErrorObservable.GetInstance().Raise("XML#4; Path could not be traversed", xPath, xElement);
             else
             {
                 foreach (XObject xObject in xObjects)
@@ -60,7 +60,7 @@ namespace AdaptableMapper.Xml
 
             if (xObject == null)
             {
-                Errors.ErrorObservable.GetInstance().Raise($"Path could not be traversed : {xPath}");
+                Errors.ErrorObservable.GetInstance().Raise("XML#5; Path could not be traversed", xPath, xElement);
                 return string.Empty;
             }
 
@@ -69,7 +69,7 @@ namespace AdaptableMapper.Xml
             else if (xObject is XAttribute attribute)
                 return attribute.Value;
 
-            Errors.ErrorObservable.GetInstance().Raise($"Path did not end in an attribute or element : {xPath}");
+            Errors.ErrorObservable.GetInstance().Raise("XML#6; Path did not end in an attribute or element", xPath, xElement);
             return string.Empty;
         }
 
@@ -79,7 +79,7 @@ namespace AdaptableMapper.Xml
             var xObjects = enumerable.Cast<XObject>();
 
             if (!xObjects.Any())
-                Errors.ErrorObservable.GetInstance().Raise($"Path could not be traversed : {xPath}");
+                Errors.ErrorObservable.GetInstance().Raise("XML#7; Path could not be traversed", xPath, xElement);
             else
             {
                 foreach (XObject xObject in xObjects)
@@ -95,7 +95,7 @@ namespace AdaptableMapper.Xml
         public static XElement GetParent(this XElement xElement)
         {
             if (xElement.Parent == null)
-                Errors.ErrorObservable.GetInstance().Raise($"parent of node {xElement} is null");
+                Errors.ErrorObservable.GetInstance().Raise("XML#8; attempting to access parent of node that is null", xElement);
 
             return xElement?.Parent ?? new XElement("nullObject");
         }

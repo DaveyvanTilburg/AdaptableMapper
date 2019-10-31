@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
@@ -8,15 +9,19 @@ namespace AdaptableMapper.Xml
         {
             if (!(source is string input))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type String");
+                Errors.ErrorObservable.GetInstance().Raise("XML#18; source is not of expected type String", source);
                 return string.Empty;
             }
 
-            XElement root = XElement.Parse(input);
-            if (root == null)
+            XElement root;
+            try
             {
-                Errors.ErrorObservable.GetInstance().Raise("Source could not be parsed to XElement");
-                return new XElement("nullObject");
+                root = XElement.Parse(input);
+            }
+            catch(Exception exception)
+            {
+                Errors.ErrorObservable.GetInstance().Raise("XML#19; input could not be parsed to XElement", input, exception);
+                root = new XElement("nullObject");
             }
 
             RemoveAllNamespaces(root);

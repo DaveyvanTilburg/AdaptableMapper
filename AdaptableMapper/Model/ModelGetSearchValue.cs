@@ -18,7 +18,7 @@ namespace AdaptableMapper.Model
         {
             if (!(source is ModelBase model))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
+                Errors.ErrorObservable.GetInstance().Raise("MODEL#13; source is not of expected type Model", SearchPath, SearchValuePath, source);
                 return string.Empty;
             }
 
@@ -32,17 +32,22 @@ namespace AdaptableMapper.Model
 
                 if (string.IsNullOrWhiteSpace(searchValue))
                 {
-                    Errors.ErrorObservable.GetInstance().Raise("SearchPath resulted in empty string");
+                    Errors.ErrorObservable.GetInstance().Raise("MODEL#14; SearchPath resulted in empty string", SearchPath, SearchValuePath, source);
                     return string.Empty;
                 }
             }
 
-            string actualModelPath = string.IsNullOrWhiteSpace(searchValue) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue);
-            var modelPathContainer = PathContainer.Create(actualModelPath);
+            string actualPath = string.IsNullOrWhiteSpace(searchValue) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue);
+            var modelPathContainer = PathContainer.Create(actualPath);
 
             ModelBase pathTarget = model.NavigateToModel(modelPathContainer.CreatePathQueue());
-            string searchResult = pathTarget.GetValue(modelPathContainer.LastInPath);
+            if (pathTarget == null)
+            {
+                Errors.ErrorObservable.GetInstance().Raise("MODEL#15; ActualPath resulted in no items", actualPath, SearchPath, SearchValuePath, source);
+                return string.Empty;
+            }
 
+            string searchResult = pathTarget.GetValue(modelPathContainer.LastInPath);
             return searchResult;
         }
     }

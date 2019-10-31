@@ -18,7 +18,7 @@ namespace AdaptableMapper.Json
         {
             if (!(source is JToken jToken))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type JToken");
+                Errors.ErrorObservable.GetInstance().Raise("JSON#5; source is not of expected type JToken", SearchPath, SearchValuePath, source);
                 return string.Empty;
             }
 
@@ -29,14 +29,14 @@ namespace AdaptableMapper.Json
 
                 if(searchToken == null)
                 {
-                    Errors.ErrorObservable.GetInstance().Raise("Json GetSearchValue searchPath did not result in a token");
+                    Errors.ErrorObservable.GetInstance().Raise("JSON#6; SearchPath resulted in no items", SearchPath, SearchValuePath, source);
                     return string.Empty;
                 }
 
                 searchValue = searchToken.Value<string>();
                 if (string.IsNullOrWhiteSpace(searchValue))
                 {
-                    Errors.ErrorObservable.GetInstance().Raise("SearchPath resulted in empty string");
+                    Errors.ErrorObservable.GetInstance().Raise("JSON#7; SearchPath resulted in empty string", SearchPath, SearchValuePath, source);
                     return string.Empty;
                 }
             }
@@ -46,7 +46,7 @@ namespace AdaptableMapper.Json
             JToken searchResult = jToken.Traverse(actualPath);
             if (searchResult == null)
             {
-                Errors.ErrorObservable.GetInstance().Raise($"Search resulted in no result, path : {SearchPath}; SearchPath : {SearchValuePath}; ActualPath : {actualPath}");
+                Errors.ErrorObservable.GetInstance().Raise("JSON#8; ActualPath resulted in no items", actualPath, SearchPath, SearchValuePath, source);
                 return string.Empty;
             }
 

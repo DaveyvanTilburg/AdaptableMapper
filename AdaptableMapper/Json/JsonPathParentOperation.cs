@@ -16,7 +16,7 @@ namespace AdaptableMapper.Json
 
             if (result == null)
             {
-                Errors.ErrorObservable.GetInstance().Raise($"Path {path} resulted in no jTokens");
+                Errors.ErrorObservable.GetInstance().Raise("JSON#14; Path resulted in no items", path);
                 return string.Empty;
             }
 
@@ -31,11 +31,11 @@ namespace AdaptableMapper.Json
             string step = path.Dequeue();
 
             if(!step.Equals(".."))
-                Errors.ErrorObservable.GetInstance().Raise($"In JPath, the / operator can only be used to navigate back to parent nodes, expected '..' but was '{step}'");
+                Errors.ErrorObservable.GetInstance().Raise($"JSON#15; In JPath, the / operator can only be used to navigate back to parent nodes, expected '..' but was '{step}'");
 
             JToken parent = jToken.Parent;
             if(parent == null)
-                Errors.ErrorObservable.GetInstance().Raise($"No parent found for jToken {jToken}");
+                Errors.ErrorObservable.GetInstance().Raise("JSON#16; No parent found for jToken", jToken);
 
             if (path.Count > 0)
                 return parent.TraverseToParent(path);

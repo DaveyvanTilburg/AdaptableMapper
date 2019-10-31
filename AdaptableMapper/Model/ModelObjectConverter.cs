@@ -1,5 +1,4 @@
-﻿using AdaptableMapper.Contexts;
-using AdaptableMapper.Model.Language;
+﻿using AdaptableMapper.Model.Language;
 
 namespace AdaptableMapper.Model
 {
@@ -9,7 +8,7 @@ namespace AdaptableMapper.Model
         {
             if (!(source is ModelBase model))
             {
-                Errors.ErrorObservable.GetInstance().Raise("Object is not of expected type Model");
+                Errors.ErrorObservable.GetInstance().Raise("MODEL#17; source is not of expected type Model", source);
                 return string.Empty;
             }
 

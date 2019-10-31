@@ -12,7 +12,7 @@ namespace AdaptableMapper.Model
 
             if (!(instance is ModelBase result))
             {
-                Errors.ErrorObservable.GetInstance().Raise($"Model has property with type {type.Name} that is not an Model, that is being traversed");
+                Errors.ErrorObservable.GetInstance().Raise($"MODEL#23; Model has property with type {type.Name} that is not a Model");
                 return new NullModel();
             }
 
