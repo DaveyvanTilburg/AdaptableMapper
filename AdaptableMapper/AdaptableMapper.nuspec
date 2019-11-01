@@ -32,7 +32,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
 0.4.1
   - Rename inconsistency
 0.4.0
-  - Added Json conversions (getters)
+  - Added Json traversals (getters)
   - Added extra error handling checks
 0.3.2
   - Added jsonignore to parent property of ModelBase so Json doesn't give the recursive error. (ModelBase should not be serialized for storage anyway)
