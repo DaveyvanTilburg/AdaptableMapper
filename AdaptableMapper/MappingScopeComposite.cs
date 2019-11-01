@@ -8,11 +8,10 @@ namespace AdaptableMapper
     {
         public List<MappingScopeComposite> MappingScopeComposites { get; set; }
         public List<Mapping> Mappings { get; set; }
-
         public GetScopeTraversal GetScopeTraversal { get; set; }
+
         public Traversal Traversal { get; set; }
         public TraversalToGetTemplate TraversalToGetTemplate { get; set; }
-
         public ChildCreator ChildCreator { get; set; }
 
         public MappingScopeComposite(

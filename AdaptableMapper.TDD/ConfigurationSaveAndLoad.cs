@@ -10,8 +10,8 @@ namespace AdaptableMapper.TDD
         {
             MappingConfiguration source = XmlToModel.GetMappingConfiguration();
 
-            string serialized = Mapper.GetMemento(source);
-            MappingConfiguration target = Mapper.LoadMemento(serialized);
+            string serialized = JsonSerializer.Serialize(source);
+            var target = JsonSerializer.Deserialize<MappingConfiguration>(serialized);
 
             source.Should().BeEquivalentTo(target);
         }
