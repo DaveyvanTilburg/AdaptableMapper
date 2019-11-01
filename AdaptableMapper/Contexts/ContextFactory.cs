@@ -2,18 +2,18 @@
 {
     public class ContextFactory
     {
-        public ObjectConverter SourceConverter { get; set; }
+        public ObjectConverter ObjectConverter { get; set; }
         public TargetInstantiator TargetInstantiator { get; set; }
 
-        public ContextFactory(ObjectConverter sourceConverter, TargetInstantiator targetInstantiator)
+        public ContextFactory(ObjectConverter objectConverter, TargetInstantiator targetInstantiator)
         {
-            SourceConverter = sourceConverter;
+            ObjectConverter = objectConverter;
             TargetInstantiator = targetInstantiator;
         }
 
         internal Context Create(object source)
         {
-            return new Context(source: SourceConverter.Convert(source), target: TargetInstantiator.Create());
+            return new Context(source: ObjectConverter.Convert(source), target: TargetInstantiator.Create());
         }
     }
 }

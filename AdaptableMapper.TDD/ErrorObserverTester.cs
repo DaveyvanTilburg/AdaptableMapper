@@ -11,19 +11,19 @@ namespace AdaptableMapper.TDD
         public void ErrorObserverTestMessages()
         {
             var errorObserver = new TestErrorObserver();
-            var errorObserverVerbose = new TestErrorObserver();
-            Errors.ErrorObservable.GetInstance().Register(errorObserver);
-            Errors.ErrorObservable.GetInstance().RegisterVerbose(errorObserverVerbose);
+            Errors.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
 
             mappingConfiguration.Map("");
 
-            Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
-            Errors.ErrorObservable.GetInstance().UnregisterVerbose(errorObserverVerbose);
+            Errors.ProcessObservable.GetInstance().Unregister(errorObserver);
 
-            errorObserver.GetErrors().Last().Should().Be("XML#1; Path could not be traversed;");
-            errorObserverVerbose.GetErrors().Last().Should().Be("XML#1; Path could not be traversed; objects:[\"./army/platoon\",{\"nullObject\":null}]");
+            errorObserver.GetRaisedWarnings().Count.Should().Be(1);
+            errorObserver.GetRaisedWarnings().Last().Message.Should().Be("XML#1; Path could not be traversed; objects:[\"./army/platoon\",{\"nullObject\":null}]");
+
+            errorObserver.GetRaisedErrors().Count.Should().Be(1);
+            errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
         }
 
         private static MappingConfiguration GetMappingConfiguration()

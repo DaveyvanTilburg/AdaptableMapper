@@ -1,5 +1,4 @@
-﻿using AdaptableMapper.Traversals;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
@@ -7,15 +6,15 @@ namespace AdaptableMapper.Xml
     {
         public object CreateChildOn(object parent, object template)
         {
-            if(!(parent is XElement xElement))
+            if (!(parent is XElement xElement))
             {
-                Errors.ErrorObservable.GetInstance().Raise("XML#10; parent is not of expected type XElement", parent?.GetType()?.Name);
+                Errors.ProcessObservable.GetInstance().Raise("XML#10; parent is not of expected type XElement", "error", parent?.GetType()?.Name);
                 return new XElement("nullObject");
             }
 
             if (!(template is XElement xTemplate))
             {
-                Errors.ErrorObservable.GetInstance().Raise("XML#11; template is not of expected type XElement", template?.GetType()?.Name);
+                Errors.ProcessObservable.GetInstance().Raise("XML#11; template is not of expected type XElement", "error", template?.GetType()?.Name);
                 return new XElement("nullObject");
             }
 

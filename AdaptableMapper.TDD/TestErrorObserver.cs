@@ -1,20 +1,31 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AdaptableMapper.Errors;
 
 namespace AdaptableMapper.TDD
 {
-    internal class TestErrorObserver : ErrorObserver
+    internal class TestErrorObserver : ProcessObserver
     {
-        private readonly List<string> _errors = new List<string>();
+        private readonly List<Information> _information = new List<Information>();
 
-        public IReadOnlyCollection<string> GetErrors()
+        public IReadOnlyCollection<Information> GetRaisedWarnings()
         {
-            return _errors;
+            return _information.Where(i => i.Type.Equals("warning")).ToList();
         }
 
-        public void ErrorOccured(Error error)
+        public IReadOnlyCollection<Information> GetRaisedErrors()
         {
-            _errors.Add(error.Message);
+            return _information.Where(i => i.Type.Equals("error")).ToList();
+        }
+
+        public IReadOnlyCollection<Information> GetRaisedOtherTypes()
+        {
+            return _information.Where(i => !i.Type.Equals("error") && !i.Type.Equals("warning")).ToList();
+        }
+
+        public void InformationRaised(Information information)
+        {
+            _information.Add(information);
         }
     }
 }

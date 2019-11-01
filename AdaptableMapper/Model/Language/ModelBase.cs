@@ -49,13 +49,13 @@ namespace AdaptableMapper.Model.Language
             object property = propertyInfo?.GetValue(this);
 
             if (property == null)
-                Errors.ErrorObservable.GetInstance().Raise($"MODEL#1; Property {propertyName} does not exist on {this.GetType().Name}");
+                Errors.ProcessObservable.GetInstance().Raise($"MODEL#1; Property {propertyName} does not exist on {this.GetType().Name}", "warning");
 
             if ((property is IList listProperty))
                 return listProperty;
             else
             {
-                Errors.ErrorObservable.GetInstance().Raise($"MODEL#2; Property {propertyName} is not traversable, it is not a list of Model");
+                Errors.ProcessObservable.GetInstance().Raise($"MODEL#2; Property {propertyName} is not traversable, it is not a list of Model", "warning");
                 return new List<ModelBase>();
             }
         }
@@ -72,7 +72,7 @@ namespace AdaptableMapper.Model.Language
             {
                 next = Parent;
                 if (next == null)
-                    Errors.ErrorObservable.GetInstance().Raise($"MODEL#3; Parent node was null while navigating to parent of type {this.GetType().Name}");
+                    Errors.ProcessObservable.GetInstance().Raise($"MODEL#3; Parent node was null while navigating to parent of type {this.GetType().Name}", "warning");
             }
             else if(step.TryGetObjectFilter(out ModelFilter filter))
             {
@@ -80,7 +80,7 @@ namespace AdaptableMapper.Model.Language
                 next = propertyValue.FirstOrDefault(a => a.GetValue(filter.PropertyName).Equals(filter.Value));
 
                 if (next == null)
-                    Errors.ErrorObservable.GetInstance().Raise($"MODEL4#; No match found for filter on list with name {filter.ModelName} with a value that has a {filter.PropertyName} with value {filter.Value}");
+                    Errors.ProcessObservable.GetInstance().Raise($"MODEL4#; No match found for filter on list with name {filter.ModelName} with a value that has a {filter.PropertyName} with value {filter.Value}", "warning");
             }
             else
             {
@@ -88,7 +88,7 @@ namespace AdaptableMapper.Model.Language
                 next = propertyValue.FirstOrDefault();
 
                 if (next == null)
-                    Errors.ErrorObservable.GetInstance().Raise($"MODEL#5; No items found in {step} in type {this.GetType().Name}");
+                    Errors.ProcessObservable.GetInstance().Raise($"MODEL#5; No items found in {step} in type {this.GetType().Name}", "warning");
             }
 
             if (next == null)
@@ -128,7 +128,7 @@ namespace AdaptableMapper.Model.Language
             {
                 if(Parent == null)
                 {
-                    Errors.ErrorObservable.GetInstance().Raise($"MODEL#6; Parent node was null while navigating to parent of type {this.GetType().Name}");
+                    Errors.ProcessObservable.GetInstance().Raise($"MODEL#6; Parent node was null while navigating to parent of type {this.GetType().Name}", "warning");
                     yield break;
                 }
 
@@ -158,7 +158,7 @@ namespace AdaptableMapper.Model.Language
             object property = propertyInfo?.GetValue(this);
 
             if(property == null)
-                Errors.ErrorObservable.GetInstance().Raise($"MODEL#7; Property {propertyName} does not exist on {this.GetType().Name}");
+                Errors.ProcessObservable.GetInstance().Raise($"MODEL#7; Property {propertyName} does not exist on {this.GetType().Name}", "warning");
 
             if ((property is IEnumerable<ModelBase> enumerableProperty))
             {
@@ -166,7 +166,7 @@ namespace AdaptableMapper.Model.Language
             }
             else
             {
-                Errors.ErrorObservable.GetInstance().Raise($"MODEL#8; Property {propertyName} on type {this.GetType().Name} is not traversable, it is not a list of Model");
+                Errors.ProcessObservable.GetInstance().Raise($"MODEL#8; Property {propertyName} on type {this.GetType().Name} is not traversable, it is not a list of Model", "warning");
                 return new List<ModelBase>();
             }
         }
@@ -188,7 +188,7 @@ namespace AdaptableMapper.Model.Language
             PropertyInfo propertyInfo = this.GetType().GetProperty(propertyName);
 
             if (propertyInfo == null)
-                Errors.ErrorObservable.GetInstance().Raise($"MODEL#9; Property {propertyName} is not a part of {this.GetType().Name}");
+                Errors.ProcessObservable.GetInstance().Raise($"MODEL#9; Property {propertyName} is not a part of {this.GetType().Name}", "warning");
 
             return propertyInfo;
         }

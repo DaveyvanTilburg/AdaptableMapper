@@ -11,18 +11,20 @@ namespace AdaptableMapper.TDD
         public void XmlToXmlTest()
         {
             var errorObserver = new TestErrorObserver();
-            Errors.ErrorObservable.GetInstance().Register(errorObserver);
+            Errors.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
 
             XElement result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml")) as XElement;
 
-            Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
+            Errors.ProcessObservable.GetInstance().Unregister(errorObserver);
 
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyExpected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
-            errorObserver.GetErrors().Count.Should().Be(2);
+            errorObserver.GetRaisedWarnings().Count.Should().Be(2);
+            errorObserver.GetRaisedErrors().Count.Should().Be(0);
+            errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
 
             result.Should().BeEquivalentTo(xExpectedResult);
         }
@@ -31,14 +33,14 @@ namespace AdaptableMapper.TDD
         public void XmlTestIfResultIsString()
         {
             var errorObserver = new TestErrorObserver();
-            Errors.ErrorObservable.GetInstance().Register(errorObserver);
+            Errors.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
             mappingConfiguration.ObjectConverter = new Xml.XElementToStringObjectConverter();
 
             object result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"));
 
-            Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
+            Errors.ProcessObservable.GetInstance().Unregister(errorObserver);
 
             XElement resultXElement = result as XElement;
             resultXElement.Should().BeNull();

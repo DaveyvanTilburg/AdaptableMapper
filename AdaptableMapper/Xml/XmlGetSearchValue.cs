@@ -1,6 +1,4 @@
 ﻿using AdaptableMapper.Traversals;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
@@ -20,31 +18,28 @@ namespace AdaptableMapper.Xml
         {
             if (!(source is XElement xElement))
             {
-                Errors.ErrorObservable.GetInstance().Raise("XML#13; source is not of expected type XElement", SearchPath, SearchValuePath, source?.GetType()?.Name);
+                Errors.ProcessObservable.GetInstance().Raise("XML#13; source is not of expected type XElement", "error", SearchPath, SearchValuePath, source?.GetType()?.Name);
                 return string.Empty;
             }
 
             string searchValue = null;
             if (!string.IsNullOrWhiteSpace(SearchValuePath))
             {
-                searchValue = xElement.GetXPathValues(SearchValuePath).FirstOrDefault();
+                searchValue = xElement.GetXPathValue(SearchValuePath);
                 if (string.IsNullOrWhiteSpace(searchValue))
                 {
-                    Errors.ErrorObservable.GetInstance().Raise("XML#14; SearchPath resulted in empty string", SearchPath, SearchValuePath, source);
+                    Errors.ProcessObservable.GetInstance().Raise("XML#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
                     return string.Empty;
                 }
             }
 
             string actualPath = string.IsNullOrWhiteSpace(searchValue) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue);
-
-            IEnumerable<string> searchResults = xElement.GetXPathValues(actualPath);
-            if(!searchResults.Any())
+            string searchResult = xElement.GetXPathValue(actualPath);
+            if(string.IsNullOrWhiteSpace(searchResult))
             {
-                Errors.ErrorObservable.GetInstance().Raise("XML#15; ActualPath resulted in no items", actualPath, SearchPath, SearchValuePath, source);
+                Errors.ProcessObservable.GetInstance().Raise("XML#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
                 return string.Empty;
             }
-
-            string searchResult = searchResults.FirstOrDefault();
             return searchResult;
         }
     }

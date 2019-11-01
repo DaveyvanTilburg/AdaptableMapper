@@ -12,18 +12,20 @@ namespace AdaptableMapper.TDD
         public void JsonToXmlTest()
         {
             var errorObserver = new TestErrorObserver();
-            Errors.ErrorObservable.GetInstance().Register(errorObserver);
+            Errors.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
 
             XElement result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\JsonSource_HardwareComposition.json")) as XElement;
 
-            Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
+            Errors.ProcessObservable.GetInstance().Unregister(errorObserver);
 
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_HardwareExpected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
-            errorObserver.GetErrors().Count.Should().Be(0);
+            errorObserver.GetRaisedWarnings().Count.Should().Be(0);
+            errorObserver.GetRaisedErrors().Count.Should().Be(0);
+            errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
 
             result.Should().BeEquivalentTo(xExpectedResult);
         }

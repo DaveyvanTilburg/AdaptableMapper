@@ -10,16 +10,18 @@ namespace AdaptableMapper.TDD
         public void XmlToModelTest()
         {
             var errorObserver = new TestErrorObserver();
-            Errors.ErrorObservable.GetInstance().Register(errorObserver);
+            Errors.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
             object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"));
 
             var result = resultObject as ModelObjects.Armies.Root;
 
-            Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
+            Errors.ProcessObservable.GetInstance().Unregister(errorObserver);
 
-            errorObserver.GetErrors().Count.Should().Be(2);
+            errorObserver.GetRaisedWarnings().Count.Should().Be(2);
+            errorObserver.GetRaisedErrors().Count.Should().Be(0);
+            errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
 
             result.Leaders.Count.Should().Be(3);
             result.Leaders[0].Reference.Should().Be("alpha-bravo-tango-delta");

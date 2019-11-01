@@ -9,7 +9,7 @@ namespace AdaptableMapper.Json
         {
             if (!(source is string input))
             {
-                Errors.ErrorObservable.GetInstance().Raise("JSON#12; Source is not of expected type String", source?.GetType()?.Name);
+                Errors.ProcessObservable.GetInstance().Raise("JSON#12; Source is not of expected type String", "error", source?.GetType()?.Name);
                 return string.Empty;
             }
 
@@ -20,7 +20,7 @@ namespace AdaptableMapper.Json
             }
             catch (Exception exception)
             {
-                Errors.ErrorObservable.GetInstance().Raise("JSON#13; Source could not be parsed to JToken", source, exception);
+                Errors.ProcessObservable.GetInstance().Raise("JSON#13; Source could not be parsed to JToken", "error", source, exception);
                 jToken = new JObject();
             }
 

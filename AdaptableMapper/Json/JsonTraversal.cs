@@ -16,14 +16,14 @@ namespace AdaptableMapper.Json
         {
             if (!(target is JToken jToken))
             {
-                Errors.ErrorObservable.GetInstance().Raise("JSON#21; target is not of expected type jToken", Path, target?.GetType()?.Name);
+                Errors.ProcessObservable.GetInstance().Raise("JSON#21; target is not of expected type jToken", "error", Path, target?.GetType()?.Name);
                 return new JObject();
             }
 
             JToken result = jToken.Traverse(Path);
             if (result == null)
             {
-                Errors.ErrorObservable.GetInstance().Raise("JSON#22; Path resulted in no items", Path, jToken);
+                Errors.ProcessObservable.GetInstance().Raise("JSON#22; Path resulted in no items", "warning", Path, jToken);
                 return string.Empty;
             }
 

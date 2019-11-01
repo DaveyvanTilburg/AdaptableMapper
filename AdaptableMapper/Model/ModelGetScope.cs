@@ -18,7 +18,7 @@ namespace AdaptableMapper.Model
         {
             if (!(source is ModelBase model))
             {
-                Errors.ErrorObservable.GetInstance().Raise("MODEL#12; source is not of expected type Model", Path, source);
+                Errors.ProcessObservable.GetInstance().Raise("MODEL#12; source is not of expected type Model", "error", Path, source);
                 return new List<object>();
             }
 

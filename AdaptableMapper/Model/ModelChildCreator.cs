@@ -9,13 +9,13 @@ namespace AdaptableMapper.Model
         {
             if (!(parent is ModelBase model))
             {
-                Errors.ErrorObservable.GetInstance().Raise("MODEL#10; parent is not of expected type Model", parent);
+                Errors.ProcessObservable.GetInstance().Raise("MODEL#10; parent is not of expected type Model", "error", parent);
                 return string.Empty;
             }
 
             if (!(template is IList parentProperty))
             {
-                Errors.ErrorObservable.GetInstance().Raise("MODEL#11; template is not of expected type IList", template);
+                Errors.ProcessObservable.GetInstance().Raise("MODEL#11; template is not of expected type IList", "error", template);
                 return string.Empty;
             }
 

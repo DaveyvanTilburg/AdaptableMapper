@@ -13,19 +13,21 @@ namespace AdaptableMapper.TDD
         public void ModelToXmlTest()
         {
             var errorObserver = new TestErrorObserver();
-            Errors.ErrorObservable.GetInstance().Register(errorObserver);
+            Errors.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
 
             ModelBase source = GetSource();
             XElement result = mappingConfiguration.Map(source) as XElement;
 
-            Errors.ErrorObservable.GetInstance().Unregister(errorObserver);
+            Errors.ProcessObservable.GetInstance().Unregister(errorObserver);
 
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyExpected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
-            errorObserver.GetErrors().Count.Should().Be(1);
+            errorObserver.GetRaisedWarnings().Count.Should().Be(1);
+            errorObserver.GetRaisedErrors().Count.Should().Be(0);
+            errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
 
             result.Should().BeEquivalentTo(xExpectedResult);
         }
