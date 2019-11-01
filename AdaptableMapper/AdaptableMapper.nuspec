@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.5.1-beta20191101-01</version>
+    <version>0.6.0-beta20191101-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -20,6 +20,13 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       </group>
     </dependencies>
     <releaseNotes>
+0.6.0
+  - Error handling revised to information gathering.
+    - Error namespace renamed to process
+    - ErrorObserver renamed to processObserver
+    - Error object renamed to information with a new property type (currently string value 'warning' and 'error')
+    - Information with the type 'error' are considered critical errors that will always fail (due to type convert errors or impossibilities)
+    - Information with the type 'warning' will have information about paths that failed to resolve, searches that came up empty and other traversal information
 0.5.1
   - Type check errors include type name instead of serialized object with no type info
 0.5.0
