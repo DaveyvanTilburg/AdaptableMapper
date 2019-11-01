@@ -6,7 +6,7 @@ namespace AdaptableMapper.TDD
     public class ConfigurationSaveAndLoad
     {
         [Fact]
-        public void CheckIfSaveAndLoadMementoWorks()
+        public void CheckIfSerializeAndDeserializeWorks()
         {
             MappingConfiguration source = XmlToModel.GetMappingConfiguration();
 
