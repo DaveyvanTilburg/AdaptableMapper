@@ -7,13 +7,15 @@ A package for any to any mapping without hardcoding
 Completed plans:
  - Create an algorithm flexible enough to support any to any conversion
  - Soft error handling (through observer)
+ - Implement Xml mapping
+ - Implement Model mapping
 
 Current plans:
- - Implement Xml conversion
- - Implement Model conversion
- - Implement Json conversion
+ - Implement Json mapping
 
 Future plans in relative priority order:
+ - Add more tests for Xml Mapping
+ - Add more tests for Model Mapping
  - Write documentation
 
 ## How to use
