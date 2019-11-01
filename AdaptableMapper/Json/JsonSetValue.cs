@@ -17,7 +17,7 @@ namespace AdaptableMapper.Json
         {
             if (!(target is JToken jToken))
             {
-                Errors.ProcessObservable.GetInstance().Raise("JSON#18; target is not of expected type jToken", "error", target?.GetType()?.Name);
+                Process.ProcessObservable.GetInstance().Raise("JSON#18; target is not of expected type jToken", "error", target?.GetType().Name);
                 return;
             }
 
@@ -28,7 +28,7 @@ namespace AdaptableMapper.Json
                 if (jTokenTarget is JValue jTokenTargetValue)
                     jTokenTargetValue.Value = value;
                 else
-                    Errors.ProcessObservable.GetInstance().Raise("JSON#19; result of traversal is not of expected type JValue", "error", jTokenTarget?.GetType()?.Name);
+                    Process.ProcessObservable.GetInstance().Raise("JSON#19; result of traversal is not of expected type JValue", "error", jTokenTarget?.GetType().Name);
             }
         }
     }

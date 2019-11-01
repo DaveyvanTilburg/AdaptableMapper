@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace AdaptableMapper.Errors
+namespace AdaptableMapper.Process
 {
     public sealed partial class ProcessObservable
     {
@@ -10,7 +10,7 @@ namespace AdaptableMapper.Errors
             _observers = new List<ProcessObserver>();
         }
 
-        private List<ProcessObserver> _observers;
+        private readonly List<ProcessObserver> _observers;
 
         public void Register(ProcessObserver errorObserver)
         {

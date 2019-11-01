@@ -9,7 +9,7 @@ namespace AdaptableMapper.Json
         {
             if (!(target is JValue jValue))
             {
-                Errors.ProcessObservable.GetInstance().Raise("JSON#17; Target is not of expected type JValue", "error", target?.GetType()?.Name);
+                Process.ProcessObservable.GetInstance().Raise("JSON#17; Target is not of expected type JValue", "error", target?.GetType().Name);
                 return;
             }
 

@@ -16,7 +16,7 @@ namespace AdaptableMapper.Xml
         {
             if (!(target is XElement xElement))
             {
-                Errors.ProcessObservable.GetInstance().Raise("XML#21; target is not of expected type XElement", "error", Path, target?.GetType()?.Name);
+                Process.ProcessObservable.GetInstance().Raise("XML#21; target is not of expected type XElement", "error", Path, target?.GetType().Name);
                 return;
             }
 

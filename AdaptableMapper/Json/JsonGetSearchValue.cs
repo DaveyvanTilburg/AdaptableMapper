@@ -18,7 +18,7 @@ namespace AdaptableMapper.Json
         {
             if (!(source is JToken jToken))
             {
-                Errors.ProcessObservable.GetInstance().Raise("JSON#5; source is not of expected type JToken", "error", SearchPath, SearchValuePath, source?.GetType()?.Name);
+                Process.ProcessObservable.GetInstance().Raise("JSON#5; source is not of expected type JToken", "error", SearchPath, SearchValuePath, source?.GetType().Name);
                 return string.Empty;
             }
 
@@ -29,14 +29,14 @@ namespace AdaptableMapper.Json
 
                 if(searchToken == null)
                 {
-                    Errors.ProcessObservable.GetInstance().Raise("JSON#6; SearchPath resulted in no items", "warning", SearchPath, SearchValuePath, source);
+                    Process.ProcessObservable.GetInstance().Raise("JSON#6; SearchPath resulted in no items", "warning", SearchPath, SearchValuePath, source);
                     return string.Empty;
                 }
 
                 searchValue = searchToken.Value<string>();
                 if (string.IsNullOrWhiteSpace(searchValue))
                 {
-                    Errors.ProcessObservable.GetInstance().Raise("JSON#7; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
+                    Process.ProcessObservable.GetInstance().Raise("JSON#7; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
                     return string.Empty;
                 }
             }
@@ -46,7 +46,7 @@ namespace AdaptableMapper.Json
             JToken searchResult = jToken.Traverse(actualPath);
             if (searchResult == null)
             {
-                Errors.ProcessObservable.GetInstance().Raise("JSON#8; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
+                Process.ProcessObservable.GetInstance().Raise("JSON#8; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
                 return string.Empty;
             }
 

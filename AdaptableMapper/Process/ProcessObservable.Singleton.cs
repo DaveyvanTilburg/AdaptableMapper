@@ -1,14 +1,11 @@
-﻿namespace AdaptableMapper.Errors
+﻿namespace AdaptableMapper.Process
 {
     public sealed partial class ProcessObservable
     {
         private static ProcessObservable _instance;
         public static ProcessObservable GetInstance()
         {
-            if (_instance == null)
-                _instance = new ProcessObservable();
-
-            return _instance;
+            return _instance ?? (_instance = new ProcessObservable());
         }
     }
 }

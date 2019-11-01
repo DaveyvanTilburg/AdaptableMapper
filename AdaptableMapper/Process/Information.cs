@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AdaptableMapper.Errors
+namespace AdaptableMapper.Process
 {
     public sealed class Information : EventArgs
     {

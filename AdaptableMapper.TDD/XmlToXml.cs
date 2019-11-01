@@ -11,13 +11,13 @@ namespace AdaptableMapper.TDD
         public void XmlToXmlTest()
         {
             var errorObserver = new TestErrorObserver();
-            Errors.ProcessObservable.GetInstance().Register(errorObserver);
+            Process.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
 
             XElement result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml")) as XElement;
 
-            Errors.ProcessObservable.GetInstance().Unregister(errorObserver);
+            Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyExpected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
@@ -33,14 +33,14 @@ namespace AdaptableMapper.TDD
         public void XmlTestIfResultIsString()
         {
             var errorObserver = new TestErrorObserver();
-            Errors.ProcessObservable.GetInstance().Register(errorObserver);
+            Process.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
             mappingConfiguration.ObjectConverter = new Xml.XElementToStringObjectConverter();
 
             object result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"));
 
-            Errors.ProcessObservable.GetInstance().Unregister(errorObserver);
+            Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
             XElement resultXElement = result as XElement;
             resultXElement.Should().BeNull();
@@ -58,7 +58,7 @@ namespace AdaptableMapper.TDD
 
             var crewScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
-                new List<Mapping>()
+                new List<Mapping>
                 {
                     crewMemberName
                 },
@@ -75,7 +75,7 @@ namespace AdaptableMapper.TDD
 
             var memberScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
-                new List<Mapping>()
+                new List<Mapping>
                 {
                     memberName
                 },
@@ -99,11 +99,11 @@ namespace AdaptableMapper.TDD
             );
 
             var platoonScope = new MappingScopeComposite(
-                new List<MappingScopeComposite>()
+                new List<MappingScopeComposite>
                 {
                     memberScope
                 },
-                new List<Mapping>()
+                new List<Mapping>
                 {
                     platoonCode,
                     leaderNameSearch
@@ -115,7 +115,7 @@ namespace AdaptableMapper.TDD
             );
 
             var stolenIntelScope = new MappingScopeRoot(
-                new List<MappingScopeComposite>()
+                new List<MappingScopeComposite>
                 {
                     crewScope,
                     platoonScope

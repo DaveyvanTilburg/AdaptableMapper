@@ -18,7 +18,7 @@ namespace AdaptableMapper.Model
         {
             if (!(source is ModelBase model))
             {
-                Errors.ProcessObservable.GetInstance().Raise("MODEL#13; source is not of expected type Model", "error", SearchPath, SearchValuePath, source);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#13; source is not of expected type Model", "error", SearchPath, SearchValuePath, source);
                 return string.Empty;
             }
 
@@ -32,7 +32,7 @@ namespace AdaptableMapper.Model
 
                 if (string.IsNullOrWhiteSpace(searchValue))
                 {
-                    Errors.ProcessObservable.GetInstance().Raise("MODEL#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
+                    Process.ProcessObservable.GetInstance().Raise("MODEL#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
                     return string.Empty;
                 }
             }
@@ -43,7 +43,7 @@ namespace AdaptableMapper.Model
             ModelBase pathTarget = model.NavigateToModel(modelPathContainer.CreatePathQueue());
             if (pathTarget == null)
             {
-                Errors.ProcessObservable.GetInstance().Raise("MODEL#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
                 return string.Empty;
             }
 

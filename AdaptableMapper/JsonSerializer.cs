@@ -4,20 +4,22 @@ namespace AdaptableMapper
 {
     public static class JsonSerializer
     {
+        private const Formatting Indented = Formatting.Indented;
+
         public static string Serialize(object source)
         {
-            Formatting indented = Formatting.Indented;
-            var settings = new JsonSerializerSettings()
+            
+            var settings = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All
             };
-            string serialized = JsonConvert.SerializeObject(source, indented, settings);
+            string serialized = JsonConvert.SerializeObject(source, Indented, settings);
             return serialized;
         }
 
         public static T Deserialize<T>(string memento)
         {
-            var settings = new JsonSerializerSettings()
+            var settings = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All
             };

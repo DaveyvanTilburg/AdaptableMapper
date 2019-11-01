@@ -9,7 +9,7 @@ namespace AdaptableMapper.Xml
         {
             if (!(source is string input))
             {
-                Errors.ProcessObservable.GetInstance().Raise("XML#18; source is not of expected type String", "error", source?.GetType()?.Name);
+                Process.ProcessObservable.GetInstance().Raise("XML#18; source is not of expected type String", "error", source?.GetType().Name);
                 return string.Empty;
             }
 
@@ -20,7 +20,7 @@ namespace AdaptableMapper.Xml
             }
             catch(Exception exception)
             {
-                Errors.ProcessObservable.GetInstance().Raise("XML#19; input could not be parsed to XElement", "error", input, exception);
+                Process.ProcessObservable.GetInstance().Raise("XML#19; input could not be parsed to XElement", "error", input, exception);
                 root = new XElement("nullObject");
             }
 

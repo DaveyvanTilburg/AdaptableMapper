@@ -14,7 +14,7 @@ namespace AdaptableMapper.Xml
 
             if (!allMatches.Any())
             {
-                Errors.ProcessObservable.GetInstance().Raise("XML#1; Path could not be traversed", "warning", xPath, xElement);
+                Process.ProcessObservable.GetInstance().Raise("XML#1; Path could not be traversed", "warning", xPath, xElement);
                 return new List<XElement>();
             }
 
@@ -26,10 +26,10 @@ namespace AdaptableMapper.Xml
             IList<XElement> allMatches = xElement.XPathSelectElements(xPath).ToList();
 
             if(!allMatches.Any())
-                Errors.ProcessObservable.GetInstance().Raise("XML#2; Path could not be traversed", "warning", xPath, xElement);
+                Process.ProcessObservable.GetInstance().Raise("XML#2; Path could not be traversed", "warning", xPath, xElement);
 
             if(allMatches.Count > 1)
-                Errors.ProcessObservable.GetInstance().Raise("XML#3; Path has multiple of the same node, when only one is expected", "warning", xPath, xElement);
+                Process.ProcessObservable.GetInstance().Raise("XML#3; Path has multiple of the same node, when only one is expected", "warning", xPath, xElement);
 
             return allMatches.FirstOrDefault() ?? new XElement("nullObject");
         }
@@ -41,20 +41,18 @@ namespace AdaptableMapper.Xml
 
             if (!xObjects.Any())
             {
-                Errors.ProcessObservable.GetInstance().Raise("XML#4; Path resulted in no items", "warning", xPath, xElement);
+                Process.ProcessObservable.GetInstance().Raise("XML#4; Path resulted in no items", "warning", xPath, xElement);
                 yield break;
             }
-            else
+
+            foreach (XObject xObject in xObjects)
             {
-                foreach (XObject xObject in xObjects)
-                {
-                    if (xObject is XElement element)
-                        yield return element.Value;
-                    else if (xObject is XAttribute attribute)
-                        yield return attribute.Value;
-                    else
-                        Errors.ProcessObservable.GetInstance().Raise("XML#5; Path yielded in an item that is not an xElement or xAttribute", "warning", xPath, xElement);
-                }
+                if (xObject is XElement element)
+                    yield return element.Value;
+                else if (xObject is XAttribute attribute)
+                    yield return attribute.Value;
+                else
+                    Process.ProcessObservable.GetInstance().Raise("XML#5; Path yielded in an item that is not an xElement or xAttribute", "warning", xPath, xElement);
             }
         }
 
@@ -75,7 +73,7 @@ namespace AdaptableMapper.Xml
             var xObjects = enumerable.Cast<XObject>();
 
             if (!xObjects.Any())
-                Errors.ProcessObservable.GetInstance().Raise("XML#7; Path could not be traversed", "warning", xPath, xElement);
+                Process.ProcessObservable.GetInstance().Raise("XML#7; Path could not be traversed", "warning", xPath, xElement);
             else
             {
                 foreach (XObject xObject in xObjects)
@@ -91,9 +89,9 @@ namespace AdaptableMapper.Xml
         public static XElement GetParent(this XElement xElement)
         {
             if (xElement.Parent == null)
-                Errors.ProcessObservable.GetInstance().Raise("XML#8; attempting to access parent of node that is null", "warning", xElement);
+                Process.ProcessObservable.GetInstance().Raise("XML#8; attempting to access parent of node that is null", "warning", xElement);
 
-            return xElement?.Parent ?? new XElement("nullObject");
+            return xElement.Parent ?? new XElement("nullObject");
         }
     }
 }

@@ -12,7 +12,7 @@ namespace AdaptableMapper.Model
 
             if (!(instance is ModelBase result))
             {
-                Errors.ProcessObservable.GetInstance().Raise($"MODEL#23; Model has property with type {type.Name} that is not a Model", "error");
+                Process.ProcessObservable.GetInstance().Raise($"MODEL#23; Model has property with type {type.Name} that is not a Model", "error");
                 return new NullModel();
             }
 

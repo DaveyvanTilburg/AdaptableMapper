@@ -11,13 +11,13 @@ namespace AdaptableMapper.TDD
         public void ErrorObserverTestMessages()
         {
             var errorObserver = new TestErrorObserver();
-            Errors.ProcessObservable.GetInstance().Register(errorObserver);
+            Process.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
 
             mappingConfiguration.Map("");
 
-            Errors.ProcessObservable.GetInstance().Unregister(errorObserver);
+            Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
             errorObserver.GetRaisedWarnings().Count.Should().Be(1);
             errorObserver.GetRaisedWarnings().Last().Message.Should().Be("XML#1; Path could not be traversed; objects:[\"./army/platoon\",{\"nullObject\":null}]");
@@ -35,7 +35,7 @@ namespace AdaptableMapper.TDD
 
             var platoonScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
-                new List<Mapping>()
+                new List<Mapping>
                 {
                     platoonCode
                 },
@@ -46,7 +46,7 @@ namespace AdaptableMapper.TDD
             );
 
             var stolenIntelScope = new MappingScopeRoot(
-                new List<MappingScopeComposite>()
+                new List<MappingScopeComposite>
                 {
                     platoonScope
                 }

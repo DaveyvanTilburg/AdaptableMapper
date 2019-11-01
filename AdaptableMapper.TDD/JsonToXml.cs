@@ -12,13 +12,13 @@ namespace AdaptableMapper.TDD
         public void JsonToXmlTest()
         {
             var errorObserver = new TestErrorObserver();
-            Errors.ProcessObservable.GetInstance().Register(errorObserver);
+            Process.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
 
             XElement result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\JsonSource_HardwareComposition.json")) as XElement;
 
-            Errors.ProcessObservable.GetInstance().Unregister(errorObserver);
+            Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_HardwareExpected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
@@ -44,7 +44,7 @@ namespace AdaptableMapper.TDD
 
             var graphicalCardScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
-                new List<Mapping>()
+                new List<Mapping>
                 {
                     cpuCores,
                     cpuSpeed
@@ -75,11 +75,11 @@ namespace AdaptableMapper.TDD
             );
 
             var motherboardScope = new MappingScopeComposite(
-                new List<MappingScopeComposite>()
+                new List<MappingScopeComposite>
                 {
                     graphicalCardScope
                 },
-                new List<Mapping>()
+                new List<Mapping>
                 {
                     motherboardBrand,
                     motherboardCpuBrand,
@@ -109,7 +109,7 @@ namespace AdaptableMapper.TDD
 
             var memoriesScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
-                new List<Mapping>()
+                new List<Mapping>
                 {
                     memorySize,
                     memoryBrand,
@@ -122,7 +122,7 @@ namespace AdaptableMapper.TDD
             );
 
             var mappingScopeRoot = new MappingScopeRoot(
-                new List<MappingScopeComposite>()
+                new List<MappingScopeComposite>
                 {
                     memoriesScope,
                     motherboardScope

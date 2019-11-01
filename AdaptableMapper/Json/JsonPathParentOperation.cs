@@ -16,7 +16,7 @@ namespace AdaptableMapper.Json
 
             if (result == null)
             {
-                Errors.ProcessObservable.GetInstance().Raise("JSON#14; Path resulted in no items", "warning", path);
+                Process.ProcessObservable.GetInstance().Raise("JSON#14; Path resulted in no items", "warning", path);
                 return string.Empty;
             }
 
@@ -31,16 +31,22 @@ namespace AdaptableMapper.Json
             string step = path.Dequeue();
 
             if(!step.Equals(".."))
-                Errors.ProcessObservable.GetInstance().Raise($"JSON#15; In JPath, the / operator can only be used to navigate back to parent nodes, expected '..' but was '{step}'", "error");
+            {
+                Process.ProcessObservable.GetInstance().Raise($"JSON#15; In JPath, the / operator can only be used to navigate back to parent nodes, expected '..' but was '{step}'", "error");
+                return new JObject();
+            }
 
             JToken parent = jToken.Parent;
             if(parent == null)
-                Errors.ProcessObservable.GetInstance().Raise("JSON#16; No parent found for jToken", "warning", jToken);
+            {
+                Process.ProcessObservable.GetInstance().Raise("JSON#16; No parent found for jToken", "warning", jToken);
+                return new JObject();
+            }
 
             if (path.Count > 0)
                 return parent.TraverseToParent(path);
-            else
-                return parent;
+
+            return parent;
         }
 
         public static IEnumerable<JToken> TraverseAll(this JToken jToken, string path)

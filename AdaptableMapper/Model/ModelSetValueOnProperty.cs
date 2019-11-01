@@ -16,7 +16,7 @@ namespace AdaptableMapper.Model
         {
             if (!(target is ModelBase model))
             {
-                Errors.ProcessObservable.GetInstance().Raise("MODEL#19; target is not of expected type Model", "error", PropertyName, target);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#19; target is not of expected type Model", "error", PropertyName, target);
                 return;
             }
 

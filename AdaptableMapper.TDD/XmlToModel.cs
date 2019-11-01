@@ -10,14 +10,15 @@ namespace AdaptableMapper.TDD
         public void XmlToModelTest()
         {
             var errorObserver = new TestErrorObserver();
-            Errors.ProcessObservable.GetInstance().Register(errorObserver);
+            Process.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
             object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"));
 
             var result = resultObject as ModelObjects.Armies.Root;
+            result.Should().NotBeNull();
 
-            Errors.ProcessObservable.GetInstance().Unregister(errorObserver);
+            Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
             errorObserver.GetRaisedWarnings().Count.Should().Be(2);
             errorObserver.GetRaisedErrors().Count.Should().Be(0);
@@ -46,7 +47,7 @@ namespace AdaptableMapper.TDD
 
             var crewMemberScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
-                new List<Mapping>()
+                new List<Mapping>
                 {
                     crewMember
                 },
@@ -62,11 +63,11 @@ namespace AdaptableMapper.TDD
             );
 
             var memberScope = new MappingScopeComposite(
-                new List<MappingScopeComposite>()
+                new List<MappingScopeComposite>
                 {
                     crewMemberScope
                 },
-                new List<Mapping>()
+                new List<Mapping>
                 {
                     memberName
                 },
@@ -87,11 +88,11 @@ namespace AdaptableMapper.TDD
             );
 
             var platoonScope = new MappingScopeComposite(
-                new List<MappingScopeComposite>()
+                new List<MappingScopeComposite>
                 {
                     memberScope
                 },
-                new List<Mapping>()
+                new List<Mapping>
                 {
                     platoonCode,
                     leaderReference
@@ -108,11 +109,11 @@ namespace AdaptableMapper.TDD
             );
 
             var armyScope = new MappingScopeComposite(
-                new List<MappingScopeComposite>()
+                new List<MappingScopeComposite>
                 {
                     platoonScope
                 },
-                new List<Mapping>()
+                new List<Mapping>
                 {
                     armyCode
                 },
@@ -134,7 +135,7 @@ namespace AdaptableMapper.TDD
 
             var leadersScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
-                new List<Mapping>()
+                new List<Mapping>
                 {
                     reference,
                     leaderName
@@ -146,7 +147,7 @@ namespace AdaptableMapper.TDD
             );
 
             var rootScope = new MappingScopeRoot(
-                new List<MappingScopeComposite>()
+                new List<MappingScopeComposite>
                 {
                     leadersScope,
                     armyScope

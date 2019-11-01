@@ -8,13 +8,13 @@ namespace AdaptableMapper.Xml
         {
             if (!(parent is XElement xElement))
             {
-                Errors.ProcessObservable.GetInstance().Raise("XML#10; parent is not of expected type XElement", "error", parent?.GetType()?.Name);
+                Process.ProcessObservable.GetInstance().Raise("XML#10; parent is not of expected type XElement", "error", parent?.GetType().Name);
                 return new XElement("nullObject");
             }
 
             if (!(template is XElement xTemplate))
             {
-                Errors.ProcessObservable.GetInstance().Raise("XML#11; template is not of expected type XElement", "error", template?.GetType()?.Name);
+                Process.ProcessObservable.GetInstance().Raise("XML#11; template is not of expected type XElement", "error", template?.GetType().Name);
                 return new XElement("nullObject");
             }
 

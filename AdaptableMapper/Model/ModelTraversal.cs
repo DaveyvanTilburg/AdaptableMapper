@@ -10,13 +10,13 @@ namespace AdaptableMapper.Model
             Path = path;
         }
 
-        private string Path { get; set; }
+        public string Path { get; set; }
 
         public object Traverse(object target)
         {
             if (!(target is ModelBase model))
             {
-                Errors.ProcessObservable.GetInstance().Raise("MODEL#21; target is not of expected type Model", "error", Path, target);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#21; target is not of expected type Model", "error", Path, target);
                 return string.Empty;
             }
 

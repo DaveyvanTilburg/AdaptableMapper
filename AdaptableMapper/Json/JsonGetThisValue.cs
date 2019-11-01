@@ -9,7 +9,7 @@ namespace AdaptableMapper.Json
         {
             if (!(source is JToken jToken))
             {
-                Errors.ProcessObservable.GetInstance().Raise("JSON#9; Source is not of expected type JToken", "error", source?.GetType()?.Name);
+                Process.ProcessObservable.GetInstance().Raise("JSON#9; Source is not of expected type JToken", "error", source?.GetType().Name);
                 return string.Empty;
             }
 

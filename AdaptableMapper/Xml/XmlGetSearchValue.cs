@@ -18,7 +18,7 @@ namespace AdaptableMapper.Xml
         {
             if (!(source is XElement xElement))
             {
-                Errors.ProcessObservable.GetInstance().Raise("XML#13; source is not of expected type XElement", "error", SearchPath, SearchValuePath, source?.GetType()?.Name);
+                Process.ProcessObservable.GetInstance().Raise("XML#13; source is not of expected type XElement", "error", SearchPath, SearchValuePath, source?.GetType().Name);
                 return string.Empty;
             }
 
@@ -28,7 +28,7 @@ namespace AdaptableMapper.Xml
                 searchValue = xElement.GetXPathValue(SearchValuePath);
                 if (string.IsNullOrWhiteSpace(searchValue))
                 {
-                    Errors.ProcessObservable.GetInstance().Raise("XML#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
+                    Process.ProcessObservable.GetInstance().Raise("XML#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
                     return string.Empty;
                 }
             }
@@ -37,7 +37,7 @@ namespace AdaptableMapper.Xml
             string searchResult = xElement.GetXPathValue(actualPath);
             if(string.IsNullOrWhiteSpace(searchResult))
             {
-                Errors.ProcessObservable.GetInstance().Raise("XML#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
+                Process.ProcessObservable.GetInstance().Raise("XML#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
                 return string.Empty;
             }
             return searchResult;

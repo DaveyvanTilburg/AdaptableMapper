@@ -1,4 +1,4 @@
-﻿namespace AdaptableMapper.Errors
+﻿namespace AdaptableMapper.Process
 {
     public interface ProcessObserver
     {

@@ -8,13 +8,13 @@ namespace AdaptableMapper.Json
         {
             if (!(parent is JToken jToken))
             {
-                Errors.ProcessObservable.GetInstance().Raise("JSON#1; Parent is not of expected type jToken", "error", parent?.GetType()?.Name);
+                Process.ProcessObservable.GetInstance().Raise("JSON#1; Parent is not of expected type jToken", "error", parent?.GetType().Name);
                 return new JObject();
             }
 
             if (!(template is JToken jTemplate))
             {
-                Errors.ProcessObservable.GetInstance().Raise("JSON#2; Template is not of expected type jToken", "error", template?.GetType()?.Name);
+                Process.ProcessObservable.GetInstance().Raise("JSON#2; Template is not of expected type jToken", "error", template?.GetType().Name);
                 return new JObject();
             }
 

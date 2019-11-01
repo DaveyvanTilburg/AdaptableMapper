@@ -13,14 +13,14 @@ namespace AdaptableMapper.TDD
         public void ModelToXmlTest()
         {
             var errorObserver = new TestErrorObserver();
-            Errors.ProcessObservable.GetInstance().Register(errorObserver);
+            Process.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
 
             ModelBase source = GetSource();
             XElement result = mappingConfiguration.Map(source) as XElement;
 
-            Errors.ProcessObservable.GetInstance().Unregister(errorObserver);
+            Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyExpected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
@@ -32,23 +32,23 @@ namespace AdaptableMapper.TDD
             result.Should().BeEquivalentTo(xExpectedResult);
         }
 
-        private Root GetSource()
+        private static Root GetSource()
         {
-            var leader1 = new Leader() { Name = "Christopher columbus", Reference = "alpha-bravo-tango-delta" };
-            var leader2 = new Leader() { Name = "Ocean man", Reference = "Ween" };
-            var leader3 = new Leader() { Name = "John J. Pershing", Reference = "Pershing" };
+            var leader1 = new Leader { Name = "Christopher columbus", Reference = "alpha-bravo-tango-delta" };
+            var leader2 = new Leader { Name = "Ocean man", Reference = "Ween" };
+            var leader3 = new Leader { Name = "John J. Pershing", Reference = "Pershing" };
 
             Army army1 = CreateArmy1();
             Army army2 = CreateArmy2();
 
-            var root = new Root()
+            var root = new Root
             {
-                Armies = new List<Army>()
+                Armies = new List<Army>
                 {
                     army1,
                     army2
                 },
-                Leaders = new List<Leader>()
+                Leaders = new List<Leader>
                 {
                     leader1,
                     leader2,
@@ -66,25 +66,25 @@ namespace AdaptableMapper.TDD
 
         private static Army CreateArmy1()
         {
-            var army1platoon2member1crewMmeber1 = new CrewMember() { Name = "Natasha" };
-            var army1platoon2member1crewMmeber2 = new CrewMember() { Name = "Yuri" };
+            var army1platoon2member1crewMember1 = new CrewMember { Name = "Natasha" };
+            var army1platoon2member1crewMember2 = new CrewMember { Name = "Yuri" };
 
-            var army1platoon2member1 = new Member()
+            var army1platoon2member1 = new Member
             {
                 Name = "Sub-Zero",
-                CrewMembers = new List<CrewMember>()
+                CrewMembers = new List<CrewMember>
                 {
-                    army1platoon2member1crewMmeber1,
-                    army1platoon2member1crewMmeber2
+                    army1platoon2member1crewMember1,
+                    army1platoon2member1crewMember2
                 }
             };
-            army1platoon2member1crewMmeber1.Parent = army1platoon2member1;
-            army1platoon2member1crewMmeber2.Parent = army1platoon2member1;
+            army1platoon2member1crewMember1.Parent = army1platoon2member1;
+            army1platoon2member1crewMember2.Parent = army1platoon2member1;
 
 
-            var army1platoon2 = new Platoon()
+            var army1platoon2 = new Platoon
             {
-                Members = new List<Member>()
+                Members = new List<Member>
                 {
                     army1platoon2member1
                 },
@@ -93,25 +93,25 @@ namespace AdaptableMapper.TDD
             };
             army1platoon2member1.Parent = army1platoon2;
 
-            var army1platoon1member1crewMmeber1 = new CrewMember() { Name = "John" };
-            var army1platoon1member1crewMmeber2 = new CrewMember() { Name = "Jane" };
+            var army1platoon1member1crewMember1 = new CrewMember { Name = "John" };
+            var army1platoon1member1crewMember2 = new CrewMember { Name = "Jane" };
 
-            var army1platoon1member1 = new Member()
+            var army1platoon1member1 = new Member
             {
                 Name = "FlagShip-Alpha",
-                CrewMembers = new List<CrewMember>()
+                CrewMembers = new List<CrewMember>
                 {
-                    army1platoon1member1crewMmeber1,
-                    army1platoon1member1crewMmeber2
+                    army1platoon1member1crewMember1,
+                    army1platoon1member1crewMember2
                 }
             };
-            army1platoon1member1crewMmeber1.Parent = army1platoon1member1;
-            army1platoon1member1crewMmeber2.Parent = army1platoon1member1;
+            army1platoon1member1crewMember1.Parent = army1platoon1member1;
+            army1platoon1member1crewMember2.Parent = army1platoon1member1;
 
 
-            var army1platoon1 = new Platoon()
+            var army1platoon1 = new Platoon
             {
-                Members = new List<Member>()
+                Members = new List<Member>
                 {
                     army1platoon1member1
                 },
@@ -120,10 +120,10 @@ namespace AdaptableMapper.TDD
             };
             army1platoon1member1.Parent = army1platoon1;
 
-            var army1 = new Army()
+            var army1 = new Army
             {
                 Code = "navel",
-                Platoons = new List<Platoon>()
+                Platoons = new List<Platoon>
                 {
                     army1platoon1,
                     army1platoon2
@@ -136,15 +136,15 @@ namespace AdaptableMapper.TDD
 
         private static Army CreateArmy2()
         {
-            var army1platoon2member1 = new Member()
+            var army1platoon2member1 = new Member
             {
                 Name = "Pharah",
                 CrewMembers = new List<CrewMember>()
             };
 
-            var army2platoon2 = new Platoon()
+            var army2platoon2 = new Platoon
             {
-                Members = new List<Member>()
+                Members = new List<Member>
                 {
                     army1platoon2member1
                 },
@@ -153,23 +153,23 @@ namespace AdaptableMapper.TDD
             };
             army1platoon2member1.Parent = army2platoon2;
 
-            var army2platoon1member2crewMmeber1 = new CrewMember() { Name = "John" };
+            var army2platoon1member2crewMmeber1 = new CrewMember { Name = "John" };
 
-            var army2platoon1member2 = new Member()
+            var army2platoon1member2 = new Member
             {
                 Name = "Boeing B-17",
-                CrewMembers = new List<CrewMember>()
+                CrewMembers = new List<CrewMember>
                 {
                     army2platoon1member2crewMmeber1
                 }
             };
 
-            var army2platoon1member1crewMmeber1 = new CrewMember() { Name = "Hans" };
+            var army2platoon1member1crewMmeber1 = new CrewMember { Name = "Hans" };
 
-            var army2platoon1member1 = new Member()
+            var army2platoon1member1 = new Member
             {
                 Name = "Messerschmitt Bf 109",
-                CrewMembers = new List<CrewMember>()
+                CrewMembers = new List<CrewMember>
                 {
                     army2platoon1member1crewMmeber1
                 }
@@ -177,9 +177,9 @@ namespace AdaptableMapper.TDD
             army2platoon1member1crewMmeber1.Parent = army2platoon1member1;
 
 
-            var army2platoon1 = new Platoon()
+            var army2platoon1 = new Platoon
             {
-                Members = new List<Member>()
+                Members = new List<Member>
                 {
                     army2platoon1member1,
                     army2platoon1member2
@@ -189,10 +189,10 @@ namespace AdaptableMapper.TDD
             };
             army2platoon1member1.Parent = army2platoon1;
 
-            var army2 = new Army()
+            var army2 = new Army
             {
                 Code = "thunder-struck",
-                Platoons = new List<Platoon>()
+                Platoons = new List<Platoon>
                 {
                     army2platoon1,
                     army2platoon2
@@ -203,7 +203,7 @@ namespace AdaptableMapper.TDD
             return army2;
         }
 
-        private MappingConfiguration GetFakedMappingConfiguration()
+        private static MappingConfiguration GetFakedMappingConfiguration()
         {
             var memberName = new Mapping(
                 new Model.ModelGetValue("Name"),
@@ -212,7 +212,7 @@ namespace AdaptableMapper.TDD
 
             var memberScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
-                new List<Mapping>()
+                new List<Mapping>
                 {
                     memberName
                 },
@@ -236,11 +236,11 @@ namespace AdaptableMapper.TDD
             );
 
             var platoonScope = new MappingScopeComposite(
-                new List<MappingScopeComposite>()
+                new List<MappingScopeComposite>
                 {
                     memberScope
                 },
-                new List<Mapping>()
+                new List<Mapping>
                 {
                     platoonCode,
                     leaderName
@@ -258,9 +258,9 @@ namespace AdaptableMapper.TDD
 
             var crewMemberNamesScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
-                new List<Mapping>()
+                new List<Mapping>
                 {
-                    crewMemberName,
+                    crewMemberName
                 },
                 new Model.ModelGetScope("Armies/Platoons/Members/CrewMembers"),
                 new Xml.XmlTraversal("./crewMemberNames"),
@@ -269,7 +269,7 @@ namespace AdaptableMapper.TDD
             );
 
             var rootScope = new MappingScopeRoot(
-                new List<MappingScopeComposite>()
+                new List<MappingScopeComposite>
                 {
                     crewMemberNamesScope,
                     platoonScope
