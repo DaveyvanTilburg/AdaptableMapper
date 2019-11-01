@@ -9,9 +9,9 @@ Completed plans:
  - Soft error handling (through observer)
 
 Current plans:
- - Implement Xml conversion
- - Implement Model conversion
- - Implement Json conversion
+ - Implement Xml mapping
+ - Implement Model mapping
+ - Implement Json mapping
 
 Future plans in relative priority order:
  - Write documentation
