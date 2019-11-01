@@ -44,6 +44,8 @@
     <Compile Include="ConfigurationSaveAndLoad.cs" />
     <Compile Include="ErrorObserverTester.cs" />
     <Compile Include="JsonToXml.cs" />
+    <Compile Include="ArmyModelSourceCreator.cs" />
+    <Compile Include="ModelToJson.cs" />
     <Compile Include="ModelToXml.cs" />
     <Compile Include="TestErrorObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,6 +96,10 @@
     <Content Include="Resources\JsonSource_HardwareComposition.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\JsonTarget_ArmyExpected.json" />
+    <None Include="Resources\JsonTarget_ArmyTemplate.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

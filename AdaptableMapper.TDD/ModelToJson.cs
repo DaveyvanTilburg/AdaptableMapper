@@ -1,15 +1,16 @@
-﻿using FluentAssertions;
+﻿using AdaptableMapper.Model.Language;
+using FluentAssertions;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Xunit;
-using AdaptableMapper.Model.Language;
 
 namespace AdaptableMapper.TDD
 {
-    public class ModelToXml
+    public class ModelToJson
     {
         [Fact]
-        public void ModelToXmlTest()
+        public void ModelToJsonTest()
         {
             var errorObserver = new TestErrorObserver();
             Process.ProcessObservable.GetInstance().Register(errorObserver);
@@ -17,11 +18,11 @@ namespace AdaptableMapper.TDD
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
 
             ModelBase source = ArmyModelSourceCreator.CreateArmyModel();
-            XElement result = mappingConfiguration.Map(source) as XElement;
+            JToken result = mappingConfiguration.Map(source) as JToken;
 
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
-            string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyExpected.xml");
+            string expectedResult = System.IO.File.ReadAllText(@".\Resources\JsonTarget_ArmyExpected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
             errorObserver.GetRaisedWarnings().Count.Should().Be(1);
@@ -106,7 +107,7 @@ namespace AdaptableMapper.TDD
 
             var contextFactory = new Contexts.ContextFactory(
                 new Model.ModelObjectConverter(),
-                new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml"))
+                new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\JsonTarget_ArmyTemplate.xml"))
             );
 
             var mappingConfiguration = new MappingConfiguration(rootScope, contextFactory, new NullObjectConverter());
