@@ -9,7 +9,7 @@ namespace AdaptableMapper.Xml
         {
             if (!(source is string input))
             {
-                Errors.ErrorObservable.GetInstance().Raise("XML#18; source is not of expected type String", source);
+                Errors.ErrorObservable.GetInstance().Raise("XML#18; source is not of expected type String", source?.GetType()?.Name);
                 return string.Empty;
             }
 

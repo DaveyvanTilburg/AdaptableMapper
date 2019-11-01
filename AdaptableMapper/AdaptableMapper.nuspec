@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.5.0-beta20191031-01</version>
+    <version>0.5.1-beta20191101-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -20,6 +20,8 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       </group>
     </dependencies>
     <releaseNotes>
+0.5.1
+  - Type check errors include type name instead of serialized object with no type info
 0.5.0
   - Redone error messages
   - Added verbose error observing

@@ -16,7 +16,7 @@ namespace AdaptableMapper.Json
         {
             if (!(target is JToken jToken))
             {
-                Errors.ErrorObservable.GetInstance().Raise("JSON#23; target is not of expected type jToken", Path, target);
+                Errors.ErrorObservable.GetInstance().Raise("JSON#23; target is not of expected type jToken", Path, target?.GetType()?.Name);
                 return new JObject();
             }
 

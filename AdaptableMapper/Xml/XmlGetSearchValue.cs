@@ -20,7 +20,7 @@ namespace AdaptableMapper.Xml
         {
             if (!(source is XElement xElement))
             {
-                Errors.ErrorObservable.GetInstance().Raise("XML#13; source is not of expected type XElement", SearchPath, SearchValuePath, source);
+                Errors.ErrorObservable.GetInstance().Raise("XML#13; source is not of expected type XElement", SearchPath, SearchValuePath, source?.GetType()?.Name);
                 return string.Empty;
             }
 

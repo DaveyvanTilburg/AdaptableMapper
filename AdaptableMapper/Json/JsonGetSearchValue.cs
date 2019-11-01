@@ -18,7 +18,7 @@ namespace AdaptableMapper.Json
         {
             if (!(source is JToken jToken))
             {
-                Errors.ErrorObservable.GetInstance().Raise("JSON#5; source is not of expected type JToken", SearchPath, SearchValuePath, source);
+                Errors.ErrorObservable.GetInstance().Raise("JSON#5; source is not of expected type JToken", SearchPath, SearchValuePath, source?.GetType()?.Name);
                 return string.Empty;
             }
 

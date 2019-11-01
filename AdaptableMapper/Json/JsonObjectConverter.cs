@@ -9,7 +9,7 @@ namespace AdaptableMapper.Json
         {
             if (!(source is string input))
             {
-                Errors.ErrorObservable.GetInstance().Raise("JSON#12; Source is not of expected type String", source);
+                Errors.ErrorObservable.GetInstance().Raise("JSON#12; Source is not of expected type String", source?.GetType()?.Name);
                 return string.Empty;
             }
 

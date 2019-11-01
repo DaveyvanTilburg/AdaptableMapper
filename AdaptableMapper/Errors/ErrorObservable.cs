@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace AdaptableMapper.Errors
 {
@@ -35,13 +36,19 @@ namespace AdaptableMapper.Errors
 
         public void Raise(string message, params object[] additionalInfo)
         {
-            var additionalInfoMessage = Newtonsoft.Json.JsonConvert.SerializeObject(additionalInfo);
+            if (_observers.Any())
+            {
+                var error = new Error($"{message};");
+                _observers.ForEach(o => o?.ErrorOccured(error));
+            }
+            
+            if(_observersVerbose.Any())
+            {
+                var additionalInfoMessage = Newtonsoft.Json.JsonConvert.SerializeObject(additionalInfo);
 
-            var error = new Error($"{message};");
-            _observers.ForEach(o => o?.ErrorOccured(error));
-
-            var errorVerbose = new Error($"{message}; objects:{additionalInfoMessage}");
-            _observersVerbose.ForEach(o => o?.ErrorOccured(errorVerbose));
+                var errorVerbose = new Error($"{message}; objects:{additionalInfoMessage}");
+                _observersVerbose.ForEach(o => o?.ErrorOccured(errorVerbose));
+            }
         }
     }
 }
