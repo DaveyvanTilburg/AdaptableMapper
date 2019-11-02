@@ -1,12 +1,17 @@
 ﻿using AdaptableMapper.Model.Language;
-using System.Collections.Generic;
 
 namespace ModelObjects.Hardwares
 {
     public class GraphicalCard : ModelBase
     {
-        public List<CPU> CPUs { get; set; } = new List<CPU>();
-        public List<MemoryChip> MemoryChips { get; set; } = new List<MemoryChip>();
+        public GraphicalCard()
+        {
+            CPUs = new ModelList<CPU>(this);
+            MemoryChips = new ModelList<MemoryChip>(this);
+        }
+
+        public ModelList<CPU> CPUs { get; set; }
+        public ModelList<MemoryChip> MemoryChips { get; set; }
         public string Brand { get; set; }
     }
 }

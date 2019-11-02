@@ -1,0 +1,44 @@
+{
+  "AvailableHardDrives": [
+    {
+      "Brand": "",
+      "Size": "",
+      "Speed": ""
+    }
+  ],
+  "Motherboards": [
+    {
+      "CPUs": [
+        {
+          "MemoryChips": [
+            {
+              "Size": "",
+              "Brand": ""
+            }
+          ],
+          "Brand": "",
+          "Cores": "",
+          "Speed": ""
+        }
+      ],
+      "GraphicalCards": [
+        {
+          "MemoryChips": [
+            {
+              "Size": "",
+              "Brand": ""
+            }
+          ],
+          "CPUs": [
+            {
+              "Brand": "",
+              "Cores": "",
+              "Speed": ""
+            }
+          ]
+        }
+      ],
+      "Brand": ""
+    }
+  ]
+}

@@ -1,11 +1,16 @@
 ﻿using AdaptableMapper.Model.Language;
-using System.Collections.Generic;
 
 namespace ModelObjects.Armies
 {
     public class Root : ModelBase
     {
-        public List<Army> Armies { get; set; } = new List<Army>();
-        public List<Leader> Leaders { get; set; } = new List<Leader>();
+        public Root()
+        {
+            Armies = new ModelList<Army>(this);
+            Leaders = new ModelList<Leader>(this);
+        }
+
+        public ModelList<Army> Armies { get; set; }
+        public ModelList<Leader> Leaders { get; set; }
     }
 }

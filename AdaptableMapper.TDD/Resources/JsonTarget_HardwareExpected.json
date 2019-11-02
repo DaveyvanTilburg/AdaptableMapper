@@ -1,0 +1,102 @@
+{
+  "AvailableHardDrives": [
+    {
+      "Brand": "AData",
+      "Size": "524288",
+      "Speed": "Rotating"
+    },
+    {
+      "Brand": "BData",
+      "Size": "262144",
+      "Speed": "Rotating"
+    }
+  ],
+  "Motherboards": [
+    {
+      "CPUs": [
+        {
+          "MemoryChips": [
+            {
+              "Size": "512",
+              "Brand": "Intel"
+            },
+            {
+              "Size": "512",
+              "Brand": "Intel"
+            }
+          ],
+          "Brand": "Intel",
+          "Cores": "3",
+          "Speed": "Average"
+        }
+      ],
+      "GraphicalCards": [
+        {
+          "MemoryChips": [
+            {
+              "Size": "512",
+              "Brand": "Biostar"
+            },
+            {
+              "Size": "512",
+              "Brand": "Biostar"
+            },
+            {
+              "Size": "512",
+              "Brand": "Biostar"
+            },
+            {
+              "Size": "512",
+              "Brand": "Biostar"
+            }
+          ],
+          "CPUs": [
+            {
+              "Brand": "Intel",
+              "Cores": "4",
+              "Speed": "High"
+            }
+          ]
+        }
+      ],
+      "Brand": "MSI"
+    },
+    {
+      "CPUs": [
+        {
+          "MemoryChips": [
+            {
+              "Size": "2048",
+              "Brand": "Corsair"
+            }
+          ],
+          "Brand": "AMD",
+          "Cores": "1",
+          "Speed": "High"
+        }
+      ],
+      "GraphicalCards": [
+        {
+          "MemoryChips": [
+            {
+              "Size": "512",
+              "Brand": "Biostar"
+            },
+            {
+              "Size": "512",
+              "Brand": "Biostar"
+            }
+          ],
+          "CPUs": [
+            {
+              "Brand": "Intel",
+              "Cores": "6",
+              "Speed": "Medium"
+            }
+          ]
+        }
+      ],
+      "Brand": "Biostar"
+    }
+  ]
+}

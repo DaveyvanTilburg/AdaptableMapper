@@ -1,11 +1,15 @@
 ﻿using AdaptableMapper.Model.Language;
-using System.Collections.Generic;
 
 namespace ModelObjects.Hardwares
 {
     public class Memory : ModelBase
     {
-        public List<MemoryChip> MemoryChips { get; set; } = new List<MemoryChip>();
+        public Memory()
+        {
+            MemoryChips = new ModelList<MemoryChip>(this);
+        }
+
+        public ModelList<MemoryChip> MemoryChips { get; set; }
         public string Brand { get; set; } = string.Empty;
     }
 }
