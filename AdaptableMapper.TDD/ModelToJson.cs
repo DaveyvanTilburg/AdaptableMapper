@@ -145,8 +145,8 @@ namespace AdaptableMapper.TDD
                     hardDriveSpeed
                 },
                 new Model.ModelGetScope("Motherboards/HardDrives"),
-                new Json.JsonTraversalThis(),
-                new Json.JsonTraversalTemplate("AvailableHardDrives[0]"),
+                new Json.JsonTraversal("$.AvailableHardDrives"),
+                new Json.JsonTraversalTemplate("[0]"),
                 new Json.JsonChildCreator()
             );
 

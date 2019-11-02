@@ -6,9 +6,9 @@ namespace AdaptableMapper.Json
     {
         public object CreateChildOn(object parent, object template)
         {
-            if (!(parent is JToken jToken))
+            if (!(parent is JArray jArray))
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#1; Parent is not of expected type jToken", "error", parent?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("JSON#1; Parent is not of expected type jArray", "error", parent?.GetType().Name);
                 return new JObject();
             }
 
@@ -18,8 +18,8 @@ namespace AdaptableMapper.Json
                 return new JObject();
             }
 
-            var jTemplateCopy = new JObject(jTemplate);
-            jToken.AddAfterSelf(jTemplateCopy);
+            var jTemplateCopy = jTemplate.DeepClone();
+            jArray.Add(jTemplateCopy);
 
             return jTemplateCopy;
         }
