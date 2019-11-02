@@ -22,7 +22,7 @@ namespace AdaptableMapper.TDD
 
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
-            string expectedResult = System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareExpected.xml");
+            string expectedResult = System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareExpected.json");
             JToken xExpectedResult = JToken.Parse(expectedResult);
 
             errorObserver.GetRaisedWarnings().Count.Should().Be(0);
@@ -121,33 +121,45 @@ namespace AdaptableMapper.TDD
 
         private static MappingConfiguration GetFakedMappingConfiguration()
         {
-            var crewMemberName = new Mapping(
-                new Model.ModelGetValue("Name"),
-                new Xml.XmlSetThisValue()
+            var hardDriveBrand = new Mapping(
+                new Model.ModelGetValue("Brand"),
+                new Json.JsonSetValue(".Brand")
             );
 
-            var crewMemberNamesScope = new MappingScopeComposite(
+            var hardDriveSize = new Mapping(
+                new Model.ModelGetValue("Size"),
+                new Json.JsonSetValue(".Size")
+            );
+
+            var hardDriveSpeed = new Mapping(
+                new Model.ModelGetValue("Speed"),
+                new Json.JsonSetValue(".Speed")
+            );
+
+            var HardDrivesScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
                 new List<Mapping>
                 {
-                    crewMemberName
+                    hardDriveBrand,
+                    hardDriveSize,
+                    hardDriveSpeed
                 },
-                new Model.ModelGetScope("Armies/Platoons/Members/CrewMembers"),
-                new Xml.XmlTraversal("./crewMemberNames"),
-                new Xml.XmlTraversalTemplate("./crewMemberName"),
-                new Xml.XmlChildCreator()
+                new Model.ModelGetScope("Motherboards/HardDrives"),
+                new Json.JsonTraversalThis(),
+                new Json.JsonTraversalTemplate("AvailableHardDrives[0]"),
+                new Json.JsonChildCreator()
             );
 
             var rootScope = new MappingScopeRoot(
                 new List<MappingScopeComposite>
                 {
-                    crewMemberNamesScope
+                    HardDrivesScope
                 }
             );
 
             var contextFactory = new Contexts.ContextFactory(
                 new Model.ModelObjectConverter(),
-                new Json.JsonTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareTemplate.xml"))
+                new Json.JsonTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareTemplate.json"))
             );
 
             var mappingConfiguration = new MappingConfiguration(rootScope, contextFactory, new NullObjectConverter());

@@ -98,8 +98,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\JsonTarget_HardwareExpected.json" />
-    <None Include="Resources\JsonTarget_HardwareTemplate.json" />
+    <Content Include="Resources\JsonTarget_HardwareExpected.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\JsonTarget_HardwareTemplate.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
