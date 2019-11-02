@@ -132,8 +132,6 @@ namespace AdaptableMapper.TDD
                 new List<MappingScopeComposite>(),
                 new List<Mapping>
                 {
-                    motherboardMemorySize,
-                    motherboardMemoryBrand
                 },
                 new Model.ModelGetScope("GraphicalCards"),
                 new Json.JsonTraversal("$.MemoryChips"),
