@@ -47,7 +47,7 @@ namespace AdaptableMapper.TDD
 
             var memoryChip5 = new MemoryChip { Size = "512" };
             var memoryChip6 = new MemoryChip { Size = "512" };
-            var memory1 = new Memory { Brand = "HyperX" };
+            var memory1 = new Memory();
             memory1.MemoryChips.Add(memoryChip5);
             memory1.MemoryChips.Add(memoryChip6);
 
@@ -68,15 +68,14 @@ namespace AdaptableMapper.TDD
             var memoryChip2 = new MemoryChip { Size = "512" };
             var memoryChip3 = new MemoryChip { Size = "512" };
             var memoryChip4 = new MemoryChip { Size = "512" };
-            var motherboard1graphicalcard1 = new GraphicalCard();
+            var motherboard1graphicalcard1 = new GraphicalCard { Brand = "Nvidia" };
             motherboard1graphicalcard1.CPUs.Add(motherboard1graphicalcard1cpu1);
             motherboard1graphicalcard1.MemoryChips.Add(memoryChip1);
             motherboard1graphicalcard1.MemoryChips.Add(memoryChip2);
             motherboard1graphicalcard1.MemoryChips.Add(memoryChip3);
             motherboard1graphicalcard1.MemoryChips.Add(memoryChip4);
 
-            var motherboard1 = new Motherboard { Brand = "MSI" };
-            motherboard1.CPUs.Add(motherboard1cpu1);
+            var motherboard1 = new Motherboard { Brand = "MSI", CPU = motherboard1cpu1 };
             motherboard1.GraphicalCards.Add(motherboard1graphicalcard1);
             motherboard1.HardDrives.Add(harddrive1);
             motherboard1.Memories.Add(memory1);
@@ -89,7 +88,7 @@ namespace AdaptableMapper.TDD
             var harddrive1 = new HardDrive { Brand = "BData", Size = "262144", Speed = "Rotating" };
 
             var memoryChip5 = new MemoryChip { Size = "2048" };
-            var memory1 = new Memory { Brand = "Corsair" };
+            var memory1 = new Memory();
             memory1.MemoryChips.Add(memoryChip5);
 
             var motherboard1cpu1 = new CPU
@@ -107,13 +106,12 @@ namespace AdaptableMapper.TDD
             };
             var memoryChip1 = new MemoryChip { Size = "512" };
             var memoryChip2 = new MemoryChip { Size = "512" };
-            var motherboard1graphicalcard1 = new GraphicalCard();
+            var motherboard1graphicalcard1 = new GraphicalCard { Brand = "AMD" };
             motherboard1graphicalcard1.CPUs.Add(motherboard1graphicalcard1cpu1);
             motherboard1graphicalcard1.MemoryChips.Add(memoryChip1);
             motherboard1graphicalcard1.MemoryChips.Add(memoryChip2);
 
-            var motherboard1 = new Motherboard { Brand = "Biostar" };
-            motherboard1.CPUs.Add(motherboard1cpu1);
+            var motherboard1 = new Motherboard { Brand = "Biostar", CPU = motherboard1cpu1 };
             motherboard1.GraphicalCards.Add(motherboard1graphicalcard1);
             motherboard1.HardDrives.Add(harddrive1);
             motherboard1.Memories.Add(memory1);
@@ -201,42 +199,25 @@ namespace AdaptableMapper.TDD
                 {
                     motherboardMemorySize
                 },
-                new Model.ModelGetScope("../Memories/MemoryChips"),
-                new Json.JsonTraversal(".MemoryChips"),
+                new Model.ModelGetScope("Memories/MemoryChips"),
+                new Json.JsonTraversal(".CPUs[0].MemoryChips"),
                 new Json.JsonTraversalTemplate("[0]"),
                 new Json.JsonChildCreator()
             );
 
             var motherBoardCpuBrand = new Mapping(
-                new Model.ModelGetValue("Brand"),
-                new Json.JsonSetValue(".Brand")
+                new Model.ModelGetValue("CPU/Brand"),
+                new Json.JsonSetValue(".CPUs[0].Brand")
             );
 
             var motherBoardCpuCores = new Mapping(
-                new Model.ModelGetValue("Cores"),
-                new Json.JsonSetValue(".Cores")
+                new Model.ModelGetValue("CPU/Cores"),
+                new Json.JsonSetValue(".CPUs[0].Cores")
             );
 
             var motherBoardCpuSpeed = new Mapping(
-                new Model.ModelGetValue("Speed"),
-                new Json.JsonSetValue(".Speed")
-            );
-
-            var motherboardCpuScope = new MappingScopeComposite(
-                new List<MappingScopeComposite>
-                {
-                    memoryChipsScope
-                },
-                new List<Mapping>
-                {
-                    motherBoardCpuBrand,
-                    motherBoardCpuCores,
-                    motherBoardCpuSpeed
-                },
-                new Model.ModelGetScope("CPUs"),
-                new Json.JsonTraversal("$.CPUs"),
-                new Json.JsonTraversalTemplate("[0]"),
-                new Json.JsonChildCreator()
+                new Model.ModelGetValue("CPU/Speed"),
+                new Json.JsonSetValue(".CPUs[0].Speed")
             );
 
             var motherboardBrand = new Mapping(
@@ -247,12 +228,15 @@ namespace AdaptableMapper.TDD
             var motherboardScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>
                 {
-                    motherboardCpuScope,
-                    graphicalCardsScope
+                    graphicalCardsScope,
+                    memoryChipsScope
                 },
                 new List<Mapping>
                 {
-                    motherboardBrand
+                    motherboardBrand,
+                    motherBoardCpuBrand,
+                    motherBoardCpuCores,
+                    motherBoardCpuSpeed
                 },
                 new Model.ModelGetScope("Motherboards"),
                 new Json.JsonTraversal("$.Motherboards"),

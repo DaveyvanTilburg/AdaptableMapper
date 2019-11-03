@@ -54,7 +54,8 @@
               "Cores": "4",
               "Speed": "High"
             }
-          ]
+          ],
+          "Brand": "Nvidia"
         }
       ],
       "Brand": "MSI"
@@ -90,7 +91,8 @@
               "Cores": "6",
               "Speed": "Medium"
             }
-          ]
+          ],
+          "Brand": "AMD"
         }
       ],
       "Brand": "Biostar"

@@ -6,13 +6,12 @@ namespace ModelObjects.Hardwares
     {
         public Motherboard()
         {
-            CPUs = new ModelList<CPU>(this);
             GraphicalCards = new ModelList<GraphicalCard>(this);
             Memories = new ModelList<Memory>(this);
             HardDrives = new ModelList<HardDrive>(this);
         }
 
-        public ModelList<CPU> CPUs { get; set; }
+        public CPU CPU { get; set; } = new CPU();
         public ModelList<GraphicalCard> GraphicalCards { get; set; }
         public ModelList<Memory> Memories { get; set; }
         public ModelList<HardDrive> HardDrives { get; set; }

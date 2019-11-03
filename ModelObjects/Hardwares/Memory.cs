@@ -10,6 +10,5 @@ namespace ModelObjects.Hardwares
         }
 
         public ModelList<MemoryChip> MemoryChips { get; set; }
-        public string Brand { get; set; } = string.Empty;
     }
 }
