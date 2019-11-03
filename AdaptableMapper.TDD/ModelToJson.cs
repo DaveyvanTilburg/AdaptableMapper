@@ -45,8 +45,8 @@ namespace AdaptableMapper.TDD
         {
             var harddrive1 = new HardDrive { Brand = "AData", Size = "524288", Speed = "Rotating" };
 
-            var memoryChip5 = new MemoryChip { Size = "512", Brand = "Intel" };
-            var memoryChip6 = new MemoryChip { Size = "512", Brand = "Intel" };
+            var memoryChip5 = new MemoryChip { Size = "512" };
+            var memoryChip6 = new MemoryChip { Size = "512" };
             var memory1 = new Memory { Brand = "HyperX" };
             memory1.MemoryChips.Add(memoryChip5);
             memory1.MemoryChips.Add(memoryChip6);
@@ -64,10 +64,10 @@ namespace AdaptableMapper.TDD
                 Cores = "4",
                 Speed = "High"
             };
-            var memoryChip1 = new MemoryChip { Size = "512", Brand = "Biostar" };
-            var memoryChip2 = new MemoryChip { Size = "512", Brand = "Biostar" };
-            var memoryChip3 = new MemoryChip { Size = "512", Brand = "Biostar" };
-            var memoryChip4 = new MemoryChip { Size = "512", Brand = "Biostar" };
+            var memoryChip1 = new MemoryChip { Size = "512" };
+            var memoryChip2 = new MemoryChip { Size = "512" };
+            var memoryChip3 = new MemoryChip { Size = "512" };
+            var memoryChip4 = new MemoryChip { Size = "512" };
             var motherboard1graphicalcard1 = new GraphicalCard();
             motherboard1graphicalcard1.CPUs.Add(motherboard1graphicalcard1cpu1);
             motherboard1graphicalcard1.MemoryChips.Add(memoryChip1);
@@ -88,7 +88,7 @@ namespace AdaptableMapper.TDD
         {
             var harddrive1 = new HardDrive { Brand = "BData", Size = "262144", Speed = "Rotating" };
 
-            var memoryChip5 = new MemoryChip { Size = "2048", Brand = "Intel" };
+            var memoryChip5 = new MemoryChip { Size = "2048" };
             var memory1 = new Memory { Brand = "Corsair" };
             memory1.MemoryChips.Add(memoryChip5);
 
@@ -105,8 +105,8 @@ namespace AdaptableMapper.TDD
                 Cores = "6",
                 Speed = "Medium"
             };
-            var memoryChip1 = new MemoryChip { Size = "512", Brand = "Biostar" };
-            var memoryChip2 = new MemoryChip { Size = "512", Brand = "Biostar" };
+            var memoryChip1 = new MemoryChip { Size = "512" };
+            var memoryChip2 = new MemoryChip { Size = "512" };
             var motherboard1graphicalcard1 = new GraphicalCard();
             motherboard1graphicalcard1.CPUs.Add(motherboard1graphicalcard1cpu1);
             motherboard1graphicalcard1.MemoryChips.Add(memoryChip1);
@@ -157,17 +157,11 @@ namespace AdaptableMapper.TDD
                 new Json.JsonSetValue(".Size")
             );
 
-            var graphicalCardMemoryChipBrand = new Mapping(
-                new Model.ModelGetValue("Brand"),
-                new Json.JsonSetValue(".Brand")
-            );
-
             var graphicalCardMemoryChipScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
                 new List<Mapping>
                 {
-                    graphicalCardMemoryChipSize,
-                    graphicalCardMemoryChipBrand
+                    graphicalCardMemoryChipSize
                 },
                 new Model.ModelGetScope("MemoryChips"),
                 new Json.JsonTraversal(".MemoryChips"),
@@ -201,17 +195,11 @@ namespace AdaptableMapper.TDD
                 new Json.JsonSetValue(".Size")
             );
 
-            var motherboardMemoryBrand = new Mapping(
-                new Model.ModelGetValue("Brand"),
-                new Json.JsonSetValue(".Brand")
-            );
-
             var memoryChipsScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
                 new List<Mapping>
                 {
-                    motherboardMemorySize,
-                    motherboardMemoryBrand
+                    motherboardMemorySize
                 },
                 new Model.ModelGetScope("../Memories/MemoryChips"),
                 new Json.JsonTraversal(".MemoryChips"),

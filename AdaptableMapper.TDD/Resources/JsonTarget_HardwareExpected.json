@@ -17,12 +17,10 @@
         {
           "MemoryChips": [
             {
-              "Size": "512",
-              "Brand": "Intel"
+              "Size": "512"
             },
             {
-              "Size": "512",
-              "Brand": "Intel"
+              "Size": "512"
             }
           ],
           "Brand": "Intel",
@@ -66,8 +64,7 @@
         {
           "MemoryChips": [
             {
-              "Size": "2048",
-              "Brand": "Intel"
+              "Size": "2048"
             }
           ],
           "Brand": "AMD",
