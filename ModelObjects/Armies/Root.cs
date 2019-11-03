@@ -7,10 +7,9 @@ namespace ModelObjects.Armies
         public Root()
         {
             Armies = new ModelList<Army>(this);
-            Leaders = new ModelList<Leader>(this);
         }
 
         public ModelList<Army> Armies { get; set; }
-        public ModelList<Leader> Leaders { get; set; }
+        public Organization Organization { get; set; } = new Organization();
     }
 }

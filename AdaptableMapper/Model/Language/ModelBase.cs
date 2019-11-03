@@ -24,11 +24,21 @@ namespace AdaptableMapper.Model.Language
         {
             string step = path.Dequeue();
 
-            PropertyInfo property = GetPropertyInfo(step);
-            IList propertyValue = GetIListFromProperty(property, step);
+            PropertyInfo propertyInfo = GetPropertyInfo(step);
+            if(propertyInfo == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise($"MODEL#1; No property with name {step} found on type {this.GetType().Name}", "warning");
+                return new NullModel();
+            }
 
-            ModelBase next = property.PropertyType.CreateModel();
-            propertyValue.Add(next);
+            object propertyValue = propertyInfo?.GetValue(this);
+            if (!(propertyValue is ModelBase next))
+            {
+                IList propertyList = GetIListFromProperty(propertyInfo);
+
+                next = propertyInfo.PropertyType.CreateModel();
+                propertyList.Add(next);
+            }
 
             if (path.Count > 0)
                 return next.NavigateAndCreatePath(path);
@@ -39,20 +49,16 @@ namespace AdaptableMapper.Model.Language
         public IList GetListProperty(string propertyName)
         {
             PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
-            return GetIListFromProperty(propertyInfo, propertyName);
+            object propertyValue = propertyInfo?.GetValue(this);
+            return GetIListFromProperty(propertyValue);
         }
 
-        private IList GetIListFromProperty(PropertyInfo propertyInfo, string propertyName)
+        private IList GetIListFromProperty(object propertyValue)
         {
-            object property = propertyInfo?.GetValue(this);
-
-            if (property == null)
-                Process.ProcessObservable.GetInstance().Raise($"MODEL#1; Property {propertyName} does not exist on {this.GetType().Name}", "warning");
-
-            if (!(property is IList listProperty))
+            if (!(propertyValue is IList listProperty))
             {
-                Process.ProcessObservable.GetInstance().Raise($"MODEL#2; Property {propertyName} is not traversable, it is not a list of Model", "warning");
-                return new List<ModelBase>();
+                Process.ProcessObservable.GetInstance().Raise($"MODEL#2; Property is not traversable, it is not a list of Model", "warning");
+                return new List<NullModel>();
             }
 
             return listProperty;
@@ -164,7 +170,7 @@ namespace AdaptableMapper.Model.Language
                 else
                 {
                     Process.ProcessObservable.GetInstance().Raise($"MODEL#8; Property {propertyName} on type {this.GetType().Name} is not traversable, it is not a list of ModelBase or a derivative of ModelBase", "warning");
-                    return new List<ModelBase>();
+                    return new List<NullModel>();
                 }
             }
 

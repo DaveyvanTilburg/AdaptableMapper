@@ -6,18 +6,18 @@ namespace AdaptableMapper.TDD
     {
         public static Root CreateArmyModel()
         {
-            var leader1 = new Leader { Name = "Christopher columbus", Reference = "alpha-bravo-tango-delta" };
-            var leader2 = new Leader { Name = "Ocean man", Reference = "Ween" };
-            var leader3 = new Leader { Name = "John J. Pershing", Reference = "Pershing" };
+            var leader1 = new Leader { LeaderPerson = new LeaderPerson() { Name = "Christopher columbus" }, Reference = "alpha-bravo-tango-delta" };
+            var leader2 = new Leader { LeaderPerson = new LeaderPerson() { Name = "Ocean man" }, Reference = "Ween" };
+            var leader3 = new Leader { LeaderPerson = new LeaderPerson() { Name = "John J. Pershing" }, Reference = "Pershing" };
             Army army1 = CreateArmy1();
             Army army2 = CreateArmy2();
 
             var root = new Root();
             root.Armies.Add(army1);
             root.Armies.Add(army2);
-            root.Leaders.Add(leader1);
-            root.Leaders.Add(leader2);
-            root.Leaders.Add(leader3);
+            root.Organization.Leaders.Add(leader1);
+            root.Organization.Leaders.Add(leader2);
+            root.Organization.Leaders.Add(leader3);
 
             return root;
         }

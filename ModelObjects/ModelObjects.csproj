@@ -44,7 +44,9 @@
     <Compile Include="Armies\Army.cs" />
     <Compile Include="Armies\CrewMember.cs" />
     <Compile Include="Armies\Leader.cs" />
+    <Compile Include="Armies\LeaderPerson.cs" />
     <Compile Include="Armies\Member.cs" />
+    <Compile Include="Armies\Organization.cs" />
     <Compile Include="Armies\Platoon.cs" />
     <Compile Include="Armies\Root.cs" />
     <Compile Include="Hardwares\CPU.cs" />

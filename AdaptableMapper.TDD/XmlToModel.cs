@@ -24,9 +24,9 @@ namespace AdaptableMapper.TDD
             errorObserver.GetRaisedErrors().Count.Should().Be(0);
             errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
 
-            result.Leaders.Count.Should().Be(3);
-            result.Leaders[0].Reference.Should().Be("alpha-bravo-tango-delta");
-            result.Leaders[2].Name.Should().Be("John J. Pershing");
+            result.Organization.Leaders.Count.Should().Be(3);
+            result.Organization.Leaders[0].Reference.Should().Be("alpha-bravo-tango-delta");
+            result.Organization.Leaders[2].LeaderPerson.Name.Should().Be("John J. Pershing");
 
             result.Armies.Count.Should().Be(2);
             result.Armies[0].Code.Should().Be("naval");
@@ -130,7 +130,7 @@ namespace AdaptableMapper.TDD
 
             var leaderName = new Mapping(
                 new Xml.XmlGetThisValue(),
-                new Model.ModelSetValueOnProperty("Name")
+                new Model.ModelSetValueOnPath("LeaderPerson/Name")
             );
 
             var leadersScope = new MappingScopeComposite(
@@ -141,7 +141,7 @@ namespace AdaptableMapper.TDD
                     leaderName
                 },
                 new Xml.XmlGetScope("./leaders/leader"),
-                new Model.ModelTraversalThis(),
+                new Model.ModelTraversal("Organization"),
                 new Model.ModelTraversalTemplate("Leaders"),
                 new Model.ModelChildCreator()
             );
