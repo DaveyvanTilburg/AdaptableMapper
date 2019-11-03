@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace AdaptableMapper.Json
 {
@@ -12,7 +13,7 @@ namespace AdaptableMapper.Json
                 return new JObject();
             }
 
-            return jToken.ToString();
+            return jToken.ToString(Formatting.Indented);
         }
     }
 }

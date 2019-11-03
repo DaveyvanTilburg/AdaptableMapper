@@ -1,0 +1,101 @@
+﻿{
+  "AvailableHardDrives": [
+    {
+      "Brand": "AData",
+      "Size": "524288",
+      "Speed": "Rotating"
+    },
+    {
+      "Brand": "BData",
+      "Size": "262144",
+      "Speed": "Rotating"
+    }
+  ],
+  "Motherboards": [
+    {
+      "CPUs": [
+        {
+          "MemoryChips": [
+            {
+              "Size": "512"
+            },
+            {
+              "Size": "512"
+            }
+          ],
+          "Brand": "Intel",
+          "Cores": "3",
+          "Speed": "Average"
+        }
+      ],
+      "GraphicalCards": [
+        {
+          "MemoryChips": [
+            {
+              "Size": "512",
+              "Brand": ""
+            },
+            {
+              "Size": "512",
+              "Brand": ""
+            },
+            {
+              "Size": "512",
+              "Brand": ""
+            },
+            {
+              "Size": "512",
+              "Brand": ""
+            }
+          ],
+          "CPUs": [
+            {
+              "Brand": "Intel",
+              "Cores": "4",
+              "Speed": "High"
+            }
+          ],
+          "Brand": "Nvidia"
+        }
+      ],
+      "Brand": "MSI"
+    },
+    {
+      "CPUs": [
+        {
+          "MemoryChips": [
+            {
+              "Size": "2048"
+            }
+          ],
+          "Brand": "AMD",
+          "Cores": "1",
+          "Speed": "High"
+        }
+      ],
+      "GraphicalCards": [
+        {
+          "MemoryChips": [
+            {
+              "Size": "512",
+              "Brand": ""
+            },
+            {
+              "Size": "512",
+              "Brand": ""
+            }
+          ],
+          "CPUs": [
+            {
+              "Brand": "Intel",
+              "Cores": "6",
+              "Speed": "Medium"
+            }
+          ],
+          "Brand": "AMD"
+        }
+      ],
+      "Brand": "Biostar"
+    }
+  ]
+}

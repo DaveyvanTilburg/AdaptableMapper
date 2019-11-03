@@ -32,6 +32,22 @@ namespace AdaptableMapper.TDD
             result.Should().BeEquivalentTo(jExpectedResult);
         }
 
+        [Fact]
+        public void ModelToJsonToString()
+        {
+            MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
+            mappingConfiguration.ObjectConverter = new Json.JTokenToStringObjectConverter();
+
+            ModelBase source = CreateHardwareModel();
+            object resultObject = mappingConfiguration.Map(source);
+
+            var result = resultObject as string;
+            result.Should().NotBeNull();
+
+            string expectedResult = System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareExpected.txt");
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
         private static ModelBase CreateHardwareModel()
         {
             var root = new Root();
