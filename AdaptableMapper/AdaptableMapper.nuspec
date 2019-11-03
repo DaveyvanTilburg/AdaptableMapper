@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.6.0-beta20191101-01</version>
+    <version>0.6.1-beta20191103-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -20,6 +20,8 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       </group>
     </dependencies>
     <releaseNotes>
+0.6.1
+  - Finished implementation of Json setters
 0.6.0
   - Error handling revised to information gathering.
     - Error namespace renamed to process

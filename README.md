@@ -9,13 +9,14 @@ Completed plans:
  - Soft error handling (through observer)
  - Implement Xml mapping
  - Implement Model mapping
-
-Current plans:
  - Implement Json mapping
 
+Current plans:
+ - Add 100% code coverage tests for Model Mapping
+
 Future plans in relative priority order:
- - Add more tests for Xml Mapping
- - Add more tests for Model Mapping
+ - Add 100% code coverage tests for Xml Mapping
+ - Add 100% code coverage tests for Json Mapping
  - Write documentation
 
 ## How to use
