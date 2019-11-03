@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using System.Collections.Generic;
+using AdaptableMapper.Model;
 using Xunit;
 
 namespace AdaptableMapper.TDD
@@ -36,6 +37,21 @@ namespace AdaptableMapper.TDD
             result.Armies[1].Platoons[0].Members[1].CrewMembers[0].Name.Should().Be("John");
             result.Armies[1].Platoons[1].LeaderReference.Should().Be("");
             result.Armies[0].Platoons[1].LeaderReference.Should().Be("Ween");
+        }
+
+        [Fact]
+        public void XmlToModelToString()
+        {
+            MappingConfiguration mappingConfiguration = GetMappingConfiguration();
+            mappingConfiguration.ObjectConverter = new ModelToStringObjectConverter();
+
+            object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"));
+
+            var result = resultObject as string;
+            result.Should().NotBeNull();
+
+            string expectedResult = System.IO.File.ReadAllText(@".\Resources\ModelTarget_ArmyExpected.txt");
+            result.Should().BeEquivalentTo(expectedResult);
         }
 
         public static MappingConfiguration GetMappingConfiguration()
