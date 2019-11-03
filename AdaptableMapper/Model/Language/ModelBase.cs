@@ -175,7 +175,7 @@ namespace AdaptableMapper.Model.Language
         public string GetValue(string propertyName)
         {
             PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
-            return propertyInfo?.GetValue(this).ToString() ?? string.Empty;
+            return propertyInfo?.GetValue(this)?.ToString() ?? string.Empty;
         }
 
         private PropertyInfo GetPropertyInfo(string propertyName)

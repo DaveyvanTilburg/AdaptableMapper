@@ -23,13 +23,13 @@ namespace AdaptableMapper.TDD
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareExpected.json");
-            JToken xExpectedResult = JToken.Parse(expectedResult);
+            JToken jExpectedResult = JToken.Parse(expectedResult);
 
             errorObserver.GetRaisedWarnings().Count.Should().Be(0);
             errorObserver.GetRaisedErrors().Count.Should().Be(0);
             errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
 
-            result.Should().BeEquivalentTo(xExpectedResult);
+            result.Should().BeEquivalentTo(jExpectedResult);
         }
 
         private static ModelBase CreateHardwareModel()
@@ -88,13 +88,9 @@ namespace AdaptableMapper.TDD
         {
             var harddrive1 = new HardDrive { Brand = "BData", Size = "262144", Speed = "Rotating" };
 
-            var memoryChip5 = new MemoryChip { Size = "2048" };
+            var memoryChip5 = new MemoryChip { Size = "2048", Brand = "Intel" };
             var memory1 = new Memory { Brand = "Corsair" };
             memory1.MemoryChips.Add(memoryChip5);
-
-            var memoryChip6 = new MemoryChip { Size = "2048" };
-            var memory2 = new Memory { Brand = "Corsair" };
-            memory2.MemoryChips.Add(memoryChip6);
 
             var motherboard1cpu1 = new CPU
             {
@@ -121,20 +117,81 @@ namespace AdaptableMapper.TDD
             motherboard1.GraphicalCards.Add(motherboard1graphicalcard1);
             motherboard1.HardDrives.Add(harddrive1);
             motherboard1.Memories.Add(memory1);
-            motherboard1.Memories.Add(memory2);
 
             return motherboard1;
         }
 
         private static MappingConfiguration GetFakedMappingConfiguration()
         {
-            var graphicalCardsScope = new MappingScopeComposite(
+            var graphicalCardCpuBrand = new Mapping(
+                new Model.ModelGetValue("Brand"),
+                new Json.JsonSetValue(".Brand")
+            );
+
+            var graphicalCardCpuCores = new Mapping(
+                new Model.ModelGetValue("Cores"),
+                new Json.JsonSetValue(".Cores")
+            );
+
+            var graphicalCardCpuSpeed = new Mapping(
+                new Model.ModelGetValue("Speed"),
+                new Json.JsonSetValue(".Speed")
+            );
+
+            var graphicalCardCpuScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
                 new List<Mapping>
                 {
+                    graphicalCardCpuBrand,
+                    graphicalCardCpuCores,
+                    graphicalCardCpuSpeed
+                },
+                new Model.ModelGetScope("CPUs"),
+                new Json.JsonTraversal("$.CPUs"),
+                new Json.JsonTraversalTemplate("[0]"),
+                new Json.JsonChildCreator()
+            );
+
+            var graphicalCardMemoryChipSize = new Mapping(
+                new Model.ModelGetValue("Size"),
+                new Json.JsonSetValue(".Size")
+            );
+
+            var graphicalCardMemoryChipBrand = new Mapping(
+                new Model.ModelGetValue("Brand"),
+                new Json.JsonSetValue(".Brand")
+            );
+
+            var graphicalCardMemoryChipScope = new MappingScopeComposite(
+                new List<MappingScopeComposite>(),
+                new List<Mapping>
+                {
+                    graphicalCardMemoryChipSize,
+                    graphicalCardMemoryChipBrand
+                },
+                new Model.ModelGetScope("MemoryChips"),
+                new Json.JsonTraversal(".MemoryChips"),
+                new Json.JsonTraversalTemplate("[0]"),
+                new Json.JsonChildCreator()
+            );
+
+            var graphicalCardBrand = new Mapping(
+                new Model.ModelGetValue("Brand"),
+                new Json.JsonSetValue(".Brand")
+            );
+
+            var graphicalCardsScope = new MappingScopeComposite(
+                new List<MappingScopeComposite>
+                {
+                    graphicalCardMemoryChipScope,
+                    graphicalCardCpuScope
+                },
+                new List<Mapping>
+                {
+                    graphicalCardBrand
                 },
                 new Model.ModelGetScope("GraphicalCards"),
-                new Json.JsonTraversal("$.MemoryChips"),
+                new Json.JsonTraversal(".GraphicalCards"),
                 new Json.JsonTraversalTemplate("[0]"),
                 new Json.JsonChildCreator()
             );
@@ -178,7 +235,7 @@ namespace AdaptableMapper.TDD
             );
 
             var motherboardCpuScope = new MappingScopeComposite(
-                new List<MappingScopeComposite>()
+                new List<MappingScopeComposite>
                 {
                     memoryChipsScope
                 },
@@ -202,7 +259,8 @@ namespace AdaptableMapper.TDD
             var motherboardScope = new MappingScopeComposite(
                 new List<MappingScopeComposite>
                 {
-                    motherboardCpuScope
+                    motherboardCpuScope,
+                    graphicalCardsScope
                 },
                 new List<Mapping>
                 {
