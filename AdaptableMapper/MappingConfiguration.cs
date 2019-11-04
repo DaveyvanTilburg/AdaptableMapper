@@ -23,6 +23,12 @@ namespace AdaptableMapper
                 return null;
             }
 
+            if (ContextFactory == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise("TREE#2; ContextFactory cannot be null", "error");
+                return null;
+            }
+
             Context context = ContextFactory.Create(source);
             MappingScope.Traverse(context);
 

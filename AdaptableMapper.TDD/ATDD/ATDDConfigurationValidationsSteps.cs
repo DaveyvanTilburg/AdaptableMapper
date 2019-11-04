@@ -24,16 +24,27 @@ namespace AdaptableMapper.TDD.ATDD
         [When(@"I run Map with a null parameter")]
         public void WhenIRunMapWithANullParameter()
         {
+            Map(null);
+        }
+
+        [When(@"I run Map with a string parameter '(.*)'")]
+        public void WhenIRunMapWithAStringParameter(string p0)
+        {
+            Map(p0);
+        }
+
+        private void Map(object input)
+        {
             TestErrorObserver testErrorObserver = new TestErrorObserver();
             ProcessObservable.GetInstance().Register(testErrorObserver);
 
             MappingConfiguration mappingConfiguration = _builder.GetResult();
-            _result = mappingConfiguration.Map(null);
+            _result = mappingConfiguration.Map(input);
 
             ProcessObservable.GetInstance().Unregister(testErrorObserver);
             _information = testErrorObserver.GetInformation();
         }
-        
+
         [Then(@"the result should contain the following errors")]
         public void ThenTheResultShouldContainTheFollowingErrors(Table table)
         {

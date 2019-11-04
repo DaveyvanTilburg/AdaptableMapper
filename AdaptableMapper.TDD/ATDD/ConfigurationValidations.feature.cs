@@ -80,15 +80,15 @@ namespace AdaptableMapper.TDD.ATDD
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Empty mappingConfiguration")]
+        [Xunit.SkippableFactAttribute(DisplayName="Empty argument mappingConfiguration")]
         [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
-        [Xunit.TraitAttribute("Description", "Empty mappingConfiguration")]
+        [Xunit.TraitAttribute("Description", "Empty argument mappingConfiguration")]
         [Xunit.TraitAttribute("Category", "mytag")]
-        public virtual void EmptyMappingConfiguration()
+        public virtual void EmptyArgumentMappingConfiguration()
         {
             string[] tagsOfScenario = new string[] {
                     "mytag"};
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty mappingConfiguration", null, new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty argument mappingConfiguration", null, new string[] {
                         "mytag"});
 #line 4
 this.ScenarioInitialize(scenarioInfo);
@@ -126,6 +126,55 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the result should contain the following errors", ((string)(null)), table1, "Then ");
 #line hidden
 #line 10
+ testRunner.Then("result should be null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Empty contextFactory mappingConfiguration")]
+        [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
+        [Xunit.TraitAttribute("Description", "Empty contextFactory mappingConfiguration")]
+        public virtual void EmptyContextFactoryMappingConfiguration()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty contextFactory mappingConfiguration", null, ((string[])(null)));
+#line 12
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 13
+ testRunner.Given("I create a mappingconfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 14
+ testRunner.When("I run Map with a string parameter \'test\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Type",
+                            "Message"});
+                table2.AddRow(new string[] {
+                            "error",
+                            "TREE#2; ContextFactory cannot be null; objects:[]"});
+#line 15
+ testRunner.Then("the result should contain the following errors", ((string)(null)), table2, "Then ");
+#line hidden
+#line 18
  testRunner.Then("result should be null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
