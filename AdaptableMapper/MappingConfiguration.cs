@@ -17,6 +17,12 @@ namespace AdaptableMapper
 
         public object Map(object source)
         {
+            if(source == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise("TREE#1; Argument cannot be null for MappingConfiguration.Map(string)", "error");
+                return null;
+            }
+
             Context context = ContextFactory.Create(source);
             MappingScope.Traverse(context);
 

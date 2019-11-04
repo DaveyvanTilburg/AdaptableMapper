@@ -23,6 +23,11 @@ namespace AdaptableMapper.TDD
             return _information.Where(i => !i.Type.Equals("error") && !i.Type.Equals("warning")).ToList();
         }
 
+        public List<Information> GetInformation()
+        {
+            return _information;
+        }
+        
         public void InformationRaised(Information information)
         {
             _information.Add(information);
