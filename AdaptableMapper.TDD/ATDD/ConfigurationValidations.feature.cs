@@ -83,14 +83,11 @@ namespace AdaptableMapper.TDD.ATDD
         [Xunit.SkippableFactAttribute(DisplayName="Empty argument mappingConfiguration")]
         [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
         [Xunit.TraitAttribute("Description", "Empty argument mappingConfiguration")]
-        [Xunit.TraitAttribute("Category", "mytag")]
         public virtual void EmptyArgumentMappingConfiguration()
         {
-            string[] tagsOfScenario = new string[] {
-                    "mytag"};
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty argument mappingConfiguration", null, new string[] {
-                        "mytag"});
-#line 4
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty argument mappingConfiguration", null, ((string[])(null)));
+#line 3
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -110,10 +107,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 5
+#line 4
  testRunner.Given("I create a mappingconfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 6
+#line 5
  testRunner.When("I run Map with a null parameter", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -122,10 +119,10 @@ this.ScenarioInitialize(scenarioInfo);
                 table1.AddRow(new string[] {
                             "error",
                             "TREE#1; Argument cannot be null for MappingConfiguration.Map(string); objects:[]"});
-#line 7
+#line 6
  testRunner.Then("the result should contain the following errors", ((string)(null)), table1, "Then ");
 #line hidden
-#line 10
+#line 9
  testRunner.Then("result should be null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -139,7 +136,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             string[] tagsOfScenario = ((string[])(null));
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty contextFactory mappingConfiguration", null, ((string[])(null)));
-#line 12
+#line 11
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -159,10 +156,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 13
+#line 12
  testRunner.Given("I create a mappingconfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 14
+#line 13
  testRunner.When("I run Map with a string parameter \'test\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -171,10 +168,77 @@ this.ScenarioInitialize(scenarioInfo);
                 table2.AddRow(new string[] {
                             "error",
                             "TREE#2; ContextFactory cannot be null; objects:[]"});
-#line 15
+                table2.AddRow(new string[] {
+                            "error",
+                            "TREE#5; MappingScope cannot be null; objects:[]"});
+                table2.AddRow(new string[] {
+                            "error",
+                            "TREE#6; ObjectConverter cannot be null; objects:[]"});
+#line 14
  testRunner.Then("the result should contain the following errors", ((string)(null)), table2, "Then ");
 #line hidden
-#line 18
+#line 19
+ testRunner.Then("result should be null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Empty root empty factory nullconverter mappingConfiguration")]
+        [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
+        [Xunit.TraitAttribute("Description", "Empty root empty factory nullconverter mappingConfiguration")]
+        public virtual void EmptyRootEmptyFactoryNullconverterMappingConfiguration()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty root empty factory nullconverter mappingConfiguration", null, ((string[])(null)));
+#line 21
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 22
+ testRunner.Given("I create a mappingconfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 23
+ testRunner.Given("I add a contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 24
+ testRunner.Given("I add a MappingScopeRoot", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 25
+ testRunner.Given("I add a NullObjectConverter for mappingConfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 26
+ testRunner.When("I run Map with a string parameter \'test\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Type",
+                            "Message"});
+                table3.AddRow(new string[] {
+                            "error",
+                            "TREE#3; ObjectConverter cannot be null; objects:[]"});
+                table3.AddRow(new string[] {
+                            "error",
+                            "TREE#4; TargetInstantiator cannot be null; objects:[]"});
+#line 27
+ testRunner.Then("the result should contain the following errors", ((string)(null)), table3, "Then ");
+#line hidden
+#line 31
  testRunner.Then("result should be null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

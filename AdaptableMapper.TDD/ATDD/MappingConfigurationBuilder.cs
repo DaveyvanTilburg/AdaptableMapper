@@ -1,24 +1,42 @@
-﻿namespace AdaptableMapper.TDD.ATDD
+﻿using System;
+using System.Collections.Generic;
+
+namespace AdaptableMapper.TDD.ATDD
 {
-    public class MappingConfigurationBuilder
+    internal class MappingConfigurationBuilder
     {
         private MappingConfiguration _result;
-        public MappingConfigurationBuilder()
+        internal MappingConfigurationBuilder()
         {
             StartNew();
         }
 
-        public void StartNew()
+        internal void StartNew()
         {
             _result = new MappingConfiguration(null, null, null);
         }
 
-        public MappingConfiguration GetResult()
+        internal MappingConfiguration GetResult()
         {
             MappingConfiguration tempResult = _result;
             StartNew();
 
             return tempResult;
+        }
+
+        internal void AddContextFactory()
+        {
+            _result.ContextFactory = new Contexts.ContextFactory(null, null);
+        }
+
+        internal void AddMappingScopeRoot()
+        {
+            _result.MappingScope = new MappingScopeRoot(new List<MappingScopeComposite>());
+        }
+
+        internal void AddNullObjectConverterForMappingConfiguration()
+        {
+            _result.ObjectConverter = new NullObjectConverter();
         }
     }
 }

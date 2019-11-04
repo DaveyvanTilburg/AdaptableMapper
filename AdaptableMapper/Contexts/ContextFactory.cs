@@ -13,7 +13,29 @@
 
         internal Context Create(object source)
         {
+            if (!Validate())
+                return new Context(null, null);
+
             return new Context(source: ObjectConverter.Convert(source), target: TargetInstantiator.Create());
+        }
+
+        private bool Validate()
+        {
+            bool result = true;
+
+            if (ObjectConverter == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise("TREE#3; ObjectConverter cannot be null", "error"); 
+                result = false;
+            }
+
+            if (TargetInstantiator == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise("TREE#4; TargetInstantiator cannot be null", "error"); 
+                result = false;
+            }
+
+            return result;
         }
     }
 }

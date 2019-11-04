@@ -20,7 +20,26 @@ namespace AdaptableMapper.TDD.ATDD
             _builder = new MappingConfigurationBuilder();
             _builder.StartNew();
         }
-        
+
+        [Given(@"I add a contextFactory")]
+        public void GivenIAddAContextFactory()
+        {
+            _builder.AddContextFactory();
+        }
+
+        [Given(@"I add a MappingScopeRoot")]
+        public void GivenIAddAMappingScopeRoot()
+        {
+            _builder.AddMappingScopeRoot();
+        }
+
+        [Given(@"I add a NullObjectConverter for mappingConfiguration")]
+        public void GivenIAddNullAObjectConverterForMappingConfiguration()
+        {
+            _builder.AddNullObjectConverterForMappingConfiguration();
+        }
+
+
         [When(@"I run Map with a null parameter")]
         public void WhenIRunMapWithANullParameter()
         {
