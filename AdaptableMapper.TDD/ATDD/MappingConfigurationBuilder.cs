@@ -83,5 +83,21 @@ namespace AdaptableMapper.TDD.ATDD
         {
             _result.ObjectConverter = new Json.JTokenToStringObjectConverter();
         }
+
+        internal void AddTargetInitiator(string type, params string[] parameters)
+        {
+            switch (type.ToLower())
+            {
+                case "xml":
+                    _result.ContextFactory.TargetInstantiator = new Xml.XmlTargetInstantiator(parameters[0]);
+                    break;
+                case "json":
+                    _result.ContextFactory.TargetInstantiator = new Json.JsonTargetInstantiator(parameters[0]);
+                    break;
+                case "model":
+                    _result.ContextFactory.TargetInstantiator = new Model.ModelTargetInstantiator(parameters[0], parameters[1]);
+                    break;
+            }
+        }
     }
 }

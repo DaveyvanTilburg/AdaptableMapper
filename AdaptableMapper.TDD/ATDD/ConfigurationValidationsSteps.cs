@@ -45,12 +45,6 @@ namespace AdaptableMapper.TDD.ATDD
             _builder.AddModelObjectConverterToContextFactory();
         }
 
-        [Given(@"I add a XmlTargetInitiator with an empty string to the contextFactory")]
-        public void GivenIAddAXmlTargetInitiatorWithAnEmptyStringToTheContextFactory()
-        {
-            _builder.AddXmlTargetInitiatorToContextFactory(string.Empty);
-        }
-
         [Given(@"I add a XElementToStringObjectConverter for mappingConfiguration")]
         public void GivenIAddAXElementToStringObjectConverterForMappingConfiguration()
         {
@@ -61,12 +55,6 @@ namespace AdaptableMapper.TDD.ATDD
         public void GivenIAddAJsonObjectConverterToTheContextFactory()
         {
             _builder.AddJsonObjectConverterToContextFactory();
-        }
-
-        [Given(@"I add a ModelTargetInitiator with an empty string to the contextFactory")]
-        public void GivenIAddAModelTargetInitiatorWithAnEmptyStringToTheContextFactory()
-        {
-            _builder.ModelTargetInitiatorToContextFactory(string.Empty, string.Empty);
         }
 
         [Given(@"I add a ModelToStringObjectConverter for mappingConfiguration")]
@@ -81,16 +69,22 @@ namespace AdaptableMapper.TDD.ATDD
             _builder.AddXmlObjectConverterToContextFactory();
         }
 
-        [Given(@"I add a JsonTargetInitiator with an empty string to the contextFactory")]
-        public void GivenIAddAJsonTargetInitiatorWithAnEmptyStringToTheContextFactory()
-        {
-            _builder.AddJsonTargetInitiatorToContextFactory(string.Empty);
-        }
-
         [Given(@"I add a JtokenToStringObjectConverter for mappingConfiguration")]
         public void GivenIAddAJtokenToStringObjectConverterForMappingConfiguration()
         {
             _builder.AddJTokenToStringObjectConverter();
+        }
+
+        [Given(@"I add a Scope to the MappingScopeRoot list")]
+        public void GivenIAddAScopeToTheMappingScopeRootList()
+        {
+            //_builder.AddScopeToMappingScopeRoot();
+        }
+
+        [Given(@"I add a '(.*)' TargetInitiator with an empty string to the contextFactory")]
+        public void GivenIAddATargetInitiatorWithAnEmptyStringToTheContextFactory(string type)
+        {
+            _builder.AddTargetInitiator(type, string.Empty, string.Empty);
         }
 
         [When(@"I run Map with a null parameter")]
