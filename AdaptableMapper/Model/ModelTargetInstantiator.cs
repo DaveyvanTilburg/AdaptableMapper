@@ -1,4 +1,5 @@
 ﻿using AdaptableMapper.Contexts;
+using AdaptableMapper.Model.Language;
 using System;
 
 namespace AdaptableMapper.Model
@@ -16,7 +17,18 @@ namespace AdaptableMapper.Model
 
         public object Create()
         {
-            return Activator.CreateInstance(AssemblyName, TypeName).Unwrap();
+            object result;
+            try
+            {
+                result = Activator.CreateInstance(AssemblyName, TypeName).Unwrap();
+            }
+            catch(Exception exception)
+            {
+                Process.ProcessObservable.GetInstance().Raise($"MODEL#24; assembly and typename could not be instantiated", "error", AssemblyName, TypeName, exception.GetType().Name, exception.Message);
+                return new NullModel();
+            }
+
+            return result;
         }
     }
 }

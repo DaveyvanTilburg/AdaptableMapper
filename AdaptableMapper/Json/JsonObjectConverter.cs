@@ -20,7 +20,7 @@ namespace AdaptableMapper.Json
             }
             catch (Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#13; Source could not be parsed to JToken", "error", source, exception);
+                Process.ProcessObservable.GetInstance().Raise("JSON#13; Source could not be parsed to JToken", "error", source, exception.GetType().Name, exception.Message);
                 jToken = new JObject();
             }
 

@@ -245,13 +245,13 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Empty scope mappingConfiguration input nullobject")]
+        [Xunit.SkippableFactAttribute(DisplayName="Empty scope model to xml mappingConfiguration input nullobject")]
         [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
-        [Xunit.TraitAttribute("Description", "Empty scope mappingConfiguration input nullobject")]
-        public virtual void EmptyScopeMappingConfigurationInputNullobject()
+        [Xunit.TraitAttribute("Description", "Empty scope model to xml mappingConfiguration input nullobject")]
+        public virtual void EmptyScopeModelToXmlMappingConfigurationInputNullobject()
         {
             string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty scope mappingConfiguration input nullobject", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty scope model to xml mappingConfiguration input nullobject", null, ((string[])(null)));
 #line 33
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -305,6 +305,144 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
 #line 44
  testRunner.Then("result should be a \'<nullObject />\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Empty scope json to model mappingConfiguration input nullobject")]
+        [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
+        [Xunit.TraitAttribute("Description", "Empty scope json to model mappingConfiguration input nullobject")]
+        public virtual void EmptyScopeJsonToModelMappingConfigurationInputNullobject()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty scope json to model mappingConfiguration input nullobject", null, ((string[])(null)));
+#line 46
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 47
+ testRunner.Given("I create a mappingconfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 48
+ testRunner.Given("I add a contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 49
+ testRunner.Given("I add a JsonObjectConverter to the contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 50
+ testRunner.Given("I add a ModelTargetInitiator with an empty string to the contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 51
+ testRunner.Given("I add a MappingScopeRoot with an empty list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 52
+ testRunner.Given("I add a ModelToStringObjectConverter for mappingConfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 53
+ testRunner.When("I run Map with a string parameter \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Type",
+                            "Message"});
+                table5.AddRow(new string[] {
+                            "error",
+                            "JSON#13; Source could not be parsed to JToken; objects:[\"\",\"JsonReaderException\"," +
+                                "\"Error reading JToken from JsonReader. Path \'\', line 0, position 0.\"]"});
+                table5.AddRow(new string[] {
+                            "error",
+                            "MODEL#24; assembly and typename could not be instantiated; objects:[\"\",\"\",\"Argume" +
+                                "ntException\",\"String cannot have zero length.\"]"});
+#line 54
+ testRunner.Then("the result should contain the following errors", ((string)(null)), table5, "Then ");
+#line hidden
+#line 58
+ testRunner.Then("result should be a \'{}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Empty scope xml to json mappingConfiguration input nullobject")]
+        [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
+        [Xunit.TraitAttribute("Description", "Empty scope xml to json mappingConfiguration input nullobject")]
+        public virtual void EmptyScopeXmlToJsonMappingConfigurationInputNullobject()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty scope xml to json mappingConfiguration input nullobject", null, ((string[])(null)));
+#line 60
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 61
+ testRunner.Given("I create a mappingconfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 62
+ testRunner.Given("I add a contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 63
+ testRunner.Given("I add a XmlObjectConverter to the contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 64
+ testRunner.Given("I add a JsonTargetInitiator with an empty string to the contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 65
+ testRunner.Given("I add a MappingScopeRoot with an empty list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 66
+ testRunner.Given("I add a JtokenToStringObjectConverter for mappingConfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 67
+ testRunner.When("I run Map with a string parameter \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Type",
+                            "Message"});
+                table6.AddRow(new string[] {
+                            "error",
+                            "XML#19; input could not be parsed to XElement; objects:[\"\",\"XmlException\",\"Root e" +
+                                "lement is missing.\"]"});
+                table6.AddRow(new string[] {
+                            "error",
+                            "JSON#20; Template could not be parsed to JToken; objects:[\"JsonReaderException\",\"" +
+                                "Error reading JToken from JsonReader. Path \'\', line 0, position 0.\"]"});
+#line 68
+ testRunner.Then("the result should contain the following errors", ((string)(null)), table6, "Then ");
+#line hidden
+#line 72
+ testRunner.Then("result should be a \'{}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

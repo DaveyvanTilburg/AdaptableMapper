@@ -20,7 +20,7 @@ namespace AdaptableMapper.Xml
             }
             catch(Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#19; input could not be parsed to XElement", "error", input, exception);
+                Process.ProcessObservable.GetInstance().Raise("XML#19; input could not be parsed to XElement", "error", input, exception.GetType().Name, exception.Message);
                 root = new XElement("nullObject");
             }
 

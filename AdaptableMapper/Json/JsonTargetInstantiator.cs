@@ -1,5 +1,6 @@
 ﻿using AdaptableMapper.Contexts;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace AdaptableMapper.Json
 {
@@ -13,10 +14,14 @@ namespace AdaptableMapper.Json
 
         public object Create()
         {
-            JToken jToken = JToken.Parse(Template);
-            if (jToken == null)
+            JToken jToken;
+            try
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#20; Template could not be parsed to JToken", "error", Template);
+                jToken =JToken.Parse(Template);
+            }
+            catch (Exception exception)
+            {
+                Process.ProcessObservable.GetInstance().Raise("JSON#20; Template could not be parsed to JToken", "error", exception.GetType().Name, exception.Message);
                 return new JObject();
             }
 

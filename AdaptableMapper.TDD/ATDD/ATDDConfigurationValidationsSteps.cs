@@ -57,6 +57,42 @@ namespace AdaptableMapper.TDD.ATDD
             _builder.AddXelementToStringObjectConverter();
         }
 
+        [Given(@"I add a JsonObjectConverter to the contextFactory")]
+        public void GivenIAddAJsonObjectConverterToTheContextFactory()
+        {
+            _builder.AddJsonObjectConverterToContextFactory();
+        }
+
+        [Given(@"I add a ModelTargetInitiator with an empty string to the contextFactory")]
+        public void GivenIAddAModelTargetInitiatorWithAnEmptyStringToTheContextFactory()
+        {
+            _builder.ModelTargetInitiatorToContextFactory(string.Empty, string.Empty);
+        }
+
+        [Given(@"I add a ModelToStringObjectConverter for mappingConfiguration")]
+        public void GivenIAddAModelToStringObjectConverterForMappingConfiguration()
+        {
+            _builder.AddModelToStringObjectConverter();
+        }
+
+        [Given(@"I add a XmlObjectConverter to the contextFactory")]
+        public void GivenIAddAXmlObjectConverterToTheContextFactory()
+        {
+            _builder.AddXmlObjectConverterToContextFactory();
+        }
+
+        [Given(@"I add a JsonTargetInitiator with an empty string to the contextFactory")]
+        public void GivenIAddAJsonTargetInitiatorWithAnEmptyStringToTheContextFactory()
+        {
+            _builder.AddJsonTargetInitiatorToContextFactory(string.Empty);
+        }
+
+        [Given(@"I add a JtokenToStringObjectConverter for mappingConfiguration")]
+        public void GivenIAddAJtokenToStringObjectConverterForMappingConfiguration()
+        {
+            _builder.AddJTokenToStringObjectConverter();
+        }
+
         [When(@"I run Map with a null parameter")]
         public void WhenIRunMapWithANullParameter()
         {
