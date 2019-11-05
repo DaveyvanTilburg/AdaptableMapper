@@ -10,12 +10,12 @@ Completed plans:
  - Implement Xml mapping
  - Implement Model mapping
  - Implement Json mapping
-
-Current plans:
  - Add null checks for the composite tree
 
-Future plans in relative priority order:
+Current plans:
  - Add 100% code coverage tests for Model Mapping
+
+Future plans in relative priority order:
  - Add 100% code coverage tests for Xml Mapping
  - Add 100% code coverage tests for Json Mapping
  - Write documentation
