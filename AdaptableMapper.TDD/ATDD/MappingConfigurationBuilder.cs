@@ -44,11 +44,6 @@ namespace AdaptableMapper.TDD.ATDD
             _result.ContextFactory.ObjectConverter = new Model.ModelObjectConverter();
         }
 
-        internal void AddXmlTargetInitiatorToContextFactory(string template)
-        {
-            _result.ContextFactory.TargetInstantiator = new Xml.XmlTargetInstantiator(template);
-        }
-
         internal void AddXelementToStringObjectConverter()
         {
             _result.ObjectConverter = new Xml.XElementToStringObjectConverter();
@@ -59,11 +54,6 @@ namespace AdaptableMapper.TDD.ATDD
             _result.ContextFactory.ObjectConverter = new Json.JsonObjectConverter();
         }
 
-        internal void ModelTargetInitiatorToContextFactory(string assembly, string type)
-        {
-            _result.ContextFactory.TargetInstantiator = new Model.ModelTargetInstantiator(assembly, type);
-        }
-
         internal void AddModelToStringObjectConverter()
         {
             _result.ObjectConverter = new Model.ModelToStringObjectConverter();
@@ -72,11 +62,6 @@ namespace AdaptableMapper.TDD.ATDD
         internal void AddXmlObjectConverterToContextFactory()
         {
             _result.ContextFactory.ObjectConverter = new Xml.XmlObjectConverter();
-        }
-
-        internal void AddJsonTargetInitiatorToContextFactory(string template)
-        {
-            _result.ContextFactory.TargetInstantiator = new Json.JsonTargetInstantiator(template);
         }
 
         internal void AddJTokenToStringObjectConverter()
