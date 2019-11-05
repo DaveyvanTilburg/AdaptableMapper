@@ -22,7 +22,7 @@ Scenario: Empty scoperoot empty factory nullconverter mappingConfiguration
 	Given I create a mappingconfiguration
 	Given I add a contextFactory
 	Given I add a MappingScopeRoot with an empty list
-	Given I add a NullObjectConverter for mappingConfiguration
+	Given I add a 'Null' ObjectConverter for mappingConfiguration
 	When I run Map with a string parameter 'test'
 	Then the result should contain the following errors
 	| Type  | Message                                               |
@@ -36,7 +36,7 @@ Scenario: Empty scoperoot model to xml mappingConfiguration input empty string
 	Given I add a 'Model' ObjectConverter to the contextFactory
 	Given I add a 'Xml' TargetInitiator with an empty string to the contextFactory
 	Given I add a MappingScopeRoot with an empty list
-	Given I add a XElementToStringObjectConverter for mappingConfiguration
+	Given I add a 'Xml' ObjectConverter for mappingConfiguration
 	When I run Map with a string parameter ''
 	Then the result should contain the following errors
 	| Type  | Message                                                                               |
@@ -50,7 +50,7 @@ Scenario: Empty scoperoot json to model mappingConfiguration input empty string
 	Given I add a 'Json' ObjectConverter to the contextFactory
 	Given I add a 'Model' TargetInitiator with an empty string to the contextFactory
 	Given I add a MappingScopeRoot with an empty list
-	Given I add a ModelToStringObjectConverter for mappingConfiguration
+	Given I add a 'Model' ObjectConverter for mappingConfiguration
 	When I run Map with a string parameter ''
 	Then the result should contain the following errors
 	| Type  | Message                                                                                                                                                |
@@ -64,7 +64,7 @@ Scenario: Empty scoperoot xml to json mappingConfiguration input empty string
 	Given I add a 'Xml' ObjectConverter to the contextFactory
 	Given I add a 'Json' TargetInitiator with an empty string to the contextFactory
 	Given I add a MappingScopeRoot with an empty list
-	Given I add a JtokenToStringObjectConverter for mappingConfiguration
+	Given I add a 'Json' ObjectConverter for mappingConfiguration
 	When I run Map with a string parameter ''
 	Then the result should contain the following errors
 	| Type  | Message                                                                                                                                               |
@@ -79,7 +79,7 @@ Scenario: Empty scope xml to json mappingConfiguration input empty string
 	Given I add a 'Json' TargetInitiator with an empty string to the contextFactory
 	Given I add a MappingScopeRoot with an empty list
 	Given I add a Scope to the MappingScopeRoot list
-	Given I add a JtokenToStringObjectConverter for mappingConfiguration
+	Given I add a 'Json' ObjectConverter for mappingConfiguration
 	When I run Map with a string parameter ''
 	Then the result should contain the following errors
 	| Type  | Message                                                                                                                                               |

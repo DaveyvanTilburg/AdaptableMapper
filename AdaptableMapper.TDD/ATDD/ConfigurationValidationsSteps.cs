@@ -33,34 +33,16 @@ namespace AdaptableMapper.TDD.ATDD
             _builder.AddMappingScopeRoot();
         }
 
-        [Given(@"I add a NullObjectConverter for mappingConfiguration")]
-        public void GivenIAddNullAObjectConverterForMappingConfiguration()
-        {
-            _builder.AddNullObjectConverterForMappingConfiguration();
-        }
-
-        [Given(@"I add a XElementToStringObjectConverter for mappingConfiguration")]
-        public void GivenIAddAXElementToStringObjectConverterForMappingConfiguration()
-        {
-            _builder.AddXelementToStringObjectConverter();
-        }
-
-        [Given(@"I add a ModelToStringObjectConverter for mappingConfiguration")]
-        public void GivenIAddAModelToStringObjectConverterForMappingConfiguration()
-        {
-            _builder.AddModelToStringObjectConverter();
-        }
-
-        [Given(@"I add a JtokenToStringObjectConverter for mappingConfiguration")]
-        public void GivenIAddAJtokenToStringObjectConverterForMappingConfiguration()
-        {
-            _builder.AddJTokenToStringObjectConverter();
-        }
-
         [Given(@"I add a Scope to the MappingScopeRoot list")]
         public void GivenIAddAScopeToTheMappingScopeRootList()
         {
             //_builder.AddScopeToMappingScopeRoot();
+        }
+
+        [Given(@"I add a '(.*)' ObjectConverter for mappingConfiguration")]
+        public void GivenIAddAObjectConverterForMappingConfiguration(string type)
+        {
+            _builder.AddObjectConverter(type);
         }
 
         [Given(@"I add a '(.*)' ObjectConverter to the contextFactory")]

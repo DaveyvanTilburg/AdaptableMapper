@@ -34,26 +34,6 @@ namespace AdaptableMapper.TDD.ATDD
             _result.MappingScope = new MappingScopeRoot(new List<MappingScopeComposite>());
         }
 
-        internal void AddNullObjectConverterForMappingConfiguration()
-        {
-            _result.ObjectConverter = new NullObjectConverter();
-        }
-
-        internal void AddXelementToStringObjectConverter()
-        {
-            _result.ObjectConverter = new Xml.XElementToStringObjectConverter();
-        }
-
-        internal void AddModelToStringObjectConverter()
-        {
-            _result.ObjectConverter = new Model.ModelToStringObjectConverter();
-        }
-
-        internal void AddJTokenToStringObjectConverter()
-        {
-            _result.ObjectConverter = new Json.JTokenToStringObjectConverter();
-        }
-
         internal void AddTargetInitiatorToContextFactory(string type, params string[] parameters)
         {
             switch (type.ToLower())
@@ -82,6 +62,25 @@ namespace AdaptableMapper.TDD.ATDD
                     break;
                 case "model":
                     _result.ContextFactory.ObjectConverter = new Model.ModelObjectConverter();
+                    break;
+            }
+        }
+
+        internal void AddObjectConverter(string type)
+        {
+            switch (type.ToLower())
+            {
+                case "xml":
+                    _result.ObjectConverter = new Xml.XElementToStringObjectConverter();
+                    break;
+                case "json":
+                    _result.ObjectConverter = new Json.JTokenToStringObjectConverter();
+                    break;
+                case "model":
+                    _result.ObjectConverter = new Model.ModelToStringObjectConverter();
+                    break;
+                case "null":
+                    _result.ObjectConverter = new NullObjectConverter();
                     break;
             }
         }
