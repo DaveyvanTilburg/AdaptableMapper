@@ -41,10 +41,10 @@ Scenario Outline: Empty scoperoot mappingConfiguration input empty string
 	Then result should be '<Result>'
 
 	Examples:
-	| ScenarioName  | ContextFactoryObjectConverter | ContextFactoryTargetInitiator | ObjectConverter | InformationCodes  | Result         |
-	| Model-Xml-Xml | Model                         | Xml                           | Xml             | XML#6, MODEL#17   | <nullObject /> |
-	| Model-Xml-Xml | Json                          | Model                         | Model           | JSON#13, MODEL#24 | {}             |
-	| Model-Xml-Xml | Xml                           | Json                          | Json            | XML#19, JSON#20   | {}             |
+	| ScenarioName     | ContextFactoryObjectConverter | ContextFactoryTargetInitiator | ObjectConverter | InformationCodes  | Result         |
+	| Model-Xml-Xml    | Model                         | Xml                           | Xml             | XML#6, MODEL#17   | <nullObject /> |
+	| Json-Model-Model | Json                          | Model                         | Model           | JSON#13, MODEL#24 | {}             |
+	| Xml-Json-Json    | Xml                           | Json                          | Json            | XML#19, JSON#20   | {}             |
 
 Scenario: Empty scope xml to json mappingConfiguration input empty string
 	Given I create a mappingconfiguration
