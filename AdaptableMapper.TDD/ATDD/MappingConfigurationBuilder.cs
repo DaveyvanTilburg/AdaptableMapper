@@ -39,19 +39,9 @@ namespace AdaptableMapper.TDD.ATDD
             _result.ObjectConverter = new NullObjectConverter();
         }
 
-        internal void AddModelObjectConverterToContextFactory()
-        {
-            _result.ContextFactory.ObjectConverter = new Model.ModelObjectConverter();
-        }
-
         internal void AddXelementToStringObjectConverter()
         {
             _result.ObjectConverter = new Xml.XElementToStringObjectConverter();
-        }
-
-        internal void AddJsonObjectConverterToContextFactory()
-        {
-            _result.ContextFactory.ObjectConverter = new Json.JsonObjectConverter();
         }
 
         internal void AddModelToStringObjectConverter()
@@ -59,17 +49,12 @@ namespace AdaptableMapper.TDD.ATDD
             _result.ObjectConverter = new Model.ModelToStringObjectConverter();
         }
 
-        internal void AddXmlObjectConverterToContextFactory()
-        {
-            _result.ContextFactory.ObjectConverter = new Xml.XmlObjectConverter();
-        }
-
         internal void AddJTokenToStringObjectConverter()
         {
             _result.ObjectConverter = new Json.JTokenToStringObjectConverter();
         }
 
-        internal void AddTargetInitiator(string type, params string[] parameters)
+        internal void AddTargetInitiatorToContextFactory(string type, params string[] parameters)
         {
             switch (type.ToLower())
             {
@@ -81,6 +66,22 @@ namespace AdaptableMapper.TDD.ATDD
                     break;
                 case "model":
                     _result.ContextFactory.TargetInstantiator = new Model.ModelTargetInstantiator(parameters[0], parameters[1]);
+                    break;
+            }
+        }
+
+        internal void AddObjectConverterToContextFactory(string type)
+        {
+            switch (type.ToLower())
+            {
+                case "xml":
+                    _result.ContextFactory.ObjectConverter = new Xml.XmlObjectConverter();
+                    break;
+                case "json":
+                    _result.ContextFactory.ObjectConverter = new Json.JsonObjectConverter();
+                    break;
+                case "model":
+                    _result.ContextFactory.ObjectConverter = new Model.ModelObjectConverter();
                     break;
             }
         }

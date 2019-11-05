@@ -33,7 +33,7 @@ Scenario: Empty scoperoot empty factory nullconverter mappingConfiguration
 Scenario: Empty scoperoot model to xml mappingConfiguration input empty string
 	Given I create a mappingconfiguration
 	Given I add a contextFactory
-	Given I add a ModelObjectConverter to the contextFactory
+	Given I add a 'Model' ObjectConverter to the contextFactory
 	Given I add a 'Xml' TargetInitiator with an empty string to the contextFactory
 	Given I add a MappingScopeRoot with an empty list
 	Given I add a XElementToStringObjectConverter for mappingConfiguration
@@ -47,7 +47,7 @@ Scenario: Empty scoperoot model to xml mappingConfiguration input empty string
 Scenario: Empty scoperoot json to model mappingConfiguration input empty string
 	Given I create a mappingconfiguration
 	Given I add a contextFactory
-	Given I add a JsonObjectConverter to the contextFactory
+	Given I add a 'Json' ObjectConverter to the contextFactory
 	Given I add a 'Model' TargetInitiator with an empty string to the contextFactory
 	Given I add a MappingScopeRoot with an empty list
 	Given I add a ModelToStringObjectConverter for mappingConfiguration
@@ -61,7 +61,7 @@ Scenario: Empty scoperoot json to model mappingConfiguration input empty string
 Scenario: Empty scoperoot xml to json mappingConfiguration input empty string
 	Given I create a mappingconfiguration
 	Given I add a contextFactory
-	Given I add a XmlObjectConverter to the contextFactory
+	Given I add a 'Xml' ObjectConverter to the contextFactory
 	Given I add a 'Json' TargetInitiator with an empty string to the contextFactory
 	Given I add a MappingScopeRoot with an empty list
 	Given I add a JtokenToStringObjectConverter for mappingConfiguration
@@ -75,7 +75,7 @@ Scenario: Empty scoperoot xml to json mappingConfiguration input empty string
 Scenario: Empty scope xml to json mappingConfiguration input empty string
 	Given I create a mappingconfiguration
 	Given I add a contextFactory
-	Given I add a XmlObjectConverter to the contextFactory
+	Given I add a 'Xml' ObjectConverter to the contextFactory
 	Given I add a 'Json' TargetInitiator with an empty string to the contextFactory
 	Given I add a MappingScopeRoot with an empty list
 	Given I add a Scope to the MappingScopeRoot list
