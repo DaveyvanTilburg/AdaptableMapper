@@ -18,9 +18,31 @@ namespace AdaptableMapper
 
         internal void Map(Context context)
         {
+            if (!Validate())
+                return;
+
             string value = GetValueTraversal.GetValue(context.Source);
 
             SetValueTraversal.SetValue(context.Target, value);
+        }
+
+        private bool Validate()
+        {
+            bool result = true;
+
+            if (GetValueTraversal == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise("TREE#11 GetValueTraversal cannot be null", "error");
+                result = false;
+            }
+
+            if (SetValueTraversal == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise("TREE#12 SetValueTraversal cannot be null", "error");
+                result = false;
+            }
+
+            return result;
         }
     }
 }

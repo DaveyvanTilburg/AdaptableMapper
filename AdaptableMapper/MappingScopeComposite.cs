@@ -32,6 +32,9 @@ namespace AdaptableMapper
 
         public void Traverse(Context context)
         {
+            if (!Validate())
+                return;
+
             IEnumerable<object> scope = GetScopeTraversal.GetScope(context.Source);
 
             object parent = Traversal.Traverse(context.Target);
@@ -44,6 +47,37 @@ namespace AdaptableMapper
                 Context childContext = new Context(source:item, target:newChild);
                 TraverseChild(childContext);
             }
+        }
+
+        private bool Validate()
+        {
+            bool result = true;
+
+            if (GetScopeTraversal == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise("TREE#7 GetScopeTraversal cannot be null", "error");
+                result = false;
+            }
+
+            if (Traversal == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise("TREE#8 Traversal cannot be null", "error");
+                result = false;
+            }
+
+            if (TraversalToGetTemplate == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise("TREE#9; TraversalToGetTemplate cannot be null", "error");
+                result = false;
+            }
+
+            if (ChildCreator == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise("TREE#10; ChildCreator cannot be null", "error");
+                result = false;
+            }
+
+            return result;
         }
 
         private void TraverseChild(Context context)

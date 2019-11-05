@@ -10,7 +10,16 @@ namespace AdaptableMapper.Xml
     {
         public static IReadOnlyCollection<XElement> NavigateToPathSelectAll(this XElement xElement, string xPath)
         {
-            IReadOnlyCollection<XElement> allMatches = xElement.XPathSelectElements(xPath).ToList();
+            IReadOnlyCollection<XElement> allMatches;
+
+            try
+            {
+                allMatches = xElement.XPathSelectElements(xPath).ToList();
+            }
+            catch(XPathException)
+            {
+                allMatches = new List<XElement>();
+            }
 
             if (!allMatches.Any())
             {
@@ -23,7 +32,16 @@ namespace AdaptableMapper.Xml
 
         public static XElement NavigateToPath(this XElement xElement, string xPath)
         {
-            IList<XElement> allMatches = xElement.XPathSelectElements(xPath).ToList();
+            IReadOnlyCollection<XElement> allMatches;
+
+            try
+            {
+                allMatches = xElement.XPathSelectElements(xPath).ToList();
+            }
+            catch (XPathException)
+            {
+                allMatches = new List<XElement>();
+            }
 
             if(!allMatches.Any())
                 Process.ProcessObservable.GetInstance().Raise("XML#2; Path could not be traversed", "warning", xPath, xElement);
@@ -34,9 +52,40 @@ namespace AdaptableMapper.Xml
             return allMatches.FirstOrDefault() ?? new XElement("nullObject");
         }
 
-        public static IEnumerable<string> GetXPathValues(this XElement xElement, string xPath)
+        public static string GetXPathValue(this XElement xElement, string xPath)
         {
-            var enumerable = xElement.XPathEvaluate(xPath) as IEnumerable;
+            IEnumerable<string> values;
+
+            try
+            {
+                values = GetXPathValues(xElement, xPath);
+            }
+            catch (XPathException)
+            {
+                values = new List<string>();
+            }
+
+            string result = values.FirstOrDefault();
+
+            if (string.IsNullOrWhiteSpace(result))
+                return string.Empty;
+            
+            return result;
+        }
+
+        private static IEnumerable<string> GetXPathValues(this XElement xElement, string xPath)
+        {
+            IEnumerable enumerable;
+
+            try
+            {
+                enumerable = xElement.XPathEvaluate(xPath) as IEnumerable;
+            }
+            catch (XPathException)
+            {
+                enumerable = new List<XElement>();
+            }
+
             var xObjects = enumerable.Cast<XObject>();
 
             if (!xObjects.Any())
@@ -56,20 +105,19 @@ namespace AdaptableMapper.Xml
             }
         }
 
-        public static string GetXPathValue(this XElement xElement, string xPath)
-        {
-            IEnumerable<string> values = GetXPathValues(xElement, xPath);
-            string result = values.FirstOrDefault();
-
-            if (string.IsNullOrWhiteSpace(result))
-                return string.Empty;
-            
-            return result;
-        }
-
         public static void SetXPathValues(this XElement xElement, string xPath, string value)
         {
-            var enumerable = xElement.XPathEvaluate(xPath) as IEnumerable;
+            IEnumerable enumerable;
+
+            try
+            {
+                enumerable = xElement.XPathEvaluate(xPath) as IEnumerable;
+            }
+            catch (XPathException)
+            {
+                enumerable = new List<XElement>();
+            }
+
             var xObjects = enumerable.Cast<XObject>();
 
             if (!xObjects.Any())

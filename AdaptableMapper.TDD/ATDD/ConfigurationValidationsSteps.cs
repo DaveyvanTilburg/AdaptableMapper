@@ -33,12 +33,6 @@ namespace AdaptableMapper.TDD.ATDD
             _builder.AddMappingScopeRoot();
         }
 
-        [Given(@"I add a Scope to the MappingScopeRoot list")]
-        public void GivenIAddAScopeToTheMappingScopeRootList()
-        {
-            //_builder.AddScopeToMappingScopeRoot();
-        }
-
         [Given(@"I add a '(.*)' ObjectConverter for mappingConfiguration")]
         public void GivenIAddAObjectConverterForMappingConfiguration(string type)
         {
@@ -55,6 +49,22 @@ namespace AdaptableMapper.TDD.ATDD
         public void GivenIAddATargetInitiatorWithAnEmptyStringToTheContextFactory(string type)
         {
             _builder.AddTargetInitiatorToContextFactory(type, string.Empty, string.Empty);
+        }
+
+        [Given(@"I add a Scope to the root")]
+        public void GivenIAddAScopeToTheRoot(Table table)
+        {
+            var scopeCompositeModel = table.CreateInstance<ScopeCompositeModel>();
+
+            _builder.AddScopeToRoot(scopeCompositeModel);
+        }
+
+        [Given(@"I add a mapping to the scope")]
+        public void GivenIAddAMappingToTheScope(Table table)
+        {
+            var mapping = table.CreateInstance<MappingModel>();
+
+            _builder.AddMappingToLastScope(mapping);
         }
 
         [When(@"I run Map with a null parameter")]
@@ -87,10 +97,10 @@ namespace AdaptableMapper.TDD.ATDD
         {
             InformationCodesModel expectedInformation = table.CreateInstance<InformationCodesModel>();
 
+            _information.Count.Should().Be(expectedInformation.InformationCodes.Count());
+
             foreach(string code in expectedInformation.InformationCodes)
-            {
                 _information.Any(i => i.Message.Contains(code)).Should().BeTrue();
-            }
         }
 
         [Then(@"result should be null")]

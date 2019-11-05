@@ -273,10 +273,10 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given(string.Format("I add a \'{0}\' TargetInitiator with an empty string to the contextFactory", contextFactoryTargetInitiator), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 35
- testRunner.Given("I add a MappingScopeRoot with an empty list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("I add a \'{0}\' ObjectConverter for mappingConfiguration", objectConverter), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 36
- testRunner.Given(string.Format("I add a \'{0}\' ObjectConverter for mappingConfiguration", objectConverter), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I add a MappingScopeRoot with an empty list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 37
  testRunner.When("I run Map with a string parameter \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -295,13 +295,17 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Empty scope xml to json mappingConfiguration input empty string")]
+        [Xunit.SkippableTheoryAttribute(DisplayName="Mapping")]
         [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
-        [Xunit.TraitAttribute("Description", "Empty scope xml to json mappingConfiguration input empty string")]
-        public virtual void EmptyScopeXmlToJsonMappingConfigurationInputEmptyString()
+        [Xunit.TraitAttribute("Description", "Mapping")]
+        [Xunit.InlineDataAttribute("All null", "null", "", "null", "null", "null", "null", "null", "TREE#7, TREE#8, TREE#9, TREE#10, XML#6", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("xml-xml-null-null-null-null", "xml", "", "xml", "null", "null", "null", "null", "TREE#9, TREE#10, XML#6", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("xml-xml-xml-xml-null-null", "xml", "./testItem", "xml", "xml", "xml", "null", "null", "XML#6, XML#2, XML#2, TREE#11, TREE#12", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("xml-xml-xml-xml-xml-xml", "xml", "./testItem", "xml", "xml", "xml", "xml", "xml", "XML#6, XML#2, XML#2, XML#4, XML#7", "<nullObject />", new string[0])]
+        public virtual void Mapping(string testName, string getScopeTraversal, string getScopeTraversalPath, string traversal, string traversalToGetTemplate, string childCreator, string getValueTraversal, string setValueTraversal, string informationCodes, string result, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty scope xml to json mappingConfiguration input empty string", null, ((string[])(null)));
+            string[] tagsOfScenario = exampleTags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Mapping", null, exampleTags);
 #line 49
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -332,29 +336,50 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I add a \'Xml\' ObjectConverter to the contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 53
- testRunner.Given("I add a \'Json\' TargetInitiator with an empty string to the contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I add a \'Xml\' TargetInitiator with an empty string to the contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 54
- testRunner.Given("I add a MappingScopeRoot with an empty list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I add a \'Xml\' ObjectConverter for mappingConfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 55
- testRunner.Given("I add a Scope to the MappingScopeRoot list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 56
- testRunner.Given("I add a \'Json\' ObjectConverter for mappingConfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 57
- testRunner.When("I run Map with a string parameter \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I add a MappingScopeRoot with an empty list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
                 TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                            "InformationCodes"});
+                            "GetScopeTraversal",
+                            "GetScopeTraversalPath",
+                            "Traversal",
+                            "TraversalToGetTemplate",
+                            "ChildCreator"});
                 table5.AddRow(new string[] {
-                            "XML#19, JSON#20"});
-#line 58
- testRunner.Then("the result should contain the following errors", ((string)(null)), table5, "Then ");
+                            string.Format("{0}", getScopeTraversal),
+                            string.Format("{0}", getScopeTraversalPath),
+                            string.Format("{0}", traversal),
+                            string.Format("{0}", traversalToGetTemplate),
+                            string.Format("{0}", childCreator)});
+#line 56
+ testRunner.Given("I add a Scope to the root", ((string)(null)), table5, "Given ");
 #line hidden
-#line 61
- testRunner.Then("result should be \'{}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                            "GetValueTraversal",
+                            "SetValueTraversal"});
+                table6.AddRow(new string[] {
+                            string.Format("{0}", getValueTraversal),
+                            string.Format("{0}", setValueTraversal)});
+#line 59
+ testRunner.Given("I add a mapping to the scope", ((string)(null)), table6, "Given ");
+#line hidden
+#line 62
+ testRunner.When("I run Map with a string parameter \'<root><testItem>value</testItem></root>\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                            "InformationCodes"});
+                table7.AddRow(new string[] {
+                            string.Format("{0}", informationCodes)});
+#line 63
+ testRunner.Then("the result should contain the following errors", ((string)(null)), table7, "Then ");
+#line hidden
+#line 66
+ testRunner.Then(string.Format("result should be \'{0}\'", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -32,8 +32,8 @@ Scenario Outline: MappingConfiguration
 	Given I add a contextFactory
 	Given I add a '<ContextFactoryObjectConverter>' ObjectConverter to the contextFactory
 	Given I add a '<ContextFactoryTargetInitiator>' TargetInitiator with an empty string to the contextFactory
-	Given I add a MappingScopeRoot with an empty list
 	Given I add a '<ObjectConverter>' ObjectConverter for mappingConfiguration
+	Given I add a MappingScopeRoot with an empty list
 	When I run Map with a string parameter ''
 	Then the result should contain the following errors
 	| InformationCodes   |
@@ -46,16 +46,28 @@ Scenario Outline: MappingConfiguration
 	| Json-Model-Model | Json                          | Model                         | Model           | JSON#13, MODEL#24 | {}             |
 	| Xml-Json-Json    | Xml                           | Json                          | Json            | XML#19, JSON#20   | {}             |
 
-Scenario: Empty scope xml to json mappingConfiguration input empty string
+Scenario Outline: Mapping
 	Given I create a mappingconfiguration
 	Given I add a contextFactory
 	Given I add a 'Xml' ObjectConverter to the contextFactory
-	Given I add a 'Json' TargetInitiator with an empty string to the contextFactory
+	Given I add a 'Xml' TargetInitiator with an empty string to the contextFactory
+	Given I add a 'Xml' ObjectConverter for mappingConfiguration
 	Given I add a MappingScopeRoot with an empty list
-	Given I add a Scope to the MappingScopeRoot list
-	Given I add a 'Json' ObjectConverter for mappingConfiguration
-	When I run Map with a string parameter ''
+	Given I add a Scope to the root
+	| GetScopeTraversal   | GetScopeTraversalPath   | Traversal   | TraversalToGetTemplate   | ChildCreator   |
+	| <GetScopeTraversal> | <GetScopeTraversalPath> | <Traversal> | <TraversalToGetTemplate> | <ChildCreator> |
+	Given I add a mapping to the scope
+	| GetValueTraversal   | SetValueTraversal   |
+	| <GetValueTraversal> | <SetValueTraversal> |
+	When I run Map with a string parameter '<root><testItem>value</testItem></root>'
 	Then the result should contain the following errors
-	| InformationCodes |
-	| XML#19, JSON#20  |
-	Then result should be '{}'
+	| InformationCodes   |
+	| <InformationCodes> |
+	Then result should be '<Result>'
+
+	Examples:
+	| TestName                    | GetScopeTraversal | GetScopeTraversalPath | Traversal | TraversalToGetTemplate | ChildCreator | GetValueTraversal | SetValueTraversal | InformationCodes                       | Result         |
+	| All null                    | null              |                       | null      | null                   | null         | null              | null              | TREE#7, TREE#8, TREE#9, TREE#10, XML#6 | <nullObject /> |
+	| xml-xml-null-null-null-null | xml               |                       | xml       | null                   | null         | null              | null              | TREE#9, TREE#10, XML#6                 | <nullObject /> |
+	| xml-xml-xml-xml-null-null   | xml               | ./testItem            | xml       | xml                    | xml          | null              | null              | XML#6, XML#2, XML#2, TREE#11, TREE#12  | <nullObject /> |
+	| xml-xml-xml-xml-xml-xml     | xml               | ./testItem            | xml       | xml                    | xml          | xml               | xml               | XML#6, XML#2, XML#2, XML#4, XML#7  | <nullObject /> |
