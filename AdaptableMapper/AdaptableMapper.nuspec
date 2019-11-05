@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.6.2-beta20191105-01</version>
+    <version>0.6.3-beta20191105-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -20,6 +20,8 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       </group>
     </dependencies>
     <releaseNotes>
+0.6.3
+  - Some more minor fixes for the model/xml/json targetinitiators and objectconverters
 0.6.2
   - Some minor fixes in null checks and returning the correct default value on error
 0.6.1
