@@ -230,16 +230,16 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableTheoryAttribute(DisplayName="Empty scoperoot mappingConfiguration input empty string")]
+        [Xunit.SkippableTheoryAttribute(DisplayName="MappingConfiguration")]
         [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
-        [Xunit.TraitAttribute("Description", "Empty scoperoot mappingConfiguration input empty string")]
+        [Xunit.TraitAttribute("Description", "MappingConfiguration")]
         [Xunit.InlineDataAttribute("Model-Xml-Xml", "Model", "Xml", "Xml", "XML#6, MODEL#17", "<nullObject />", new string[0])]
-        [Xunit.InlineDataAttribute("Model-Xml-Xml", "Json", "Model", "Model", "JSON#13, MODEL#24", "{}", new string[0])]
-        [Xunit.InlineDataAttribute("Model-Xml-Xml", "Xml", "Json", "Json", "XML#19, JSON#20", "{}", new string[0])]
-        public virtual void EmptyScoperootMappingConfigurationInputEmptyString(string scenarioName, string contextFactoryObjectConverter, string contextFactoryTargetInitiator, string objectConverter, string informationCodes, string result, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Json-Model-Model", "Json", "Model", "Model", "JSON#13, MODEL#24", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("Xml-Json-Json", "Xml", "Json", "Json", "XML#19, JSON#20", "{}", new string[0])]
+        public virtual void MappingConfiguration(string testName, string contextFactoryObjectConverter, string contextFactoryTargetInitiator, string objectConverter, string informationCodes, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty scoperoot mappingConfiguration input empty string", null, exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MappingConfiguration", null, exampleTags);
 #line 30
 this.ScenarioInitialize(scenarioInfo);
 #line hidden

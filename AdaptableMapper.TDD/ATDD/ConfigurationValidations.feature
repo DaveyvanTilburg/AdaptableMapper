@@ -27,7 +27,7 @@ Scenario: Empty scoperoot empty factory nullconverter mappingConfiguration
 	| TREE#3, TREE#4    |
 	Then result should be null
 
-Scenario Outline: Empty scoperoot mappingConfiguration input empty string
+Scenario Outline: MappingConfiguration
 	Given I create a mappingconfiguration
 	Given I add a contextFactory
 	Given I add a '<ContextFactoryObjectConverter>' ObjectConverter to the contextFactory
@@ -41,7 +41,7 @@ Scenario Outline: Empty scoperoot mappingConfiguration input empty string
 	Then result should be '<Result>'
 
 	Examples:
-	| ScenarioName     | ContextFactoryObjectConverter | ContextFactoryTargetInitiator | ObjectConverter | InformationCodes  | Result         |
+	| TestName         | ContextFactoryObjectConverter | ContextFactoryTargetInitiator | ObjectConverter | InformationCodes  | Result         |
 	| Model-Xml-Xml    | Model                         | Xml                           | Xml             | XML#6, MODEL#17   | <nullObject /> |
 	| Json-Model-Model | Json                          | Model                         | Model           | JSON#13, MODEL#24 | {}             |
 	| Xml-Json-Json    | Xml                           | Json                          | Json            | XML#19, JSON#20   | {}             |
