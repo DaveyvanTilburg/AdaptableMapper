@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATDD\ConfigurationValidationsSteps.cs" />
+    <Compile Include="ATDD\InformationCodesModel.cs" />
     <Compile Include="ATDD\MappingConfigurationBuilder.cs" />
     <Compile Include="ConfigurationSaveAndLoad.cs" />
     <Compile Include="ErrorObserverTester.cs" />

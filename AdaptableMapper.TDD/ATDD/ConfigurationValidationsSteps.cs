@@ -85,9 +85,12 @@ namespace AdaptableMapper.TDD.ATDD
         [Then(@"the result should contain the following errors")]
         public void ThenTheResultShouldContainTheFollowingErrors(Table table)
         {
-            List<Information> expectedInformation = table.CreateSet<Information>().ToList();
+            InformationCodesModel expectedInformation = table.CreateInstance<InformationCodesModel>();
 
-            _information.Should().BeEquivalentTo(expectedInformation);
+            foreach(string code in expectedInformation.InformationCodes)
+            {
+                _information.Any(i => i.Message.Contains(code)).Should().BeTrue();
+            }
         }
 
         [Then(@"result should be null")]
@@ -96,8 +99,8 @@ namespace AdaptableMapper.TDD.ATDD
             _result.Should().BeNull();
         }
 
-        [Then(@"result should be a '(.*)'")]
-        public void ThenResultShouldBeA(string p0)
+        [Then(@"result should be '(.*)'")]
+        public void ThenResultShouldBe(string p0)
         {
             _result.Should().Be(p0);
         }
