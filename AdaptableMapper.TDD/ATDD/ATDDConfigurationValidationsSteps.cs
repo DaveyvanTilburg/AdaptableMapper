@@ -27,8 +27,8 @@ namespace AdaptableMapper.TDD.ATDD
             _builder.AddContextFactory();
         }
 
-        [Given(@"I add a MappingScopeRoot")]
-        public void GivenIAddAMappingScopeRoot()
+        [Given(@"I add a MappingScopeRoot with an empty list")]
+        public void GivenIAddAMappingScopeRootWithAnEmptyList()
         {
             _builder.AddMappingScopeRoot();
         }
@@ -39,12 +39,36 @@ namespace AdaptableMapper.TDD.ATDD
             _builder.AddNullObjectConverterForMappingConfiguration();
         }
 
+        [Given(@"I add a ModelObjectConverter to the contextFactory")]
+        public void GivenIAddAModelObjectConverterToTheContextFactory()
+        {
+            _builder.AddModelObjectConverterToContextFactory();
+        }
+
+        [Given(@"I add a XmlTargetInitiator with an empty string to the contextFactory")]
+        public void GivenIAddAXmlTargetInitiatorWithAnEmptyStringToTheContextFactory()
+        {
+            _builder.AddXmlTargetInitiatorToContextFactory(string.Empty);
+        }
+
+        [Given(@"I add a XElementToStringObjectConverter for mappingConfiguration")]
+        public void GivenIAddAXElementToStringObjectConverterForMappingConfiguration()
+        {
+            _builder.AddXelementToStringObjectConverter();
+        }
 
         [When(@"I run Map with a null parameter")]
         public void WhenIRunMapWithANullParameter()
         {
             Map(null);
         }
+
+        [When(@"I run Map with model NullModel")]
+        public void WhenIRunMapWithModelNullModel()
+        {
+            Map(new Model.Language.NullModel());
+        }
+
 
         [When(@"I run Map with a string parameter '(.*)'")]
         public void WhenIRunMapWithAStringParameter(string p0)
@@ -76,6 +100,12 @@ namespace AdaptableMapper.TDD.ATDD
         public void ThenResultShouldBeNull()
         {
             _result.Should().BeNull();
+        }
+
+        [Then(@"result should be a '(.*)'")]
+        public void ThenResultShouldBeA(string p0)
+        {
+            _result.Should().Be(p0);
         }
     }
 }

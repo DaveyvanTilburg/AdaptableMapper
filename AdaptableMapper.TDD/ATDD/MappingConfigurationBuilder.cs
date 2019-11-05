@@ -38,5 +38,20 @@ namespace AdaptableMapper.TDD.ATDD
         {
             _result.ObjectConverter = new NullObjectConverter();
         }
+
+        internal void AddModelObjectConverterToContextFactory()
+        {
+            _result.ContextFactory.ObjectConverter = new Model.ModelObjectConverter();
+        }
+
+        internal void AddXmlTargetInitiatorToContextFactory(string template)
+        {
+            _result.ContextFactory.TargetInstantiator = new Xml.XmlTargetInstantiator(template);
+        }
+
+        internal void AddXelementToStringObjectConverter()
+        {
+            _result.ObjectConverter = new Xml.XElementToStringObjectConverter();
+        }
     }
 }

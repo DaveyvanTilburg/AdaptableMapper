@@ -18,7 +18,7 @@ namespace AdaptableMapper.Model
             if (!(target is ModelBase model))
             {
                 Process.ProcessObservable.GetInstance().Raise("MODEL#22; target is not of expected type Model", "error", Path, target);
-                return string.Empty;
+                return new NullModel();
             }
 
             var modelPathContainer = PathContainer.Create(Path);

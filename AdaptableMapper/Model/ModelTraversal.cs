@@ -17,7 +17,7 @@ namespace AdaptableMapper.Model
             if (!(target is ModelBase model))
             {
                 Process.ProcessObservable.GetInstance().Raise("MODEL#21; target is not of expected type Model", "error", Path, target);
-                return string.Empty;
+                return new NullModel();
             }
 
             ModelBase pathTarget = model.NavigateToModel(Path.ToQueue());

@@ -9,7 +9,7 @@ namespace AdaptableMapper.Model
             if (!(source is ModelBase model))
             {
                 Process.ProcessObservable.GetInstance().Raise("MODEL#17; source is not of expected type Model", "error", source);
-                return string.Empty;
+                return new NullModel();
             }
 
             return model;

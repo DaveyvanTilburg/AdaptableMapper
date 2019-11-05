@@ -10,7 +10,7 @@ namespace AdaptableMapper.Model
             if (!(source is ModelBase model))
             {
                 Process.ProcessObservable.GetInstance().Raise("MODEL#20; source is not of expected type Model", "error", source);
-                return string.Empty;
+                return new NullModel();
             }
 
             string result = JsonConvert.SerializeObject(model);

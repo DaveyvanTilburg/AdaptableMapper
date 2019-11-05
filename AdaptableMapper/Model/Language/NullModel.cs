@@ -1,6 +1,6 @@
 ﻿namespace AdaptableMapper.Model.Language
 {
-    internal class NullModel : ModelBase
+    public class NullModel : ModelBase
     {
     }
 }

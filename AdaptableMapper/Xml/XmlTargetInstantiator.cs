@@ -1,4 +1,5 @@
 ﻿using AdaptableMapper.Contexts;
+using System;
 using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
@@ -13,7 +14,17 @@ namespace AdaptableMapper.Xml
 
         public object Create()
         {
-            XElement root = XElement.Parse(Template);
+            XElement root;
+            try
+            {
+                root = XElement.Parse(Template);
+            }
+            catch(Exception exception)
+            {
+                Process.ProcessObservable.GetInstance().Raise("XML#6; Template is not valid Xml", "error", exception.GetType().Name, exception.Message);
+                return new XElement("nullObject");
+            }
+            
             RemoveAllNamespaces(root);
 
             return root;
