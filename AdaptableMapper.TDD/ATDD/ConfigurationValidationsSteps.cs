@@ -99,12 +99,6 @@ namespace AdaptableMapper.TDD.ATDD
             Map(null);
         }
 
-        [When(@"I run Map with model NullModel")]
-        public void WhenIRunMapWithModelNullModel()
-        {
-            Map(new Model.Language.NullModel());
-        }
-
 
         [When(@"I run Map with a string parameter '(.*)'")]
         public void WhenIRunMapWithAStringParameter(string p0)

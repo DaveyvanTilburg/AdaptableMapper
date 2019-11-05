@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ATDD\ATDDConfigurationValidationsSteps.cs" />
+    <Compile Include="ATDD\ConfigurationValidationsSteps.cs" />
     <Compile Include="ATDD\MappingConfigurationBuilder.cs" />
     <Compile Include="ConfigurationSaveAndLoad.cs" />
     <Compile Include="ErrorObserverTester.cs" />

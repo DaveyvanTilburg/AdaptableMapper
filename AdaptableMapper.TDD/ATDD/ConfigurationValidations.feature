@@ -30,20 +30,21 @@ Scenario: Empty root empty factory nullconverter mappingConfiguration
 	| error | TREE#4; TargetInstantiator cannot be null; objects:[] |
 	Then result should be null
 
-Scenario: Empty scope model to xml mappingConfiguration input nullobject
+Scenario: Empty scope model to xml mappingConfiguration input empty string
 	Given I create a mappingconfiguration
 	Given I add a contextFactory
 	Given I add a ModelObjectConverter to the contextFactory
 	Given I add a XmlTargetInitiator with an empty string to the contextFactory
 	Given I add a MappingScopeRoot with an empty list
 	Given I add a XElementToStringObjectConverter for mappingConfiguration
-	When I run Map with model NullModel
+	When I run Map with a string parameter ''
 	Then the result should contain the following errors
 	| Type  | Message                                                                               |
 	| error | XML#6; Template is not valid Xml; objects:["XmlException","Root element is missing."] |
+	| error | MODEL#17; source is not of expected type Model; objects:[""]                          |
 	Then result should be a '<nullObject />'
 
-Scenario: Empty scope json to model mappingConfiguration input nullobject
+Scenario: Empty scope json to model mappingConfiguration input empty string
 	Given I create a mappingconfiguration
 	Given I add a contextFactory
 	Given I add a JsonObjectConverter to the contextFactory
@@ -57,7 +58,7 @@ Scenario: Empty scope json to model mappingConfiguration input nullobject
 	| error | MODEL#24; assembly and typename could not be instantiated; objects:["","","ArgumentException","String cannot have zero length."]                       |
 	Then result should be a '{}'
 
-Scenario: Empty scope xml to json mappingConfiguration input nullobject
+Scenario: Empty scope xml to json mappingConfiguration input empty string
 	Given I create a mappingconfiguration
 	Given I add a contextFactory
 	Given I add a XmlObjectConverter to the contextFactory
