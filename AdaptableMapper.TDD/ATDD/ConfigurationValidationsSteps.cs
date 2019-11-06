@@ -48,7 +48,7 @@ namespace AdaptableMapper.TDD.ATDD
         [Given(@"I add a '(.*)' TargetInitiator with an empty string to the contextFactory")]
         public void GivenIAddATargetInitiatorWithAnEmptyStringToTheContextFactory(string type)
         {
-            _builder.AddTargetInitiatorToContextFactory(type, string.Empty, string.Empty);
+            _builder.AddTargetInitiatorToContextFactory(type);
         }
 
         [Given(@"I add a Scope to the root")]
@@ -70,23 +70,23 @@ namespace AdaptableMapper.TDD.ATDD
         [When(@"I run Map with a null parameter")]
         public void WhenIRunMapWithANullParameter()
         {
-            Map(null);
+            Map(null, null);
         }
 
 
         [When(@"I run Map with a string parameter '(.*)'")]
         public void WhenIRunMapWithAStringParameter(string p0)
         {
-            Map(p0);
+            Map(p0, null);
         }
 
-        private void Map(object input)
+        private void Map(object input, object targetSource)
         {
             TestErrorObserver testErrorObserver = new TestErrorObserver();
             ProcessObservable.GetInstance().Register(testErrorObserver);
 
             MappingConfiguration mappingConfiguration = _builder.GetResult();
-            _result = mappingConfiguration.Map(input);
+            _result = mappingConfiguration.Map(input, targetSource);
 
             ProcessObservable.GetInstance().Unregister(testErrorObserver);
             _information = testErrorObserver.GetInformation();
@@ -100,7 +100,7 @@ namespace AdaptableMapper.TDD.ATDD
             _information.Count.Should().Be(expectedInformation.InformationCodes.Count());
 
             foreach(string code in expectedInformation.InformationCodes)
-                _information.Any(i => i.Message.Contains(code)).Should().BeTrue();
+                _information.Any(i => i.Message.Contains(code)).Should().BeTrue(code);
         }
 
         [Then(@"result should be null")]

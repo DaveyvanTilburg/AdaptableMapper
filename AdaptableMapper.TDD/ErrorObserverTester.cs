@@ -15,7 +15,7 @@ namespace AdaptableMapper.TDD
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
 
-            mappingConfiguration.Map("");
+            mappingConfiguration.Map("", System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml"));
 
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
@@ -54,7 +54,7 @@ namespace AdaptableMapper.TDD
 
             var contextFactory = new Contexts.ContextFactory(
                 new Xml.XmlObjectConverter(),
-                new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml"))
+                new Xml.XmlTargetInstantiator()
             );
 
             var mappingConfiguration = new MappingConfiguration(stolenIntelScope, contextFactory, new NullObjectConverter());

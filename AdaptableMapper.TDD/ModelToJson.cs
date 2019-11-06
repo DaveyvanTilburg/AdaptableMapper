@@ -18,7 +18,7 @@ namespace AdaptableMapper.TDD
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
 
             ModelBase source = CreateHardwareModel();
-            JToken result = mappingConfiguration.Map(source) as JToken;
+            JToken result = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareTemplate.json")) as JToken;
 
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
@@ -39,7 +39,7 @@ namespace AdaptableMapper.TDD
             mappingConfiguration.ResultObjectConverter = new Json.JTokenToStringObjectConverter();
 
             ModelBase source = CreateHardwareModel();
-            object resultObject = mappingConfiguration.Map(source);
+            object resultObject = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareTemplate.json"));
 
             var result = resultObject as string;
             result.Should().NotBeNull();
@@ -299,7 +299,7 @@ namespace AdaptableMapper.TDD
 
             var contextFactory = new Contexts.ContextFactory(
                 new Model.ModelObjectConverter(),
-                new Json.JsonTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareTemplate.json"))
+                new Json.JsonTargetInstantiator()
             );
 
             var mappingConfiguration = new MappingConfiguration(rootScope, contextFactory, new NullObjectConverter());

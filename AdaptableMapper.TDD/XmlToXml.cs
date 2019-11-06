@@ -15,7 +15,7 @@ namespace AdaptableMapper.TDD
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
 
-            XElement result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml")) as XElement;
+            XElement result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml")) as XElement;
 
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
@@ -38,7 +38,7 @@ namespace AdaptableMapper.TDD
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
             mappingConfiguration.ResultObjectConverter = new Xml.XElementToStringObjectConverter();
 
-            object result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"));
+            object result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml"));
 
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
@@ -124,7 +124,7 @@ namespace AdaptableMapper.TDD
 
             var contextFactory = new Contexts.ContextFactory(
                 new Xml.XmlObjectConverter(),
-                new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml"))
+                new Xml.XmlTargetInstantiator()
             );
 
             var mappingConfiguration = new MappingConfiguration(stolenIntelScope, contextFactory, new NullObjectConverter());

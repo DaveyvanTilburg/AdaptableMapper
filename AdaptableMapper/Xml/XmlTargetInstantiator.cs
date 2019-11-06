@@ -6,18 +6,18 @@ namespace AdaptableMapper.Xml
 {
     public sealed class XmlTargetInstantiator : TargetInstantiator
     {
-        public XmlTargetInstantiator(string template)
+        public object Create(object source)
         {
-            Template = template;
-        }
-        public string Template { get; set; }
+            if (!(source is string template))
+            {
+                Process.ProcessObservable.GetInstance().Raise("XML#24; Source is not of expected type string", "error", source, source?.GetType().Name);
+                return new XElement("nullObject");
+            }
 
-        public object Create()
-        {
             XElement root;
             try
             {
-                root = XElement.Parse(Template);
+                root = XElement.Parse(template);
             }
             catch(Exception exception)
             {

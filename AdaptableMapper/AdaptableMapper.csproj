@@ -55,10 +55,11 @@
     <Compile Include="Json\JTokenToStringObjectConverter.cs" />
     <Compile Include="MappingScopeRoot.cs" />
     <Compile Include="Model\Language\ModelList.cs" />
+    <Compile Include="Model\ModelTargetInstantiatorSource.cs" />
     <Compile Include="Model\ModelToStringObjectConverter.cs" />
     <Compile Include="NullObjectConverter.cs" />
     <Compile Include="ResultObjectConverter.cs" />
-    <Compile Include="ObjectConverter.cs" />
+    <Compile Include="Contexts\ObjectConverter.cs" />
     <Compile Include="Contexts\TargetInstantiator.cs" />
     <Compile Include="MappingConfiguration.cs" />
     <Compile Include="Model\ModelObjectConverter.cs" />

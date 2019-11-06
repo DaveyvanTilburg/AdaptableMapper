@@ -11,12 +11,12 @@
             TargetInstantiator = targetInstantiator;
         }
 
-        internal Context Create(object source)
+        internal Context Create(object input, object targetSource)
         {
             if (!Validate())
                 return new Context(null, null);
 
-            return new Context(source: ObjectConverter.Convert(source), target: TargetInstantiator.Create());
+            return new Context(source: ObjectConverter.Convert(input), target: TargetInstantiator.Create(targetSource));
         }
 
         private bool Validate()

@@ -14,7 +14,9 @@ namespace AdaptableMapper.TDD
             Process.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
-            object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"));
+            string modelTargetInstantiatorSource = CreateModelTargetInstantiatorSource();
+
+            object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), modelTargetInstantiatorSource);
 
             var result = resultObject as ModelObjects.Armies.Root;
             result.Should().NotBeNull();
@@ -44,14 +46,27 @@ namespace AdaptableMapper.TDD
         {
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
             mappingConfiguration.ResultObjectConverter = new ModelToStringObjectConverter();
+            string modelTargetInstantiatorSource = CreateModelTargetInstantiatorSource();
 
-            object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"));
+            object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), modelTargetInstantiatorSource);
 
             var result = resultObject as string;
             result.Should().NotBeNull();
 
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\ModelTarget_ArmyExpected.txt");
             result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        private string CreateModelTargetInstantiatorSource()
+        {
+            var rootType = typeof(ModelObjects.Armies.Root);
+            var result = new ModelTargetInstantiatorSource
+            {
+                AssemblyFullName = rootType.Assembly.FullName,
+                TypeFullName = rootType.FullName
+            };
+
+            return JsonSerializer.Serialize(result);
         }
 
         public static MappingConfiguration GetMappingConfiguration()
@@ -170,11 +185,9 @@ namespace AdaptableMapper.TDD
                 }
             );
 
-            var rootType = typeof(ModelObjects.Armies.Root);
-
             var contextFactory = new Contexts.ContextFactory(
                 new Xml.XmlObjectConverter(),
-                new Model.ModelTargetInstantiator(rootType.Assembly.FullName, rootType.FullName)
+                new Model.ModelTargetInstantiator()
             );
 
             var mappingConfiguration = new MappingConfiguration(rootScope, contextFactory, new NullObjectConverter());

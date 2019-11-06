@@ -16,7 +16,7 @@ namespace AdaptableMapper.TDD
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
 
-            XElement result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\JsonSource_HardwareComposition.json")) as XElement;
+            XElement result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\JsonSource_HardwareComposition.json"), System.IO.File.ReadAllText(@".\Resources\XmlTarget_HardwareTemplate.xml")) as XElement;
 
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
@@ -133,7 +133,7 @@ namespace AdaptableMapper.TDD
                 mappingScopeRoot,
                 new ContextFactory(
                     new Json.JsonObjectConverter(),
-                    new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\XmlTarget_HardwareTemplate.xml"))
+                    new Xml.XmlTargetInstantiator()
                 ),
                 new NullObjectConverter()
             );

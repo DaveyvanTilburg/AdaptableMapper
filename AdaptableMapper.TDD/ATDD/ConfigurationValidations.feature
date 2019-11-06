@@ -42,9 +42,9 @@ Scenario Outline: MappingConfiguration
 
 	Examples:
 	| TestName         | ContextFactoryObjectConverter | ContextFactoryTargetInitiator | ObjectConverter | InformationCodes  | Result         |
-	| Model-Xml-Xml    | Model                         | Xml                           | Xml             | XML#6, MODEL#17   | <nullObject /> |
-	| Json-Model-Model | Json                          | Model                         | Model           | JSON#13, MODEL#24 | {}             |
-	| Xml-Json-Json    | Xml                           | Json                          | Json            | XML#19, JSON#20   | {}             |
+	| Model-Xml-Xml    | Model                         | Xml                           | Xml             | XML#24, MODEL#17  | <nullObject /> |
+	| Json-Model-Model | Json                          | Model                         | Model           | JSON#13, MODEL#25 | {}             |
+	| Xml-Json-Json    | Xml                           | Json                          | Json            | XML#19, JSON#26   | {}             |
 
 Scenario Outline: Mapping
 	Given I create a mappingconfiguration
@@ -66,8 +66,8 @@ Scenario Outline: Mapping
 	Then result should be '<Result>'
 
 	Examples:
-	| TestName                    | GetScopeTraversal | GetScopeTraversalPath | Traversal | TraversalToGetTemplate | ChildCreator | GetValueTraversal | SetValueTraversal | InformationCodes                       | Result         |
-	| All null                    | null              |                       | null      | null                   | null         | null              | null              | TREE#7, TREE#8, TREE#9, TREE#10, XML#6 | <nullObject /> |
-	| xml-xml-null-null-null-null | xml               |                       | xml       | null                   | null         | null              | null              | TREE#9, TREE#10, XML#6                 | <nullObject /> |
-	| xml-xml-xml-xml-null-null   | xml               | ./testItem            | xml       | xml                    | xml          | null              | null              | XML#6, XML#2, XML#2, TREE#11, TREE#12  | <nullObject /> |
-	| xml-xml-xml-xml-xml-xml     | xml               | ./testItem            | xml       | xml                    | xml          | xml               | xml               | XML#6, XML#2, XML#2, XML#4, XML#7  | <nullObject /> |
+	| TestName                    | GetScopeTraversal | GetScopeTraversalPath | Traversal | TraversalToGetTemplate | ChildCreator | GetValueTraversal | SetValueTraversal | InformationCodes                        | Result         |
+	| All null                    | null              |                       | null      | null                   | null         | null              | null              | TREE#7, TREE#8, TREE#9, TREE#10, XML#24 | <nullObject /> |
+	| xml-xml-null-null-null-null | xml               |                       | xml       | null                   | null         | null              | null              | TREE#9, TREE#10, XML#24                 | <nullObject /> |
+	| xml-xml-xml-xml-null-null   | xml               | ./testItem            | xml       | xml                    | xml          | null              | null              | XML#24, XML#2, XML#2, TREE#11, TREE#12  | <nullObject /> |
+	| xml-xml-xml-xml-xml-xml     | xml               | ./testItem            | xml       | xml                    | xml          | xml               | xml               | XML#24, XML#2, XML#2, XML#4, XML#7      | <nullObject /> |

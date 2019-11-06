@@ -6,18 +6,19 @@ namespace AdaptableMapper.Json
 {
     public sealed class JsonTargetInstantiator : TargetInstantiator
     {
-        public JsonTargetInstantiator(string template)
-        {
-            Template = template;
-        }
-        public string Template { get; set; }
 
-        public object Create()
+        public object Create(object source)
         {
+            if (!(source is string template))
+            {
+                Process.ProcessObservable.GetInstance().Raise("JSON#26; Source is not of expected type string", "error", source, source?.GetType().Name);
+                return new JObject();
+            }
+
             JToken jToken;
             try
             {
-                jToken =JToken.Parse(Template);
+                jToken =JToken.Parse(template);
             }
             catch (Exception exception)
             {

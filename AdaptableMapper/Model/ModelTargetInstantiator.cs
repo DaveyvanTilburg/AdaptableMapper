@@ -6,25 +6,33 @@ namespace AdaptableMapper.Model
 {
     public sealed class ModelTargetInstantiator : TargetInstantiator
     {
-        public ModelTargetInstantiator(string assemblyName, string typeName)
+        public object Create(object source)
         {
-            AssemblyName = assemblyName;
-            TypeName = typeName;
-        }
+            if (!(source is string template))
+            {
+                Process.ProcessObservable.GetInstance().Raise("MODEL#25; Source is not of expected type string", "error", source, source?.GetType().Name);
+                return new NullModel();
+            }
 
-        public string AssemblyName { get; set; }
-        public string TypeName { get; set; }
-
-        public object Create()
-        {
-            object result;
+            ModelTargetInstantiatorSource modelTargetInstantiatorSource;
             try
             {
-                result = Activator.CreateInstance(AssemblyName, TypeName).Unwrap();
+                modelTargetInstantiatorSource = JsonSerializer.Deserialize<ModelTargetInstantiatorSource>(template);
             }
             catch(Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise($"MODEL#24; assembly and typename could not be instantiated", "error", AssemblyName, TypeName, exception.GetType().Name, exception.Message);
+                Process.ProcessObservable.GetInstance().Raise($"MODEL#26; string does not contain a serialized ModelTargetInstantiatorSource", "error", template, exception.GetType().Name, exception.Message);
+                return new NullModel();
+            }
+
+            object result;
+            try
+            {
+                result = Activator.CreateInstance(modelTargetInstantiatorSource.AssemblyFullName, modelTargetInstantiatorSource.TypeFullName).Unwrap();
+            }
+            catch(Exception exception)
+            {
+                Process.ProcessObservable.GetInstance().Raise($"MODEL#24; assembly and typename could not be instantiated", "error", modelTargetInstantiatorSource, exception.GetType().Name, exception.Message);
                 return new NullModel();
             }
 

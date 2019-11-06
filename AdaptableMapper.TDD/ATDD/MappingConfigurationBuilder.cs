@@ -36,18 +36,18 @@ namespace AdaptableMapper.TDD.ATDD
             _result.MappingScope = new MappingScopeRoot(new List<MappingScopeComposite>());
         }
 
-        internal void AddTargetInitiatorToContextFactory(string type, params string[] parameters)
+        internal void AddTargetInitiatorToContextFactory(string type)
         {
             switch (type.ToLower())
             {
                 case "xml":
-                    _result.ContextFactory.TargetInstantiator = new Xml.XmlTargetInstantiator(parameters[0]);
+                    _result.ContextFactory.TargetInstantiator = new Xml.XmlTargetInstantiator();
                     break;
                 case "json":
-                    _result.ContextFactory.TargetInstantiator = new Json.JsonTargetInstantiator(parameters[0]);
+                    _result.ContextFactory.TargetInstantiator = new Json.JsonTargetInstantiator();
                     break;
                 case "model":
-                    _result.ContextFactory.TargetInstantiator = new Model.ModelTargetInstantiator(parameters[0], parameters[1]);
+                    _result.ContextFactory.TargetInstantiator = new Model.ModelTargetInstantiator();
                     break;
             }
         }

@@ -15,7 +15,7 @@ namespace AdaptableMapper
             ResultObjectConverter = resultObjectConverter;
         }
 
-        public object Map(object source)
+        public object Map(object source, object targetSource)
         {
             if (source == null)
             {
@@ -26,7 +26,7 @@ namespace AdaptableMapper
             if (!Validate())
                 return null;
 
-            Context context = ContextFactory.Create(source);
+            Context context = ContextFactory.Create(source, targetSource);
             MappingScope.Traverse(context);
 
             object result = ResultObjectConverter.Convert(context.Target);

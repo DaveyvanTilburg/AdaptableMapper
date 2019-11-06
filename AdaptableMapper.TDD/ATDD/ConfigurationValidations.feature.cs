@@ -233,9 +233,9 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.SkippableTheoryAttribute(DisplayName="MappingConfiguration")]
         [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
         [Xunit.TraitAttribute("Description", "MappingConfiguration")]
-        [Xunit.InlineDataAttribute("Model-Xml-Xml", "Model", "Xml", "Xml", "XML#6, MODEL#17", "<nullObject />", new string[0])]
-        [Xunit.InlineDataAttribute("Json-Model-Model", "Json", "Model", "Model", "JSON#13, MODEL#24", "{}", new string[0])]
-        [Xunit.InlineDataAttribute("Xml-Json-Json", "Xml", "Json", "Json", "XML#19, JSON#20", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("Model-Xml-Xml", "Model", "Xml", "Xml", "XML#24, MODEL#17", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("Json-Model-Model", "Json", "Model", "Model", "JSON#13, MODEL#25", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("Xml-Json-Json", "Xml", "Json", "Json", "XML#19, JSON#26", "{}", new string[0])]
         public virtual void MappingConfiguration(string testName, string contextFactoryObjectConverter, string contextFactoryTargetInitiator, string objectConverter, string informationCodes, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -298,10 +298,10 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.SkippableTheoryAttribute(DisplayName="Mapping")]
         [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
         [Xunit.TraitAttribute("Description", "Mapping")]
-        [Xunit.InlineDataAttribute("All null", "null", "", "null", "null", "null", "null", "null", "TREE#7, TREE#8, TREE#9, TREE#10, XML#6", "<nullObject />", new string[0])]
-        [Xunit.InlineDataAttribute("xml-xml-null-null-null-null", "xml", "", "xml", "null", "null", "null", "null", "TREE#9, TREE#10, XML#6", "<nullObject />", new string[0])]
-        [Xunit.InlineDataAttribute("xml-xml-xml-xml-null-null", "xml", "./testItem", "xml", "xml", "xml", "null", "null", "XML#6, XML#2, XML#2, TREE#11, TREE#12", "<nullObject />", new string[0])]
-        [Xunit.InlineDataAttribute("xml-xml-xml-xml-xml-xml", "xml", "./testItem", "xml", "xml", "xml", "xml", "xml", "XML#6, XML#2, XML#2, XML#4, XML#7", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("All null", "null", "", "null", "null", "null", "null", "null", "TREE#7, TREE#8, TREE#9, TREE#10, XML#24", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("xml-xml-null-null-null-null", "xml", "", "xml", "null", "null", "null", "null", "TREE#9, TREE#10, XML#24", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("xml-xml-xml-xml-null-null", "xml", "./testItem", "xml", "xml", "xml", "null", "null", "XML#24, XML#2, XML#2, TREE#11, TREE#12", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("xml-xml-xml-xml-xml-xml", "xml", "./testItem", "xml", "xml", "xml", "xml", "xml", "XML#24, XML#2, XML#2, XML#4, XML#7", "<nullObject />", new string[0])]
         public virtual void Mapping(string testName, string getScopeTraversal, string getScopeTraversalPath, string traversal, string traversalToGetTemplate, string childCreator, string getValueTraversal, string setValueTraversal, string informationCodes, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;

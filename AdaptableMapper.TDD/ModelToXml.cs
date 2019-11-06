@@ -17,7 +17,7 @@ namespace AdaptableMapper.TDD
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
 
             ModelBase source = ArmyModelSourceCreator.CreateArmyModel();
-            XElement result = mappingConfiguration.Map(source) as XElement;
+            XElement result = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml")) as XElement;
 
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
@@ -106,7 +106,7 @@ namespace AdaptableMapper.TDD
 
             var contextFactory = new Contexts.ContextFactory(
                 new Model.ModelObjectConverter(),
-                new Xml.XmlTargetInstantiator(System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml"))
+                new Xml.XmlTargetInstantiator()
             );
 
             var mappingConfiguration = new MappingConfiguration(rootScope, contextFactory, new NullObjectConverter());
