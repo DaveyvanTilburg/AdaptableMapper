@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace AdaptableMapper.Model
 {
-    public sealed class ModelToStringObjectConverter : ObjectConverter
+    public sealed class ModelToStringObjectConverter : ResultObjectConverter
     {
         public object Convert(object source)
         {

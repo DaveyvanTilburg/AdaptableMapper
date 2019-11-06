@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 namespace AdaptableMapper.Json
 {
-    public sealed class JTokenToStringObjectConverter : ObjectConverter
+    public sealed class JTokenToStringObjectConverter : ResultObjectConverter
     {
         public object Convert(object source)
         {

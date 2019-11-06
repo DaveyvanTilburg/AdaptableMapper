@@ -6,13 +6,13 @@ namespace AdaptableMapper
     {
         public MappingScope MappingScope { get; set; }
         public ContextFactory ContextFactory { get; set; }
-        public ObjectConverter ObjectConverter { get; set; }
+        public ResultObjectConverter ResultObjectConverter { get; set; }
 
-        public MappingConfiguration(MappingScope mappingScope, ContextFactory contextFactory, ObjectConverter objectConverter)
+        public MappingConfiguration(MappingScope mappingScope, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter)
         {
             MappingScope = mappingScope;
             ContextFactory = contextFactory;
-            ObjectConverter = objectConverter;
+            ResultObjectConverter = resultObjectConverter;
         }
 
         public object Map(object source)
@@ -29,7 +29,7 @@ namespace AdaptableMapper
             Context context = ContextFactory.Create(source);
             MappingScope.Traverse(context);
 
-            object result = ObjectConverter.Convert(context.Target);
+            object result = ResultObjectConverter.Convert(context.Target);
             return result;
         }
 
@@ -49,7 +49,7 @@ namespace AdaptableMapper
                 result = false;
             }
 
-            if (ObjectConverter == null)
+            if (ResultObjectConverter == null)
             {
                 Process.ProcessObservable.GetInstance().Raise("TREE#6; ObjectConverter cannot be null", "error"); 
                 result = false;

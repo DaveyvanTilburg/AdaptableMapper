@@ -36,7 +36,7 @@ namespace AdaptableMapper.TDD
         public void ModelToJsonToString()
         {
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
-            mappingConfiguration.ObjectConverter = new Json.JTokenToStringObjectConverter();
+            mappingConfiguration.ResultObjectConverter = new Json.JTokenToStringObjectConverter();
 
             ModelBase source = CreateHardwareModel();
             object resultObject = mappingConfiguration.Map(source);

@@ -152,16 +152,16 @@ namespace AdaptableMapper.TDD.ATDD
             switch (type.ToLower())
             {
                 case "xml":
-                    _result.ObjectConverter = new Xml.XElementToStringObjectConverter();
+                    _result.ResultObjectConverter = new Xml.XElementToStringObjectConverter();
                     break;
                 case "json":
-                    _result.ObjectConverter = new Json.JTokenToStringObjectConverter();
+                    _result.ResultObjectConverter = new Json.JTokenToStringObjectConverter();
                     break;
                 case "model":
-                    _result.ObjectConverter = new Model.ModelToStringObjectConverter();
+                    _result.ResultObjectConverter = new Model.ModelToStringObjectConverter();
                     break;
                 case "null":
-                    _result.ObjectConverter = new NullObjectConverter();
+                    _result.ResultObjectConverter = new NullObjectConverter();
                     break;
             }
         }

@@ -2,7 +2,7 @@
 
 namespace AdaptableMapper.Xml
 {
-    public sealed class XElementToStringObjectConverter : ObjectConverter
+    public sealed class XElementToStringObjectConverter : ResultObjectConverter
     {
         public object Convert(object source)
         {

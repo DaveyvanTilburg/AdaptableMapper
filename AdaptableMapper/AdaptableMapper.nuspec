@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.6.4-beta20191105-01</version>
+    <version>0.7.0-beta20191106-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -20,6 +20,9 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       </group>
     </dependencies>
     <releaseNotes>
+0.7.0
+  - MappingConfiguration.ObjectConverter is now called ResultObjectConverter
+  - Added a new interface ResultObjectConverter, hopefully clarifying its intent
 0.6.4
   - Added validation tests for mappingconfiguration and mapping to validate if all properties are set
 0.6.3

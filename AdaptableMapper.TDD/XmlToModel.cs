@@ -43,7 +43,7 @@ namespace AdaptableMapper.TDD
         public void XmlToModelToString()
         {
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
-            mappingConfiguration.ObjectConverter = new ModelToStringObjectConverter();
+            mappingConfiguration.ResultObjectConverter = new ModelToStringObjectConverter();
 
             object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"));
 
