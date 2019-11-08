@@ -33,8 +33,8 @@ Future plans in relative priority order:
 
 ### Prerequisites
 
-As long as I'm in alpha, ill only build the package for .NET framework.
-After I feel confident the package is stable I will research how to deploy for .NET standard (i think that includes .NET Core or visa versa)
+As long as I'm in alpha, Ill only build the package for .NET framework.
+After I feel confident the package is stable I will research how to deploy for .NET standard (I think that includes .NET Core or visa versa)
 
 ### Installing
 
