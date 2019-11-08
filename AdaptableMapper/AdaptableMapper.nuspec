@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.9.0-beta20191108-01</version>
+    <version>0.10.0-beta20191109-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -19,57 +19,8 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
         <dependency id="Newtonsoft.Json" version="12.0.2" />
       </group>
     </dependencies>
-    <releaseNotes>
-0.9.0
-  - JsonTraversalTemplate("[0]") happens often, so decided to add JsonTraversalFirstInListTemplate()
-0.8.0
-  - Removed target template from the mappingconfiguration to be stored separately by the client
-0.7.0
-  - MappingConfiguration.ObjectConverter is now called ResultObjectConverter
-  - Added a new interface ResultObjectConverter, hopefully clarifying its intent
-0.6.4
-  - Added validation tests for mappingconfiguration and mapping to validate if all properties are set
-0.6.3
-  - Some more minor fixes for the model/xml/json targetinitiators and objectconverters
-0.6.2
-  - Some minor fixes in null checks and returning the correct default value on error
-0.6.1
-  - Finished implementation of Json setters
-0.6.0
-  - Error handling revised to information gathering.
-    - Error namespace renamed to process
-    - ErrorObserver renamed to processObserver
-    - Error object renamed to information with a new property type (currently string value 'warning' and 'error')
-    - Information with the type 'error' are considered critical errors that will always fail (due to type convert errors or impossibilities)
-    - Information with the type 'warning' will have information about paths that failed to resolve, searches that came up empty and other traversal information
-0.5.1
-  - Type check errors include type name instead of serialized object with no type info
-0.5.0
-  - Redone error messages
-  - Added verbose error observing
-0.4.3
-  - Release fix
-0.4.2
-  - Rename inconsistency
-0.4.1
-  - Rename inconsistency
-0.4.0
-  - Added Json traversals (getters)
-  - Added extra error handling checks
-0.3.2
-  - Added jsonignore to parent property of ModelBase so Json doesn't give the recursive error. (ModelBase should not be serialized for storage anyway)
-0.3.1
-  - Release bugfix
-0.3.0
-  - Added model scope traversal to behave like XPath scope traversal, it now return every match, not only first in each step of the path
-0.2.0
-  - Added a way to change the result type
-0.1.0
-  - Renamed object Adaptable to ModelBase (and all related objects)
-0.0.1
-  - Created an abstraction for mapping to and from:
-  - Xml
-  - In memory objects (through the model abstraction)
+    <releaseNotes>0.10.0
+  - Added StringToModelObjectConverter
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
