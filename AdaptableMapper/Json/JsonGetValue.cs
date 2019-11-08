@@ -20,7 +20,7 @@ namespace AdaptableMapper.Json
                 return string.Empty;
             }
 
-            JToken result = jToken.Traverse(Path);
+            JValue result = jToken.Traverse(Path) as JValue;
             if (result == null)
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#11; Path resulted in no items", "warning", Path);

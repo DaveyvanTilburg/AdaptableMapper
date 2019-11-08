@@ -114,6 +114,12 @@ namespace AdaptableMapper.Model.Language
 
             string step = path.Dequeue();
 
+            if (string.IsNullOrWhiteSpace(step))
+            {
+                yield return this;
+                yield break;
+            }
+
             foreach (ModelBase modelBase in NavigateToAllModels(step))
             {
                 if(path.Count == 0)

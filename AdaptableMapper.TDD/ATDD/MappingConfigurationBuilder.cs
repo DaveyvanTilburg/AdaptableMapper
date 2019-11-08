@@ -62,8 +62,18 @@ namespace AdaptableMapper.TDD.ATDD
                 case "json":
                     _result.ContextFactory.ObjectConverter = new Json.JsonObjectConverter();
                     break;
-                case "model":
+                case "modelbase":
                     _result.ContextFactory.ObjectConverter = new Model.ModelObjectConverter();
+                    break;
+                case "model":
+                    Type itemType = typeof(ModelObjects.Simple.Item);
+                    _result.ContextFactory.ObjectConverter = new Model.StringToModelObjectConverter(
+                        new Model.ModelTargetInstantiatorSource
+                        {
+                            AssemblyFullName = itemType.Assembly.FullName,
+                            TypeFullName = itemType.FullName
+                        }
+                    );
                     break;
             }
         }

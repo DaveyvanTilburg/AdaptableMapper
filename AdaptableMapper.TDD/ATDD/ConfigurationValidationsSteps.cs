@@ -45,8 +45,8 @@ namespace AdaptableMapper.TDD.ATDD
             _builder.AddObjectConverterToContextFactory(type);
         }
 
-        [Given(@"I add a '(.*)' TargetInitiator with an empty string to the contextFactory")]
-        public void GivenIAddATargetInitiatorWithAnEmptyStringToTheContextFactory(string type)
+        [Given(@"I add a '(.*)' TargetInitiator to the contextFactory")]
+        public void GivenIAddATargetInitiatorToTheContextFactory(string type)
         {
             _builder.AddTargetInitiatorToContextFactory(type);
         }
@@ -97,7 +97,7 @@ namespace AdaptableMapper.TDD.ATDD
         {
             InformationCodesModel expectedInformation = table.CreateInstance<InformationCodesModel>();
 
-            _information.Count.Should().Be(expectedInformation.InformationCodes.Count());
+            _information.Count.Should().Be(expectedInformation.InformationCodes.Count);
 
             foreach(string code in expectedInformation.InformationCodes)
                 _information.Any(i => i.Message.Contains(code)).Should().BeTrue(code);

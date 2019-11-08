@@ -233,7 +233,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.SkippableTheoryAttribute(DisplayName="MappingConfiguration")]
         [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
         [Xunit.TraitAttribute("Description", "MappingConfiguration")]
-        [Xunit.InlineDataAttribute("Model-Xml-Xml", "Model", "Xml", "Xml", "XML#24, MODEL#17", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("Model-Xml-Xml", "ModelBase", "Xml", "Xml", "XML#24, MODEL#17", "<nullObject />", new string[0])]
         [Xunit.InlineDataAttribute("Json-Model-Model", "Json", "Model", "Model", "JSON#13, MODEL#25", "{}", new string[0])]
         [Xunit.InlineDataAttribute("Xml-Json-Json", "Xml", "Json", "Json", "XML#19, JSON#26", "{}", new string[0])]
         public virtual void MappingConfiguration(string testName, string contextFactoryObjectConverter, string contextFactoryTargetInitiator, string objectConverter, string informationCodes, string result, string[] exampleTags)
@@ -270,7 +270,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given(string.Format("I add a \'{0}\' ObjectConverter to the contextFactory", contextFactoryObjectConverter), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 34
- testRunner.Given(string.Format("I add a \'{0}\' TargetInitiator with an empty string to the contextFactory", contextFactoryTargetInitiator), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("I add a \'{0}\' TargetInitiator to the contextFactory", contextFactoryTargetInitiator), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 35
  testRunner.Given(string.Format("I add a \'{0}\' ObjectConverter for mappingConfiguration", objectConverter), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
@@ -298,11 +298,17 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.SkippableTheoryAttribute(DisplayName="Mapping")]
         [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
         [Xunit.TraitAttribute("Description", "Mapping")]
-        [Xunit.InlineDataAttribute("All null", "null", "", "null", "null", "null", "null", "null", "TREE#7, TREE#8, TREE#9, TREE#10, XML#24", "<nullObject />", new string[0])]
-        [Xunit.InlineDataAttribute("xml-xml-null-null-null-null", "xml", "", "xml", "null", "null", "null", "null", "TREE#9, TREE#10, XML#24", "<nullObject />", new string[0])]
-        [Xunit.InlineDataAttribute("xml-xml-xml-xml-null-null", "xml", "./testItem", "xml", "xml", "xml", "null", "null", "XML#24, XML#2, XML#2, TREE#11, TREE#12", "<nullObject />", new string[0])]
-        [Xunit.InlineDataAttribute("xml-xml-xml-xml-xml-xml", "xml", "./testItem", "xml", "xml", "xml", "xml", "xml", "XML#24, XML#2, XML#2, XML#4, XML#7", "<nullObject />", new string[0])]
-        public virtual void Mapping(string testName, string getScopeTraversal, string getScopeTraversalPath, string traversal, string traversalToGetTemplate, string childCreator, string getValueTraversal, string setValueTraversal, string informationCodes, string result, string[] exampleTags)
+        [Xunit.InlineDataAttribute("All null", "Xml", "<root><testItem>value</testItem></root>", "null", "", "null", "null", "null", "null", "null", "TREE#7, TREE#8, TREE#9, TREE#10, XML#24", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("xml-xml-null-null-null-null", "Xml", "<root><testItem>value</testItem></root>", "xml", "", "xml", "null", "null", "null", "null", "TREE#9, TREE#10, XML#24", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("xml-xml-xml-xml-null-null", "Xml", "<root><testItem>value</testItem></root>", "xml", "./testItem", "xml", "xml", "xml", "null", "null", "XML#24, XML#2, XML#2, TREE#11, TREE#12", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("xml-xml-xml-xml-xml-xml", "Xml", "<root><testItem>value</testItem></root>", "xml", "./testItem", "xml", "xml", "xml", "xml", "xml", "XML#24, XML#2, XML#2, XML#4, XML#7", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("json-json-null-null-null-null", "Json", "{ \"testItem\": [ {\"item\": \"value\"} ]}", "json", "", "json", "null", "null", "null", "null", "TREE#9, TREE#10, JSON#26", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("json-json-json-json-null-null", "Json", "{ \"testItem\": [ {\"item\": \"value\"} ]}", "json", ".testItem", "json", "json", "json", "null", "null", "JSON#26, JSON#24, JSON#1, TREE#11, TREE#12", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("json-json-json-json-json-json", "Json", "{ \"testItem\": [ {\"item\": \"value\"} ]}", "json", ".testItem", "json", "json", "json", "json", "json", "JSON#26, JSON#24, JSON#1, JSON#11, JSON#19", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("model-model-null-null-null-null", "Model", "{ \"Items\": [{ \"Items\": []}]}", "model", "", "model", "null", "null", "null", "null", "TREE#9, TREE#10, MODEL#25", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("model-model-model-model-null-null", "Model", "{ \"Items\": [{ \"Items\": []}]}", "model", "/Items", "model", "model", "model", "null", "null", "MODEL#25, MODEL#9, MODEL#7, MODEL#8, MODEL#5, MODEL#9, MODEL#2, TREE#11, TREE#12", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("model-model-model-model-model-model", "Model", "{ \"Items\": [{ \"Items\": []}]}", "model", "/Items", "model", "model", "model", "model", "model", "MODEL#25, MODEL#9, MODEL#7, MODEL#8, MODEL#5, MODEL#9, MODEL#2, MODEL#9, MODEL#9", "{}", new string[0])]
+        public virtual void Mapping(string testName, string type, string source, string getScopeTraversal, string getScopeTraversalPath, string traversal, string traversalToGetTemplate, string childCreator, string getValueTraversal, string setValueTraversal, string informationCodes, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Mapping", null, exampleTags);
@@ -333,13 +339,13 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I add a contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 52
- testRunner.Given("I add a \'Xml\' ObjectConverter to the contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("I add a \'{0}\' ObjectConverter to the contextFactory", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 53
- testRunner.Given("I add a \'Xml\' TargetInitiator with an empty string to the contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("I add a \'{0}\' TargetInitiator to the contextFactory", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 54
- testRunner.Given("I add a \'Xml\' ObjectConverter for mappingConfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("I add a \'{0}\' ObjectConverter for mappingConfiguration", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 55
  testRunner.Given("I add a MappingScopeRoot with an empty list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
@@ -369,7 +375,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I add a mapping to the scope", ((string)(null)), table6, "Given ");
 #line hidden
 #line 62
- testRunner.When("I run Map with a string parameter \'<root><testItem>value</testItem></root>\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I run Map with a string parameter \'{0}\'", source), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                             "InformationCodes"});
