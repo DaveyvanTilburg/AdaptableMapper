@@ -162,7 +162,7 @@ namespace AdaptableMapper.TDD
                 },
                 new Model.ModelGetScope("CPUs"),
                 new Json.JsonTraversal("$.CPUs"),
-                new Json.JsonTraversalTemplate("[0]"),
+                new Json.JsonTraversalFirstInListTemplate(),
                 new Json.JsonChildCreator()
             );
 
@@ -179,7 +179,7 @@ namespace AdaptableMapper.TDD
                 },
                 new Model.ModelGetScope("MemoryChips"),
                 new Json.JsonTraversal(".MemoryChips"),
-                new Json.JsonTraversalTemplate("[0]"),
+                new Json.JsonTraversalFirstInListTemplate(),
                 new Json.JsonChildCreator()
             );
 

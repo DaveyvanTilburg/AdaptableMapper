@@ -51,6 +51,7 @@
     <Compile Include="Json\JsonSetValue.cs" />
     <Compile Include="Json\JsonTargetInstantiator.cs" />
     <Compile Include="Json\JsonTraversal.cs" />
+    <Compile Include="Json\JsonTraversalFirstInListTemplate.cs" />
     <Compile Include="Json\JsonTraversalTemplate.cs" />
     <Compile Include="Json\JTokenToStringObjectConverter.cs" />
     <Compile Include="MappingScopeRoot.cs" />
