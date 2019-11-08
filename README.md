@@ -33,7 +33,7 @@ Future plans in relative priority order:
 
 ### All release notes
 
-![ReleaseNotes.txt](ReleaseNotes.txt)
+[ReleaseNotes.txt](ReleaseNotes.txt)
 
 ### Prerequisites
 
