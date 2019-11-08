@@ -67,4 +67,4 @@ Do what ever the f*** you want! (But please respect eachother in the process)
 ### Acknowledgments
 
 * Newtonsoft for json serialization
-* SmartHOTEL, the company I work for currently, where I can put the package to use and see a product grow. The first usecase.
+* SmartHOTEL, the company I currently work for, where I can put the package to use and see a product grow. The first usecase.
