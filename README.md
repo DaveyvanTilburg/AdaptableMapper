@@ -61,7 +61,7 @@ I use [SemVer](http://semver.org/) for versioning. (I've got no clue on what tha
 
 ### License
 
-See the [License.txt](AdaptableMapper/License.txt) file for details
+See the [License.txt](AdaptableMapper/License.txt) file for details.
 Do what ever the f*** you want! (But please respect eachother in the process)
 
 ### Acknowledgments
