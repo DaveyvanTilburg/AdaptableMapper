@@ -23,7 +23,6 @@ namespace AdaptableMapper.Json
             }
 
             IEnumerable<JToken> jTokens = jToken.TraverseAll(Path).ToList();
-
             if(!jTokens.Any())
                 Process.ProcessObservable.GetInstance().Raise("JSON#4; Path has no results", "warning", Path);
 
