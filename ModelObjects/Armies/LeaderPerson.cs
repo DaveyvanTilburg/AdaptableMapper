@@ -4,6 +4,6 @@ namespace ModelObjects.Armies
 {
     public class LeaderPerson : ModelBase
     {
-        public string Name { get; set; } = string.Empty;
+        public Person Person { get; set; } = new Person();
     }
 }

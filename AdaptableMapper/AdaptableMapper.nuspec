@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.10.0-beta20191109-01</version>
+    <version>0.10.1-beta20191110-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -19,8 +19,11 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
         <dependency id="Newtonsoft.Json" version="12.0.2" />
       </group>
     </dependencies>
-    <releaseNotes>0.10.0
-  - Added StringToModelObjectConverter
+    <releaseNotes>0.10.1
+  - Bugfixes for:
+    - TypeCheck for item in path for Models
+    - Checking if there is a } after { for filters
+    - Improved error reporting for StringToModel
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

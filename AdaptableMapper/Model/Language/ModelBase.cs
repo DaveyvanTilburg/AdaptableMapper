@@ -34,10 +34,12 @@ namespace AdaptableMapper.Model.Language
             object propertyValue = propertyInfo?.GetValue(this);
             if (!(propertyValue is ModelBase next))
             {
-                IList propertyList = GetIListFromProperty(propertyInfo);
+                IList propertyList = GetIListFromProperty(propertyValue);
 
                 next = propertyInfo.PropertyType.CreateModel();
-                propertyList.Add(next);
+
+                if(!(next is NullModel))
+                    propertyList.Add(next);
             }
 
             if (path.Count > 0)
@@ -140,18 +142,6 @@ namespace AdaptableMapper.Model.Language
 
         private IEnumerable<ModelBase> NavigateToAllModels(string step)
         {
-            if (step.Equals(".."))
-            {
-                if(Parent == null)
-                {
-                    Process.ProcessObservable.GetInstance().Raise($"MODEL#6; Parent node was null while navigating to parent of type {this.GetType().Name}", "warning");
-                    yield break;
-                }
-
-                yield return Parent;
-                yield break;
-            }
-
             if (step.TryGetObjectFilter(out ModelFilter filter))
             {
                 IEnumerable<ModelBase> propertyValue = GetEnumerableProperty(filter.ModelName);

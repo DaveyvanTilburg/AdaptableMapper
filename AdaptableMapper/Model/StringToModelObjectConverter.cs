@@ -35,18 +35,18 @@ namespace AdaptableMapper.Model
                 return new NullModel();
             }
 
-            ModelBase result;
+            object result;
             try
             {
-                result = JsonSerializer.Deserialize(sourceType, input) as ModelBase;
+                result = JsonSerializer.Deserialize(sourceType, input);
             }
             catch(Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#29; could not convert source to Model", "error", source, exception.GetType().Name, exception.Message);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#29; could not deserialize to type", "error", source, exception.GetType().Name, exception.Message);
                 return new NullModel();
             }
 
-            if (result == null)
+            if (!(result is ModelBase))
             {
                 Process.ProcessObservable.GetInstance().Raise("MODEL#30; sourceType is not of type modelBase", "error", ModelTargetInstantiatorSource);
                 return new NullModel();

@@ -12,8 +12,14 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             information.Count.Should().Be(expectedCodes.Count);
 
-            foreach (string expectedCode in expectedCodes)
-                information.Any(i => i.Message.Contains(expectedCode)).Should().BeTrue(expectedCode);
+            foreach (IGrouping<string, string> expectedCodeGrouping in expectedCodes.GroupBy(c => c))
+            {
+                string code = expectedCodeGrouping.First();
+
+                information.Count(i => i.Message.Contains(code)).Should().Be(expectedCodeGrouping.Count(), code);
+                information.Any(i => i.Message.Contains(code)).Should().BeTrue(code);
+            }
+                
         }
 
         public static List<Information> Observe(this Action action)

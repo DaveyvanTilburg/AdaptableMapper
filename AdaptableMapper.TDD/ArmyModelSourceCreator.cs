@@ -6,9 +6,10 @@ namespace AdaptableMapper.TDD
     {
         public static Root CreateArmyModel()
         {
-            var leader1 = new Leader { LeaderPerson = new LeaderPerson() { Name = "Christopher columbus" }, Reference = "alpha-bravo-tango-delta" };
-            var leader2 = new Leader { LeaderPerson = new LeaderPerson() { Name = "Ocean man" }, Reference = "Ween" };
-            var leader3 = new Leader { LeaderPerson = new LeaderPerson() { Name = "John J. Pershing" }, Reference = "Pershing" };
+            var leader1 = new Leader { Reference = "alpha-bravo-tango-delta" , LeaderPerson = new LeaderPerson { Person = new Person { Name = "Christopher columbus" } } };
+            var leader2 = new Leader { Reference = "Ween", LeaderPerson = new LeaderPerson { Person = new Person { Name = "Ocean man" } } };
+            var leader3 = new Leader { Reference = "Pershing", LeaderPerson = new LeaderPerson { Person = new Person { Name = "John J. Pershing" } } };
+
             Army army1 = CreateArmy1();
             Army army2 = CreateArmy2();
 

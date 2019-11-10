@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
+using AdaptableMapper.Model.Language;
 
 namespace ModelObjects.Simple
 {
-    public class NoItem
+    public class Mix : ModelBase
     {
         public List<NoItem> NoItems { get; set; } = new List<NoItem>();
-        public string Code { get; set; } = string.Empty;
     }
 }

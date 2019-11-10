@@ -29,7 +29,7 @@ namespace AdaptableMapper.TDD
 
             result.Organization.Leaders.Count.Should().Be(3);
             result.Organization.Leaders[0].Reference.Should().Be("alpha-bravo-tango-delta");
-            result.Organization.Leaders[2].LeaderPerson.Name.Should().Be("John J. Pershing");
+            result.Organization.Leaders[2].LeaderPerson.Person.Name.Should().Be("John J. Pershing");
 
             result.Armies.Count.Should().Be(2);
             result.Armies[0].Code.Should().Be("naval");
@@ -161,7 +161,7 @@ namespace AdaptableMapper.TDD
 
             var leaderName = new Mapping(
                 new Xml.XmlGetThisValue(),
-                new Model.ModelSetValueOnPath("LeaderPerson/Name")
+                new Model.ModelSetValueOnPath("LeaderPerson/Person/Name")
             );
 
             var leadersScope = new MappingScopeComposite(

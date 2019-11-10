@@ -63,7 +63,7 @@ namespace AdaptableMapper.TDD
 
             var memoryChip5 = new MemoryChip { Size = "512" };
             var memoryChip6 = new MemoryChip { Size = "512" };
-            var memory1 = new Memory();
+            var memory1 = new Memory { Type = "External" };
             memory1.MemoryChips.Add(memoryChip5);
             memory1.MemoryChips.Add(memoryChip6);
 
@@ -104,8 +104,12 @@ namespace AdaptableMapper.TDD
             var harddrive1 = new HardDrive { Brand = "BData", Size = "262144", Speed = "Rotating" };
 
             var memoryChip5 = new MemoryChip { Size = "2048" };
-            var memory1 = new Memory();
+            var memory1 = new Memory { Type = "Integrated" };
             memory1.MemoryChips.Add(memoryChip5);
+
+            var memoryChip6 = new MemoryChip { Size = "2048" };
+            var memory2 = new Memory { Type = "External" };
+            memory2.MemoryChips.Add(memoryChip5);
 
             var motherboard1cpu1 = new CPU
             {
@@ -131,6 +135,7 @@ namespace AdaptableMapper.TDD
             motherboard1.GraphicalCards.Add(motherboard1graphicalcard1);
             motherboard1.HardDrives.Add(harddrive1);
             motherboard1.Memories.Add(memory1);
+            motherboard1.Memories.Add(memory2);
 
             return motherboard1;
         }
@@ -215,7 +220,7 @@ namespace AdaptableMapper.TDD
                 {
                     motherboardMemorySize
                 },
-                new Model.ModelGetScope("Memories/MemoryChips"),
+                new Model.ModelGetScope("Memories{'PropertyName':'Type','Value':'External'}/MemoryChips"),
                 new Json.JsonTraversal(".CPUs[0].MemoryChips"),
                 new Json.JsonTraversalTemplate("[0]"),
                 new Json.JsonChildCreator()

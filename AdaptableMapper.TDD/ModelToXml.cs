@@ -57,7 +57,7 @@ namespace AdaptableMapper.TDD
 
             var leaderName = new Mapping(
                 new Model.ModelGetSearchValue(
-                    "../../Organization/Leaders{'PropertyName':'Reference','Value':'{{searchValue}}'}/LeaderPerson/Name",
+                    "../../Organization/Leaders{'PropertyName':'Reference','Value':'{{searchValue}}'}/LeaderPerson/Person/Name",
                     "LeaderReference"
                 ),
                 new Xml.XmlSetValue("./leaderName")
