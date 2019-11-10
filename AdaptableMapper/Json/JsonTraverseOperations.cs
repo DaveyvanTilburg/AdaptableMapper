@@ -52,12 +52,11 @@ namespace AdaptableMapper.Json
         public static IEnumerable<JToken> TraverseAll(this JToken jToken, string path)
         {
             PathContainer pathContainer = PathContainer.Create(path);
-
             Queue<string> pathQueue = pathContainer.CreatePathQueue();
 
             JToken traversedParent = jToken.TraverseToParent(pathQueue);
-
             IEnumerable<JToken> result = traversedParent.SelectTokens(pathContainer.LastInPath).ToList();
+
             return result;
         }
     }
