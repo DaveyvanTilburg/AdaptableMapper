@@ -47,7 +47,7 @@
     <Compile Include="Json\JsonGetSearchValue.cs" />
     <Compile Include="Json\JsonGetValue.cs" />
     <Compile Include="Json\JsonObjectConverter.cs" />
-    <Compile Include="Json\JsonPathParentOperation.cs" />
+    <Compile Include="Json\JsonTraverseOperations.cs" />
     <Compile Include="Json\JsonSetValue.cs" />
     <Compile Include="Json\JsonTargetInstantiator.cs" />
     <Compile Include="Json\JsonTraversal.cs" />

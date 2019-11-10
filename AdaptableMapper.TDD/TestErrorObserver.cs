@@ -32,5 +32,15 @@ namespace AdaptableMapper.TDD
         {
             _information.Add(information);
         }
+
+        public void Register()
+        {
+            Process.ProcessObservable.GetInstance().Register(this);
+        }
+
+        public void Unregister()
+        {
+            Process.ProcessObservable.GetInstance().Unregister(this);
+        }
     }
 }

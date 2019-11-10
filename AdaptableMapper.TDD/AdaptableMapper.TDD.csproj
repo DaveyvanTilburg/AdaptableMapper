@@ -47,6 +47,7 @@
     <Compile Include="ATDD\MappingModel.cs" />
     <Compile Include="ATDD\ScopeCompositeModel.cs" />
     <Compile Include="ConfigurationSaveAndLoad.cs" />
+    <Compile Include="EdgeCases\Json.cs" />
     <Compile Include="ErrorObserverTester.cs" />
     <Compile Include="JsonToXml.cs" />
     <Compile Include="ArmyModelSourceCreator.cs" />
@@ -128,5 +129,6 @@
   <ItemGroup>
     <None Include="ATDD\ConfigurationValidations.feature" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
