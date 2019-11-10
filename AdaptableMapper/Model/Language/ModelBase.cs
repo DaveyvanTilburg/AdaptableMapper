@@ -76,7 +76,10 @@ namespace AdaptableMapper.Model.Language
             {
                 next = Parent;
                 if (next == null)
+                {
                     Process.ProcessObservable.GetInstance().Raise($"MODEL#3; Parent node was null while navigating to parent of type {this.GetType().Name}", "warning");
+                    return new NullModel();
+                }
             }
             else if(step.TryGetObjectFilter(out ModelFilter filter))
             {
@@ -84,7 +87,10 @@ namespace AdaptableMapper.Model.Language
                 next = propertyValue.FirstOrDefault(a => a.GetValue(filter.PropertyName).Equals(filter.Value));
 
                 if (next == null)
+                {
                     Process.ProcessObservable.GetInstance().Raise($"MODEL#4; No match found for filter on list with name {filter.ModelName} with a value that has a {filter.PropertyName} with value {filter.Value}", "warning");
+                    return new NullModel();
+                }
             }
             else
             {
@@ -92,11 +98,11 @@ namespace AdaptableMapper.Model.Language
                 next = propertyValue.FirstOrDefault();
 
                 if (next == null)
+                {
                     Process.ProcessObservable.GetInstance().Raise($"MODEL#5; No items found in {step} in type {this.GetType().Name}", "warning");
+                    return new NullModel();
+                }
             }
-
-            if (next == null)
-                return this;
 
             if (path.Count > 0)
                 return next.NavigateToModel(path);

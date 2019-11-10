@@ -25,7 +25,6 @@ namespace AdaptableMapper.Model
             var modelPathContainer = PathContainer.Create(Path);
 
             List<ModelBase> pathTargets = model.NavigateToAllModels(modelPathContainer.CreatePathQueue()).ToList();
-
             List<object> modelScopes = pathTargets
                 .Select(p => p.GetListProperty(modelPathContainer.LastInPath))
                 .SelectMany(l => (IEnumerable<object>)l)

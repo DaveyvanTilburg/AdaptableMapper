@@ -26,10 +26,14 @@ namespace AdaptableMapper.Process
         {
             if (_observers.Any())
             {
-                var additionalInfoMessage = Newtonsoft.Json.JsonConvert.SerializeObject(additionalInfo);
+                var informationMessage = message;
 
-                var error = new Information($"{message}; objects:{additionalInfoMessage}", type);
-                _observers.ForEach(o => o?.InformationRaised(error));
+                var additionalInfoMessage = Newtonsoft.Json.JsonConvert.SerializeObject(additionalInfo);
+                if (additionalInfoMessage != "[]")
+                    informationMessage += $"; objects:{additionalInfoMessage}";
+
+                var information = new Information(informationMessage, type);
+                _observers.ForEach(o => o?.InformationRaised(information));
             }
         }
     }

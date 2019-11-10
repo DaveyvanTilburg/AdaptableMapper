@@ -36,6 +36,12 @@ namespace AdaptableMapper.Model
                 return new NullModel();
             }
 
+            if (!(result is ModelBase))
+            {
+                Process.ProcessObservable.GetInstance().Raise($"MODEL#31; instantiated object is not of type ModelBase", "error", modelTargetInstantiatorSource);
+                return new NullModel();
+            }
+
             return result;
         }
     }

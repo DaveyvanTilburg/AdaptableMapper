@@ -41,7 +41,7 @@ namespace AdaptableMapper.Model
             var modelPathContainer = PathContainer.Create(actualPath);
 
             ModelBase pathTarget = model.NavigateToModel(modelPathContainer.CreatePathQueue());
-            if (pathTarget == null)
+            if (pathTarget is NullModel)
             {
                 Process.ProcessObservable.GetInstance().Raise("MODEL#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
                 return string.Empty;

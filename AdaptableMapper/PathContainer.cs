@@ -24,7 +24,6 @@ namespace AdaptableMapper
             string lastInPath = pathStack.Pop();
 
             var path = pathStack.Reverse().ToList();
-
             return new PathContainer(path, lastInPath);
         }
     }
