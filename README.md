@@ -64,14 +64,8 @@ Example target Json
       "people":[ 
          { 
             "person":{ 
-               "professionId":""
+               "professionName":""
             }
-         }
-      ],
-      "profession":[ 
-         { 
-            "id":"",
-            "name":""
          }
       ]
    }
@@ -102,7 +96,7 @@ Example target Json
     * Example JsonTraversal : $.root.people
     * SearchPath : ../../professions/profession[@id='{{searchValue}}']/name
     * SearchPathValue : ./professionId
-    * Example JsonSetValue : .person.professionId
+    * Example JsonSetValue : .person.professionName
     
 ```
 { 
@@ -133,7 +127,7 @@ Example target Json
     * Example JsonTraversal : $.root.people
     * SearchPath : ../../../.profession[?(@.id=='{{searchValue}}')].name
     * SearchPathValue : .person.professionId
-    * Example JsonSetValue : .person.professionId
+    * Example JsonSetValue : .person.professionName
 ```
 { 
    "root":{ 
@@ -163,7 +157,7 @@ Example target Json
     * Example JsonTraversal : $.root.people
     * SearchPath : ../../profession{'PropertyName':'id','Value':'{{searchValue}}'}/name
     * SearchPathValue : professionId
-    * Example JsonSetValue : .person.professionId
+    * Example JsonSetValue : .person.professionName
 
 ### Versioning
 
