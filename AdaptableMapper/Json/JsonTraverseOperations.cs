@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,15 +13,28 @@ namespace AdaptableMapper.Json
             Queue<string> pathQueue = pathContainer.CreatePathQueue();
 
             JToken traversedParent = jToken.TraverseToParent(pathQueue);
-            JToken result = traversedParent.SelectToken(pathContainer.LastInPath);
+            JToken result = traversedParent.TryTraverse(pathContainer.LastInPath);
 
             if (result == null)
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#14; Path resulted in no items", "warning", path);
-                return string.Empty;
+                return new JObject();
             }
 
             return result;
+        }
+
+        private static JToken TryTraverse(this JToken jToken, string path)
+        {
+            try
+            {
+                return jToken.SelectToken(path);
+            }
+            catch(Exception exception)
+            {
+                Process.ProcessObservable.GetInstance().Raise("JSON#28; Path resulted in no items", "warning", path, exception.GetType().Name, exception.Message);
+                return new JObject();
+            }
         }
 
         private static JToken TraverseToParent(this JToken jToken, Queue<string> path)
@@ -55,9 +69,22 @@ namespace AdaptableMapper.Json
             Queue<string> pathQueue = pathContainer.CreatePathQueue();
 
             JToken traversedParent = jToken.TraverseToParent(pathQueue);
-            IEnumerable<JToken> result = traversedParent.SelectTokens(pathContainer.LastInPath).ToList();
+            IEnumerable<JToken> result = traversedParent.TryTraverseAll(pathContainer.LastInPath);
 
             return result;
+        }
+
+        private static IEnumerable<JToken> TryTraverseAll(this JToken jToken, string path)
+        {
+            try
+            {
+                return jToken.SelectTokens(path).ToList();
+            }
+            catch (Exception exception)
+            {
+                Process.ProcessObservable.GetInstance().Raise("JSON#29; Path resulted in no items", "warning", path, exception.GetType().Name, exception.Message);
+                return new JObject();
+            }
         }
     }
 }
