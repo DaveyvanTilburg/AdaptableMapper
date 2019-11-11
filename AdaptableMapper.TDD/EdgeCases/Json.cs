@@ -56,5 +56,13 @@ namespace AdaptableMapper.TDD.EdgeCases
             List<Information> result = new Action(() => { subject.GetScope(new JObject()); }).Observe();
             result.ValidateResult(new List<string> {"JSON#4"});
         }
+
+        [Fact]
+        public void JsonSetValueNoResults()
+        {
+            var subject = new JsonSetValue("abcd");
+            List<Information> result = new Action(() => { subject.SetValue(new JObject(), string.Empty); }).Observe();
+            result.ValidateResult(new List<string> { "JSON#30" });
+        }
     }
 }

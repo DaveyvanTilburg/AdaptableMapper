@@ -1,6 +1,7 @@
 ﻿using AdaptableMapper.Traversals;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AdaptableMapper.Json
 {
@@ -21,7 +22,13 @@ namespace AdaptableMapper.Json
                 return;
             }
 
-            IEnumerable<JToken> jTokens = jToken.TraverseAll(Path);
+            IReadOnlyCollection<JToken> jTokens = jToken.TraverseAll(Path).ToList();
+
+            if (!jTokens.Any())
+            {
+                Process.ProcessObservable.GetInstance().Raise("JSON#30; Path resulted in no targets to set value to", "error", Path);
+                return;
+            }
 
             foreach(JToken jTokenTarget in jTokens)
             {
