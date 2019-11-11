@@ -122,7 +122,7 @@ Example target Json
       "profession":[ 
          { 
             "id":"123",
-            "name":"Name"
+            "name":"Programmer"
          }
       ]
    }
@@ -159,8 +159,11 @@ Example target Json
 }
 ```
 * Model
-    * SearchPath : 
-    * SearchPathValue : 
+    * Example Scope : /root/people
+    * Example JsonTraversal : $.root.people
+    * SearchPath : ../../profession{'PropertyName':'id','Value':'{{searchValue}}'}/name
+    * SearchPathValue : professionId
+    * Example JsonSetValue : .person.professionId
 
 ### Versioning
 
