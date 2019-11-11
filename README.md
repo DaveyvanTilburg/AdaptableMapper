@@ -55,6 +55,113 @@ Mock up of structure and flow:
 
 See unit tests for examples on mappingConfiguration
 
+### How to use searches
+
+Example target Json
+```
+{ 
+   "root":{ 
+      "people":[ 
+         { 
+            "person":{ 
+               "professionId":""
+            }
+         }
+      ],
+      "profession":[ 
+         { 
+            "id":"",
+            "name":""
+         }
+      ]
+   }
+}
+```
+* Documentation
+    * SearchPath : This path should have use for the placeholder {{searchValue}}, so that traversal is possible outside of this scope with values of inside this scope
+    * SearchPathValue : {{searchValue}} will be replaced with the result of this path
+```
+<root>
+    <people>
+        <person>
+            <professionId>123</professionId>
+        </person>
+        <person>
+            <professionId>123</professionId>
+        </person>
+    </people>
+    <professions>
+        <profession id="123">
+            <name>Programmer</name>
+        </profession>
+    </professions>
+</root>
+```
+* Xml
+    * Example Scope : //people/person
+    * Example JsonTraversal : $.root.people
+    * SearchPath : ../../professions/profession[@id='{{searchValue}}']/name
+    * SearchPathValue : ./professionId
+    * Example JsonSetValue : .person.professionId
+    
+```
+{ 
+   "root":{ 
+      "people":[ 
+         { 
+            "person":{ 
+               "professionId":"123"
+            }
+         },
+         { 
+            "person":{ 
+               "professionId":"123"
+            }
+         }
+      ],
+      "profession":[ 
+         { 
+            "id":"123",
+            "name":"Name"
+         }
+      ]
+   }
+}
+```
+* Json
+    * Example Scope : $.root.people[*]
+    * Example JsonTraversal : $.root.people
+    * SearchPath : ../../../.profession[?(@.id=='{{searchValue}}')].name
+    * SearchPathValue : .person.professionId
+    * Example JsonSetValue : .person.professionId
+```
+{ 
+   "root":{ 
+      "people":[ 
+         { 
+            "person":{ 
+               "professionId":"123"
+            }
+         },
+         { 
+            "person":{ 
+               "professionId":"123"
+            }
+         }
+      ],
+      "profession":[ 
+         { 
+            "id":"123",
+            "name":"Programmer"
+         }
+      ]
+   }
+}
+```
+* Model
+    * SearchPath : 
+    * SearchPathValue : 
+
 ### Versioning
 
 I use [SemVer](http://semver.org/) for versioning. (I've got no clue on what that says for alpha releases, so when I reach 1.0.0 Ill start using SemVer, for now 0.X.0 will be used for breaking changes, 0.0.X will be used for bugfixes or non-breaking changes)
