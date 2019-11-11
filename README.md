@@ -159,6 +159,15 @@ Example target Json
     * SearchPathValue : professionId
     * Example JsonSetValue : .person.professionName
 
+How to use ModelTargetInitiatorSource
+```
+{
+  "$type": "AdaptableMapper.Model.ModelTargetInstantiatorSource, AdaptableMapper",
+  "AssemblyFullName": "Hercules.ModelObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "TypeFullName": "Hercules.ModelObjects.Armies.Root"
+}
+```
+
 ### Versioning
 
 I use [SemVer](http://semver.org/) for versioning. (I've got no clue on what that says for alpha releases, so when I reach 1.0.0 Ill start using SemVer, for now 0.X.0 will be used for breaking changes, 0.0.X will be used for bugfixes or non-breaking changes)
