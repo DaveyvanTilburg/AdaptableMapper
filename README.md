@@ -164,7 +164,7 @@ How to use ModelTargetInitiatorSource
 {
   "$type": "AdaptableMapper.Model.ModelTargetInstantiatorSource, AdaptableMapper",
   "AssemblyFullName": "Hercules.ModelObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
-  "TypeFullName": "Hercules.ModelObjects.Armies.Root"
+  "TypeFullName": "Hercules.ModelObjects.Hardwares.Root"
 }
 ```
 
