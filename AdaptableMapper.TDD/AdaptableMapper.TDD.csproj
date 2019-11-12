@@ -50,6 +50,7 @@
     <Compile Include="EdgeCases\Json.cs" />
     <Compile Include="EdgeCases\LanguageExtensions.cs" />
     <Compile Include="EdgeCases\Model.cs" />
+    <Compile Include="EdgeCases\Xml.cs" />
     <Compile Include="ErrorObserverTester.cs" />
     <Compile Include="JsonToXml.cs" />
     <Compile Include="ArmyModelSourceCreator.cs" />
@@ -87,6 +88,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\ModelTarget_ArmyExpected.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Simple.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\XmlSource_ArmyComposition.xml">

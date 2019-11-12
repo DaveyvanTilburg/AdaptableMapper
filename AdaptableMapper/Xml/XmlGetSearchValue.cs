@@ -22,15 +22,17 @@ namespace AdaptableMapper.Xml
                 return string.Empty;
             }
 
-            string searchValue = null;
-            if (!string.IsNullOrWhiteSpace(SearchValuePath))
+            if (string.IsNullOrWhiteSpace(SearchValuePath))
             {
-                searchValue = xElement.GetXPathValue(SearchValuePath);
-                if (string.IsNullOrWhiteSpace(searchValue))
-                {
-                    Process.ProcessObservable.GetInstance().Raise("XML#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
-                    return string.Empty;
-                }
+                Process.ProcessObservable.GetInstance().Raise("XML#25; SearchValuePath is empty. If this is intentional, please use XmlGetValue instead.", "error", SearchPath, SearchValuePath);
+                return string.Empty;
+            }
+
+            string searchValue = xElement.GetXPathValue(SearchValuePath);
+            if (string.IsNullOrWhiteSpace(searchValue))
+            {
+                Process.ProcessObservable.GetInstance().Raise("XML#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
+                return string.Empty;
             }
 
             string actualPath = string.IsNullOrWhiteSpace(searchValue) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue);
