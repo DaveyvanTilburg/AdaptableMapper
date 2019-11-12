@@ -65,6 +65,86 @@ namespace AdaptableMapper.TDD.EdgeCases
             result.ValidateResult(new List<string> { "XML#15", "XML#4" });
         }
 
+        [Fact]
+        public void XmlGetThisValueInvalidType()
+        {
+            var subject = new XmlGetThisValue();
+            List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
+            result.ValidateResult(new List<string> { "XML#16" });
+        }
+
+        [Fact]
+        public void XmlGetValueInvalidType()
+        {
+            var subject = new XmlGetValue(string.Empty);
+            List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
+            result.ValidateResult(new List<string> { "XML#17" });
+        }
+
+        [Fact]
+        public void XmlObjectConverterInvalidType()
+        {
+            var subject = new XmlObjectConverter();
+            List<Information> result = new Action(() => { subject.Convert(0); }).Observe();
+            result.ValidateResult(new List<string> { "XML#18" });
+        }
+
+        [Fact]
+        public void XmlObjectConverterInvalidSource()
+        {
+            var subject = new XmlObjectConverter();
+            List<Information> result = new Action(() => { subject.Convert("abcd"); }).Observe();
+            result.ValidateResult(new List<string> { "XML#19" });
+        }
+
+        [Fact]
+        public void XmlSetThisValueInvalidType()
+        {
+            var subject = new XmlSetThisValue();
+            List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
+            result.ValidateResult(new List<string> { "XML#20" });
+        }
+
+        [Fact]
+        public void XmlTargetInstantiatorInvalidType()
+        {
+            var subject = new XmlTargetInstantiator();
+            List<Information> result = new Action(() => { subject.Create(0); }).Observe();
+            result.ValidateResult(new List<string> { "XML#24" });
+        }
+
+        [Fact]
+        public void XmlTargetInstantiatorInvalidTarget()
+        {
+            var subject = new XmlTargetInstantiator();
+            List<Information> result = new Action(() => { subject.Create("abcd"); }).Observe();
+            result.ValidateResult(new List<string> { "XML#6" });
+        }
+
+        [Fact]
+        public void XmlTraversalInvalidType()
+        {
+            var subject = new XmlTraversal(string.Empty);
+            List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
+            result.ValidateResult(new List<string> { "XML#22" });
+        }
+
+        [Fact]
+        public void XmlTraversalTemplateInvalidType()
+        {
+            var subject = new XmlTraversalTemplate(string.Empty);
+            List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
+            result.ValidateResult(new List<string> { "XML#23" });
+        }
+
+        [Fact]
+        public void XmlTraversalTemplateResultHasNoParent()
+        {
+            var subject = new XmlTraversalTemplate("/");
+            List<Information> result = new Action(() => { subject.Traverse(CreateTestData()); }).Observe();
+            result.ValidateResult(new List<string> { "XML#26" });
+        }
+
         private XElement CreateTestData()
             => XElement.Parse(System.IO.File.ReadAllText("./Resources/Simple.xml"));
     }

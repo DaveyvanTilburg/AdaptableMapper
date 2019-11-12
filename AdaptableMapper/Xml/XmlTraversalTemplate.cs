@@ -21,8 +21,12 @@ namespace AdaptableMapper.Xml
             }
 
             XElement result = xElement.NavigateToPath(Path);
-            if(result.Parent != null)
-                result.Remove();
+            if(result.Parent == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise("XML#26; template traversal did not result in an element that has a parent", "error", Path);
+                return string.Empty;
+            }
+            result.Remove();
 
             return result;
         }
