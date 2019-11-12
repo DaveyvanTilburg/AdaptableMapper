@@ -106,6 +106,14 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
+        public void XmlSetValueInvalidType()
+        {
+            var subject = new XmlSetValue(string.Empty);
+            List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
+            result.ValidateResult(new List<string> { "XML#21" });
+        }
+
+        [Fact]
         public void XmlTargetInstantiatorInvalidType()
         {
             var subject = new XmlTargetInstantiator();
@@ -143,6 +151,14 @@ namespace AdaptableMapper.TDD.EdgeCases
             var subject = new XmlTraversalTemplate("/");
             List<Information> result = new Action(() => { subject.Traverse(CreateTestData()); }).Observe();
             result.ValidateResult(new List<string> { "XML#26" });
+        }
+
+        [Fact]
+        public void XElementToStringObjectConverterInvalidType()
+        {
+            var subject = new XElementToStringObjectConverter();
+            List<Information> result = new Action(() => { subject.Convert(0); }).Observe();
+            result.ValidateResult(new List<string> { "XML#9" });
         }
 
         private XElement CreateTestData()

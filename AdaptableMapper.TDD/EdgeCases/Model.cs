@@ -229,7 +229,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         public void StringToModelObjectConverterInvalidType()
         {
             var subject = new StringToModelObjectConverter(null);
-            List<Information> result = new Action(() => { subject.Convert(1); }).Observe();
+            List<Information> result = new Action(() => { subject.Convert(0); }).Observe();
             result.ValidateResult(new List<string> { "MODEL#27" });
         }
 

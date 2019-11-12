@@ -54,17 +54,7 @@ namespace AdaptableMapper.Xml
 
         public static string GetXPathValue(this XElement xElement, string xPath)
         {
-            IEnumerable<string> values;
-
-            try
-            {
-                values = GetXPathValues(xElement, xPath);
-            }
-            catch (XPathException)
-            {
-                values = new List<string>();
-            }
-
+            IEnumerable<string> values = GetXPathValues(xElement, xPath);
             string result = values.FirstOrDefault();
 
             if (string.IsNullOrWhiteSpace(result))
@@ -132,14 +122,6 @@ namespace AdaptableMapper.Xml
                         attribute.Value = value;
                 }
             }
-        }
-
-        public static XElement GetParent(this XElement xElement)
-        {
-            if (xElement.Parent == null)
-                Process.ProcessObservable.GetInstance().Raise("XML#8; attempting to access parent of node that is null", "warning", xElement);
-
-            return xElement.Parent ?? new XElement("nullObject");
         }
     }
 }
