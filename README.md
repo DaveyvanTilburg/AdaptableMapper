@@ -29,10 +29,12 @@ Current plans:
 - Add 100% code coverage for Xml Mapping
 
 Future plans in relative priority order: 
- - Add empty searchPathValue checks on Json and Model (using that object is invalid if you are not gonna search)
  - Add 100% code coverage for Json Mapping
  - Add a new GetValueConditionalIfEmpty implementation for all languages (list of paths, will attempt all paths until a result is found)
  - Think about a conditional composite that represents the if then else statements: If (path result) (comparison) (another path result) then (getpath1) else (getpath2)
+ 
+### Todo
+- Add empty searchPathValue checks on Json and Model (using that object is invalid if you are not gonna search)
 
 ### All release notes
 
