@@ -16,22 +16,26 @@ Copy my code, install my packages, use it for yourself and help it grow. :)
 ### Roadmap
 
 Completed plans:
- - Create an algorithm flexible enough to support any to any conversion
- - Soft error handling (through observer)
- - Implement Xml mapping
- - Implement Model mapping
- - Implement Json mapping
- - Add null checks for the composite tree
- - Write documentation
- - Add 100% code coverage for Model Mapping
+ * Create an algorithm flexible enough to support any to any conversion
+ * Soft error handling (through observer)
+ * Implement Xml mapping
+ * Implement Model mapping
+ * Implement Json mapping
+ * Add null checks for the composite tree
+ * Write documentation
+ * Add 100% code coverage for Model Mapping
 
 Current plans:
-- Add 100% code coverage for Xml Mapping
+* Add 100% code coverage for Xml Mapping
 
 Future plans in relative priority order: 
- - Add 100% code coverage for Json Mapping
- - Add a new GetValueConditionalIfEmpty implementation for all languages (list of paths, will attempt all paths until a result is found)
- - Think about a conditional composite that represents the if then else statements: If (path result) (comparison) (another path result) then (getpath1) else (getpath2)
+ * Add 100% code coverage for Json Mapping
+ * Add a new GetValueConditionalIfEmpty implementation for all languages (list of paths, will attempt all paths until a result is found)
+ * Think about a conditional composite that represents the if then else statements: If (path result) (comparison) (another path result) then (getpath1) else (getpath2)
+ 
+### Todo
+* Add empty searchPathValue checks on Json and Model (using that object is invalid if you are not gonna search)
+* All template implementations should check if item has a parent before removing it from parent
 
 ### All release notes
 
