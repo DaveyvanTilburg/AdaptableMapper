@@ -11,14 +11,14 @@ namespace AdaptableMapper.Xml
         public static IReadOnlyCollection<XElement> NavigateToPathSelectAll(this XElement xElement, string xPath)
         {
             IReadOnlyCollection<XElement> allMatches;
-
             try
             {
                 allMatches = xElement.XPathSelectElements(xPath).ToList();
             }
-            catch(XPathException)
+            catch(XPathException exception)
             {
-                allMatches = new List<XElement>();
+                Process.ProcessObservable.GetInstance().Raise("XML#28; Path is invalid", "error", xPath, xElement, exception.GetType().Name, exception.Message);
+                return new List<XElement>();
             }
 
             if (!allMatches.Any())
@@ -38,61 +38,56 @@ namespace AdaptableMapper.Xml
             {
                 allMatches = xElement.XPathSelectElements(xPath).ToList();
             }
-            catch (XPathException)
+            catch (XPathException exception)
             {
-                allMatches = new List<XElement>();
+                Process.ProcessObservable.GetInstance().Raise("XML#27; Path is invalid", "error", xPath, xElement, exception.GetType().Name, exception.Message);
+                return new XElement("nullObject");
             }
 
             if(!allMatches.Any())
+            {
                 Process.ProcessObservable.GetInstance().Raise("XML#2; Path could not be traversed", "warning", xPath, xElement);
+                return new XElement("nullObject");
+            }
 
-            if(allMatches.Count > 1)
+            if (allMatches.Count > 1)
+            {
                 Process.ProcessObservable.GetInstance().Raise("XML#3; Path has multiple of the same node, when only one is expected", "warning", xPath, xElement);
+                return new XElement("nullObject");
+            }
 
-            return allMatches.FirstOrDefault() ?? new XElement("nullObject");
+            return allMatches.FirstOrDefault();
         }
 
         public static string GetXPathValue(this XElement xElement, string xPath)
         {
-            IEnumerable<string> values = GetXPathValues(xElement, xPath);
-            string result = values.FirstOrDefault();
+            string result = string.Empty;
 
-            if (string.IsNullOrWhiteSpace(result))
-                return string.Empty;
-            
-            return result;
-        }
-
-        private static IEnumerable<string> GetXPathValues(this XElement xElement, string xPath)
-        {
             IEnumerable enumerable;
-
             try
             {
                 enumerable = xElement.XPathEvaluate(xPath) as IEnumerable;
             }
-            catch (XPathException)
+            catch (XPathException exception)
             {
-                enumerable = new List<XElement>();
+                Process.ProcessObservable.GetInstance().Raise("XML#29; Path is invalid", "error", xPath, xElement, exception.GetType().Name, exception.Message);
+                return string.Empty;
             }
 
-            var xObjects = enumerable.Cast<XObject>();
+            var xObject = enumerable.Cast<XObject>().FirstOrDefault();
 
-            if (!xObjects.Any())
+            if (xObject == null)
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#4; Path resulted in no items", "warning", xPath, xElement);
-                yield break;
+                return string.Empty;
             }
 
-            foreach (XObject xObject in xObjects)
-            {
-                if (xObject is XElement element)
-                    yield return element.Value;
-                else if (xObject is XAttribute attribute)
-                    yield return attribute.Value;
-                else
-                    Process.ProcessObservable.GetInstance().Raise("XML#5; Path yielded in an item that is not an xElement or xAttribute", "warning", xPath, xElement);
-            }
+            if (xObject is XElement element)
+                result = element.Value;
+            if (xObject is XAttribute attribute)
+                result = attribute.Value;
+            
+            return result;
         }
 
         public static void SetXPathValues(this XElement xElement, string xPath, string value)

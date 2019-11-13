@@ -4,5 +4,8 @@
     <SimpleItem Id="1">
       <name>Davey</name>
     </SimpleItem>
+    <SimpleItem Id="2">
+      <name>Joey</name>
+    </SimpleItem>
   </SimpleItems>
 </root>
