@@ -134,6 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ATDD\ConfigurationValidations.feature" />
+    <None Include="Resources\Simple.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

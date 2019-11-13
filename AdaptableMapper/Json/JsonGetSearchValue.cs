@@ -22,35 +22,28 @@ namespace AdaptableMapper.Json
                 return string.Empty;
             }
 
-            string searchValue = null;
-            if (!string.IsNullOrWhiteSpace(SearchValuePath))
+            if (string.IsNullOrWhiteSpace(SearchValuePath))
             {
-                JToken searchToken = jToken.Traverse(SearchValuePath);
+                Process.ProcessObservable.GetInstance().Raise("JSON#31; SearchValuePath is empty. If this is intentional, please use JsonGetValue instead.", "error", SearchPath, SearchValuePath);
+                return string.Empty;
+            }
 
-                if(searchToken == null)
-                {
-                    Process.ProcessObservable.GetInstance().Raise("JSON#6; SearchPath resulted in no items", "warning", SearchPath, SearchValuePath, source);
-                    return string.Empty;
-                }
-
-                searchValue = searchToken.Value<string>();
-                if (string.IsNullOrWhiteSpace(searchValue))
-                {
-                    Process.ProcessObservable.GetInstance().Raise("JSON#7; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
-                    return string.Empty;
-                }
+            string searchValue = jToken.TryTraversalGetValue(SearchValuePath);
+            if (string.IsNullOrWhiteSpace(searchValue))
+            {
+                Process.ProcessObservable.GetInstance().Raise("JSON#7; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
+                return string.Empty;
             }
 
             string actualPath = string.IsNullOrWhiteSpace(searchValue) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue);
 
-            JToken searchResult = jToken.Traverse(actualPath);
-            if (searchResult == null)
+            string result = jToken.TryTraversalGetValue(actualPath);
+            if (string.IsNullOrWhiteSpace(result))
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#8; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
                 return string.Empty;
             }
 
-            string result = searchResult.Value<string>();
             return result;
         }
     }

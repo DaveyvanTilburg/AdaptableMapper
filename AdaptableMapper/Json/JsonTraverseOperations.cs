@@ -24,6 +24,21 @@ namespace AdaptableMapper.Json
             return result;
         }
 
+        public static string TryTraversalGetValue(this JToken jToken, string path)
+        {
+            JToken pathResult = jToken.Traverse(path);
+
+            try
+            {
+                return pathResult.Value<string>();
+            }
+            catch(Exception exception)
+            {
+                Process.ProcessObservable.GetInstance().Raise("JSON#6; path resulted in no items", "warning", path, exception.GetType().Name, exception.Message);
+                return string.Empty;
+            }
+        }
+
         private static JToken TryTraverse(this JToken jToken, string path)
         {
             try
