@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.10.3-beta20191111-01</version>
+    <version>0.10.4-beta20191117-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -19,8 +19,8 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
         <dependency id="Newtonsoft.Json" version="12.0.2" />
       </group>
     </dependencies>
-    <releaseNotes>0.10.3
-      - JsonSetValue now returns an error if traversal did not result in object to set value to
+    <releaseNotes>0.10.4
+ - Fixed some traversal validations for json and model
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
