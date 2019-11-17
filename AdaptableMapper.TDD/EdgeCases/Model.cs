@@ -13,7 +13,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelChildCreator();
             List<Information> result = new Action(() => { subject.CreateChildOn(string.Empty, string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#10" });
+            result.ValidateResult(new List<string> { "e-MODEL#10" });
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelChildCreator();
             List<Information> result = new Action(() => { subject.CreateChildOn(new ModelObjects.Simple.Item(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#11" });
+            result.ValidateResult(new List<string> { "e-MODEL#11" });
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetScope("");
             List<Information> result = new Action(() => { subject.GetScope(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#12" });
+            result.ValidateResult(new List<string> { "e-MODEL#12" });
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace AdaptableMapper.TDD.EdgeCases
             var subject = new ModelGetScope("");
             var model = new ModelObjects.Simple.Item();
             List<Information> result = new Action(() => { subject.GetScope(model); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#9", "MODEL#2" });
+            result.ValidateResult(new List<string> { "w-MODEL#9", "w-MODEL#2" });
         }
 
         [Fact]
@@ -47,7 +47,7 @@ namespace AdaptableMapper.TDD.EdgeCases
             var subject = new ModelGetScope("/");
             var model = new ModelObjects.Simple.Item();
             List<Information> result = new Action(() => { subject.GetScope(model); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#9", "MODEL#2" });
+            result.ValidateResult(new List<string> { "w-MODEL#9", "w-MODEL#2" });
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetSearchValue(string.Empty, string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#13" });
+            result.ValidateResult(new List<string> { "e-MODEL#13" });
         }
 
         [Fact]
@@ -63,7 +63,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetSearchValue(string.Empty, "dummySearch");
             List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#9", "MODEL#14" });
+            result.ValidateResult(new List<string> { "w-MODEL#9", "w-MODEL#14" });
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetSearchValue("ab/cd", "Items{'PropertyName':'Code','Value':'1'}/Code");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestItem()); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#9", "MODEL#7", "MODEL#8", "MODEL#5", "MODEL#15" });
+            result.ValidateResult(new List<string> { "w-MODEL#9", "w-MODEL#7", "w-MODEL#8", "w-MODEL#5", "w-MODEL#15" });
         }
 
         [Fact]
@@ -79,7 +79,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetSearchValue("ab/cd", "Items{'PropertyName':'Code','Value':'3'}/Code");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestItem()); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#9", "MODEL#4", "MODEL#14" });
+            result.ValidateResult(new List<string> { "w-MODEL#9", "w-MODEL#4", "w-MODEL#14" });
         }
 
         [Fact]
@@ -87,7 +87,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetSearchValue("ab/cd", "Items{'PropertyName':'Code','Value':'1'/Code");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestItem()); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#9", "MODEL#7", "MODEL#8", "MODEL#5", "MODEL#9", "MODEL#14", "MODEL#32" });
+            result.ValidateResult(new List<string> { "w-MODEL#9", "w-MODEL#7", "w-MODEL#8", "w-MODEL#5", "w-MODEL#9", "w-MODEL#14", "e-MODEL#32" });
         }
 
         [Fact]
@@ -95,7 +95,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetValue(string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#16" });
+            result.ValidateResult(new List<string> { "e-MODEL#16" });
         }
 
         [Fact]
@@ -103,7 +103,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetValue("Items/Code");
             List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#5", "MODEL#9" });
+            result.ValidateResult(new List<string> { "w-MODEL#5", "w-MODEL#9" });
         }
 
         [Fact]
@@ -111,7 +111,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetValue("../");
             List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#3", "MODEL#9" });
+            result.ValidateResult(new List<string> { "w-MODEL#3", "w-MODEL#9" });
         }
 
         [Fact]
@@ -119,7 +119,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelObjectConverter();
             List<Information> result = new Action(() => { subject.Convert(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#17" });
+            result.ValidateResult(new List<string> { "e-MODEL#17" });
         }
 
         [Fact]
@@ -127,7 +127,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelSetValueOnPath(string.Empty);
             List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#18" });
+            result.ValidateResult(new List<string> { "e-MODEL#18" });
         }
 
         [Fact]
@@ -135,7 +135,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelSetValueOnPath("NoItems/Code");
             List<Information> result = new Action(() => { subject.SetValue(new ModelObjects.Simple.Mix(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#23", "MODEL#9" });
+            result.ValidateResult(new List<string> { "e-MODEL#23", "w-MODEL#9" });
         }
 
         [Fact]
@@ -143,7 +143,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelSetValueOnPath("NoItem/Code");
             List<Information> result = new Action(() => { subject.SetValue(new ModelObjects.Simple.Mix(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#9", "MODEL#1", "MODEL#9" });
+            result.ValidateResult(new List<string> { "w-MODEL#9", "w-MODEL#1", "w-MODEL#9" });
         }
 
         [Fact]
@@ -151,7 +151,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelSetValueOnProperty(string.Empty);
             List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#19" });
+            result.ValidateResult(new List<string> { "e-MODEL#19" });
         }
 
         [Fact]
@@ -159,7 +159,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelSetValueOnPath("Mixes/NoItem/Code");
             List<Information> result = new Action(() => { subject.SetValue(new ModelObjects.Simple.DeepMix(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#9", "MODEL#1", "MODEL#9" });
+            result.ValidateResult(new List<string> { "w-MODEL#9", "w-MODEL#1", "w-MODEL#9" });
         }
 
         [Fact]
@@ -167,7 +167,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelTargetInstantiator();
             List<Information> result = new Action(() => { subject.Create(1); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#25" });
+            result.ValidateResult(new List<string> { "e-MODEL#25" });
         }
 
         [Fact]
@@ -175,7 +175,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelTargetInstantiator();
             List<Information> result = new Action(() => { subject.Create("abcd"); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#26" });
+            result.ValidateResult(new List<string> { "e-MODEL#26" });
         }
 
         [Fact]
@@ -187,7 +187,7 @@ namespace AdaptableMapper.TDD.EdgeCases
 
             var subject = new ModelTargetInstantiator();
             List<Information> result = new Action(() => { subject.Create(testSource); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#24" });
+            result.ValidateResult(new List<string> { "e-MODEL#24" });
         }
 
         [Fact]
@@ -198,7 +198,7 @@ namespace AdaptableMapper.TDD.EdgeCases
 
             var subject = new ModelTargetInstantiator();
             List<Information> result = new Action(() => { subject.Create(testSource); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#31" });
+            result.ValidateResult(new List<string> { "e-MODEL#31" });
         }
 
         [Fact]
@@ -206,7 +206,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelToStringObjectConverter();
             List<Information> result = new Action(() => { subject.Convert(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#20" });
+            result.ValidateResult(new List<string> { "e-MODEL#20" });
         }
 
         [Fact]
@@ -214,7 +214,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#21" });
+            result.ValidateResult(new List<string> { "e-MODEL#21" });
         }
 
         [Fact]
@@ -222,7 +222,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelTraversalTemplate(string.Empty);
             List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#22" });
+            result.ValidateResult(new List<string> { "e-MODEL#22" });
         }
 
         [Fact]
@@ -230,7 +230,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new StringToModelObjectConverter(null);
             List<Information> result = new Action(() => { subject.Convert(0); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#27" });
+            result.ValidateResult(new List<string> { "e-MODEL#27" });
         }
 
         [Fact]
@@ -238,7 +238,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new StringToModelObjectConverter(new ModelTargetInstantiatorSource());
             List<Information> result = new Action(() => { subject.Convert(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#28" });
+            result.ValidateResult(new List<string> { "e-MODEL#28" });
         }
 
         [Fact]
@@ -248,7 +248,7 @@ namespace AdaptableMapper.TDD.EdgeCases
             var subject = new StringToModelObjectConverter(testModel);
 
             List<Information> result = new Action(() => { subject.Convert("abcd"); }).Observe();
-            result.ValidateResult(new List<string> { "MODEL#29" });
+            result.ValidateResult(new List<string> { "e-MODEL#29" });
         }
 
         [Fact]
@@ -260,7 +260,7 @@ namespace AdaptableMapper.TDD.EdgeCases
             string testSource = Newtonsoft.Json.JsonConvert.SerializeObject(testModel);
             List<Information> result = new Action(() => { subject.Convert(testSource); }).Observe();
 
-            result.ValidateResult(new List<string> { "MODEL#30" });
+            result.ValidateResult(new List<string> { "e-MODEL#30" });
         }
 
         private static ModelObjects.Simple.Item CreateTestItem()

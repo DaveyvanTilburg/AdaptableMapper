@@ -3,13 +3,13 @@
 Scenario: Empty argument mappingConfiguration
 	Given I create a mappingConfiguration
 	When I run Map with a null parameter
-	Then the result should contain the following errors 'TREE#1;'
+	Then the result should contain the following errors 'e-TREE#1;'
 	Then result should be null
 
 Scenario: Empty contextFactory mappingConfiguration
 	Given I create a mappingConfiguration
 	When I run Map with a string parameter 'test'
-	Then the result should contain the following errors 'TREE#2;TREE#5;TREE#6;'
+	Then the result should contain the following errors 'e-TREE#2;e-TREE#5;e-TREE#6;'
 	Then result should be null
 
 Scenario: Empty scoperoot empty factory nullconverter mappingConfiguration
@@ -18,7 +18,7 @@ Scenario: Empty scoperoot empty factory nullconverter mappingConfiguration
 	Given I add a MappingScopeRoot with an empty list
 	Given I add a 'Null' ObjectConverter for mappingConfiguration
 	When I run Map with a string parameter 'test'
-	Then the result should contain the following errors 'TREE#3;TREE#4;'
+	Then the result should contain the following errors 'e-TREE#3;e-TREE#4;'
 	Then result should be null
 
 Scenario Outline: MappingConfiguration
@@ -33,10 +33,10 @@ Scenario Outline: MappingConfiguration
 	Then result should be '<Result>'
 
 	Examples:
-	| TestName         | ContextFactoryObjectConverter | ContextFactoryTargetInitiator | ObjectConverter | InformationCodes  | Result         |
-	| Model-Xml-Xml    | ModelBase                     | Xml                           | Xml             | XML#24;MODEL#17;  | <nullObject /> |
-	| Json-Model-Model | Json                          | Model                         | Model           | JSON#13;MODEL#25; | {}             |
-	| Xml-Json-Json    | Xml                           | Json                          | Json            | XML#19;JSON#26;   | {}             |
+	| TestName         | ContextFactoryObjectConverter | ContextFactoryTargetInitiator | ObjectConverter | InformationCodes      | Result         |
+	| Model-Xml-Xml    | ModelBase                     | Xml                           | Xml             | e-XML#24;e-MODEL#17;  | <nullObject /> |
+	| Json-Model-Model | Json                          | Model                         | Model           | e-JSON#13;e-MODEL#25; | {}             |
+	| Xml-Json-Json    | Xml                           | Json                          | Json            | e-XML#19;e-JSON#26;   | {}             |
 
 Scenario Outline: Mapping
 	Given I create a mappingConfiguration
@@ -56,14 +56,14 @@ Scenario Outline: Mapping
 	Then result should be '<Result>'
 
 	Examples:
-	| TestName                            | Type  | Source                                  | GetScopeTraversal | GetScopeTraversalPath | Traversal | TraversalToGetTemplate | ChildCreator | GetValueTraversal | SetValueTraversal | InformationCodes                                                          | Result         |
-	| All null                            | Xml   | <root><testItem>value</testItem></root> | null              |                       | null      | null                   | null         | null              | null              | TREE#7;TREE#8;TREE#9;TREE#10;XML#24;                                      | <nullObject /> |
-	| xml-xml-null-null-null-null         | Xml   | <root><testItem>value</testItem></root> | xml               |                       | xml       | null                   | null         | null              | null              | TREE#9;TREE#10;XML#24;                                                    | <nullObject /> |
-	| xml-xml-xml-xml-null-null           | Xml   | <root><testItem>value</testItem></root> | xml               | ./testItem            | xml       | xml                    | xml          | null              | null              | XML#24;XML#27;XML#27;XML#26;XML#11;TREE#11;TREE#12;                       | <nullObject /> |
-	| xml-xml-xml-xml-xml-xml             | Xml   | <root><testItem>value</testItem></root> | xml               | ./testItem            | xml       | xml                    | xml          | xml               | xml               | XML#24;XML#27;XML#27;XML#26;XML#11;XML#29;XML#7;                          | <nullObject /> |
-	| json-json-null-null-null-null       | Json  | { "testItem": [ {"item": "value"} ]}    | json              |                       | json      | null                   | null         | null              | null              | TREE#9;TREE#10;JSON#26;                                                   | {}             |
-	| json-json-json-json-null-null       | Json  | { "testItem": [ {"item": "value"} ]}    | json              | .testItem             | json      | json                   | json         | null              | null              | JSON#26;JSON#22;JSON#23;JSON#1;TREE#11;TREE#12;                           | {}             |
-	| json-json-json-json-json-json       | Json  | { "testItem": [ {"item": "value"} ]}    | json              | .testItem             | json      | json                   | json         | json              | json              | JSON#26;JSON#22;JSON#23;JSON#1;JSON#6;JSON#11;JSON#19;                    | {}             |
-	| model-model-null-null-null-null     | Model | { "Items": [{ "Items": []}]}            | model             |                       | model     | null                   | null         | null              | null              | TREE#9;TREE#10;MODEL#25;                                                  | {}             |
-	| model-model-model-model-null-null   | Model | { "Items": [{ "Items": []}]}            | model             | /Items                | model     | model                  | model        | null              | null              | MODEL#25;MODEL#9;MODEL#7;MODEL#8;MODEL#5;MODEL#9;MODEL#2;TREE#11;TREE#12; | {}             |
-	| model-model-model-model-model-model | Model | { "Items": [{ "Items": []}]}            | model             | /Items                | model     | model                  | model        | model             | model             | MODEL#25;MODEL#9;MODEL#7;MODEL#8;MODEL#5;MODEL#9;MODEL#2;MODEL#9;MODEL#9; | {}             |
+	| TestName                            | Type  | Source                                  | GetScopeTraversal | GetScopeTraversalPath | Traversal | TraversalToGetTemplate | ChildCreator | GetValueTraversal | SetValueTraversal | InformationCodes                                                                            | Result         |
+	| All null                            | Xml   | <root><testItem>value</testItem></root> | null              |                       | null      | null                   | null         | null              | null              | e-TREE#7;e-TREE#8;e-TREE#9;e-TREE#10;e-XML#24;                                              | <nullObject /> |
+	| xml-xml-null-null-null-null         | Xml   | <root><testItem>value</testItem></root> | xml               |                       | xml       | null                   | null         | null              | null              | e-TREE#9;e-TREE#10;e-XML#24;                                                                | <nullObject /> |
+	| xml-xml-xml-xml-null-null           | Xml   | <root><testItem>value</testItem></root> | xml               | ./testItem            | xml       | xml                    | xml          | null              | null              | e-XML#24;e-XML#27;e-XML#27;e-XML#26;e-XML#11;e-TREE#11;e-TREE#12;                           | <nullObject /> |
+	| xml-xml-xml-xml-xml-xml             | Xml   | <root><testItem>value</testItem></root> | xml               | ./testItem            | xml       | xml                    | xml          | xml               | xml               | e-XML#24;e-XML#27;e-XML#27;e-XML#26;e-XML#11;e-XML#29;w-XML#7;                              | <nullObject /> |
+	| json-json-null-null-null-null       | Json  | { "testItem": [ {"item": "value"} ]}    | json              |                       | json      | null                   | null         | null              | null              | e-TREE#9;e-TREE#10;e-JSON#26;                                                               | {}             |
+	| json-json-json-json-null-null       | Json  | { "testItem": [ {"item": "value"} ]}    | json              | .testItem             | json      | json                   | json         | null              | null              | e-JSON#26;e-JSON#23;e-JSON#1;e-TREE#11;e-TREE#12;w-JSON#22;                                 | {}             |
+	| json-json-json-json-json-json       | Json  | { "testItem": [ {"item": "value"} ]}    | json              | .testItem             | json      | json                   | json         | json              | json              | e-JSON#26;e-JSON#23;e-JSON#1;e-JSON#6;e-JSON#19;w-JSON#11;w-JSON#22;                        | {}             |
+	| model-model-null-null-null-null     | Model | { "Items": [{ "Items": []}]}            | model             |                       | model     | null                   | null         | null              | null              | e-TREE#9;e-TREE#10;e-MODEL#25;                                                              | {}             |
+	| model-model-model-model-null-null   | Model | { "Items": [{ "Items": []}]}            | model             | /Items                | model     | model                  | model        | null              | null              | e-MODEL#25;e-TREE#11;e-TREE#12;w-MODEL#2;w-MODEL#5;w-MODEL#7;w-MODEL#8;w-MODEL#9;w-MODEL#9; | {}             |
+	| model-model-model-model-model-model | Model | { "Items": [{ "Items": []}]}            | model             | /Items                | model     | model                  | model        | model             | model             | e-MODEL#25;w-MODEL#2;w-MODEL#5;w-MODEL#7;w-MODEL#8;w-MODEL#9;w-MODEL#9;w-MODEL#9;w-MODEL#9; | {}             |

@@ -14,12 +14,12 @@ namespace AdaptableMapper.TDD
 
             foreach (IGrouping<string, string> expectedCodeGrouping in expectedCodes.GroupBy(c => c))
             {
-                string code = expectedCodeGrouping.First();
+                string[] expectedInformation = expectedCodeGrouping.First().Split('-');
+                string type = expectedInformation[0];
+                string code = expectedInformation[1];
 
-                information.Count(i => i.Message.Contains(code)).Should().Be(expectedCodeGrouping.Count(), $"MissingCode: {code}, {GetBecause(information, expectedCodes)}");
-                information.Any(i => i.Message.Contains(code)).Should().BeTrue(code, GetBecause(information, expectedCodes));
+                information.Count(i => i.Type.StartsWith(type) && i.Message.StartsWith(code)).Should().Be(expectedCodeGrouping.Count(), $"MissingCode: {code}, {GetBecause(information, expectedCodes)}");
             }
-                
         }
 
         public static List<Information> Observe(this Action action)
