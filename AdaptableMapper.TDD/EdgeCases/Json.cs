@@ -198,7 +198,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTraversal("../");
             List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#16", "w-JSON#22" });
+            result.ValidateResult(new List<string> { "w-JSON#22" });
         }
 
         [Fact]

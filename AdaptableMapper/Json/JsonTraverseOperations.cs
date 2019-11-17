@@ -64,10 +64,7 @@ namespace AdaptableMapper.Json
 
             JToken parent = jToken.Parent;
             if(parent == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("JSON#16; No parent found for jToken", "warning", jToken);
                 return new JObject();
-            }
 
             if (path.Count > 0)
                 return parent.TraverseToParent(path);
