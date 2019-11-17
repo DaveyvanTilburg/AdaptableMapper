@@ -26,7 +26,7 @@ namespace AdaptableMapper.Json
 
             if (!jTokens.Any())
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#30; Path resulted in no targets to set value to", "error", Path);
+                Process.ProcessObservable.GetInstance().Raise("JSON#30; Path resulted in no targets to set value to", "warning", Path);
                 return;
             }
 

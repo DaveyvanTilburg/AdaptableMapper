@@ -102,7 +102,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonSetValue("abcd");
             List<Information> result = new Action(() => { subject.SetValue(new JObject(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#30" });
+            result.ValidateResult(new List<string> { "w-JSON#30" });
         }
 
         [Fact]
@@ -110,7 +110,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonSetValue("[]");
             List<Information> result = new Action(() => { subject.SetValue(new JObject(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#29", "e-JSON#30" });
+            result.ValidateResult(new List<string> { "e-JSON#29", "w-JSON#30" });
         }
 
         [Fact]
