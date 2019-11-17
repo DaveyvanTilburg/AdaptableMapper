@@ -1,5 +1,6 @@
 0.10.4
   - Fixed some traversal validations for json and model
+  - Fixed some inconsistencies in error messaging, some not containing the separator ';'
 0.10.3
   - JsonSetValue now returns an error if traversal did not result in object to set value to
 0.10.2

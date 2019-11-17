@@ -1,7 +1,9 @@
-﻿using AdaptableMapper.Process;
+﻿using System;
+using AdaptableMapper.Process;
 using FluentAssertions;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
@@ -11,11 +13,11 @@ namespace AdaptableMapper.TDD.ATDD
     public class ConfigurationValidationsSteps
     {
         private MappingConfigurationBuilder _builder;
-        private List<Information> _information;
+        private IReadOnlyCollection<Information> _information;
         private object _result;
 
-        [Given(@"I create a mappingconfiguration")]
-        public void GivenICreateAMappingconfiguration()
+        [Given(@"I create a mappingConfiguration")]
+        public void GivenICreateAMappingConfiguration()
         {
             _builder = new MappingConfigurationBuilder();
             _builder.StartNew();
@@ -82,25 +84,16 @@ namespace AdaptableMapper.TDD.ATDD
 
         private void Map(object input, object targetSource)
         {
-            TestErrorObserver testErrorObserver = new TestErrorObserver();
-            ProcessObservable.GetInstance().Register(testErrorObserver);
-
             MappingConfiguration mappingConfiguration = _builder.GetResult();
-            _result = mappingConfiguration.Map(input, targetSource);
-
-            ProcessObservable.GetInstance().Unregister(testErrorObserver);
-            _information = testErrorObserver.GetInformation();
+            _information = new Action(() => { _result = mappingConfiguration.Map(input, targetSource); }).Observe();
         }
 
-        [Then(@"the result should contain the following errors")]
-        public void ThenTheResultShouldContainTheFollowingErrors(Table table)
+        [Then(@"the result should contain the following errors '(.*)'")]
+        public void ThenTheResultShouldContainTheFollowingErrors(string codes)
         {
-            InformationCodesModel expectedInformation = table.CreateInstance<InformationCodesModel>();
+            IReadOnlyCollection<string> expectedInformationCodes = Regex.Split(codes, @"(?<=[;])").Where(c => !string.IsNullOrEmpty(c)).ToList();
 
-            _information.Count.Should().Be(expectedInformation.InformationCodes.Count);
-
-            foreach(string code in expectedInformation.InformationCodes)
-                _information.Any(i => i.Message.Contains(code)).Should().BeTrue(code);
+            _information.ValidateResult(expectedInformationCodes);
         }
 
         [Then(@"result should be null")]

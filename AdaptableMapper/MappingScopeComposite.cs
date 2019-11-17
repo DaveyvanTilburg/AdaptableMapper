@@ -55,13 +55,13 @@ namespace AdaptableMapper
 
             if (GetScopeTraversal == null)
             {
-                Process.ProcessObservable.GetInstance().Raise("TREE#7 GetScopeTraversal cannot be null", "error");
+                Process.ProcessObservable.GetInstance().Raise("TREE#7; GetScopeTraversal cannot be null", "error");
                 result = false;
             }
 
             if (Traversal == null)
             {
-                Process.ProcessObservable.GetInstance().Raise("TREE#8 Traversal cannot be null", "error");
+                Process.ProcessObservable.GetInstance().Raise("TREE#8; Traversal cannot be null", "error");
                 result = false;
             }
 

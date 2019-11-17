@@ -32,13 +32,13 @@ namespace AdaptableMapper
 
             if (GetValueTraversal == null)
             {
-                Process.ProcessObservable.GetInstance().Raise("TREE#11 GetValueTraversal cannot be null", "error");
+                Process.ProcessObservable.GetInstance().Raise("TREE#11; GetValueTraversal cannot be null", "error");
                 result = false;
             }
 
             if (SetValueTraversal == null)
             {
-                Process.ProcessObservable.GetInstance().Raise("TREE#12 SetValueTraversal cannot be null", "error");
+                Process.ProcessObservable.GetInstance().Raise("TREE#12; SetValueTraversal cannot be null", "error");
                 result = false;
             }
 

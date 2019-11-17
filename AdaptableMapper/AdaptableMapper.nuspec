@@ -21,6 +21,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
     </dependencies>
     <releaseNotes>0.10.4
  - Fixed some traversal validations for json and model
+ - Fixed some inconsistencies in error messaging, some not containing the separator ';'
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
