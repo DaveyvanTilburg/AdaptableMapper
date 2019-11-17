@@ -22,7 +22,7 @@ namespace AdaptableMapper.TDD
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyExpected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
-            errorObserver.GetRaisedWarnings().Count.Should().Be(2);
+            errorObserver.GetRaisedWarnings().Count.Should().Be(1);
             errorObserver.GetRaisedErrors().Count.Should().Be(0);
             errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
 

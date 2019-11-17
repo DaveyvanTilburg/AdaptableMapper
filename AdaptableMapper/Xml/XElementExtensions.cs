@@ -77,10 +77,7 @@ namespace AdaptableMapper.Xml
             var xObject = enumerable.Cast<XObject>().FirstOrDefault();
 
             if (xObject == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("XML#4; Path resulted in no items", "warning", xPath, xElement);
                 return string.Empty;
-            }
 
             if (xObject is XElement element)
                 result = element.Value;

@@ -35,13 +35,17 @@ namespace AdaptableMapper.TDD
 
         private static string GetBecause(IReadOnlyCollection<Information> information, IReadOnlyCollection<string> expectedCodes)
         {
-            IEnumerable<string> raisedCodes = information.Select(i => i.Message.Substring(0, i.Message.IndexOf(";")+1));
-            IEnumerable<string> missingCodes = expectedCodes.Except(raisedCodes);
+            var expectedFormatted = expectedCodes.Select(c => c.Substring(c.IndexOf('-') + 1, c.IndexOf(';') + 1 - (c.IndexOf('-') + 1)));
 
-            string raised = string.Join("", raisedCodes);
-            string missing = string.Join("", missingCodes);
+            IEnumerable<string> raisedCodes = information.Select(i => i.Message.Substring(0, i.Message.IndexOf(';')+1));
+            IEnumerable<string> missingCodes = expectedFormatted.Except(raisedCodes);
+            IEnumerable<string> extraCodes = raisedCodes.Except(expectedFormatted);
 
-            return $"Raised:'{raised}', Missing:'{missing}'";
+            string raised = string.Concat(raisedCodes);
+            string missing = string.Concat(missingCodes);
+            string extra = string.Concat(extraCodes);
+
+            return $"Raised:'{raised}', Missing:'{missing}', Extra: '{extra}'";
         }
     }
 }

@@ -14,7 +14,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTraversalFirstInListTemplate();
             List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#27" });
+            result.ValidateResult(new List<string> { "e-JSON#27;" });
         }
 
         [Fact]
@@ -22,7 +22,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTraversalFirstInListTemplate();
             List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#28" });
+            result.ValidateResult(new List<string> { "w-JSON#28;" });
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonChildCreator();
             List<Information> result = new Action(() => { subject.CreateChildOn(string.Empty, string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#1" });
+            result.ValidateResult(new List<string> { "e-JSON#1;" });
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonChildCreator();
             List<Information> result = new Action(() => { subject.CreateChildOn(new JArray(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#2" });
+            result.ValidateResult(new List<string> { "e-JSON#2;" });
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetScope(string.Empty);
             List<Information> result = new Action(() => { subject.GetScope(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#3" });
+            result.ValidateResult(new List<string> { "e-JSON#3;" });
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetScope("abcd");
             List<Information> result = new Action(() => { subject.GetScope(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#4" });
+            result.ValidateResult(new List<string> { "w-JSON#4;" });
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetSearchValue(string.Empty, string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#5" });
+            result.ValidateResult(new List<string> { "e-JSON#5;" });
         }
 
         [Fact]
@@ -70,7 +70,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetSearchValue(string.Empty, string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#31" });
+            result.ValidateResult(new List<string> { "e-JSON#31;" });
         }
 
         [Fact]
@@ -78,7 +78,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetSearchValue(string.Empty, "abcd");
             List<Information> result = new Action(() => { subject.GetValue(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#6", "w-JSON#7" });
+            result.ValidateResult(new List<string> { "e-JSON#6;", "w-JSON#7;" });
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetSearchValue(string.Empty, "$.SimpleItems[0].SimpleItem.Id");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#6", "w-JSON#8" });
+            result.ValidateResult(new List<string> { "e-JSON#6;", "w-JSON#8;" });
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonSetValue(string.Empty);
             List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#18" });
+            result.ValidateResult(new List<string> { "e-JSON#18;" });
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonSetValue("abcd");
             List<Information> result = new Action(() => { subject.SetValue(new JObject(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#30" });
+            result.ValidateResult(new List<string> { "w-JSON#30;" });
         }
 
         [Fact]
@@ -110,7 +110,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonSetValue("[]");
             List<Information> result = new Action(() => { subject.SetValue(new JObject(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#29", "w-JSON#30" });
+            result.ValidateResult(new List<string> { "e-JSON#29;", "w-JSON#30;" });
         }
 
         [Fact]
@@ -118,7 +118,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetValue(string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#10" });
+            result.ValidateResult(new List<string> { "e-JSON#10;" });
         }
 
         [Fact]
@@ -126,7 +126,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetValue(string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#6", "w-JSON#11" });
+            result.ValidateResult(new List<string> { "e-JSON#6;", "w-JSON#11;" });
         }
 
         [Fact]
@@ -134,7 +134,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonObjectConverter();
             List<Information> result = new Action(() => { subject.Convert(0); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#12" });
+            result.ValidateResult(new List<string> { "e-JSON#12;" });
         }
 
         [Fact]
@@ -142,7 +142,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonObjectConverter();
             List<Information> result = new Action(() => { subject.Convert("abcd"); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#13" });
+            result.ValidateResult(new List<string> { "e-JSON#13;" });
         }
 
         [Fact]
@@ -150,7 +150,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTargetInstantiator();
             List<Information> result = new Action(() => { subject.Create(0); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#26" });
+            result.ValidateResult(new List<string> { "e-JSON#26;" });
         }
 
         [Fact]
@@ -158,7 +158,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTargetInstantiator();
             List<Information> result = new Action(() => { subject.Create("abcd"); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#20" });
+            result.ValidateResult(new List<string> { "e-JSON#20;" });
         }
 
         [Fact]
@@ -166,7 +166,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#21" });
+            result.ValidateResult(new List<string> { "e-JSON#21;" });
         }
 
         [Fact]
@@ -174,7 +174,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTraversal("abcd");
             List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#22" });
+            result.ValidateResult(new List<string> { "w-JSON#22;" });
         }
 
         [Fact]
@@ -182,7 +182,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTraversal("[]");
             List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#28", "w-JSON#22" });
+            result.ValidateResult(new List<string> { "e-JSON#28;", "w-JSON#22;" });
         }
 
         [Fact]
@@ -190,7 +190,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTraversal("ab/cd");
             List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#15", "w-JSON#22" });
+            result.ValidateResult(new List<string> { "e-JSON#15;", "w-JSON#22;" });
         }
 
         [Fact]
@@ -198,7 +198,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTraversal("../");
             List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#22" });
+            result.ValidateResult(new List<string> { "w-JSON#22;" });
         }
 
         [Fact]
@@ -206,7 +206,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTraversalTemplate(string.Empty);
             List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#23" });
+            result.ValidateResult(new List<string> { "e-JSON#23;" });
         }
 
         [Fact]
@@ -214,7 +214,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTraversalTemplate("abcd");
             List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#24" });
+            result.ValidateResult(new List<string> { "w-JSON#24;" });
         }
 
         [Fact]
@@ -222,7 +222,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JTokenToStringObjectConverter();
             List<Information> result = new Action(() => { subject.Convert(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#25" });
+            result.ValidateResult(new List<string> { "e-JSON#25;" });
         }
 
         private JToken CreateTestData()
