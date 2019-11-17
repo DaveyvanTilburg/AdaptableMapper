@@ -16,10 +16,7 @@ namespace AdaptableMapper.Json
             JToken result = traversedParent.TryTraverse(pathContainer.LastInPath);
 
             if (result == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("JSON#14; Path resulted in no items", "warning", path);
                 return new JObject();
-            }
 
             return result;
         }

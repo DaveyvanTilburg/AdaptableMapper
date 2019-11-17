@@ -22,7 +22,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTraversalFirstInListTemplate();
             List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "JSON#14", "JSON#28" });
+            result.ValidateResult(new List<string> { "JSON#28" });
         }
 
         [Fact]
@@ -78,7 +78,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetSearchValue(string.Empty, "abcd");
             List<Information> result = new Action(() => { subject.GetValue(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "JSON#14", "JSON#6", "JSON#7" });
+            result.ValidateResult(new List<string> { "JSON#6", "JSON#7" });
         }
 
         [Fact]
@@ -174,7 +174,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTraversal("abcd");
             List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "JSON#22", "JSON#14" });
+            result.ValidateResult(new List<string> { "JSON#22" });
         }
 
         [Fact]
@@ -190,7 +190,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTraversal("ab/cd");
             List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "JSON#15", "JSON#14", "JSON#22" });
+            result.ValidateResult(new List<string> { "JSON#15", "JSON#22" });
         }
 
         [Fact]
@@ -214,7 +214,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonTraversalTemplate("abcd");
             List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "JSON#24", "JSON#14" });
+            result.ValidateResult(new List<string> { "JSON#24" });
         }
 
         [Fact]
