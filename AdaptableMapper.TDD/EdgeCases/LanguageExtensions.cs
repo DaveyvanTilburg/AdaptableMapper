@@ -10,7 +10,7 @@ namespace AdaptableMapper.TDD.EdgeCases
     {
         public static void ValidateResult(this IReadOnlyCollection<Information> information, IReadOnlyCollection<string> expectedCodes)
         {
-            information.Count.Should().Be(expectedCodes.Count);
+            information.Count.Should().Be(expectedCodes.Count, GetBecause(information));
 
             foreach (IGrouping<string, string> expectedCodeGrouping in expectedCodes.GroupBy(c => c))
             {
@@ -31,6 +31,11 @@ namespace AdaptableMapper.TDD.EdgeCases
 
             observer.Unregister();
             return observer.GetInformation();
+        }
+
+        private static string GetBecause(IReadOnlyCollection<Information> information)
+        {
+            return string.Join(",", information.Select(i => i.Message.Substring(0, i.Message.IndexOf(";"))));
         }
     }
 }

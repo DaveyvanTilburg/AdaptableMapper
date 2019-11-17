@@ -34,7 +34,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void JsonChildCreatorInvalidTypeTemplate()
+        public void JsonChildCreatorInvalidType()
         {
             var subject = new JsonChildCreator();
             List<Information> result = new Action(() => { subject.CreateChildOn(new JArray(), string.Empty); }).Observe();
@@ -167,6 +167,38 @@ namespace AdaptableMapper.TDD.EdgeCases
             var subject = new JsonTraversal("abcd");
             List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
             result.ValidateResult(new List<string> { "JSON#22", "JSON#14" });
+        }
+
+        [Fact]
+        public void JsonTraversalInvalidCharacters()
+        {
+            var subject = new JsonTraversal("[]");
+            List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
+            result.ValidateResult(new List<string> { "JSON#28", "JSON#22" });
+        }
+
+        [Fact]
+        public void JsonTraversalTemplateInvalidType()
+        {
+            var subject = new JsonTraversalTemplate(string.Empty);
+            List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
+            result.ValidateResult(new List<string> { "JSON#23" });
+        }
+
+        [Fact]
+        public void JsonTraversalTemplateInvalidPath()
+        {
+            var subject = new JsonTraversalTemplate("abcd");
+            List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
+            result.ValidateResult(new List<string> { "JSON#24", "JSON#14" });
+        }
+
+        [Fact]
+        public void JTokenToStringObjectConverterInvalidType()
+        {
+            var subject = new JTokenToStringObjectConverter();
+            List<Information> result = new Action(() => { subject.Convert(string.Empty); }).Observe();
+            result.ValidateResult(new List<string> { "JSON#25" });
         }
 
         private JToken CreateTestData()

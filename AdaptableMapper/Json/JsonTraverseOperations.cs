@@ -24,6 +24,19 @@ namespace AdaptableMapper.Json
             return result;
         }
 
+        private static JToken TryTraverse(this JToken jToken, string path)
+        {
+            try
+            {
+                return jToken.SelectToken(path);
+            }
+            catch (Exception exception)
+            {
+                Process.ProcessObservable.GetInstance().Raise("JSON#28; Path resulted in no items", "warning", path, exception.GetType().Name, exception.Message);
+                return new JObject();
+            }
+        }
+
         public static string TryTraversalGetValue(this JToken jToken, string path)
         {
             JToken pathResult = jToken.Traverse(path);
@@ -34,21 +47,8 @@ namespace AdaptableMapper.Json
             }
             catch(Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#6; path resulted in no items", "warning", path, exception.GetType().Name, exception.Message);
+                Process.ProcessObservable.GetInstance().Raise("JSON#6; Path resulted in no items", "warning", path, exception.GetType().Name, exception.Message);
                 return string.Empty;
-            }
-        }
-
-        private static JToken TryTraverse(this JToken jToken, string path)
-        {
-            try
-            {
-                return jToken.SelectToken(path);
-            }
-            catch(Exception exception)
-            {
-                Process.ProcessObservable.GetInstance().Raise("JSON#28; Path resulted in no items", "warning", path, exception.GetType().Name, exception.Message);
-                return new JObject();
             }
         }
 
