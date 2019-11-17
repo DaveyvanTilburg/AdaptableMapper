@@ -121,6 +121,54 @@ namespace AdaptableMapper.TDD.EdgeCases
             result.ValidateResult(new List<string> { "JSON#6", "JSON#11" });
         }
 
+        [Fact]
+        public void JsonObjectConverterInvalidType()
+        {
+            var subject = new JsonObjectConverter();
+            List<Information> result = new Action(() => { subject.Convert(0); }).Observe();
+            result.ValidateResult(new List<string> { "JSON#12" });
+        }
+
+        [Fact]
+        public void JsonObjectConverterInvalidSource()
+        {
+            var subject = new JsonObjectConverter();
+            List<Information> result = new Action(() => { subject.Convert("abcd"); }).Observe();
+            result.ValidateResult(new List<string> { "JSON#13" });
+        }
+
+        [Fact]
+        public void JsonTargetInstantiatorInvalidType()
+        {
+            var subject = new JsonTargetInstantiator();
+            List<Information> result = new Action(() => { subject.Create(0); }).Observe();
+            result.ValidateResult(new List<string> { "JSON#26" });
+        }
+
+        [Fact]
+        public void JsonTargetInstantiatorInvalidSource()
+        {
+            var subject = new JsonTargetInstantiator();
+            List<Information> result = new Action(() => { subject.Create("abcd"); }).Observe();
+            result.ValidateResult(new List<string> { "JSON#20" });
+        }
+
+        [Fact]
+        public void JsonTraversalInvalidType()
+        {
+            var subject = new JsonTraversal(string.Empty);
+            List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
+            result.ValidateResult(new List<string> { "JSON#21" });
+        }
+
+        [Fact]
+        public void JsonTraversalInvalidPath()
+        {
+            var subject = new JsonTraversal("abcd");
+            List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
+            result.ValidateResult(new List<string> { "JSON#22", "JSON#14" });
+        }
+
         private JToken CreateTestData()
             => JObject.Parse(System.IO.File.ReadAllText("./Resources/Simple.json"));
     }

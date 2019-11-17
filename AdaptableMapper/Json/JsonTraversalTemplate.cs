@@ -21,7 +21,7 @@ namespace AdaptableMapper.Json
             }
 
             JToken result = jToken.Traverse(Path);
-            if (result == null || string.IsNullOrWhiteSpace(result.Path))
+            if (string.IsNullOrWhiteSpace(result.Path))
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#24; Path resulted in no items", "warning", Path, target);
                 return new JObject();
