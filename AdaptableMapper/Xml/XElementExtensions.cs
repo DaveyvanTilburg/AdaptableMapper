@@ -21,12 +21,6 @@ namespace AdaptableMapper.Xml
                 return new List<XElement>();
             }
 
-            if (!allMatches.Any())
-            {
-                Process.ProcessObservable.GetInstance().Raise("XML#1; Path could not be traversed", "warning", xPath, xElement);
-                return new List<XElement>();
-            }
-
             return allMatches;
         }
 

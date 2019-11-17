@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace AdaptableMapper.TDD
@@ -20,8 +19,6 @@ namespace AdaptableMapper.TDD
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
 
             errorObserver.GetRaisedWarnings().Count.Should().Be(1);
-            errorObserver.GetRaisedWarnings().Last().Message.Should().Be("XML#1; Path could not be traversed; objects:[\"./army/platoon\",{\"nullObject\":null}]");
-
             errorObserver.GetRaisedErrors().Count.Should().Be(1);
             errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
         }

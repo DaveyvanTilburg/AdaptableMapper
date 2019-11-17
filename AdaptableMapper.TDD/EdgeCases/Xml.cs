@@ -38,7 +38,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new XmlGetScope("::");
             List<Information> result = new Action(() => { subject.GetScope(new XElement("nullObject")); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#28;" });
+            result.ValidateResult(new List<string> { "e-XML#28;", "w-XML#5;" });
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new XmlGetScope("abcd");
             List<Information> result = new Action(() => { subject.GetScope(new XElement("nullObject")); }).Observe();
-            result.ValidateResult(new List<string> { "w-XML#1;" });
+            result.ValidateResult(new List<string> { "w-XML#5;" });
         }
 
         [Fact]

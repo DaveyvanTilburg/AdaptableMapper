@@ -1,5 +1,6 @@
 ﻿using AdaptableMapper.Traversals;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
@@ -22,6 +23,9 @@ namespace AdaptableMapper.Xml
             }
 
             IEnumerable<XElement> xScope = xElement.NavigateToPathSelectAll(Path);
+            if (!xScope.Any())
+                Process.ProcessObservable.GetInstance().Raise("XML#5; Path resulted in no items", "warning", Path, source?.GetType().Name);
+
             return xScope;
         }
     }
