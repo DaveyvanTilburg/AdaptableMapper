@@ -52,6 +52,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlGetSearchValueInvalidType()
         {
+            //Todo, review errors/warnings thrown marker
             var subject = new XmlGetSearchValue(string.Empty, string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#13;" });
