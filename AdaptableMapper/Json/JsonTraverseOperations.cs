@@ -29,7 +29,7 @@ namespace AdaptableMapper.Json
             }
             catch (Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#28; Path resulted in no items", "warning", path, exception.GetType().Name, exception.Message);
+                Process.ProcessObservable.GetInstance().Raise("JSON#28; Path resulted in no items", "error", path, exception.GetType().Name, exception.Message);
                 return new JObject();
             }
         }
@@ -44,7 +44,7 @@ namespace AdaptableMapper.Json
             }
             catch(Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#6; Path resulted in no items", "warning", path, exception.GetType().Name, exception.Message);
+                Process.ProcessObservable.GetInstance().Raise("JSON#6; Path resulted in no items", "error", path, exception.GetType().Name, exception.Message);
                 return string.Empty;
             }
         }
@@ -94,7 +94,7 @@ namespace AdaptableMapper.Json
             }
             catch (Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#29; Path resulted in no items", "warning", path, exception.GetType().Name, exception.Message);
+                Process.ProcessObservable.GetInstance().Raise("JSON#29; Path resulted in no items", "error", path, exception.GetType().Name, exception.Message);
                 return new JObject();
             }
         }
