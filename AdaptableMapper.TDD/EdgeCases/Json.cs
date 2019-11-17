@@ -106,6 +106,14 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
+        public void JsonSetValueInvalidPath()
+        {
+            var subject = new JsonSetValue("[]");
+            List<Information> result = new Action(() => { subject.SetValue(new JObject(), string.Empty); }).Observe();
+            result.ValidateResult(new List<string> { "JSON#29", "JSON#30" });
+        }
+
+        [Fact]
         public void JsonGetValueInvalidType()
         {
             var subject = new JsonGetValue(string.Empty);
@@ -175,6 +183,22 @@ namespace AdaptableMapper.TDD.EdgeCases
             var subject = new JsonTraversal("[]");
             List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
             result.ValidateResult(new List<string> { "JSON#28", "JSON#22" });
+        }
+
+        [Fact]
+        public void JsonTraversalInvalidParentPath()
+        {
+            var subject = new JsonTraversal("ab/cd");
+            List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
+            result.ValidateResult(new List<string> { "JSON#15", "JSON#14", "JSON#22" });
+        }
+
+        [Fact]
+        public void JsonTraversalNoParent()
+        {
+            var subject = new JsonTraversal("../");
+            List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
+            result.ValidateResult(new List<string> { "JSON#16", "JSON#22" });
         }
 
         [Fact]
