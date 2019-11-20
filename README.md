@@ -32,7 +32,7 @@ Current plans:
 
 Future plans in relative priority order: 
  * Add a new GetValueConditionalIfEmpty implementation for all languages (list of paths, will attempt all paths until a result is found)
- * Create a working example project
+ * Refactor test suite
  * Think about a conditional composite that represents the if then else statements: If (path result) (comparison) (another path result) then (getpath1) else (getpath2)
  
 ### Todo
