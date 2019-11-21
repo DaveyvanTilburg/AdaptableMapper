@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.10.4-beta20191117-01</version>
+    <version>0.11.0-beta20191121-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -19,9 +19,9 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
         <dependency id="Newtonsoft.Json" version="12.0.2" />
       </group>
     </dependencies>
-    <releaseNotes>0.10.4
- - Fixed some traversal validations for json and model
- - Fixed some inconsistencies in error messaging, some not containing the separator ';'
+    <releaseNotes>0.11.0
+ - Renamed TraversalToGetTemplate to GetTemplate
+ - Removed Traversal from the composition, moved part of its responsibility to GetTemplate
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
