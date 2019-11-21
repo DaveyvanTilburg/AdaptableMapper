@@ -10,23 +10,20 @@ namespace AdaptableMapper
         public List<Mapping> Mappings { get; set; }
         public GetScopeTraversal GetScopeTraversal { get; set; }
 
-        public Traversal Traversal { get; set; }
-        public TraversalToGetTemplate TraversalToGetTemplate { get; set; }
+        public GetTemplate GetTemplate { get; set; }
         public ChildCreator ChildCreator { get; set; }
 
         public MappingScopeComposite(
             List<MappingScopeComposite> mappingScopeComposites, 
             List<Mapping> mappings, 
             GetScopeTraversal getScopeTraversal, 
-            Traversal traversal, 
-            TraversalToGetTemplate traversalToGetTemplate, 
+            GetTemplate getTemplate, 
             ChildCreator childCreator)
         {
             MappingScopeComposites = mappingScopeComposites;
             Mappings = mappings;
             GetScopeTraversal = getScopeTraversal;
-            Traversal = traversal;
-            TraversalToGetTemplate = traversalToGetTemplate;
+            GetTemplate = getTemplate;
             ChildCreator = childCreator;
         }
 
@@ -37,12 +34,11 @@ namespace AdaptableMapper
 
             IEnumerable<object> scope = GetScopeTraversal.GetScope(context.Source);
 
-            object parent = Traversal.Traverse(context.Target);
-            object template = TraversalToGetTemplate.Traverse(parent);
+            Template template = GetTemplate.Get(context.Target);
 
             foreach (object item in scope)
             {
-                object newChild = ChildCreator.CreateChildOn(parent, template);
+                object newChild = ChildCreator.CreateChild(template);
 
                 Context childContext = new Context(source:item, target:newChild);
                 TraverseChild(childContext);
@@ -59,15 +55,9 @@ namespace AdaptableMapper
                 result = false;
             }
 
-            if (Traversal == null)
+            if (GetTemplate == null)
             {
-                Process.ProcessObservable.GetInstance().Raise("TREE#8; Traversal cannot be null", "error");
-                result = false;
-            }
-
-            if (TraversalToGetTemplate == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("TREE#9; TraversalToGetTemplate cannot be null", "error");
+                Process.ProcessObservable.GetInstance().Raise("TREE#9; Get cannot be null", "error");
                 result = false;
             }
 

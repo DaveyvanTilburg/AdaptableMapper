@@ -1,20 +1,21 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using AdaptableMapper.Traversals;
+using Newtonsoft.Json.Linq;
 
 namespace AdaptableMapper.Json
 {
     public class JsonChildCreator : ChildCreator
     {
-        public object CreateChildOn(object parent, object template)
+        public object CreateChild(Template template)
         {
-            if (!(parent is JArray jArray))
+            if (!(template.Parent is JArray jArray))
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#1; Parent is not of expected type jArray", "error", parent?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("JSON#1; Parent is not of expected type jArray", "error", template.Parent?.GetType().Name);
                 return new JObject();
             }
 
-            if (!(template is JToken jTemplate))
+            if (!(template.Child is JToken jTemplate))
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#2; Template is not of expected type jToken", "error", template?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("JSON#2; Template is not of expected type jToken", "error", template.Child?.GetType().Name);
                 return new JObject();
             }
 

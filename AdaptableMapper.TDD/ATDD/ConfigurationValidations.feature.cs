@@ -282,19 +282,17 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.SkippableTheoryAttribute(DisplayName="Mapping")]
         [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
         [Xunit.TraitAttribute("Description", "Mapping")]
-        [Xunit.InlineDataAttribute("All null", "Xml", "<root><testItem>value</testItem></root>", "null", "", "null", "null", "null", "null", "null", "e-TREE#7;e-TREE#8;e-TREE#9;e-TREE#10;e-XML#24;", "<nullObject />", new string[0])]
-        [Xunit.InlineDataAttribute("xml-xml-null-null-null-null", "Xml", "<root><testItem>value</testItem></root>", "xml", "", "xml", "null", "null", "null", "null", "e-TREE#9;e-TREE#10;e-XML#24;", "<nullObject />", new string[0])]
-        [Xunit.InlineDataAttribute("xml-xml-xml-xml-null-null", "Xml", "<root><testItem>value</testItem></root>", "xml", "./testItem", "xml", "xml", "xml", "null", "null", "e-XML#24;e-XML#27;e-XML#27;e-XML#26;e-XML#11;e-TREE#11;e-TREE#12;", "<nullObject />", new string[0])]
-        [Xunit.InlineDataAttribute("xml-xml-xml-xml-xml-xml", "Xml", "<root><testItem>value</testItem></root>", "xml", "./testItem", "xml", "xml", "xml", "xml", "xml", "e-XML#24;e-XML#27;e-XML#27;e-XML#26;e-XML#11;e-XML#29;w-XML#7;w-XML#4;", "<nullObject />", new string[0])]
-        [Xunit.InlineDataAttribute("json-json-null-null-null-null", "Json", "{ \"testItem\": [ {\"item\": \"value\"} ]}", "json", "", "json", "null", "null", "null", "null", "e-TREE#9;e-TREE#10;e-JSON#26;", "{}", new string[0])]
-        [Xunit.InlineDataAttribute("json-json-json-json-null-null", "Json", "{ \"testItem\": [ {\"item\": \"value\"} ]}", "json", ".testItem", "json", "json", "json", "null", "null", "e-JSON#26;e-JSON#23;e-JSON#1;e-TREE#11;e-TREE#12;w-JSON#22;", "{}", new string[0])]
-        [Xunit.InlineDataAttribute("json-json-json-json-json-json", "Json", "{ \"testItem\": [ {\"item\": \"value\"} ]}", "json", ".testItem", "json", "json", "json", "json", "json", "e-JSON#26;e-JSON#23;e-JSON#1;e-JSON#6;e-JSON#19;w-JSON#11;w-JSON#22;", "{}", new string[0])]
-        [Xunit.InlineDataAttribute("model-model-null-null-null-null", "Model", "{ \"Items\": [{ \"Items\": []}]}", "model", "", "model", "null", "null", "null", "null", "e-TREE#9;e-TREE#10;e-MODEL#25;", "{}", new string[0])]
-        [Xunit.InlineDataAttribute("model-model-model-model-null-null", "Model", "{ \"Items\": [{ \"Items\": []}]}", "model", "/Items", "model", "model", "model", "null", "null", "e-MODEL#25;e-TREE#11;e-TREE#12;w-MODEL#2;w-MODEL#5;w-MODEL#7;w-MODEL#8;w-MODEL#9;" +
-            "w-MODEL#9;", "{}", new string[0])]
-        [Xunit.InlineDataAttribute("model-model-model-model-model-model", "Model", "{ \"Items\": [{ \"Items\": []}]}", "model", "/Items", "model", "model", "model", "model", "model", "e-MODEL#25;w-MODEL#2;w-MODEL#5;w-MODEL#7;w-MODEL#8;w-MODEL#9;w-MODEL#9;w-MODEL#9;" +
-            "w-MODEL#9;", "{}", new string[0])]
-        public virtual void Mapping(string testName, string type, string source, string getScopeTraversal, string getScopeTraversalPath, string traversal, string traversalToGetTemplate, string childCreator, string getValueTraversal, string setValueTraversal, string informationCodes, string result, string[] exampleTags)
+        [Xunit.InlineDataAttribute("All null", "Xml", "<root><testItem>value</testItem></root>", "null", "", "null", "null", "null", "null", "e-TREE#7;e-TREE#9;e-TREE#10;e-XML#24;", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("xml-xml-null-null-null-null", "Xml", "<root><testItem>value</testItem></root>", "xml", "", "null", "null", "null", "null", "e-TREE#9;e-TREE#10;e-XML#24;", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("xml-xml-xml-xml-null-null", "Xml", "<root><testItem>value</testItem></root>", "xml", "./testItem", "xml", "xml", "null", "null", "e-XML#24;e-XML#27;e-XML#26;e-TREE#11;e-TREE#12;", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("xml-xml-xml-xml-xml-xml", "Xml", "<root><testItem>value</testItem></root>", "xml", "./testItem", "xml", "xml", "xml", "xml", "e-XML#24;e-XML#27;e-XML#26;e-XML#29;w-XML#7;w-XML#4;", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("json-json-null-null-null-null", "Json", "{ \"testItem\": [ {\"item\": \"value\"} ]}", "json", "", "null", "null", "null", "null", "e-TREE#9;e-TREE#10;e-JSON#26;", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("json-json-json-json-null-null", "Json", "{ \"testItem\": [ {\"item\": \"value\"} ]}", "json", ".testItem", "json", "json", "null", "null", "e-JSON#26;w-JSON#24;e-JSON#1;e-TREE#11;e-TREE#12;", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("json-json-json-json-json-json", "Json", "{ \"testItem\": [ {\"item\": \"value\"} ]}", "json", ".testItem", "json", "json", "json", "json", "e-JSON#26;w-JSON#24;e-JSON#1;e-JSON#6;e-JSON#19;w-JSON#11;", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("model-model-null-null-null-null", "Model", "{ \"Items\": [{ \"Items\": []}]}", "model", "", "null", "null", "null", "null", "e-TREE#9;e-TREE#10;e-MODEL#25;", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("model-model-model-model-null-null", "Model", "{ \"Items\": [{ \"Items\": []}]}", "model", "/Items", "model", "model", "null", "null", "e-MODEL#25;e-TREE#11;e-TREE#12;w-MODEL#2;w-MODEL#9;", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("model-model-model-model-model-model", "Model", "{ \"Items\": [{ \"Items\": []}]}", "model", "/Items", "model", "model", "model", "model", "e-MODEL#25;w-MODEL#2;w-MODEL#9;w-MODEL#9;w-MODEL#9;", "{}", new string[0])]
+        public virtual void Mapping(string testName, string type, string source, string getScopeTraversal, string getScopeTraversalPath, string traversalToGetTemplate, string childCreator, string getValueTraversal, string setValueTraversal, string informationCodes, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Mapping", null, exampleTags);
@@ -339,13 +337,11 @@ this.ScenarioInitialize(scenarioInfo);
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                             "GetScopeTraversal",
                             "GetScopeTraversalPath",
-                            "Traversal",
                             "TraversalToGetTemplate",
                             "ChildCreator"});
                 table1.AddRow(new string[] {
                             string.Format("{0}", getScopeTraversal),
                             string.Format("{0}", getScopeTraversalPath),
-                            string.Format("{0}", traversal),
                             string.Format("{0}", traversalToGetTemplate),
                             string.Format("{0}", childCreator)});
 #line 48

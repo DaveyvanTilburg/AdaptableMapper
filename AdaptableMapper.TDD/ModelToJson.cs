@@ -166,8 +166,7 @@ namespace AdaptableMapper.TDD
                     graphicalCardCpuSpeed
                 },
                 new Model.ModelGetScope("CPUs"),
-                new Json.JsonTraversal("$.CPUs"),
-                new Json.JsonTraversalFirstInListTemplate(),
+                new Json.JsonTraversalTemplate("$.CPUs[0]"),
                 new Json.JsonChildCreator()
             );
 
@@ -183,8 +182,7 @@ namespace AdaptableMapper.TDD
                     graphicalCardMemoryChipSize
                 },
                 new Model.ModelGetScope("MemoryChips"),
-                new Json.JsonTraversal(".MemoryChips"),
-                new Json.JsonTraversalFirstInListTemplate(),
+                new Json.JsonTraversalTemplate(".MemoryChips[0]"),
                 new Json.JsonChildCreator()
             );
 
@@ -204,8 +202,7 @@ namespace AdaptableMapper.TDD
                     graphicalCardBrand
                 },
                 new Model.ModelGetScope("GraphicalCards"),
-                new Json.JsonTraversal(".GraphicalCards"),
-                new Json.JsonTraversalTemplate("[0]"),
+                new Json.JsonTraversalTemplate(".GraphicalCards[0]"),
                 new Json.JsonChildCreator()
             );
 
@@ -221,8 +218,7 @@ namespace AdaptableMapper.TDD
                     motherboardMemorySize
                 },
                 new Model.ModelGetScope("Memories{'PropertyName':'Type','Value':'External'}/MemoryChips"),
-                new Json.JsonTraversal(".CPUs[0].MemoryChips"),
-                new Json.JsonTraversalTemplate("[0]"),
+                new Json.JsonTraversalTemplate(".CPUs[0].MemoryChips[0]"),
                 new Json.JsonChildCreator()
             );
 
@@ -260,8 +256,7 @@ namespace AdaptableMapper.TDD
                     motherBoardCpuSpeed
                 },
                 new Model.ModelGetScope("Motherboards"),
-                new Json.JsonTraversal("$.Motherboards"),
-                new Json.JsonTraversalTemplate("[0]"),
+                new Json.JsonTraversalTemplate("$.Motherboards[0]"),
                 new Json.JsonChildCreator()
             );
 
@@ -289,8 +284,7 @@ namespace AdaptableMapper.TDD
                     hardDriveSpeed
                 },
                 new Model.ModelGetScope("Motherboards/HardDrives"),
-                new Json.JsonTraversal("$.AvailableHardDrives"),
-                new Json.JsonTraversalTemplate("[0]"),
+                new Json.JsonTraversalTemplate("$.AvailableHardDrives[0]"),
                 new Json.JsonChildCreator()
             );
 

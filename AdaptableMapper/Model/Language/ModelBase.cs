@@ -167,13 +167,13 @@ namespace AdaptableMapper.Model.Language
 
             if (!(property is IEnumerable<ModelBase> enumerableProperty))
             {
-                if(property is ModelBase modelBase)
-                    return new List<ModelBase> { modelBase };
-                else
+                if(!(property is ModelBase modelBase))
                 {
                     Process.ProcessObservable.GetInstance().Raise($"MODEL#8; Property {propertyName} on type {this.GetType().Name} is not traversable, it is not a list of ModelBase or a derivative of ModelBase", "warning");
                     return new List<NullModel>();
                 }
+
+                return new List<ModelBase> { modelBase };
             }
 
             return enumerableProperty;

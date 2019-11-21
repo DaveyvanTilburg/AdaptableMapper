@@ -81,7 +81,6 @@ namespace AdaptableMapper.TDD.ATDD
         internal void AddScopeToRoot(ScopeCompositeModel scopeCompositeModel)
         {
             var getScopeTraversal = CreateGetScopeTraversal(scopeCompositeModel);
-            var traversal = CreateTraversal(scopeCompositeModel.Traversal);
             var traversalToGetTemplate = CreateTraversalToGetTemplate(scopeCompositeModel.TraversalToGetTemplate);
             var childCreator = CreateChildCreator(scopeCompositeModel.ChildCreator);
 
@@ -89,7 +88,6 @@ namespace AdaptableMapper.TDD.ATDD
                 new List<MappingScopeComposite>(),
                 new List<Mapping>(),
                 getScopeTraversal,
-                traversal,
                 traversalToGetTemplate,
                 childCreator);
 
@@ -112,22 +110,7 @@ namespace AdaptableMapper.TDD.ATDD
             }
         }
 
-        private Traversal CreateTraversal(string type)
-        {
-            switch (type.ToLower())
-            {
-                case "xml":
-                    return new Xml.XmlTraversal(string.Empty);
-                case "json":
-                    return new Json.JsonTraversal(string.Empty);
-                case "model":
-                    return new Model.ModelTraversal(string.Empty);
-                default:
-                    return null;
-            }
-        }
-
-        private TraversalToGetTemplate CreateTraversalToGetTemplate(string type)
+        private GetTemplate CreateTraversalToGetTemplate(string type)
         {
             switch (type.ToLower())
             {

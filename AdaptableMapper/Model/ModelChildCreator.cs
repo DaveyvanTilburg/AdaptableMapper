@@ -1,21 +1,22 @@
 ﻿using AdaptableMapper.Model.Language;
 using System.Collections;
+using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Model
 {
     public sealed class ModelChildCreator : ChildCreator
     {
-        public object CreateChildOn(object parent, object template)
+        public object CreateChild(Template template)
         {
-            if (!(parent is ModelBase model))
+            if (!(template.Parent is ModelBase model))
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#10; parent is not of expected type Model", "error", parent);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#10; parent is not of expected type Model", "error", template.Parent?.GetType().Name);
                 return new NullModel();
             }
 
-            if (!(template is IList parentProperty))
+            if (!(template.Child is IList parentProperty))
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#11; template is not of expected type IList", "error", template);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#11; template is not of expected type IList", "error", template.Child?.GetType().Name);
                 return new NullModel();
             }
 

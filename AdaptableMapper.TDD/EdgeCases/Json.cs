@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AdaptableMapper.Json;
 using AdaptableMapper.Process;
+using AdaptableMapper.Traversals;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
@@ -10,26 +11,10 @@ namespace AdaptableMapper.TDD.EdgeCases
     public class Json
     {
         [Fact]
-        public void JsonTraversalFirstInListTemplateInvalidType()
-        {
-            var subject = new JsonTraversalFirstInListTemplate();
-            List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#27;" });
-        }
-
-        [Fact]
-        public void JsonTraversalFirstInListTemplateNoResult()
-        {
-            var subject = new JsonTraversalFirstInListTemplate();
-            List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#28;" });
-        }
-
-        [Fact]
         public void JsonChildCreatorInvalidTypeParent()
         {
             var subject = new JsonChildCreator();
-            List<Information> result = new Action(() => { subject.CreateChildOn(string.Empty, string.Empty); }).Observe();
+            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = string.Empty, Child = string.Empty }); }).Observe();
             result.ValidateResult(new List<string> { "e-JSON#1;" });
         }
 
@@ -37,7 +22,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         public void JsonChildCreatorInvalidType()
         {
             var subject = new JsonChildCreator();
-            List<Information> result = new Action(() => { subject.CreateChildOn(new JArray(), string.Empty); }).Observe();
+            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = new JArray(), Child = string.Empty }); }).Observe();
             result.ValidateResult(new List<string> { "e-JSON#2;" });
         }
 
@@ -162,50 +147,10 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void JsonTraversalInvalidType()
-        {
-            var subject = new JsonTraversal(string.Empty);
-            List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#21;" });
-        }
-
-        [Fact]
-        public void JsonTraversalInvalidPath()
-        {
-            var subject = new JsonTraversal("abcd");
-            List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#22;" });
-        }
-
-        [Fact]
-        public void JsonTraversalInvalidCharacters()
-        {
-            var subject = new JsonTraversal("[]");
-            List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#28;", "w-JSON#22;" });
-        }
-
-        [Fact]
-        public void JsonTraversalInvalidParentPath()
-        {
-            var subject = new JsonTraversal("ab/cd");
-            List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#15;", "w-JSON#22;" });
-        }
-
-        [Fact]
-        public void JsonTraversalNoParent()
-        {
-            var subject = new JsonTraversal("../");
-            List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#22;" });
-        }
-
-        [Fact]
         public void JsonTraversalTemplateInvalidType()
         {
             var subject = new JsonTraversalTemplate(string.Empty);
-            List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
+            List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-JSON#23;" });
         }
 
@@ -213,7 +158,23 @@ namespace AdaptableMapper.TDD.EdgeCases
         public void JsonTraversalTemplateInvalidPath()
         {
             var subject = new JsonTraversalTemplate("abcd");
-            List<Information> result = new Action(() => { subject.Traverse(new JObject()); }).Observe();
+            List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
+            result.ValidateResult(new List<string> { "w-JSON#24;" });
+        }
+
+        [Fact]
+        public void JsonTraversalTemplateInvalidParentPath()
+        {
+            var subject = new JsonTraversalTemplate("ab/cd");
+            List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
+            result.ValidateResult(new List<string> { "e-JSON#15;", "w-JSON#24;" });
+        }
+
+        [Fact]
+        public void JsonTraversalTemplateNoParent()
+        {
+            var subject = new JsonTraversalTemplate("../");
+            List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
             result.ValidateResult(new List<string> { "w-JSON#24;" });
         }
 
@@ -223,6 +184,14 @@ namespace AdaptableMapper.TDD.EdgeCases
             var subject = new JTokenToStringObjectConverter();
             List<Information> result = new Action(() => { subject.Convert(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-JSON#25;" });
+        }
+
+        [Fact]
+        public void JsonTraversalTemplateInvalidCharacters()
+        {
+            var subject = new JsonTraversalTemplate("[]");
+            List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
+            result.ValidateResult(new List<string> { "e-JSON#28;", "w-JSON#24;" });
         }
 
         private JToken CreateTestData()

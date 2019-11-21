@@ -3,6 +3,7 @@ using AdaptableMapper.Xml;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using AdaptableMapper.Traversals;
 using Xunit;
 
 namespace AdaptableMapper.TDD.EdgeCases
@@ -13,7 +14,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         public void XmlChildCreatorInvalidParentType()
         {
             var subject = new XmlChildCreator();
-            List<Information> result = new Action(() => { subject.CreateChildOn(string.Empty, string.Empty); }).Observe();
+            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = string.Empty, Child = string.Empty }); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#10;" });
         }
 
@@ -21,7 +22,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         public void XmlChildCreatorInvalidTemplateType()
         {
             var subject = new XmlChildCreator();
-            List<Information> result = new Action(() => { subject.CreateChildOn(new XElement("nullObject"), string.Empty); }).Observe();
+            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = new XElement("nullObject"), Child = string.Empty }); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#11;" });
         }
 
@@ -163,50 +164,42 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void XmlTraversalInvalidType()
-        {
-            var subject = new XmlTraversal(string.Empty);
-            List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#22;" });
-        }
-
-        [Fact]
-        public void XmlTraversalInvalidPath()
-        {
-            var subject = new XmlTraversal("::");
-            List<Information> result = new Action(() => { subject.Traverse(new XElement("nullObject")); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#27;" });
-        }
-
-        [Fact]
-        public void XmlTraversalNoResult()
-        {
-            var subject = new XmlTraversal("abcd");
-            List<Information> result = new Action(() => { subject.Traverse(new XElement("nullObject")); }).Observe();
-            result.ValidateResult(new List<string> { "w-XML#2;" });
-        }
-
-        [Fact]
-        public void XmlTraversalMoreThanOne()
-        {
-            var subject = new XmlTraversal("//SimpleItems/SimpleItem/name");
-            List<Information> result = new Action(() => { subject.Traverse(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "w-XML#3;" });
-        }
-
-        [Fact]
         public void XmlTraversalTemplateInvalidType()
         {
             var subject = new XmlTraversalTemplate(string.Empty);
-            List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
+            List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#23;" });
+        }
+
+        [Fact]
+        public void XmlTraversalTemplateInvalidPath()
+        {
+            var subject = new XmlTraversalTemplate("::");
+            List<Information> result = new Action(() => { subject.Get(new XElement("nullObject")); }).Observe();
+            result.ValidateResult(new List<string> { "e-XML#27;", "e-XML#26;" });
+        }
+
+        [Fact]
+        public void XmlTraversalTemplateNoResult()
+        {
+            var subject = new XmlTraversalTemplate("abcd");
+            List<Information> result = new Action(() => { subject.Get(new XElement("nullObject")); }).Observe();
+            result.ValidateResult(new List<string> { "w-XML#2;", "e-XML#26;" });
+        }
+
+        [Fact]
+        public void XmlTraversalTemplateMoreThanOne()
+        {
+            var subject = new XmlTraversalTemplate("//SimpleItems/SimpleItem/name");
+            List<Information> result = new Action(() => { subject.Get(CreateTestData()); }).Observe();
+            result.ValidateResult(new List<string> { "w-XML#3;", "e-XML#26;" });
         }
 
         [Fact]
         public void XmlTraversalTemplateResultHasNoParent()
         {
             var subject = new XmlTraversalTemplate("/");
-            List<Information> result = new Action(() => { subject.Traverse(CreateTestData()); }).Observe();
+            List<Information> result = new Action(() => { subject.Get(CreateTestData()); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#26;" });
         }
 

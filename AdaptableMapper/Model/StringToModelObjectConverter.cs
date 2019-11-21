@@ -11,7 +11,7 @@ namespace AdaptableMapper.Model
             ModelTargetInstantiatorSource = modelTargetInstantiatorSource;
         }
 
-        public ModelTargetInstantiatorSource ModelTargetInstantiatorSource { get; set; } = new ModelTargetInstantiatorSource();
+        public ModelTargetInstantiatorSource ModelTargetInstantiatorSource { get; set; }
 
         public object Convert(object source)
         {

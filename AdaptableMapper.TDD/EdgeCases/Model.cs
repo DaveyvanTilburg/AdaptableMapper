@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AdaptableMapper.Model;
 using AdaptableMapper.Process;
+using AdaptableMapper.Traversals;
 using Xunit;
 
 namespace AdaptableMapper.TDD.EdgeCases
@@ -12,7 +13,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         public void ModelChildCreatorParentInvalidType()
         {
             var subject = new ModelChildCreator();
-            List<Information> result = new Action(() => { subject.CreateChildOn(string.Empty, string.Empty); }).Observe();
+            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = string.Empty, Child = string.Empty }); }).Observe();
             result.ValidateResult(new List<string> { "e-MODEL#10;" });
         }
 
@@ -20,7 +21,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         public void ModelChildCreatorTemplateInvalidType()
         {
             var subject = new ModelChildCreator();
-            List<Information> result = new Action(() => { subject.CreateChildOn(new ModelObjects.Simple.Item(), string.Empty); }).Observe();
+            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = new ModelObjects.Simple.Item(), Child = string.Empty }); }).Observe();
             result.ValidateResult(new List<string> { "e-MODEL#11;" });
         }
 
@@ -209,18 +210,10 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelTraversalInvalidType()
-        {
-            var subject = new ModelTraversal(string.Empty);
-            List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#21;" });
-        }
-
-        [Fact]
         public void ModelTraversalTemplateInvalidType()
         {
             var subject = new ModelTraversalTemplate(string.Empty);
-            List<Information> result = new Action(() => { subject.Traverse(string.Empty); }).Observe();
+            List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-MODEL#22;" });
         }
 
