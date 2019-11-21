@@ -83,7 +83,7 @@ namespace AdaptableMapper.TDD
                     crewMember
                 },
                 new Xml.XmlGetScope("./crew/crewMember"),
-                new Model.ModelTraversalTemplate("CrewMembers"),
+                new Model.ModelGetTemplate("CrewMembers"),
                 new Model.ModelChildCreator()
             );
 
@@ -102,7 +102,7 @@ namespace AdaptableMapper.TDD
                     memberName
                 },
                 new Xml.XmlGetScope("./members/member"),
-                new Model.ModelTraversalTemplate("Members"),
+                new Model.ModelGetTemplate("Members"),
                 new Model.ModelChildCreator()
             );
 
@@ -127,7 +127,7 @@ namespace AdaptableMapper.TDD
                     leaderReference
                 },
                 new Xml.XmlGetScope("./platoon"),
-                new Model.ModelTraversalTemplate("Platoons"),
+                new Model.ModelGetTemplate("Platoons"),
                 new Model.ModelChildCreator()
             );
 
@@ -146,7 +146,7 @@ namespace AdaptableMapper.TDD
                     armyCode
                 },
                 new Xml.XmlGetScope("./army"),
-                new Model.ModelTraversalTemplate("Armies"),
+                new Model.ModelGetTemplate("Armies"),
                 new Model.ModelChildCreator()
             );
 
@@ -168,7 +168,7 @@ namespace AdaptableMapper.TDD
                     leaderName
                 },
                 new Xml.XmlGetScope("./leaders/leader"),
-                new Model.ModelTraversalTemplate("Organization/Leaders"),
+                new Model.ModelGetTemplate("Organization/Leaders"),
                 new Model.ModelChildCreator()
             );
 

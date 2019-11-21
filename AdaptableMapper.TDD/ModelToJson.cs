@@ -166,7 +166,7 @@ namespace AdaptableMapper.TDD
                     graphicalCardCpuSpeed
                 },
                 new Model.ModelGetScope("CPUs"),
-                new Json.JsonTraversalTemplate("$.CPUs[0]"),
+                new Json.JsonGetTemplate("$.CPUs[0]"),
                 new Json.JsonChildCreator()
             );
 
@@ -182,7 +182,7 @@ namespace AdaptableMapper.TDD
                     graphicalCardMemoryChipSize
                 },
                 new Model.ModelGetScope("MemoryChips"),
-                new Json.JsonTraversalTemplate(".MemoryChips[0]"),
+                new Json.JsonGetTemplate(".MemoryChips[0]"),
                 new Json.JsonChildCreator()
             );
 
@@ -202,7 +202,7 @@ namespace AdaptableMapper.TDD
                     graphicalCardBrand
                 },
                 new Model.ModelGetScope("GraphicalCards"),
-                new Json.JsonTraversalTemplate(".GraphicalCards[0]"),
+                new Json.JsonGetTemplate(".GraphicalCards[0]"),
                 new Json.JsonChildCreator()
             );
 
@@ -218,7 +218,7 @@ namespace AdaptableMapper.TDD
                     motherboardMemorySize
                 },
                 new Model.ModelGetScope("Memories{'PropertyName':'Type','Value':'External'}/MemoryChips"),
-                new Json.JsonTraversalTemplate(".CPUs[0].MemoryChips[0]"),
+                new Json.JsonGetTemplate(".CPUs[0].MemoryChips[0]"),
                 new Json.JsonChildCreator()
             );
 
@@ -256,7 +256,7 @@ namespace AdaptableMapper.TDD
                     motherBoardCpuSpeed
                 },
                 new Model.ModelGetScope("Motherboards"),
-                new Json.JsonTraversalTemplate("$.Motherboards[0]"),
+                new Json.JsonGetTemplate("$.Motherboards[0]"),
                 new Json.JsonChildCreator()
             );
 
@@ -284,7 +284,7 @@ namespace AdaptableMapper.TDD
                     hardDriveSpeed
                 },
                 new Model.ModelGetScope("Motherboards/HardDrives"),
-                new Json.JsonTraversalTemplate("$.AvailableHardDrives[0]"),
+                new Json.JsonGetTemplate("$.AvailableHardDrives[0]"),
                 new Json.JsonChildCreator()
             );
 

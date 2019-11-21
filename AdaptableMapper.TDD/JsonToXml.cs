@@ -50,7 +50,7 @@ namespace AdaptableMapper.TDD
                     cpuSpeed
                 },
                 new Json.JsonGetScope(".GraphicalCard[*]"),
-                new Xml.XmlTraversalTemplate("./graphicalCard"),
+                new Xml.XmlGetTemplate("./graphicalCard"),
                 new Xml.XmlChildCreator()
             );
 
@@ -86,7 +86,7 @@ namespace AdaptableMapper.TDD
                     motherboardPartner
                 },
                 new Json.JsonGetScope("$.Computer.Motherboard[*]"),
-                new Xml.XmlTraversalTemplate("//computers/computer"),
+                new Xml.XmlGetTemplate("//computers/computer"),
                 new Xml.XmlChildCreator()
             );
 
@@ -114,7 +114,7 @@ namespace AdaptableMapper.TDD
                     memoryMotherboardBrand
                 },
                 new Json.JsonGetScope("$.Computer.Motherboard[*].Memory[*].MemoryChip[*]"),
-                new Xml.XmlTraversalTemplate("//allMemories/memory"),
+                new Xml.XmlGetTemplate("//allMemories/memory"),
                 new Xml.XmlChildCreator()
             );
 

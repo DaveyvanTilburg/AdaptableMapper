@@ -63,7 +63,7 @@ namespace AdaptableMapper.TDD
                     crewMemberName
                 },
                 new Xml.XmlGetScope("./army/platoon/members/member/crew/crewMember"),
-                new Xml.XmlTraversalTemplate("./crewMemberNames/crewMemberName"),
+                new Xml.XmlGetTemplate("./crewMemberNames/crewMemberName"),
                 new Xml.XmlChildCreator()
             );
 
@@ -79,7 +79,7 @@ namespace AdaptableMapper.TDD
                     memberName
                 },
                 new Xml.XmlGetScope("./members/member"),
-                new Xml.XmlTraversalTemplate("./memberNames/memberName"),
+                new Xml.XmlGetTemplate("./memberNames/memberName"),
                 new Xml.XmlChildCreator()
             );
 
@@ -107,7 +107,7 @@ namespace AdaptableMapper.TDD
                     leaderNameSearch
                 },
                 new Xml.XmlGetScope("./army/platoon"),
-                new Xml.XmlTraversalTemplate("./platoons/platoon"),
+                new Xml.XmlGetTemplate("./platoons/platoon"),
                 new Xml.XmlChildCreator()
             );
 

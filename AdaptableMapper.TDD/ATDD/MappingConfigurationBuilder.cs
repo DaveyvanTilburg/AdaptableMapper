@@ -115,11 +115,11 @@ namespace AdaptableMapper.TDD.ATDD
             switch (type.ToLower())
             {
                 case "xml":
-                    return new Xml.XmlTraversalTemplate(string.Empty);
+                    return new Xml.XmlGetTemplate(string.Empty);
                 case "json":
-                    return new Json.JsonTraversalTemplate(string.Empty);
+                    return new Json.JsonGetTemplate(string.Empty);
                 case "model":
-                    return new Model.ModelTraversalTemplate(string.Empty);
+                    return new Model.ModelGetTemplate(string.Empty);
                 default:
                     return null;
             }

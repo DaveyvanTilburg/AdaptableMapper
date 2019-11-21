@@ -166,7 +166,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlTraversalTemplateInvalidType()
         {
-            var subject = new XmlTraversalTemplate(string.Empty);
+            var subject = new XmlGetTemplate(string.Empty);
             List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#23;" });
         }
@@ -174,7 +174,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlTraversalTemplateInvalidPath()
         {
-            var subject = new XmlTraversalTemplate("::");
+            var subject = new XmlGetTemplate("::");
             List<Information> result = new Action(() => { subject.Get(new XElement("nullObject")); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#27;", "e-XML#26;" });
         }
@@ -182,7 +182,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlTraversalTemplateNoResult()
         {
-            var subject = new XmlTraversalTemplate("abcd");
+            var subject = new XmlGetTemplate("abcd");
             List<Information> result = new Action(() => { subject.Get(new XElement("nullObject")); }).Observe();
             result.ValidateResult(new List<string> { "w-XML#2;", "e-XML#26;" });
         }
@@ -190,7 +190,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlTraversalTemplateMoreThanOne()
         {
-            var subject = new XmlTraversalTemplate("//SimpleItems/SimpleItem/name");
+            var subject = new XmlGetTemplate("//SimpleItems/SimpleItem/name");
             List<Information> result = new Action(() => { subject.Get(CreateTestData()); }).Observe();
             result.ValidateResult(new List<string> { "w-XML#3;", "e-XML#26;" });
         }
@@ -198,7 +198,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlTraversalTemplateResultHasNoParent()
         {
-            var subject = new XmlTraversalTemplate("/");
+            var subject = new XmlGetTemplate("/");
             List<Information> result = new Action(() => { subject.Get(CreateTestData()); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#26;" });
         }

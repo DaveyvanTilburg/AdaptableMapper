@@ -212,7 +212,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void ModelTraversalTemplateInvalidType()
         {
-            var subject = new ModelTraversalTemplate(string.Empty);
+            var subject = new ModelGetTemplate(string.Empty);
             List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-MODEL#22;" });
         }

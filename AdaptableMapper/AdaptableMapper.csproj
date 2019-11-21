@@ -50,7 +50,7 @@
     <Compile Include="Json\JsonTraverseOperations.cs" />
     <Compile Include="Json\JsonSetValue.cs" />
     <Compile Include="Json\JsonTargetInstantiator.cs" />
-    <Compile Include="Json\JsonTraversalTemplate.cs" />
+    <Compile Include="Json\JsonGetTemplate.cs" />
     <Compile Include="Json\JTokenToStringObjectConverter.cs" />
     <Compile Include="MappingScopeRoot.cs" />
     <Compile Include="Model\Language\ModelList.cs" />
@@ -76,7 +76,7 @@
     <Compile Include="Model\ModelGetSearchValue.cs" />
     <Compile Include="Model\ModelGetScope.cs" />
     <Compile Include="Model\ModelSetValueOnPath.cs" />
-    <Compile Include="Model\ModelTraversalTemplate.cs" />
+    <Compile Include="Model\ModelGetTemplate.cs" />
     <Compile Include="Contexts\Context.cs" />
     <Compile Include="Model\Language\NullModel.cs" />
     <Compile Include="ChildCreator.cs" />
@@ -105,7 +105,7 @@
     <Compile Include="Xml\XElementExtensions.cs" />
     <Compile Include="PathContainer.cs" />
     <Compile Include="JsonSerializer.cs" />
-    <Compile Include="Xml\XmlTraversalTemplate.cs" />
+    <Compile Include="Xml\XmlGetTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">

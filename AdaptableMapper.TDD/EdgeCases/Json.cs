@@ -149,7 +149,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void JsonTraversalTemplateInvalidType()
         {
-            var subject = new JsonTraversalTemplate(string.Empty);
+            var subject = new JsonGetTemplate(string.Empty);
             List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-JSON#23;" });
         }
@@ -157,7 +157,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void JsonTraversalTemplateInvalidPath()
         {
-            var subject = new JsonTraversalTemplate("abcd");
+            var subject = new JsonGetTemplate("abcd");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
             result.ValidateResult(new List<string> { "w-JSON#24;" });
         }
@@ -165,7 +165,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void JsonTraversalTemplateInvalidParentPath()
         {
-            var subject = new JsonTraversalTemplate("ab/cd");
+            var subject = new JsonGetTemplate("ab/cd");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
             result.ValidateResult(new List<string> { "e-JSON#15;", "w-JSON#24;" });
         }
@@ -173,7 +173,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void JsonTraversalTemplateNoParent()
         {
-            var subject = new JsonTraversalTemplate("../");
+            var subject = new JsonGetTemplate("../");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
             result.ValidateResult(new List<string> { "w-JSON#24;" });
         }
@@ -189,7 +189,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void JsonTraversalTemplateInvalidCharacters()
         {
-            var subject = new JsonTraversalTemplate("[]");
+            var subject = new JsonGetTemplate("[]");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
             result.ValidateResult(new List<string> { "e-JSON#28;", "w-JSON#24;" });
         }
