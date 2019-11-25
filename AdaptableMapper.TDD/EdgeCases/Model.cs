@@ -128,7 +128,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetValue("Items/Code");
             List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#5;", "w-MODEL#9;" });
+            result.ValidateResult(new List<string> { "w-MODEL#9;", "w-MODEL#5;" });
         }
 
         [Fact]
@@ -136,7 +136,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetValue("../");
             List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#3;", "w-MODEL#9;" });
+            result.ValidateResult(new List<string> { "w-MODEL#9;", "w-MODEL#3;" });
         }
 
         [Fact]
