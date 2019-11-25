@@ -31,8 +31,10 @@ namespace AdaptableMapper.Model
             var searchModelPath = PathContainer.Create(SearchValuePath);
 
             ModelBase searchPathTarget = model.NavigateToModel(searchModelPath.CreatePathQueue());
-            string searchValue = searchPathTarget.GetValue(searchModelPath.LastInPath);
+            if (!searchPathTarget.IsValid())
+                return string.Empty;
 
+            string searchValue = searchPathTarget.GetValue(searchModelPath.LastInPath);
             if (string.IsNullOrWhiteSpace(searchValue))
             {
                 Process.ProcessObservable.GetInstance().Raise("MODEL#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);

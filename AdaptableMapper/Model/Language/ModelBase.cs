@@ -212,5 +212,10 @@ namespace AdaptableMapper.Model.Language
 
             return valueContainer?.ToString() ?? string.Empty;
         }
+
+        internal virtual bool IsValid()
+        {
+            return true;
+        }
     }
 }

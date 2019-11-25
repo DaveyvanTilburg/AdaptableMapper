@@ -96,7 +96,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetSearchValue("ab/cd", "Items{'PropertyName':'Code','Value':'3'}/Code");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestItem()); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#9;", "w-MODEL#4;", "w-MODEL#14;" });
+            result.ValidateResult(new List<string> { "w-MODEL#4;" });
         }
 
         [Fact]
@@ -104,7 +104,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetSearchValue("ab/cd", "Items{'PropertyName':'Code','Value':'1'/Code");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestItem()); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#9;", "w-MODEL#8;", "w-MODEL#5;", "w-MODEL#9;", "w-MODEL#14;", "e-MODEL#32;" });
+            result.ValidateResult(new List<string> { "w-MODEL#8;", "w-MODEL#5;", "w-MODEL#9;", "e-MODEL#32;" });
         }
 
         [Fact]
