@@ -1,3 +1,6 @@
+0.11.1
+ - Some stability fixes for all languages regarding error checks
+ - Reduced error cascading by a certain degree
 0.11.0
   - Renamed TraversalToGetTemplate to GetTemplate
   - Removed Traversal from the composition, moved part of its responsibility to GetTemplate
