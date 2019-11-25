@@ -36,8 +36,7 @@ Future plans in relative priority order:
  * Think about a conditional composite that represents the if then else statements: If (path result) (comparison) (another path result) then (getpath1) else (getpath2)
  
 ### Todo
-* Add empty searchPathValue check on Model (using that object is invalid if you are not gonna search)
-* All template implementations should check if item has a parent before removing it from parent
+* Model does not have a parent for its template, its design should be more expressive
 
 ### All release notes
 
