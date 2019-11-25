@@ -37,6 +37,7 @@ Future plans in relative priority order:
  
 ### Todo
 * All template implementations should check if item has a parent before removing it from parent
+* Model does not have a parent for its template, its design should be more expressive
 
 ### All release notes
 
