@@ -107,12 +107,15 @@ namespace AdaptableMapper.Model.Language
                 IEnumerable<ModelBase> propertyValue = GetEnumerableProperty(step);
                 next = propertyValue.FirstOrDefault();
 
-                if (!(next?.IsValid() ?? false))
+                if (next == null)
                 {
                     Process.ProcessObservable.GetInstance().Raise($"MODEL#5; No items found in {step} in type {this.GetType().Name}", "warning");
-                    return next ?? new NullModel();
+                    return new NullModel();
                 }
             }
+
+            if (!next.IsValid())
+                return next;
 
             if (path.Count > 0)
                 return next.NavigateToModel(path);
