@@ -39,7 +39,7 @@ namespace AdaptableMapper.TDD.EdgeCases
             var subject = new ModelGetScope("");
             var model = new ModelObjects.Simple.Item();
             List<Information> result = new Action(() => { subject.GetScope(model); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#9;", "w-MODEL#2;" });
+            result.ValidateResult(new List<string> { "w-MODEL#9;" });
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace AdaptableMapper.TDD.EdgeCases
             var subject = new ModelGetScope("/");
             var model = new ModelObjects.Simple.Item();
             List<Information> result = new Action(() => { subject.GetScope(model); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#9;", "w-MODEL#2;" });
+            result.ValidateResult(new List<string> { "w-MODEL#9;" });
         }
 
         [Fact]

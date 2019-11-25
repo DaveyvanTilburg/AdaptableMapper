@@ -52,7 +52,12 @@ namespace AdaptableMapper.Model.Language
         {
             PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
             object propertyValue = propertyInfo?.GetValue(this);
-            return GetIListFromProperty(propertyValue);
+
+            if(propertyValue == null)
+                return new List<NullModel>();
+
+            IList result = GetIListFromProperty(propertyValue);
+            return result;
         }
 
         private IList GetIListFromProperty(object propertyValue)
