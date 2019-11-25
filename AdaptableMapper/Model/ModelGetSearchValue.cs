@@ -29,7 +29,6 @@ namespace AdaptableMapper.Model
             }
 
             var searchModelPath = PathContainer.Create(SearchValuePath);
-
             ModelBase searchPathTarget = model.NavigateToModel(searchModelPath.CreatePathQueue());
             if (!searchPathTarget.IsValid())
                 return string.Empty;
@@ -45,7 +44,7 @@ namespace AdaptableMapper.Model
             var modelPathContainer = PathContainer.Create(actualPath);
 
             ModelBase pathTarget = model.NavigateToModel(modelPathContainer.CreatePathQueue());
-            if (pathTarget is NullModel)
+            if (!pathTarget.IsValid())
             {
                 Process.ProcessObservable.GetInstance().Raise("MODEL#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
                 return string.Empty;

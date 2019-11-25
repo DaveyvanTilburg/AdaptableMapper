@@ -107,10 +107,10 @@ namespace AdaptableMapper.Model.Language
                 IEnumerable<ModelBase> propertyValue = GetEnumerableProperty(step);
                 next = propertyValue.FirstOrDefault();
 
-                if (next == null)
+                if (!(next?.IsValid() ?? false))
                 {
                     Process.ProcessObservable.GetInstance().Raise($"MODEL#5; No items found in {step} in type {this.GetType().Name}", "warning");
-                    return new NullModel();
+                    return next ?? new NullModel();
                 }
             }
 
@@ -169,12 +169,15 @@ namespace AdaptableMapper.Model.Language
         {
             object property = GetProperty(propertyName);
 
+            if(property == null)
+                return new List<NullModel> { new NullModel() };
+
             if (!(property is IEnumerable<ModelBase> enumerableProperty))
             {
                 if(!(property is ModelBase modelBase))
                 {
-                    Process.ProcessObservable.GetInstance().Raise($"MODEL#8; Property {propertyName} on type {this.GetType().Name} is not traversable, it is not a list of ModelBase or a derivative of ModelBase", "warning");
-                    return new List<NullModel>();
+                    Process.ProcessObservable.GetInstance().Raise($"MODEL#8; Property {propertyName} on type {this.GetType().Name} is not traversable, it is not a list of ModelBase or a derivative of ModelBase", "error");
+                    return new List<NullModel> { new NullModel() };
                 }
 
                 return new List<ModelBase> { modelBase };
