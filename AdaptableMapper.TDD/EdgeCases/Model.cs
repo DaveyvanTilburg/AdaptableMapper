@@ -60,6 +60,14 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
+        public void ModelGetSearchValueEmptySearchValuePath()
+        {
+            var subject = new ModelGetSearchValue(string.Empty, string.Empty);
+            List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
+            result.ValidateResult(new List<string> { "e-MODEL#21;" });
+        }
+
+        [Fact]
         public void ModelGetSearchValueNoResultForSearchPath()
         {
             var subject = new ModelGetSearchValue(string.Empty, "dummySearch");

@@ -22,19 +22,21 @@ namespace AdaptableMapper.Model
                 return string.Empty;
             }
 
-            string searchValue = null;
-            if (!string.IsNullOrWhiteSpace(SearchValuePath))
+            if (string.IsNullOrWhiteSpace(SearchValuePath))
             {
-                var searchModelPath = PathContainer.Create(SearchValuePath);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#21; SearchValuePath is empty. If this is intentional, please use ModelGetValue instead.", "error", SearchPath, SearchValuePath);
+                return string.Empty;
+            }
 
-                ModelBase searchPathTarget = model.NavigateToModel(searchModelPath.CreatePathQueue());
-                searchValue = searchPathTarget.GetValue(searchModelPath.LastInPath);
+            var searchModelPath = PathContainer.Create(SearchValuePath);
 
-                if (string.IsNullOrWhiteSpace(searchValue))
-                {
-                    Process.ProcessObservable.GetInstance().Raise("MODEL#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
-                    return string.Empty;
-                }
+            ModelBase searchPathTarget = model.NavigateToModel(searchModelPath.CreatePathQueue());
+            string searchValue = searchPathTarget.GetValue(searchModelPath.LastInPath);
+
+            if (string.IsNullOrWhiteSpace(searchValue))
+            {
+                Process.ProcessObservable.GetInstance().Raise("MODEL#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
+                return string.Empty;
             }
 
             string actualPath = string.IsNullOrWhiteSpace(searchValue) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue);
