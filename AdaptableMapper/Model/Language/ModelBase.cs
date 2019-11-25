@@ -172,9 +172,6 @@ namespace AdaptableMapper.Model.Language
         {
             object property = GetProperty(propertyName);
 
-            if(property == null)
-                return new List<NullModel> { new NullModel() };
-
             if (!(property is IEnumerable<ModelBase> enumerableProperty))
             {
                 if(!(property is ModelBase modelBase))
@@ -201,7 +198,10 @@ namespace AdaptableMapper.Model.Language
             object propertyValue = propertyInfo?.GetValue(this);
 
             if (propertyValue == null)
+            {
                 Process.ProcessObservable.GetInstance().Raise($"MODEL#9; Property {propertyName} is not a part of {this.GetType().Name}", "warning");
+                return new NullModel();
+            }
 
             return propertyValue;
         }
@@ -215,6 +215,9 @@ namespace AdaptableMapper.Model.Language
         public string GetValue(string propertyName)
         {
             object valueContainer = GetProperty(propertyName);
+
+            if (valueContainer is ModelBase modelBase)
+                return modelBase.IsValid() ? modelBase.ToString() : string.Empty;
 
             return valueContainer?.ToString() ?? string.Empty;
         }
