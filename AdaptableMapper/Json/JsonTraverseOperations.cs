@@ -16,7 +16,7 @@ namespace AdaptableMapper.Json
             JToken result = traversedParent.TryTraverse(pathContainer.LastInPath);
 
             if (result == null)
-                return new JObject();
+                return CreateNullObject();
 
             return result;
         }
@@ -30,7 +30,7 @@ namespace AdaptableMapper.Json
             catch (Exception exception)
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#28; Path resulted in no items", "error", path, exception.GetType().Name, exception.Message);
-                return new JObject();
+                return CreateNullObject();
             }
         }
 
@@ -59,12 +59,12 @@ namespace AdaptableMapper.Json
             if(!step.Equals(".."))
             {
                 Process.ProcessObservable.GetInstance().Raise($"JSON#15; In JPath, the / operator can only be used to navigate back to parent nodes, expected '..' but was '{step}'", "error");
-                return new JObject();
+                return CreateNullObject();
             }
 
             JToken parent = jToken.Parent;
             if(parent == null)
-                return new JObject();
+                return CreateNullObject();
 
             if (path.Count > 0)
                 return parent.TraverseToParent(path);
@@ -92,8 +92,13 @@ namespace AdaptableMapper.Json
             catch (Exception exception)
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#29; Path resulted in no items", "error", path, exception.GetType().Name, exception.Message);
-                return new JObject();
+                return CreateNullObject();
             }
+        }
+
+        private static JToken CreateNullObject()
+        {
+            return new NullObject();
         }
     }
 }

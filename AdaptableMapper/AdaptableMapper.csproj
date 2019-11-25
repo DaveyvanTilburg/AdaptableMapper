@@ -52,6 +52,7 @@
     <Compile Include="Json\JsonTargetInstantiator.cs" />
     <Compile Include="Json\JsonGetTemplate.cs" />
     <Compile Include="Json\JTokenToStringObjectConverter.cs" />
+    <Compile Include="Json\NullObject.cs" />
     <Compile Include="MappingScopeRoot.cs" />
     <Compile Include="Model\Language\ModelList.cs" />
     <Compile Include="Model\ModelTargetInstantiatorSource.cs" />

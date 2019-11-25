@@ -147,7 +147,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void JsonTraversalTemplateInvalidType()
+        public void JsonTraversalGetTemplateInvalidType()
         {
             var subject = new JsonGetTemplate(string.Empty);
             List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
@@ -155,7 +155,15 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void JsonTraversalTemplateInvalidPath()
+        public void JsonTraversalGetTemplateNoParentCheck()
+        {
+            var subject = new JsonGetTemplate("$");
+            List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
+            result.ValidateResult(new List<string> { "e-JSON#9;" });
+        }
+
+        [Fact]
+        public void JsonTraversalGetTemplateInvalidPath()
         {
             var subject = new JsonGetTemplate("abcd");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
@@ -163,7 +171,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void JsonTraversalTemplateInvalidParentPath()
+        public void JsonTraversalGetTemplateInvalidParentPath()
         {
             var subject = new JsonGetTemplate("ab/cd");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
@@ -171,7 +179,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void JsonTraversalTemplateNoParent()
+        public void JsonTraversalGetTemplateNoParent()
         {
             var subject = new JsonGetTemplate("../");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
