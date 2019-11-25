@@ -200,7 +200,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new XmlGetTemplate("/");
             List<Information> result = new Action(() => { subject.Get(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#26;" });
+            result.ValidateResult(new List<string> { "w-XML#26;" });
         }
 
         [Fact]
