@@ -53,8 +53,11 @@ namespace AdaptableMapper.Model.Language
             PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
             object propertyValue = propertyInfo?.GetValue(this);
 
-            if(propertyValue == null)
+            if (propertyValue == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise($"MODEL#7; No property with name {propertyName} found on type {this.GetType().Name}", "warning");
                 return new List<NullModel>();
+            }
 
             IList result = GetIListFromProperty(propertyValue);
             return result;
@@ -64,7 +67,7 @@ namespace AdaptableMapper.Model.Language
         {
             if (!(propertyValue is IList listProperty))
             {
-                Process.ProcessObservable.GetInstance().Raise($"MODEL#2; Property is not traversable, it is not a list of Model", "warning");
+                Process.ProcessObservable.GetInstance().Raise("MODEL#2; Property is not traversable, it is not a list of Model", "warning");
                 return new List<NullModel>();
             }
 
@@ -164,11 +167,7 @@ namespace AdaptableMapper.Model.Language
 
         private IEnumerable<ModelBase> GetEnumerableProperty(string propertyName)
         {
-            PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
-            object property = propertyInfo?.GetValue(this);
-
-            if(property == null)
-                Process.ProcessObservable.GetInstance().Raise($"MODEL#7; Property {propertyName} does not exist on {this.GetType().Name}", "warning");
+            object property = GetProperty(propertyName);
 
             if (!(property is IEnumerable<ModelBase> enumerableProperty))
             {
@@ -183,6 +182,23 @@ namespace AdaptableMapper.Model.Language
 
             return enumerableProperty;
         }
+        private PropertyInfo GetPropertyInfo(string propertyName)
+        {
+            PropertyInfo propertyInfo = this.GetType().GetProperty(propertyName);
+            return propertyInfo;
+        }
+
+
+        private object GetProperty(string propertyName)
+        {
+            PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
+            object propertyValue = propertyInfo?.GetValue(this);
+
+            if (propertyValue == null)
+                Process.ProcessObservable.GetInstance().Raise($"MODEL#9; Property {propertyName} is not a part of {this.GetType().Name}", "warning");
+
+            return propertyValue;
+        }
 
         public void SetValue(string propertyName, string value)
         {
@@ -192,18 +208,9 @@ namespace AdaptableMapper.Model.Language
 
         public string GetValue(string propertyName)
         {
-            PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
-            return propertyInfo?.GetValue(this)?.ToString() ?? string.Empty;
-        }
+            object valueContainer = GetProperty(propertyName);
 
-        private PropertyInfo GetPropertyInfo(string propertyName)
-        {
-            PropertyInfo propertyInfo = this.GetType().GetProperty(propertyName);
-
-            if (propertyInfo == null)
-                Process.ProcessObservable.GetInstance().Raise($"MODEL#9; Property {propertyName} is not a part of {this.GetType().Name}", "warning");
-
-            return propertyInfo;
+            return valueContainer?.ToString() ?? string.Empty;
         }
     }
 }
