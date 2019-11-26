@@ -2,7 +2,7 @@
 
 namespace AdaptableMapper.Json
 {
-    internal class NullObject : JObject
+    internal class NullToken : JObject
     {
         public override JTokenType Type => JTokenType.Null;
     }
