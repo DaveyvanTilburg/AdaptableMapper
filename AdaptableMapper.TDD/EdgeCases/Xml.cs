@@ -184,7 +184,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new XmlGetTemplate("::");
             List<Information> result = new Action(() => { subject.Get(new XElement("nullObject")); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#27;", "w-XML#26;" });
+            result.ValidateResult(new List<string> { "e-XML#27;" });
         }
 
         [Fact]
@@ -192,7 +192,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new XmlGetTemplate("abcd");
             List<Information> result = new Action(() => { subject.Get(new XElement("nullObject")); }).Observe();
-            result.ValidateResult(new List<string> { "w-XML#2;", "w-XML#26;" });
+            result.ValidateResult(new List<string> { "w-XML#2;" });
         }
 
         [Fact]
@@ -200,7 +200,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new XmlGetTemplate("//SimpleItems/SimpleItem/Name");
             List<Information> result = new Action(() => { subject.Get(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "w-XML#3;", "w-XML#26;" });
+            result.ValidateResult(new List<string> { "w-XML#3;" });
         }
 
         [Fact]

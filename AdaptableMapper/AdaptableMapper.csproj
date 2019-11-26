@@ -92,6 +92,7 @@
     <Compile Include="Traversals\Template.cs" />
     <Compile Include="Traversals\GetTemplate.cs" />
     <Compile Include="MappingScope.cs" />
+    <Compile Include="Xml\NullElement.cs" />
     <Compile Include="Xml\XmlChildCreator.cs" />
     <Compile Include="Xml\XmlGetValue.cs" />
     <Compile Include="Xml\XmlGetScope.cs" />

@@ -35,19 +35,19 @@ namespace AdaptableMapper.Xml
             catch (XPathException exception)
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#27; Path is invalid", "error", xPath, xElement, exception.GetType().Name, exception.Message);
-                return new XElement("nullObject");
+                return new NullElement();
             }
 
             if(!allMatches.Any())
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#2; Path could not be traversed", "warning", xPath, xElement);
-                return new XElement("nullObject");
+                return new NullElement();
             }
 
             if (allMatches.Count > 1)
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#3; Path has multiple of the same node, when only one is expected", "warning", xPath, xElement);
-                return new XElement("nullObject");
+                return new NullElement();
             }
 
             return allMatches.FirstOrDefault();
