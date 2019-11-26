@@ -26,12 +26,12 @@ Completed plans:
  * Add 100% code coverage for Model Mapping
  * Add 100% code coverage for Xml Mapping
  * Add 100% code coverage for Json Mapping
-
-Current plans:
  * Simplify some error messaging (some errors cascade into other errors) 
 
-Future plans in relative priority order: 
+Current plans:
  * Add a new GetValueConditionalIfEmpty implementation for all languages (list of paths, will attempt all paths until a result is found)
+
+Future plans in relative priority order: 
  * Refactor test suite
  * Think about a conditional composite that represents the if then else statements: If (path result) (comparison) (another path result) then (getpath1) else (getpath2)
  
