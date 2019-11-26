@@ -88,7 +88,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetSearchValue(string.Empty, "dummySearch");
             List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#9;", "w-MODEL#14;" });
+            result.ValidateResult(new List<string> { "w-MODEL#9;", "w-MODEL#14;" }); //Preferred cascade, 9 is extra info
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetSearchValue("ab/cd", "Items{'PropertyName':'Code','Value':'1'}/Code");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestItem()); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#9;", "w-MODEL#15;" });
+            result.ValidateResult(new List<string> { "w-MODEL#9;", "w-MODEL#15;" }); //Preferred cascade, 9 is extra info
         }
 
         [Fact]
@@ -112,7 +112,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new ModelGetSearchValue("ab/cd", "Items{'PropertyName':'Code','Value':'1'/Code");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestItem()); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#9;", "e-MODEL#32;" });
+            result.ValidateResult(new List<string> { "w-MODEL#9;", "e-MODEL#32;" }); //Preferred cascade, 9 is extra info
         }
 
         [Fact]

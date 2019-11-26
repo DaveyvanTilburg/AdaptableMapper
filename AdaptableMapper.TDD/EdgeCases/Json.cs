@@ -199,7 +199,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetTemplate("ab/cd");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#15;", "w-JSON#24;" }); //I think this error cascade is fine, the error is an extra notification of something wrong with the path
+            result.ValidateResult(new List<string> { "e-JSON#15;", "w-JSON#24;" }); //Preferred cascade, the error is an extra notification of something wrong with the path
         }
 
         [Fact]
@@ -223,7 +223,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetTemplate("[]");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#28;", "w-JSON#24;" }); //I think this error cascade is fine, the error is an extra notification of something wrong with the path
+            result.ValidateResult(new List<string> { "e-JSON#28;", "w-JSON#24;" }); //Preferred cascade, the error is an extra notification of something wrong with the path
         }
 
         private JToken CreateTestData()
