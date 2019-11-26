@@ -2,10 +2,12 @@
 <root>
   <SimpleItems>
     <SimpleItem Id="1">
-      <name>Davey</name>
+      <Name>Davey</Name>
+      <SurName></SurName>
     </SimpleItem>
     <SimpleItem Id="2">
-      <name>Joey</name>
+      <Name>Joey</Name>
+      <SurName></SurName>
     </SimpleItem>
   </SimpleItems>
 </root>
