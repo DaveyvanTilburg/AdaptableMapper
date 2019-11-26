@@ -34,18 +34,18 @@ namespace AdaptableMapper.Json
             }
         }
 
-        public static string TryTraversalGetValue(this JToken jToken, string path)
+        public static MethodResult<string> TryTraversalGetValue(this JToken jToken, string path)
         {
             JToken pathResult = jToken.Traverse(path);
 
             try
             {
-                return pathResult.Value<string>();
+                return new MethodResult<string>(pathResult.Value<string>());
             }
             catch(Exception exception)
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#6; Path resulted in no items", "error", path, exception.GetType().Name, exception.Message);
-                return string.Empty;
+                return new NullMethodResult<string>();
             }
         }
 

@@ -58,7 +58,9 @@
     <Compile Include="Model\ModelTargetInstantiatorSource.cs" />
     <Compile Include="Model\ModelToStringObjectConverter.cs" />
     <Compile Include="Model\StringToModelObjectConverter.cs" />
+    <Compile Include="NullMethodResult.cs" />
     <Compile Include="NullObjectConverter.cs" />
+    <Compile Include="MethodResult.cs" />
     <Compile Include="ResultObjectConverter.cs" />
     <Compile Include="Contexts\ObjectConverter.cs" />
     <Compile Include="Contexts\TargetInstantiator.cs" />

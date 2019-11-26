@@ -51,6 +51,22 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
+        public void JsonGetSearchValueEmptySearchPathValue()
+        {
+            var subject = new JsonGetSearchValue(string.Empty, "$.SimpleItems[0].SimpleItem.SurName");
+            List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
+            result.ValidateResult(new List<string> { "w-JSON#7;" });
+        }
+
+        [Fact]
+        public void JsonGetSearchValueEmptyActualPath()
+        {
+            var subject = new JsonGetSearchValue("$.SimpleItems[0].SimpleItem.SurName", "$.SimpleItems[0].SimpleItem.Id");
+            List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
+            result.ValidateResult(new List<string> { "w-JSON#8;" });
+        }
+
+        [Fact]
         public void JsonGetSearchValueEmptySearchValuePath()
         {
             var subject = new JsonGetSearchValue(string.Empty, string.Empty);
@@ -63,7 +79,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetSearchValue(string.Empty, "abcd");
             List<Information> result = new Action(() => { subject.GetValue(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#6;", "w-JSON#7;" });
+            result.ValidateResult(new List<string> { "e-JSON#6;" });
         }
 
         [Fact]
@@ -71,7 +87,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetSearchValue(string.Empty, "$.SimpleItems[0].SimpleItem.Id");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#6;", "w-JSON#8;" });
+            result.ValidateResult(new List<string> { "e-JSON#6;" });
         }
 
         [Fact]
@@ -111,7 +127,15 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetValue(string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#6;", "w-JSON#11;" });
+            result.ValidateResult(new List<string> { "e-JSON#6;" });
+        }
+
+        [Fact]
+        public void JsonGetValueEmptyResult()
+        {
+            var subject = new JsonGetValue("$.SimpleItems[0].SimpleItem.SurName");
+            List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
+            result.ValidateResult(new List<string> { "w-JSON#11;" });
         }
 
         [Fact]
