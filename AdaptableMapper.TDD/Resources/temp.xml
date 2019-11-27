@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<?Label ISTBAY|RESERVATION|{{UniqueID}}|NEW?>
+<Reservation mfReservationAction="" mfShareAction="NA" xmlns="reservation.fidelio.5.0">
+  <HotelReference>
+    <hotelCode></hotelCode>
+  </HotelReference>
+  <reservationOriginatorCode></reservationOriginatorCode>
+  <originalBookingDate></originalBookingDate>
+  <StayDateRange timeUnitType="DAY">
+    <startTime></startTime>
+    <numberOfTimeUnits></numberOfTimeUnits>
+  </StayDateRange>
+  <mfImage>
+    <numRooms>1</numRooms>
+  </mfImage>
+</Reservation>

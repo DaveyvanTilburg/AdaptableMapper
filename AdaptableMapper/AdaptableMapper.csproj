@@ -104,6 +104,7 @@
     <Compile Include="Xml\XmlObjectConverterRemovesNamespace.cs" />
     <Compile Include="Xml\XmlSetValue.cs" />
     <Compile Include="Xml\XmlSetThisValue.cs" />
+    <Compile Include="Xml\XmlTargetInstantiatorRemovesNamespace.cs" />
     <Compile Include="Xml\XmlTargetInstantiator.cs" />
     <Compile Include="Xml\XElementToStringObjectConverter.cs" />
     <Compile Include="Model\TypeExtensions.cs" />

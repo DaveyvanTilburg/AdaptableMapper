@@ -188,6 +188,22 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
+        public void XmlTargetInstantiatorRemovesNamespaceInvalidType()
+        {
+            var subject = new XmlTargetInstantiatorRemovesNamespace();
+            List<Information> result = new Action(() => { subject.Create(0); }).Observe();
+            result.ValidateResult(new List<string> { "e-XML#32;" });
+        }
+
+        [Fact]
+        public void XmlTargetInstantiatorRemovesNamespaceInvalidTarget()
+        {
+            var subject = new XmlTargetInstantiatorRemovesNamespace();
+            List<Information> result = new Action(() => { subject.Create("abcd"); }).Observe();
+            result.ValidateResult(new List<string> { "e-XML#33;" });
+        }
+
+        [Fact]
         public void XmlTraversalTemplateInvalidType()
         {
             var subject = new XmlGetTemplate(string.Empty);
