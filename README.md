@@ -29,9 +29,10 @@ Completed plans:
  * Simplify some error messaging (some errors cascade into other errors) 
 
 Current plans:
- * Add a new GetValueConditionalIfEmpty implementation for all languages (list of paths, will attempt all paths until a result is found)
+ * Isolate everything regarding traversal functionality, so that new functionalities can be added (conditionals and translations)
 
 Future plans in relative priority order: 
+ * Add a new GetValueConditionalIfEmpty implementation for all languages (list of paths, will attempt all paths until a result is found)
  * Refactor test suite
  * Think about a conditional composite that represents the if then else statements: If (path result) (comparison) (another path result) then (getpath1) else (getpath2)
  
