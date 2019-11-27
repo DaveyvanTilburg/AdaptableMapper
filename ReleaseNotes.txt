@@ -1,6 +1,8 @@
 0.12.0
  - Renamed XmlObjectConverter to XmlObjectConverterRemovesNamespace
  - Added XmlObjectConverter
+ - Renamed XmlTargetInstantiator to XmlTargetInstantiatorRemovesNamespace
+ - Added XmlTargetInstantiator
 0.11.2
  - Reduced error cascading
 0.11.1
