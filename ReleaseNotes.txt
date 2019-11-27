@@ -4,6 +4,7 @@
  - Renamed XmlTargetInstantiator to XmlTargetInstantiatorRemovesNamespace
  - Added XmlTargetInstantiator
  - Added mapping on mappingConfiguration level (root level)
+ - Remove MappingScope from the constructor of mappingConfiguration
 0.11.2
  - Reduced error cascading
 0.11.1
