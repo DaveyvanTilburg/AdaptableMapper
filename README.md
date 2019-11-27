@@ -35,28 +35,28 @@ Future plans in relative priority order:
  * GetTemplateStayHere
 
  * Introduce new module : Conditions
-  * Extend MappingScopeComposite with a slot for Condition
- 
-  * FirstNotEmptyCondition (abstract generic implementation, if Condition, invoke A else B. A and B or of generic type)
-  * XXXGetValueFirstNotEmptyCondition (implements FirstNotEmptyCondition for type GetValue)
+    * Extend MappingScopeComposite with a slot for Condition
+    
+    * FirstNotEmptyCondition (abstract generic implementation, if Condition, invoke A else B. A and B or of generic type)
+    * XXXGetValueFirstNotEmptyCondition (implements FirstNotEmptyCondition for type GetValue)
 
-  * Condition (abstract implementation that returns a bool value)
-  * NoCondition (implements Condition - always returns true)
-  * EqualsCondition (GetValue == GetValue)
-  * NotEqualsCondition (GetValue != GetValue)
-  * NotEmptyCondition (GetValue != string.empty)
-  * IfElseCondition (implements condition, If condition is true, do A, else B)
-  * IfOrCondition (implements condition, If 'if' or 'or' is true, return true)
-  * ListOfConditions (List of condition)
+    * Condition (abstract implementation that returns a bool value)
+    * NoCondition (implements Condition - always returns true)
+    * EqualsCondition (GetValue == GetValue)
+    * NotEqualsCondition (GetValue != GetValue)
+    * NotEmptyCondition (GetValue != string.empty)
+    * IfElseCondition (implements condition, If condition is true, do A, else B)
+    * IfOrCondition (implements condition, If 'if' or 'or' is true, return true)
+    * ListOfConditions (List of condition)
 
-  * XXXIfAnyInPathCondition (has a path, if path results in any hits returns true)
+    * XXXIfAnyInPathCondition (has a path, if path results in any hits returns true)
   
  * Introduce new module : Translations
-  * XXXSetValueDictionaryTranslation (list of key values, of value on path == key, then write value)
-  * XXXSetValueDateTimeTranslation formatter (interpret input as datetime, and write with given format, make formats preset)
-  * XXXSetValueNumericValue formatter (same as datetime)
-  * SetValueStatic (Hardcodes a value to set)
-  * GetValueStatic (Hardcodes a value to get)
+    * XXXSetValueDictionaryTranslation (list of key values, of value on path == key, then write value)
+    * XXXSetValueDateTimeTranslation formatter (interpret input as datetime, and write with given format, make formats preset)
+    * XXXSetValueNumericValue formatter (same as datetime)
+    * SetValueStatic (Hardcodes a value to set)
+    * GetValueStatic (Hardcodes a value to get)
  
  * Refactor test suite
  
