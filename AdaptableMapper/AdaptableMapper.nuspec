@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.11.2-beta20191126-01</version>
+    <version>0.12.0-beta20191127-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -19,8 +19,9 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
         <dependency id="Newtonsoft.Json" version="12.0.2" />
       </group>
     </dependencies>
-    <releaseNotes>0.11.2
- - Reduced error cascading
+    <releaseNotes>0.12.0
+ - Renamed XmlObjectConverter to XmlObjectConverterRemovesNamespace
+ - Added XmlObjectConverter
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
