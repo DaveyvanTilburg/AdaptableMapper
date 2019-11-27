@@ -120,8 +120,8 @@ namespace AdaptableMapper.TDD
             );
 
             var contextFactory = new Contexts.ContextFactory(
-                new Xml.XmlObjectConverterRemovesNamespace(),
-                new Xml.XmlTargetInstantiator()
+                new Xml.XmlObjectConverter(),
+                new Xml.XmlTargetInstantiatorRemovesNamespace()
             );
 
             var mappingConfiguration = new MappingConfiguration(stolenIntelScope, contextFactory, new NullObjectConverter());
