@@ -35,25 +35,25 @@ namespace AdaptableMapper.Xml
             catch (XPathException exception)
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#27; Path is invalid", "error", xPath, xElement, exception.GetType().Name, exception.Message);
-                return new XElement("nullObject");
+                return new NullElement();
             }
 
             if(!allMatches.Any())
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#2; Path could not be traversed", "warning", xPath, xElement);
-                return new XElement("nullObject");
+                return new NullElement();
             }
 
             if (allMatches.Count > 1)
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#3; Path has multiple of the same node, when only one is expected", "warning", xPath, xElement);
-                return new XElement("nullObject");
+                return new NullElement();
             }
 
             return allMatches.FirstOrDefault();
         }
 
-        public static string GetXPathValue(this XElement xElement, string xPath)
+        public static MethodResult<string> GetXPathValue(this XElement xElement, string xPath)
         {
             string result = string.Empty;
 
@@ -65,20 +65,24 @@ namespace AdaptableMapper.Xml
             catch (XPathException exception)
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#29; Path is invalid", "error", xPath, xElement, exception.GetType().Name, exception.Message);
-                return string.Empty;
+                return new NullMethodResult<string>();
             }
 
             var xObject = enumerable.Cast<XObject>().FirstOrDefault();
 
             if (xObject == null)
-                return string.Empty;
+            {
+                Process.ProcessObservable.GetInstance().Raise("XML#30; Path resulted in no items", "warning", xPath, xElement);
+                return new NullMethodResult<string>();
+            }
+                
 
             if (xObject is XElement element)
                 result = element.Value;
             if (xObject is XAttribute attribute)
                 result = attribute.Value;
-            
-            return result;
+
+            return new MethodResult<string>(result);
         }
 
         public static void SetXPathValues(this XElement xElement, string xPath, string value)

@@ -20,14 +20,17 @@ namespace AdaptableMapper.Xml
                 return string.Empty;
             }
 
-            string result = xElement.GetXPathValue(Path);
-            if (string.IsNullOrWhiteSpace(result))
+            MethodResult<string> result = xElement.GetXPathValue(Path);
+            if (result.IsValid && string.IsNullOrWhiteSpace(result.Value))
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#4; Path resulted in no items", "warning", Path, xElement);
                 return string.Empty;
             }
 
-            return result;
+            if (!result.IsValid)
+                return string.Empty;
+
+            return result.Value;
         }
     }
 }

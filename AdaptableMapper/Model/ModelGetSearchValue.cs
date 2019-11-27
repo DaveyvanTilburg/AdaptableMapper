@@ -22,26 +22,29 @@ namespace AdaptableMapper.Model
                 return string.Empty;
             }
 
-            string searchValue = null;
-            if (!string.IsNullOrWhiteSpace(SearchValuePath))
+            if (string.IsNullOrWhiteSpace(SearchValuePath))
             {
-                var searchModelPath = PathContainer.Create(SearchValuePath);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#21; SearchValuePath is empty. If this is intentional, please use ModelGetValue instead.", "error", SearchPath, SearchValuePath);
+                return string.Empty;
+            }
 
-                ModelBase searchPathTarget = model.NavigateToModel(searchModelPath.CreatePathQueue());
-                searchValue = searchPathTarget.GetValue(searchModelPath.LastInPath);
+            var searchModelPath = PathContainer.Create(SearchValuePath);
+            ModelBase searchPathTarget = model.NavigateToModel(searchModelPath.CreatePathQueue());
+            if (!searchPathTarget.IsValid())
+                return string.Empty;
 
-                if (string.IsNullOrWhiteSpace(searchValue))
-                {
-                    Process.ProcessObservable.GetInstance().Raise("MODEL#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
-                    return string.Empty;
-                }
+            string searchValue = searchPathTarget.GetValue(searchModelPath.LastInPath);
+            if (string.IsNullOrWhiteSpace(searchValue))
+            {
+                Process.ProcessObservable.GetInstance().Raise("MODEL#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
+                return string.Empty;
             }
 
             string actualPath = string.IsNullOrWhiteSpace(searchValue) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue);
             var modelPathContainer = PathContainer.Create(actualPath);
 
             ModelBase pathTarget = model.NavigateToModel(modelPathContainer.CreatePathQueue());
-            if (pathTarget is NullModel)
+            if (!pathTarget.IsValid())
             {
                 Process.ProcessObservable.GetInstance().Raise("MODEL#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
                 return string.Empty;

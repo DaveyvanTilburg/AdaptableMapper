@@ -51,6 +51,22 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
+        public void JsonGetSearchValueEmptySearchPathValue()
+        {
+            var subject = new JsonGetSearchValue(string.Empty, "$.SimpleItems[0].SimpleItem.SurName");
+            List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
+            result.ValidateResult(new List<string> { "w-JSON#7;" });
+        }
+
+        [Fact]
+        public void JsonGetSearchValueEmptyActualPath()
+        {
+            var subject = new JsonGetSearchValue("$.SimpleItems[0].SimpleItem.SurName", "$.SimpleItems[0].SimpleItem.Id");
+            List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
+            result.ValidateResult(new List<string> { "w-JSON#8;" });
+        }
+
+        [Fact]
         public void JsonGetSearchValueEmptySearchValuePath()
         {
             var subject = new JsonGetSearchValue(string.Empty, string.Empty);
@@ -63,7 +79,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetSearchValue(string.Empty, "abcd");
             List<Information> result = new Action(() => { subject.GetValue(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#6;", "w-JSON#7;" });
+            result.ValidateResult(new List<string> { "e-JSON#6;" });
         }
 
         [Fact]
@@ -71,7 +87,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetSearchValue(string.Empty, "$.SimpleItems[0].SimpleItem.Id");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#6;", "w-JSON#8;" });
+            result.ValidateResult(new List<string> { "e-JSON#6;" });
         }
 
         [Fact]
@@ -95,7 +111,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonSetValue("[]");
             List<Information> result = new Action(() => { subject.SetValue(new JObject(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#29;", "w-JSON#30;" });
+            result.ValidateResult(new List<string> { "e-JSON#29;" });
         }
 
         [Fact]
@@ -111,7 +127,15 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetValue(string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#6;", "w-JSON#11;" });
+            result.ValidateResult(new List<string> { "e-JSON#6;" });
+        }
+
+        [Fact]
+        public void JsonGetValueEmptyResult()
+        {
+            var subject = new JsonGetValue("$.SimpleItems[0].SimpleItem.SurName");
+            List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
+            result.ValidateResult(new List<string> { "w-JSON#11;" });
         }
 
         [Fact]
@@ -147,7 +171,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void JsonTraversalTemplateInvalidType()
+        public void JsonTraversalGetTemplateInvalidType()
         {
             var subject = new JsonGetTemplate(string.Empty);
             List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
@@ -155,7 +179,15 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void JsonTraversalTemplateInvalidPath()
+        public void JsonTraversalGetTemplateNoParentCheck()
+        {
+            var subject = new JsonGetTemplate("$");
+            List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
+            result.ValidateResult(new List<string> { "e-JSON#9;" });
+        }
+
+        [Fact]
+        public void JsonTraversalGetTemplateInvalidPath()
         {
             var subject = new JsonGetTemplate("abcd");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
@@ -163,15 +195,15 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void JsonTraversalTemplateInvalidParentPath()
+        public void JsonTraversalGetTemplateInvalidParentPath()
         {
             var subject = new JsonGetTemplate("ab/cd");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#15;", "w-JSON#24;" });
+            result.ValidateResult(new List<string> { "e-JSON#15;", "w-JSON#24;" }); //Preferred cascade, the error is an extra notification of something wrong with the path
         }
 
         [Fact]
-        public void JsonTraversalTemplateNoParent()
+        public void JsonTraversalGetTemplateNoParent()
         {
             var subject = new JsonGetTemplate("../");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
@@ -191,7 +223,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         {
             var subject = new JsonGetTemplate("[]");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#28;", "w-JSON#24;" });
+            result.ValidateResult(new List<string> { "e-JSON#28;", "w-JSON#24;" }); //Preferred cascade, the error is an extra notification of something wrong with the path
         }
 
         private JToken CreateTestData()

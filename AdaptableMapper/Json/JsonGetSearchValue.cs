@@ -28,23 +28,26 @@ namespace AdaptableMapper.Json
                 return string.Empty;
             }
 
-            string searchValue = jToken.TryTraversalGetValue(SearchValuePath);
-            if (string.IsNullOrWhiteSpace(searchValue))
+            MethodResult<string> searchValue = jToken.TryTraversalGetValue(SearchValuePath);
+            if (searchValue.IsValid && string.IsNullOrWhiteSpace(searchValue.Value))
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#7; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
                 return string.Empty;
             }
 
-            string actualPath = string.IsNullOrWhiteSpace(searchValue) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue);
+            if (!searchValue.IsValid)
+                return string.Empty;
 
-            string result = jToken.TryTraversalGetValue(actualPath);
-            if (string.IsNullOrWhiteSpace(result))
+            string actualPath = string.IsNullOrWhiteSpace(searchValue.Value) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue.Value);
+
+            MethodResult<string> result = jToken.TryTraversalGetValue(actualPath);
+            if (result.IsValid && string.IsNullOrWhiteSpace(result.Value))
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#8; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
                 return string.Empty;
             }
 
-            return result;
+            return result.Value;
         }
     }
 }

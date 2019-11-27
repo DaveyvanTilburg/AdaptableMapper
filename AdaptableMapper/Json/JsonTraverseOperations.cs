@@ -16,7 +16,7 @@ namespace AdaptableMapper.Json
             JToken result = traversedParent.TryTraverse(pathContainer.LastInPath);
 
             if (result == null)
-                return new JObject();
+                return CreateNullToken();
 
             return result;
         }
@@ -30,22 +30,22 @@ namespace AdaptableMapper.Json
             catch (Exception exception)
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#28; Path resulted in no items", "error", path, exception.GetType().Name, exception.Message);
-                return new JObject();
+                return CreateNullToken();
             }
         }
 
-        public static string TryTraversalGetValue(this JToken jToken, string path)
+        public static MethodResult<string> TryTraversalGetValue(this JToken jToken, string path)
         {
             JToken pathResult = jToken.Traverse(path);
 
             try
             {
-                return pathResult.Value<string>();
+                return new MethodResult<string>(pathResult.Value<string>());
             }
             catch(Exception exception)
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#6; Path resulted in no items", "error", path, exception.GetType().Name, exception.Message);
-                return string.Empty;
+                return new NullMethodResult<string>();
             }
         }
 
@@ -59,12 +59,12 @@ namespace AdaptableMapper.Json
             if(!step.Equals(".."))
             {
                 Process.ProcessObservable.GetInstance().Raise($"JSON#15; In JPath, the / operator can only be used to navigate back to parent nodes, expected '..' but was '{step}'", "error");
-                return new JObject();
+                return CreateNullToken();
             }
 
             JToken parent = jToken.Parent;
             if(parent == null)
-                return new JObject();
+                return CreateNullToken();
 
             if (path.Count > 0)
                 return parent.TraverseToParent(path);
@@ -92,8 +92,13 @@ namespace AdaptableMapper.Json
             catch (Exception exception)
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#29; Path resulted in no items", "error", path, exception.GetType().Name, exception.Message);
-                return new JObject();
+                return new List<JToken> { CreateNullToken() };
             }
+        }
+
+        private static JToken CreateNullToken()
+        {
+            return new NullToken();
         }
     }
 }

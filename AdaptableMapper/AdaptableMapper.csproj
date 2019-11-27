@@ -52,12 +52,15 @@
     <Compile Include="Json\JsonTargetInstantiator.cs" />
     <Compile Include="Json\JsonGetTemplate.cs" />
     <Compile Include="Json\JTokenToStringObjectConverter.cs" />
+    <Compile Include="Json\NullToken.cs" />
     <Compile Include="MappingScopeRoot.cs" />
     <Compile Include="Model\Language\ModelList.cs" />
     <Compile Include="Model\ModelTargetInstantiatorSource.cs" />
     <Compile Include="Model\ModelToStringObjectConverter.cs" />
     <Compile Include="Model\StringToModelObjectConverter.cs" />
+    <Compile Include="NullMethodResult.cs" />
     <Compile Include="NullObjectConverter.cs" />
+    <Compile Include="MethodResult.cs" />
     <Compile Include="ResultObjectConverter.cs" />
     <Compile Include="Contexts\ObjectConverter.cs" />
     <Compile Include="Contexts\TargetInstantiator.cs" />
@@ -89,6 +92,7 @@
     <Compile Include="Traversals\Template.cs" />
     <Compile Include="Traversals\GetTemplate.cs" />
     <Compile Include="MappingScope.cs" />
+    <Compile Include="Xml\NullElement.cs" />
     <Compile Include="Xml\XmlChildCreator.cs" />
     <Compile Include="Xml\XmlGetValue.cs" />
     <Compile Include="Xml\XmlGetScope.cs" />

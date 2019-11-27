@@ -28,21 +28,24 @@ namespace AdaptableMapper.Xml
                 return string.Empty;
             }
 
-            string searchValue = xElement.GetXPathValue(SearchValuePath);
-            if (string.IsNullOrWhiteSpace(searchValue))
+            MethodResult<string> searchValue = xElement.GetXPathValue(SearchValuePath);
+            if (searchValue.IsValid && string.IsNullOrWhiteSpace(searchValue.Value))
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
                 return string.Empty;
             }
 
-            string actualPath = string.IsNullOrWhiteSpace(searchValue) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue);
-            string searchResult = xElement.GetXPathValue(actualPath);
-            if(string.IsNullOrWhiteSpace(searchResult))
+            if (!searchValue.IsValid)
+                return string.Empty;
+
+            string actualPath = string.IsNullOrWhiteSpace(searchValue.Value) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue.Value);
+            MethodResult<string> result = xElement.GetXPathValue(actualPath);
+            if(result.IsValid && string.IsNullOrWhiteSpace(result.Value))
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
                 return string.Empty;
             }
-            return searchResult;
+            return result.Value;
         }
     }
 }

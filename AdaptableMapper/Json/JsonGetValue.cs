@@ -20,14 +20,14 @@ namespace AdaptableMapper.Json
                 return string.Empty;
             }
 
-            string result = jToken.TryTraversalGetValue(Path);
-            if (string.IsNullOrWhiteSpace(result))
+            MethodResult<string> result = jToken.TryTraversalGetValue(Path);
+            if (result.IsValid && string.IsNullOrWhiteSpace(result.Value))
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#11; Path resulted in no items", "warning", Path);
                 return string.Empty;
             }
 
-            return result;
+            return result.Value;
         }
     }
 }

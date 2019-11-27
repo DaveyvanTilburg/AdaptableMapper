@@ -30,7 +30,7 @@ namespace AdaptableMapper.Json
                 return;
             }
 
-            foreach(JToken jTokenTarget in jTokens)
+            foreach(JToken jTokenTarget in jTokens.Where(t => t.Type != JTokenType.Null))
             {
                 if (jTokenTarget is JValue jTokenTargetValue)
                     jTokenTargetValue.Value = value;
