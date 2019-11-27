@@ -30,11 +30,35 @@ Completed plans:
 
 Current plans:
  * Isolate everything regarding traversal functionality, so that new functionalities can be added (conditionals and translations)
-
 Future plans in relative priority order: 
- * Add a new GetValueConditionalIfEmpty implementation for all languages (list of paths, will attempt all paths until a result is found)
+ * GetScopeStayHere
+ * GetTemplateStayHere
+
+ * Introduce new module : Conditions
+  * Extend MappingScopeComposite with a slot for Condition
+ 
+  * FirstNotEmptyCondition (abstract generic implementation, if Condition, invoke A else B. A and B or of generic type)
+  * XXXGetValueFirstNotEmptyCondition (implements FirstNotEmptyCondition for type GetValue)
+
+  * Condition (abstract implementation that returns a bool value)
+  * NoCondition (implements Condition - always returns true)
+  * EqualsCondition (GetValue == GetValue)
+  * NotEqualsCondition (GetValue != GetValue)
+  * NotEmptyCondition (GetValue != string.empty)
+  * IfElseCondition (implements condition, If condition is true, do A, else B)
+  * IfOrCondition (implements condition, If 'if' or 'or' is true, return true)
+  * ListOfConditions (List of condition)
+
+  * XXXIfAnyInPathCondition (has a path, if path results in any hits returns true)
+  
+ * Introduce new module : Translations
+  * XXXSetValueDictionaryTranslation (list of key values, of value on path == key, then write value)
+  * XXXSetValueDateTimeTranslation formatter (interpret input as datetime, and write with given format, make formats preset)
+  * XXXSetValueNumericValue formatter (same as datetime)
+  * SetValueStatic (Hardcodes a value to set)
+  * GetValueStatic (Hardcodes a value to get)
+ 
  * Refactor test suite
- * Think about a conditional composite that represents the if then else statements: If (path result) (comparison) (another path result) then (getpath1) else (getpath2)
  
 ### Todo
 * Model does not have a parent for its template, its design should be more expressive
