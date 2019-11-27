@@ -3,6 +3,7 @@
  - Added XmlObjectConverter
  - Renamed XmlTargetInstantiator to XmlTargetInstantiatorRemovesNamespace
  - Added XmlTargetInstantiator
+ - Added mapping on mappingConfiguration level (root level)
 0.11.2
  - Reduced error cascading
 0.11.1
