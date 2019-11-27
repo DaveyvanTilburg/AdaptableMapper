@@ -49,7 +49,7 @@ namespace AdaptableMapper.TDD
             );
 
             var contextFactory = new Contexts.ContextFactory(
-                new Xml.XmlObjectConverter(),
+                new Xml.XmlObjectConverterRemovesNamespace(),
                 new Xml.XmlTargetInstantiator()
             );
 

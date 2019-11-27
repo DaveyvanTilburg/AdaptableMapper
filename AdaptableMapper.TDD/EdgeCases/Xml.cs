@@ -116,6 +116,22 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
+        public void XmlObjectConverterRemovesNamespaceInvalidType()
+        {
+            var subject = new XmlObjectConverterRemovesNamespace();
+            List<Information> result = new Action(() => { subject.Convert(0); }).Observe();
+            result.ValidateResult(new List<string> { "e-XML#30;" });
+        }
+
+        [Fact]
+        public void XmlObjectConverterRemovesNamespaceInvalidSource()
+        {
+            var subject = new XmlObjectConverterRemovesNamespace();
+            List<Information> result = new Action(() => { subject.Convert("abcd"); }).Observe();
+            result.ValidateResult(new List<string> { "e-XML#31;" });
+        }
+
+        [Fact]
         public void XmlObjectConverterInvalidType()
         {
             var subject = new XmlObjectConverter();

@@ -36,7 +36,7 @@ Scenario Outline: MappingConfiguration
 	| TestName         | ContextFactoryObjectConverter | ContextFactoryTargetInitiator | ObjectConverter | InformationCodes      | Result         |
 	| Model-Xml-Xml    | ModelBase                     | Xml                           | Xml             | e-XML#24;e-MODEL#17;  | <nullObject /> |
 	| Json-Model-Model | Json                          | Model                         | Model           | e-JSON#13;e-MODEL#25; | {}             |
-	| Xml-Json-Json    | Xml                           | Json                          | Json            | e-XML#19;e-JSON#26;   | {}             |
+	| Xml-Json-Json    | Xml                           | Json                          | Json            | e-XML#31;e-JSON#26;   | {}             |
 
 Scenario Outline: Mapping
 	Given I create a mappingConfiguration

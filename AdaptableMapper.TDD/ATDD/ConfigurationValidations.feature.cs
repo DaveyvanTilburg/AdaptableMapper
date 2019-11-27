@@ -223,7 +223,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("Description", "MappingConfiguration")]
         [Xunit.InlineDataAttribute("Model-Xml-Xml", "ModelBase", "Xml", "Xml", "e-XML#24;e-MODEL#17;", "<nullObject />", new string[0])]
         [Xunit.InlineDataAttribute("Json-Model-Model", "Json", "Model", "Model", "e-JSON#13;e-MODEL#25;", "{}", new string[0])]
-        [Xunit.InlineDataAttribute("Xml-Json-Json", "Xml", "Json", "Json", "e-XML#19;e-JSON#26;", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("Xml-Json-Json", "Xml", "Json", "Json", "e-XML#31;e-JSON#26;", "{}", new string[0])]
         public virtual void MappingConfiguration(string testName, string contextFactoryObjectConverter, string contextFactoryTargetInitiator, string objectConverter, string informationCodes, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;

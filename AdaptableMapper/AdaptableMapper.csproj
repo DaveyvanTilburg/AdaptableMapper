@@ -97,6 +97,7 @@
     <Compile Include="Model\StringExtensions.cs" />
     <Compile Include="Xml\XmlGetThisValue.cs" />
     <Compile Include="Xml\XmlObjectConverter.cs" />
+    <Compile Include="Xml\XmlObjectConverterRemovesNamespace.cs" />
     <Compile Include="Xml\XmlSetValue.cs" />
     <Compile Include="Xml\XmlSetThisValue.cs" />
     <Compile Include="Xml\XmlTargetInstantiator.cs" />

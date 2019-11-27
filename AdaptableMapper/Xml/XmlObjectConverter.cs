@@ -25,18 +25,7 @@ namespace AdaptableMapper.Xml
                 root = new XElement("nullObject");
             }
 
-            RemoveAllNamespaces(root);
-
             return root;
-        }
-
-        private static void RemoveAllNamespaces(XElement element)
-        {
-            element.Name = element.Name.LocalName;
-
-            foreach (var node in element.DescendantNodes())
-                if (node is XElement xElement)
-                    RemoveAllNamespaces(xElement);
         }
     }
 }
