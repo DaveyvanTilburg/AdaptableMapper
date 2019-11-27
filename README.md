@@ -30,6 +30,7 @@ Completed plans:
 
 Current plans:
  * Isolate everything regarding traversal functionality, so that new functionalities can be added (conditionals and translations)
+ 
 Future plans in relative priority order: 
  * GetScopeStayHere
  * GetTemplateStayHere
