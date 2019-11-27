@@ -8,7 +8,7 @@ Scenario: Empty argument mappingConfiguration
 
 Scenario: Empty contextFactory mappingConfiguration
 	Given I create a mappingConfiguration
-	When I run Map with a string parameter 'test'
+	When I run Map with a source parameter 'test'
 	Then the result should contain the following errors 'e-TREE#2;e-TREE#5;e-TREE#6;'
 	Then result should be null
 
@@ -17,9 +17,35 @@ Scenario: Empty scoperoot empty factory nullconverter mappingConfiguration
 	Given I add a contextFactory
 	Given I add a MappingScopeRoot with an empty list
 	Given I add a 'Null' ObjectConverter for mappingConfiguration
-	When I run Map with a string parameter 'test'
+	Given I add a MappingScopeRoot with an empty list
+	When I run Map with a source parameter 'test'
 	Then the result should contain the following errors 'e-TREE#3;e-TREE#4;'
 	Then result should be null
+
+Scenario: MappingConfiguration no mapping
+	Given I create a mappingConfiguration
+	Given I add a contextFactory
+	Given I add a 'Xml' ObjectConverter to the contextFactory
+	Given I add a 'Xml' TargetInitiator to the contextFactory
+	Given I add a 'Xml' ObjectConverter for mappingConfiguration
+	When I run Map with a source parameter ''
+	Then the result should contain the following errors 'e-TREE#5;'
+	Then result should be null
+
+Scenario: MappingConfiguration no scope - has mapping
+	Given I create a mappingConfiguration
+	Given I add a contextFactory
+	Given I add a 'Xml' ObjectConverter to the contextFactory
+	Given I add a 'Xml' TargetInitiator to the contextFactory
+	Given I add a 'Xml' ObjectConverter for mappingConfiguration
+	Given the source is '<root><testItem>value</testItem></root>'
+	Given the target is '<root><testItem></testItem></root>'
+	Given I add a mapping to root with
+	| GetValueTraversal | SetValueTraversal |
+	| ./testItem        | ./testItem        |
+	When I run Map
+	Then the result should contain the following errors ''
+	Then result should be like file 'ExampleResult.xml'
 
 Scenario Outline: MappingConfiguration
 	Given I create a mappingConfiguration
@@ -28,7 +54,7 @@ Scenario Outline: MappingConfiguration
 	Given I add a '<ContextFactoryTargetInitiator>' TargetInitiator to the contextFactory
 	Given I add a '<ObjectConverter>' ObjectConverter for mappingConfiguration
 	Given I add a MappingScopeRoot with an empty list
-	When I run Map with a string parameter ''
+	When I run Map with a source parameter ''
 	Then the result should contain the following errors '<InformationCodes>'
 	Then result should be '<Result>'
 
@@ -51,7 +77,7 @@ Scenario Outline: Mapping
 	Given I add a mapping to the scope
 	| GetValueTraversal   | SetValueTraversal   |
 	| <GetValueTraversal> | <SetValueTraversal> |
-	When I run Map with a string parameter '<Source>'
+	When I run Map with a source parameter '<Source>'
 	Then the result should contain the following errors '<InformationCodes>'
 	Then result should be '<Result>'
 

@@ -69,6 +69,28 @@ namespace AdaptableMapper.TDD.ATDD
             _builder.AddMappingToLastScope(mapping);
         }
 
+        [Given(@"I add a mapping to root with")]
+        public void GivenIAddAMappingToRootWith(Table table)
+        {
+            MappingModel mappingModel = table.CreateInstance<MappingModel>();
+            _builder.AddXmlMappingToRoot(mappingModel);
+        }
+
+        private string _source;
+        private string _target;
+
+        [Given(@"the source is '(.*)'")]
+        public void GivenTheSourceIs(string p0)
+        {
+            _source = p0;
+        }
+
+        [Given(@"the target is '(.*)'")]
+        public void GivenTheTargetIs(string p0)
+        {
+            _target = p0;
+        }
+
         [When(@"I run Map with a null parameter")]
         public void WhenIRunMapWithANullParameter()
         {
@@ -76,10 +98,16 @@ namespace AdaptableMapper.TDD.ATDD
         }
 
 
-        [When(@"I run Map with a string parameter '(.*)'")]
+        [When(@"I run Map with a source parameter '(.*)'")]
         public void WhenIRunMapWithAStringParameter(string p0)
         {
             Map(p0, null);
+        }
+
+        [When(@"I run Map")]
+        public void WhenIRunMap()
+        {
+            Map(_source, _target);
         }
 
         private void Map(object input, object targetSource)
@@ -106,6 +134,12 @@ namespace AdaptableMapper.TDD.ATDD
         public void ThenResultShouldBe(string p0)
         {
             _result.Should().Be(p0);
+        }
+
+        [Then(@"result should be like file '(.*)'")]
+        public void ThenResultShouldBeLikeFile(string p0)
+        {
+            _result.Should().Be(System.IO.File.ReadAllText($"./Resources/{p0}"));
         }
     }
 }

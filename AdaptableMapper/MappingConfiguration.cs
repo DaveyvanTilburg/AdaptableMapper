@@ -1,4 +1,5 @@
-﻿using AdaptableMapper.Contexts;
+﻿using System.Collections.Generic;
+using AdaptableMapper.Contexts;
 
 namespace AdaptableMapper
 {
@@ -7,8 +8,14 @@ namespace AdaptableMapper
         public MappingScope MappingScope { get; set; }
         public ContextFactory ContextFactory { get; set; }
         public ResultObjectConverter ResultObjectConverter { get; set; }
+        public List<Mapping> Mappings { get;set; }
 
-        public MappingConfiguration(MappingScope mappingScope, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter)
+        public MappingConfiguration()
+        {
+            Mappings = new List<Mapping>();
+        }
+
+        public MappingConfiguration(MappingScope mappingScope, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
         {
             MappingScope = mappingScope;
             ContextFactory = contextFactory;
@@ -27,7 +34,11 @@ namespace AdaptableMapper
                 return null;
 
             Context context = ContextFactory.Create(source, targetSource);
-            MappingScope.Traverse(context);
+
+            foreach (Mapping mapping in Mappings)
+                mapping.Map(context);
+            
+            MappingScope?.Traverse(context);
 
             object result = ResultObjectConverter.Convert(context.Target);
             return result;
@@ -43,9 +54,9 @@ namespace AdaptableMapper
                 result = false;
             }
 
-            if (MappingScope == null)
+            if (!(MappingScope != null || Mappings?.Count > 0))
             {
-                Process.ProcessObservable.GetInstance().Raise("TREE#5; MappingScope cannot be null", "error"); 
+                Process.ProcessObservable.GetInstance().Raise("TREE#5; MappingScope or mappings should be used", "error");
                 result = false;
             }
 

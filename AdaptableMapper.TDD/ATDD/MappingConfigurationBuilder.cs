@@ -203,5 +203,14 @@ namespace AdaptableMapper.TDD.ATDD
                     return null;
             }
         }
+
+        public void AddXmlMappingToRoot(MappingModel mappingModel)
+        {
+            _result.Mappings.Add(
+                new Mapping(
+                    new Xml.XmlGetValue(mappingModel.GetValueTraversal),
+                    new Xml.XmlSetValue(mappingModel.SetValueTraversal)
+                ));
+        }
     }
 }
