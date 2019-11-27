@@ -106,7 +106,8 @@ namespace AdaptableMapper.TDD
                 new Xml.XmlTargetInstantiator()
             );
 
-            var mappingConfiguration = new MappingConfiguration(rootScope, contextFactory, new NullObjectConverter());
+            var mappingConfiguration = new MappingConfiguration(contextFactory, new NullObjectConverter());
+            mappingConfiguration.MappingScope = rootScope;
 
             return mappingConfiguration;
         }

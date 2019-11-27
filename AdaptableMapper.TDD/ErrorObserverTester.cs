@@ -53,7 +53,8 @@ namespace AdaptableMapper.TDD
                 new Xml.XmlTargetInstantiator()
             );
 
-            var mappingConfiguration = new MappingConfiguration(stolenIntelScope, contextFactory, new NullObjectConverter());
+            var mappingConfiguration = new MappingConfiguration(contextFactory, new NullObjectConverter());
+            mappingConfiguration.MappingScope = stolenIntelScope;
 
             return mappingConfiguration;
         }

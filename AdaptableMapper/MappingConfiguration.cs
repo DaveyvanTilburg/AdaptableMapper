@@ -15,9 +15,8 @@ namespace AdaptableMapper
             Mappings = new List<Mapping>();
         }
 
-        public MappingConfiguration(MappingScope mappingScope, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
+        public MappingConfiguration(ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
         {
-            MappingScope = mappingScope;
             ContextFactory = contextFactory;
             ResultObjectConverter = resultObjectConverter;
         }
