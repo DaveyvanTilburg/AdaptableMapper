@@ -301,8 +301,7 @@ namespace AdaptableMapper.TDD
                 new Json.JsonTargetInstantiator()
             );
 
-            var mappingConfiguration = new MappingConfiguration(contextFactory, new NullObjectConverter());
-            mappingConfiguration.MappingScope = rootScope;
+            var mappingConfiguration = new MappingConfiguration(rootScope, contextFactory, new NullObjectConverter());
 
             return mappingConfiguration;
         }

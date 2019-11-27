@@ -185,8 +185,7 @@ namespace AdaptableMapper.TDD
                 new Model.ModelTargetInstantiator()
             );
 
-            var mappingConfiguration = new MappingConfiguration(contextFactory, new NullObjectConverter());
-            mappingConfiguration.MappingScope = rootScope;
+            var mappingConfiguration = new MappingConfiguration(rootScope, contextFactory, new NullObjectConverter());
 
             return mappingConfiguration;
         }

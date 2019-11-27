@@ -15,7 +15,7 @@ namespace AdaptableMapper.TDD.ATDD
 
         internal void StartNew()
         {
-            _result = new MappingConfiguration(null, null);
+            _result = new MappingConfiguration();
         }
 
         internal MappingConfiguration GetResult()

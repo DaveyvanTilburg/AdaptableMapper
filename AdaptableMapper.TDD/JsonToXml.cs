@@ -127,14 +127,13 @@ namespace AdaptableMapper.TDD
             );
 
             var mappingConfiguration = new MappingConfiguration(
+                mappingScopeRoot,
                 new ContextFactory(
                     new Json.JsonObjectConverter(),
                     new Xml.XmlTargetInstantiator()
                 ),
                 new NullObjectConverter()
             );
-
-            mappingConfiguration.MappingScope = mappingScopeRoot;
 
             return mappingConfiguration;
         }

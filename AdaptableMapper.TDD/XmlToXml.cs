@@ -124,8 +124,7 @@ namespace AdaptableMapper.TDD
                 new Xml.XmlTargetInstantiatorRemovesNamespace()
             );
 
-            var mappingConfiguration = new MappingConfiguration(contextFactory, new NullObjectConverter());
-            mappingConfiguration.MappingScope = stolenIntelScope;
+            var mappingConfiguration = new MappingConfiguration(stolenIntelScope, contextFactory, new NullObjectConverter());
 
             return mappingConfiguration;
         }
