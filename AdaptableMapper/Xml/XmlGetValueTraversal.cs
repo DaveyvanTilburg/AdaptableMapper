@@ -3,9 +3,9 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public sealed class XmlGetValue : GetValueTraversal
+    public sealed class XmlGetValueTraversal : GetValueTraversal
     {
-        public XmlGetValue(string path)
+        public XmlGetValueTraversal(string path)
         {
             Path = path;
         }

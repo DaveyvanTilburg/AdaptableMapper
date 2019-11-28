@@ -29,7 +29,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlGetScopeInvalidType()
         {
-            var subject = new XmlGetScope(string.Empty);
+            var subject = new XmlGetScopeTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.GetScope(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#12;" });
         }
@@ -37,7 +37,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlGetScopeInvalidPath()
         {
-            var subject = new XmlGetScope("::");
+            var subject = new XmlGetScopeTraversal("::");
             List<Information> result = new Action(() => { subject.GetScope(new XElement("nullObject")); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#28;", "w-XML#5;" }); //Preferred cascade, 28 contains extra info
         }
@@ -45,7 +45,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlGetScopeNoResults()
         {
-            var subject = new XmlGetScope("abcd");
+            var subject = new XmlGetScopeTraversal("abcd");
             List<Information> result = new Action(() => { subject.GetScope(new XElement("nullObject")); }).Observe();
             result.ValidateResult(new List<string> { "w-XML#5;" });
         }
@@ -54,7 +54,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         public void XmlGetSearchValueInvalidType()
         {
             //Todo, review errors/warnings thrown marker
-            var subject = new XmlGetSearchValue(string.Empty, string.Empty);
+            var subject = new XmlGetSearchValueTraversal(string.Empty, string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#13;" });
         }
@@ -62,7 +62,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlGetSearchValueEmptySearchPath()
         {
-            var subject = new XmlGetSearchValue(string.Empty, string.Empty);
+            var subject = new XmlGetSearchValueTraversal(string.Empty, string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(new XElement("nullObject")); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#25;" });
         }
@@ -70,7 +70,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlGetSearchValueInvalidSearchPath()
         {
-            var subject = new XmlGetSearchValue(string.Empty, "abcd");
+            var subject = new XmlGetSearchValueTraversal(string.Empty, "abcd");
             List<Information> result = new Action(() => { subject.GetValue(new XElement("nullObject")); }).Observe();
             result.ValidateResult(new List<string> { "w-XML#30;" });
         }
@@ -78,7 +78,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlGetSearchValueEmptySearchPathValueResult()
         {
-            var subject = new XmlGetSearchValue(string.Empty, "//SimpleItems/SimpleItem/SurName");
+            var subject = new XmlGetSearchValueTraversal(string.Empty, "//SimpleItems/SimpleItem/SurName");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
             result.ValidateResult(new List<string> { "w-XML#14;" });
         }
@@ -86,7 +86,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlGetSearchValueNoActualPathResult()
         {
-            var subject = new XmlGetSearchValue("//SimpleItems/SimpleItem/SurName", "//SimpleItems/SimpleItem/@Id");
+            var subject = new XmlGetSearchValueTraversal("//SimpleItems/SimpleItem/SurName", "//SimpleItems/SimpleItem/@Id");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
             result.ValidateResult(new List<string> { "w-XML#15;" });
         }
@@ -94,7 +94,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlGetThisValueInvalidType()
         {
-            var subject = new XmlGetThisValue();
+            var subject = new XmlGetThisValueTraversal();
             List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#16;" });
         }
@@ -102,7 +102,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlGetValueInvalidType()
         {
-            var subject = new XmlGetValue(string.Empty);
+            var subject = new XmlGetValueTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#17;" });
         }
@@ -110,7 +110,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlGetValueInvalidPath()
         {
-            var subject = new XmlGetValue("::");
+            var subject = new XmlGetValueTraversal("::");
             List<Information> result = new Action(() => { subject.GetValue(new XElement("nullObject")); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#29;" });
         }
@@ -118,7 +118,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlGetValueEmptyString()
         {
-            var subject = new XmlGetValue("//SimpleItems/SimpleItem/SurName");
+            var subject = new XmlGetValueTraversal("//SimpleItems/SimpleItem/SurName");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
             result.ValidateResult(new List<string> { "w-XML#4;" });
         }
@@ -158,7 +158,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlSetThisValueInvalidType()
         {
-            var subject = new XmlSetThisValue();
+            var subject = new XmlSetThisValueTraversal();
             List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#20;" });
         }
@@ -166,7 +166,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlSetValueInvalidType()
         {
-            var subject = new XmlSetValue(string.Empty);
+            var subject = new XmlSetValueTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#21;" });
         }
@@ -206,7 +206,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlTraversalTemplateInvalidType()
         {
-            var subject = new XmlGetTemplate(string.Empty);
+            var subject = new XmlGetTemplateTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#23;" });
         }
@@ -214,7 +214,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlTraversalTemplateInvalidPath()
         {
-            var subject = new XmlGetTemplate("::");
+            var subject = new XmlGetTemplateTraversal("::");
             List<Information> result = new Action(() => { subject.Get(new XElement("nullObject")); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#27;" });
         }
@@ -222,7 +222,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlTraversalTemplateNoResult()
         {
-            var subject = new XmlGetTemplate("abcd");
+            var subject = new XmlGetTemplateTraversal("abcd");
             List<Information> result = new Action(() => { subject.Get(new XElement("nullObject")); }).Observe();
             result.ValidateResult(new List<string> { "w-XML#2;" });
         }
@@ -230,7 +230,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlTraversalTemplateMoreThanOne()
         {
-            var subject = new XmlGetTemplate("//SimpleItems/SimpleItem/Name");
+            var subject = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem/Name");
             List<Information> result = new Action(() => { subject.Get(CreateTestData()); }).Observe();
             result.ValidateResult(new List<string> { "w-XML#3;" });
         }
@@ -238,7 +238,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         [Fact]
         public void XmlTraversalTemplateResultHasNoParent()
         {
-            var subject = new XmlGetTemplate("/");
+            var subject = new XmlGetTemplateTraversal("/");
             List<Information> result = new Action(() => { subject.Get(CreateTestData()); }).Observe();
             result.ValidateResult(new List<string> { "w-XML#26;" });
         }

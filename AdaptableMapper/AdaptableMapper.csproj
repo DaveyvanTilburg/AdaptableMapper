@@ -92,16 +92,16 @@
     <Compile Include="Traversals\GetTemplateTraversal.cs" />
     <Compile Include="Xml\NullElement.cs" />
     <Compile Include="Xml\XmlChildCreator.cs" />
-    <Compile Include="Xml\XmlGetValue.cs" />
-    <Compile Include="Xml\XmlGetScope.cs" />
-    <Compile Include="Xml\XmlGetSearchValue.cs" />
+    <Compile Include="Xml\XmlGetValueTraversal.cs" />
+    <Compile Include="Xml\XmlGetScopeTraversal.cs" />
+    <Compile Include="Xml\XmlGetSearchValueTraversal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\StringExtensions.cs" />
-    <Compile Include="Xml\XmlGetThisValue.cs" />
+    <Compile Include="Xml\XmlGetThisValueTraversal.cs" />
     <Compile Include="Xml\XmlObjectConverter.cs" />
     <Compile Include="Xml\XmlObjectConverterRemovesNamespace.cs" />
-    <Compile Include="Xml\XmlSetValue.cs" />
-    <Compile Include="Xml\XmlSetThisValue.cs" />
+    <Compile Include="Xml\XmlSetValueTraversal.cs" />
+    <Compile Include="Xml\XmlSetThisValueTraversal.cs" />
     <Compile Include="Xml\XmlTargetInstantiatorRemovesNamespace.cs" />
     <Compile Include="Xml\XmlTargetInstantiator.cs" />
     <Compile Include="Xml\XElementToStringObjectConverter.cs" />
@@ -109,7 +109,7 @@
     <Compile Include="Xml\XElementExtensions.cs" />
     <Compile Include="PathContainer.cs" />
     <Compile Include="JsonSerializer.cs" />
-    <Compile Include="Xml\XmlGetTemplate.cs" />
+    <Compile Include="Xml\XmlGetTemplateTraversal.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">

@@ -5,9 +5,9 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public sealed class XmlGetScope : GetScopeTraversal
+    public sealed class XmlGetScopeTraversal : GetScopeTraversal
     {
-        public XmlGetScope(string path)
+        public XmlGetScopeTraversal(string path)
         {
             Path = path;
         }

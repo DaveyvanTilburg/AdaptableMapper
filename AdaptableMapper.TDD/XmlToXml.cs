@@ -53,8 +53,8 @@ namespace AdaptableMapper.TDD
         private static MappingConfiguration GetMappingConfiguration()
         {
             var crewMemberName = new Mapping(
-                new Xml.XmlGetThisValue(),
-                new Xml.XmlSetThisValue()
+                new Xml.XmlGetThisValueTraversal(),
+                new Xml.XmlSetThisValueTraversal()
             );
 
             var crewScope = new MappingScopeComposite(
@@ -63,14 +63,14 @@ namespace AdaptableMapper.TDD
                 {
                     crewMemberName
                 },
-                new Xml.XmlGetScope("./army/platoon/members/member/crew/crewMember"),
-                new Xml.XmlGetTemplate("./crewMemberNames/crewMemberName"),
+                new Xml.XmlGetScopeTraversal("./army/platoon/members/member/crew/crewMember"),
+                new Xml.XmlGetTemplateTraversal("./crewMemberNames/crewMemberName"),
                 new Xml.XmlChildCreator()
             );
 
             var memberName = new Mapping(
-                new Xml.XmlGetValue("./@name"),
-                new Xml.XmlSetThisValue()
+                new Xml.XmlGetValueTraversal("./@name"),
+                new Xml.XmlSetThisValueTraversal()
             );
 
             var memberScope = new MappingScopeComposite(
@@ -79,22 +79,22 @@ namespace AdaptableMapper.TDD
                 {
                     memberName
                 },
-                new Xml.XmlGetScope("./members/member"),
-                new Xml.XmlGetTemplate("./memberNames/memberName"),
+                new Xml.XmlGetScopeTraversal("./members/member"),
+                new Xml.XmlGetTemplateTraversal("./memberNames/memberName"),
                 new Xml.XmlChildCreator()
             );
 
             var platoonCode = new Mapping(
-                new Xml.XmlGetValue("./@code"),
-                new Xml.XmlSetValue("./@code")
+                new Xml.XmlGetValueTraversal("./@code"),
+                new Xml.XmlSetValueTraversal("./@code")
             );
 
             var leaderNameSearch = new Mapping(
-                new Xml.XmlGetSearchValue(
+                new Xml.XmlGetSearchValueTraversal(
                     "../../leaders/leader[@reference='{{searchValue}}']",
                     "./leaderReference"
                 ),
-                new Xml.XmlSetValue("./leaderName")
+                new Xml.XmlSetValueTraversal("./leaderName")
             );
 
             var platoonScope = new MappingScopeComposite(
@@ -107,8 +107,8 @@ namespace AdaptableMapper.TDD
                     platoonCode,
                     leaderNameSearch
                 },
-                new Xml.XmlGetScope("./army/platoon"),
-                new Xml.XmlGetTemplate("./platoons/platoon"),
+                new Xml.XmlGetScopeTraversal("./army/platoon"),
+                new Xml.XmlGetTemplateTraversal("./platoons/platoon"),
                 new Xml.XmlChildCreator()
             );
 

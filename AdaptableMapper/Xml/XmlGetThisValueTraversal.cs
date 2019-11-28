@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public sealed class XmlGetThisValue : GetValueTraversal
+    public sealed class XmlGetThisValueTraversal : GetValueTraversal
     {
         public string GetValue(object source)
         {

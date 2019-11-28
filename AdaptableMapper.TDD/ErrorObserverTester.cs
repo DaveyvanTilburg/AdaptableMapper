@@ -27,8 +27,8 @@ namespace AdaptableMapper.TDD
         private static MappingConfiguration GetMappingConfiguration()
         {
             var platoonCode = new Mapping(
-                new Xml.XmlGetValue("./@code"),
-                new Xml.XmlSetValue("./@code")
+                new Xml.XmlGetValueTraversal("./@code"),
+                new Xml.XmlSetValueTraversal("./@code")
             );
 
             var platoonScope = new MappingScopeComposite(
@@ -37,8 +37,8 @@ namespace AdaptableMapper.TDD
                 {
                     platoonCode
                 },
-                new Xml.XmlGetScope("./army/platoon"),
-                new Xml.XmlGetTemplate("./platoons/platoon"),
+                new Xml.XmlGetScopeTraversal("./army/platoon"),
+                new Xml.XmlGetTemplateTraversal("./platoons/platoon"),
                 new Xml.XmlChildCreator()
             );
 

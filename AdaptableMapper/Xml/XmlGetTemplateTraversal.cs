@@ -3,9 +3,9 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public sealed class XmlGetTemplate : GetTemplateTraversal
+    public sealed class XmlGetTemplateTraversal : GetTemplateTraversal
     {
-        public XmlGetTemplate(string path)
+        public XmlGetTemplateTraversal(string path)
         {
             Path = path;
         }
