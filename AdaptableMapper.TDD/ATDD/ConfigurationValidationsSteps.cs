@@ -29,12 +29,6 @@ namespace AdaptableMapper.TDD.ATDD
             _builder.AddContextFactory();
         }
 
-        [Given(@"I add a MappingScopeRoot with an empty list")]
-        public void GivenIAddAMappingScopeRootWithAnEmptyList()
-        {
-            _builder.AddMappingScopeRoot();
-        }
-
         [Given(@"I add a '(.*)' ObjectConverter for mappingConfiguration")]
         public void GivenIAddAObjectConverterForMappingConfiguration(string type)
         {
@@ -90,6 +84,13 @@ namespace AdaptableMapper.TDD.ATDD
         {
             _target = p0;
         }
+
+        [Given(@"I add an empty scope")]
+        public void GivenIAddAnEmptyScope()
+        {
+            _builder.AddEmptyScope();
+        }
+
 
         [When(@"I run Map with a null parameter")]
         public void WhenIRunMapWithANullParameter()

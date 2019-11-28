@@ -15,11 +15,10 @@ Scenario: Empty contextFactory mappingConfiguration
 Scenario: Empty scoperoot empty factory nullconverter mappingConfiguration
 	Given I create a mappingConfiguration
 	Given I add a contextFactory
-	Given I add a MappingScopeRoot with an empty list
 	Given I add a 'Null' ObjectConverter for mappingConfiguration
-	Given I add a MappingScopeRoot with an empty list
+	Given I add an empty scope
 	When I run Map with a source parameter 'test'
-	Then the result should contain the following errors 'e-TREE#3;e-TREE#4;'
+	Then the result should contain the following errors 'e-TREE#3;e-TREE#4;e-TREE#7;e-TREE#9;e-TREE#10;'
 	Then result should be null
 
 Scenario: MappingConfiguration no mapping
@@ -53,16 +52,16 @@ Scenario Outline: MappingConfiguration
 	Given I add a '<ContextFactoryObjectConverter>' ObjectConverter to the contextFactory
 	Given I add a '<ContextFactoryTargetInitiator>' TargetInitiator to the contextFactory
 	Given I add a '<ObjectConverter>' ObjectConverter for mappingConfiguration
-	Given I add a MappingScopeRoot with an empty list
+	Given I add an empty scope
 	When I run Map with a source parameter ''
 	Then the result should contain the following errors '<InformationCodes>'
 	Then result should be '<Result>'
 
 	Examples:
-	| TestName         | ContextFactoryObjectConverter | ContextFactoryTargetInitiator | ObjectConverter | InformationCodes      | Result         |
-	| Model-Xml-Xml    | ModelBase                     | Xml                           | Xml             | e-XML#24;e-MODEL#17;  | <nullObject /> |
-	| Json-Model-Model | Json                          | Model                         | Model           | e-JSON#13;e-MODEL#25; | {}             |
-	| Xml-Json-Json    | Xml                           | Json                          | Json            | e-XML#31;e-JSON#26;   | {}             |
+	| TestName         | ContextFactoryObjectConverter | ContextFactoryTargetInitiator | ObjectConverter | InformationCodes                                  | Result         |
+	| Model-Xml-Xml    | ModelBase                     | Xml                           | Xml             | e-XML#24;e-MODEL#17;e-TREE#7;e-TREE#9;e-TREE#10;  | <nullObject /> |
+	| Json-Model-Model | Json                          | Model                         | Model           | e-JSON#13;e-MODEL#25;e-TREE#7;e-TREE#9;e-TREE#10; | {}             |
+	| Xml-Json-Json    | Xml                           | Json                          | Json            | e-XML#31;e-JSON#26;e-TREE#7;e-TREE#9;e-TREE#10;   | {}             |
 
 Scenario Outline: Mapping
 	Given I create a mappingConfiguration
@@ -70,7 +69,6 @@ Scenario Outline: Mapping
 	Given I add a '<Type>' ObjectConverter to the contextFactory
 	Given I add a '<Type>' TargetInitiator to the contextFactory
 	Given I add a '<Type>' ObjectConverter for mappingConfiguration
-	Given I add a MappingScopeRoot with an empty list
 	Given I add a Scope to the root
 	| GetScopeTraversal   | GetScopeTraversalPath   | TraversalToGetTemplate   | ChildCreator   |
 	| <GetScopeTraversal> | <GetScopeTraversalPath> | <TraversalToGetTemplate> | <ChildCreator> |

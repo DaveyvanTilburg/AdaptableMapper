@@ -31,11 +31,6 @@ namespace AdaptableMapper.TDD.ATDD
             _result.ContextFactory = new Contexts.ContextFactory(null, null);
         }
 
-        internal void AddMappingScopeRoot()
-        {
-            _result.MappingScope = new MappingScopeRoot(new List<MappingScopeComposite>());
-        }
-
         internal void AddTargetInitiatorToContextFactory(string type)
         {
             switch (type.ToLower())
@@ -91,8 +86,7 @@ namespace AdaptableMapper.TDD.ATDD
                 traversalToGetTemplate,
                 childCreator);
 
-            var scopeRoot = _result.MappingScope as MappingScopeRoot;
-            scopeRoot.MappingScopeComposites.Add(scope);
+            _result.MappingScopeComposites.Add(scope);
         }
 
         private GetScopeTraversal CreateGetScopeTraversal(ScopeCompositeModel scopeCompositeModel)
@@ -168,8 +162,7 @@ namespace AdaptableMapper.TDD.ATDD
                 getValueTraversal,
                 setValueTraversal);
 
-            var scopeRoot = _result.MappingScope as MappingScopeRoot;
-            var lastScope = scopeRoot.MappingScopeComposites.Last();
+            var lastScope = _result.MappingScopeComposites.Last();
 
             lastScope.Mappings.Add(mapping);
         }
@@ -211,6 +204,11 @@ namespace AdaptableMapper.TDD.ATDD
                     new Xml.XmlGetValue(mappingModel.GetValueTraversal),
                     new Xml.XmlSetValue(mappingModel.SetValueTraversal)
                 ));
+        }
+
+        public void AddEmptyScope()
+        {
+            _result.MappingScopeComposites.Add(new MappingScopeComposite(null, null, null, null, null));
         }
     }
 }

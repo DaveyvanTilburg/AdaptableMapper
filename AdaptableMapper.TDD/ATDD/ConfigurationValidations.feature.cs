@@ -200,21 +200,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I add a contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 18
- testRunner.Given("I add a MappingScopeRoot with an empty list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 19
  testRunner.Given("I add a \'Null\' ObjectConverter for mappingConfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 20
- testRunner.Given("I add a MappingScopeRoot with an empty list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 19
+ testRunner.Given("I add an empty scope", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 21
+#line 20
  testRunner.When("I run Map with a source parameter \'test\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 22
- testRunner.Then("the result should contain the following errors \'e-TREE#3;e-TREE#4;\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 21
+ testRunner.Then("the result should contain the following errors \'e-TREE#3;e-TREE#4;e-TREE#7;e-TREE" +
+                        "#9;e-TREE#10;\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 23
+#line 22
  testRunner.Then("result should be null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -228,7 +226,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             string[] tagsOfScenario = ((string[])(null));
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MappingConfiguration no mapping", null, ((string[])(null)));
-#line 25
+#line 24
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -248,28 +246,28 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 26
+#line 25
  testRunner.Given("I create a mappingConfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 27
+#line 26
  testRunner.Given("I add a contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 28
+#line 27
  testRunner.Given("I add a \'Xml\' ObjectConverter to the contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 29
+#line 28
  testRunner.Given("I add a \'Xml\' TargetInitiator to the contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 30
+#line 29
  testRunner.Given("I add a \'Xml\' ObjectConverter for mappingConfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 31
+#line 30
  testRunner.When("I run Map with a source parameter \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 32
+#line 31
  testRunner.Then("the result should contain the following errors \'e-TREE#5;\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 33
+#line 32
  testRunner.Then("result should be null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -283,7 +281,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             string[] tagsOfScenario = ((string[])(null));
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MappingConfiguration no scope - has mapping", null, ((string[])(null)));
-#line 35
+#line 34
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -303,25 +301,25 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 36
+#line 35
  testRunner.Given("I create a mappingConfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 37
+#line 36
  testRunner.Given("I add a contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 38
+#line 37
  testRunner.Given("I add a \'Xml\' ObjectConverter to the contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 39
+#line 38
  testRunner.Given("I add a \'Xml\' TargetInitiator to the contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 40
+#line 39
  testRunner.Given("I add a \'Xml\' ObjectConverter for mappingConfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 41
+#line 40
  testRunner.Given("the source is \'<root><testItem>value</testItem></root>\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 42
+#line 41
  testRunner.Given("the target is \'<root><testItem></testItem></root>\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -330,16 +328,16 @@ this.ScenarioInitialize(scenarioInfo);
                 table1.AddRow(new string[] {
                             "./testItem",
                             "./testItem"});
-#line 43
+#line 42
  testRunner.Given("I add a mapping to root with", ((string)(null)), table1, "Given ");
 #line hidden
-#line 46
+#line 45
  testRunner.When("I run Map", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 47
+#line 46
  testRunner.Then("the result should contain the following errors \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 48
+#line 47
  testRunner.Then("result should be like file \'ExampleResult.xml\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -349,14 +347,14 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.SkippableTheoryAttribute(DisplayName="MappingConfiguration")]
         [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
         [Xunit.TraitAttribute("Description", "MappingConfiguration")]
-        [Xunit.InlineDataAttribute("Model-Xml-Xml", "ModelBase", "Xml", "Xml", "e-XML#24;e-MODEL#17;", "<nullObject />", new string[0])]
-        [Xunit.InlineDataAttribute("Json-Model-Model", "Json", "Model", "Model", "e-JSON#13;e-MODEL#25;", "{}", new string[0])]
-        [Xunit.InlineDataAttribute("Xml-Json-Json", "Xml", "Json", "Json", "e-XML#31;e-JSON#26;", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("Model-Xml-Xml", "ModelBase", "Xml", "Xml", "e-XML#24;e-MODEL#17;e-TREE#7;e-TREE#9;e-TREE#10;", "<nullObject />", new string[0])]
+        [Xunit.InlineDataAttribute("Json-Model-Model", "Json", "Model", "Model", "e-JSON#13;e-MODEL#25;e-TREE#7;e-TREE#9;e-TREE#10;", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("Xml-Json-Json", "Xml", "Json", "Json", "e-XML#31;e-JSON#26;e-TREE#7;e-TREE#9;e-TREE#10;", "{}", new string[0])]
         public virtual void MappingConfiguration(string testName, string contextFactoryObjectConverter, string contextFactoryTargetInitiator, string objectConverter, string informationCodes, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MappingConfiguration", null, exampleTags);
-#line 50
+#line 49
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -376,31 +374,31 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 51
+#line 50
  testRunner.Given("I create a mappingConfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 52
+#line 51
  testRunner.Given("I add a contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 53
+#line 52
  testRunner.Given(string.Format("I add a \'{0}\' ObjectConverter to the contextFactory", contextFactoryObjectConverter), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 54
+#line 53
  testRunner.Given(string.Format("I add a \'{0}\' TargetInitiator to the contextFactory", contextFactoryTargetInitiator), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 55
+#line 54
  testRunner.Given(string.Format("I add a \'{0}\' ObjectConverter for mappingConfiguration", objectConverter), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 56
- testRunner.Given("I add a MappingScopeRoot with an empty list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 55
+ testRunner.Given("I add an empty scope", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 57
+#line 56
  testRunner.When("I run Map with a source parameter \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 58
+#line 57
  testRunner.Then(string.Format("the result should contain the following errors \'{0}\'", informationCodes), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 59
+#line 58
  testRunner.Then(string.Format("result should be \'{0}\'", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -424,7 +422,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             string[] tagsOfScenario = exampleTags;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Mapping", null, exampleTags);
-#line 67
+#line 66
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -444,23 +442,20 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 68
+#line 67
  testRunner.Given("I create a mappingConfiguration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 69
+#line 68
  testRunner.Given("I add a contextFactory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 70
+#line 69
  testRunner.Given(string.Format("I add a \'{0}\' ObjectConverter to the contextFactory", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 71
+#line 70
  testRunner.Given(string.Format("I add a \'{0}\' TargetInitiator to the contextFactory", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 72
+#line 71
  testRunner.Given(string.Format("I add a \'{0}\' ObjectConverter for mappingConfiguration", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 73
- testRunner.Given("I add a MappingScopeRoot with an empty list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
                 TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                             "GetScopeTraversal",
@@ -472,7 +467,7 @@ this.ScenarioInitialize(scenarioInfo);
                             string.Format("{0}", getScopeTraversalPath),
                             string.Format("{0}", traversalToGetTemplate),
                             string.Format("{0}", childCreator)});
-#line 74
+#line 72
  testRunner.Given("I add a Scope to the root", ((string)(null)), table2, "Given ");
 #line hidden
                 TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -481,16 +476,16 @@ this.ScenarioInitialize(scenarioInfo);
                 table3.AddRow(new string[] {
                             string.Format("{0}", getValueTraversal),
                             string.Format("{0}", setValueTraversal)});
-#line 77
+#line 75
  testRunner.Given("I add a mapping to the scope", ((string)(null)), table3, "Given ");
 #line hidden
-#line 80
+#line 78
  testRunner.When(string.Format("I run Map with a source parameter \'{0}\'", source), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 81
+#line 79
  testRunner.Then(string.Format("the result should contain the following errors \'{0}\'", informationCodes), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 82
+#line 80
  testRunner.Then(string.Format("result should be \'{0}\'", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

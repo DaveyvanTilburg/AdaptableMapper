@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AdaptableMapper
 {
-    public sealed class MappingScopeComposite : MappingScope
+    public sealed class MappingScopeComposite
     {
         public List<MappingScopeComposite> MappingScopeComposites { get; set; }
         public List<Mapping> Mappings { get; set; }

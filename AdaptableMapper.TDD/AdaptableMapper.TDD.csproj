@@ -47,6 +47,7 @@
     <Compile Include="ATDD\ScopeCompositeModel.cs" />
     <Compile Include="ConfigurationSaveAndLoad.cs" />
     <Compile Include="EdgeCases\Json.cs" />
+    <Compile Include="EdgeCases\Tree.cs" />
     <Compile Include="LanguageExtensions.cs" />
     <Compile Include="EdgeCases\Model.cs" />
     <Compile Include="EdgeCases\Xml.cs" />

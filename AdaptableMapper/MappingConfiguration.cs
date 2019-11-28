@@ -5,25 +5,35 @@ namespace AdaptableMapper
 {
     public sealed class MappingConfiguration
     {
-        public MappingScope MappingScope { get; set; }
         public ContextFactory ContextFactory { get; set; }
         public ResultObjectConverter ResultObjectConverter { get; set; }
+
+        public List<MappingScopeComposite> MappingScopeComposites { get; set; }
         public List<Mapping> Mappings { get;set; }
 
         public MappingConfiguration()
         {
             Mappings = new List<Mapping>();
+            MappingScopeComposites = new List<MappingScopeComposite>();
         }
 
-        public MappingConfiguration(MappingScope mappingScope, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
+        public MappingConfiguration(List<MappingScopeComposite> mappingScopeComposites, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
         {
-            MappingScope = mappingScope;
+            MappingScopeComposites = mappingScopeComposites;
             ContextFactory = contextFactory;
             ResultObjectConverter = resultObjectConverter;
         }
 
         public MappingConfiguration(List<Mapping> mappings, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
         {
+            Mappings = mappings;
+            ContextFactory = contextFactory;
+            ResultObjectConverter = resultObjectConverter;
+        }
+
+        public MappingConfiguration(List<MappingScopeComposite> mappingScopeComposites, List<Mapping> mappings, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
+        {
+            MappingScopeComposites = mappingScopeComposites;
             Mappings = mappings;
             ContextFactory = contextFactory;
             ResultObjectConverter = resultObjectConverter;
@@ -44,8 +54,9 @@ namespace AdaptableMapper
 
             foreach (Mapping mapping in Mappings)
                 mapping.Map(context);
-            
-            MappingScope?.Traverse(context);
+
+            foreach (MappingScopeComposite mappingScopeComposite in MappingScopeComposites)
+                mappingScopeComposite.Traverse(context);
 
             object result = ResultObjectConverter.Convert(context.Target);
             return result;
@@ -61,7 +72,7 @@ namespace AdaptableMapper
                 result = false;
             }
 
-            if (!(MappingScope != null || Mappings?.Count > 0))
+            if (!(MappingScopeComposites?.Count > 0 || Mappings?.Count > 0))
             {
                 Process.ProcessObservable.GetInstance().Raise("TREE#5; MappingScope or mappings should be used", "error");
                 result = false;

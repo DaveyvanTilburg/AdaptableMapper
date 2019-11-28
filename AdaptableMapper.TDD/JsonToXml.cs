@@ -118,16 +118,14 @@ namespace AdaptableMapper.TDD
                 new Xml.XmlChildCreator()
             );
 
-            var mappingScopeRoot = new MappingScopeRoot(
-                new List<MappingScopeComposite>
-                {
-                    memoriesScope,
-                    motherboardScope
-                }
-            );
+            var scopes = new List<MappingScopeComposite>
+            {
+                memoriesScope,
+                motherboardScope
+            };
 
             var mappingConfiguration = new MappingConfiguration(
-                mappingScopeRoot,
+                scopes,
                 new ContextFactory(
                     new Json.JsonObjectConverter(),
                     new Xml.XmlTargetInstantiator()

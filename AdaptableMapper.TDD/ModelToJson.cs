@@ -288,20 +288,18 @@ namespace AdaptableMapper.TDD
                 new Json.JsonChildCreator()
             );
 
-            var rootScope = new MappingScopeRoot(
-                new List<MappingScopeComposite>
-                {
-                    hardDrivesScope,
-                    motherboardScope
-                }
-            );
+            var scopes = new List<MappingScopeComposite>
+            {
+                hardDrivesScope,
+                motherboardScope
+            };
 
             var contextFactory = new Contexts.ContextFactory(
                 new Model.ModelObjectConverter(),
                 new Json.JsonTargetInstantiator()
             );
 
-            var mappingConfiguration = new MappingConfiguration(rootScope, contextFactory, new NullObjectConverter());
+            var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObjectConverter());
 
             return mappingConfiguration;
         }

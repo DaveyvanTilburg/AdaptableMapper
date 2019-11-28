@@ -172,20 +172,18 @@ namespace AdaptableMapper.TDD
                 new Model.ModelChildCreator()
             );
 
-            var rootScope = new MappingScopeRoot(
-                new List<MappingScopeComposite>
-                {
-                    leadersScope,
-                    armyScope
-                }
-            );
+            var scopes = new List<MappingScopeComposite>
+            {
+                leadersScope,
+                armyScope
+            };
 
             var contextFactory = new Contexts.ContextFactory(
                 new Xml.XmlObjectConverterRemovesNamespace(),
                 new Model.ModelTargetInstantiator()
             );
 
-            var mappingConfiguration = new MappingConfiguration(rootScope, contextFactory, new NullObjectConverter());
+            var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObjectConverter());
 
             return mappingConfiguration;
         }
