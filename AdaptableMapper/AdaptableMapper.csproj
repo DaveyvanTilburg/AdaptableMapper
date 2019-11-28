@@ -50,7 +50,7 @@
     <Compile Include="Json\JsonTraverseOperations.cs" />
     <Compile Include="Json\JsonSetValue.cs" />
     <Compile Include="Json\JsonTargetInstantiator.cs" />
-    <Compile Include="Json\JsonGetTemplate.cs" />
+    <Compile Include="Json\JsonGetTemplateTraversal.cs" />
     <Compile Include="Json\JTokenToStringObjectConverter.cs" />
     <Compile Include="Json\NullToken.cs" />
     <Compile Include="Model\Language\ModelList.cs" />

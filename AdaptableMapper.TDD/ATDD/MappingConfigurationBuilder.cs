@@ -111,7 +111,7 @@ namespace AdaptableMapper.TDD.ATDD
                 case "xml":
                     return new Xml.XmlGetTemplate(string.Empty);
                 case "json":
-                    return new Json.JsonGetTemplate(string.Empty);
+                    return new Json.JsonGetTemplateTraversal(string.Empty);
                 case "model":
                     return new Model.ModelGetTemplate(string.Empty);
                 default:

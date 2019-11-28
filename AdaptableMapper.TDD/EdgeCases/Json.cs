@@ -171,43 +171,51 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void JsonTraversalGetTemplateInvalidType()
+        public void JsonGetTemplateTraversal_InvalidType()
         {
-            var subject = new JsonGetTemplate(string.Empty);
+            var subject = new JsonGetTemplateTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-JSON#23;" });
         }
 
         [Fact]
-        public void JsonTraversalGetTemplateNoParentCheck()
+        public void JsonGetTemplateTraversal_NoParentCheck()
         {
-            var subject = new JsonGetTemplate("$");
+            var subject = new JsonGetTemplateTraversal("$");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
             result.ValidateResult(new List<string> { "e-JSON#9;" });
         }
 
         [Fact]
-        public void JsonTraversalGetTemplateInvalidPath()
+        public void JsonGetTemplateTraversal_InvalidPath()
         {
-            var subject = new JsonGetTemplate("abcd");
+            var subject = new JsonGetTemplateTraversal("abcd");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
             result.ValidateResult(new List<string> { "w-JSON#24;" });
         }
 
         [Fact]
-        public void JsonTraversalGetTemplateInvalidParentPath()
+        public void JsonGetTemplateTraversal_InvalidParentPath()
         {
-            var subject = new JsonGetTemplate("ab/cd");
+            var subject = new JsonGetTemplateTraversal("ab/cd");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
             result.ValidateResult(new List<string> { "e-JSON#15;", "w-JSON#24;" }); //Preferred cascade, the error is an extra notification of something wrong with the path
         }
 
         [Fact]
-        public void JsonTraversalGetTemplateNoParent()
+        public void JsonGetTemplateTraversal_NoParent()
         {
-            var subject = new JsonGetTemplate("../");
+            var subject = new JsonGetTemplateTraversal("../");
             List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
             result.ValidateResult(new List<string> { "w-JSON#24;" });
+        }
+
+        [Fact]
+        public void JsonGetTemplateTraversal_InvalidCharacters()
+        {
+            var subject = new JsonGetTemplateTraversal("[]");
+            List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
+            result.ValidateResult(new List<string> { "e-JSON#28;", "w-JSON#24;" }); //Preferred cascade, the error is an extra notification of something wrong with the path
         }
 
         [Fact]
@@ -216,14 +224,6 @@ namespace AdaptableMapper.TDD.EdgeCases
             var subject = new JTokenToStringObjectConverter();
             List<Information> result = new Action(() => { subject.Convert(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-JSON#25;" });
-        }
-
-        [Fact]
-        public void JsonTraversalTemplateInvalidCharacters()
-        {
-            var subject = new JsonGetTemplate("[]");
-            List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#28;", "w-JSON#24;" }); //Preferred cascade, the error is an extra notification of something wrong with the path
         }
 
         private JToken CreateTestData()
