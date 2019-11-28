@@ -1,33 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using AdaptableMapper.Configuration.Model;
 using AdaptableMapper.Process;
-using AdaptableMapper.Traversals;
 using AdaptableMapper.Traversals.Model;
 using Xunit;
 
 namespace AdaptableMapper.TDD.EdgeCases
 {
-    public class Model
+    public class ModelTraversals
     {
         [Fact]
-        public void ModelChildCreatorParentInvalidType()
-        {
-            var subject = new ModelChildCreator();
-            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = string.Empty, Child = string.Empty }); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#10;" });
-        }
-
-        [Fact]
-        public void ModelChildCreatorTemplateInvalidType()
-        {
-            var subject = new ModelChildCreator();
-            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = new ModelObjects.Simple.Item(), Child = string.Empty }); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#11;" });
-        }
-
-        [Fact]
-        public void ModelGetScopeInvalidType()
+        public void ModelGetScopeTraversal_InvalidType()
         {
             var subject = new ModelGetScopeTraversal("");
             List<Information> result = new Action(() => { subject.GetScope(string.Empty); }).Observe();
@@ -35,7 +17,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelGetScopeEmptyPath()
+        public void ModelGetScopeTraversal_EmptyPath()
         {
             var subject = new ModelGetScopeTraversal("");
             var model = new ModelObjects.Simple.Item();
@@ -44,7 +26,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelGetScopeNodeIsNotAModelBase()
+        public void ModelGetScopeTraversal_NodeIsNotAModelBase()
         {
             var subject = new ModelGetScopeTraversal("Items/Code/test");
             List<Information> result = new Action(() => { subject.GetScope(CreateTestItem()); }).Observe();
@@ -52,7 +34,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelGetScopeInvalidButAcceptedRoot()
+        public void ModelGetScopeTraversal_InvalidButAcceptedRoot()
         {
             var subject = new ModelGetScopeTraversal("/");
             var model = new ModelObjects.Simple.Item();
@@ -61,15 +43,17 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelGetScopeInvalidEndNode()
+        public void ModelGetScopeTraversal_InvalidEndNode()
         {
             var subject = new ModelGetScopeTraversal("Items/Code");
             List<Information> result = new Action(() => { subject.GetScope(CreateTestItem()); }).Observe();
             result.ValidateResult(new List<string> { "w-MODEL#2;", "w-MODEL#2;" });
         }
 
+
+
         [Fact]
-        public void ModelGetSearchValueInvalidType()
+        public void ModelGetSearchValueTraversal_InvalidType()
         {
             var subject = new ModelGetSearchValueTraversal(string.Empty, string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
@@ -77,7 +61,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelGetSearchValueEmptySearchValuePath()
+        public void ModelGetSearchValueTraversal_EmptySearchValuePath()
         {
             var subject = new ModelGetSearchValueTraversal(string.Empty, string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
@@ -85,7 +69,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelGetSearchValueNoResultForSearchPath()
+        public void ModelGetSearchValueTraversal_NoResultForSearchPath()
         {
             var subject = new ModelGetSearchValueTraversal(string.Empty, "dummySearch");
             List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
@@ -93,7 +77,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelGetSearchValueNoResultForActualPath()
+        public void ModelGetSearchValueTraversal_NoResultForActualPath()
         {
             var subject = new ModelGetSearchValueTraversal("ab/cd", "Items{'PropertyName':'Code','Value':'1'}/Code");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestItem()); }).Observe();
@@ -101,7 +85,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelGetSearchValueNoResultActualSearch()
+        public void ModelGetSearchValueTraversal_NoResultActualSearch()
         {
             var subject = new ModelGetSearchValueTraversal("ab/cd", "Items{'PropertyName':'Code','Value':'3'}/Code");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestItem()); }).Observe();
@@ -109,15 +93,17 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelGetSearchValueInvalidFilterMarkup()
+        public void ModelGetSearchValueTraversal_InvalidFilterMarkup()
         {
             var subject = new ModelGetSearchValueTraversal("ab/cd", "Items{'PropertyName':'Code','Value':'1'/Code");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestItem()); }).Observe();
             result.ValidateResult(new List<string> { "w-MODEL#9;", "e-MODEL#32;" }); //Preferred cascade, 9 is extra info
         }
 
+
+
         [Fact]
-        public void ModelGetValueInvalidType()
+        public void ModelGetValueTraversal_InvalidType()
         {
             var subject = new ModelGetValueTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
@@ -125,7 +111,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelGetValueEmptyList()
+        public void ModelGetValueTraversal_EmptyList()
         {
             var subject = new ModelGetValueTraversal("Items/Code");
             List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
@@ -133,23 +119,17 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelGetValueNoParent()
+        public void ModelGetValueTraversal_NoParent()
         {
             var subject = new ModelGetValueTraversal("../");
             List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
             result.ValidateResult(new List<string> { "w-MODEL#3;" });
         }
 
-        [Fact]
-        public void ModelObjectConverterInvalidType()
-        {
-            var subject = new ModelObjectConverter();
-            List<Information> result = new Action(() => { subject.Convert(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#17;" });
-        }
+
 
         [Fact]
-        public void ModelSetValueOnPathInvalidType()
+        public void ModelSetValueOnPathTraversal_InvalidType()
         {
             var subject = new ModelSetValueOnPathTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
@@ -157,7 +137,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelSetValueOnPathInvalidChildType()
+        public void ModelSetValueOnPathTraversal_InvalidChildType()
         {
             var subject = new ModelSetValueOnPathTraversal("NoItems/Code");
             List<Information> result = new Action(() => { subject.SetValue(new ModelObjects.Simple.Mix(), string.Empty); }).Observe();
@@ -165,15 +145,17 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelSetValueOnPathInvalid()
+        public void ModelSetValueOnPathTraversal_InvalidPath()
         {
             var subject = new ModelSetValueOnPathTraversal("NoItem/Code");
             List<Information> result = new Action(() => { subject.SetValue(new ModelObjects.Simple.Mix(), string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "w-MODEL#1;" });
         }
 
+
+
         [Fact]
-        public void ModelSetValueOnPropertyInvalidType()
+        public void ModelSetValueOnPropertyTraversal_InvalidType()
         {
             var subject = new ModelSetValueOnPropertyTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
@@ -181,104 +163,24 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void ModelSetValueOnPathInvalidTypeAlongTheWay()
+        public void ModelSetValueOnPropertyTraversal_TypeAlongTheWay()
         {
             var subject = new ModelSetValueOnPathTraversal("Mixes/NoItem/Code");
             List<Information> result = new Action(() => { subject.SetValue(new ModelObjects.Simple.DeepMix(), string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "w-MODEL#1;" });
         }
 
-        [Fact]
-        public void ModelTargetInstantiatorInvalidType()
-        {
-            var subject = new ModelTargetInstantiator();
-            List<Information> result = new Action(() => { subject.Create(1); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#25;" });
-        }
+
 
         [Fact]
-        public void ModelTargetInstantiatorInvalidSource()
-        {
-            var subject = new ModelTargetInstantiator();
-            List<Information> result = new Action(() => { subject.Create("abcd"); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#26;" });
-        }
-
-        [Fact]
-        public void ModelTargetInstantiatorCannotInstantiateObject()
-        {
-            var testModel = new ModelTargetInstantiatorSource();
-            string testSource = Newtonsoft.Json.JsonConvert.SerializeObject(testModel);
-
-            var subject = new ModelTargetInstantiator();
-            List<Information> result = new Action(() => { subject.Create(testSource); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#24;" });
-        }
-
-        [Fact]
-        public void ModelTargetInstantiatorInstantiatedObjectIsNotOfTypeModelBase()
-        {
-            ModelTargetInstantiatorSource testModel = CreateModelTargetInstantiatorSource();
-            string testSource = Newtonsoft.Json.JsonConvert.SerializeObject(testModel);
-
-            var subject = new ModelTargetInstantiator();
-            List<Information> result = new Action(() => { subject.Create(testSource); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#31;" });
-        }
-
-        [Fact]
-        public void ModelToStringObjectConverterInvalidType()
-        {
-            var subject = new ModelToStringObjectConverter();
-            List<Information> result = new Action(() => { subject.Convert(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#20;" });
-        }
-
-        [Fact]
-        public void ModelTraversalTemplateInvalidType()
+        public void ModelGetTemplateTraversal_InvalidType()
         {
             var subject = new ModelGetTemplateTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-MODEL#22;" });
         }
 
-        [Fact]
-        public void StringToModelObjectConverterInvalidType()
-        {
-            var subject = new StringToModelObjectConverter(null);
-            List<Information> result = new Action(() => { subject.Convert(0); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#27;" });
-        }
 
-        [Fact]
-        public void StringToModelObjectConverterInvalidSourceType()
-        {
-            var subject = new StringToModelObjectConverter(new ModelTargetInstantiatorSource());
-            List<Information> result = new Action(() => { subject.Convert(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#28;" });
-        }
-
-        [Fact]
-        public void StringToModelObjectConverterInvalidSourceStringDeserialize()
-        {
-            ModelTargetInstantiatorSource testModel = CreateModelTargetInstantiatorSource();
-            var subject = new StringToModelObjectConverter(testModel);
-
-            List<Information> result = new Action(() => { subject.Convert("abcd"); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#29;" });
-        }
-
-        [Fact]
-        public void StringToModelObjectConverterInvalidDeserializedType()
-        {
-            ModelTargetInstantiatorSource testModel = CreateModelTargetInstantiatorSource();
-            var subject = new StringToModelObjectConverter(testModel);
-
-            string testSource = Newtonsoft.Json.JsonConvert.SerializeObject(testModel);
-            List<Information> result = new Action(() => { subject.Convert(testSource); }).Observe();
-
-            result.ValidateResult(new List<string> { "e-MODEL#30;" });
-        }
 
         private static ModelObjects.Simple.Item CreateTestItem()
         {
@@ -296,18 +198,6 @@ namespace AdaptableMapper.TDD.EdgeCases
                     }
                 }
             };
-        }
-
-        private static ModelTargetInstantiatorSource CreateModelTargetInstantiatorSource()
-        {
-            var testType = typeof(ModelObjects.Simple.NoItem);
-            var testModel = new ModelTargetInstantiatorSource
-            {
-                AssemblyFullName = testType.Assembly.FullName,
-                TypeFullName = testType.FullName
-            };
-
-            return testModel;
         }
     }
 }

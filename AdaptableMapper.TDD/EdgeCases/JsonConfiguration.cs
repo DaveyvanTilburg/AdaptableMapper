@@ -8,7 +8,7 @@ using Xunit;
 
 namespace AdaptableMapper.TDD.EdgeCases
 {
-    public class Json
+    public class JsonConfiguration
     {
         [Fact]
         public void JsonChildCreatorInvalidTypeParent()

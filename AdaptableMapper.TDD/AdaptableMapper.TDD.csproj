@@ -46,11 +46,12 @@
     <Compile Include="ATDD\MappingModel.cs" />
     <Compile Include="ATDD\ScopeCompositeModel.cs" />
     <Compile Include="ConfigurationSaveAndLoad.cs" />
-    <Compile Include="EdgeCases\Json.cs" />
+    <Compile Include="EdgeCases\JsonConfiguration.cs" />
     <Compile Include="EdgeCases\JsonTraversals.cs" />
+    <Compile Include="EdgeCases\ModelTraversals.cs" />
     <Compile Include="EdgeCases\Tree.cs" />
     <Compile Include="LanguageExtensions.cs" />
-    <Compile Include="EdgeCases\Model.cs" />
+    <Compile Include="EdgeCases\ModelConfiguration.cs" />
     <Compile Include="EdgeCases\Xml.cs" />
     <Compile Include="ErrorObserverTester.cs" />
     <Compile Include="JsonToXml.cs" />
