@@ -1,4 +1,4 @@
-﻿using AdaptableMapper.Contexts;
+﻿using AdaptableMapper.Configuration;
 using AdaptableMapper.Model.Language;
 
 namespace AdaptableMapper.Model

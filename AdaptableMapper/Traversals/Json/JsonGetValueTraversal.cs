@@ -1,7 +1,6 @@
-﻿using AdaptableMapper.Traversals;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
-namespace AdaptableMapper.Json
+namespace AdaptableMapper.Traversals.Json
 {
     public sealed class JsonGetValueTraversal : GetValueTraversal
     {

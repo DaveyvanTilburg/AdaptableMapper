@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AdaptableMapper.Json;
+using AdaptableMapper.Configuration.Json;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals;
 using Newtonsoft.Json.Linq;

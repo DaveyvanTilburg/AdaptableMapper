@@ -1,6 +1,6 @@
 ﻿using AdaptableMapper.Traversals;
 
-namespace AdaptableMapper
+namespace AdaptableMapper.Configuration
 {
     public interface ChildCreator
     {

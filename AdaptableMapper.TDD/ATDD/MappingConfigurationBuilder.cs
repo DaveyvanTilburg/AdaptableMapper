@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdaptableMapper.Configuration;
+using AdaptableMapper.TDD.EdgeCases;
 
 namespace AdaptableMapper.TDD.ATDD
 {
@@ -28,7 +30,7 @@ namespace AdaptableMapper.TDD.ATDD
 
         internal void AddContextFactory()
         {
-            _result.ContextFactory = new Contexts.ContextFactory(null, null);
+            _result.ContextFactory = new ContextFactory(null, null);
         }
 
         internal void AddTargetInitiatorToContextFactory(string type)
@@ -39,7 +41,7 @@ namespace AdaptableMapper.TDD.ATDD
                     _result.ContextFactory.TargetInstantiator = new Xml.XmlTargetInstantiator();
                     break;
                 case "json":
-                    _result.ContextFactory.TargetInstantiator = new Json.JsonTargetInstantiator();
+                    _result.ContextFactory.TargetInstantiator = new Configuration.Json.JsonTargetInstantiator();
                     break;
                 case "model":
                     _result.ContextFactory.TargetInstantiator = new Model.ModelTargetInstantiator();
@@ -55,7 +57,7 @@ namespace AdaptableMapper.TDD.ATDD
                     _result.ContextFactory.ObjectConverter = new Xml.XmlObjectConverterRemovesNamespace();
                     break;
                 case "json":
-                    _result.ContextFactory.ObjectConverter = new Json.JsonObjectConverter();
+                    _result.ContextFactory.ObjectConverter = new Configuration.Json.JsonObjectConverter();
                     break;
                 case "modelbase":
                     _result.ContextFactory.ObjectConverter = new Model.ModelObjectConverter();
@@ -96,7 +98,7 @@ namespace AdaptableMapper.TDD.ATDD
                 case "xml":
                     return new Xml.XmlGetScope(scopeCompositeModel.GetScopeTraversalPath);
                 case "json":
-                    return new Json.JsonGetScopeTraversal(scopeCompositeModel.GetScopeTraversalPath);
+                    return new Traversals.Json.JsonGetScopeTraversal(scopeCompositeModel.GetScopeTraversalPath);
                 case "model":
                     return new Model.ModelGetScope(scopeCompositeModel.GetScopeTraversalPath);
                 default:
@@ -111,7 +113,7 @@ namespace AdaptableMapper.TDD.ATDD
                 case "xml":
                     return new Xml.XmlGetTemplate(string.Empty);
                 case "json":
-                    return new Json.JsonGetTemplateTraversal(string.Empty);
+                    return new Traversals.Json.JsonGetTemplateTraversal(string.Empty);
                 case "model":
                     return new Model.ModelGetTemplate(string.Empty);
                 default:
@@ -126,7 +128,7 @@ namespace AdaptableMapper.TDD.ATDD
                 case "xml":
                     return new Xml.XmlChildCreator();
                 case "json":
-                    return new Json.JsonChildCreator();
+                    return new Configuration.Json.JsonChildCreator();
                 case "model":
                     return new Model.ModelChildCreator();
                 default:
@@ -142,7 +144,7 @@ namespace AdaptableMapper.TDD.ATDD
                     _result.ResultObjectConverter = new Xml.XElementToStringObjectConverter();
                     break;
                 case "json":
-                    _result.ResultObjectConverter = new Json.JTokenToStringObjectConverter();
+                    _result.ResultObjectConverter = new Configuration.Json.JTokenToStringObjectConverter();
                     break;
                 case "model":
                     _result.ResultObjectConverter = new Model.ModelToStringObjectConverter();
@@ -174,7 +176,7 @@ namespace AdaptableMapper.TDD.ATDD
                 case "xml":
                     return new Xml.XmlGetValue(string.Empty);
                 case "json":
-                    return new Json.JsonGetValueTraversal(string.Empty);
+                    return new Traversals.Json.JsonGetValueTraversal(string.Empty);
                 case "model":
                     return new Model.ModelGetValue(string.Empty);
                 default:
@@ -189,7 +191,7 @@ namespace AdaptableMapper.TDD.ATDD
                 case "xml":
                     return new Xml.XmlSetValue(string.Empty);
                 case "json":
-                    return new Json.JsonSetValueTraversal(string.Empty);
+                    return new Traversals.Json.JsonSetValueTraversal(string.Empty);
                 case "model":
                     return new Model.ModelSetValueOnProperty(string.Empty);
                 default:

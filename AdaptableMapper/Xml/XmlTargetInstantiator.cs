@@ -1,6 +1,6 @@
-﻿using AdaptableMapper.Contexts;
-using System;
+﻿using System;
 using System.Xml.Linq;
+using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.Xml
 {

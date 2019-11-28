@@ -1,8 +1,7 @@
-﻿using AdaptableMapper.Contexts;
-using AdaptableMapper.Traversals;
+﻿using AdaptableMapper.Traversals;
 using System.Collections.Generic;
 
-namespace AdaptableMapper
+namespace AdaptableMapper.Configuration
 {
     public sealed class MappingScopeComposite
     {

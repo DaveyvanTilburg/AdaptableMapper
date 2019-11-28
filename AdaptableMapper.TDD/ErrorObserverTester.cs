@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using System.Collections.Generic;
+using AdaptableMapper.Configuration;
 using Xunit;
 
 namespace AdaptableMapper.TDD
@@ -46,7 +47,7 @@ namespace AdaptableMapper.TDD
                 platoonScope
             };
 
-            var contextFactory = new Contexts.ContextFactory(
+            var contextFactory = new ContextFactory(
                 new Xml.XmlObjectConverterRemovesNamespace(),
                 new Xml.XmlTargetInstantiator()
             );

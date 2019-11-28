@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace AdaptableMapper.Json
+namespace AdaptableMapper.Traversals.Json
 {
     internal class NullToken : JObject
     {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AdaptableMapper.Configuration;
 using Xunit;
 
 namespace AdaptableMapper.TDD.EdgeCases

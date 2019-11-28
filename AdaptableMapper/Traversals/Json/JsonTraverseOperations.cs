@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdaptableMapper.Json
+namespace AdaptableMapper.Traversals.Json
 {
     internal static class JsonTraverseOperations
     {

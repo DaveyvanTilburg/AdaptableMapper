@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using AdaptableMapper.Json;
 using AdaptableMapper.Process;
+using AdaptableMapper.Traversals.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
 

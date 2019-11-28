@@ -1,7 +1,7 @@
 ﻿using AdaptableMapper.Traversals;
 using Newtonsoft.Json.Linq;
 
-namespace AdaptableMapper.Json
+namespace AdaptableMapper.Configuration.Json
 {
     public class JsonChildCreator : ChildCreator
     {

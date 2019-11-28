@@ -3,6 +3,7 @@ using FluentAssertions;
 using ModelObjects.Hardwares;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using AdaptableMapper.Configuration;
 using Xunit;
 
 namespace AdaptableMapper.TDD
@@ -36,7 +37,7 @@ namespace AdaptableMapper.TDD
         public void ModelToJsonToString()
         {
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
-            mappingConfiguration.ResultObjectConverter = new Json.JTokenToStringObjectConverter();
+            mappingConfiguration.ResultObjectConverter = new Configuration.Json.JTokenToStringObjectConverter();
 
             ModelBase source = CreateHardwareModel();
             object resultObject = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareTemplate.json"));
@@ -144,17 +145,17 @@ namespace AdaptableMapper.TDD
         {
             var graphicalCardCpuBrand = new Mapping(
                 new Model.ModelGetValue("Brand"),
-                new Json.JsonSetValueTraversal(".Brand")
+                new Traversals.Json.JsonSetValueTraversal(".Brand")
             );
 
             var graphicalCardCpuCores = new Mapping(
                 new Model.ModelGetValue("Cores"),
-                new Json.JsonSetValueTraversal(".Cores")
+                new Traversals.Json.JsonSetValueTraversal(".Cores")
             );
 
             var graphicalCardCpuSpeed = new Mapping(
                 new Model.ModelGetValue("Speed"),
-                new Json.JsonSetValueTraversal(".Speed")
+                new Traversals.Json.JsonSetValueTraversal(".Speed")
             );
 
             var graphicalCardCpuScope = new MappingScopeComposite(
@@ -166,13 +167,13 @@ namespace AdaptableMapper.TDD
                     graphicalCardCpuSpeed
                 },
                 new Model.ModelGetScope("CPUs"),
-                new Json.JsonGetTemplateTraversal("$.CPUs[0]"),
-                new Json.JsonChildCreator()
+                new Traversals.Json.JsonGetTemplateTraversal("$.CPUs[0]"),
+                new Configuration.Json.JsonChildCreator()
             );
 
             var graphicalCardMemoryChipSize = new Mapping(
                 new Model.ModelGetValue("Size"),
-                new Json.JsonSetValueTraversal(".Size")
+                new Traversals.Json.JsonSetValueTraversal(".Size")
             );
 
             var graphicalCardMemoryChipScope = new MappingScopeComposite(
@@ -182,13 +183,13 @@ namespace AdaptableMapper.TDD
                     graphicalCardMemoryChipSize
                 },
                 new Model.ModelGetScope("MemoryChips"),
-                new Json.JsonGetTemplateTraversal(".MemoryChips[0]"),
-                new Json.JsonChildCreator()
+                new Traversals.Json.JsonGetTemplateTraversal(".MemoryChips[0]"),
+                new Configuration.Json.JsonChildCreator()
             );
 
             var graphicalCardBrand = new Mapping(
                 new Model.ModelGetValue("Brand"),
-                new Json.JsonSetValueTraversal(".Brand")
+                new Traversals.Json.JsonSetValueTraversal(".Brand")
             );
 
             var graphicalCardsScope = new MappingScopeComposite(
@@ -202,13 +203,13 @@ namespace AdaptableMapper.TDD
                     graphicalCardBrand
                 },
                 new Model.ModelGetScope("GraphicalCards"),
-                new Json.JsonGetTemplateTraversal(".GraphicalCards[0]"),
-                new Json.JsonChildCreator()
+                new Traversals.Json.JsonGetTemplateTraversal(".GraphicalCards[0]"),
+                new Configuration.Json.JsonChildCreator()
             );
 
             var motherboardMemorySize = new Mapping(
                 new Model.ModelGetValue("Size"),
-                new Json.JsonSetValueTraversal(".Size")
+                new Traversals.Json.JsonSetValueTraversal(".Size")
             );
 
             var memoryChipsScope = new MappingScopeComposite(
@@ -218,28 +219,28 @@ namespace AdaptableMapper.TDD
                     motherboardMemorySize
                 },
                 new Model.ModelGetScope("Memories{'PropertyName':'Type','Value':'External'}/MemoryChips"),
-                new Json.JsonGetTemplateTraversal(".CPUs[0].MemoryChips[0]"),
-                new Json.JsonChildCreator()
+                new Traversals.Json.JsonGetTemplateTraversal(".CPUs[0].MemoryChips[0]"),
+                new Configuration.Json.JsonChildCreator()
             );
 
             var motherBoardCpuBrand = new Mapping(
                 new Model.ModelGetValue("CPU/Brand"),
-                new Json.JsonSetValueTraversal(".CPUs[0].Brand")
+                new Traversals.Json.JsonSetValueTraversal(".CPUs[0].Brand")
             );
 
             var motherBoardCpuCores = new Mapping(
                 new Model.ModelGetValue("CPU/Cores"),
-                new Json.JsonSetValueTraversal(".CPUs[0].Cores")
+                new Traversals.Json.JsonSetValueTraversal(".CPUs[0].Cores")
             );
 
             var motherBoardCpuSpeed = new Mapping(
                 new Model.ModelGetValue("CPU/Speed"),
-                new Json.JsonSetValueTraversal(".CPUs[0].Speed")
+                new Traversals.Json.JsonSetValueTraversal(".CPUs[0].Speed")
             );
 
             var motherboardBrand = new Mapping(
                 new Model.ModelGetValue("Brand"),
-                new Json.JsonSetValueTraversal(".Brand")
+                new Traversals.Json.JsonSetValueTraversal(".Brand")
             );
 
             var motherboardScope = new MappingScopeComposite(
@@ -256,23 +257,23 @@ namespace AdaptableMapper.TDD
                     motherBoardCpuSpeed
                 },
                 new Model.ModelGetScope("Motherboards"),
-                new Json.JsonGetTemplateTraversal("$.Motherboards[0]"),
-                new Json.JsonChildCreator()
+                new Traversals.Json.JsonGetTemplateTraversal("$.Motherboards[0]"),
+                new Configuration.Json.JsonChildCreator()
             );
 
             var hardDriveBrand = new Mapping(
                 new Model.ModelGetValue("Brand"),
-                new Json.JsonSetValueTraversal(".Brand")
+                new Traversals.Json.JsonSetValueTraversal(".Brand")
             );
 
             var hardDriveSize = new Mapping(
                 new Model.ModelGetValue("Size"),
-                new Json.JsonSetValueTraversal(".Size")
+                new Traversals.Json.JsonSetValueTraversal(".Size")
             );
 
             var hardDriveSpeed = new Mapping(
                 new Model.ModelGetValue("Speed"),
-                new Json.JsonSetValueTraversal(".Speed")
+                new Traversals.Json.JsonSetValueTraversal(".Speed")
             );
 
             var hardDrivesScope = new MappingScopeComposite(
@@ -284,8 +285,8 @@ namespace AdaptableMapper.TDD
                     hardDriveSpeed
                 },
                 new Model.ModelGetScope("Motherboards/HardDrives"),
-                new Json.JsonGetTemplateTraversal("$.AvailableHardDrives[0]"),
-                new Json.JsonChildCreator()
+                new Traversals.Json.JsonGetTemplateTraversal("$.AvailableHardDrives[0]"),
+                new Configuration.Json.JsonChildCreator()
             );
 
             var scopes = new List<MappingScopeComposite>
@@ -294,9 +295,9 @@ namespace AdaptableMapper.TDD
                 motherboardScope
             };
 
-            var contextFactory = new Contexts.ContextFactory(
+            var contextFactory = new ContextFactory(
                 new Model.ModelObjectConverter(),
-                new Json.JsonTargetInstantiator()
+                new Configuration.Json.JsonTargetInstantiator()
             );
 
             var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObjectConverter());

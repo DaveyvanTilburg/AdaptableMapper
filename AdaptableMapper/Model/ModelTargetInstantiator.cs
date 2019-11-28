@@ -1,6 +1,6 @@
-﻿using AdaptableMapper.Contexts;
-using AdaptableMapper.Model.Language;
+﻿using AdaptableMapper.Model.Language;
 using System;
+using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.Model
 {

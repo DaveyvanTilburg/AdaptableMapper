@@ -1,4 +1,5 @@
-﻿using AdaptableMapper.Model.Language;
+﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Model.Language;
 using Newtonsoft.Json;
 
 namespace AdaptableMapper.Model

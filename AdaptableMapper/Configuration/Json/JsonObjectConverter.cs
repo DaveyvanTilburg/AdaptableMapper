@@ -1,8 +1,7 @@
-﻿using AdaptableMapper.Contexts;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 
-namespace AdaptableMapper.Json
+namespace AdaptableMapper.Configuration.Json
 {
     public sealed class JsonObjectConverter : ObjectConverter
     {

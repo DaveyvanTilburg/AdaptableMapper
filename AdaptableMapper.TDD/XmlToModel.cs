@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using System.Collections.Generic;
+using AdaptableMapper.Configuration;
 using AdaptableMapper.Model;
 using Xunit;
 
@@ -178,7 +179,7 @@ namespace AdaptableMapper.TDD
                 armyScope
             };
 
-            var contextFactory = new Contexts.ContextFactory(
+            var contextFactory = new ContextFactory(
                 new Xml.XmlObjectConverterRemovesNamespace(),
                 new Model.ModelTargetInstantiator()
             );

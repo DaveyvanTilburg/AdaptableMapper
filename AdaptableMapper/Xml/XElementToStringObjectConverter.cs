@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.Xml
 {

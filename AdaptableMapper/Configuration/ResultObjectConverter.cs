@@ -1,4 +1,4 @@
-﻿namespace AdaptableMapper
+﻿namespace AdaptableMapper.Configuration
 {
     public interface ResultObjectConverter
     {

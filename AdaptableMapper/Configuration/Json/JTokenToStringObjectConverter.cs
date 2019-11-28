@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace AdaptableMapper.Json
+namespace AdaptableMapper.Configuration.Json
 {
     public sealed class JTokenToStringObjectConverter : ResultObjectConverter
     {
