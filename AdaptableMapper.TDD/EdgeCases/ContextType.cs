@@ -4,6 +4,9 @@
     {
         EmptyString = 0,
         EmptyObject = 1,
-        TestObject = 2
+        TestObject = 2,
+        InvalidObject = 3,
+        InvalidType = 4,
+        InvalidSource = 5
     }
 }

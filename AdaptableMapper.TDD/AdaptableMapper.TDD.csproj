@@ -47,8 +47,9 @@
     <Compile Include="ATDD\ScopeCompositeModel.cs" />
     <Compile Include="ConfigurationSaveAndLoad.cs" />
     <Compile Include="EdgeCases\ContextType.cs" />
-    <Compile Include="EdgeCases\JsonConfiguration.cs" />
-    <Compile Include="EdgeCases\JsonTraversals.cs" />
+    <Compile Include="EdgeCases\JsonCases\Json.cs" />
+    <Compile Include="EdgeCases\JsonCases\JsonConfiguration.cs" />
+    <Compile Include="EdgeCases\JsonCases\JsonTraversals.cs" />
     <Compile Include="EdgeCases\ModelTraversals.cs" />
     <Compile Include="EdgeCases\Tree.cs" />
     <Compile Include="EdgeCases\XmlConfiguration.cs" />

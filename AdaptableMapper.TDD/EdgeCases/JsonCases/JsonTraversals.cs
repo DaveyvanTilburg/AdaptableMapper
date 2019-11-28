@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals.Json;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace AdaptableMapper.TDD.EdgeCases
+namespace AdaptableMapper.TDD.EdgeCases.JsonCases
 {
     public class JsonTraversals
     {
@@ -15,7 +14,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         public void JsonGetScopeTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonGetScopeTraversal(path);
-            object context = CreateTarget(contextType);
+            object context = Json.CreateTarget(contextType);
             List<Information> result = new Action(() => { subject.GetScope(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -30,7 +29,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         public void JsonGetSearchValueTraversal_InvalidType(string because, string path, string searchPath, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonGetSearchValueTraversal(path, searchPath);
-            object context = CreateTarget(contextType);
+            object context = Json.CreateTarget(contextType);
             List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -42,7 +41,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         public void JsonSetValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonSetValueTraversal(path);
-            object context = CreateTarget(contextType);
+            object context = Json.CreateTarget(contextType);
             List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -54,7 +53,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         public void JsonGetValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonGetValueTraversal(path);
-            object context = CreateTarget(contextType);
+            object context = Json.CreateTarget(contextType);
             List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -71,27 +70,9 @@ namespace AdaptableMapper.TDD.EdgeCases
         public void JsonGetTemplateTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonGetTemplateTraversal(path);
-            object context = CreateTarget(contextType);
+            object context = Json.CreateTarget(contextType);
             List<Information> result = new Action(() => { subject.Get(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
-
-        private object CreateTarget(ContextType contextType)
-        {
-            switch (contextType)
-            {
-                case ContextType.EmptyString:
-                    return string.Empty;
-                case ContextType.EmptyObject:
-                    return new JObject();
-                case ContextType.TestObject:
-                    return CreateTestData();
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
-        private JToken CreateTestData()
-            => JObject.Parse(System.IO.File.ReadAllText("./Resources/Simple.json"));
     }
 }
