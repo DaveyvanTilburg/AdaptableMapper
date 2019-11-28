@@ -3,9 +3,9 @@ using Newtonsoft.Json.Linq;
 
 namespace AdaptableMapper.Json
 {
-    public sealed class JsonGetValue : GetValueTraversal
+    public sealed class JsonGetValueTraversal : GetValueTraversal
     {
-        public JsonGetValue(string path)
+        public JsonGetValueTraversal(string path)
         {
             Path = path;
         }

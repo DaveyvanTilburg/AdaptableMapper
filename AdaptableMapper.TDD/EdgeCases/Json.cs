@@ -25,118 +25,8 @@ namespace AdaptableMapper.TDD.EdgeCases
             List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = new JArray(), Child = string.Empty }); }).Observe();
             result.ValidateResult(new List<string> { "e-JSON#2;" });
         }
-
-        [Fact]
-        public void JsonGetScopeInvalidType()
-        {
-            var subject = new JsonGetScope(string.Empty);
-            List<Information> result = new Action(() => { subject.GetScope(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#3;" });
-        }
-
-        [Fact]
-        public void JsonGetScopeNoResults()
-        {
-            var subject = new JsonGetScope("abcd");
-            List<Information> result = new Action(() => { subject.GetScope(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#4;" });
-        }
-
-        [Fact]
-        public void JsonGetSearchValueInvalidType()
-        {
-            var subject = new JsonGetSearchValue(string.Empty, string.Empty);
-            List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#5;" });
-        }
-
-        [Fact]
-        public void JsonGetSearchValueEmptySearchPathValue()
-        {
-            var subject = new JsonGetSearchValue(string.Empty, "$.SimpleItems[0].SimpleItem.SurName");
-            List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#7;" });
-        }
-
-        [Fact]
-        public void JsonGetSearchValueEmptyActualPath()
-        {
-            var subject = new JsonGetSearchValue("$.SimpleItems[0].SimpleItem.SurName", "$.SimpleItems[0].SimpleItem.Id");
-            List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#8;" });
-        }
-
-        [Fact]
-        public void JsonGetSearchValueEmptySearchValuePath()
-        {
-            var subject = new JsonGetSearchValue(string.Empty, string.Empty);
-            List<Information> result = new Action(() => { subject.GetValue(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#31;" });
-        }
-
-        [Fact]
-        public void JsonGetSearchValueNoResultOnSearchValuePath()
-        {
-            var subject = new JsonGetSearchValue(string.Empty, "abcd");
-            List<Information> result = new Action(() => { subject.GetValue(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#6;" });
-        }
-
-        [Fact]
-        public void JsonGetSearchValueNoResultOnActualPath()
-        {
-            var subject = new JsonGetSearchValue(string.Empty, "$.SimpleItems[0].SimpleItem.Id");
-            List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#6;" });
-        }
-
-        [Fact]
-        public void JsonSetValueInvalidType()
-        {
-            var subject = new JsonSetValue(string.Empty);
-            List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#18;" });
-        }
-
-        [Fact]
-        public void JsonSetValueNoResults()
-        {
-            var subject = new JsonSetValue("abcd");
-            List<Information> result = new Action(() => { subject.SetValue(new JObject(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#30;" });
-        }
-
-        [Fact]
-        public void JsonSetValueInvalidPath()
-        {
-            var subject = new JsonSetValue("[]");
-            List<Information> result = new Action(() => { subject.SetValue(new JObject(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#29;" });
-        }
-
-        [Fact]
-        public void JsonGetValueInvalidType()
-        {
-            var subject = new JsonGetValue(string.Empty);
-            List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#10;" });
-        }
-
-        [Fact]
-        public void JsonGetValueNoResult()
-        {
-            var subject = new JsonGetValue(string.Empty);
-            List<Information> result = new Action(() => { subject.GetValue(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#6;" });
-        }
-
-        [Fact]
-        public void JsonGetValueEmptyResult()
-        {
-            var subject = new JsonGetValue("$.SimpleItems[0].SimpleItem.SurName");
-            List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#11;" });
-        }
+        
+        
 
         [Fact]
         public void JsonObjectConverterInvalidType()
@@ -170,53 +60,7 @@ namespace AdaptableMapper.TDD.EdgeCases
             result.ValidateResult(new List<string> { "e-JSON#20;" });
         }
 
-        [Fact]
-        public void JsonGetTemplateTraversal_InvalidType()
-        {
-            var subject = new JsonGetTemplateTraversal(string.Empty);
-            List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#23;" });
-        }
-
-        [Fact]
-        public void JsonGetTemplateTraversal_NoParentCheck()
-        {
-            var subject = new JsonGetTemplateTraversal("$");
-            List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#9;" });
-        }
-
-        [Fact]
-        public void JsonGetTemplateTraversal_InvalidPath()
-        {
-            var subject = new JsonGetTemplateTraversal("abcd");
-            List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#24;" });
-        }
-
-        [Fact]
-        public void JsonGetTemplateTraversal_InvalidParentPath()
-        {
-            var subject = new JsonGetTemplateTraversal("ab/cd");
-            List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#15;", "w-JSON#24;" }); //Preferred cascade, the error is an extra notification of something wrong with the path
-        }
-
-        [Fact]
-        public void JsonGetTemplateTraversal_NoParent()
-        {
-            var subject = new JsonGetTemplateTraversal("../");
-            List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "w-JSON#24;" });
-        }
-
-        [Fact]
-        public void JsonGetTemplateTraversal_InvalidCharacters()
-        {
-            var subject = new JsonGetTemplateTraversal("[]");
-            List<Information> result = new Action(() => { subject.Get(new JObject()); }).Observe();
-            result.ValidateResult(new List<string> { "e-JSON#28;", "w-JSON#24;" }); //Preferred cascade, the error is an extra notification of something wrong with the path
-        }
+        
 
         [Fact]
         public void JTokenToStringObjectConverterInvalidType()
@@ -225,8 +69,5 @@ namespace AdaptableMapper.TDD.EdgeCases
             List<Information> result = new Action(() => { subject.Convert(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-JSON#25;" });
         }
-
-        private JToken CreateTestData()
-            => JObject.Parse(System.IO.File.ReadAllText("./Resources/Simple.json"));
     }
 }

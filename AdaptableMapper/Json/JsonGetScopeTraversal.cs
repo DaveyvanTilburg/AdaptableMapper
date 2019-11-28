@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace AdaptableMapper.Json
 {
-    public sealed class JsonGetScope : GetScopeTraversal
+    public sealed class JsonGetScopeTraversal : GetScopeTraversal
     {
-        public JsonGetScope(string path)
+        public JsonGetScopeTraversal(string path)
         {
             Path = path;
         }

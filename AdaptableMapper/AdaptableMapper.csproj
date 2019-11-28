@@ -43,12 +43,12 @@
   <ItemGroup>
     <Compile Include="Contexts\ContextFactory.cs" />
     <Compile Include="Json\JsonChildCreator.cs" />
-    <Compile Include="Json\JsonGetScope.cs" />
-    <Compile Include="Json\JsonGetSearchValue.cs" />
-    <Compile Include="Json\JsonGetValue.cs" />
+    <Compile Include="Json\JsonGetScopeTraversal.cs" />
+    <Compile Include="Json\JsonGetSearchValueTraversal.cs" />
+    <Compile Include="Json\JsonGetValueTraversal.cs" />
     <Compile Include="Json\JsonObjectConverter.cs" />
     <Compile Include="Json\JsonTraverseOperations.cs" />
-    <Compile Include="Json\JsonSetValue.cs" />
+    <Compile Include="Json\JsonSetValueTraversal.cs" />
     <Compile Include="Json\JsonTargetInstantiator.cs" />
     <Compile Include="Json\JsonGetTemplateTraversal.cs" />
     <Compile Include="Json\JTokenToStringObjectConverter.cs" />

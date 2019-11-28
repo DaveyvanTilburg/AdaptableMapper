@@ -76,7 +76,7 @@ namespace AdaptableMapper.TDD.ATDD
         internal void AddScopeToRoot(ScopeCompositeModel scopeCompositeModel)
         {
             var getScopeTraversal = CreateGetScopeTraversal(scopeCompositeModel);
-            var traversalToGetTemplate = CreateTraversalToGetTemplate(scopeCompositeModel.TraversalToGetTemplate);
+            var traversalToGetTemplate = CreateGetTemplateTraversal(scopeCompositeModel.TraversalToGetTemplate);
             var childCreator = CreateChildCreator(scopeCompositeModel.ChildCreator);
 
             var scope = new MappingScopeComposite(
@@ -96,7 +96,7 @@ namespace AdaptableMapper.TDD.ATDD
                 case "xml":
                     return new Xml.XmlGetScope(scopeCompositeModel.GetScopeTraversalPath);
                 case "json":
-                    return new Json.JsonGetScope(scopeCompositeModel.GetScopeTraversalPath);
+                    return new Json.JsonGetScopeTraversal(scopeCompositeModel.GetScopeTraversalPath);
                 case "model":
                     return new Model.ModelGetScope(scopeCompositeModel.GetScopeTraversalPath);
                 default:
@@ -174,7 +174,7 @@ namespace AdaptableMapper.TDD.ATDD
                 case "xml":
                     return new Xml.XmlGetValue(string.Empty);
                 case "json":
-                    return new Json.JsonGetValue(string.Empty);
+                    return new Json.JsonGetValueTraversal(string.Empty);
                 case "model":
                     return new Model.ModelGetValue(string.Empty);
                 default:
@@ -189,7 +189,7 @@ namespace AdaptableMapper.TDD.ATDD
                 case "xml":
                     return new Xml.XmlSetValue(string.Empty);
                 case "json":
-                    return new Json.JsonSetValue(string.Empty);
+                    return new Json.JsonSetValueTraversal(string.Empty);
                 case "model":
                     return new Model.ModelSetValueOnProperty(string.Empty);
                 default:
