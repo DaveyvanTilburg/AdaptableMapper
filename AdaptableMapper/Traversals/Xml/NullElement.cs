@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using System.Xml.Linq;
 
-namespace AdaptableMapper.Xml
+namespace AdaptableMapper.Traversals.Xml
 {
     internal class NullElement : XElement
     {

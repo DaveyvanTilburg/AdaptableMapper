@@ -1,8 +1,7 @@
 ﻿using System.Xml.Linq;
-using AdaptableMapper.Configuration;
 using AdaptableMapper.Traversals;
 
-namespace AdaptableMapper.Xml
+namespace AdaptableMapper.Configuration.Xml
 {
     public sealed class XmlChildCreator : ChildCreator
     {

@@ -36,7 +36,7 @@ namespace AdaptableMapper.TDD
         {
             var memberName = new Mapping(
                 new Traversals.Model.ModelGetValueTraversal("Name"),
-                new Xml.XmlSetThisValueTraversal()
+                new Traversals.Xml.XmlSetThisValueTraversal()
             );
 
             var memberScope = new MappingScopeComposite(
@@ -46,13 +46,13 @@ namespace AdaptableMapper.TDD
                     memberName
                 },
                 new Traversals.Model.ModelGetScopeTraversal("Members"),
-                new Xml.XmlGetTemplateTraversal("./memberNames/memberName"),
-                new Xml.XmlChildCreator()
+                new Traversals.Xml.XmlGetTemplateTraversal("./memberNames/memberName"),
+                new Configuration.Xml.XmlChildCreator()
             );
 
             var platoonCode = new Mapping(
                 new Traversals.Model.ModelGetValueTraversal("Code"),
-                new Xml.XmlSetValueTraversal("./@code")
+                new Traversals.Xml.XmlSetValueTraversal("./@code")
             );
 
             var leaderName = new Mapping(
@@ -60,7 +60,7 @@ namespace AdaptableMapper.TDD
                     "../../Organization/Leaders{'PropertyName':'Reference','Value':'{{searchValue}}'}/LeaderPerson/Person/Name",
                     "LeaderReference"
                 ),
-                new Xml.XmlSetValueTraversal("./leaderName")
+                new Traversals.Xml.XmlSetValueTraversal("./leaderName")
             );
 
             var platoonScope = new MappingScopeComposite(
@@ -74,13 +74,13 @@ namespace AdaptableMapper.TDD
                     leaderName
                 },
                 new Traversals.Model.ModelGetScopeTraversal("Armies/Platoons"),
-                new Xml.XmlGetTemplateTraversal("./platoons/platoon"),
-                new Xml.XmlChildCreator()
+                new Traversals.Xml.XmlGetTemplateTraversal("./platoons/platoon"),
+                new Configuration.Xml.XmlChildCreator()
             );
 
             var crewMemberName = new Mapping(
                 new Traversals.Model.ModelGetValueTraversal("Name"),
-                new Xml.XmlSetThisValueTraversal()
+                new Traversals.Xml.XmlSetThisValueTraversal()
             );
 
             var crewMemberNamesScope = new MappingScopeComposite(
@@ -90,8 +90,8 @@ namespace AdaptableMapper.TDD
                     crewMemberName
                 },
                 new Traversals.Model.ModelGetScopeTraversal("Armies/Platoons/Members/CrewMembers"),
-                new Xml.XmlGetTemplateTraversal("./crewMemberNames/crewMemberName"),
-                new Xml.XmlChildCreator()
+                new Traversals.Xml.XmlGetTemplateTraversal("./crewMemberNames/crewMemberName"),
+                new Configuration.Xml.XmlChildCreator()
             );
 
             var scopes = new List<MappingScopeComposite>
@@ -102,7 +102,7 @@ namespace AdaptableMapper.TDD
 
             var contextFactory = new ContextFactory(
                 new Configuration.Model.ModelObjectConverter(),
-                new Xml.XmlTargetInstantiator()
+                new Configuration.Xml.XmlTargetInstantiator()
             );
 
             var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObjectConverter());

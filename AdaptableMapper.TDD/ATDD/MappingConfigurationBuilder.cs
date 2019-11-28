@@ -37,7 +37,7 @@ namespace AdaptableMapper.TDD.ATDD
             switch (type.ToLower())
             {
                 case "xml":
-                    _result.ContextFactory.TargetInstantiator = new Xml.XmlTargetInstantiator();
+                    _result.ContextFactory.TargetInstantiator = new Configuration.Xml.XmlTargetInstantiator();
                     break;
                 case "json":
                     _result.ContextFactory.TargetInstantiator = new Configuration.Json.JsonTargetInstantiator();
@@ -53,7 +53,7 @@ namespace AdaptableMapper.TDD.ATDD
             switch (type.ToLower())
             {
                 case "xml":
-                    _result.ContextFactory.ObjectConverter = new Xml.XmlObjectConverterRemovesNamespace();
+                    _result.ContextFactory.ObjectConverter = new Configuration.Xml.XmlObjectConverterRemovesNamespace();
                     break;
                 case "json":
                     _result.ContextFactory.ObjectConverter = new Configuration.Json.JsonObjectConverter();
@@ -95,7 +95,7 @@ namespace AdaptableMapper.TDD.ATDD
             switch (scopeCompositeModel.GetScopeTraversal.ToLower())
             {
                 case "xml":
-                    return new Xml.XmlGetScopeTraversal(scopeCompositeModel.GetScopeTraversalPath);
+                    return new Traversals.Xml.XmlGetScopeTraversal(scopeCompositeModel.GetScopeTraversalPath);
                 case "json":
                     return new Traversals.Json.JsonGetScopeTraversal(scopeCompositeModel.GetScopeTraversalPath);
                 case "model":
@@ -110,7 +110,7 @@ namespace AdaptableMapper.TDD.ATDD
             switch (type.ToLower())
             {
                 case "xml":
-                    return new Xml.XmlGetTemplateTraversal(string.Empty);
+                    return new Traversals.Xml.XmlGetTemplateTraversal(string.Empty);
                 case "json":
                     return new Traversals.Json.JsonGetTemplateTraversal(string.Empty);
                 case "model":
@@ -125,7 +125,7 @@ namespace AdaptableMapper.TDD.ATDD
             switch (type.ToLower())
             {
                 case "xml":
-                    return new Xml.XmlChildCreator();
+                    return new Configuration.Xml.XmlChildCreator();
                 case "json":
                     return new Configuration.Json.JsonChildCreator();
                 case "model":
@@ -140,7 +140,7 @@ namespace AdaptableMapper.TDD.ATDD
             switch (type.ToLower())
             {
                 case "xml":
-                    _result.ResultObjectConverter = new Xml.XElementToStringObjectConverter();
+                    _result.ResultObjectConverter = new Configuration.Xml.XElementToStringObjectConverter();
                     break;
                 case "json":
                     _result.ResultObjectConverter = new Configuration.Json.JTokenToStringObjectConverter();
@@ -173,7 +173,7 @@ namespace AdaptableMapper.TDD.ATDD
             switch (type.ToLower())
             {
                 case "xml":
-                    return new Xml.XmlGetValueTraversal(string.Empty);
+                    return new Traversals.Xml.XmlGetValueTraversal(string.Empty);
                 case "json":
                     return new Traversals.Json.JsonGetValueTraversal(string.Empty);
                 case "model":
@@ -188,7 +188,7 @@ namespace AdaptableMapper.TDD.ATDD
             switch (type.ToLower())
             {
                 case "xml":
-                    return new Xml.XmlSetValueTraversal(string.Empty);
+                    return new Traversals.Xml.XmlSetValueTraversal(string.Empty);
                 case "json":
                     return new Traversals.Json.JsonSetValueTraversal(string.Empty);
                 case "model":
@@ -202,8 +202,8 @@ namespace AdaptableMapper.TDD.ATDD
         {
             _result.Mappings.Add(
                 new Mapping(
-                    new Xml.XmlGetValueTraversal(mappingModel.GetValueTraversal),
-                    new Xml.XmlSetValueTraversal(mappingModel.SetValueTraversal)
+                    new Traversals.Xml.XmlGetValueTraversal(mappingModel.GetValueTraversal),
+                    new Traversals.Xml.XmlSetValueTraversal(mappingModel.SetValueTraversal)
                 ));
         }
 

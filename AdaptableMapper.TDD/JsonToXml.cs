@@ -34,12 +34,12 @@ namespace AdaptableMapper.TDD
         {
             var cpuCores = new Mapping(
                 new Traversals.Json.JsonGetValueTraversal(".CPU[0].Cores"),
-                new Xml.XmlSetValueTraversal("./cpu/@cores")
+                new Traversals.Xml.XmlSetValueTraversal("./cpu/@cores")
             );
 
             var cpuSpeed = new Mapping(
                 new Traversals.Json.JsonGetValueTraversal(".CPU[0].Speed"),
-                new Xml.XmlSetValueTraversal("./cpu/@speed")
+                new Traversals.Xml.XmlSetValueTraversal("./cpu/@speed")
             );
 
             var graphicalCardScope = new MappingScopeComposite(
@@ -50,27 +50,27 @@ namespace AdaptableMapper.TDD
                     cpuSpeed
                 },
                 new Traversals.Json.JsonGetScopeTraversal(".GraphicalCard[*]"),
-                new Xml.XmlGetTemplateTraversal("./graphicalCard"),
-                new Xml.XmlChildCreator()
+                new Traversals.Xml.XmlGetTemplateTraversal("./graphicalCard"),
+                new Configuration.Xml.XmlChildCreator()
             );
 
             var motherboardBrand = new Mapping(
                 new Traversals.Json.JsonGetValueTraversal(".Brand"),
-                new Xml.XmlSetValueTraversal("./@motherboardBrand")
+                new Traversals.Xml.XmlSetValueTraversal("./@motherboardBrand")
             );
             var motherboardCpuBrand = new Mapping(
                 new Traversals.Json.JsonGetValueTraversal(".CPU[0].Brand"),
-                new Xml.XmlSetValueTraversal("./@cpuBrand")
+                new Traversals.Xml.XmlSetValueTraversal("./@cpuBrand")
             );
             var motherboardTotalStorage = new Mapping(
                 new Traversals.Json.JsonGetValueTraversal(".HardDrive[0].Size"),
-                new Xml.XmlSetValueTraversal("./@storage")
+                new Traversals.Xml.XmlSetValueTraversal("./@storage")
             );
             var motherboardPartner = new Mapping(
                 new Traversals.Json.JsonGetSearchValueTraversal(
                     "../../../../../.Brand[?(@.Name=='{{searchValue}}')].Partner",
                     ".Brand"),
-                new Xml.XmlSetValueTraversal("./@brandPartner")
+                new Traversals.Xml.XmlSetValueTraversal("./@brandPartner")
             );
 
             var motherboardScope = new MappingScopeComposite(
@@ -86,23 +86,23 @@ namespace AdaptableMapper.TDD
                     motherboardPartner
                 },
                 new Traversals.Json.JsonGetScopeTraversal("$.Computer.Motherboard[*]"),
-                new Xml.XmlGetTemplateTraversal("//computers/computer"),
-                new Xml.XmlChildCreator()
+                new Traversals.Xml.XmlGetTemplateTraversal("//computers/computer"),
+                new Configuration.Xml.XmlChildCreator()
             );
 
             var memorySize = new Mapping(
                 new Traversals.Json.JsonGetValueTraversal("$.Size"),
-                new Xml.XmlSetValueTraversal("./@size")
+                new Traversals.Xml.XmlSetValueTraversal("./@size")
             );
 
             var memoryBrand = new Mapping(
                 new Traversals.Json.JsonGetValueTraversal("../../../.Brand"),
-                new Xml.XmlSetValueTraversal("./@brand")
+                new Traversals.Xml.XmlSetValueTraversal("./@brand")
             );
 
             var memoryMotherboardBrand = new Mapping(
                 new Traversals.Json.JsonGetValueTraversal("../../../../../../.Brand"),
-                new Xml.XmlSetValueTraversal("./@onMotherboardWithBrand")
+                new Traversals.Xml.XmlSetValueTraversal("./@onMotherboardWithBrand")
             );
 
             var memoriesScope = new MappingScopeComposite(
@@ -114,8 +114,8 @@ namespace AdaptableMapper.TDD
                     memoryMotherboardBrand
                 },
                 new Traversals.Json.JsonGetScopeTraversal("$.Computer.Motherboard[*].Memory[*].MemoryChip[*]"),
-                new Xml.XmlGetTemplateTraversal("//allMemories/memory"),
-                new Xml.XmlChildCreator()
+                new Traversals.Xml.XmlGetTemplateTraversal("//allMemories/memory"),
+                new Configuration.Xml.XmlChildCreator()
             );
 
             var scopes = new List<MappingScopeComposite>
@@ -128,7 +128,7 @@ namespace AdaptableMapper.TDD
                 scopes,
                 new ContextFactory(
                     new Configuration.Json.JsonObjectConverter(),
-                    new Xml.XmlTargetInstantiator()
+                    new Configuration.Xml.XmlTargetInstantiator()
                 ),
                 new NullObjectConverter()
             );

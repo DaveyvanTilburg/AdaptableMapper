@@ -72,7 +72,7 @@ namespace AdaptableMapper.TDD
         public static MappingConfiguration GetMappingConfiguration()
         {
             var crewMember = new Mapping(
-                new Xml.XmlGetThisValueTraversal(),
+                new Traversals.Xml.XmlGetThisValueTraversal(),
                 new Traversals.Model.ModelSetValueOnPropertyTraversal("Name")
             );
 
@@ -82,13 +82,13 @@ namespace AdaptableMapper.TDD
                 {
                     crewMember
                 },
-                new Xml.XmlGetScopeTraversal("./crew/crewMember"),
+                new Traversals.Xml.XmlGetScopeTraversal("./crew/crewMember"),
                 new Traversals.Model.ModelGetTemplateTraversal("CrewMembers"),
                 new Configuration.Model.ModelChildCreator()
             );
 
             var memberName = new Mapping(
-                new Xml.XmlGetValueTraversal("./@name"),
+                new Traversals.Xml.XmlGetValueTraversal("./@name"),
                 new Traversals.Model.ModelSetValueOnPropertyTraversal("Name")
             );
 
@@ -101,18 +101,18 @@ namespace AdaptableMapper.TDD
                 {
                     memberName
                 },
-                new Xml.XmlGetScopeTraversal("./members/member"),
+                new Traversals.Xml.XmlGetScopeTraversal("./members/member"),
                 new Traversals.Model.ModelGetTemplateTraversal("Members"),
                 new Configuration.Model.ModelChildCreator()
             );
 
             var platoonCode = new Mapping(
-                new Xml.XmlGetValueTraversal("./@code"),
+                new Traversals.Xml.XmlGetValueTraversal("./@code"),
                 new Traversals.Model.ModelSetValueOnPropertyTraversal("Code")
             );
 
             var leaderReference = new Mapping(
-                new Xml.XmlGetValueTraversal("./leaderReference"),
+                new Traversals.Xml.XmlGetValueTraversal("./leaderReference"),
                 new Traversals.Model.ModelSetValueOnPropertyTraversal("LeaderReference")
             );
 
@@ -126,13 +126,13 @@ namespace AdaptableMapper.TDD
                     platoonCode,
                     leaderReference
                 },
-                new Xml.XmlGetScopeTraversal("./platoon"),
+                new Traversals.Xml.XmlGetScopeTraversal("./platoon"),
                 new Traversals.Model.ModelGetTemplateTraversal("Platoons"),
                 new Configuration.Model.ModelChildCreator()
             );
 
             var armyCode = new Mapping(
-                new Xml.XmlGetValueTraversal("./@code"),
+                new Traversals.Xml.XmlGetValueTraversal("./@code"),
                 new Traversals.Model.ModelSetValueOnPropertyTraversal("Code")
             );
 
@@ -145,18 +145,18 @@ namespace AdaptableMapper.TDD
                 {
                     armyCode
                 },
-                new Xml.XmlGetScopeTraversal("./army"),
+                new Traversals.Xml.XmlGetScopeTraversal("./army"),
                 new Traversals.Model.ModelGetTemplateTraversal("Armies"),
                 new Configuration.Model.ModelChildCreator()
             );
 
             var reference = new Mapping(
-                new Xml.XmlGetValueTraversal("./@reference"),
+                new Traversals.Xml.XmlGetValueTraversal("./@reference"),
                 new Traversals.Model.ModelSetValueOnPropertyTraversal("Reference")
             );
 
             var leaderName = new Mapping(
-                new Xml.XmlGetThisValueTraversal(),
+                new Traversals.Xml.XmlGetThisValueTraversal(),
                 new Traversals.Model.ModelSetValueOnPathTraversal("LeaderPerson/Person/Name")
             );
 
@@ -167,7 +167,7 @@ namespace AdaptableMapper.TDD
                     reference,
                     leaderName
                 },
-                new Xml.XmlGetScopeTraversal("./leaders/leader"),
+                new Traversals.Xml.XmlGetScopeTraversal("./leaders/leader"),
                 new Traversals.Model.ModelGetTemplateTraversal("Organization/Leaders"),
                 new Configuration.Model.ModelChildCreator()
             );
@@ -179,7 +179,7 @@ namespace AdaptableMapper.TDD
             };
 
             var contextFactory = new ContextFactory(
-                new Xml.XmlObjectConverterRemovesNamespace(),
+                new Configuration.Xml.XmlObjectConverterRemovesNamespace(),
                 new Configuration.Model.ModelTargetInstantiator()
             );
 

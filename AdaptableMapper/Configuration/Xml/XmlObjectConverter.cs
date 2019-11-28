@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
-using AdaptableMapper.Configuration;
 
-namespace AdaptableMapper.Xml
+namespace AdaptableMapper.Configuration.Xml
 {
     public sealed class XmlObjectConverter : ObjectConverter
     {

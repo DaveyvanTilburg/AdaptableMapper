@@ -4,7 +4,7 @@ using System.Xml.XPath;
 using System.Linq;
 using System.Collections;
 
-namespace AdaptableMapper.Xml
+namespace AdaptableMapper.Traversals.Xml
 {
     internal static class XElementExtensions
     {

@@ -37,7 +37,7 @@ namespace AdaptableMapper.TDD
             Process.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
-            mappingConfiguration.ResultObjectConverter = new Xml.XElementToStringObjectConverter();
+            mappingConfiguration.ResultObjectConverter = new Configuration.Xml.XElementToStringObjectConverter();
 
             object result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml"));
 
@@ -53,8 +53,8 @@ namespace AdaptableMapper.TDD
         private static MappingConfiguration GetMappingConfiguration()
         {
             var crewMemberName = new Mapping(
-                new Xml.XmlGetThisValueTraversal(),
-                new Xml.XmlSetThisValueTraversal()
+                new Traversals.Xml.XmlGetThisValueTraversal(),
+                new Traversals.Xml.XmlSetThisValueTraversal()
             );
 
             var crewScope = new MappingScopeComposite(
@@ -63,14 +63,14 @@ namespace AdaptableMapper.TDD
                 {
                     crewMemberName
                 },
-                new Xml.XmlGetScopeTraversal("./army/platoon/members/member/crew/crewMember"),
-                new Xml.XmlGetTemplateTraversal("./crewMemberNames/crewMemberName"),
-                new Xml.XmlChildCreator()
+                new Traversals.Xml.XmlGetScopeTraversal("./army/platoon/members/member/crew/crewMember"),
+                new Traversals.Xml.XmlGetTemplateTraversal("./crewMemberNames/crewMemberName"),
+                new Configuration.Xml.XmlChildCreator()
             );
 
             var memberName = new Mapping(
-                new Xml.XmlGetValueTraversal("./@name"),
-                new Xml.XmlSetThisValueTraversal()
+                new Traversals.Xml.XmlGetValueTraversal("./@name"),
+                new Traversals.Xml.XmlSetThisValueTraversal()
             );
 
             var memberScope = new MappingScopeComposite(
@@ -79,22 +79,22 @@ namespace AdaptableMapper.TDD
                 {
                     memberName
                 },
-                new Xml.XmlGetScopeTraversal("./members/member"),
-                new Xml.XmlGetTemplateTraversal("./memberNames/memberName"),
-                new Xml.XmlChildCreator()
+                new Traversals.Xml.XmlGetScopeTraversal("./members/member"),
+                new Traversals.Xml.XmlGetTemplateTraversal("./memberNames/memberName"),
+                new Configuration.Xml.XmlChildCreator()
             );
 
             var platoonCode = new Mapping(
-                new Xml.XmlGetValueTraversal("./@code"),
-                new Xml.XmlSetValueTraversal("./@code")
+                new Traversals.Xml.XmlGetValueTraversal("./@code"),
+                new Traversals.Xml.XmlSetValueTraversal("./@code")
             );
 
             var leaderNameSearch = new Mapping(
-                new Xml.XmlGetSearchValueTraversal(
+                new Traversals.Xml.XmlGetSearchValueTraversal(
                     "../../leaders/leader[@reference='{{searchValue}}']",
                     "./leaderReference"
                 ),
-                new Xml.XmlSetValueTraversal("./leaderName")
+                new Traversals.Xml.XmlSetValueTraversal("./leaderName")
             );
 
             var platoonScope = new MappingScopeComposite(
@@ -107,9 +107,9 @@ namespace AdaptableMapper.TDD
                     platoonCode,
                     leaderNameSearch
                 },
-                new Xml.XmlGetScopeTraversal("./army/platoon"),
-                new Xml.XmlGetTemplateTraversal("./platoons/platoon"),
-                new Xml.XmlChildCreator()
+                new Traversals.Xml.XmlGetScopeTraversal("./army/platoon"),
+                new Traversals.Xml.XmlGetTemplateTraversal("./platoons/platoon"),
+                new Configuration.Xml.XmlChildCreator()
             );
 
             var scopes = new List<MappingScopeComposite>
@@ -119,8 +119,8 @@ namespace AdaptableMapper.TDD
             };
 
             var contextFactory = new ContextFactory(
-                new Xml.XmlObjectConverter(),
-                new Xml.XmlTargetInstantiatorRemovesNamespace()
+                new Configuration.Xml.XmlObjectConverter(),
+                new Configuration.Xml.XmlTargetInstantiatorRemovesNamespace()
             );
 
             var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObjectConverter());

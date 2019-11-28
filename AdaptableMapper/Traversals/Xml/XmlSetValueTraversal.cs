@@ -1,7 +1,6 @@
-﻿using AdaptableMapper.Traversals;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
-namespace AdaptableMapper.Xml
+namespace AdaptableMapper.Traversals.Xml
 {
     public sealed class XmlSetValueTraversal : SetValueTraversal
     {
