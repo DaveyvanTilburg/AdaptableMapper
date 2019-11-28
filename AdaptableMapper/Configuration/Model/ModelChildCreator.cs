@@ -1,9 +1,9 @@
-﻿using AdaptableMapper.Model.Language;
+﻿using AdaptableMapper.Model;
 using System.Collections;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.Traversals;
 
-namespace AdaptableMapper.Model
+namespace AdaptableMapper.Configuration.Model
 {
     public sealed class ModelChildCreator : ChildCreator
     {

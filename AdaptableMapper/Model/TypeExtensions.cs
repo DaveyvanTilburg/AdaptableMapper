@@ -1,9 +1,8 @@
-﻿using AdaptableMapper.Model.Language;
-using System;
+﻿using System;
 
 namespace AdaptableMapper.Model
 {
-    public static class TypeExtensions
+    internal static class TypeExtensions
     {
         public static ModelBase CreateModel(this Type type)
         {

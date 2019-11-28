@@ -1,8 +1,8 @@
 ﻿using AdaptableMapper.Configuration;
-using AdaptableMapper.Model.Language;
+using AdaptableMapper.Model;
 using Newtonsoft.Json;
 
-namespace AdaptableMapper.Model
+namespace AdaptableMapper.Configuration.Model
 {
     public sealed class ModelToStringObjectConverter : ResultObjectConverter
     {

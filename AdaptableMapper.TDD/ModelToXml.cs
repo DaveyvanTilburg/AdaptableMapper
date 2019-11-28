@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using AdaptableMapper.Configuration;
 using Xunit;
-using AdaptableMapper.Model.Language;
+using AdaptableMapper.Model;
 
 namespace AdaptableMapper.TDD
 {
@@ -35,7 +35,7 @@ namespace AdaptableMapper.TDD
         private static MappingConfiguration GetFakedMappingConfiguration()
         {
             var memberName = new Mapping(
-                new Model.ModelGetValue("Name"),
+                new Traversals.Model.ModelGetValueTraversal("Name"),
                 new Xml.XmlSetThisValue()
             );
 
@@ -45,18 +45,18 @@ namespace AdaptableMapper.TDD
                 {
                     memberName
                 },
-                new Model.ModelGetScope("Members"),
+                new Traversals.Model.ModelGetScopeTraversal("Members"),
                 new Xml.XmlGetTemplate("./memberNames/memberName"),
                 new Xml.XmlChildCreator()
             );
 
             var platoonCode = new Mapping(
-                new Model.ModelGetValue("Code"),
+                new Traversals.Model.ModelGetValueTraversal("Code"),
                 new Xml.XmlSetValue("./@code")
             );
 
             var leaderName = new Mapping(
-                new Model.ModelGetSearchValue(
+                new Traversals.Model.ModelGetSearchValueTraversal(
                     "../../Organization/Leaders{'PropertyName':'Reference','Value':'{{searchValue}}'}/LeaderPerson/Person/Name",
                     "LeaderReference"
                 ),
@@ -73,13 +73,13 @@ namespace AdaptableMapper.TDD
                     platoonCode,
                     leaderName
                 },
-                new Model.ModelGetScope("Armies/Platoons"),
+                new Traversals.Model.ModelGetScopeTraversal("Armies/Platoons"),
                 new Xml.XmlGetTemplate("./platoons/platoon"),
                 new Xml.XmlChildCreator()
             );
 
             var crewMemberName = new Mapping(
-                new Model.ModelGetValue("Name"),
+                new Traversals.Model.ModelGetValueTraversal("Name"),
                 new Xml.XmlSetThisValue()
             );
 
@@ -89,7 +89,7 @@ namespace AdaptableMapper.TDD
                 {
                     crewMemberName
                 },
-                new Model.ModelGetScope("Armies/Platoons/Members/CrewMembers"),
+                new Traversals.Model.ModelGetScopeTraversal("Armies/Platoons/Members/CrewMembers"),
                 new Xml.XmlGetTemplate("./crewMemberNames/crewMemberName"),
                 new Xml.XmlChildCreator()
             );
@@ -101,7 +101,7 @@ namespace AdaptableMapper.TDD
             };
 
             var contextFactory = new ContextFactory(
-                new Model.ModelObjectConverter(),
+                new Configuration.Model.ModelObjectConverter(),
                 new Xml.XmlTargetInstantiator()
             );
 

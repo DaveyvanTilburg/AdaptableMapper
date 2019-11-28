@@ -1,6 +1,4 @@
-﻿using AdaptableMapper.Model.Language;
-
-namespace AdaptableMapper.Model
+﻿namespace AdaptableMapper.Model
 {
     internal static class StringExtensions
     {

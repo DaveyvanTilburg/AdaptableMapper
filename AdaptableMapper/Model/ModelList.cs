@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AdaptableMapper.Model.Language
+namespace AdaptableMapper.Model
 {
     public sealed class ModelList<T> : List<T> where T : ModelBase
     {

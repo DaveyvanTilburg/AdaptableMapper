@@ -1,13 +1,12 @@
-﻿using AdaptableMapper.Model.Language;
-using AdaptableMapper.Traversals;
+﻿using AdaptableMapper.Model;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace AdaptableMapper.Model
+namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelGetTemplate : GetTemplateTraversal
+    public sealed class ModelGetTemplateTraversal : GetTemplateTraversal
     {
-        public ModelGetTemplate(string path)
+        public ModelGetTemplateTraversal(string path)
         {
             Path = path;
         }

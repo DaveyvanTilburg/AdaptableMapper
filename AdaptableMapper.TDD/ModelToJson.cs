@@ -1,4 +1,4 @@
-﻿using AdaptableMapper.Model.Language;
+﻿using AdaptableMapper.Model;
 using FluentAssertions;
 using ModelObjects.Hardwares;
 using Newtonsoft.Json.Linq;
@@ -144,17 +144,17 @@ namespace AdaptableMapper.TDD
         private static MappingConfiguration GetFakedMappingConfiguration()
         {
             var graphicalCardCpuBrand = new Mapping(
-                new Model.ModelGetValue("Brand"),
+                new Traversals.Model.ModelGetValueTraversal("Brand"),
                 new Traversals.Json.JsonSetValueTraversal(".Brand")
             );
 
             var graphicalCardCpuCores = new Mapping(
-                new Model.ModelGetValue("Cores"),
+                new Traversals.Model.ModelGetValueTraversal("Cores"),
                 new Traversals.Json.JsonSetValueTraversal(".Cores")
             );
 
             var graphicalCardCpuSpeed = new Mapping(
-                new Model.ModelGetValue("Speed"),
+                new Traversals.Model.ModelGetValueTraversal("Speed"),
                 new Traversals.Json.JsonSetValueTraversal(".Speed")
             );
 
@@ -166,13 +166,13 @@ namespace AdaptableMapper.TDD
                     graphicalCardCpuCores,
                     graphicalCardCpuSpeed
                 },
-                new Model.ModelGetScope("CPUs"),
+                new Traversals.Model.ModelGetScopeTraversal("CPUs"),
                 new Traversals.Json.JsonGetTemplateTraversal("$.CPUs[0]"),
                 new Configuration.Json.JsonChildCreator()
             );
 
             var graphicalCardMemoryChipSize = new Mapping(
-                new Model.ModelGetValue("Size"),
+                new Traversals.Model.ModelGetValueTraversal("Size"),
                 new Traversals.Json.JsonSetValueTraversal(".Size")
             );
 
@@ -182,13 +182,13 @@ namespace AdaptableMapper.TDD
                 {
                     graphicalCardMemoryChipSize
                 },
-                new Model.ModelGetScope("MemoryChips"),
+                new Traversals.Model.ModelGetScopeTraversal("MemoryChips"),
                 new Traversals.Json.JsonGetTemplateTraversal(".MemoryChips[0]"),
                 new Configuration.Json.JsonChildCreator()
             );
 
             var graphicalCardBrand = new Mapping(
-                new Model.ModelGetValue("Brand"),
+                new Traversals.Model.ModelGetValueTraversal("Brand"),
                 new Traversals.Json.JsonSetValueTraversal(".Brand")
             );
 
@@ -202,13 +202,13 @@ namespace AdaptableMapper.TDD
                 {
                     graphicalCardBrand
                 },
-                new Model.ModelGetScope("GraphicalCards"),
+                new Traversals.Model.ModelGetScopeTraversal("GraphicalCards"),
                 new Traversals.Json.JsonGetTemplateTraversal(".GraphicalCards[0]"),
                 new Configuration.Json.JsonChildCreator()
             );
 
             var motherboardMemorySize = new Mapping(
-                new Model.ModelGetValue("Size"),
+                new Traversals.Model.ModelGetValueTraversal("Size"),
                 new Traversals.Json.JsonSetValueTraversal(".Size")
             );
 
@@ -218,28 +218,28 @@ namespace AdaptableMapper.TDD
                 {
                     motherboardMemorySize
                 },
-                new Model.ModelGetScope("Memories{'PropertyName':'Type','Value':'External'}/MemoryChips"),
+                new Traversals.Model.ModelGetScopeTraversal("Memories{'PropertyName':'Type','Value':'External'}/MemoryChips"),
                 new Traversals.Json.JsonGetTemplateTraversal(".CPUs[0].MemoryChips[0]"),
                 new Configuration.Json.JsonChildCreator()
             );
 
             var motherBoardCpuBrand = new Mapping(
-                new Model.ModelGetValue("CPU/Brand"),
+                new Traversals.Model.ModelGetValueTraversal("CPU/Brand"),
                 new Traversals.Json.JsonSetValueTraversal(".CPUs[0].Brand")
             );
 
             var motherBoardCpuCores = new Mapping(
-                new Model.ModelGetValue("CPU/Cores"),
+                new Traversals.Model.ModelGetValueTraversal("CPU/Cores"),
                 new Traversals.Json.JsonSetValueTraversal(".CPUs[0].Cores")
             );
 
             var motherBoardCpuSpeed = new Mapping(
-                new Model.ModelGetValue("CPU/Speed"),
+                new Traversals.Model.ModelGetValueTraversal("CPU/Speed"),
                 new Traversals.Json.JsonSetValueTraversal(".CPUs[0].Speed")
             );
 
             var motherboardBrand = new Mapping(
-                new Model.ModelGetValue("Brand"),
+                new Traversals.Model.ModelGetValueTraversal("Brand"),
                 new Traversals.Json.JsonSetValueTraversal(".Brand")
             );
 
@@ -256,23 +256,23 @@ namespace AdaptableMapper.TDD
                     motherBoardCpuCores,
                     motherBoardCpuSpeed
                 },
-                new Model.ModelGetScope("Motherboards"),
+                new Traversals.Model.ModelGetScopeTraversal("Motherboards"),
                 new Traversals.Json.JsonGetTemplateTraversal("$.Motherboards[0]"),
                 new Configuration.Json.JsonChildCreator()
             );
 
             var hardDriveBrand = new Mapping(
-                new Model.ModelGetValue("Brand"),
+                new Traversals.Model.ModelGetValueTraversal("Brand"),
                 new Traversals.Json.JsonSetValueTraversal(".Brand")
             );
 
             var hardDriveSize = new Mapping(
-                new Model.ModelGetValue("Size"),
+                new Traversals.Model.ModelGetValueTraversal("Size"),
                 new Traversals.Json.JsonSetValueTraversal(".Size")
             );
 
             var hardDriveSpeed = new Mapping(
-                new Model.ModelGetValue("Speed"),
+                new Traversals.Model.ModelGetValueTraversal("Speed"),
                 new Traversals.Json.JsonSetValueTraversal(".Speed")
             );
 
@@ -284,7 +284,7 @@ namespace AdaptableMapper.TDD
                     hardDriveSize,
                     hardDriveSpeed
                 },
-                new Model.ModelGetScope("Motherboards/HardDrives"),
+                new Traversals.Model.ModelGetScopeTraversal("Motherboards/HardDrives"),
                 new Traversals.Json.JsonGetTemplateTraversal("$.AvailableHardDrives[0]"),
                 new Configuration.Json.JsonChildCreator()
             );
@@ -296,7 +296,7 @@ namespace AdaptableMapper.TDD
             };
 
             var contextFactory = new ContextFactory(
-                new Model.ModelObjectConverter(),
+                new Configuration.Model.ModelObjectConverter(),
                 new Configuration.Json.JsonTargetInstantiator()
             );
 

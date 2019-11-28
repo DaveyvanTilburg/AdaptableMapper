@@ -1,8 +1,7 @@
 ﻿using System;
-using AdaptableMapper.Configuration;
-using AdaptableMapper.Model.Language;
+using AdaptableMapper.Model;
 
-namespace AdaptableMapper.Model
+namespace AdaptableMapper.Configuration.Model
 {
     public sealed class StringToModelObjectConverter : ObjectConverter
     {

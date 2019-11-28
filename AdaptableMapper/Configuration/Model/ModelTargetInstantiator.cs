@@ -1,8 +1,8 @@
-﻿using AdaptableMapper.Model.Language;
+﻿using AdaptableMapper.Model;
 using System;
 using AdaptableMapper.Configuration;
 
-namespace AdaptableMapper.Model
+namespace AdaptableMapper.Configuration.Model
 {
     public sealed class ModelTargetInstantiator : TargetInstantiator
     {

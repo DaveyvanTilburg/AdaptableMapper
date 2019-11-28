@@ -1,11 +1,10 @@
-﻿using AdaptableMapper.Model.Language;
-using AdaptableMapper.Traversals;
+﻿using AdaptableMapper.Model;
 
-namespace AdaptableMapper.Model
+namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelSetValueOnProperty : SetValueTraversal
+    public sealed class ModelSetValueOnPropertyTraversal : SetValueTraversal
     {
-        public ModelSetValueOnProperty(string propertyName)
+        public ModelSetValueOnPropertyTraversal(string propertyName)
         {
             PropertyName = propertyName;
         }

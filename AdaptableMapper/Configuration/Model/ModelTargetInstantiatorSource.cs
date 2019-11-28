@@ -1,4 +1,4 @@
-﻿namespace AdaptableMapper.Model
+﻿namespace AdaptableMapper.Configuration.Model
 {
     public sealed class ModelTargetInstantiatorSource
     {

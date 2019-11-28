@@ -1,11 +1,10 @@
-﻿using AdaptableMapper.Model.Language;
-using AdaptableMapper.Traversals;
+﻿using AdaptableMapper.Model;
 
-namespace AdaptableMapper.Model
+namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelGetSearchValue : GetValueTraversal
+    public sealed class ModelGetSearchValueTraversal : GetValueTraversal
     {
-        public ModelGetSearchValue(string searchPath, string searchValuePath)
+        public ModelGetSearchValueTraversal(string searchPath, string searchValuePath)
         {
             SearchPath = searchPath;
             SearchValuePath = searchValuePath;

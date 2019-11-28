@@ -44,7 +44,7 @@ namespace AdaptableMapper.TDD.ATDD
                     _result.ContextFactory.TargetInstantiator = new Configuration.Json.JsonTargetInstantiator();
                     break;
                 case "model":
-                    _result.ContextFactory.TargetInstantiator = new Model.ModelTargetInstantiator();
+                    _result.ContextFactory.TargetInstantiator = new Configuration.Model.ModelTargetInstantiator();
                     break;
             }
         }
@@ -60,12 +60,12 @@ namespace AdaptableMapper.TDD.ATDD
                     _result.ContextFactory.ObjectConverter = new Configuration.Json.JsonObjectConverter();
                     break;
                 case "modelbase":
-                    _result.ContextFactory.ObjectConverter = new Model.ModelObjectConverter();
+                    _result.ContextFactory.ObjectConverter = new Configuration.Model.ModelObjectConverter();
                     break;
                 case "model":
                     Type itemType = typeof(ModelObjects.Simple.Item);
-                    _result.ContextFactory.ObjectConverter = new Model.StringToModelObjectConverter(
-                        new Model.ModelTargetInstantiatorSource
+                    _result.ContextFactory.ObjectConverter = new Configuration.Model.StringToModelObjectConverter(
+                        new Configuration.Model.ModelTargetInstantiatorSource
                         {
                             AssemblyFullName = itemType.Assembly.FullName,
                             TypeFullName = itemType.FullName
@@ -100,7 +100,7 @@ namespace AdaptableMapper.TDD.ATDD
                 case "json":
                     return new Traversals.Json.JsonGetScopeTraversal(scopeCompositeModel.GetScopeTraversalPath);
                 case "model":
-                    return new Model.ModelGetScope(scopeCompositeModel.GetScopeTraversalPath);
+                    return new Traversals.Model.ModelGetScopeTraversal(scopeCompositeModel.GetScopeTraversalPath);
                 default:
                     return null;
             }
@@ -115,7 +115,7 @@ namespace AdaptableMapper.TDD.ATDD
                 case "json":
                     return new Traversals.Json.JsonGetTemplateTraversal(string.Empty);
                 case "model":
-                    return new Model.ModelGetTemplate(string.Empty);
+                    return new Traversals.Model.ModelGetTemplateTraversal(string.Empty);
                 default:
                     return null;
             }
@@ -130,7 +130,7 @@ namespace AdaptableMapper.TDD.ATDD
                 case "json":
                     return new Configuration.Json.JsonChildCreator();
                 case "model":
-                    return new Model.ModelChildCreator();
+                    return new Configuration.Model.ModelChildCreator();
                 default:
                     return null;
             }
@@ -147,7 +147,7 @@ namespace AdaptableMapper.TDD.ATDD
                     _result.ResultObjectConverter = new Configuration.Json.JTokenToStringObjectConverter();
                     break;
                 case "model":
-                    _result.ResultObjectConverter = new Model.ModelToStringObjectConverter();
+                    _result.ResultObjectConverter = new Configuration.Model.ModelToStringObjectConverter();
                     break;
                 case "null":
                     _result.ResultObjectConverter = new NullObjectConverter();
@@ -178,7 +178,7 @@ namespace AdaptableMapper.TDD.ATDD
                 case "json":
                     return new Traversals.Json.JsonGetValueTraversal(string.Empty);
                 case "model":
-                    return new Model.ModelGetValue(string.Empty);
+                    return new Traversals.Model.ModelGetValueTraversal(string.Empty);
                 default:
                     return null;
             }
@@ -193,7 +193,7 @@ namespace AdaptableMapper.TDD.ATDD
                 case "json":
                     return new Traversals.Json.JsonSetValueTraversal(string.Empty);
                 case "model":
-                    return new Model.ModelSetValueOnProperty(string.Empty);
+                    return new Traversals.Model.ModelSetValueOnPropertyTraversal(string.Empty);
                 default:
                     return null;
             }

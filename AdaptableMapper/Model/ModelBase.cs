@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace AdaptableMapper.Model.Language
+namespace AdaptableMapper.Model
 {
     public abstract class ModelBase
     {

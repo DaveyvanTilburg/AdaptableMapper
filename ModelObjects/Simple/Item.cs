@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AdaptableMapper.Model.Language;
+using AdaptableMapper.Model;
 
 namespace ModelObjects.Simple
 {

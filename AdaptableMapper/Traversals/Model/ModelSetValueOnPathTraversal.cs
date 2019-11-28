@@ -1,11 +1,10 @@
-﻿using AdaptableMapper.Model.Language;
-using AdaptableMapper.Traversals;
+﻿using AdaptableMapper.Model;
 
-namespace AdaptableMapper.Model
+namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelSetValueOnPath : SetValueTraversal
+    public sealed class ModelSetValueOnPathTraversal : SetValueTraversal
     {
-        public ModelSetValueOnPath(string path)
+        public ModelSetValueOnPathTraversal(string path)
         {
             Path = path;
         }

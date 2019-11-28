@@ -46,7 +46,7 @@ namespace AdaptableMapper.TDD
         public void XmlToModelToString()
         {
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
-            mappingConfiguration.ResultObjectConverter = new ModelToStringObjectConverter();
+            mappingConfiguration.ResultObjectConverter = new Configuration.Model.ModelToStringObjectConverter();
             string modelTargetInstantiatorSource = CreateModelTargetInstantiatorSource();
 
             object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), modelTargetInstantiatorSource);
@@ -61,7 +61,7 @@ namespace AdaptableMapper.TDD
         private string CreateModelTargetInstantiatorSource()
         {
             var rootType = typeof(ModelObjects.Armies.Root);
-            var result = new ModelTargetInstantiatorSource
+            var result = new Configuration.Model.ModelTargetInstantiatorSource
             {
                 AssemblyFullName = rootType.Assembly.FullName,
                 TypeFullName = rootType.FullName
@@ -74,7 +74,7 @@ namespace AdaptableMapper.TDD
         {
             var crewMember = new Mapping(
                 new Xml.XmlGetThisValue(),
-                new Model.ModelSetValueOnProperty("Name")
+                new Traversals.Model.ModelSetValueOnPropertyTraversal("Name")
             );
 
             var crewMemberScope = new MappingScopeComposite(
@@ -84,13 +84,13 @@ namespace AdaptableMapper.TDD
                     crewMember
                 },
                 new Xml.XmlGetScope("./crew/crewMember"),
-                new Model.ModelGetTemplate("CrewMembers"),
-                new Model.ModelChildCreator()
+                new Traversals.Model.ModelGetTemplateTraversal("CrewMembers"),
+                new Configuration.Model.ModelChildCreator()
             );
 
             var memberName = new Mapping(
                 new Xml.XmlGetValue("./@name"),
-                new Model.ModelSetValueOnProperty("Name")
+                new Traversals.Model.ModelSetValueOnPropertyTraversal("Name")
             );
 
             var memberScope = new MappingScopeComposite(
@@ -103,18 +103,18 @@ namespace AdaptableMapper.TDD
                     memberName
                 },
                 new Xml.XmlGetScope("./members/member"),
-                new Model.ModelGetTemplate("Members"),
-                new Model.ModelChildCreator()
+                new Traversals.Model.ModelGetTemplateTraversal("Members"),
+                new Configuration.Model.ModelChildCreator()
             );
 
             var platoonCode = new Mapping(
                 new Xml.XmlGetValue("./@code"),
-                new Model.ModelSetValueOnProperty("Code")
+                new Traversals.Model.ModelSetValueOnPropertyTraversal("Code")
             );
 
             var leaderReference = new Mapping(
                 new Xml.XmlGetValue("./leaderReference"),
-                new Model.ModelSetValueOnProperty("LeaderReference")
+                new Traversals.Model.ModelSetValueOnPropertyTraversal("LeaderReference")
             );
 
             var platoonScope = new MappingScopeComposite(
@@ -128,13 +128,13 @@ namespace AdaptableMapper.TDD
                     leaderReference
                 },
                 new Xml.XmlGetScope("./platoon"),
-                new Model.ModelGetTemplate("Platoons"),
-                new Model.ModelChildCreator()
+                new Traversals.Model.ModelGetTemplateTraversal("Platoons"),
+                new Configuration.Model.ModelChildCreator()
             );
 
             var armyCode = new Mapping(
                 new Xml.XmlGetValue("./@code"),
-                new Model.ModelSetValueOnProperty("Code")
+                new Traversals.Model.ModelSetValueOnPropertyTraversal("Code")
             );
 
             var armyScope = new MappingScopeComposite(
@@ -147,18 +147,18 @@ namespace AdaptableMapper.TDD
                     armyCode
                 },
                 new Xml.XmlGetScope("./army"),
-                new Model.ModelGetTemplate("Armies"),
-                new Model.ModelChildCreator()
+                new Traversals.Model.ModelGetTemplateTraversal("Armies"),
+                new Configuration.Model.ModelChildCreator()
             );
 
             var reference = new Mapping(
                 new Xml.XmlGetValue("./@reference"),
-                new Model.ModelSetValueOnProperty("Reference")
+                new Traversals.Model.ModelSetValueOnPropertyTraversal("Reference")
             );
 
             var leaderName = new Mapping(
                 new Xml.XmlGetThisValue(),
-                new Model.ModelSetValueOnPath("LeaderPerson/Person/Name")
+                new Traversals.Model.ModelSetValueOnPathTraversal("LeaderPerson/Person/Name")
             );
 
             var leadersScope = new MappingScopeComposite(
@@ -169,8 +169,8 @@ namespace AdaptableMapper.TDD
                     leaderName
                 },
                 new Xml.XmlGetScope("./leaders/leader"),
-                new Model.ModelGetTemplate("Organization/Leaders"),
-                new Model.ModelChildCreator()
+                new Traversals.Model.ModelGetTemplateTraversal("Organization/Leaders"),
+                new Configuration.Model.ModelChildCreator()
             );
 
             var scopes = new List<MappingScopeComposite>
@@ -181,7 +181,7 @@ namespace AdaptableMapper.TDD
 
             var contextFactory = new ContextFactory(
                 new Xml.XmlObjectConverterRemovesNamespace(),
-                new Model.ModelTargetInstantiator()
+                new Configuration.Model.ModelTargetInstantiator()
             );
 
             var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObjectConverter());
