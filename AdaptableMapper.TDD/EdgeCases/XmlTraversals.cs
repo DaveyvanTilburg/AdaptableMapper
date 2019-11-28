@@ -9,26 +9,10 @@ using Xunit;
 
 namespace AdaptableMapper.TDD.EdgeCases
 {
-    public class Xml
+    public class XmlTraversals
     {
         [Fact]
-        public void XmlChildCreatorInvalidParentType()
-        {
-            var subject = new XmlChildCreator();
-            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = string.Empty, Child = string.Empty }); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#10;" });
-        }
-
-        [Fact]
-        public void XmlChildCreatorInvalidTemplateType()
-        {
-            var subject = new XmlChildCreator();
-            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = new XElement("nullObject"), Child = string.Empty }); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#11;" });
-        }
-
-        [Fact]
-        public void XmlGetScopeInvalidType()
+        public void XmlGetScopeTraversal_InvalidType()
         {
             var subject = new XmlGetScopeTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.GetScope(string.Empty); }).Observe();
@@ -36,7 +20,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void XmlGetScopeInvalidPath()
+        public void XmlGetScopeTraversal_InvalidPath()
         {
             var subject = new XmlGetScopeTraversal("::");
             List<Information> result = new Action(() => { subject.GetScope(new XElement("nullObject")); }).Observe();
@@ -44,24 +28,25 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void XmlGetScopeNoResults()
+        public void XmlGetScopeTraversal_NoResults()
         {
             var subject = new XmlGetScopeTraversal("abcd");
             List<Information> result = new Action(() => { subject.GetScope(new XElement("nullObject")); }).Observe();
             result.ValidateResult(new List<string> { "w-XML#5;" });
         }
 
+
+
         [Fact]
-        public void XmlGetSearchValueInvalidType()
+        public void XmlGetSearchValueTraversal_InvalidType()
         {
-            //Todo, review errors/warnings thrown marker
             var subject = new XmlGetSearchValueTraversal(string.Empty, string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#13;" });
         }
 
         [Fact]
-        public void XmlGetSearchValueEmptySearchPath()
+        public void XmlGetSearchValueTraversal_EmptySearchPath()
         {
             var subject = new XmlGetSearchValueTraversal(string.Empty, string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(new XElement("nullObject")); }).Observe();
@@ -69,7 +54,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void XmlGetSearchValueInvalidSearchPath()
+        public void XmlGetSearchValueTraversal_InvalidSearchPath()
         {
             var subject = new XmlGetSearchValueTraversal(string.Empty, "abcd");
             List<Information> result = new Action(() => { subject.GetValue(new XElement("nullObject")); }).Observe();
@@ -77,7 +62,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void XmlGetSearchValueEmptySearchPathValueResult()
+        public void XmlGetSearchValueTraversal_EmptySearchPathValueResult()
         {
             var subject = new XmlGetSearchValueTraversal(string.Empty, "//SimpleItems/SimpleItem/SurName");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
@@ -85,7 +70,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void XmlGetSearchValueNoActualPathResult()
+        public void XmlGetSearchValueTraversal_NoActualPathResult()
         {
             var subject = new XmlGetSearchValueTraversal("//SimpleItems/SimpleItem/SurName", "//SimpleItems/SimpleItem/@Id");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
@@ -93,15 +78,17 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void XmlGetThisValueInvalidType()
+        public void XmlGetThisValueTraversal_InvalidType()
         {
             var subject = new XmlGetThisValueTraversal();
             List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#16;" });
         }
 
+
+
         [Fact]
-        public void XmlGetValueInvalidType()
+        public void XmlGetValueTraversal_InvalidType()
         {
             var subject = new XmlGetValueTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
@@ -109,7 +96,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void XmlGetValueInvalidPath()
+        public void XmlGetValueTraversal_InvalidPath()
         {
             var subject = new XmlGetValueTraversal("::");
             List<Information> result = new Action(() => { subject.GetValue(new XElement("nullObject")); }).Observe();
@@ -117,95 +104,37 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void XmlGetValueEmptyString()
+        public void XmlGetValueTraversal_EmptyString()
         {
             var subject = new XmlGetValueTraversal("//SimpleItems/SimpleItem/SurName");
             List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
             result.ValidateResult(new List<string> { "w-XML#4;" });
         }
 
-        [Fact]
-        public void XmlObjectConverterRemovesNamespaceInvalidType()
-        {
-            var subject = new XmlObjectConverterRemovesNamespace();
-            List<Information> result = new Action(() => { subject.Convert(0); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#30;" });
-        }
+
 
         [Fact]
-        public void XmlObjectConverterRemovesNamespaceInvalidSource()
-        {
-            var subject = new XmlObjectConverterRemovesNamespace();
-            List<Information> result = new Action(() => { subject.Convert("abcd"); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#31;" });
-        }
-
-        [Fact]
-        public void XmlObjectConverterInvalidType()
-        {
-            var subject = new XmlObjectConverter();
-            List<Information> result = new Action(() => { subject.Convert(0); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#18;" });
-        }
-
-        [Fact]
-        public void XmlObjectConverterInvalidSource()
-        {
-            var subject = new XmlObjectConverter();
-            List<Information> result = new Action(() => { subject.Convert("abcd"); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#19;" });
-        }
-
-        [Fact]
-        public void XmlSetThisValueInvalidType()
+        public void XmlSetThisValueTraversal_InvalidType()
         {
             var subject = new XmlSetThisValueTraversal();
             List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#20;" });
         }
 
+
+
         [Fact]
-        public void XmlSetValueInvalidType()
+        public void XmlSetValueTraversal_InvalidType()
         {
             var subject = new XmlSetValueTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#21;" });
         }
 
-        [Fact]
-        public void XmlTargetInstantiatorInvalidType()
-        {
-            var subject = new XmlTargetInstantiator();
-            List<Information> result = new Action(() => { subject.Create(0); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#24;" });
-        }
+
 
         [Fact]
-        public void XmlTargetInstantiatorInvalidTarget()
-        {
-            var subject = new XmlTargetInstantiator();
-            List<Information> result = new Action(() => { subject.Create("abcd"); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#6;" });
-        }
-
-        [Fact]
-        public void XmlTargetInstantiatorRemovesNamespaceInvalidType()
-        {
-            var subject = new XmlTargetInstantiatorRemovesNamespace();
-            List<Information> result = new Action(() => { subject.Create(0); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#32;" });
-        }
-
-        [Fact]
-        public void XmlTargetInstantiatorRemovesNamespaceInvalidTarget()
-        {
-            var subject = new XmlTargetInstantiatorRemovesNamespace();
-            List<Information> result = new Action(() => { subject.Create("abcd"); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#33;" });
-        }
-
-        [Fact]
-        public void XmlTraversalTemplateInvalidType()
+        public void XmlGetTemplateTraversal_InvalidType()
         {
             var subject = new XmlGetTemplateTraversal(string.Empty);
             List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
@@ -213,7 +142,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void XmlTraversalTemplateInvalidPath()
+        public void XmlGetTemplateTraversal_InvalidPath()
         {
             var subject = new XmlGetTemplateTraversal("::");
             List<Information> result = new Action(() => { subject.Get(new XElement("nullObject")); }).Observe();
@@ -221,7 +150,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void XmlTraversalTemplateNoResult()
+        public void XmlGetTemplateTraversal_NoResult()
         {
             var subject = new XmlGetTemplateTraversal("abcd");
             List<Information> result = new Action(() => { subject.Get(new XElement("nullObject")); }).Observe();
@@ -229,7 +158,7 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void XmlTraversalTemplateMoreThanOne()
+        public void XmlGetTemplateTraversal_MoreThanOne()
         {
             var subject = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem/Name");
             List<Information> result = new Action(() => { subject.Get(CreateTestData()); }).Observe();
@@ -237,20 +166,14 @@ namespace AdaptableMapper.TDD.EdgeCases
         }
 
         [Fact]
-        public void XmlTraversalTemplateResultHasNoParent()
+        public void XmlGetTemplateTraversal_ResultHasNoParent()
         {
             var subject = new XmlGetTemplateTraversal("/");
             List<Information> result = new Action(() => { subject.Get(CreateTestData()); }).Observe();
             result.ValidateResult(new List<string> { "w-XML#26;" });
         }
 
-        [Fact]
-        public void XElementToStringObjectConverterInvalidType()
-        {
-            var subject = new XElementToStringObjectConverter();
-            List<Information> result = new Action(() => { subject.Convert(0); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#9;" });
-        }
+
 
         private XElement CreateTestData()
             => XElement.Parse(System.IO.File.ReadAllText("./Resources/Simple.xml"));

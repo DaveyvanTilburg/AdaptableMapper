@@ -50,9 +50,10 @@
     <Compile Include="EdgeCases\JsonTraversals.cs" />
     <Compile Include="EdgeCases\ModelTraversals.cs" />
     <Compile Include="EdgeCases\Tree.cs" />
+    <Compile Include="EdgeCases\XmlConfiguration.cs" />
     <Compile Include="LanguageExtensions.cs" />
     <Compile Include="EdgeCases\ModelConfiguration.cs" />
-    <Compile Include="EdgeCases\Xml.cs" />
+    <Compile Include="EdgeCases\XmlTraversals.cs" />
     <Compile Include="ErrorObserverTester.cs" />
     <Compile Include="JsonToXml.cs" />
     <Compile Include="ArmyModelSourceCreator.cs" />
