@@ -46,6 +46,7 @@
     <Compile Include="ATDD\MappingModel.cs" />
     <Compile Include="ATDD\ScopeCompositeModel.cs" />
     <Compile Include="ConfigurationSaveAndLoad.cs" />
+    <Compile Include="EdgeCases\ContextType.cs" />
     <Compile Include="EdgeCases\JsonConfiguration.cs" />
     <Compile Include="EdgeCases\JsonTraversals.cs" />
     <Compile Include="EdgeCases\ModelTraversals.cs" />

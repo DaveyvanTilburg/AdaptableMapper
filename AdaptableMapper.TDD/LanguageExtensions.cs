@@ -10,7 +10,12 @@ namespace AdaptableMapper.TDD
     {
         public static void ValidateResult(this IReadOnlyCollection<Information> information, IReadOnlyCollection<string> expectedCodes)
         {
-            information.Count.Should().Be(expectedCodes.Count, GetBecause(information, expectedCodes));
+            information.ValidateResult(expectedCodes, string.Empty);
+        }
+
+        public static void ValidateResult(this IReadOnlyCollection<Information> information, IReadOnlyCollection<string> expectedCodes, string because)
+        {
+            information.Count.Should().Be(expectedCodes.Count, $"{because}; {GetBecause(information, expectedCodes)}");
 
             foreach (IGrouping<string, string> expectedCodeGrouping in expectedCodes.GroupBy(c => c))
             {
@@ -18,7 +23,7 @@ namespace AdaptableMapper.TDD
                 string type = expectedInformation[0];
                 string code = expectedInformation[1];
 
-                information.Count(i => i.Type.StartsWith(type) && i.Message.StartsWith(code)).Should().Be(expectedCodeGrouping.Count(), $"MissingCode: {code}, {GetBecause(information, expectedCodes)}");
+                information.Count(i => i.Type.StartsWith(type) && i.Message.StartsWith(code)).Should().Be(expectedCodeGrouping.Count(), $"{because}; MissingCode: {code}, {GetBecause(information, expectedCodes)}");
             }
         }
 

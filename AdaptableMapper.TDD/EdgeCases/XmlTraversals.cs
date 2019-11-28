@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using AdaptableMapper.Configuration.Xml;
-using AdaptableMapper.Traversals;
 using AdaptableMapper.Traversals.Xml;
 using Xunit;
 
