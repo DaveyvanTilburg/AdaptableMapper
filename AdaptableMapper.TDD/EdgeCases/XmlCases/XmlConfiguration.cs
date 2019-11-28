@@ -1,7 +1,6 @@
 ﻿using AdaptableMapper.Process;
 using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using AdaptableMapper.Configuration.Xml;
 using AdaptableMapper.Traversals;
 using Xunit;
@@ -10,100 +9,69 @@ namespace AdaptableMapper.TDD.EdgeCases.XmlCases
 {
     public class XmlConfiguration
     {
-        [Fact]
-        public void XmlChildCreatorInvalidParentType()
+        [Theory]
+        [InlineData("InvalidParentType", ContextType.EmptyString, "e-XML#10;")]
+        [InlineData("InvalidTemplateType", ContextType.EmptyObject, "e-XML#11;")]
+        public void XmlChildCreator(string because, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlChildCreator();
-            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = string.Empty, Child = string.Empty }); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#10;" });
+            object context = Xml.CreateTarget(contextType);
+            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = context, Child = string.Empty }); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-        [Fact]
-        public void XmlChildCreatorInvalidTemplateType()
-        {
-            var subject = new XmlChildCreator();
-            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = new XElement("nullObject"), Child = string.Empty }); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#11;" });
-        }
-
-
-
-        [Fact]
-        public void XmlObjectConverterRemovesNamespaceInvalidType()
+        [Theory]
+        [InlineData("InvalidType", ContextType.InvalidType, "e-XML#30;")]
+        [InlineData("InvalidSource", ContextType.InvalidSource, "e-XML#31;")]
+        public void XmlObjectConverterRemovesNamespace(string because, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlObjectConverterRemovesNamespace();
-            List<Information> result = new Action(() => { subject.Convert(0); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#30;" });
+            object context = Xml.CreateTarget(contextType);
+            List<Information> result = new Action(() => { subject.Convert(context); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-        [Fact]
-        public void XmlObjectConverterRemovesNamespaceInvalidSource()
-        {
-            var subject = new XmlObjectConverterRemovesNamespace();
-            List<Information> result = new Action(() => { subject.Convert("abcd"); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#31;" });
-        }
-
-        [Fact]
-        public void XmlObjectConverterInvalidType()
+        [Theory]
+        [InlineData("InvalidType", ContextType.InvalidType, "e-XML#18;")]
+        [InlineData("InvalidSource", ContextType.InvalidSource, "e-XML#19;")]
+        public void XmlObjectConverter(string because, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlObjectConverter();
-            List<Information> result = new Action(() => { subject.Convert(0); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#18;" });
+            object context = Xml.CreateTarget(contextType);
+            List<Information> result = new Action(() => { subject.Convert(context); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-        [Fact]
-        public void XmlObjectConverterInvalidSource()
-        {
-            var subject = new XmlObjectConverter();
-            List<Information> result = new Action(() => { subject.Convert("abcd"); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#19;" });
-        }
-
-
-
-        [Fact]
-        public void XmlTargetInstantiatorInvalidType()
+        [Theory]
+        [InlineData("InvalidType", ContextType.InvalidType, "e-XML#24;")]
+        [InlineData("InvalidSource", ContextType.InvalidSource, "e-XML#6;")]
+        public void XmlTargetInstantiator(string because, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlTargetInstantiator();
-            List<Information> result = new Action(() => { subject.Create(0); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#24;" });
+            object context = Xml.CreateTarget(contextType);
+            List<Information> result = new Action(() => { subject.Create(context); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-        [Fact]
-        public void XmlTargetInstantiatorInvalidTarget()
-        {
-            var subject = new XmlTargetInstantiator();
-            List<Information> result = new Action(() => { subject.Create("abcd"); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#6;" });
-        }
-
-
-
-        [Fact]
-        public void XmlTargetInstantiatorRemovesNamespaceInvalidType()
+        [Theory]
+        [InlineData("InvalidType", ContextType.InvalidType, "e-XML#32;")]
+        [InlineData("InvalidSource", ContextType.InvalidSource, "e-XML#33;")]
+        public void XmlTargetInstantiatorRemovesNamespace(string because, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlTargetInstantiatorRemovesNamespace();
-            List<Information> result = new Action(() => { subject.Create(0); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#32;" });
+            object context = Xml.CreateTarget(contextType);
+            List<Information> result = new Action(() => { subject.Create(context); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-        [Fact]
-        public void XmlTargetInstantiatorRemovesNamespaceInvalidTarget()
-        {
-            var subject = new XmlTargetInstantiatorRemovesNamespace();
-            List<Information> result = new Action(() => { subject.Create("abcd"); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#33;" });
-        }
-
-
-
-        [Fact]
-        public void XElementToStringObjectConverterInvalidType()
+        [Theory]
+        [InlineData("InvalidType", ContextType.InvalidType, "e-XML#9;")]
+        public void XElementToStringObjectConverter(string because, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XElementToStringObjectConverter();
-            List<Information> result = new Action(() => { subject.Convert(0); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#9;" });
+            object context = Xml.CreateTarget(contextType);
+            List<Information> result = new Action(() => { subject.Convert(context); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
     }
 }

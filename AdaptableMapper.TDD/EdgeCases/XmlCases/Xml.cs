@@ -19,6 +19,12 @@ namespace AdaptableMapper.TDD.EdgeCases.XmlCases
                 case ContextType.TestObject:
                     result = CreateTestData();
                     break;
+                case ContextType.InvalidType:
+                    result = 0;
+                    break;
+                case ContextType.InvalidSource:
+                    result = "abcd";
+                    break;
             }
 
             return result;
