@@ -1,7 +1,6 @@
 ﻿using AdaptableMapper.Process;
 using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using AdaptableMapper.Traversals.Xml;
 using Xunit;
 
