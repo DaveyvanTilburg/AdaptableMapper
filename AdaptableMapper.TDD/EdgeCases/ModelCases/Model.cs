@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AdaptableMapper.Configuration.Model;
 
 namespace AdaptableMapper.TDD.EdgeCases.ModelCases
 {
@@ -31,6 +32,18 @@ namespace AdaptableMapper.TDD.EdgeCases.ModelCases
                 case ContextType.TestObject:
                     result = CreateTestItem();
                     break;
+                case ContextType.InvalidType:
+                    result = 0;
+                    break;
+                case ContextType.InvalidSource:
+                    result = "abcd";
+                    break;
+                case ContextType.EmptySourceType:
+                    result = Newtonsoft.Json.JsonConvert.SerializeObject(new ModelTargetInstantiatorSource());
+                    break;
+                case ContextType.InvalidSourceType:
+                    result = Newtonsoft.Json.JsonConvert.SerializeObject(CreateModelTargetInstantiatorSource());
+                    break;
             }
 
             return result;
@@ -52,6 +65,18 @@ namespace AdaptableMapper.TDD.EdgeCases.ModelCases
                     }
                 }
             };
+        }
+
+        public static ModelTargetInstantiatorSource CreateModelTargetInstantiatorSource()
+        {
+            var testType = typeof(ModelObjects.Simple.NoItem);
+            var testModel = new ModelTargetInstantiatorSource
+            {
+                AssemblyFullName = testType.Assembly.FullName,
+                TypeFullName = testType.FullName
+            };
+
+            return testModel;
         }
     }
 }

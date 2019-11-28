@@ -7,6 +7,8 @@
         TestObject = 2,
         InvalidObject = 3,
         InvalidType = 4,
-        InvalidSource = 5
+        InvalidSource = 5,
+        EmptySourceType = 6,
+        InvalidSourceType = 7
     }
 }
