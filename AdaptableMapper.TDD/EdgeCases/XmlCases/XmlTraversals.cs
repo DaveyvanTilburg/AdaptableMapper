@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using AdaptableMapper.Traversals.Xml;
 using Xunit;
 
-namespace AdaptableMapper.TDD.EdgeCases
+namespace AdaptableMapper.TDD.EdgeCases.XmlCases
 {
     public class XmlTraversals
     {

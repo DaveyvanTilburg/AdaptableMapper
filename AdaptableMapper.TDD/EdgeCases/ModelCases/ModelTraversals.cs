@@ -4,7 +4,7 @@ using AdaptableMapper.Process;
 using AdaptableMapper.Traversals.Model;
 using Xunit;
 
-namespace AdaptableMapper.TDD.EdgeCases
+namespace AdaptableMapper.TDD.EdgeCases.ModelCases
 {
     public class ModelTraversals
     {

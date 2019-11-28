@@ -6,7 +6,7 @@ using AdaptableMapper.Configuration.Xml;
 using AdaptableMapper.Traversals;
 using Xunit;
 
-namespace AdaptableMapper.TDD.EdgeCases
+namespace AdaptableMapper.TDD.EdgeCases.XmlCases
 {
     public class Xml
     {
