@@ -8,196 +8,78 @@ namespace AdaptableMapper.TDD.EdgeCases.ModelCases
 {
     public class ModelTraversals
     {
-        [Fact]
-        public void ModelGetScopeTraversal_InvalidType()
+        [Theory]
+        [InlineData("InvalidType", "", ContextType.EmptyString, "", "e-MODEL#12;")]
+        [InlineData("EmptyPath", "", ContextType.EmptyObject, "item", "w-MODEL#7;")]
+        [InlineData("NodeIsNotAModelBase", "Items/Code/test", ContextType.TestObject, "", "e-MODEL#8;", "e-MODEL#8;")]
+        [InlineData("InvalidButAcceptedRoot", "/", ContextType.EmptyObject, "item", "w-MODEL#7;")]
+        [InlineData("InvalidEndNode", "Items/Code", ContextType.TestObject, "", "w-MODEL#2;", "w-MODEL#2;")]
+        public void ModelGetScopeTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
-            var subject = new ModelGetScopeTraversal("");
-            List<Information> result = new Action(() => { subject.GetScope(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#12;" });
+            var subject = new ModelGetScopeTraversal(path);
+            object context = Model.CreateTarget(contextType, createType);
+            List<Information> result = new Action(() => { subject.GetScope(context); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-        [Fact]
-        public void ModelGetScopeTraversal_EmptyPath()
+        [Theory]
+        [InlineData("InvalidType", "", "", ContextType.EmptyString, "", "e-MODEL#13;")]
+        [InlineData("EmptySearchValuePath", "", "", ContextType.EmptyObject, "item", "e-MODEL#21;")]
+        [InlineData("NoResultForSearchPath", "", "dummySearch", ContextType.EmptyObject, "item", "w-MODEL#9;", "w-MODEL#14;")] //Preferred cascade, 9 is extra info
+        [InlineData("NoResultForActualPath", "ab/cd", "Items{'PropertyName':'Code','Value':'1'}/Code", ContextType.TestObject, "", "w-MODEL#9;", "w-MODEL#15;")] //Preferred cascade, 9 is extra info
+        [InlineData("NoResultActualSearch", "ab/cd", "Items{'PropertyName':'Code','Value':'3'}/Code", ContextType.TestObject, "", "w-MODEL#4;")]
+        [InlineData("InvalidFilterMarkup", "ab/cd", "Items{'PropertyName':'Code','Value':'1'/Code", ContextType.TestObject, "", "w-MODEL#9;", "e-MODEL#32;")] //Preferred cascade, 9 is extra info
+        public void ModelGetSearchValueTraversal(string because, string path, string searchPath, ContextType contextType, string createType, params string[] expectedErrors)
         {
-            var subject = new ModelGetScopeTraversal("");
-            var model = new ModelObjects.Simple.Item();
-            List<Information> result = new Action(() => { subject.GetScope(model); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#7;" });
+            var subject = new ModelGetSearchValueTraversal(path, searchPath);
+            object context = Model.CreateTarget(contextType, createType);
+            List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-        [Fact]
-        public void ModelGetScopeTraversal_NodeIsNotAModelBase()
+        [Theory]
+        [InlineData("InvalidType", "", ContextType.EmptyString, "", "e-MODEL#16;")]
+        [InlineData("EmptyList", "Items/Code", ContextType.EmptyObject, "item", "w-MODEL#5;")]
+        [InlineData("NoParent", "../", ContextType.EmptyObject, "item", "w-MODEL#3;")]
+        public void ModelGetValueTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
-            var subject = new ModelGetScopeTraversal("Items/Code/test");
-            List<Information> result = new Action(() => { subject.GetScope(CreateTestItem()); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#8;", "e-MODEL#8;" });
+            var subject = new ModelGetValueTraversal(path);
+            object context = Model.CreateTarget(contextType, createType);
+            List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-        [Fact]
-        public void ModelGetScopeTraversal_InvalidButAcceptedRoot()
+        [Theory]
+        [InlineData("InvalidType", "", ContextType.EmptyString, "", "e-MODEL#18;")]
+        [InlineData("InvalidChildType", "NoItems/Code", ContextType.EmptyObject, "mix", "e-MODEL#23;")]
+        [InlineData("InvalidPath", "NoItem/Code", ContextType.EmptyObject, "mix", "w-MODEL#1;")]
+        [InlineData("InvalidTypeAlongTheWay", "Mixes/NoItem/Code", ContextType.EmptyObject, "deepmix", "w-MODEL#1;")]
+        public void ModelSetValueOnPathTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
-            var subject = new ModelGetScopeTraversal("/");
-            var model = new ModelObjects.Simple.Item();
-            List<Information> result = new Action(() => { subject.GetScope(model); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#7;" });
+            var subject = new ModelSetValueOnPathTraversal(path);
+            object context = Model.CreateTarget(contextType, createType);
+            List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-        [Fact]
-        public void ModelGetScopeTraversal_InvalidEndNode()
+        [Theory]
+        [InlineData("InvalidType", "", ContextType.EmptyString, "", "e-MODEL#19;")]
+        public void ModelSetValueOnPropertyTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
-            var subject = new ModelGetScopeTraversal("Items/Code");
-            List<Information> result = new Action(() => { subject.GetScope(CreateTestItem()); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#2;", "w-MODEL#2;" });
+            var subject = new ModelSetValueOnPropertyTraversal(path);
+            object context = Model.CreateTarget(contextType, createType);
+            List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-
-
-        [Fact]
-        public void ModelGetSearchValueTraversal_InvalidType()
+        [Theory]
+        [InlineData("InvalidType", "", ContextType.EmptyString, "", "e-MODEL#22;")]
+        public void ModelGetTemplateTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
-            var subject = new ModelGetSearchValueTraversal(string.Empty, string.Empty);
-            List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#13;" });
-        }
-
-        [Fact]
-        public void ModelGetSearchValueTraversal_EmptySearchValuePath()
-        {
-            var subject = new ModelGetSearchValueTraversal(string.Empty, string.Empty);
-            List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#21;" });
-        }
-
-        [Fact]
-        public void ModelGetSearchValueTraversal_NoResultForSearchPath()
-        {
-            var subject = new ModelGetSearchValueTraversal(string.Empty, "dummySearch");
-            List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#9;", "w-MODEL#14;" }); //Preferred cascade, 9 is extra info
-        }
-
-        [Fact]
-        public void ModelGetSearchValueTraversal_NoResultForActualPath()
-        {
-            var subject = new ModelGetSearchValueTraversal("ab/cd", "Items{'PropertyName':'Code','Value':'1'}/Code");
-            List<Information> result = new Action(() => { subject.GetValue(CreateTestItem()); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#9;", "w-MODEL#15;" }); //Preferred cascade, 9 is extra info
-        }
-
-        [Fact]
-        public void ModelGetSearchValueTraversal_NoResultActualSearch()
-        {
-            var subject = new ModelGetSearchValueTraversal("ab/cd", "Items{'PropertyName':'Code','Value':'3'}/Code");
-            List<Information> result = new Action(() => { subject.GetValue(CreateTestItem()); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#4;" });
-        }
-
-        [Fact]
-        public void ModelGetSearchValueTraversal_InvalidFilterMarkup()
-        {
-            var subject = new ModelGetSearchValueTraversal("ab/cd", "Items{'PropertyName':'Code','Value':'1'/Code");
-            List<Information> result = new Action(() => { subject.GetValue(CreateTestItem()); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#9;", "e-MODEL#32;" }); //Preferred cascade, 9 is extra info
-        }
-
-
-
-        [Fact]
-        public void ModelGetValueTraversal_InvalidType()
-        {
-            var subject = new ModelGetValueTraversal(string.Empty);
-            List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#16;" });
-        }
-
-        [Fact]
-        public void ModelGetValueTraversal_EmptyList()
-        {
-            var subject = new ModelGetValueTraversal("Items/Code");
-            List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#5;" });
-        }
-
-        [Fact]
-        public void ModelGetValueTraversal_NoParent()
-        {
-            var subject = new ModelGetValueTraversal("../");
-            List<Information> result = new Action(() => { subject.GetValue(new ModelObjects.Simple.Item()); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#3;" });
-        }
-
-
-
-        [Fact]
-        public void ModelSetValueOnPathTraversal_InvalidType()
-        {
-            var subject = new ModelSetValueOnPathTraversal(string.Empty);
-            List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#18;" });
-        }
-
-        [Fact]
-        public void ModelSetValueOnPathTraversal_InvalidChildType()
-        {
-            var subject = new ModelSetValueOnPathTraversal("NoItems/Code");
-            List<Information> result = new Action(() => { subject.SetValue(new ModelObjects.Simple.Mix(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#23;" });
-        }
-
-        [Fact]
-        public void ModelSetValueOnPathTraversal_InvalidPath()
-        {
-            var subject = new ModelSetValueOnPathTraversal("NoItem/Code");
-            List<Information> result = new Action(() => { subject.SetValue(new ModelObjects.Simple.Mix(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#1;" });
-        }
-
-
-
-        [Fact]
-        public void ModelSetValueOnPropertyTraversal_InvalidType()
-        {
-            var subject = new ModelSetValueOnPropertyTraversal(string.Empty);
-            List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#19;" });
-        }
-
-        [Fact]
-        public void ModelSetValueOnPropertyTraversal_TypeAlongTheWay()
-        {
-            var subject = new ModelSetValueOnPathTraversal("Mixes/NoItem/Code");
-            List<Information> result = new Action(() => { subject.SetValue(new ModelObjects.Simple.DeepMix(), string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "w-MODEL#1;" });
-        }
-
-
-
-        [Fact]
-        public void ModelGetTemplateTraversal_InvalidType()
-        {
-            var subject = new ModelGetTemplateTraversal(string.Empty);
-            List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-MODEL#22;" });
-        }
-
-
-
-        private static ModelObjects.Simple.Item CreateTestItem()
-        {
-            return new ModelObjects.Simple.Item
-            {
-                Items = new List<ModelObjects.Simple.Item>
-                {
-                    new ModelObjects.Simple.Item
-                    {
-                        Code = "1"
-                    },
-                    new ModelObjects.Simple.Item
-                    {
-                        Code = "2"
-                    }
-                }
-            };
+            var subject = new ModelGetTemplateTraversal(path);
+            object context = Model.CreateTarget(contextType, createType);
+            List<Information> result = new Action(() => { subject.Get(context); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
     }
 }

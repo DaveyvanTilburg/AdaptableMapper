@@ -50,6 +50,7 @@
     <Compile Include="EdgeCases\JsonCases\Json.cs" />
     <Compile Include="EdgeCases\JsonCases\JsonConfiguration.cs" />
     <Compile Include="EdgeCases\JsonCases\JsonTraversals.cs" />
+    <Compile Include="EdgeCases\ModelCases\Model.cs" />
     <Compile Include="EdgeCases\ModelCases\ModelTraversals.cs" />
     <Compile Include="EdgeCases\Tree.cs" />
     <Compile Include="EdgeCases\XmlCases\XmlConfiguration.cs" />

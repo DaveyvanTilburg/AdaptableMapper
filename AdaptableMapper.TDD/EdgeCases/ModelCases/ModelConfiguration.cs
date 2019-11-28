@@ -128,7 +128,6 @@ namespace AdaptableMapper.TDD.EdgeCases.ModelCases
             result.ValidateResult(new List<string> { "e-MODEL#30;" });
         }
 
-
         private static ModelTargetInstantiatorSource CreateModelTargetInstantiatorSource()
         {
             var testType = typeof(ModelObjects.Simple.NoItem);
