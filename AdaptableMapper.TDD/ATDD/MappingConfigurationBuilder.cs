@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AdaptableMapper.Configuration;
-using AdaptableMapper.TDD.EdgeCases;
 
 namespace AdaptableMapper.TDD.ATDD
 {

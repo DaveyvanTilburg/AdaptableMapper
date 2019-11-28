@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using System.Collections.Generic;
 using AdaptableMapper.Configuration;
-using AdaptableMapper.Model;
 using Xunit;
 
 namespace AdaptableMapper.TDD

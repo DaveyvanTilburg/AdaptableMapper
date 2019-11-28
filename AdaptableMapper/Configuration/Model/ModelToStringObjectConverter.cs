@@ -1,5 +1,4 @@
-﻿using AdaptableMapper.Configuration;
-using AdaptableMapper.Model;
+﻿using AdaptableMapper.Model;
 using Newtonsoft.Json;
 
 namespace AdaptableMapper.Configuration.Model

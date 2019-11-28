@@ -1,6 +1,5 @@
 ﻿using AdaptableMapper.Model;
 using System;
-using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.Configuration.Model
 {

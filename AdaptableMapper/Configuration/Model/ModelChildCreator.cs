@@ -1,6 +1,5 @@
 ﻿using AdaptableMapper.Model;
 using System.Collections;
-using AdaptableMapper.Configuration;
 using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Configuration.Model
