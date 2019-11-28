@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace AdaptableMapper.Model
 {
-    public sealed class ModelGetTemplate : GetTemplate
+    public sealed class ModelGetTemplate : GetTemplateTraversal
     {
         public ModelGetTemplate(string path)
         {

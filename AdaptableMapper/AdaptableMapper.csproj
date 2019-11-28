@@ -89,7 +89,7 @@
     <Compile Include="MappingScopeComposite.cs" />
     <Compile Include="Traversals\SetValueTraversal.cs" />
     <Compile Include="Traversals\Template.cs" />
-    <Compile Include="Traversals\GetTemplate.cs" />
+    <Compile Include="Traversals\GetTemplateTraversal.cs" />
     <Compile Include="Xml\NullElement.cs" />
     <Compile Include="Xml\XmlChildCreator.cs" />
     <Compile Include="Xml\XmlGetValue.cs" />

@@ -10,20 +10,20 @@ namespace AdaptableMapper
         public List<Mapping> Mappings { get; set; }
         public GetScopeTraversal GetScopeTraversal { get; set; }
 
-        public GetTemplate GetTemplate { get; set; }
+        public GetTemplateTraversal GetTemplateTraversal { get; set; }
         public ChildCreator ChildCreator { get; set; }
 
         public MappingScopeComposite(
             List<MappingScopeComposite> mappingScopeComposites, 
             List<Mapping> mappings, 
             GetScopeTraversal getScopeTraversal, 
-            GetTemplate getTemplate, 
+            GetTemplateTraversal getTemplateTraversal, 
             ChildCreator childCreator)
         {
             MappingScopeComposites = mappingScopeComposites;
             Mappings = mappings;
             GetScopeTraversal = getScopeTraversal;
-            GetTemplate = getTemplate;
+            GetTemplateTraversal = getTemplateTraversal;
             ChildCreator = childCreator;
         }
 
@@ -34,7 +34,7 @@ namespace AdaptableMapper
 
             IEnumerable<object> scope = GetScopeTraversal.GetScope(context.Source);
 
-            Template template = GetTemplate.Get(context.Target);
+            Template template = GetTemplateTraversal.Get(context.Target);
 
             foreach (object item in scope)
             {
@@ -55,7 +55,7 @@ namespace AdaptableMapper
                 result = false;
             }
 
-            if (GetTemplate == null)
+            if (GetTemplateTraversal == null)
             {
                 Process.ProcessObservable.GetInstance().Raise("TREE#9; Get cannot be null", "error");
                 result = false;

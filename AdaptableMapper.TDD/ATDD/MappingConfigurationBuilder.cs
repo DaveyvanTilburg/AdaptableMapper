@@ -104,7 +104,7 @@ namespace AdaptableMapper.TDD.ATDD
             }
         }
 
-        private GetTemplate CreateTraversalToGetTemplate(string type)
+        private GetTemplateTraversal CreateGetTemplateTraversal(string type)
         {
             switch (type.ToLower())
             {

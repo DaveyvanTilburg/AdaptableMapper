@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public sealed class XmlGetTemplate : GetTemplate
+    public sealed class XmlGetTemplate : GetTemplateTraversal
     {
         public XmlGetTemplate(string path)
         {
