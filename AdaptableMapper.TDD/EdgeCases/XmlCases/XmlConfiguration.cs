@@ -8,7 +8,7 @@ using Xunit;
 
 namespace AdaptableMapper.TDD.EdgeCases.XmlCases
 {
-    public class Xml
+    public class XmlConfiguration
     {
         [Fact]
         public void XmlChildCreatorInvalidParentType()

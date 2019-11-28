@@ -9,171 +9,86 @@ namespace AdaptableMapper.TDD.EdgeCases.XmlCases
 {
     public class XmlTraversals
     {
-        [Fact]
-        public void XmlGetScopeTraversal_InvalidType()
+        [Theory]
+        [InlineData("InvalidType", "", ContextType.EmptyString, "e-XML#12;")]
+        [InlineData("InvalidPath", "::", ContextType.EmptyObject, "e-XML#28;", "w-XML#5;")] //Preferred cascade, 28 contains extra info
+        [InlineData("NoResults", "abcd", ContextType.EmptyObject, "w-XML#5;")]
+        public void XmlGetScopeTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
-            var subject = new XmlGetScopeTraversal(string.Empty);
-            List<Information> result = new Action(() => { subject.GetScope(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#12;" });
+            var subject = new XmlGetScopeTraversal(path);
+            object context = Xml.CreateTarget(contextType);
+            List<Information> result = new Action(() => { subject.GetScope(context); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-        [Fact]
-        public void XmlGetScopeTraversal_InvalidPath()
+        [Theory]
+        [InlineData("InvalidType", "", "", ContextType.EmptyString, "e-XML#13;")]
+        [InlineData("EmptySearchPath", "", "", ContextType.EmptyObject, "e-XML#25;")]
+        [InlineData("InvalidSearchPath", "", "abcd", ContextType.EmptyObject, "w-XML#30;")]
+        [InlineData("EmptySearchPathValueResult", "", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, "w-XML#14;")]
+        [InlineData("NoActualPathResult", "//SimpleItems/SimpleItem/SurName", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "w-XML#15;")]
+        public void XmlGetSearchValueTraversal(string because, string path, string searchPath, ContextType contextType, params string[] expectedErrors)
         {
-            var subject = new XmlGetScopeTraversal("::");
-            List<Information> result = new Action(() => { subject.GetScope(new XElement("nullObject")); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#28;", "w-XML#5;" }); //Preferred cascade, 28 contains extra info
+            var subject = new XmlGetSearchValueTraversal(path, searchPath);
+            object context = Xml.CreateTarget(contextType);
+            List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-        [Fact]
-        public void XmlGetScopeTraversal_NoResults()
-        {
-            var subject = new XmlGetScopeTraversal("abcd");
-            List<Information> result = new Action(() => { subject.GetScope(new XElement("nullObject")); }).Observe();
-            result.ValidateResult(new List<string> { "w-XML#5;" });
-        }
-
-
-
-        [Fact]
-        public void XmlGetSearchValueTraversal_InvalidType()
-        {
-            var subject = new XmlGetSearchValueTraversal(string.Empty, string.Empty);
-            List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#13;" });
-        }
-
-        [Fact]
-        public void XmlGetSearchValueTraversal_EmptySearchPath()
-        {
-            var subject = new XmlGetSearchValueTraversal(string.Empty, string.Empty);
-            List<Information> result = new Action(() => { subject.GetValue(new XElement("nullObject")); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#25;" });
-        }
-
-        [Fact]
-        public void XmlGetSearchValueTraversal_InvalidSearchPath()
-        {
-            var subject = new XmlGetSearchValueTraversal(string.Empty, "abcd");
-            List<Information> result = new Action(() => { subject.GetValue(new XElement("nullObject")); }).Observe();
-            result.ValidateResult(new List<string> { "w-XML#30;" });
-        }
-
-        [Fact]
-        public void XmlGetSearchValueTraversal_EmptySearchPathValueResult()
-        {
-            var subject = new XmlGetSearchValueTraversal(string.Empty, "//SimpleItems/SimpleItem/SurName");
-            List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "w-XML#14;" });
-        }
-
-        [Fact]
-        public void XmlGetSearchValueTraversal_NoActualPathResult()
-        {
-            var subject = new XmlGetSearchValueTraversal("//SimpleItems/SimpleItem/SurName", "//SimpleItems/SimpleItem/@Id");
-            List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "w-XML#15;" });
-        }
-
-        [Fact]
-        public void XmlGetThisValueTraversal_InvalidType()
+        [Theory]
+        [InlineData("InvalidType", ContextType.EmptyString, "e-XML#16;")]
+        public void XmlGetThisValueTraversal(string because, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlGetThisValueTraversal();
-            List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#16;" });
+            object context = Xml.CreateTarget(contextType);
+            List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-
-
-        [Fact]
-        public void XmlGetValueTraversal_InvalidType()
+        [Theory]
+        [InlineData("InvalidType", "", ContextType.EmptyString, "e-XML#17;")]
+        [InlineData("InvalidPath", "::", ContextType.EmptyObject, "e-XML#29;")]
+        [InlineData("EmptyString", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, "w-XML#4;")]
+        public void XmlGetValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
-            var subject = new XmlGetValueTraversal(string.Empty);
-            List<Information> result = new Action(() => { subject.GetValue(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#17;" });
+            var subject = new XmlGetValueTraversal(path);
+            object context = Xml.CreateTarget(contextType);
+            List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-        [Fact]
-        public void XmlGetValueTraversal_InvalidPath()
-        {
-            var subject = new XmlGetValueTraversal("::");
-            List<Information> result = new Action(() => { subject.GetValue(new XElement("nullObject")); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#29;" });
-        }
-
-        [Fact]
-        public void XmlGetValueTraversal_EmptyString()
-        {
-            var subject = new XmlGetValueTraversal("//SimpleItems/SimpleItem/SurName");
-            List<Information> result = new Action(() => { subject.GetValue(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "w-XML#4;" });
-        }
-
-
-
-        [Fact]
-        public void XmlSetThisValueTraversal_InvalidType()
+        [Theory]
+        [InlineData("InvalidType", ContextType.EmptyString, "e-XML#20;")]
+        public void XmlSetThisValueTraversal(string because, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlSetThisValueTraversal();
-            List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#20;" });
+            object context = Xml.CreateTarget(contextType);
+            List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-
-
-        [Fact]
-        public void XmlSetValueTraversal_InvalidType()
+        [Theory]
+        [InlineData("InvalidType", "", ContextType.EmptyString, "e-XML#21;")]
+        public void XmlSetValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
-            var subject = new XmlSetValueTraversal(string.Empty);
-            List<Information> result = new Action(() => { subject.SetValue(string.Empty, string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#21;" });
+            var subject = new XmlSetValueTraversal(path);
+            object context = Xml.CreateTarget(contextType);
+            List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-
-
-        [Fact]
-        public void XmlGetTemplateTraversal_InvalidType()
+        [Theory]
+        [InlineData("InvalidType", "", ContextType.EmptyString, "e-XML#23;")]
+        [InlineData("InvalidPath", "::", ContextType.EmptyObject, "e-XML#27;")]
+        [InlineData("NoResult", "abcd", ContextType.EmptyObject, "w-XML#2;")]
+        [InlineData("NoResult", "//SimpleItems/SimpleItem/Name", ContextType.TestObject, "w-XML#3;")]
+        [InlineData("ResultHasNoParent", "/", ContextType.TestObject, "e-XML#26;")]
+        public void XmlGetTemplateTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
-            var subject = new XmlGetTemplateTraversal(string.Empty);
-            List<Information> result = new Action(() => { subject.Get(string.Empty); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#23;" });
+            var subject = new XmlGetTemplateTraversal(path);
+            object context = Xml.CreateTarget(contextType);
+            List<Information> result = new Action(() => { subject.Get(context); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
         }
-
-        [Fact]
-        public void XmlGetTemplateTraversal_InvalidPath()
-        {
-            var subject = new XmlGetTemplateTraversal("::");
-            List<Information> result = new Action(() => { subject.Get(new XElement("nullObject")); }).Observe();
-            result.ValidateResult(new List<string> { "e-XML#27;" });
-        }
-
-        [Fact]
-        public void XmlGetTemplateTraversal_NoResult()
-        {
-            var subject = new XmlGetTemplateTraversal("abcd");
-            List<Information> result = new Action(() => { subject.Get(new XElement("nullObject")); }).Observe();
-            result.ValidateResult(new List<string> { "w-XML#2;" });
-        }
-
-        [Fact]
-        public void XmlGetTemplateTraversal_MoreThanOne()
-        {
-            var subject = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem/Name");
-            List<Information> result = new Action(() => { subject.Get(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "w-XML#3;" });
-        }
-
-        [Fact]
-        public void XmlGetTemplateTraversal_ResultHasNoParent()
-        {
-            var subject = new XmlGetTemplateTraversal("/");
-            List<Information> result = new Action(() => { subject.Get(CreateTestData()); }).Observe();
-            result.ValidateResult(new List<string> { "w-XML#26;" });
-        }
-
-
-
-        private XElement CreateTestData()
-            => XElement.Parse(System.IO.File.ReadAllText("./Resources/Simple.xml"));
     }
 }

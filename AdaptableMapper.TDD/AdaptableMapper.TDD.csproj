@@ -53,6 +53,7 @@
     <Compile Include="EdgeCases\ModelCases\Model.cs" />
     <Compile Include="EdgeCases\ModelCases\ModelTraversals.cs" />
     <Compile Include="EdgeCases\Tree.cs" />
+    <Compile Include="EdgeCases\XmlCases\Xml.cs" />
     <Compile Include="EdgeCases\XmlCases\XmlConfiguration.cs" />
     <Compile Include="LanguageExtensions.cs" />
     <Compile Include="EdgeCases\ModelCases\ModelConfiguration.cs" />

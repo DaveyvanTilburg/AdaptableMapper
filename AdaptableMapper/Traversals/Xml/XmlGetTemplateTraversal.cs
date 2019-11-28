@@ -25,7 +25,7 @@ namespace AdaptableMapper.Traversals.Xml
 
             if(result.Parent == null)
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#26; template traversal did not result in an element that has a parent", "warning", Path);
+                Process.ProcessObservable.GetInstance().Raise("XML#26; template traversal did not result in an element that has a parent", "error", Path);
                 return CreateNullTemplate();
             }
 
