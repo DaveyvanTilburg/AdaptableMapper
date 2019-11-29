@@ -120,7 +120,7 @@ namespace AdaptableMapper.TDD
 
             var contextFactory = new ContextFactory(
                 new Configuration.Xml.XmlObjectConverter(),
-                new Configuration.Xml.XmlTargetInstantiatorRemovesNamespace()
+                new Configuration.Xml.XmlTargetInstantiator()
             );
 
             var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObjectConverter());

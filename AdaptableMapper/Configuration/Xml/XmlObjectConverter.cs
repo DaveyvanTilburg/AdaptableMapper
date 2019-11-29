@@ -33,18 +33,9 @@ namespace AdaptableMapper.Configuration.Xml
             }
 
             if(XmlInterpretation == XmlInterpretation.WithoutNamespace)
-                RemoveAllNamespaces(root);
+                root.RemoveAllNamespaces();
 
             return root;
-        }
-
-        private static void RemoveAllNamespaces(XElement element)
-        {
-            element.Name = element.Name.LocalName;
-
-            foreach (var node in element.DescendantNodes())
-                if (node is XElement xElement)
-                    RemoveAllNamespaces(xElement);
         }
     }
 }

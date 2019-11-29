@@ -1,4 +1,4 @@
-﻿<root>
+﻿<root xmlns:x="www.google.com" xmlns:y="www.youtube.com">
   <SimpleItems>
     <SimpleItem Id="1">
       <Name>Davey</Name>

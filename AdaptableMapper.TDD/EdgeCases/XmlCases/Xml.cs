@@ -28,6 +28,9 @@ namespace AdaptableMapper.TDD.EdgeCases.XmlCases
                 case ContextType.AlternativeTestObject:
                     result = CreateTestData("./Resources/SimpleNamespace.xml");
                     break;
+                case ContextType.ValidAlternativeSource:
+                    result = System.IO.File.ReadAllText("./Resources/SimpleNamespace.xml");
+                    break;
             }
 
             return result;

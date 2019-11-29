@@ -104,7 +104,6 @@
     <Compile Include="Traversals\Xml\XmlSetValueNamespacelessTraversal.cs" />
     <Compile Include="Traversals\Xml\XmlSetValueTraversal.cs" />
     <Compile Include="Traversals\Xml\XmlSetThisValueTraversal.cs" />
-    <Compile Include="Configuration\Xml\XmlTargetInstantiatorRemovesNamespace.cs" />
     <Compile Include="Configuration\Xml\XmlTargetInstantiator.cs" />
     <Compile Include="Configuration\Xml\XElementToStringObjectConverter.cs" />
     <Compile Include="Model\TypeExtensions.cs" />
@@ -113,6 +112,7 @@
     <Compile Include="JsonSerializer.cs" />
     <Compile Include="Traversals\Xml\XmlGetTemplateTraversal.cs" />
     <Compile Include="Xml\XmlInterpretation.cs" />
+    <Compile Include="Configuration\Xml\XElementExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
