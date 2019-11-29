@@ -1,6 +1,7 @@
 ﻿using AdaptableMapper.Process;
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using AdaptableMapper.Traversals.Xml;
 using FluentAssertions;
 using Xunit;
@@ -61,8 +62,8 @@ namespace AdaptableMapper.TDD.EdgeCases.XmlCases
         [InlineData("InvalidType", "", ContextType.EmptyString, "", "e-XML#34;")]
         [InlineData("InvalidPath", "::", ContextType.EmptyObject, "", "w-XML#30;")]
         [InlineData("EmptyString", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, "", "w-XML#35;")]
-        [InlineData("Valid", "//SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, "Davey")]
-        [InlineData("ValidDifferentPrefix", "./SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, "Davey")]
+        [InlineData("ValidNamespaceless", "//SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, "Davey")]
+        [InlineData("ValidNamespacelessDifferentPrefix", "./SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, "Davey")]
         public void XmlGetValueNamespacelessTraversal(string because, string path, ContextType contextType, string expectedResult, params string[] expectedErrors)
         {
             var subject = new XmlGetValueNamespacelessTraversal(path);
@@ -93,6 +94,24 @@ namespace AdaptableMapper.TDD.EdgeCases.XmlCases
             object context = Xml.CreateTarget(contextType);
             List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
+        }
+
+        [Theory]
+        [InlineData("InvalidType", "", "", ContextType.EmptyString, "e-XML#36;")]
+        [InlineData("ValidNamespaceless", "//SimpleItems/SimpleItem[@Id='1']/SurName", "van Tilburg", ContextType.AlternativeTestObject)]
+        public void XmlSetValueNamespacelessTraversal(string because, string path, string value, ContextType contextType, params string[] expectedErrors)
+        {
+            var subject = new XmlSetValueNamespacelessTraversal(path);
+            object context = Xml.CreateTarget(contextType);
+
+            List<Information> result = new Action(() => { subject.SetValue(context, value); }).Observe();
+
+            result.ValidateResult(new List<string>(expectedErrors), because);
+            if(expectedErrors.Length == 0)
+            {
+                XElement xElementResult = context as XElement;
+                xElementResult.ToString().Should().BeEquivalentTo(System.IO.File.ReadAllText("./Resources/SimpleNamespaceExpectedResult.xml"));
+            }
         }
 
         [Theory]

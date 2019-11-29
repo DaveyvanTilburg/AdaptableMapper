@@ -1,0 +1,12 @@
+﻿<x:root xmlns:x="www.google.com" xmlns:y="www.youtube.com">
+  <x:SimpleItems>
+    <y:SimpleItem Id="1">
+      <y:Name>Davey</y:Name>
+      <x:SurName>van Tilburg</x:SurName>
+    </y:SimpleItem>
+    <y:SimpleItem Id="2">
+      <y:Name>Joey</y:Name>
+      <x:SurName></x:SurName>
+    </y:SimpleItem>
+  </x:SimpleItems>
+</x:root>

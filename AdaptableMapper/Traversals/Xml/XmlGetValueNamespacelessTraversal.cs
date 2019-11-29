@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
 namespace AdaptableMapper.Traversals.Xml
 {
@@ -19,19 +18,9 @@ namespace AdaptableMapper.Traversals.Xml
                 Process.ProcessObservable.GetInstance().Raise("XML#34; source is not of expected type XElement", "error", Path, source?.GetType().Name);
                 return string.Empty;
             }
-
-            string trimmedPath = Path.TrimStart('/', '.');
-            string namespaceLessPath;
-            if (Path.Contains('/'))
-            {
-                string[] pathParts = trimmedPath.Split('/');
-                namespaceLessPath = "./*" + string.Join("/*", pathParts.Select(p => $"[local-name()='{p}']"));
-            }
-            else
-                namespaceLessPath = $"/*[local-name()='{trimmedPath}']";
             
 
-            MethodResult<string> result = xElement.GetXPathValue(namespaceLessPath);
+            MethodResult<string> result = xElement.GetXPathValue(Path.ConvertToNamespacelessPath());
             if (result.IsValid && string.IsNullOrWhiteSpace(result.Value))
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#35; Path resulted in no items", "warning", Path, xElement);
