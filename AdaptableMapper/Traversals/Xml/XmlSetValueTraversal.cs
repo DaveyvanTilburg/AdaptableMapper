@@ -1,11 +1,15 @@
 ﻿using System.Xml.Linq;
+using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
     public sealed class XmlSetValueTraversal : SetValueTraversal
     {
+        public XmlInterpretation XmlInterpretation { get; set; }
+
         public XmlSetValueTraversal(string path)
         {
+            XmlInterpretation = XmlInterpretation.Default;
             Path = path;
         }
 
@@ -19,7 +23,13 @@ namespace AdaptableMapper.Traversals.Xml
                 return;
             }
 
-            xElement.SetXPathValues(Path, value);
+            string actualPath;
+            if (XmlInterpretation == XmlInterpretation.WithoutNamespace)
+                actualPath = Path.ConvertToNamespacelessPath();
+            else
+                actualPath = Path;
+
+            xElement.SetXPathValues(actualPath, value);
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using AdaptableMapper.Traversals.Xml;
+using AdaptableMapper.Xml;
 using FluentAssertions;
 using Xunit;
 
@@ -47,33 +48,24 @@ namespace AdaptableMapper.TDD.EdgeCases.XmlCases
         }
 
         [Theory]
-        [InlineData("InvalidType", "", ContextType.EmptyString, "e-XML#17;")]
-        [InlineData("InvalidPath", "::", ContextType.EmptyObject, "e-XML#29;")]
-        [InlineData("EmptyString", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, "w-XML#4;")]
-        public void XmlGetValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
+        [InlineData("InvalidType", "", ContextType.EmptyString, XmlInterpretation.Default, "", "e-XML#17;")]
+        [InlineData("InvalidPath", "::", ContextType.EmptyObject, XmlInterpretation.Default, "", "e-XML#29;")]
+        [InlineData("InvalidPathWithoutNamespace", "::", ContextType.EmptyObject, XmlInterpretation.WithoutNamespace, "", "w-XML#30;")]
+        [InlineData("EmptyString", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, XmlInterpretation.Default, "", "w-XML#4;")]
+        [InlineData("ValidNamespaceless", "//SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "Davey")]
+        [InlineData("ValidNamespacelessDifferentPrefix", "./SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "Davey")]
+        public void XmlGetValueTraversal(string because, string path, ContextType contextType, XmlInterpretation xmlInterpretation, string expectedValue, params string[] expectedErrors)
         {
-            var subject = new XmlGetValueTraversal(path);
-            object context = Xml.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
-            result.ValidateResult(new List<string>(expectedErrors), because);
-        }
-
-        [Theory]
-        [InlineData("InvalidType", "", ContextType.EmptyString, "", "e-XML#34;")]
-        [InlineData("InvalidPath", "::", ContextType.EmptyObject, "", "w-XML#30;")]
-        [InlineData("EmptyString", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, "", "w-XML#35;")]
-        [InlineData("ValidNamespaceless", "//SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, "Davey")]
-        [InlineData("ValidNamespacelessDifferentPrefix", "./SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, "Davey")]
-        public void XmlGetValueNamespacelessTraversal(string because, string path, ContextType contextType, string expectedResult, params string[] expectedErrors)
-        {
-            var subject = new XmlGetValueNamespacelessTraversal(path);
+            var subject = new XmlGetValueTraversal(path) { XmlInterpretation = xmlInterpretation };
             object context = Xml.CreateTarget(contextType);
 
-            string value = string.Empty;
+            string value = null;
             List<Information> result = new Action(() => { value = subject.GetValue(context); }).Observe();
 
             result.ValidateResult(new List<string>(expectedErrors), because);
-            value.Should().Be(expectedResult);
+
+            if (expectedErrors.Length == 0)
+                value.Should().Be(expectedValue);
         }
 
         [Theory]
@@ -87,27 +79,17 @@ namespace AdaptableMapper.TDD.EdgeCases.XmlCases
         }
 
         [Theory]
-        [InlineData("InvalidType", "", ContextType.EmptyString, "e-XML#21;")]
-        public void XmlSetValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
+        [InlineData("InvalidType", "", "", ContextType.EmptyString, XmlInterpretation.Default, "e-XML#21;")]
+        [InlineData("ValidNamespaceless", "//SimpleItems/SimpleItem[@Id='1']/SurName", "van Tilburg", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace)]
+        public void XmlSetValueTraversal(string because, string path, string value, ContextType contextType, XmlInterpretation xmlInterpretation, params string[] expectedErrors)
         {
-            var subject = new XmlSetValueTraversal(path);
-            object context = Xml.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
-            result.ValidateResult(new List<string>(expectedErrors), because);
-        }
-
-        [Theory]
-        [InlineData("InvalidType", "", "", ContextType.EmptyString, "e-XML#36;")]
-        [InlineData("ValidNamespaceless", "//SimpleItems/SimpleItem[@Id='1']/SurName", "van Tilburg", ContextType.AlternativeTestObject)]
-        public void XmlSetValueNamespacelessTraversal(string because, string path, string value, ContextType contextType, params string[] expectedErrors)
-        {
-            var subject = new XmlSetValueNamespacelessTraversal(path);
+            var subject = new XmlSetValueTraversal(path) { XmlInterpretation = xmlInterpretation };
             object context = Xml.CreateTarget(contextType);
 
             List<Information> result = new Action(() => { subject.SetValue(context, value); }).Observe();
 
             result.ValidateResult(new List<string>(expectedErrors), because);
-            if(expectedErrors.Length == 0)
+            if (expectedErrors.Length == 0)
             {
                 XElement xElementResult = context as XElement;
                 xElementResult.ToString().Should().BeEquivalentTo(System.IO.File.ReadAllText("./Resources/SimpleNamespaceExpectedResult.xml"));

@@ -93,7 +93,6 @@
     <Compile Include="Traversals\Xml\NullElement.cs" />
     <Compile Include="Configuration\Xml\XmlChildCreator.cs" />
     <Compile Include="Traversals\Xml\StringExtensions.cs" />
-    <Compile Include="Traversals\Xml\XmlGetValueNamespacelessTraversal.cs" />
     <Compile Include="Traversals\Xml\XmlGetValueTraversal.cs" />
     <Compile Include="Traversals\Xml\XmlGetScopeTraversal.cs" />
     <Compile Include="Traversals\Xml\XmlGetSearchValueTraversal.cs" />
@@ -101,7 +100,6 @@
     <Compile Include="Model\StringExtensions.cs" />
     <Compile Include="Traversals\Xml\XmlGetThisValueTraversal.cs" />
     <Compile Include="Configuration\Xml\XmlObjectConverter.cs" />
-    <Compile Include="Traversals\Xml\XmlSetValueNamespacelessTraversal.cs" />
     <Compile Include="Traversals\Xml\XmlSetValueTraversal.cs" />
     <Compile Include="Traversals\Xml\XmlSetThisValueTraversal.cs" />
     <Compile Include="Configuration\Xml\XmlTargetInstantiator.cs" />

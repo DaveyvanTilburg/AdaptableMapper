@@ -14,10 +14,7 @@ namespace AdaptableMapper.Traversals.Xml
                 namespaceLessPath = string.Concat(pathParts.Select(p => p.ConvertToNamespacelessPart()));
             }
             else
-            {
                 namespaceLessPath = path.ConvertToNamespacelessPart();
-            }
-                
 
             return namespaceLessPath;
         }
