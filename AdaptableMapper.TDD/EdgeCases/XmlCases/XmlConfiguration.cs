@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using AdaptableMapper.Configuration.Xml;
 using AdaptableMapper.Traversals;
+using AdaptableMapper.Xml;
 using Xunit;
 
 namespace AdaptableMapper.TDD.EdgeCases.XmlCases
@@ -21,22 +22,11 @@ namespace AdaptableMapper.TDD.EdgeCases.XmlCases
         }
 
         [Theory]
-        [InlineData("InvalidType", ContextType.InvalidType, "e-XML#30;")]
-        [InlineData("InvalidSource", ContextType.InvalidSource, "e-XML#31;")]
-        public void XmlObjectConverterRemovesNamespace(string because, ContextType contextType, params string[] expectedErrors)
+        [InlineData("InvalidType", ContextType.InvalidType, XmlInterpretation.Default, "e-XML#18;")]
+        [InlineData("InvalidSource", ContextType.InvalidSource, XmlInterpretation.Default, "e-XML#19;")]
+        public void XmlObjectConverter(string because, ContextType contextType, XmlInterpretation xmlInterpretation, params string[] expectedErrors)
         {
-            var subject = new XmlObjectConverterRemovesNamespace();
-            object context = Xml.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.Convert(context); }).Observe();
-            result.ValidateResult(new List<string>(expectedErrors), because);
-        }
-
-        [Theory]
-        [InlineData("InvalidType", ContextType.InvalidType, "e-XML#18;")]
-        [InlineData("InvalidSource", ContextType.InvalidSource, "e-XML#19;")]
-        public void XmlObjectConverter(string because, ContextType contextType, params string[] expectedErrors)
-        {
-            var subject = new XmlObjectConverter();
+            var subject = new XmlObjectConverter { XmlInterpretation = xmlInterpretation };
             object context = Xml.CreateTarget(contextType);
             List<Information> result = new Action(() => { subject.Convert(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);

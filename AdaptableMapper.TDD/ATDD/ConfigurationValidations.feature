@@ -61,7 +61,7 @@ Scenario Outline: MappingConfiguration
 	| TestName         | ContextFactoryObjectConverter | ContextFactoryTargetInitiator | ObjectConverter | InformationCodes                                  | Result         |
 	| Model-Xml-Xml    | ModelBase                     | Xml                           | Xml             | e-XML#24;e-MODEL#17;e-TREE#7;e-TREE#9;e-TREE#10;  | <nullObject /> |
 	| Json-Model-Model | Json                          | Model                         | Model           | e-JSON#13;e-MODEL#25;e-TREE#7;e-TREE#9;e-TREE#10; | {}             |
-	| Xml-Json-Json    | Xml                           | Json                          | Json            | e-XML#31;e-JSON#26;e-TREE#7;e-TREE#9;e-TREE#10;   | {}             |
+	| Xml-Json-Json    | Xml                           | Json                          | Json            | e-XML#19;e-JSON#26;e-TREE#7;e-TREE#9;e-TREE#10;   | {}             |
 
 Scenario Outline: Mapping
 	Given I create a mappingConfiguration

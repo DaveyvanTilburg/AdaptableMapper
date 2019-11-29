@@ -53,7 +53,7 @@ namespace AdaptableMapper.TDD.ATDD
             switch (type.ToLower())
             {
                 case "xml":
-                    _result.ContextFactory.ObjectConverter = new Configuration.Xml.XmlObjectConverterRemovesNamespace();
+                    _result.ContextFactory.ObjectConverter = new Configuration.Xml.XmlObjectConverter();
                     break;
                 case "json":
                     _result.ContextFactory.ObjectConverter = new Configuration.Json.JsonObjectConverter();

@@ -179,7 +179,7 @@ namespace AdaptableMapper.TDD
             };
 
             var contextFactory = new ContextFactory(
-                new Configuration.Xml.XmlObjectConverterRemovesNamespace(),
+                new Configuration.Xml.XmlObjectConverter(),
                 new Configuration.Model.ModelTargetInstantiator()
             );
 

@@ -1,10 +1,18 @@
 ﻿using System;
 using System.Xml.Linq;
+using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Configuration.Xml
 {
     public sealed class XmlObjectConverter : ObjectConverter
     {
+        public XmlInterpretation XmlInterpretation { get; set; }
+
+        public XmlObjectConverter()
+        {
+            XmlInterpretation = XmlInterpretation.Default;
+        }
+
         public object Convert(object source)
         {
             if (!(source is string input))
@@ -24,7 +32,19 @@ namespace AdaptableMapper.Configuration.Xml
                 root = new XElement("nullObject");
             }
 
+            if(XmlInterpretation == XmlInterpretation.WithoutNamespace)
+                RemoveAllNamespaces(root);
+
             return root;
+        }
+
+        private static void RemoveAllNamespaces(XElement element)
+        {
+            element.Name = element.Name.LocalName;
+
+            foreach (var node in element.DescendantNodes())
+                if (node is XElement xElement)
+                    RemoveAllNamespaces(xElement);
         }
     }
 }
