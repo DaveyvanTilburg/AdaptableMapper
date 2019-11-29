@@ -92,6 +92,7 @@
     <Compile Include="Traversals\GetTemplateTraversal.cs" />
     <Compile Include="Traversals\Xml\NullElement.cs" />
     <Compile Include="Configuration\Xml\XmlChildCreator.cs" />
+    <Compile Include="Traversals\Xml\XmlGetValueNamespacelessTraversal.cs" />
     <Compile Include="Traversals\Xml\XmlGetValueTraversal.cs" />
     <Compile Include="Traversals\Xml\XmlGetScopeTraversal.cs" />
     <Compile Include="Traversals\Xml\XmlGetSearchValueTraversal.cs" />

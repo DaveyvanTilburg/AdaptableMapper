@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using AdaptableMapper.Traversals.Xml;
+using FluentAssertions;
 using Xunit;
 
 namespace AdaptableMapper.TDD.EdgeCases.XmlCases
@@ -54,6 +55,24 @@ namespace AdaptableMapper.TDD.EdgeCases.XmlCases
             object context = Xml.CreateTarget(contextType);
             List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
+        }
+
+        [Theory]
+        [InlineData("InvalidType", "", ContextType.EmptyString, "", "e-XML#34;")]
+        [InlineData("InvalidPath", "::", ContextType.EmptyObject, "", "w-XML#30;")]
+        [InlineData("EmptyString", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, "", "w-XML#35;")]
+        [InlineData("Valid", "//SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, "Davey")]
+        [InlineData("ValidDifferentPrefix", "./SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, "Davey")]
+        public void XmlGetValueNamespacelessTraversal(string because, string path, ContextType contextType, string expectedResult, params string[] expectedErrors)
+        {
+            var subject = new XmlGetValueNamespacelessTraversal(path);
+            object context = Xml.CreateTarget(contextType);
+
+            string value = string.Empty;
+            List<Information> result = new Action(() => { value = subject.GetValue(context); }).Observe();
+
+            result.ValidateResult(new List<string>(expectedErrors), because);
+            value.Should().Be(expectedResult);
         }
 
         [Theory]

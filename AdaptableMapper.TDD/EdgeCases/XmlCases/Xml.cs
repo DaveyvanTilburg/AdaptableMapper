@@ -17,7 +17,7 @@ namespace AdaptableMapper.TDD.EdgeCases.XmlCases
                     result = new XElement("nullObject");
                     break;
                 case ContextType.TestObject:
-                    result = CreateTestData();
+                    result = CreateTestData("./Resources/Simple.xml");
                     break;
                 case ContextType.InvalidType:
                     result = 0;
@@ -25,12 +25,15 @@ namespace AdaptableMapper.TDD.EdgeCases.XmlCases
                 case ContextType.InvalidSource:
                     result = "abcd";
                     break;
+                case ContextType.AlternativeTestObject:
+                    result = CreateTestData("./Resources/SimpleNamespace.xml");
+                    break;
             }
 
             return result;
         }
 
-        private static XElement CreateTestData()
-            => XElement.Parse(System.IO.File.ReadAllText("./Resources/Simple.xml"));
+        private static XElement CreateTestData(string path)
+            => XElement.Parse(System.IO.File.ReadAllText(path));
     }
 }
