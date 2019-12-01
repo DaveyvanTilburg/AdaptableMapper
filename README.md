@@ -31,7 +31,7 @@ Completed plans:
  * Add formatting for DateTimes, included as a formatter for SetValue implementations
 
 Current plans:
-
+ * XXXSetValueNumericValueFormatting formatter (same as datetime)
  
 Future plans in relative priority order: 
  * GetScopeStayHere
@@ -56,10 +56,6 @@ Future plans in relative priority order:
     * ListOfConditions (List of condition)
 	
     * XXXIfAnyInPathCondition (has a path, if path results in any hits returns true)
-  
- * Introduce new module : Formatting
-    * XXXSetValueNumericValueFormatting formatter (same as datetime)
-
  
  * Refactor test suite
  
