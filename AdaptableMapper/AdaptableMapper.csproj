@@ -43,12 +43,12 @@
   <ItemGroup>
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
-    <Compile Include="Formats\DateFormatTypeBase.cs" />
-    <Compile Include="Formats\DateFormatType.cs" />
-    <Compile Include="Formats\DateISO8601FormatType.cs" />
+    <Compile Include="Formats\FormatTypes\DateFormatTypeBase.cs" />
+    <Compile Include="Formats\FormatTypes\DateFormatType.cs" />
+    <Compile Include="Formats\FormatTypes\DateISO8601FormatType.cs" />
     <Compile Include="Formats\DateTimeFormatter.cs" />
     <Compile Include="Formats\Formatter.cs" />
-    <Compile Include="Formats\FormatType.cs" />
+    <Compile Include="Formats\FormatTypes\FormatType.cs" />
     <Compile Include="Formats\NullFormatter.cs" />
     <Compile Include="Traversals\Json\JsonGetScopeTraversal.cs" />
     <Compile Include="Traversals\Json\JsonGetSearchValueTraversal.cs" />

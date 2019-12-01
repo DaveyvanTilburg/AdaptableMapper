@@ -1,4 +1,4 @@
-﻿namespace AdaptableMapper.Formats
+﻿namespace AdaptableMapper.Formats.FormatTypes
 {
     public abstract class FormatType
     {

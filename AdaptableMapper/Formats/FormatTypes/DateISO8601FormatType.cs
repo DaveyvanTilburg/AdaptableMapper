@@ -1,4 +1,4 @@
-﻿namespace AdaptableMapper.Formats
+﻿namespace AdaptableMapper.Formats.FormatTypes
 {
     internal class DateISO8601FormatType : DateFormatTypeBase
     {

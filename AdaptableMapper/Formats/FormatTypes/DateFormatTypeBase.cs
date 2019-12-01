@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AdaptableMapper.Formats
+namespace AdaptableMapper.Formats.FormatTypes
 {
     internal abstract class DateFormatTypeBase : FormatType
     {
