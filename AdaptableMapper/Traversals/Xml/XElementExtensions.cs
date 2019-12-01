@@ -68,7 +68,7 @@ namespace AdaptableMapper.Traversals.Xml
                 return new NullMethodResult<string>();
             }
 
-            var xObject = enumerable.Cast<XObject>().FirstOrDefault();
+            var xObject = enumerable?.Cast<XObject>().FirstOrDefault();
 
             if (xObject == null)
             {
@@ -98,7 +98,7 @@ namespace AdaptableMapper.Traversals.Xml
                 enumerable = new List<XElement>();
             }
 
-            var xObjects = enumerable.Cast<XObject>();
+            var xObjects = enumerable?.Cast<XObject>();
 
             if (!xObjects.Any())
                 Process.ProcessObservable.GetInstance().Raise("XML#7; Path could not be traversed", "warning", xPath, xElement);
