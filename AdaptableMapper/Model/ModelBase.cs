@@ -31,7 +31,7 @@ namespace AdaptableMapper.Model
                 return new NullModel();
             }
 
-            object propertyValue = propertyInfo?.GetValue(this);
+            object propertyValue = propertyInfo.GetValue(this);
             if (!(propertyValue is ModelBase next))
             {
                 IList propertyList = GetIListFromProperty(propertyValue);

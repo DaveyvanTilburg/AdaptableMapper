@@ -48,7 +48,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         {
             var subject = new JTokenToStringObjectConverter();
             object context = Json.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.Convert(contextType); }).Observe();
+            List<Information> result = new Action(() => { subject.Convert(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
     }
