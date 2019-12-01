@@ -1,4 +1,4 @@
-﻿namespace AdaptableMapper.TDD.EdgeCases
+﻿namespace AdaptableMapper.TDD.Cases
 {
     public enum ContextType
     {

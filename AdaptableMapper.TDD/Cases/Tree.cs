@@ -2,7 +2,7 @@
 using AdaptableMapper.Configuration;
 using Xunit;
 
-namespace AdaptableMapper.TDD.EdgeCases
+namespace AdaptableMapper.TDD.Cases
 {
     public class Tree
     {

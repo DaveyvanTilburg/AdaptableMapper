@@ -5,7 +5,7 @@ using AdaptableMapper.Process;
 using AdaptableMapper.Traversals;
 using Xunit;
 
-namespace AdaptableMapper.TDD.EdgeCases.JsonCases
+namespace AdaptableMapper.TDD.Cases.JsonCases
 {
     public class JsonConfiguration
     {

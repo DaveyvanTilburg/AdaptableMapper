@@ -4,7 +4,7 @@ using AdaptableMapper.Process;
 using AdaptableMapper.Traversals.Json;
 using Xunit;
 
-namespace AdaptableMapper.TDD.EdgeCases.JsonCases
+namespace AdaptableMapper.TDD.Cases.JsonCases
 {
     public class JsonTraversals
     {

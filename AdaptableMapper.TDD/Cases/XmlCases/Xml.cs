@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace AdaptableMapper.TDD.EdgeCases.XmlCases
+namespace AdaptableMapper.TDD.Cases.XmlCases
 {
     public class Xml
     {

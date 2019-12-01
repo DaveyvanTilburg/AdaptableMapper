@@ -7,7 +7,7 @@ using AdaptableMapper.Xml;
 using FluentAssertions;
 using Xunit;
 
-namespace AdaptableMapper.TDD.EdgeCases.XmlCases
+namespace AdaptableMapper.TDD.Cases.XmlCases
 {
     public class XmlTraversals
     {

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace AdaptableMapper.TDD.EdgeCases.JsonCases
+namespace AdaptableMapper.TDD.Cases.JsonCases
 {
     public class Json
     {

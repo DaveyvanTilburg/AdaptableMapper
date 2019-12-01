@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AdaptableMapper.Configuration.Model;
 
-namespace AdaptableMapper.TDD.EdgeCases.ModelCases
+namespace AdaptableMapper.TDD.Cases.ModelCases
 {
     public class Model
     {

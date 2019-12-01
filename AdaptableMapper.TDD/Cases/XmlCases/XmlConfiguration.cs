@@ -8,7 +8,7 @@ using AdaptableMapper.Xml;
 using Xunit;
 using FluentAssertions;
 
-namespace AdaptableMapper.TDD.EdgeCases.XmlCases
+namespace AdaptableMapper.TDD.Cases.XmlCases
 {
     public class XmlConfiguration
     {
