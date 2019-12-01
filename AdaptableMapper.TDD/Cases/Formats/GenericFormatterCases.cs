@@ -7,14 +7,15 @@ using Xunit;
 
 namespace AdaptableMapper.TDD.Cases.Formats
 {
-    public class DateTimeFormatterCases
+    public class GenericFormatterCases
     {
         [Fact]
         public void DateTimeFormatterTypes()
         {
-            var source = new DateTimeFormatter();
+            var source = new GenericFormatter("None");
 
-            source.FormatTypes.Count.Should().Be(2);
+            source.FormatTypes.Count.Should().Be(3);
+            source.FormatTypes.Should().Contain("None");
             source.FormatTypes.Should().Contain("Date");
             source.FormatTypes.Should().Contain("ISO8601");
         }
@@ -28,7 +29,7 @@ namespace AdaptableMapper.TDD.Cases.Formats
         [InlineData("ValidDateISO", "ISO8601", "2019-12-01T00:00:00", "2019-12-01T00:00:00.0000000")]
         public void DateTimeFormatter(string because, string formatType, string value, string expectedResult, params string[] expectedInformation)
         {
-            var subject = new DateTimeFormatter(formatType);
+            var subject = new GenericFormatter(formatType);
 
             string result = null;
             List<Information> information = new Action(() => { result = subject.Format(value); }).Observe();

@@ -2,7 +2,8 @@
 {
     internal class DateISO8601FormatType : DateFormatTypeBase
     {
-        internal override string Key => "ISO8601";
+        public const string DateISO8601FormatTypeKey = "ISO8601";
+        internal override string Key => DateISO8601FormatTypeKey;
         protected override string FormatString => "o";
     }
 }
