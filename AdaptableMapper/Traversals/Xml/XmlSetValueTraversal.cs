@@ -1,13 +1,21 @@
 ﻿using System.Xml.Linq;
+using AdaptableMapper.Formats;
 using AdaptableMapper.Xml;
+using Newtonsoft.Json;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    public sealed class XmlSetValueTraversal : SetValueTraversal
+    public sealed class XmlSetValueTraversal : SetFormattedValueTraversal
     {
         public XmlInterpretation XmlInterpretation { get; set; }
 
-        public XmlSetValueTraversal(string path)
+        [JsonConstructor]
+        public XmlSetValueTraversal(string path) : base(new NullFormatter())
+        {
+            Path = path;
+        }
+
+        public XmlSetValueTraversal(string path, Formatter formatter) : base(formatter)
         {
             XmlInterpretation = XmlInterpretation.Default;
             Path = path;
@@ -15,7 +23,7 @@ namespace AdaptableMapper.Traversals.Xml
 
         public string Path { get; set; }
 
-        public void SetValue(object target, string value)
+        protected override void SetValueImplementation(object target, string value)
         {
             if (!(target is XElement xElement))
             {
