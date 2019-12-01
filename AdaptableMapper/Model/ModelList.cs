@@ -4,7 +4,7 @@ namespace AdaptableMapper.Model
 {
     public sealed class ModelList<T> : List<T> where T : ModelBase
     {
-        private ModelBase _parent;
+        private readonly ModelBase _parent;
 
         public ModelList(ModelBase parent)
         {
