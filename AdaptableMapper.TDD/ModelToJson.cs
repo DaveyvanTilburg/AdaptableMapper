@@ -110,7 +110,7 @@ namespace AdaptableMapper.TDD
 
             var memoryChip6 = new MemoryChip { Size = "2048" };
             var memory2 = new Memory { Type = "External" };
-            memory2.MemoryChips.Add(memoryChip5);
+            memory2.MemoryChips.Add(memoryChip6);
 
             var motherboard1cpu1 = new CPU
             {
