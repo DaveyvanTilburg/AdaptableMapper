@@ -20,7 +20,7 @@ namespace AdaptableMapper.Configuration.Model
             }
             catch(Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise($"MODEL#26; string does not contain a serialized ModelTargetInstantiatorSource", "error", template, exception.GetType().Name, exception.Message);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#26; string does not contain a serialized ModelTargetInstantiatorSource", "error", template, exception.GetType().Name, exception.Message);
                 return new NullModel();
             }
 
@@ -31,13 +31,13 @@ namespace AdaptableMapper.Configuration.Model
             }
             catch(Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise($"MODEL#24; assembly and typename could not be instantiated", "error", modelTargetInstantiatorSource, exception.GetType().Name, exception.Message);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#24; assembly and typename could not be instantiated", "error", modelTargetInstantiatorSource, exception.GetType().Name, exception.Message);
                 return new NullModel();
             }
 
             if (!(result is ModelBase))
             {
-                Process.ProcessObservable.GetInstance().Raise($"MODEL#31; instantiated object is not of type ModelBase", "error", modelTargetInstantiatorSource);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#31; instantiated object is not of type ModelBase", "error", modelTargetInstantiatorSource);
                 return new NullModel();
             }
 

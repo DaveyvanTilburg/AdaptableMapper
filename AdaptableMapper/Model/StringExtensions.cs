@@ -14,7 +14,7 @@
 
             if (positionEnd == -1)
             {
-                Process.ProcessObservable.GetInstance().Raise($"MODEL#32; No }} found in after {{", "error", value);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#32; No } found in after {", "error", value);
                 return false;
             }
 
