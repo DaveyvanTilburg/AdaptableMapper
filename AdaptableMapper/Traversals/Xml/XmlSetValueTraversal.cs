@@ -8,20 +8,13 @@ namespace AdaptableMapper.Traversals.Xml
     public sealed class XmlSetValueTraversal : SetFormattedValueTraversal
     {
         public XmlInterpretation XmlInterpretation { get; set; }
+        public string Path { get; set; }
 
         [JsonConstructor]
-        public XmlSetValueTraversal(string path) : base(new NullFormatter())
+        public XmlSetValueTraversal(string path)
         {
             Path = path;
         }
-
-        public XmlSetValueTraversal(string path, Formatter formatter) : base(formatter)
-        {
-            XmlInterpretation = XmlInterpretation.Default;
-            Path = path;
-        }
-
-        public string Path { get; set; }
 
         protected override void SetValueImplementation(object target, string value)
         {

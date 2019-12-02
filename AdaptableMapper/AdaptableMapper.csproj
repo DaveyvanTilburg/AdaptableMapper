@@ -43,14 +43,9 @@
   <ItemGroup>
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
+    <Compile Include="Formats\DateFormatter.cs" />
+    <Compile Include="Formats\NumberFormatter.cs" />
     <Compile Include="Formats\Formatter.cs" />
-    <Compile Include="Formats\FormatTypes\DateFormatType.cs" />
-    <Compile Include="Formats\FormatTypes\Decimal2FormatType.cs" />
-    <Compile Include="Formats\GenericFormatter.cs" />
-    <Compile Include="Formats\FormatTypes\FormatType.cs" />
-    <Compile Include="Formats\FormatTypes\FormatTypeFactory.Singleton.cs" />
-    <Compile Include="Formats\FormatTypes\FormatTypeFactory.cs" />
-    <Compile Include="Formats\FormatTypes\NullFormatType.cs" />
     <Compile Include="Formats\NullFormatter.cs" />
     <Compile Include="Traversals\Json\JsonGetScopeTraversal.cs" />
     <Compile Include="Traversals\Json\JsonGetSearchValueTraversal.cs" />

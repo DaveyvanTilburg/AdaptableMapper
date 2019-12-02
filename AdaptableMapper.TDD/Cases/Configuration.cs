@@ -4,7 +4,7 @@ using Xunit;
 
 namespace AdaptableMapper.TDD.Cases
 {
-    public class Tree
+    public class Configuration
     {
         [Fact]
         public void MappingConfigurationMappingConstructor()

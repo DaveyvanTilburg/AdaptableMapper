@@ -45,7 +45,7 @@
     <Compile Include="ATDD\MappingConfigurationBuilder.cs" />
     <Compile Include="ATDD\MappingModel.cs" />
     <Compile Include="ATDD\ScopeCompositeModel.cs" />
-    <Compile Include="Cases\Formats\GenericFormatterCases.cs" />
+    <Compile Include="Cases\Formats\Cases.cs" />
     <Compile Include="Cases\Formats\NullFormatterCases.cs" />
     <Compile Include="Cases\XmlCases\XmlFormats.cs" />
     <Compile Include="ConfigurationSaveAndLoad.cs" />
@@ -55,7 +55,7 @@
     <Compile Include="Cases\JsonCases\JsonTraversals.cs" />
     <Compile Include="Cases\ModelCases\Model.cs" />
     <Compile Include="Cases\ModelCases\ModelTraversals.cs" />
-    <Compile Include="Cases\Tree.cs" />
+    <Compile Include="Cases\Configuration.cs" />
     <Compile Include="Cases\XmlCases\Xml.cs" />
     <Compile Include="Cases\XmlCases\XmlConfiguration.cs" />
     <Compile Include="LanguageExtensions.cs" />

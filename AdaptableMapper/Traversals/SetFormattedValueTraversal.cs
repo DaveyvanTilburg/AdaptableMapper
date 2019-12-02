@@ -6,14 +6,11 @@ namespace AdaptableMapper.Traversals
     {
         public Formatter Formatter { get; set; }
 
-        protected SetFormattedValueTraversal(Formatter formatter)
-            => Formatter = formatter;
-
         protected abstract void SetValueImplementation(object target, string value);
 
         public void SetValue(object target, string value)
         {
-            string formattedValue = Formatter.Format(value);
+            string formattedValue = Formatter?.Format(value) ?? value;
 
             SetValueImplementation(target, formattedValue);
         }

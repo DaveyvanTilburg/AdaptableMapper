@@ -14,12 +14,11 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
     public class XmlFormats
     {
         [Theory]
-        [InlineData("TranslateDateTime", "./test", "2019-12-01T00:00:10Z", XmlInterpretation.Default, "Date", "yyyy/MM/dd", "2019/12/01")]
-        [InlineData("TranslateDateTime", "./test", "2019-12-01T00:00:10Z", XmlInterpretation.Default, "Date2", "2019-12-01T00:00:10Z", "", "e-Format#1;")]
-        public void XmlSetValueTraversal(string because, string path, string value, XmlInterpretation xmlInterpretation, string format, string formatTemplate, string expectedResult, params string[] expectedErrors)
+        [InlineData("TranslateDateTime", "./test", "2019-12-01T00:00:10Z", XmlInterpretation.Default, "yyyy/MM/dd", "2019/12/01")]
+        public void XmlSetValueTraversalWithDateFormatter(string because, string path, string value, XmlInterpretation xmlInterpretation, string formatTemplate, string expectedResult, params string[] expectedErrors)
         {
-            Formatter formatter = new GenericFormatter(format, formatTemplate);
-            var subject = new XmlSetValueTraversal(path, formatter) { XmlInterpretation = xmlInterpretation };
+            Formatter formatter = new DateFormatter(formatTemplate);
+            var subject = new XmlSetValueTraversal(path) { XmlInterpretation = xmlInterpretation, Formatter = formatter };
             object context = XElement.Parse("<root><test></test></root>");
 
             List<Information> information = new Action(() => { subject.SetValue(context, value); }).Observe();
@@ -37,7 +36,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [Fact]
         public void XmlSetValueSerializeAndDeserialize()
         {
-            var source = new XmlSetValueTraversal("", new GenericFormatter("Date", "yyyy/MM/dddd"));
+            var source = new XmlSetValueTraversal("") { Formatter = new DateFormatter("yyyy/MM/dddd") };
             string serialized = JsonSerializer.Serialize(source);
             var target = JsonSerializer.Deserialize<XmlSetValueTraversal>(serialized);
 
