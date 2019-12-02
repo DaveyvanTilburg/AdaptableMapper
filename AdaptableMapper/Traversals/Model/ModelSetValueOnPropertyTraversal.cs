@@ -2,7 +2,7 @@
 
 namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelSetValueOnPropertyTraversal : SetValueTraversal
+    public sealed class ModelSetValueOnPropertyTraversal : SetFormattedValueTraversal
     {
         public ModelSetValueOnPropertyTraversal(string propertyName)
         {
@@ -11,7 +11,7 @@ namespace AdaptableMapper.Traversals.Model
 
         public string PropertyName { get; set; }
 
-        public void SetValue(object target, string value)
+        protected override void SetValueImplementation(object target, string value)
         {
             if (!(target is ModelBase model))
             {

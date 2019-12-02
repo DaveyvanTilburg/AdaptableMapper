@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AdaptableMapper.Traversals.Json
 {
-    public sealed class JsonSetValueTraversal : SetValueTraversal
+    public sealed class JsonSetValueTraversal : SetFormattedValueTraversal
     {
         public JsonSetValueTraversal(string path)
         {
@@ -13,7 +13,7 @@ namespace AdaptableMapper.Traversals.Json
 
         public string Path { get; set; }
 
-        public void SetValue(object target, string value)
+        protected override void SetValueImplementation(object target, string value)
         {
             if (!(target is JToken jToken))
             {
@@ -29,7 +29,7 @@ namespace AdaptableMapper.Traversals.Json
                 return;
             }
 
-            foreach(JToken jTokenTarget in jTokens.Where(t => t.Type != JTokenType.Null))
+            foreach (JToken jTokenTarget in jTokens.Where(t => t.Type != JTokenType.Null))
             {
                 if (jTokenTarget is JValue jTokenTargetValue)
                     jTokenTargetValue.Value = value;

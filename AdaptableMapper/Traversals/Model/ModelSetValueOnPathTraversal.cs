@@ -2,7 +2,7 @@
 
 namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelSetValueOnPathTraversal : SetValueTraversal
+    public sealed class ModelSetValueOnPathTraversal : SetFormattedValueTraversal
     {
         public ModelSetValueOnPathTraversal(string path)
         {
@@ -11,7 +11,7 @@ namespace AdaptableMapper.Traversals.Model
 
         public string Path { get; set; }
 
-        public void SetValue(object target, string value)
+        protected override void SetValueImplementation(object target, string value)
         {
             if (!(target is ModelBase model))
             {
