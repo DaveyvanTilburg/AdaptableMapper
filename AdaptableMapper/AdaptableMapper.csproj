@@ -45,6 +45,7 @@
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
     <Compile Include="Formats\Formatter.cs" />
     <Compile Include="Formats\FormatTypes\DateFormatType.cs" />
+    <Compile Include="Formats\FormatTypes\Decimal2FormatType.cs" />
     <Compile Include="Formats\GenericFormatter.cs" />
     <Compile Include="Formats\FormatTypes\FormatType.cs" />
     <Compile Include="Formats\FormatTypes\FormatTypeFactory.Singleton.cs" />

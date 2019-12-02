@@ -4,9 +4,7 @@ namespace AdaptableMapper.Formats.FormatTypes
 {
     internal class DateFormatType : FormatType
     {
-        public const string DateFormatTypeKey = "Date";
-
-        internal override string Key => DateFormatTypeKey;
+        internal override string Key => "Date";
 
         public override string Format(string source, string formatTemplate)
         {

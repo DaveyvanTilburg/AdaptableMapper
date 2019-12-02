@@ -12,7 +12,8 @@ namespace AdaptableMapper.Formats.FormatTypes
             _formatTypes = new List<FormatType>
             {
                 new NullFormatType(),
-                new DateFormatType()
+                new DateFormatType(),
+                new Decimal2FormatType()
             };
         }
 
