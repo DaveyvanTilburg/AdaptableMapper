@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <armies>
   <army code="naval">
-    <platoon code="black-sky">
+    <platoon code="black-sky" deployed="True">
       <members>
         <member name="FlagShip-Alpha">
           <crew>
@@ -12,7 +12,7 @@
       </members>
       <leaderReference>alpha-bravo-tango-delta</leaderReference>
     </platoon>
-    <platoon code="clean-floors">
+    <platoon code="clean-floors" deployed="True">
       <members>
         <member name="Sub-Zero">
           <crew>
@@ -25,7 +25,7 @@
     </platoon>
   </army>
   <army code="thunder-struck">
-    <platoon code="death-rains-from-above">
+    <platoon code="death-rains-from-above" deployed="True">
       <members>
         <member name="Messerschmitt Bf 109">
           <crew>
@@ -40,7 +40,7 @@
       </members>
       <leaderReference>Pershing</leaderReference>
     </platoon>
-    <platoon code="air-soldier">
+    <platoon code="air-soldier"  deployed="False">
       <members>
         <member name="Pharah"></member>
       </members>
