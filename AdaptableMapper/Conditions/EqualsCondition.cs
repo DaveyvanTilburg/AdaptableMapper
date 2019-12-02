@@ -15,10 +15,32 @@ namespace AdaptableMapper.Conditions
 
         public bool Validate(object source)
         {
+            if (!ValidateState())
+                return false;
+
             string sourceValue = GetValueTraversalSource.GetValue(source);
             string targetValue = GetValueTraversalTarget.GetValue(source);
 
             bool result = sourceValue.Equals(targetValue);
+            return result;
+        }
+
+        private bool ValidateState()
+        {
+            bool result = true;
+
+            if (GetValueTraversalSource == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise($"EqualsCondition#1; {nameof(GetValueTraversalSource)} is null", "error");
+                result = false;
+            }
+
+            if (GetValueTraversalTarget == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise($"EqualsCondition#2; {nameof(GetValueTraversalTarget)} is null", "error");
+                result = false;
+            }
+
             return result;
         }
     }
