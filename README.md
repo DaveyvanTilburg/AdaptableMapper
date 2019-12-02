@@ -28,18 +28,13 @@ Completed plans:
  * Add 100% code coverage for Json Mapping
  * Simplify some error messaging (some errors cascade into other errors) 
  * Isolate everything regarding traversal functionality, so that new functionalities can be added (conditionals and Formatting)
- * Add formatting for DateTimes, included as a formatter for SetValue implementations
+ * Add formatting for Dates, included as a formatter for SetValue implementations
+ * Add formatting for Numbers, included as a formatter for SetValue implementations
 
 Current plans:
- * XXXSetValueNumericValueFormatting formatter (same as datetime)
+ * Extend MappingScopeComposite with a slot for Condition
  
 Future plans in relative priority order: 
- * GetScopeStayHere
- * GetTemplateStayHere
- * Traversals
-    * GetValueStatic (Hardcodes a value to get)
-	* XXXSetValueDictionary (list of key values, of value on path == key, then write value)
-	
  * Introduce new module : Conditions
     * Extend MappingScopeComposite with a slot for Condition
     
@@ -56,6 +51,13 @@ Future plans in relative priority order:
     * ListOfConditions (List of condition)
 	
     * XXXIfAnyInPathCondition (has a path, if path results in any hits returns true)
+	
+ * Traversals
+    * GetValueStatic (Hardcodes a value to get)
+	* XXXSetValueDictionary (list of key values, of value on path == key, then write value)
+	
+ * GetScopeStayHere
+ * GetTemplateStayHere
  
  * Refactor test suite
  
