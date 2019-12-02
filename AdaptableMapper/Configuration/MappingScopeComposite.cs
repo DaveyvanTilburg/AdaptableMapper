@@ -1,5 +1,6 @@
 ﻿using AdaptableMapper.Traversals;
 using System.Collections.Generic;
+using AdaptableMapper.Conditions;
 
 namespace AdaptableMapper.Configuration
 {
@@ -7,7 +8,9 @@ namespace AdaptableMapper.Configuration
     {
         public List<MappingScopeComposite> MappingScopeComposites { get; set; }
         public List<Mapping> Mappings { get; set; }
+
         public GetScopeTraversal GetScopeTraversal { get; set; }
+        public Condition Condition { get; set; }
 
         public GetTemplateTraversal GetTemplateTraversal { get; set; }
         public ChildCreator ChildCreator { get; set; }
@@ -37,6 +40,9 @@ namespace AdaptableMapper.Configuration
 
             foreach (object item in scope)
             {
+                if (Condition != null && !Condition.Validate(item))
+                    continue;
+
                 object newChild = ChildCreator.CreateChild(template);
 
                 Context childContext = new Context(source:item, target:newChild);

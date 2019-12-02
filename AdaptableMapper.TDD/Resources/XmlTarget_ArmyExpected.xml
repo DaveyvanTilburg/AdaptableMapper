@@ -28,11 +28,5 @@
       </memberNames>
       <leaderName>John J. Pershing</leaderName>
     </platoon>
-    <platoon code="air-soldier">
-      <memberNames>
-        <memberName>Pharah</memberName>
-      </memberNames>
-      <leaderName></leaderName>
-    </platoon>
   </platoons>
 </stolen_intel>

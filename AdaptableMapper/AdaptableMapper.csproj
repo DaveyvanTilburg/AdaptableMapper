@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conditions\Condition.cs" />
+    <Compile Include="Conditions\EqualsCondition.cs" />
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
     <Compile Include="Formats\DateFormatter.cs" />

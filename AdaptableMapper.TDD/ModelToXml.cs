@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using AdaptableMapper.Conditions;
 using AdaptableMapper.Configuration;
 using Xunit;
 using AdaptableMapper.Model;
@@ -25,7 +26,7 @@ namespace AdaptableMapper.TDD
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyExpected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
-            errorObserver.GetRaisedWarnings().Count.Should().Be(1);
+            errorObserver.GetRaisedWarnings().Count.Should().Be(0);
             errorObserver.GetRaisedErrors().Count.Should().Be(0);
             errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
 
@@ -76,7 +77,10 @@ namespace AdaptableMapper.TDD
                 new Traversals.Model.ModelGetScopeTraversal("Armies/Platoons"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./platoons/platoon"),
                 new Configuration.Xml.XmlChildCreator()
-            );
+            )
+            {
+                Condition = new EqualsCondition(new Traversals.Model.ModelGetValueTraversal("Deployed"), "True")
+            };
 
             var crewMemberName = new Mapping(
                 new Traversals.Model.ModelGetValueTraversal("Name"),

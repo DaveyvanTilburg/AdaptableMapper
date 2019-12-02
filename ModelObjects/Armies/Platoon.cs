@@ -10,6 +10,7 @@ namespace ModelObjects.Armies
         }
 
         public string Code { get; set; } = string.Empty;
+        public string Deployed { get; set; } = string.Empty;
         public ModelList<Member> Members { get; set; }
         public string LeaderReference { get; set; } = string.Empty;
     }

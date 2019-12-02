@@ -34,7 +34,8 @@ namespace AdaptableMapper.TDD
             var army1platoon2 = new Platoon
             {
                 Code = "clean-floors",
-                LeaderReference = "Ween"
+                LeaderReference = "Ween",
+                Deployed = "True"
             };
             army1platoon2.Members.Add(army1platoon2member1);
 
@@ -50,7 +51,8 @@ namespace AdaptableMapper.TDD
             var army1platoon1 = new Platoon
             {
                 Code = "black-sky",
-                LeaderReference = "alpha-bravo-tango-delta"
+                LeaderReference = "alpha-bravo-tango-delta",
+                Deployed = "True"
             };
             army1platoon1.Members.Add(army1platoon1member1);
 
@@ -66,7 +68,8 @@ namespace AdaptableMapper.TDD
             var army2platoon2 = new Platoon
             {
                 Code = "air-soldier",
-                LeaderReference = ""
+                LeaderReference = "",
+                Deployed = "False"
             };
             army2platoon2.Members.Add(army1platoon2member1);
 
@@ -81,7 +84,8 @@ namespace AdaptableMapper.TDD
             var army2platoon1 = new Platoon
             {
                 Code = "death-rains-from-above",
-                LeaderReference = "Pershing"
+                LeaderReference = "Pershing",
+                Deployed = "True"
             };
             army2platoon1.Members.Add(army2platoon1member1);
             army2platoon1.Members.Add(army2platoon1member2);
