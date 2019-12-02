@@ -37,7 +37,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [Fact]
         public void XmlSetValueSerializeAndDeserialize()
         {
-            var source = new XmlSetValueTraversal("", new GenericFormatter("Date", ""));
+            var source = new XmlSetValueTraversal("", new GenericFormatter("Date", "yyyy/MM/dddd"));
             string serialized = JsonSerializer.Serialize(source);
             var target = JsonSerializer.Deserialize<XmlSetValueTraversal>(serialized);
 

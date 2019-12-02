@@ -39,9 +39,9 @@ namespace AdaptableMapper.TDD.Cases.Formats
         [Theory]
         [InlineData("ValidDate", "Date", "yyyy/MM/dd", "2019-12-01T00:00:00", "2019/12/01")]
         [InlineData("ValidDateISO", "Date", "o", "2019-12-01T00:00:00", "2019-12-01T00:00:00.0000000")]
-        public void DateTimeFormatter(string because, string formatType, string format, string value, string expectedResult, params string[] expectedInformation)
+        public void DateTimeFormatter(string because, string formatType, string formatTemplate, string value, string expectedResult, params string[] expectedInformation)
         {
-            var subject = new GenericFormatter(formatType, format);
+            var subject = new GenericFormatter(formatType, formatTemplate);
 
             string result = null;
             List<Information> information = new Action(() => { result = subject.Format(value); }).Observe();
