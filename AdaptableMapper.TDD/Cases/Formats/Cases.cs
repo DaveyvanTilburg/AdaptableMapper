@@ -40,7 +40,7 @@ namespace AdaptableMapper.TDD.Cases.Formats
         [InlineData("ValidDecimal2-Gibberish", "abc", 2, "123", "1abc23")]
         [InlineData("ValidDecimalNoSeparator7", "", 7, "abc", "")]
         [InlineData("ValidDecimalNoSeparator0", "", 0, "10", "10")]
-        [InlineData("Empty", ".", 5, "", "0")]
+        [InlineData("Empty", ".", 5, "", "0.00000")]
         public void NumberFormatter(string because, string formatTemplate, int numberOfDecimals, string value, string expectedResult, params string[] expectedInformation)
         {
             var subject = new NumberFormatter(formatTemplate, numberOfDecimals);
