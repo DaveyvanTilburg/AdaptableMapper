@@ -1,3 +1,5 @@
+0.13.2
+ - XmlInterpretation (default or change the path to ignore namespaces) implementated for all Xml traversal implementations
 0.13.1
  - Added invalid format catching in DateFormatter
  - Implemented SetFormattedValue for all languages

@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.13.1-beta20191202-01</version>
+    <version>0.13.2-beta20191202-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -19,9 +19,8 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
         <dependency id="Newtonsoft.Json" version="12.0.2" />
       </group>
     </dependencies>
-    <releaseNotes>0.13.1
- - Added invalid format catching in DateFormatter
- - Implemented SetFormattedValue for all languages
+    <releaseNotes>0.13.2
+ - XmlInterpretation (default or change the path to ignore namespaces) implementated for all Xml traversal implementations
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
