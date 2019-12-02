@@ -23,13 +23,7 @@ namespace AdaptableMapper.Traversals.Xml
                 return;
             }
 
-            string actualPath;
-            if (XmlInterpretation == XmlInterpretation.WithoutNamespace)
-                actualPath = Path.ConvertToNamespacelessPath();
-            else
-                actualPath = Path;
-
-            xElement.SetXPathValues(actualPath, value);
+            xElement.SetXPathValues(Path.ConvertToInterpretation(XmlInterpretation), value);
         }
     }
 }

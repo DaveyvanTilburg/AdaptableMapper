@@ -1,10 +1,24 @@
 ﻿using System.Linq;
+using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
     internal static class StringExtensions
     {
-        public static string ConvertToNamespacelessPath(this string path)
+        public static string ConvertToInterpretation(this string path, XmlInterpretation xmlInterpretation)
+        {
+            string result = path;
+
+            switch (xmlInterpretation)
+            {
+                case XmlInterpretation.WithoutNamespace:
+                    return path.ConvertToNamespacelessPath();
+            }
+
+            return result;
+        }
+
+        private static string ConvertToNamespacelessPath(this string path)
         {
             string trimmedPath = path.TrimStart('/', '.');
             string namespaceLessPath;

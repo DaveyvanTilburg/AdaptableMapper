@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
@@ -11,6 +12,7 @@ namespace AdaptableMapper.Traversals.Xml
             Path = path;
         }
 
+        public XmlInterpretation XmlInterpretation { get; set; }
         public string Path { get; set; }
 
         public IEnumerable<object> GetScope(object source)
@@ -21,7 +23,7 @@ namespace AdaptableMapper.Traversals.Xml
                 return new List<XElement>();
             }
 
-            IEnumerable<XElement> xScope = xElement.NavigateToPathSelectAll(Path);
+            IEnumerable<XElement> xScope = xElement.NavigateToPathSelectAll(Path.ConvertToInterpretation(XmlInterpretation));
             if (!xScope.Any())
                 Process.ProcessObservable.GetInstance().Raise("XML#5; Path resulted in no items", "warning", Path, source.GetType().Name);
 

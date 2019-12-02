@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
@@ -10,6 +11,7 @@ namespace AdaptableMapper.Traversals.Xml
         }
 
         public string Path { get; set; }
+        public XmlInterpretation XmlInterpretation { get; set; }
 
         public Template Get(object target)
         {
@@ -19,7 +21,7 @@ namespace AdaptableMapper.Traversals.Xml
                 return CreateNullTemplate();
             }
 
-            XElement result = xElement.NavigateToPath(Path);
+            XElement result = xElement.NavigateToPath(Path.ConvertToInterpretation(XmlInterpretation));
             if (result.NodeType == System.Xml.XmlNodeType.None)
                 return CreateNullTemplate();
 
@@ -41,8 +43,6 @@ namespace AdaptableMapper.Traversals.Xml
         }
 
         private static Template CreateNullTemplate()
-        {
-            return new Template { Parent = new XElement("nullObject"), Child = new XElement("nullObject") };
-        }
+            => new Template { Parent = new XElement("nullObject"), Child = new XElement("nullObject") };
     }
 }

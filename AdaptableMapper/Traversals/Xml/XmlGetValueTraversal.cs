@@ -5,15 +5,13 @@ namespace AdaptableMapper.Traversals.Xml
 {
     public sealed class XmlGetValueTraversal : GetValueTraversal
     {
-        public XmlInterpretation XmlInterpretation { get; set; }
-
         public XmlGetValueTraversal(string path)
         {
-            XmlInterpretation = XmlInterpretation.Default;
             Path = path;
         }
 
         public string Path { get; set; }
+        public XmlInterpretation XmlInterpretation { get; set; }
 
         public string GetValue(object source)
         {
@@ -23,13 +21,7 @@ namespace AdaptableMapper.Traversals.Xml
                 return string.Empty;
             }
 
-            string actualPath;
-            if (XmlInterpretation == XmlInterpretation.WithoutNamespace)
-                actualPath = Path.ConvertToNamespacelessPath();
-            else
-                actualPath = Path;
-
-            MethodResult<string> result = xElement.GetXPathValue(actualPath);
+            MethodResult<string> result = xElement.GetXPathValue(Path.ConvertToInterpretation(XmlInterpretation));
             if (result.IsValid && string.IsNullOrWhiteSpace(result.Value))
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#4; Path resulted in no items", "warning", Path, xElement);

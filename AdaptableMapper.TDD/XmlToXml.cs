@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using AdaptableMapper.Configuration;
+using AdaptableMapper.Xml;
 using Xunit;
 
 namespace AdaptableMapper.TDD
@@ -93,7 +94,8 @@ namespace AdaptableMapper.TDD
                 new Traversals.Xml.XmlGetSearchValueTraversal(
                     "../../leaders/leader[@reference='{{searchValue}}']",
                     "./leaderReference"
-                ),
+                )
+                    { XmlInterpretation = XmlInterpretation.Default },
                 new Traversals.Xml.XmlSetValueTraversal("./leaderName")
             );
 
@@ -108,7 +110,7 @@ namespace AdaptableMapper.TDD
                     leaderNameSearch
                 },
                 new Traversals.Xml.XmlGetScopeTraversal("./army/platoon"),
-                new Traversals.Xml.XmlGetTemplateTraversal("./platoons/platoon"),
+                new Traversals.Xml.XmlGetTemplateTraversal("./platoons/platoon") { XmlInterpretation = XmlInterpretation.Default },
                 new Configuration.Xml.XmlChildCreator()
             );
 

@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
@@ -10,6 +11,7 @@ namespace AdaptableMapper.Traversals.Xml
             SearchValuePath = searchValuePath;
         }
 
+        public XmlInterpretation XmlInterpretation { get; set; }
         public string SearchPath { get; set; }
         public string SearchValuePath { get; set; }
 
@@ -27,7 +29,7 @@ namespace AdaptableMapper.Traversals.Xml
                 return string.Empty;
             }
 
-            MethodResult<string> searchValue = xElement.GetXPathValue(SearchValuePath);
+            MethodResult<string> searchValue = xElement.GetXPathValue(SearchValuePath.ConvertToInterpretation(XmlInterpretation));
             if (searchValue.IsValid && string.IsNullOrWhiteSpace(searchValue.Value))
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
@@ -38,7 +40,7 @@ namespace AdaptableMapper.Traversals.Xml
                 return string.Empty;
 
             string actualPath = string.IsNullOrWhiteSpace(searchValue.Value) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue.Value);
-            MethodResult<string> result = xElement.GetXPathValue(actualPath);
+            MethodResult<string> result = xElement.GetXPathValue(actualPath.ConvertToInterpretation(XmlInterpretation));
             if(result.IsValid && string.IsNullOrWhiteSpace(result.Value))
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
