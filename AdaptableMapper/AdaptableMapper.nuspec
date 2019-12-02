@@ -21,7 +21,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
     </dependencies>
     <releaseNotes>0.13.0
  - Removed MappingScope and MappingScopeRoot
- - Modified MappingScopeRoot to have a list of MappingScopeComposites instead of MappingScope
+ - Modified MappingScopeConfiguration to have a list of MappingScopeComposites instead of MappingScope
  - Configuration namespace created for all non-language related tree components
  - Traversal namespace created for all traversal related objects
  - Namespace changes for all languages, Xml, Json and Model have been split up into configuration and traversal sub namespaces
