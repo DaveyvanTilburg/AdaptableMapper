@@ -49,6 +49,7 @@
     <Compile Include="Formats\NumberFormatter.cs" />
     <Compile Include="Formats\Formatter.cs" />
     <Compile Include="Formats\NullFormatter.cs" />
+    <Compile Include="Traversals\GetStaticValueTraversal.cs" />
     <Compile Include="Traversals\Json\JsonGetScopeTraversal.cs" />
     <Compile Include="Traversals\Json\JsonGetSearchValueTraversal.cs" />
     <Compile Include="Traversals\Json\JsonGetValueTraversal.cs" />

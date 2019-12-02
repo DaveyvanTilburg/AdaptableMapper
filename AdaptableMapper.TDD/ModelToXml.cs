@@ -79,7 +79,7 @@ namespace AdaptableMapper.TDD
                 new Configuration.Xml.XmlChildCreator()
             )
             {
-                Condition = new EqualsCondition(new Traversals.Model.ModelGetValueTraversal("Deployed"), "True")
+                Condition = new EqualsCondition(new Traversals.Model.ModelGetValueTraversal("Deployed"), new Traversals.GetStaticValueTraversal("True"))
             };
 
             var crewMemberName = new Mapping(

@@ -4,20 +4,21 @@ namespace AdaptableMapper.Conditions
 {
     public class EqualsCondition : Condition
     {
-        public GetValueTraversal GetValueTraversal { get; set; }
-        public string Value { get; set; }
+        public GetValueTraversal GetValueTraversalSource { get; set; }
+        public GetValueTraversal GetValueTraversalTarget { get; set; }
 
-        public EqualsCondition(GetValueTraversal getValueTraversal, string value)
+        public EqualsCondition(GetValueTraversal getValueTraversalSource, GetValueTraversal getValueTraversalTarget)
         {
-            GetValueTraversal = getValueTraversal;
-            Value = value;
+            GetValueTraversalSource = getValueTraversalSource;
+            GetValueTraversalTarget = getValueTraversalTarget;
         }
 
         public bool Validate(object source)
         {
-            string value = GetValueTraversal.GetValue(source);
+            string sourceValue = GetValueTraversalSource.GetValue(source);
+            string targetValue = GetValueTraversalTarget.GetValue(source);
 
-            bool result = value.Equals(Value);
+            bool result = sourceValue.Equals(targetValue);
             return result;
         }
     }
