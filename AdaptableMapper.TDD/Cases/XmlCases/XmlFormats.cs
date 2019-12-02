@@ -14,11 +14,11 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
     public class XmlFormats
     {
         [Theory]
-        [InlineData("TranslateDateTime", "./test", "2019-12-01T00:00:10Z", XmlInterpretation.Default, "Date", "2019/12/01")]
-        [InlineData("TranslateDateTime", "./test", "2019-12-01T00:00:10Z", XmlInterpretation.Default, "Date2", "2019-12-01T00:00:10Z", "e-Format#1;")]
-        public void XmlSetValueTraversal(string because, string path, string value, XmlInterpretation xmlInterpretation, string format, string expectedResult, params string[] expectedErrors)
+        [InlineData("TranslateDateTime", "./test", "2019-12-01T00:00:10Z", XmlInterpretation.Default, "Date", "yyyy/MM/dd", "2019/12/01")]
+        [InlineData("TranslateDateTime", "./test", "2019-12-01T00:00:10Z", XmlInterpretation.Default, "Date2", "2019-12-01T00:00:10Z", "", "e-Format#1;")]
+        public void XmlSetValueTraversal(string because, string path, string value, XmlInterpretation xmlInterpretation, string format, string formatTemplate, string expectedResult, params string[] expectedErrors)
         {
-            Formatter formatter = new GenericFormatter(format);
+            Formatter formatter = new GenericFormatter(format, formatTemplate);
             var subject = new XmlSetValueTraversal(path, formatter) { XmlInterpretation = xmlInterpretation };
             object context = XElement.Parse("<root><test></test></root>");
 
@@ -37,7 +37,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [Fact]
         public void XmlSetValueSerializeAndDeserialize()
         {
-            var source = new XmlSetValueTraversal("", new GenericFormatter("Date"));
+            var source = new XmlSetValueTraversal("", new GenericFormatter("Date", ""));
             string serialized = JsonSerializer.Serialize(source);
             var target = JsonSerializer.Deserialize<XmlSetValueTraversal>(serialized);
 

@@ -44,9 +44,7 @@
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
     <Compile Include="Formats\Formatter.cs" />
-    <Compile Include="Formats\FormatTypes\DateFormatTypeBase.cs" />
     <Compile Include="Formats\FormatTypes\DateFormatType.cs" />
-    <Compile Include="Formats\FormatTypes\DateISO8601FormatType.cs" />
     <Compile Include="Formats\GenericFormatter.cs" />
     <Compile Include="Formats\FormatTypes\FormatType.cs" />
     <Compile Include="Formats\FormatTypes\FormatTypeFactory.Singleton.cs" />

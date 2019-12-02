@@ -7,10 +7,15 @@ namespace AdaptableMapper.Formats
     public class GenericFormatter : Formatter
     {
         public IReadOnlyCollection<string> FormatTypes => FormatTypeFactory.GetInstance().GetAllKeys();
-        public string FormatType { get; set; }
 
-        public GenericFormatter(string formatType)
-            => FormatType = formatType;
+        public string FormatType { get; set; }
+        public string FormatTemplate { get; set; }
+
+        public GenericFormatter(string formatType, string formatTemplate)
+        {
+            FormatType = formatType;
+            FormatTemplate = formatTemplate;
+        }
 
         public string Format(string source)
         {
@@ -22,7 +27,7 @@ namespace AdaptableMapper.Formats
 
             FormatType formatType = GetFormatType();
 
-            string result = formatType.Format(source);
+            string result = formatType.Format(source, FormatTemplate);
             return result;
         }
 

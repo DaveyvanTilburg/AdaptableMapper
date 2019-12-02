@@ -12,12 +12,11 @@ namespace AdaptableMapper.TDD.Cases.Formats
         [Fact]
         public void DateTimeFormatterTypes()
         {
-            var source = new GenericFormatter("None");
+            var source = new GenericFormatter("None", "");
 
-            source.FormatTypes.Count.Should().Be(3);
+            source.FormatTypes.Count.Should().Be(2);
             source.FormatTypes.Should().Contain("None");
             source.FormatTypes.Should().Contain("Date");
-            source.FormatTypes.Should().Contain("ISO8601");
         }
 
         [Theory]
@@ -27,7 +26,7 @@ namespace AdaptableMapper.TDD.Cases.Formats
         [InlineData("InvalidDateTime", "Date", "test", "", "w-Format#3;")]
         public void GenericCases(string because, string formatType, string value, string expectedResult, params string[] expectedInformation)
         {
-            var subject = new GenericFormatter(formatType);
+            var subject = new GenericFormatter(formatType, string.Empty);
 
             string result = null;
             List<Information> information = new Action(() => { result = subject.Format(value); }).Observe();
@@ -38,11 +37,11 @@ namespace AdaptableMapper.TDD.Cases.Formats
         }
 
         [Theory]
-        [InlineData("ValidDate", "Date", "2019-12-01T00:00:00", "2019/12/01")]
-        [InlineData("ValidDateISO", "ISO8601", "2019-12-01T00:00:00", "2019-12-01T00:00:00.0000000")]
-        public void DateTimeFormatter(string because, string formatType, string value, string expectedResult, params string[] expectedInformation)
+        [InlineData("ValidDate", "Date", "yyyy/MM/dd", "2019-12-01T00:00:00", "2019/12/01")]
+        [InlineData("ValidDateISO", "Date", "o", "2019-12-01T00:00:00", "2019-12-01T00:00:00.0000000")]
+        public void DateTimeFormatter(string because, string formatType, string format, string value, string expectedResult, params string[] expectedInformation)
         {
-            var subject = new GenericFormatter(formatType);
+            var subject = new GenericFormatter(formatType, format);
 
             string result = null;
             List<Information> information = new Action(() => { result = subject.Format(value); }).Observe();

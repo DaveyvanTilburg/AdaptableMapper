@@ -12,8 +12,7 @@ namespace AdaptableMapper.Formats.FormatTypes
             _formatTypes = new List<FormatType>
             {
                 new NullFormatType(),
-                new DateFormatType(),
-                new DateISO8601FormatType()
+                new DateFormatType()
             };
         }
 
