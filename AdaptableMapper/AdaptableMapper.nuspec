@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.13.2-beta20191202-01</version>
+    <version>0.14.0-beta20191202-01-unreleased</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -19,9 +19,9 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
         <dependency id="Newtonsoft.Json" version="12.0.2" />
       </group>
     </dependencies>
-    <releaseNotes>0.13.2
- - XmlInterpretation (default or change the path to ignore namespaces) implemented for all Xml traversal implementations
- - XmlInterpretation serialization to string instead of numerically (for readability)
+    <releaseNotes>0.14.0
+ - Extend MappingScopeComposite with a slot for Condition
+ - GetValueStaticTraversal (Hardcodes a value to get)
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

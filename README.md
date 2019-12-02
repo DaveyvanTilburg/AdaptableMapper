@@ -30,20 +30,17 @@ Completed plans:
  * Isolate everything regarding traversal functionality, so that new functionalities can be added (conditionals and Formatting)
  * Add formatting for Dates, included as a formatter for SetValue implementations
  * Add formatting for Numbers, included as a formatter for SetValue implementations
+ * Extend MappingScopeComposite with a slot for Condition
+ * GetValueStaticTraversal (Hardcodes a value to get)
 
 Current plans:
- * Extend MappingScopeComposite with a slot for Condition
+ * XXXSetValueDictionary (list of key values, of value on path == key, then write value)
  
-Future plans in relative priority order: 
+Future plans:
  * Introduce new module : Conditions
-    * Extend MappingScopeComposite with a slot for Condition
-    
     * FirstNotEmptyCondition (abstract generic implementation, if Condition, invoke A else B. A and B or of generic type)
     * XXXGetValueFirstNotEmptyCondition (implements FirstNotEmptyCondition for type GetValue)
 
-    * Condition (abstract implementation that returns a bool value)
-    * NoCondition (implements Condition - always returns true)
-    * EqualsCondition (GetValue == GetValue)
     * NotEqualsCondition (GetValue != GetValue)
     * NotEmptyCondition (GetValue != string.empty)
     * IfElseCondition (implements condition, If condition is true, do A, else B)
@@ -51,10 +48,6 @@ Future plans in relative priority order:
     * ListOfConditions (List of condition)
 	
     * XXXIfAnyInPathCondition (has a path, if path results in any hits returns true)
-	
- * Traversals
-    * GetValueStatic (Hardcodes a value to get)
-	* XXXSetValueDictionary (list of key values, of value on path == key, then write value)
 	
  * GetScopeStayHere
  * GetTemplateStayHere
