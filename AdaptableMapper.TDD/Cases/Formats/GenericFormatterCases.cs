@@ -25,6 +25,19 @@ namespace AdaptableMapper.TDD.Cases.Formats
         [InlineData("NoFormatType", "", "test", "", "e-Format#1;")]
         [InlineData("InvalidFormatType", "Date2", "test", "", "e-Format#1;")]
         [InlineData("InvalidDateTime", "Date", "test", "", "w-Format#3;")]
+        public void GenericCases(string because, string formatType, string value, string expectedResult, params string[] expectedInformation)
+        {
+            var subject = new GenericFormatter(formatType);
+
+            string result = null;
+            List<Information> information = new Action(() => { result = subject.Format(value); }).Observe();
+
+            information.ValidateResult(new List<string>(expectedInformation), because);
+            if (expectedInformation.Length == 0)
+                result.Should().Be(expectedResult);
+        }
+
+        [Theory]
         [InlineData("ValidDate", "Date", "2019-12-01T00:00:00", "2019/12/01")]
         [InlineData("ValidDateISO", "ISO8601", "2019-12-01T00:00:00", "2019-12-01T00:00:00.0000000")]
         public void DateTimeFormatter(string because, string formatType, string value, string expectedResult, params string[] expectedInformation)
