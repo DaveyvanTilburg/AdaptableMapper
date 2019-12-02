@@ -20,7 +20,8 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       </group>
     </dependencies>
     <releaseNotes>0.13.2
- - XmlInterpretation (default or change the path to ignore namespaces) implementated for all Xml traversal implementations
+ - XmlInterpretation (default or change the path to ignore namespaces) implemented for all Xml traversal implementations
+ - XmlInterpretation serialization to string instead of numerically (for readability)
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
