@@ -23,9 +23,9 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         [InlineData("InvalidType", "", "", ContextType.EmptyString, "e-JSON#5;")]
         [InlineData("EmptySearchValuePath", "", "", ContextType.EmptyObject, "e-JSON#31;")]
         [InlineData("NoResultOnSearchValuePath", "", "abcd", ContextType.EmptyObject, "e-JSON#6;")]
-        [InlineData("NoResultOnActualPath", "", "$.SimpleItems[0].SimpleItem.Id", ContextType.TestObject, "e-JSON#6;")]
-        [InlineData("EmptySearchPathValue", "", "$.SimpleItems[0].SimpleItem.SurName", ContextType.TestObject, "w-JSON#7;")]
-        [InlineData("EmptyActualPath", "$.SimpleItems[0].SimpleItem.SurName", "$.SimpleItems[0].SimpleItem.Id", ContextType.TestObject, "w-JSON#8;")]
+        [InlineData("NoResultOnActualPath", "", "$.SimpleItems[0].Id", ContextType.TestObject, "e-JSON#6;")]
+        [InlineData("EmptySearchPathValue", "", "$.SimpleItems[0].SurName", ContextType.TestObject, "w-JSON#7;")]
+        [InlineData("EmptyActualPath", "$.SimpleItems[0].SurName", "$.SimpleItems[0].Id", ContextType.TestObject, "w-JSON#8;")]
         public void JsonGetSearchValueTraversal_InvalidType(string because, string path, string searchPath, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonGetSearchValueTraversal(path, searchPath);
@@ -49,7 +49,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         [Theory]
         [InlineData("InvalidType", "", ContextType.EmptyString, "e-JSON#10;")]
         [InlineData("NoResult", "", ContextType.EmptyObject, "e-JSON#6;")]
-        [InlineData("EmptyResult", "$.SimpleItems[0].SimpleItem.SurName", ContextType.TestObject, "w-JSON#11;")]
+        [InlineData("EmptyResult", "$.SimpleItems[0].SurName", ContextType.TestObject, "w-JSON#11;")]
         public void JsonGetValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonGetValueTraversal(path);

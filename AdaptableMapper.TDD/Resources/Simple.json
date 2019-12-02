@@ -1,16 +1,14 @@
 {
   "SimpleItems": [
     {
-      "SimpleItem": {
-        "Id": "1",
-        "Name": "Davey",
-        "SurName": "" 
-      },
-      "SimpleItem,": {
-        "Id": "2",
-        "Name": "Joey",
-        "SurName": ""
-      }
+      "Id": "1",
+      "Name": "Davey",
+      "SurName": ""
+    },
+    {
+      "Id": "2",
+      "Name": "Joey",
+      "SurName": ""
     }
   ]
 }
