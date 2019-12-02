@@ -21,6 +21,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
     </dependencies>
     <releaseNotes>0.13.1
  - Added invalid format catching in DateFormatter
+ - Implemented SetFormattedValue for all languages
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

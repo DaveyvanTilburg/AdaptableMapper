@@ -1,3 +1,6 @@
+0.13.1
+ - Added invalid format catching in DateFormatter
+ - Implemented SetFormattedValue for all languages
 0.13.0
  - Removed MappingScope and MappingScopeRoot
  - Modified MappingScopeConfiguration to have a list of MappingScopeComposites instead of MappingScope
