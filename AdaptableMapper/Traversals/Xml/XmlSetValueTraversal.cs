@@ -1,5 +1,4 @@
 ﻿using System.Xml.Linq;
-using AdaptableMapper.Formats;
 using AdaptableMapper.Xml;
 using Newtonsoft.Json;
 
