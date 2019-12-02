@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace AdaptableMapper.Formats
 {
@@ -11,7 +12,7 @@ namespace AdaptableMapper.Formats
 
         public string Format(string source)
         {
-            if (!DateTime.TryParse(source, out DateTime sourceDateTime))
+            if (!DateTime.TryParse(source, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime sourceDateTime))
             {
                 Process.ProcessObservable.GetInstance().Raise("DateFormatter#1; source is not a valid date", "warning");
                 return source;

@@ -12,6 +12,7 @@ namespace AdaptableMapper.TDD.Cases.Formats
         [Theory]
         [InlineData("InvalidDateTime", "", "test", "", "w-DateFormatter#1;")]
         [InlineData("ValidDate", "yyyy/MM/dd", "2019-12-01T00:00:00", "2019/12/01")]
+        [InlineData("ValidDate", "yyyy|MM|dd", "2019/12/19T00:00:00", "2019|12|19")]
         [InlineData("ValidDateISO", "o", "2019-12-01T00:00:00", "2019-12-01T00:00:00.0000000")]
         [InlineData("StrangeFormatTemplate1", "&#$#$", "2019-12-01T00:00:00", "&#$#$")]
         [InlineData("StrangeFormatTemplate2", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{", "2019-12-01T00:00:00", "2019-12-01T00:00:00", "e-DateFormatter#2;")]
