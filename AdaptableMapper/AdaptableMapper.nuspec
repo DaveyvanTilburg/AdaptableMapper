@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.13.0-beta20191128-01</version>
+    <version>0.13.0-beta20191202-01</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -22,6 +22,11 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
     <releaseNotes>0.13.0
  - Removed MappingScope and MappingScopeRoot
  - Modified MappingScopeRoot to have a list of MappingScopeComposites instead of MappingScope
+ - Configuration namespace created for all non-language related tree components
+ - Traversal namespace created for all traversal related objects
+ - Namespace changes for all languages, Xml, Json and Model have been split up into configuration and traversal sub namespaces
+ - Namespace Formats added to extend the SetValue functionality to also be able to manipulate the value before setting it
+ - Updated documentation
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
