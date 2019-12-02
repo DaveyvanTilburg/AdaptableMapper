@@ -13,11 +13,21 @@ namespace AdaptableMapper.Formats
         {
             if (!DateTime.TryParse(source, out DateTime sourceDateTime))
             {
-                Process.ProcessObservable.GetInstance().Raise("DateFormatter#1; source is not a valid date", "warning", this.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("DateFormatter#1; source is not a valid date", "warning");
                 return source;
             }
 
-            return sourceDateTime.ToString(FormatTemplate);
+            string result;
+            try
+            {
+                result = sourceDateTime.ToString(FormatTemplate);
+            }
+            catch(Exception exception)
+            {
+                Process.ProcessObservable.GetInstance().Raise("DateFormatter#2; source is not a valid date", "error", exception.Message, exception.GetType().Name);
+                return source;
+            }
+            return result;
         }
     }
 }
