@@ -45,6 +45,8 @@
     <Compile Include="Conditions\EqualsCondition.cs" />
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
+    <Compile Include="ValueMutations\Traversals\GetValueStringTraveral.cs" />
+    <Compile Include="ValueMutations\Traversals\SplitByCharTakePositionStringTraversal.cs" />
     <Compile Include="ValueMutations\DateValueMutation.cs" />
     <Compile Include="ValueMutations\ListOfValueMutations.cs" />
     <Compile Include="ValueMutations\NumberValueMutation.cs" />

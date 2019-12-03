@@ -1,16 +1,17 @@
 ﻿using AdaptableMapper.Configuration;
 using AdaptableMapper.Traversals;
+using AdaptableMapper.ValueMutations.Traversals;
 
 namespace AdaptableMapper.ValueMutations
 {
     public class ReplaceMutation : ValueMutation
     {
-        public GetValueTraversal GetValueTraversalValueToReplace { get; set; }
+        public GetValueStringTraveral GetValueStringTraversal { get; set; }
         public GetValueTraversal GetValueTraversalNewValue { get; set; }
 
-        public ReplaceMutation(GetValueTraversal getValueTraversalValueToReplace, GetValueTraversal getValueTraversalNewValue)
+        public ReplaceMutation(GetValueStringTraveral getValueStringTraversal, GetValueTraversal getValueTraversalNewValue)
         {
-            GetValueTraversalValueToReplace = getValueTraversalValueToReplace;
+            GetValueStringTraversal = getValueStringTraversal;
             GetValueTraversalNewValue = getValueTraversalNewValue;
         }
 
@@ -22,12 +23,12 @@ namespace AdaptableMapper.ValueMutations
                 return value;
             }
 
-            string valueToReplace = GetValueTraversalValueToReplace.GetValue(context.Source);
+            string valueToReplace = GetValueStringTraversal.GetValue(value);
             if (string.IsNullOrEmpty(valueToReplace))
                 return value;
 
             string newValue = GetValueTraversalNewValue.GetValue(context.Source);
-            if (string.IsNullOrEmpty(valueToReplace))
+            if (string.IsNullOrEmpty(newValue))
                 return value;
 
             string result = value.Replace(valueToReplace, newValue);

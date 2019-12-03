@@ -1,11 +1,18 @@
-﻿namespace AdaptableMapper.Traversals
+﻿using AdaptableMapper.ValueMutations.Traversals;
+
+namespace AdaptableMapper.Traversals
 {
-    public class GetStaticValueTraversal : GetValueTraversal
+    public class GetStaticValueTraversal : GetValueTraversal, GetValueStringTraveral
     {
         public string Value { get; set; }
 
         public GetStaticValueTraversal(string value)
             => Value = value;
+
+        public string GetValue(string source)
+        {
+            return GetValue((object) source);
+        }
 
         public string GetValue(object source)
         {

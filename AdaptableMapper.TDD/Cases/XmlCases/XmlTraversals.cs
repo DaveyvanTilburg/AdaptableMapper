@@ -6,6 +6,7 @@ using AdaptableMapper.Configuration;
 using AdaptableMapper.Configuration.Xml;
 using AdaptableMapper.Traversals.Xml;
 using AdaptableMapper.ValueMutations;
+using AdaptableMapper.ValueMutations.Traversals;
 using AdaptableMapper.Xml;
 using FluentAssertions;
 using Xunit;
@@ -108,15 +109,26 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         public void XmlSetValueTraversalSetProcessingInformation()
         {
             var listOfValueMutations = new ListOfValueMutations();
-            listOfValueMutations.ValueMutations.Add(null);
+            listOfValueMutations.ValueMutations.Add(
+                new ReplaceMutation(
+                    new SplitByCharTakePositionStringTraversal('|', 2),
+                    new XmlGetValueTraversal("./SimpleItems/SimpleItem[@Id='1']/Name")
+                )
+            );
 
-            var subject = new XmlSetValueTraversal("/processing-instruction('thing')");
-            subject.ValueMutation = listOfValueMutations;
+            var subject = new XmlSetValueTraversal("/processing-instruction('thing')")
+            {
+                ValueMutation = listOfValueMutations
+            };
 
-            var context = new Context(null, XDocument.Parse(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstructionTemplate.xml")).Root);
+            var context = new Context(
+                XDocument.Parse(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstruction.xml")).Root, 
+                XDocument.Parse(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstructionTemplate.xml")).Root
+            );
 
-            List<Information> result = new Action(() => { subject.SetValue(context, "value1|1|item"); }).Observe();
+            List<Information> result = new Action(() => { subject.SetValue(context, "value1|oldValue|item"); }).Observe();
 
+            result.Count.Should().Be(0);
             XElement xElementResult = context.Target as XElement;
 
             var converter = new XElementToStringObjectConverter();

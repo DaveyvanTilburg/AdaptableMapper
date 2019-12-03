@@ -46,6 +46,7 @@
     <Compile Include="ATDD\MappingModel.cs" />
     <Compile Include="ATDD\ScopeCompositeModel.cs" />
     <Compile Include="Cases\Conditions\ConditionsCases.cs" />
+    <Compile Include="Cases\StringTraversals\StringTraversalsCases.cs" />
     <Compile Include="Cases\Traversals\TraversalsCases.cs" />
     <Compile Include="Cases\ValueMutations\ValueMutationsCases.cs" />
     <Compile Include="Cases\ValueMutations\NullFormatterCases.cs" />
