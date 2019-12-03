@@ -49,7 +49,7 @@
     <Compile Include="Cases\Traversals\TraversalsCases.cs" />
     <Compile Include="Cases\ValueMutations\ValueMutationsCases.cs" />
     <Compile Include="Cases\ValueMutations\NullFormatterCases.cs" />
-    <Compile Include="Cases\XmlCases\XmlFormats.cs" />
+    <Compile Include="Cases\XmlCases\XmlValueMutations.cs" />
     <Compile Include="ConfigurationSaveAndLoad.cs" />
     <Compile Include="Cases\ContextType.cs" />
     <Compile Include="Cases\JsonCases\Json.cs" />

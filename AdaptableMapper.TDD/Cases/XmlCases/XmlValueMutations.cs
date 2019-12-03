@@ -12,7 +12,7 @@ using Xunit;
 
 namespace AdaptableMapper.TDD.Cases.XmlCases
 {
-    public class XmlFormats
+    public class XmlValueMutations
     {
         [Theory]
         [InlineData("TranslateDateTime", "./test", "2019-12-01T00:00:10Z", XmlInterpretation.Default, "yyyy/MM/dd", "2019/12/01")]
