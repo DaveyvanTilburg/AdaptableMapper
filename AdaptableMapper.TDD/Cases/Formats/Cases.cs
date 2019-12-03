@@ -22,7 +22,7 @@ namespace AdaptableMapper.TDD.Cases.Formats
             var subject = new DateValueMutation(formatTemplate);
 
             string result = null;
-            List<Information> information = new Action(() => { result = subject.Mutate(value); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Mutate(null, value); }).Observe();
 
             information.ValidateResult(new List<string>(expectedInformation), because);
             if (expectedInformation.Length == 0)
@@ -47,7 +47,7 @@ namespace AdaptableMapper.TDD.Cases.Formats
             var subject = new NumberValueMutation(formatTemplate, numberOfDecimals);
 
             string result = null;
-            List<Information> information = new Action(() => { result = subject.Mutate(value); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Mutate(null, value); }).Observe();
 
             information.ValidateResult(new List<string>(expectedInformation), because);
             if (expectedInformation.Length == 0)

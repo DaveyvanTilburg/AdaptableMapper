@@ -11,7 +11,7 @@ namespace AdaptableMapper.Traversals
 
         public void SetValue(Context context, string value)
         {
-            string formattedValue = ValueMutation?.Mutate(value) ?? value;
+            string formattedValue = ValueMutation?.Mutate(context, value) ?? value;
 
             SetValueImplementation(context, formattedValue);
         }

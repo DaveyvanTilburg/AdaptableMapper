@@ -16,7 +16,7 @@ namespace AdaptableMapper.TDD.Cases.Formats
         {
             var subject = new NullValueMutation();
 
-            var result = subject.Mutate(source);
+            var result = subject.Mutate(null, source);
             result.Should().BeEquivalentTo(source);
         }
     }
