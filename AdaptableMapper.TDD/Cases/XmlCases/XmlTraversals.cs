@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.Configuration.Xml;
 using AdaptableMapper.Traversals.Xml;
+using AdaptableMapper.ValueMutations;
 using AdaptableMapper.Xml;
 using FluentAssertions;
 using Xunit;
@@ -106,7 +107,12 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [Fact]
         public void XmlSetValueTraversalSetProcessingInformation()
         {
+            var listOfValueMutations = new ListOfValueMutations();
+            listOfValueMutations.ValueMutations.Add(null);
+
             var subject = new XmlSetValueTraversal("/processing-instruction('thing')");
+            subject.ValueMutation = listOfValueMutations;
+
             var context = new Context(null, XDocument.Parse(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstructionTemplate.xml")).Root);
 
             List<Information> result = new Action(() => { subject.SetValue(context, "value1|1|item"); }).Observe();

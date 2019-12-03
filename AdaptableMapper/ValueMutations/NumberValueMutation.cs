@@ -14,9 +14,9 @@ namespace AdaptableMapper.ValueMutations
             NumberOfDecimals = numberOfDecimals;
         }
 
-        public string Mutate(Context context, string source)
+        public string Mutate(Context context, string value)
         {
-            string filteredSource = new string(source.Where(char.IsDigit).ToArray());
+            string filteredSource = new string(value.Where(char.IsDigit).ToArray());
 
             if (string.IsNullOrWhiteSpace(Separator))
                 return filteredSource;

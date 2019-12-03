@@ -11,12 +11,12 @@ namespace AdaptableMapper.ValueMutations
         public DateValueMutation(string formatTemplate)
             => FormatTemplate = formatTemplate;
 
-        public string Mutate(Context context, string source)
+        public string Mutate(Context context, string value)
         {
-            if (!DateTime.TryParse(source, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime sourceDateTime))
+            if (!DateTime.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime sourceDateTime))
             {
-                Process.ProcessObservable.GetInstance().Raise("DateValueMutation#1; source is not a valid date", "warning");
-                return source;
+                Process.ProcessObservable.GetInstance().Raise("DateValueMutation#1; value is not a valid date", "warning");
+                return value;
             }
 
             string result;
@@ -26,8 +26,8 @@ namespace AdaptableMapper.ValueMutations
             }
             catch(Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("DateValueMutation#2; source is not a valid date", "error", exception.Message, exception.GetType().Name);
-                return source;
+                Process.ProcessObservable.GetInstance().Raise("DateValueMutation#2; value is not a valid date", "error", exception.Message, exception.GetType().Name);
+                return value;
             }
             return result;
         }

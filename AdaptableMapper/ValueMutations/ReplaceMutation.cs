@@ -14,23 +14,23 @@ namespace AdaptableMapper.ValueMutations
             GetValueTraversalNewValue = getValueTraversalNewValue;
         }
 
-        public string Mutate(Context context, string source)
+        public string Mutate(Context context, string value)
         {
-            if (string.IsNullOrWhiteSpace(source))
+            if (string.IsNullOrWhiteSpace(value))
             {
                 Process.ProcessObservable.GetInstance().Raise("ReplaceMutation#1; cannot mutate an empty string", "warning");
-                return source;
+                return value;
             }
 
             string valueToReplace = GetValueTraversalValueToReplace.GetValue(context.Source);
             if (string.IsNullOrEmpty(valueToReplace))
-                return source;
+                return value;
 
             string newValue = GetValueTraversalNewValue.GetValue(context.Source);
             if (string.IsNullOrEmpty(valueToReplace))
-                return source;
+                return value;
 
-            string result = source.Replace(valueToReplace, newValue);
+            string result = value.Replace(valueToReplace, newValue);
             return result;
         }
     }

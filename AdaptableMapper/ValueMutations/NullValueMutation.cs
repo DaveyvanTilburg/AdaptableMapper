@@ -4,7 +4,7 @@ namespace AdaptableMapper.ValueMutations
 {
     public class NullValueMutation : ValueMutation
     {
-        public string Mutate(Context context, string source)
-            => source;
+        public string Mutate(Context context, string value)
+            => value;
     }
 }

@@ -11,9 +11,9 @@ namespace AdaptableMapper.ValueMutations
         public ListOfValueMutations()
             => ValueMutations = new List<ValueMutation>();
 
-        public string Mutate(Context context, string source)
+        public string Mutate(Context context, string value)
         {
-            var result = source;
+            var result = value;
 
             if (!Validate())
                 return result;
