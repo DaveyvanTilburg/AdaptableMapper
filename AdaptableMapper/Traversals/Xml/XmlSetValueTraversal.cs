@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    public sealed class XmlSetValueTraversal : SetFormattedValueTraversal
+    public sealed class XmlSetValueTraversal : SetMutableValueTraversal
     {
         public XmlInterpretation XmlInterpretation { get; set; }
         public string Path { get; set; }

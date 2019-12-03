@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AdaptableMapper.Traversals.Json
 {
-    public sealed class JsonSetValueTraversal : SetFormattedValueTraversal
+    public sealed class JsonSetValueTraversal : SetMutableValueTraversal
     {
         public JsonSetValueTraversal(string path)
         {

@@ -1,4 +1,4 @@
-﻿using AdaptableMapper.Formats;
+﻿using AdaptableMapper.ValueMutations;
 using FluentAssertions;
 using Xunit;
 
@@ -14,9 +14,9 @@ namespace AdaptableMapper.TDD.Cases.Formats
         [InlineData("testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttest")]
         public void NullFormatterFormat(string source)
         {
-            var subject = new NullFormatter();
+            var subject = new NullValueMutation();
 
-            var result = subject.Format(source);
+            var result = subject.Mutate(source);
             result.Should().BeEquivalentTo(source);
         }
     }

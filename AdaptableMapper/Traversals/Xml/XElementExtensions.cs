@@ -120,6 +120,8 @@ namespace AdaptableMapper.Traversals.Xml
                         element.Value = value;
                     else if (xObject is XAttribute attribute)
                         attribute.Value = value;
+                    else if (xObject is XProcessingInstruction processingInformation)
+                        processingInformation.Data = value;
                 }
             }
         }

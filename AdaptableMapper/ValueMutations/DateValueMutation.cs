@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Globalization;
 
-namespace AdaptableMapper.Formats
+namespace AdaptableMapper.ValueMutations
 {
-    public class DateFormatter : Formatter
+    public class DateValueMutation : ValueMutation
     {
         public string FormatTemplate { get; set; }
 
-        public DateFormatter(string formatTemplate)
+        public DateValueMutation(string formatTemplate)
             => FormatTemplate = formatTemplate;
 
-        public string Format(string source)
+        public string Mutate(string source)
         {
             if (!DateTime.TryParse(source, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime sourceDateTime))
             {
-                Process.ProcessObservable.GetInstance().Raise("DateFormatter#1; source is not a valid date", "warning");
+                Process.ProcessObservable.GetInstance().Raise("DateValueMutation#1; source is not a valid date", "warning");
                 return source;
             }
 
@@ -25,7 +25,7 @@ namespace AdaptableMapper.Formats
             }
             catch(Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("DateFormatter#2; source is not a valid date", "error", exception.Message, exception.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("DateValueMutation#2; source is not a valid date", "error", exception.Message, exception.GetType().Name);
                 return source;
             }
             return result;

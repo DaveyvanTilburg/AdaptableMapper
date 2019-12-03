@@ -2,7 +2,7 @@
 
 namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelSetValueOnPropertyTraversal : SetFormattedValueTraversal
+    public sealed class ModelSetValueOnPropertyTraversal : SetMutableValueTraversal
     {
         public ModelSetValueOnPropertyTraversal(string propertyName)
         {

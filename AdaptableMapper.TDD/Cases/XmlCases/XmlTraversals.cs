@@ -102,6 +102,21 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             }
         }
 
+        [Fact]
+        public void XmlSetValueTraversalSetProcessingInformation()
+        {
+            var subject = new XmlSetValueTraversal("/processing-instruction('thing')");
+            object context = XDocument.Parse(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstructionTemplate.xml")).Root;
+
+            List<Information> result = new Action(() => { subject.SetValue(context, "value1|1|item"); }).Observe();
+
+            XElement xElementResult = context as XElement;
+
+            var converter = new XElementToStringObjectConverter();
+            var convertedResult = converter.Convert(xElementResult);
+            convertedResult.Should().BeEquivalentTo(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstructionExpectedResult.xml"));
+        }
+
         [Theory]
         [InlineData("InvalidType", "", ContextType.EmptyString, "e-XML#23;")]
         [InlineData("InvalidPath", "::", ContextType.EmptyObject, "e-XML#27;")]

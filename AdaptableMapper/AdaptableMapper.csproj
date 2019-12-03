@@ -45,10 +45,10 @@
     <Compile Include="Conditions\EqualsCondition.cs" />
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
-    <Compile Include="Formats\DateFormatter.cs" />
-    <Compile Include="Formats\NumberFormatter.cs" />
-    <Compile Include="Formats\Formatter.cs" />
-    <Compile Include="Formats\NullFormatter.cs" />
+    <Compile Include="ValueMutations\DateValueMutation.cs" />
+    <Compile Include="ValueMutations\NumberValueMutation.cs" />
+    <Compile Include="ValueMutations\ValueMutation.cs" />
+    <Compile Include="ValueMutations\NullValueMutation.cs" />
     <Compile Include="Traversals\GetStaticValueTraversal.cs" />
     <Compile Include="Traversals\Json\JsonGetScopeTraversal.cs" />
     <Compile Include="Traversals\Json\JsonGetSearchValueTraversal.cs" />
@@ -94,7 +94,7 @@
     <Compile Include="Traversals\GetValueTraversal.cs" />
     <Compile Include="Configuration\Mapping.cs" />
     <Compile Include="Configuration\MappingScopeComposite.cs" />
-    <Compile Include="Traversals\SetFormattedValueTraversal.cs" />
+    <Compile Include="Traversals\SetMutableValueTraversal.cs" />
     <Compile Include="Traversals\SetValueTraversal.cs" />
     <Compile Include="Traversals\Template.cs" />
     <Compile Include="Traversals\GetTemplateTraversal.cs" />

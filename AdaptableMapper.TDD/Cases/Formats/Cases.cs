@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AdaptableMapper.Formats;
+using AdaptableMapper.ValueMutations;
 using AdaptableMapper.Process;
 using FluentAssertions;
 using Xunit;
@@ -10,19 +10,19 @@ namespace AdaptableMapper.TDD.Cases.Formats
     public class Cases
     {
         [Theory]
-        [InlineData("InvalidDateTime", "", "test", "", "w-DateFormatter#1;")]
+        [InlineData("InvalidDateTime", "", "test", "", "w-DateValueMutation#1;")]
         [InlineData("ValidDate", "yyyy/MM/dd", "2019-12-01T00:00:00", "2019/12/01")]
         [InlineData("ValidDate", "yyyy|MM|dd", "2019/12/19T00:00:00", "2019|12|19")]
         [InlineData("ValidDateISO", "o", "2019-12-01T00:00:00", "2019-12-01T00:00:00.0000000")]
         [InlineData("StrangeFormatTemplate1", "&#$#$", "2019-12-01T00:00:00", "&#$#$")]
-        [InlineData("StrangeFormatTemplate2", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{", "2019-12-01T00:00:00", "2019-12-01T00:00:00", "e-DateFormatter#2;")]
+        [InlineData("StrangeFormatTemplate2", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{", "2019-12-01T00:00:00", "2019-12-01T00:00:00", "e-DateValueMutation#2;")]
         [InlineData("StrangeFormatTemplate3", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{\"", "2019-12-01T00:00:00", "2019345789aw19AUJI0SEU0#&*$Sunday12::{:{")]
         public void DateFormatter(string because, string formatTemplate, string value, string expectedResult, params string[] expectedInformation)
         {
-            var subject = new DateFormatter(formatTemplate);
+            var subject = new DateValueMutation(formatTemplate);
 
             string result = null;
-            List<Information> information = new Action(() => { result = subject.Format(value); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Mutate(value); }).Observe();
 
             information.ValidateResult(new List<string>(expectedInformation), because);
             if (expectedInformation.Length == 0)
@@ -44,10 +44,10 @@ namespace AdaptableMapper.TDD.Cases.Formats
         [InlineData("Empty", ".", 5, "", "0.00000")]
         public void NumberFormatter(string because, string formatTemplate, int numberOfDecimals, string value, string expectedResult, params string[] expectedInformation)
         {
-            var subject = new NumberFormatter(formatTemplate, numberOfDecimals);
+            var subject = new NumberValueMutation(formatTemplate, numberOfDecimals);
 
             string result = null;
-            List<Information> information = new Action(() => { result = subject.Format(value); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Mutate(value); }).Observe();
 
             information.ValidateResult(new List<string>(expectedInformation), because);
             if (expectedInformation.Length == 0)

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?thing value|Davey|simpleItem?>
+<root>
+  <SimpleItems>
+    <SimpleItem Id="1">
+      <Name>Davey</Name>
+      <SurName></SurName>
+    </SimpleItem>
+    <SimpleItem Id="2">
+      <Name>Joey</Name>
+      <SurName></SurName>
+    </SimpleItem>
+  </SimpleItems>
+</root>

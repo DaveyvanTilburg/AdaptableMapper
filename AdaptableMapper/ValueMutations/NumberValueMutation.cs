@@ -1,19 +1,19 @@
 ﻿using System.Linq;
 
-namespace AdaptableMapper.Formats
+namespace AdaptableMapper.ValueMutations
 {
-    public class NumberFormatter : Formatter
+    public class NumberValueMutation : ValueMutation
     {
         public string Separator { get; set; }
         public int NumberOfDecimals { get; set; }
 
-        public NumberFormatter(string separator, int numberOfDecimals)
+        public NumberValueMutation(string separator, int numberOfDecimals)
         {
             Separator = separator;
             NumberOfDecimals = numberOfDecimals;
         }
 
-        public string Format(string source)
+        public string Mutate(string source)
         {
             string filteredSource = new string(source.Where(char.IsDigit).ToArray());
 

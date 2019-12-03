@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using AdaptableMapper.Formats;
+using AdaptableMapper.ValueMutations;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals.Xml;
 using AdaptableMapper.Xml;
@@ -17,8 +17,8 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("TranslateDateTime", "./test", "2019-12-01T00:00:10Z", XmlInterpretation.Default, "yyyy/MM/dd", "2019/12/01")]
         public void XmlSetValueTraversalWithDateFormatter(string because, string path, string value, XmlInterpretation xmlInterpretation, string formatTemplate, string expectedResult, params string[] expectedErrors)
         {
-            Formatter formatter = new DateFormatter(formatTemplate);
-            var subject = new XmlSetValueTraversal(path) { XmlInterpretation = xmlInterpretation, Formatter = formatter };
+            ValueMutation valueMutation = new DateValueMutation(formatTemplate);
+            var subject = new XmlSetValueTraversal(path) { XmlInterpretation = xmlInterpretation, ValueMutation = valueMutation };
             object context = XElement.Parse("<root><test></test></root>");
 
             List<Information> information = new Action(() => { subject.SetValue(context, value); }).Observe();
@@ -36,7 +36,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [Fact]
         public void XmlSetValueSerializeAndDeserialize()
         {
-            var source = new XmlSetValueTraversal("") { Formatter = new DateFormatter("yyyy/MM/dddd") };
+            var source = new XmlSetValueTraversal("") { ValueMutation = new DateValueMutation("yyyy/MM/dddd") };
             string serialized = JsonSerializer.Serialize(source);
             var target = JsonSerializer.Deserialize<XmlSetValueTraversal>(serialized);
 
