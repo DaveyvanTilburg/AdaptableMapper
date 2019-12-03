@@ -1,7 +1,9 @@
-﻿namespace AdaptableMapper.Traversals
+﻿using AdaptableMapper.Configuration;
+
+namespace AdaptableMapper.Traversals
 {
     public interface SetValueTraversal
     {
-        void SetValue(object target, string value);
+        void SetValue(Context context, string value);
     }
 }

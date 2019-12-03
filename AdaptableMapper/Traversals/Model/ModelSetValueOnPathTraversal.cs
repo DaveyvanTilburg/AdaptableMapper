@@ -1,4 +1,5 @@
-﻿using AdaptableMapper.Model;
+﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Model;
 
 namespace AdaptableMapper.Traversals.Model
 {
@@ -11,11 +12,11 @@ namespace AdaptableMapper.Traversals.Model
 
         public string Path { get; set; }
 
-        protected override void SetValueImplementation(object target, string value)
+        protected override void SetValueImplementation(Context context, string value)
         {
-            if (!(target is ModelBase model))
+            if (!(context.Target is ModelBase model))
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#18; target is not of expected type Model", "error", Path, target);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#18; target is not of expected type Model", "error", Path, context.Target);
                 return;
             }
 

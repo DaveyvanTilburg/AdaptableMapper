@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
+using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.Traversals.Json
 {
@@ -13,11 +14,11 @@ namespace AdaptableMapper.Traversals.Json
 
         public string Path { get; set; }
 
-        protected override void SetValueImplementation(object target, string value)
+        protected override void SetValueImplementation(Context context, string value)
         {
-            if (!(target is JToken jToken))
+            if (!(context.Target is JToken jToken))
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#18; target is not of expected type jToken", "error", target?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("JSON#18; target is not of expected type jToken", "error", context.Target?.GetType().Name);
                 return;
             }
 

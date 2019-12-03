@@ -1,4 +1,5 @@
-﻿using AdaptableMapper.ValueMutations;
+﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.ValueMutations;
 
 namespace AdaptableMapper.Traversals
 {
@@ -6,13 +7,13 @@ namespace AdaptableMapper.Traversals
     {
         public ValueMutation ValueMutation { get; set; }
 
-        protected abstract void SetValueImplementation(object target, string value);
+        protected abstract void SetValueImplementation(Context context, string value);
 
-        public void SetValue(object target, string value)
+        public void SetValue(Context context, string value)
         {
             string formattedValue = ValueMutation?.Mutate(value) ?? value;
 
-            SetValueImplementation(target, formattedValue);
+            SetValueImplementation(context, formattedValue);
         }
     }
 }

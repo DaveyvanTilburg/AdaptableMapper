@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AdaptableMapper.Configuration;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals.Json;
 using Xunit;
@@ -41,7 +42,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         public void JsonSetValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonSetValueTraversal(path);
-            object context = Json.CreateTarget(contextType);
+            var context = new Context(null, Json.CreateTarget(contextType));
             List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }

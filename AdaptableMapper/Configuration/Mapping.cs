@@ -22,7 +22,7 @@ namespace AdaptableMapper.Configuration
 
             string value = GetValueTraversal.GetValue(context.Source);
 
-            SetValueTraversal.SetValue(context.Target, value);
+            SetValueTraversal.SetValue(context, value);
         }
 
         private bool Validate()

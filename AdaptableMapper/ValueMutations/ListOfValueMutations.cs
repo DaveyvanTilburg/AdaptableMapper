@@ -26,7 +26,7 @@ namespace AdaptableMapper.ValueMutations
 
             if ((ValueMutations?.Any() ?? false) == false)
             {
-                Process.ProcessObservable.GetInstance().Raise("ListOfValueMutations#11; ValueMutations is empty", "error");
+                Process.ProcessObservable.GetInstance().Raise("ListOfValueMutations#1; ValueMutations is empty", "error");
                 result = false;
             }
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using AdaptableMapper.Configuration;
 using AdaptableMapper.Configuration.Xml;
 using AdaptableMapper.Traversals.Xml;
 using AdaptableMapper.Xml;
@@ -76,7 +77,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         public void XmlSetThisValueTraversal(string because, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlSetThisValueTraversal();
-            object context = Xml.CreateTarget(contextType);
+            var context = new Context(null, Xml.CreateTarget(contextType));
             List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -87,14 +88,14 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         public void XmlSetValueTraversal(string because, string path, string value, ContextType contextType, XmlInterpretation xmlInterpretation, params string[] expectedErrors)
         {
             var subject = new XmlSetValueTraversal(path) { XmlInterpretation = xmlInterpretation };
-            object context = Xml.CreateTarget(contextType);
+            var context = new Context(null, Xml.CreateTarget(contextType));
 
             List<Information> result = new Action(() => { subject.SetValue(context, value); }).Observe();
 
             result.ValidateResult(new List<string>(expectedErrors), because);
             if (expectedErrors.Length == 0)
             {
-                XElement xElementResult = context as XElement;
+                XElement xElementResult = context.Target as XElement;
 
                 var converter = new XElementToStringObjectConverter();
                 var convertedResult = converter.Convert(xElementResult);
@@ -106,11 +107,11 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         public void XmlSetValueTraversalSetProcessingInformation()
         {
             var subject = new XmlSetValueTraversal("/processing-instruction('thing')");
-            object context = XDocument.Parse(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstructionTemplate.xml")).Root;
+            var context = new Context(null, XDocument.Parse(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstructionTemplate.xml")).Root);
 
             List<Information> result = new Action(() => { subject.SetValue(context, "value1|1|item"); }).Observe();
 
-            XElement xElementResult = context as XElement;
+            XElement xElementResult = context.Target as XElement;
 
             var converter = new XElementToStringObjectConverter();
             var convertedResult = converter.Convert(xElementResult);

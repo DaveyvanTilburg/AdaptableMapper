@@ -5,7 +5,7 @@
         public object Source { get; set; }
         public object Target { get; set; }
 
-        internal Context(
+        public Context(
             object source, 
             object target)
         {

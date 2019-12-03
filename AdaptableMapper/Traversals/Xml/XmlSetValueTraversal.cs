@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using AdaptableMapper.Configuration;
 using AdaptableMapper.Xml;
 using Newtonsoft.Json;
 
@@ -15,11 +16,11 @@ namespace AdaptableMapper.Traversals.Xml
             Path = path;
         }
 
-        protected override void SetValueImplementation(object target, string value)
+        protected override void SetValueImplementation(Context context, string value)
         {
-            if (!(target is XElement xElement))
+            if (!(context.Target is XElement xElement))
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#21; target is not of expected type XElement", "error", Path, target?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("XML#21; target is not of expected type XElement", "error", Path, context.Target?.GetType().Name);
                 return;
             }
 

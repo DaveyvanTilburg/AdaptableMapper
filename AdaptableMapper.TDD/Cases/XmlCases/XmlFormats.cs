@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using AdaptableMapper.Configuration;
 using AdaptableMapper.ValueMutations;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals.Xml;
@@ -19,14 +20,14 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         {
             ValueMutation valueMutation = new DateValueMutation(formatTemplate);
             var subject = new XmlSetValueTraversal(path) { XmlInterpretation = xmlInterpretation, ValueMutation = valueMutation };
-            object context = XElement.Parse("<root><test></test></root>");
+            var context = new Context(null, XElement.Parse("<root><test></test></root>"));
 
             List<Information> information = new Action(() => { subject.SetValue(context, value); }).Observe();
 
             information.ValidateResult(new List<string>(expectedErrors), because);
             if (expectedErrors.Length == 0)
             {
-                var xElementResult = (XElement)context;
+                var xElementResult = (XElement)context.Target;
                 XElement result = xElementResult.XPathSelectElement("./test");
 
                 result?.Value.Should().Be(expectedResult);

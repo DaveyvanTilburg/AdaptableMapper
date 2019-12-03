@@ -1,14 +1,15 @@
 ﻿using System.Xml.Linq;
+using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.Traversals.Xml
 {
     public sealed class XmlSetThisValueTraversal : SetValueTraversal
     {
-        public void SetValue(object target, string value)
+        public void SetValue(Context context, string value)
         {
-            if (!(target is XElement xElement))
+            if (!(context.Target is XElement xElement))
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#20; target is not of expected type XElement", "error", target?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("XML#20; target is not of expected type XElement", "error", context.Target?.GetType().Name);
                 return;
             }
 

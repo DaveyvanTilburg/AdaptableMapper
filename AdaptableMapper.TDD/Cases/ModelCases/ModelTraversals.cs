@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AdaptableMapper.Configuration;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals.Model;
 using Xunit;
@@ -57,7 +58,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         public void ModelSetValueOnPathTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
             var subject = new ModelSetValueOnPathTraversal(path);
-            object context = Model.CreateTarget(contextType, createType);
+            var context = new Context(null, Model.CreateTarget(contextType, createType));
             List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -67,7 +68,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         public void ModelSetValueOnPropertyTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
             var subject = new ModelSetValueOnPropertyTraversal(path);
-            object context = Model.CreateTarget(contextType, createType);
+            var context = new Context(null, Model.CreateTarget(contextType, createType));
             List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
