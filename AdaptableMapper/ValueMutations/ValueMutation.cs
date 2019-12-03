@@ -1,7 +1,9 @@
-﻿namespace AdaptableMapper.ValueMutations
+﻿using AdaptableMapper.Configuration;
+
+namespace AdaptableMapper.ValueMutations
 {
     public interface ValueMutation
     {
-        string Mutate(string source);
+        string Mutate(Context context, string source);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.ValueMutations
 {
@@ -13,7 +14,7 @@ namespace AdaptableMapper.ValueMutations
             NumberOfDecimals = numberOfDecimals;
         }
 
-        public string Mutate(string source)
+        public string Mutate(Context context, string source)
         {
             string filteredSource = new string(source.Where(char.IsDigit).ToArray());
 

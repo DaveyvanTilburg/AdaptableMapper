@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.ValueMutations
 {
@@ -10,7 +11,7 @@ namespace AdaptableMapper.ValueMutations
         public DateValueMutation(string formatTemplate)
             => FormatTemplate = formatTemplate;
 
-        public string Mutate(string source)
+        public string Mutate(Context context, string source)
         {
             if (!DateTime.TryParse(source, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime sourceDateTime))
             {

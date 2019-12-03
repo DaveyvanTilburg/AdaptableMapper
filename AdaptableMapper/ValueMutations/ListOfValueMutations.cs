@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.ValueMutations
 {
@@ -7,7 +8,7 @@ namespace AdaptableMapper.ValueMutations
     {
         private List<ValueMutation> ValueMutations { get; set; }
 
-        public string Mutate(string source)
+        public string Mutate(Context context, string source)
         {
             var result = source;
 
@@ -15,7 +16,7 @@ namespace AdaptableMapper.ValueMutations
                 return result;
 
             foreach(ValueMutation valueMutation in ValueMutations)
-                result = valueMutation.Mutate(result);
+                result = valueMutation.Mutate(context, result);
 
             return result;
         }

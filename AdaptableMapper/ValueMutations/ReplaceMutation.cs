@@ -1,4 +1,5 @@
-﻿using AdaptableMapper.Traversals;
+﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.ValueMutations
 {
@@ -7,7 +8,7 @@ namespace AdaptableMapper.ValueMutations
         public GetValueTraversal GetValueTraversalValue { get; set; }
         public GetValueTraversal GetValueTraversalReplaceValue { get; set; }
 
-        public string Mutate(string source)
+        public string Mutate(Context context, string source)
         {
             return source;
         }

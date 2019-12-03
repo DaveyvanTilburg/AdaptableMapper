@@ -1,8 +1,10 @@
-﻿namespace AdaptableMapper.ValueMutations
+﻿using AdaptableMapper.Configuration;
+
+namespace AdaptableMapper.ValueMutations
 {
     public class NullValueMutation : ValueMutation
     {
-        public string Mutate(string source)
+        public string Mutate(Context context, string source)
             => source;
     }
 }
