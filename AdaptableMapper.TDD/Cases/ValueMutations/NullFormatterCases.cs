@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace AdaptableMapper.TDD.Cases.Formats
+namespace AdaptableMapper.TDD.Cases.ValueMutations
 {
     public class NullFormatterCases
     {

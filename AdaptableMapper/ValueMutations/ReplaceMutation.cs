@@ -5,12 +5,22 @@ namespace AdaptableMapper.ValueMutations
 {
     public class ReplaceMutation : ValueMutation
     {
-        public GetValueTraversal GetValueTraversalValue { get; set; }
-        public GetValueTraversal GetValueTraversalReplaceValue { get; set; }
+        public GetValueTraversal GetValueTraversalValueToReplace { get; set; }
+        public GetValueTraversal GetValueTraversalNewValue { get; set; }
+
+        public ReplaceMutation(GetValueTraversal getValueTraversalValueToReplace, GetValueTraversal getValueTraversalNewValue)
+        {
+            GetValueTraversalValueToReplace = getValueTraversalValueToReplace;
+            GetValueTraversalNewValue = getValueTraversalNewValue;
+        }
 
         public string Mutate(Context context, string source)
         {
-            return source;
+            string valueToReplace = GetValueTraversalValueToReplace.GetValue(context.Source);
+            string newValue = GetValueTraversalNewValue.GetValue(context.Source);
+
+            string result = source.Replace(valueToReplace, newValue);
+            return result;
         }
     }
 }

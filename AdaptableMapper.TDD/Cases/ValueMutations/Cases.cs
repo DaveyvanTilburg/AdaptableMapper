@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using AdaptableMapper.Configuration;
 using AdaptableMapper.ValueMutations;
 using AdaptableMapper.Process;
+using AdaptableMapper.Traversals;
 using FluentAssertions;
 using Xunit;
 
-namespace AdaptableMapper.TDD.Cases.Formats
+namespace AdaptableMapper.TDD.Cases.ValueMutations
 {
     public class Cases
     {
@@ -17,7 +20,7 @@ namespace AdaptableMapper.TDD.Cases.Formats
         [InlineData("StrangeFormatTemplate1", "&#$#$", "2019-12-01T00:00:00", "&#$#$")]
         [InlineData("StrangeFormatTemplate2", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{", "2019-12-01T00:00:00", "2019-12-01T00:00:00", "e-DateValueMutation#2;")]
         [InlineData("StrangeFormatTemplate3", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{\"", "2019-12-01T00:00:00", "2019345789aw19AUJI0SEU0#&*$Sunday12::{:{")]
-        public void DateFormatter(string because, string formatTemplate, string value, string expectedResult, params string[] expectedInformation)
+        public void DateValueMutation(string because, string formatTemplate, string value, string expectedResult, params string[] expectedInformation)
         {
             var subject = new DateValueMutation(formatTemplate);
 
@@ -42,12 +45,54 @@ namespace AdaptableMapper.TDD.Cases.Formats
         [InlineData("ValidDecimalNoSeparator7", "", 7, "abc", "")]
         [InlineData("ValidDecimalNoSeparator0", "", 0, "10", "10")]
         [InlineData("Empty", ".", 5, "", "0.00000")]
-        public void NumberFormatter(string because, string formatTemplate, int numberOfDecimals, string value, string expectedResult, params string[] expectedInformation)
+        public void NumberValueMutation(string because, string formatTemplate, int numberOfDecimals, string value, string expectedResult, params string[] expectedInformation)
         {
             var subject = new NumberValueMutation(formatTemplate, numberOfDecimals);
 
             string result = null;
             List<Information> information = new Action(() => { result = subject.Mutate(null, value); }).Observe();
+
+            information.ValidateResult(new List<string>(expectedInformation), because);
+            if (expectedInformation.Length == 0)
+                result.Should().Be(expectedResult);
+        }
+
+        [Fact]
+        public void ListValueMutation()
+        {
+            var subject = new ListOfValueMutations();
+            subject.ValueMutations.Add(new NumberValueMutation(".", 2));
+
+            string result = null;
+            List<Information> information = new Action(() => { result = subject.Mutate(null, "36500"); }).Observe();
+
+            information.Count.Should().Be(0);
+            result.Should().Be("365.00");
+        }
+
+        [Fact]
+        public void ListValueMutationEmpty()
+        {
+            var subject = new ListOfValueMutations();
+
+            string result = null;
+            List<Information> information = new Action(() => { result = subject.Mutate(null, "36500"); }).Observe();
+
+            information.Count.Should().Be(1);
+            information.Any(i => i.Message.StartsWith("ListOfValueMutations#1;")).Should().BeTrue();
+        }
+
+        [Theory]
+        [InlineData("Valid", "an old", "a new", "this is an old message", "this is a new message")]
+        public void ReplaceMutation(string because, string valueToReplace, string newValue, string value, string expectedResult, params string[] expectedInformation)
+        {
+            var subject = new ReplaceMutation(
+                new GetStaticValueTraversal(valueToReplace), 
+                new GetStaticValueTraversal(newValue)
+            );
+
+            string result = null;
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), value); }).Observe();
 
             information.ValidateResult(new List<string>(expectedInformation), because);
             if (expectedInformation.Length == 0)

@@ -6,7 +6,10 @@ namespace AdaptableMapper.ValueMutations
 {
     public class ListOfValueMutations : ValueMutation
     {
-        private List<ValueMutation> ValueMutations { get; set; }
+        public List<ValueMutation> ValueMutations { get; set; }
+
+        public ListOfValueMutations()
+            => ValueMutations = new List<ValueMutation>();
 
         public string Mutate(Context context, string source)
         {
