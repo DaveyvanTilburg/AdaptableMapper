@@ -10,7 +10,7 @@ using Xunit;
 
 namespace AdaptableMapper.TDD.Cases.ValueMutations
 {
-    public class Cases
+    public class ValueMutationsCases
     {
         [Theory]
         [InlineData("InvalidDateTime", "", "test", "", "w-DateValueMutation#1;")]

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace AdaptableMapper.TDD.Cases.Conditions
 {
-    public class Cases
+    public class ConditionsCases
     {
         [Theory]
         [InlineData("Valid", "Davey", true)]

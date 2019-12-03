@@ -7,7 +7,7 @@ using Xunit;
 
 namespace AdaptableMapper.TDD.Cases.Traversals
 {
-    public class Cases
+    public class TraversalsCases
     {
         [Theory]
         [InlineData("Valid", "value", "value")]
