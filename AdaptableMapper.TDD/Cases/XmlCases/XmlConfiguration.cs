@@ -35,6 +35,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             object value = null;
             List<Information> result = new Action(() => { value = subject.Convert(context); }).Observe();
 
+            value.Should().NotBeNull();
             result.ValidateResult(new List<string>(expectedErrors), because);
 
             if (expectedErrors.Length == 0)
@@ -42,8 +43,28 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
                 string expectedResult = System.IO.File.ReadAllText(expectedResultFile);
 
                 XElement xElementValue = value as XElement;
-                xElementValue.ToString().Should().Be(expectedResult);
+
+                var converter = new XElementToStringObjectConverter();
+                var convertedResult = converter.Convert(xElementValue);
+                convertedResult.Should().Be(expectedResult);
             }
+        }
+
+        [Fact]
+        public void XmlObjectConverterProcessingInstruction()
+        {
+            var subject = new XmlObjectConverter();
+            object context = System.IO.File.ReadAllText("./Resources/SimpleProcessingInstruction.xml");
+
+            object value = null;
+            List<Information> result = new Action(() => { value = subject.Convert(context); }).Observe();
+
+            value.Should().NotBeNull();
+
+            XElement xElementValue = value as XElement;
+
+            var converter = new XElementToStringObjectConverter();
+            var convertedResult = converter.Convert(xElementValue);
         }
 
         [Theory]
@@ -58,6 +79,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             object value = null;
             List<Information> result = new Action(() => { value = subject.Create(context); }).Observe();
 
+            value.Should().NotBeNull();
             result.ValidateResult(new List<string>(expectedErrors), because);
 
             if (expectedErrors.Length == 0)
@@ -65,7 +87,10 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
                 string expectedResult = System.IO.File.ReadAllText(expectedResultFile);
 
                 XElement xElementValue = value as XElement;
-                xElementValue.ToString().Should().Be(expectedResult);
+
+                var converter = new XElementToStringObjectConverter();
+                var convertedResult = converter.Convert(xElementValue);
+                convertedResult.Should().Be(expectedResult);
             }
         }
 

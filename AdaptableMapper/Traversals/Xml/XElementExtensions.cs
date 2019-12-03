@@ -3,6 +3,7 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Linq;
 using System.Collections;
+using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
@@ -17,7 +18,7 @@ namespace AdaptableMapper.Traversals.Xml
             }
             catch(XPathException exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#28; Path is invalid", "error", xPath, xElement, exception.GetType().Name, exception.Message);
+                Process.ProcessObservable.GetInstance().Raise("XML#28; Path is invalid", "error", xPath, exception.GetType().Name, exception.Message);
                 return new List<XElement>();
             }
 
@@ -26,31 +27,38 @@ namespace AdaptableMapper.Traversals.Xml
 
         public static XElement NavigateToPath(this XElement xElement, string xPath)
         {
-            IReadOnlyCollection<XElement> allMatches;
+            IReadOnlyCollection<XObject> allMatches;
 
             try
             {
-                allMatches = xElement.XPathSelectElements(xPath).ToList();
+                IEnumerable enumerable = xElement.XPathEvaluate(xPath) as IEnumerable;
+                allMatches = enumerable?.Cast<XObject>().ToList();
             }
             catch (XPathException exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#27; Path is invalid", "error", xPath, xElement, exception.GetType().Name, exception.Message);
-                return new NullElement();
+                Process.ProcessObservable.GetInstance().Raise("XML#27; Path is invalid", "error", xPath, exception.GetType().Name, exception.Message);
+                return NullElement.Create();
             }
 
             if(!allMatches.Any())
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#2; Path could not be traversed", "warning", xPath, xElement);
-                return new NullElement();
+                Process.ProcessObservable.GetInstance().Raise("XML#2; Path could not be traversed", "warning", xPath);
+                return NullElement.Create();
             }
 
-            if (allMatches.Count > 1)
+            if(allMatches.Count > 1)
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#3; Path has multiple of the same node, when only one is expected", "warning", xPath, xElement);
-                return new NullElement();
+                Process.ProcessObservable.GetInstance().Raise("XML#3; Path has multiple of the same node, when only one is expected", "warning", xPath);
+                return NullElement.Create();
             }
 
-            return allMatches.FirstOrDefault();
+            if(!(allMatches.First() is XElement result))
+            {
+                Process.ProcessObservable.GetInstance().Raise("XML#8; Path did not end in an element", "error", xPath);
+                return NullElement.Create();
+            }
+
+            return result;
         }
 
         public static MethodResult<string> GetXPathValue(this XElement xElement, string xPath)
@@ -64,7 +72,7 @@ namespace AdaptableMapper.Traversals.Xml
             }
             catch (XPathException exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#29; Path is invalid", "error", xPath, xElement, exception.GetType().Name, exception.Message);
+                Process.ProcessObservable.GetInstance().Raise("XML#29; Path is invalid", "error", xPath, exception.GetType().Name, exception.Message);
                 return new NullMethodResult<string>();
             }
 
@@ -72,7 +80,7 @@ namespace AdaptableMapper.Traversals.Xml
 
             if (xObject == null)
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#30; Path resulted in no items", "warning", xPath, xElement);
+                Process.ProcessObservable.GetInstance().Raise("XML#30; Path resulted in no items", "warning", xPath);
                 return new NullMethodResult<string>();
             }
                 
@@ -81,6 +89,8 @@ namespace AdaptableMapper.Traversals.Xml
                 result = element.Value;
             if (xObject is XAttribute attribute)
                 result = attribute.Value;
+            if (xObject is XProcessingInstruction processingInstruction)
+                result = processingInstruction.Data;
 
             return new MethodResult<string>(result);
         }
@@ -101,7 +111,7 @@ namespace AdaptableMapper.Traversals.Xml
             var xObjects = enumerable?.Cast<XObject>();
 
             if (!xObjects.Any())
-                Process.ProcessObservable.GetInstance().Raise("XML#7; Path could not be traversed", "warning", xPath, xElement);
+                Process.ProcessObservable.GetInstance().Raise("XML#7; Path could not be traversed", "warning", xPath);
             else
             {
                 foreach (XObject xObject in xObjects)

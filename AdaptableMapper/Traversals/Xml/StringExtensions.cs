@@ -5,6 +5,9 @@ namespace AdaptableMapper.Traversals.Xml
 {
     internal static class StringExtensions
     {
+        private const char NullChar = '\0';
+        private const string DefaultPrefix = "./";
+
         public static string ConvertToInterpretation(this string path, XmlInterpretation xmlInterpretation)
         {
             string result = path;
@@ -12,7 +15,8 @@ namespace AdaptableMapper.Traversals.Xml
             switch (xmlInterpretation)
             {
                 case XmlInterpretation.WithoutNamespace:
-                    return path.ConvertToNamespacelessPath();
+                    result = path.ConvertToNamespacelessPath();
+                    break;
             }
 
             return result;
@@ -20,17 +24,31 @@ namespace AdaptableMapper.Traversals.Xml
 
         private static string ConvertToNamespacelessPath(this string path)
         {
+            string originalPrefix = path.GetPrefix();
+
             string trimmedPath = path.TrimStart('/', '.');
             string namespaceLessPath;
             if (path.Contains('/'))
             {
                 string[] pathParts = trimmedPath.Split('/');
-                namespaceLessPath = string.Concat(pathParts.Select(p => p.ConvertToNamespacelessPart()));
+                namespaceLessPath = string.Concat(pathParts.Select(p => p.ConvertToNamespacelessPart())).TrimStart('/');
             }
             else
-                namespaceLessPath = path.ConvertToNamespacelessPart();
+                namespaceLessPath = path.ConvertToNamespacelessPart().TrimStart('/');
 
-            return namespaceLessPath;
+            return originalPrefix + namespaceLessPath;
+        }
+
+        private static string GetPrefix(this string path)
+        {
+            char firstLetter = path.FirstOrDefault(char.IsLetter);
+
+            if (firstLetter == NullChar)
+                return DefaultPrefix;
+
+            int firstLetterIndex = path.IndexOf(firstLetter);
+            string originalPrefix = path.Substring(0, firstLetterIndex);
+            return originalPrefix;
         }
 
         private static string ConvertToNamespacelessPart(this string part)

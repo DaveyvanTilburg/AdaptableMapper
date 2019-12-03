@@ -31,12 +31,15 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
                 case ContextType.ValidAlternativeSource:
                     result = System.IO.File.ReadAllText("./Resources/SimpleNamespace.xml");
                     break;
+                case ContextType.Alternative2TestObject:
+                    result = CreateTestData("./Resources/SimpleProcessingInstruction.xml");
+                    break;
             }
 
             return result;
         }
 
         private static XElement CreateTestData(string path)
-            => XElement.Parse(System.IO.File.ReadAllText(path));
+            => XDocument.Parse(System.IO.File.ReadAllText(path)).Root;
     }
 }

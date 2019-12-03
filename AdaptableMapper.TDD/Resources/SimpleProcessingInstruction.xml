@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<root xmlns:x="www.google.com" xmlns:y="www.youtube.com">
+<?thing value|value2?>
+<root>
   <SimpleItems>
     <SimpleItem Id="1">
       <Name>Davey</Name>

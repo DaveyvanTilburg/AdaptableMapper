@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using AdaptableMapper.Configuration.Xml;
 using AdaptableMapper.Traversals.Xml;
 using AdaptableMapper.Xml;
 using FluentAssertions;
@@ -46,14 +47,16 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
-
+        
         [Theory]
         [InlineData("InvalidType", "", ContextType.EmptyString, XmlInterpretation.Default, "", "e-XML#17;")]
         [InlineData("InvalidPath", "::", ContextType.EmptyObject, XmlInterpretation.Default, "", "e-XML#29;")]
         [InlineData("InvalidPathWithoutNamespace", "::", ContextType.EmptyObject, XmlInterpretation.WithoutNamespace, "", "w-XML#30;")]
         [InlineData("EmptyString", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, XmlInterpretation.Default, "", "w-XML#4;")]
         [InlineData("ValidNamespaceless", "//SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "Davey")]
+        [InlineData("ValidNamespacelessDot", "./SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "Davey")]
         [InlineData("ValidNamespacelessDifferentPrefix", "./SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "Davey")]
+        [InlineData("GetProcessingInstruction", "/processing-instruction('thing')", ContextType.Alternative2TestObject, XmlInterpretation.Default, "value|value2")]
         public void XmlGetValueTraversal(string because, string path, ContextType contextType, XmlInterpretation xmlInterpretation, string expectedValue, params string[] expectedErrors)
         {
             var subject = new XmlGetValueTraversal(path) { XmlInterpretation = xmlInterpretation };
@@ -92,7 +95,10 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             if (expectedErrors.Length == 0)
             {
                 XElement xElementResult = context as XElement;
-                xElementResult.ToString().Should().BeEquivalentTo(System.IO.File.ReadAllText("./Resources/SimpleNamespaceExpectedResult.xml"));
+
+                var converter = new XElementToStringObjectConverter();
+                var convertedResult = converter.Convert(xElementResult);
+                convertedResult.Should().BeEquivalentTo(System.IO.File.ReadAllText("./Resources/SimpleNamespaceExpectedResult.xml"));
             }
         }
 
@@ -101,7 +107,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("InvalidPath", "::", ContextType.EmptyObject, "e-XML#27;")]
         [InlineData("NoResult", "abcd", ContextType.EmptyObject, "w-XML#2;")]
         [InlineData("NoResult", "//SimpleItems/SimpleItem/Name", ContextType.TestObject, "w-XML#3;")]
-        [InlineData("ResultHasNoParent", "/", ContextType.TestObject, "e-XML#26;")]
+        [InlineData("ResultHasNoParent", "/", ContextType.TestObject, "e-XML#8;")]
         public void XmlGetTemplateTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlGetTemplateTraversal(path);

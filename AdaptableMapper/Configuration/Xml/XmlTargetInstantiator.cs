@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Xml.Linq;
 using AdaptableMapper.Xml;
 
@@ -18,18 +19,20 @@ namespace AdaptableMapper.Configuration.Xml
             if (!(source is string template))
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#24; Source is not of expected type string", "error", source, source?.GetType().Name);
-                return new XElement("nullObject");
+                return NullElement.Create();
             }
 
             XElement root;
             try
             {
-                root = XElement.Parse(template);
+                var stringReader = new StringReader(template);
+                var document = XDocument.Load(stringReader);
+                root = document.Root;
             }
             catch(Exception exception)
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#6; Template is not valid Xml", "error", exception.GetType().Name, exception.Message);
-                return new XElement("nullObject");
+                return NullElement.Create();
             }
 
             if (XmlInterpretation == XmlInterpretation.WithoutNamespace)

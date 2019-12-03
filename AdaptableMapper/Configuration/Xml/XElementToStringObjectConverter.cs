@@ -1,4 +1,6 @@
-﻿using System.Xml.Linq;
+﻿using System.IO;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace AdaptableMapper.Configuration.Xml
 {
@@ -12,7 +14,17 @@ namespace AdaptableMapper.Configuration.Xml
                 return string.Empty;
             }
 
-            return xElement.ToString();
+            XDocument xDocument = xElement.Document;
+
+            using (StringWriter stringWriter = new StringWriter())
+            {
+                stringWriter.WriteLine(xDocument.Declaration);
+
+                using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter, new XmlWriterSettings{ OmitXmlDeclaration = true, Indent = true }))
+                    xDocument.Save(xmlWriter);
+
+                return stringWriter.ToString().Trim();
+            }
         }
     }
 }

@@ -25,12 +25,6 @@ namespace AdaptableMapper.Traversals.Xml
             if (result.NodeType == System.Xml.XmlNodeType.None)
                 return CreateNullTemplate();
 
-            if(result.Parent == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("XML#26; template traversal did not result in an element that has a parent", "error", Path);
-                return CreateNullTemplate();
-            }
-
             var template = new Template
             {
                 Parent = result.Parent,
@@ -43,6 +37,6 @@ namespace AdaptableMapper.Traversals.Xml
         }
 
         private static Template CreateNullTemplate()
-            => new Template { Parent = new XElement("nullObject"), Child = new XElement("nullObject") };
+            => new Template { Parent = NullElement.Create(), Child = NullElement.Create() };
     }
 }
