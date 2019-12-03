@@ -16,8 +16,8 @@ namespace AdaptableMapper.TDD.Cases.Conditions
             var source = XElement.Parse(System.IO.File.ReadAllText("./Resources/Simple.xml"));
 
             var condition = new EqualsCondition(
-                new Traversals.Xml.XmlGetValueTraversal("//SimpleItems/SimpleItem[@Id='1']/Name"),
-                new Traversals.GetStaticValueTraversal(staticValue)
+                new AdaptableMapper.Traversals.Xml.XmlGetValueTraversal("//SimpleItems/SimpleItem[@Id='1']/Name"),
+                new AdaptableMapper.Traversals.GetStaticValueTraversal(staticValue)
                 );
 
             condition.Validate(source).Should().Be(expectedResult, because);
@@ -31,8 +31,8 @@ namespace AdaptableMapper.TDD.Cases.Conditions
             var source = JObject.Parse(System.IO.File.ReadAllText("./Resources/Simple.json"));
 
             var condition = new EqualsCondition(
-                new Traversals.Json.JsonGetValueTraversal(sourcePath),
-                new Traversals.Json.JsonGetValueTraversal(targetPath)
+                new AdaptableMapper.Traversals.Json.JsonGetValueTraversal(sourcePath),
+                new AdaptableMapper.Traversals.Json.JsonGetValueTraversal(targetPath)
             );
 
             condition.Validate(source).Should().Be(expectedResult, because);

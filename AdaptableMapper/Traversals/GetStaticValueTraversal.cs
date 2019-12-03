@@ -8,6 +8,11 @@
             => Value = value;
 
         public string GetValue(object source)
-            => Value;
+        {
+            if (string.IsNullOrWhiteSpace(Value))
+                Process.ProcessObservable.GetInstance().Raise("GetStaticValueTraversal#1; Value is set to an empty string", "error");
+
+            return Value;
+        }
     }
 }

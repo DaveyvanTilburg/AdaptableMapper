@@ -16,8 +16,19 @@ namespace AdaptableMapper.ValueMutations
 
         public string Mutate(Context context, string source)
         {
+            if (string.IsNullOrWhiteSpace(source))
+            {
+                Process.ProcessObservable.GetInstance().Raise("ReplaceMutation#1; cannot mutate an empty string", "warning");
+                return source;
+            }
+
             string valueToReplace = GetValueTraversalValueToReplace.GetValue(context.Source);
+            if (string.IsNullOrEmpty(valueToReplace))
+                return source;
+
             string newValue = GetValueTraversalNewValue.GetValue(context.Source);
+            if (string.IsNullOrEmpty(valueToReplace))
+                return source;
 
             string result = source.Replace(valueToReplace, newValue);
             return result;

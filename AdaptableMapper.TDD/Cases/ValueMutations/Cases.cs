@@ -84,6 +84,7 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
 
         [Theory]
         [InlineData("Valid", "an old", "a new", "this is an old message", "this is a new message")]
+        [InlineData("Invalid", "an old", "a new", "this is an old message", "this is a new message")]
         public void ReplaceMutation(string because, string valueToReplace, string newValue, string value, string expectedResult, params string[] expectedInformation)
         {
             var subject = new ReplaceMutation(
