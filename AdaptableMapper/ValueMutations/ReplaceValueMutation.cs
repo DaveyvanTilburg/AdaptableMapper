@@ -4,12 +4,12 @@ using AdaptableMapper.ValueMutations.Traversals;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public class ReplaceMutation : ValueMutation
+    public class ReplaceValueMutation : ValueMutation
     {
         public GetValueStringTraveral GetValueStringTraversal { get; set; }
         public GetValueTraversal GetValueTraversalNewValue { get; set; }
 
-        public ReplaceMutation(GetValueStringTraveral getValueStringTraversal, GetValueTraversal getValueTraversalNewValue)
+        public ReplaceValueMutation(GetValueStringTraveral getValueStringTraversal, GetValueTraversal getValueTraversalNewValue)
         {
             GetValueStringTraversal = getValueStringTraversal;
             GetValueTraversalNewValue = getValueTraversalNewValue;

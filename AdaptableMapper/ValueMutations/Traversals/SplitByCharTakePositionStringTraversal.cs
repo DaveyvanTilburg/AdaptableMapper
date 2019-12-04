@@ -21,7 +21,7 @@
 
             int zeroBasedIndexPosition = Position - 1;
             string[] parts = source.Split(Separator);
-            if (parts.Length < zeroBasedIndexPosition)
+            if (parts.Length < Position)
             {
                 Process.ProcessObservable.GetInstance().Raise("SplitByCharTakePositionStringTraversal#2; split by char resulted in less parts than needed to take position", "warning", Separator, Position);
                 return string.Empty;

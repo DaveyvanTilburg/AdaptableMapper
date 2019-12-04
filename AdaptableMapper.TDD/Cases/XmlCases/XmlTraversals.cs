@@ -110,7 +110,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         {
             var listOfValueMutations = new ListOfValueMutations();
             listOfValueMutations.ValueMutations.Add(
-                new ReplaceMutation(
+                new ReplaceValueMutation(
                     new SplitByCharTakePositionStringTraversal('|', 2),
                     new XmlGetValueTraversal("./SimpleItems/SimpleItem[@Id='1']/Name")
                 )

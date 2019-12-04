@@ -7,6 +7,7 @@ using AdaptableMapper.Process;
 using AdaptableMapper.Traversals;
 using FluentAssertions;
 using Xunit;
+using AdaptableMapper.ValueMutations.Traversals;
 
 namespace AdaptableMapper.TDD.Cases.ValueMutations
 {
@@ -88,9 +89,9 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
         [InlineData("InvalidEmpty", "an old", "a new", "", "this is a new message", "w-ReplaceMutation#1;")]
         [InlineData("InvalidEmptyValue", "", "a new", "this is an old message", "this is a new message", "e-GetStaticValueTraversal#1;")]
         [InlineData("InvalidEmptyReplaceValue", "an old", "", "this is an old message", "this is a new message", "e-GetStaticValueTraversal#1;")]
-        public void ReplaceMutation(string because, string valueToReplace, string newValue, string value, string expectedResult, params string[] expectedInformation)
+        public void ReplaceValueMutation(string because, string valueToReplace, string newValue, string value, string expectedResult, params string[] expectedInformation)
         {
-            var subject = new ReplaceMutation(
+            var subject = new ReplaceValueMutation(
                 new GetStaticValueTraversal(valueToReplace), 
                 new GetStaticValueTraversal(newValue)
             );
@@ -101,6 +102,66 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
             information.ValidateResult(new List<string>(expectedInformation), because);
             if (expectedInformation.Length == 0)
                 result.Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("Valid", "this is an old message", "this is a new message")]
+        [InlineData("ValidMultipleHits", "this is an old message, through luxery", "this is a new message, through hard work")]
+        [InlineData("No hit", "this is an-old message", "this is an-old message")]
+        [InlineData("Empty", "", "", "w-DictionaryReplaceValueMutation#2;")]
+        public void DictionaryReplaceValueMutation(string because, string value, string expectedResult, params string[] expectedInformation)
+        {
+            var subject = new DictionaryReplaceValueMutation(
+                new Dictionary<string, string>
+                {
+                    ["an old"] = "a new",
+                    ["luxery"] = "hard work"
+                }
+            );
+
+            string result = null;
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), value); }).Observe();
+
+            information.ValidateResult(new List<string>(expectedInformation), because);
+            if (expectedInformation.Length == 0)
+                result.Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("Valid", '|', 2, "value1|value2|value3", "value1|silver|value3")]
+        [InlineData("No hit", '|', 4, "value1|value2|value3", "value1|value2|value3", "w-SplitByCharTakePositionStringTraversal#2;")]
+        public void DictionaryReplaceValueMutationTraversal(string because, char separator, int position, string value, string expectedResult, params string[] expectedInformation)
+        {
+            var subject = new DictionaryReplaceValueMutation(
+                new Dictionary<string, string>
+                {
+                    ["value1"] = "bronze",
+                    ["value2"] = "silver",
+                    ["value3"] = "gold"
+                }
+            )
+            {
+                GetValueStringTraversal = new SplitByCharTakePositionStringTraversal(separator, position)
+            };
+
+            string result = null;
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), value); }).Observe();
+
+            information.ValidateResult(new List<string>(expectedInformation), because);
+
+            result.Should().Be(expectedResult);
+        }
+
+        [Fact]
+        public void DictionaryReplaceValueMutationNoReplacesSet()
+        {
+            var subject = new DictionaryReplaceValueMutation(
+                new Dictionary<string, string>()
+            );
+
+            List<Information> information = new Action(() => { subject.Mutate(new Context(null, null), string.Empty); }).Observe();
+
+            information.ValidateResult(new List<string> { "e-DictionaryReplaceValueMutation#1;" });
         }
     }
 }

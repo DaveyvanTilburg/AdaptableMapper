@@ -45,12 +45,13 @@
     <Compile Include="Conditions\EqualsCondition.cs" />
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
+    <Compile Include="ValueMutations\DictionaryReplaceValueMutation.cs" />
     <Compile Include="ValueMutations\Traversals\GetValueStringTraveral.cs" />
     <Compile Include="ValueMutations\Traversals\SplitByCharTakePositionStringTraversal.cs" />
     <Compile Include="ValueMutations\DateValueMutation.cs" />
     <Compile Include="ValueMutations\ListOfValueMutations.cs" />
     <Compile Include="ValueMutations\NumberValueMutation.cs" />
-    <Compile Include="ValueMutations\ReplaceMutation.cs" />
+    <Compile Include="ValueMutations\ReplaceValueMutation.cs" />
     <Compile Include="ValueMutations\ValueMutation.cs" />
     <Compile Include="ValueMutations\NullValueMutation.cs" />
     <Compile Include="Traversals\GetStaticValueTraversal.cs" />
