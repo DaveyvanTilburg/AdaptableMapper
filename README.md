@@ -31,10 +31,11 @@ Completed plans:
  * Add formatting for Dates, included as a formatter for SetValue implementations
  * Add formatting for Numbers, included as a formatter for SetValue implementations
  * Extend MappingScopeComposite with a slot for Condition
- * GetValueStaticTraversal (Hardcodes a value to get)
+ * GetValueStaticTraversal (Softcodes a value to get)
+ * Add DictionaryReplaceValueMutation (Softcodes a list of values to replace in a value)
 
 Current plans:
- * XXXSetValueDictionary (list of key values, of value on path == key, then write value)
+ 
  
 Future plans:
  * Introduce new module : Conditions
@@ -53,9 +54,6 @@ Future plans:
  * GetTemplateStayHere
  
  * Refactor test suite
- 
-### Todo
-* Model does not have a parent for its template, its design should be more expressive
 
 ### All release notes
 
