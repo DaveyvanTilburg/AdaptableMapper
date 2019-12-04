@@ -15,7 +15,7 @@ namespace AdaptableMapper.Configuration
             SetValueTraversal = setValueTraversal;
         }
 
-        internal void Map(Context context)
+        public void Map(Context context)
         {
             if (!Validate())
                 return;

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<?thing value|Davey|simpleItem?>
+<?thing value1|Davey|SimpleItem?>
 <root>
   <SimpleItems>
     <SimpleItem Id="1">

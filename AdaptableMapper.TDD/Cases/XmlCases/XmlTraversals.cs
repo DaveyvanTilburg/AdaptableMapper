@@ -59,7 +59,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("ValidNamespaceless", "//SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "Davey")]
         [InlineData("ValidNamespacelessDot", "./SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "Davey")]
         [InlineData("ValidNamespacelessDifferentPrefix", "./SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "Davey")]
-        [InlineData("GetProcessingInstruction", "/processing-instruction('thing')", ContextType.Alternative2TestObject, XmlInterpretation.Default, "value|value2")]
+        [InlineData("GetProcessingInstruction", "/processing-instruction('thing')", ContextType.Alternative2TestObject, XmlInterpretation.Default, "value1|value2|value3")]
         public void XmlGetValueTraversal(string because, string path, ContextType contextType, XmlInterpretation xmlInterpretation, string expectedValue, params string[] expectedErrors)
         {
             var subject = new XmlGetValueTraversal(path) { XmlInterpretation = xmlInterpretation };
@@ -105,37 +105,6 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             }
         }
 
-        [Fact]
-        public void XmlSetValueTraversalSetProcessingInformation()
-        {
-            var listOfValueMutations = new ListOfValueMutations();
-            listOfValueMutations.ValueMutations.Add(
-                new ReplaceValueMutation(
-                    new SplitByCharTakePositionStringTraversal('|', 2),
-                    new XmlGetValueTraversal("./SimpleItems/SimpleItem[@Id='1']/Name")
-                )
-            );
-
-            var subject = new XmlSetValueTraversal("/processing-instruction('thing')")
-            {
-                ValueMutation = listOfValueMutations
-            };
-
-            var context = new Context(
-                XDocument.Parse(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstruction.xml")).Root, 
-                XDocument.Parse(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstructionTemplate.xml")).Root
-            );
-
-            List<Information> result = new Action(() => { subject.SetValue(context, "value1|oldValue|item"); }).Observe();
-
-            result.Count.Should().Be(0);
-            XElement xElementResult = context.Target as XElement;
-
-            var converter = new XElementToStringObjectConverter();
-            var convertedResult = converter.Convert(xElementResult);
-            convertedResult.Should().BeEquivalentTo(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstructionExpectedResult.xml"));
-        }
-
         [Theory]
         [InlineData("InvalidType", "", ContextType.EmptyString, "e-XML#23;")]
         [InlineData("InvalidPath", "::", ContextType.EmptyObject, "e-XML#27;")]
@@ -148,6 +117,53 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             object context = Xml.CreateTarget(contextType);
             List<Information> result = new Action(() => { subject.Get(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
+        }
+
+
+
+        [Fact]
+        public void ComplexImplementation()
+        {
+            var listOfValueMutations = new ListOfValueMutations();
+            listOfValueMutations.ValueMutations.Add(
+                new ReplaceValueMutation(
+                    new SplitByCharTakePositionStringTraversal('|', 2),
+                    new XmlGetValueTraversal("./SimpleItems/SimpleItem[@Id='1']/Name")
+                )
+            );
+            listOfValueMutations.ValueMutations.Add(
+                new DictionaryReplaceValueMutation(
+                    new Dictionary<string, string>
+                    {
+                        ["value3"] = "SimpleItem"
+                    }
+                )
+                {
+                    GetValueStringTraversal = new SplitByCharTakePositionStringTraversal('|', 3)
+                }
+            );
+
+            var mapping = new Mapping(
+                new XmlGetValueTraversal("/processing-instruction('thing')"),
+                new XmlSetValueTraversal("/processing-instruction('thing')")
+                {
+                    ValueMutation = listOfValueMutations
+                }
+            );
+
+            var context = new Context(
+                XDocument.Parse(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstruction.xml")).Root,
+                XDocument.Parse(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstructionTemplate.xml")).Root
+            );
+
+            List<Information> result = new Action(() => { mapping.Map(context); }).Observe();
+
+            result.Count.Should().Be(0);
+            XElement xElementResult = context.Target as XElement;
+
+            var converter = new XElementToStringObjectConverter();
+            var convertedResult = converter.Convert(xElementResult);
+            convertedResult.Should().BeEquivalentTo(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstructionExpectedResult.xml"));
         }
     }
 }
