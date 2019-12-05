@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AdaptableMapper</id>
-    <version>0.15.0-beta20191205-01</version>
+    <version>0.16.0-beta20191205-01_unreleased</version>
     <title>AdaptableMapper</title>
     <authors>Davey van Tilburg</authors>
     <owners>Davey van Tilburg</owners>
@@ -19,11 +19,8 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
         <dependency id="Newtonsoft.Json" version="12.0.2" />
       </group>
     </dependencies>
-    <releaseNotes>0.15.0
-- Redone EqualsCondition, now CompareCondition with an operator parameter
-- Added ListOfConditions
-- Exposed some internal classes so they can be used for making custom traversals and such
-- Sealed off some classes I forgot to seal off
+    <releaseNotes>0.16.0
+- Order properties of CompareCondition to form an comparison
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
