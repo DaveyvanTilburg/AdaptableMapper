@@ -1,6 +1,8 @@
-0.14.2
+0.15.0
 - Redone EqualsCondition, now CompareCondition with an operator parameter
 - Added list of conditions
+- Exposed some internal classes so they can be used for making custom traversals and such
+- Sealed off some classes I forgot to seal off
 0.14.1
  - Reorder XmlTraversal properties so they are in the same order
  - Add ReplaceValueMutation
