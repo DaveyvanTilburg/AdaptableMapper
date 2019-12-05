@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace AdaptableMapper.Traversals.Json
 {
-    internal static class JsonTraverseOperations
+    public static class JsonTraverseOperations
     {
         public static JToken Traverse(this JToken jToken, string path)
         {

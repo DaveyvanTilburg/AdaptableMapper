@@ -3,7 +3,7 @@ using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    internal static class StringExtensions
+    public static class StringExtensions
     {
         private const char NullChar = '\0';
         private const string DefaultPrefix = "./";

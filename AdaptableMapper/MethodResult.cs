@@ -1,6 +1,6 @@
 ﻿namespace AdaptableMapper
 {
-    internal class MethodResult <T>
+    public class MethodResult <T>
     {
         public T Value { get; }
 

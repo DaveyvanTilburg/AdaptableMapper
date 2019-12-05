@@ -7,7 +7,7 @@ using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    internal static class XElementExtensions
+    public static class XElementExtensions
     {
         public static IReadOnlyCollection<XElement> NavigateToPathSelectAll(this XElement xElement, string xPath)
         {

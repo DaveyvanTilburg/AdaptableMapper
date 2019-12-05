@@ -2,7 +2,7 @@
 
 namespace AdaptableMapper.Traversals.Json
 {
-    internal class NullToken : JObject
+    public class NullToken : JObject
     {
         public override JTokenType Type => JTokenType.Null;
     }
