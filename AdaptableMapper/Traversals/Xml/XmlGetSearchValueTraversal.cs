@@ -11,9 +11,9 @@ namespace AdaptableMapper.Traversals.Xml
             SearchValuePath = searchValuePath;
         }
 
-        public XmlInterpretation XmlInterpretation { get; set; }
         public string SearchPath { get; set; }
         public string SearchValuePath { get; set; }
+        public XmlInterpretation XmlInterpretation { get; set; }
 
         public string GetValue(object source)
         {

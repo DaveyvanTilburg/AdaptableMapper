@@ -12,8 +12,8 @@ namespace AdaptableMapper.Traversals.Xml
             Path = path;
         }
 
-        public XmlInterpretation XmlInterpretation { get; set; }
         public string Path { get; set; }
+        public XmlInterpretation XmlInterpretation { get; set; }
 
         public IEnumerable<object> GetScope(object source)
         {

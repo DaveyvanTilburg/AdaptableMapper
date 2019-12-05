@@ -7,14 +7,14 @@ namespace AdaptableMapper.Traversals.Xml
 {
     public sealed class XmlSetValueTraversal : SetMutableValueTraversal
     {
-        public XmlInterpretation XmlInterpretation { get; set; }
-        public string Path { get; set; }
-
         [JsonConstructor]
         public XmlSetValueTraversal(string path)
         {
             Path = path;
         }
+
+        public string Path { get; set; }
+        public XmlInterpretation XmlInterpretation { get; set; }
 
         protected override void SetValueImplementation(Context context, string value)
         {
