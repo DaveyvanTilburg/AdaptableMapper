@@ -1,3 +1,6 @@
+0.14.2
+- Redone EqualsCondition, now CompareCondition with an operator parameter
+- Added list of conditions
 0.14.1
  - Reorder XmlTraversal properties so they are in the same order
  - Add ReplaceValueMutation
