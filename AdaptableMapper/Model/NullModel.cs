@@ -1,6 +1,6 @@
 ﻿namespace AdaptableMapper.Model
 {
-    public class NullModel : ModelBase
+    public sealed class NullModel : ModelBase
     {
         internal override bool IsValid()
         {

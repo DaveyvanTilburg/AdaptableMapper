@@ -3,7 +3,7 @@ using AdaptableMapper.ValueMutations.Traversals;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public class SubstringValueMutation : ValueMutation
+    public sealed class SubstringValueMutation : ValueMutation
     {
         public SubstringValueMutation(GetValueStringTraversal getValueStringTraversal)
             => GetValueStringTraversal = getValueStringTraversal;

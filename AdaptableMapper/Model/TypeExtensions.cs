@@ -2,7 +2,7 @@
 
 namespace AdaptableMapper.Model
 {
-    internal static class TypeExtensions
+    public static class TypeExtensions
     {
         public static ModelBase CreateModel(this Type type)
         {

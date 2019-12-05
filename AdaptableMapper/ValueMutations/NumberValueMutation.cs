@@ -3,7 +3,7 @@ using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public class NumberValueMutation : ValueMutation
+    public sealed class NumberValueMutation : ValueMutation
     {
         public string Separator { get; set; }
         public int NumberOfDecimals { get; set; }

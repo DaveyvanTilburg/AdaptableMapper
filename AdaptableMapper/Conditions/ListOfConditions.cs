@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace AdaptableMapper.Conditions
 {
-    public class ListOfConditions : Condition
+    public sealed class ListOfConditions : Condition
     {
         public List<Condition> Conditions { get; set; }
 

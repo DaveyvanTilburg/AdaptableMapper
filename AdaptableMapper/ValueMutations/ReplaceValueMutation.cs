@@ -4,7 +4,7 @@ using AdaptableMapper.ValueMutations.Traversals;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public class ReplaceValueMutation : ValueMutation
+    public sealed class ReplaceValueMutation : ValueMutation
     {
         public GetValueStringTraversal GetValueStringTraversal { get; set; }
         public GetValueTraversal GetValueTraversalNewValue { get; set; }

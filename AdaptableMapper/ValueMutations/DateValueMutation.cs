@@ -4,7 +4,7 @@ using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public class DateValueMutation : ValueMutation
+    public sealed class DateValueMutation : ValueMutation
     {
         public string FormatTemplate { get; set; }
 

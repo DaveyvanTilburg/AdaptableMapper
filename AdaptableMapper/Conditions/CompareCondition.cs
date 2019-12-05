@@ -2,7 +2,7 @@
 
 namespace AdaptableMapper.Conditions
 {
-    public class CompareCondition : Condition
+    public sealed class CompareCondition : Condition
     {
         public GetValueTraversal GetValueTraversalSourceValueA { get; set; }
         public GetValueTraversal GetValueTraversalSourceValueB { get; set; }

@@ -2,7 +2,7 @@
 
 namespace AdaptableMapper.ValueMutations
 {
-    public class NullValueMutation : ValueMutation
+    public sealed class NullValueMutation : ValueMutation
     {
         public string Mutate(Context context, string value)
             => value;

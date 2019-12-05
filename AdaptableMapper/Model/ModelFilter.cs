@@ -1,6 +1,6 @@
 ﻿namespace AdaptableMapper.Model
 {
-    internal class ModelFilter
+    public sealed class ModelFilter
     {
         public string ModelName { get; set; }
         public string PropertyName { get; set; }

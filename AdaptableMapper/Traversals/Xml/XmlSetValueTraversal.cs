@@ -1,7 +1,6 @@
 ﻿using System.Xml.Linq;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.Xml;
-using Newtonsoft.Json;
 
 namespace AdaptableMapper.Traversals.Xml
 {

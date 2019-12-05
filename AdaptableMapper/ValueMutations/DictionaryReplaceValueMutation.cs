@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public class DictionaryReplaceValueMutation : ValueMutation
+    public sealed class DictionaryReplaceValueMutation : ValueMutation
     {
         public GetValueStringTraversal GetValueStringTraversal { get; set; }
         public Dictionary<string, string> ReplaceValues { get; set; }

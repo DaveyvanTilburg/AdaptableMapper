@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace AdaptableMapper.Xml
 {
-    public class NullElement : XElement
+    public sealed class NullElement : XElement
     {
         private NullElement() : base("nullElement") { }
 

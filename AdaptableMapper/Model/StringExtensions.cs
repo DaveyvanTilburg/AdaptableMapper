@@ -1,6 +1,6 @@
 ﻿namespace AdaptableMapper.Model
 {
-    internal static class StringExtensions
+    public static class StringExtensions
     {
         public static bool TryGetObjectFilter(this string value, out ModelFilter filter)
         {

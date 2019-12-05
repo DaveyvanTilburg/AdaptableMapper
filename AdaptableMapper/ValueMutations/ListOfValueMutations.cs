@@ -4,7 +4,7 @@ using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public class ListOfValueMutations : ValueMutation
+    public sealed class ListOfValueMutations : ValueMutation
     {
         public List<ValueMutation> ValueMutations { get; set; }
 
