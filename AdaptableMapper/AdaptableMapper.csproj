@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conditions\CompareOperator.cs" />
     <Compile Include="Conditions\Condition.cs" />
-    <Compile Include="Conditions\EqualsCondition.cs" />
+    <Compile Include="Conditions\CompareCondition.cs" />
+    <Compile Include="Conditions\ListOfConditions.cs" />
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
     <Compile Include="ValueMutations\DictionaryReplaceValueMutation.cs" />

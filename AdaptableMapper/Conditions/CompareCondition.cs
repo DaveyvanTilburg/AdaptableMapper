@@ -2,15 +2,17 @@
 
 namespace AdaptableMapper.Conditions
 {
-    public class EqualsCondition : Condition
+    public class CompareCondition : Condition
     {
         public GetValueTraversal GetValueTraversalSourceValueA { get; set; }
         public GetValueTraversal GetValueTraversalSourceValueB { get; set; }
+        public CompareOperator CompareOperator { get; set; }
 
-        public EqualsCondition(GetValueTraversal getValueTraversalSourceValueA, GetValueTraversal getValueTraversalSourceValueB)
+        public CompareCondition(GetValueTraversal getValueTraversalSourceValueA, GetValueTraversal getValueTraversalSourceValueB, CompareOperator compareOperator)
         {
             GetValueTraversalSourceValueA = getValueTraversalSourceValueA;
             GetValueTraversalSourceValueB = getValueTraversalSourceValueB;
+            CompareOperator = compareOperator;
         }
 
         public bool Validate(object source)
@@ -18,10 +20,27 @@ namespace AdaptableMapper.Conditions
             if (!ValidateState())
                 return false;
 
-            string sourceValue = GetValueTraversalSourceValueA.GetValue(source);
-            string targetValue = GetValueTraversalSourceValueB.GetValue(source);
+            string valueA = GetValueTraversalSourceValueA.GetValue(source);
+            string valueB = GetValueTraversalSourceValueB.GetValue(source);
 
-            bool result = sourceValue.Equals(targetValue);
+            bool result = Compare(valueA, CompareOperator, valueB);
+            return result;
+        }
+
+        private static bool Compare(string valueA, CompareOperator compareOperator, string valueB)
+        {
+            bool result = false;
+
+            switch (compareOperator)
+            {
+                case CompareOperator.Equals:
+                    result = valueA.Equals(valueB);
+                    break;
+                case CompareOperator.NotEquals:
+                    result = !valueA.Equals(valueB);
+                    break;
+            }
+
             return result;
         }
 
