@@ -22,8 +22,8 @@ namespace AdaptableMapper.TDD.Cases.Conditions
 
             var condition = new CompareCondition(
                 new AdaptableMapper.Traversals.Xml.XmlGetValueTraversal("//SimpleItems/SimpleItem[@Id='1']/Name"),
-                new AdaptableMapper.Traversals.GetStaticValueTraversal(staticValue),
-                CompareOperator.Equals
+                CompareOperator.Equals,
+                new AdaptableMapper.Traversals.GetStaticValueTraversal(staticValue)
                 );
 
             condition.Validate(source).Should().Be(expectedResult, because);
@@ -39,8 +39,8 @@ namespace AdaptableMapper.TDD.Cases.Conditions
 
             var condition = new CompareCondition(
                 new AdaptableMapper.Traversals.Json.JsonGetValueTraversal(sourcePath),
-                new AdaptableMapper.Traversals.Json.JsonGetValueTraversal(targetPath),
-                compareOperator
+                compareOperator,
+                new AdaptableMapper.Traversals.Json.JsonGetValueTraversal(targetPath)
             );
 
             condition.Validate(source).Should().Be(expectedResult, because);
@@ -50,7 +50,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
         public void CompareConditionNulls()
         {
             var condition = new CompareCondition(
-                null, null, CompareOperator.Equals
+                null, CompareOperator.Equals, null
             );
 
             condition.Validate(1);
@@ -60,8 +60,8 @@ namespace AdaptableMapper.TDD.Cases.Conditions
         public void ListValueMutation()
         {
             var subject = new ListOfConditions();
-            subject.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), new GetStaticValueTraversal("0"), CompareOperator.Equals));
-            subject.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), new GetStaticValueTraversal("1"), CompareOperator.NotEquals));
+            subject.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.Equals, new GetStaticValueTraversal("0")));
+            subject.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.NotEquals, new GetStaticValueTraversal("1")));
 
             bool result = false;
             List<Information> information = new Action(() => { result = subject.Validate(string.Empty); }).Observe();
