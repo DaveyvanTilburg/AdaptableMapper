@@ -12,6 +12,7 @@
         InvalidSourceType = 7,
         AlternativeTestObject = 8,
         ValidAlternativeSource = 9,
-        Alternative2TestObject = 10
+        Alternative2TestObject = 10,
+        ValidSource = 11
     }
 }

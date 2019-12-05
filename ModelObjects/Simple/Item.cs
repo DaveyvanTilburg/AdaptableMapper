@@ -7,5 +7,6 @@ namespace ModelObjects.Simple
     {
         public List<Item> Items { get; set; } = new List<Item>();
         public string Code { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
     }
 }

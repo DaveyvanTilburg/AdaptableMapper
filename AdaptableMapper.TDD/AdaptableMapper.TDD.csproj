@@ -51,7 +51,6 @@
     <Compile Include="Cases\ValueMutations\ValueMutationsCases.cs" />
     <Compile Include="Cases\ValueMutations\NullFormatterCases.cs" />
     <Compile Include="Cases\XmlCases\XmlValueMutations.cs" />
-    <Compile Include="ConfigurationSaveAndLoad.cs" />
     <Compile Include="Cases\ContextType.cs" />
     <Compile Include="Cases\JsonCases\Json.cs" />
     <Compile Include="Cases\JsonCases\JsonConfiguration.cs" />
@@ -65,14 +64,9 @@
     <Compile Include="Cases\ModelCases\ModelConfiguration.cs" />
     <Compile Include="Cases\XmlCases\XmlTraversals.cs" />
     <Compile Include="ErrorObserverTester.cs" />
-    <Compile Include="JsonToXml.cs" />
     <Compile Include="ArmyModelSourceCreator.cs" />
-    <Compile Include="ModelToJson.cs" />
-    <Compile Include="ModelToXml.cs" />
     <Compile Include="TestErrorObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XmlToModel.cs" />
-    <Compile Include="XmlToXml.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentAssertions">

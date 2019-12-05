@@ -42,6 +42,9 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
                     result = Newtonsoft.Json.JsonConvert.SerializeObject(new ModelTargetInstantiatorSource());
                     break;
                 case ContextType.InvalidSourceType:
+                    result = Newtonsoft.Json.JsonConvert.SerializeObject(CreateModelTargetInstantiatorInvalidSource());
+                    break;
+                case ContextType.ValidSource:
                     result = Newtonsoft.Json.JsonConvert.SerializeObject(CreateModelTargetInstantiatorSource());
                     break;
             }
@@ -57,19 +60,33 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
                 {
                     new ModelObjects.Simple.Item
                     {
-                        Code = "1"
+                        Code = "1",
+                        Name = "Davey"
                     },
                     new ModelObjects.Simple.Item
                     {
-                        Code = "2"
+                        Code = "2",
+                        Name = "Joey"
                     }
                 }
             };
         }
 
-        public static ModelTargetInstantiatorSource CreateModelTargetInstantiatorSource()
+        public static ModelTargetInstantiatorSource CreateModelTargetInstantiatorInvalidSource()
         {
             var testType = typeof(ModelObjects.Simple.NoItem);
+            var testModel = new ModelTargetInstantiatorSource
+            {
+                AssemblyFullName = testType.Assembly.FullName,
+                TypeFullName = testType.FullName
+            };
+
+            return testModel;
+        }
+
+        public static ModelTargetInstantiatorSource CreateModelTargetInstantiatorSource()
+        {
+            var testType = typeof(ModelObjects.Simple.Item);
             var testModel = new ModelTargetInstantiatorSource
             {
                 AssemblyFullName = testType.Assembly.FullName,

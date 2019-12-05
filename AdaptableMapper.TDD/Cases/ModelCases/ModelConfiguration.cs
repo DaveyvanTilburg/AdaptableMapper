@@ -22,6 +22,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
 
         [Theory]
         [InlineData("InvalidType", ContextType.EmptyString, "", "e-MODEL#17;")]
+        [InlineData("Valid", ContextType.EmptyObject, "item")]
         public void ModelObjectConverter(string because, ContextType contextType, string createType, params string[] expectedErrors)
         {
             var subject = new ModelObjectConverter();
@@ -35,6 +36,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         [InlineData("InvalidSource", ContextType.InvalidSource, "", "e-MODEL#26;")]
         [InlineData("CannotInstantiateObject", ContextType.EmptySourceType, "", "e-MODEL#24;")]
         [InlineData("InstantiatedObjectIsNotOfTypeModelBase", ContextType.InvalidSourceType, "", "e-MODEL#31;")]
+        [InlineData("Valid", ContextType.ValidSource, "")]
         public void ModelTargetInstantiator(string because, ContextType contextType, string createType, params string[] expectedErrors)
         {
             var subject = new ModelTargetInstantiator();
@@ -67,7 +69,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         [Fact]
         public void StringToModelObjectConverterInvalidSourceStringDeserialize()
         {
-            ModelTargetInstantiatorSource testModel = Model.CreateModelTargetInstantiatorSource();
+            ModelTargetInstantiatorSource testModel = Model.CreateModelTargetInstantiatorInvalidSource();
             var subject = new StringToModelObjectConverter(testModel);
             List<Information> result = new Action(() => { subject.Convert("abcd"); }).Observe();
             result.ValidateResult(new List<string> { "e-MODEL#29;" });
@@ -76,7 +78,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         [Fact]
         public void StringToModelObjectConverterInvalidDeserializedType()
         {
-            ModelTargetInstantiatorSource testModel = Model.CreateModelTargetInstantiatorSource();
+            ModelTargetInstantiatorSource testModel = Model.CreateModelTargetInstantiatorInvalidSource();
             var subject = new StringToModelObjectConverter(testModel);
 
             string testSource = Newtonsoft.Json.JsonConvert.SerializeObject(testModel);

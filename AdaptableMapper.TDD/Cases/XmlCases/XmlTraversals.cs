@@ -35,7 +35,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("NoActualPathResult", "//SimpleItems/SimpleItem/SurName", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "w-XML#15;")]
         public void XmlGetSearchValueTraversal(string because, string path, string searchPath, ContextType contextType, params string[] expectedErrors)
         {
-            var subject = new XmlGetSearchValueTraversal(path, searchPath);
+            var subject = new XmlGetSearchValueTraversal(path, searchPath) { XmlInterpretation = XmlInterpretation.Default };
             object context = Xml.CreateTarget(contextType);
             List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
@@ -113,7 +113,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("ResultHasNoParent", "/", ContextType.TestObject, "e-XML#8;")]
         public void XmlGetTemplateTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
-            var subject = new XmlGetTemplateTraversal(path);
+            var subject = new XmlGetTemplateTraversal(path) { XmlInterpretation = XmlInterpretation.Default };
             object context = Xml.CreateTarget(contextType);
             List<Information> result = new Action(() => { subject.Get(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
