@@ -1,4 +1,8 @@
-0.14.0
+0.14.1
+ - Reorder XmlTraversal properties so they are in the same order
+ - Add ReplaceValueMutation
+ - Rename EqualsCondition properties to SourceValueA and SourceValueB
+ 0.14.0
  - Extend MappingScopeComposite with a slot for Condition
  - Added an EqualsCondition (if GetValueTraversal result equals another GetValueTraversal result, return true)
  - GetValueStaticTraversal (Hardcodes a value to get)
