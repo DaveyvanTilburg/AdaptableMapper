@@ -4,16 +4,16 @@ namespace AdaptableMapper.Conditions
 {
     public sealed class CompareCondition : Condition
     {
-        public GetValueTraversal GetValueTraversalSourceValueA { get; set; }
-        public GetValueTraversal GetValueTraversalSourceValueB { get; set; }
-        public CompareOperator CompareOperator { get; set; }
-
-        public CompareCondition(GetValueTraversal getValueTraversalSourceValueA, GetValueTraversal getValueTraversalSourceValueB, CompareOperator compareOperator)
+        public CompareCondition(GetValueTraversal getValueTraversalSourceValueA, CompareOperator compareOperator, GetValueTraversal getValueTraversalSourceValueB)
         {
             GetValueTraversalSourceValueA = getValueTraversalSourceValueA;
-            GetValueTraversalSourceValueB = getValueTraversalSourceValueB;
             CompareOperator = compareOperator;
+            GetValueTraversalSourceValueB = getValueTraversalSourceValueB;
         }
+
+        public GetValueTraversal GetValueTraversalSourceValueA { get; set; }
+        public CompareOperator CompareOperator { get; set; }
+        public GetValueTraversal GetValueTraversalSourceValueB { get; set; }
 
         public bool Validate(object source)
         {
