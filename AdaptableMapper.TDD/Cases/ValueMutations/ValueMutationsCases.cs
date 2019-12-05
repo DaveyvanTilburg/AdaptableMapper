@@ -130,7 +130,7 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
         [Theory]
         [InlineData("Valid", '|', 2, "value1|value2|value3", "value1|silver|value3")]
         [InlineData("No hit", '|', 4, "value1|value2|value3", "value1|value2|value3", "w-SplitByCharTakePositionStringTraversal#2;")]
-        public void DictionaryReplaceValueMutationTraversal(string because, char separator, int position, string value, string expectedResult, params string[] expectedInformation)
+        public void DictionaryReplaceValueMutationWithTraversal(string because, char separator, int position, string value, string expectedResult, params string[] expectedInformation)
         {
             var subject = new DictionaryReplaceValueMutation(
                 new Dictionary<string, string>
@@ -150,6 +150,32 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
             information.ValidateResult(new List<string>(expectedInformation), because);
 
             result.Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("Valid", '|', 2, "value1|value2|value3", "value2")]
+        [InlineData("No hit", '|', 4, "value1|value2|value3", "", "w-SplitByCharTakePositionStringTraversal#2;")]
+        public void SubstringValueMutation(string because, char separator, int position, string value, string expectedResult, params string[] expectedInformation)
+        {
+            var subject = new SubstringValueMutation
+            (
+                new SplitByCharTakePositionStringTraversal(separator, position)
+            );
+
+            string result = null;
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), value); }).Observe();
+
+            information.ValidateResult(new List<string>(expectedInformation), because);
+
+            result.Should().Be(expectedResult);
+        }
+
+        [Fact]
+        public void SubstringValueMutationNotSet()
+        {
+            var subject = new SubstringValueMutation(null);
+            List<Information> information = new Action(() => { subject.Mutate(new Context(null, null), ""); }).Observe();
+            information.ValidateResult(new List<string> { "e-SubstringValueMutation#1;" });
         }
 
         [Fact]

@@ -46,7 +46,8 @@
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
     <Compile Include="ValueMutations\DictionaryReplaceValueMutation.cs" />
-    <Compile Include="ValueMutations\Traversals\GetValueStringTraveral.cs" />
+    <Compile Include="ValueMutations\SubstringValueMutation.cs" />
+    <Compile Include="ValueMutations\Traversals\GetValueStringTraversal.cs" />
     <Compile Include="ValueMutations\Traversals\SplitByCharTakePositionStringTraversal.cs" />
     <Compile Include="ValueMutations\DateValueMutation.cs" />
     <Compile Include="ValueMutations\ListOfValueMutations.cs" />

@@ -6,10 +6,10 @@ namespace AdaptableMapper.ValueMutations
 {
     public class ReplaceValueMutation : ValueMutation
     {
-        public GetValueStringTraveral GetValueStringTraversal { get; set; }
+        public GetValueStringTraversal GetValueStringTraversal { get; set; }
         public GetValueTraversal GetValueTraversalNewValue { get; set; }
 
-        public ReplaceValueMutation(GetValueStringTraveral getValueStringTraversal, GetValueTraversal getValueTraversalNewValue)
+        public ReplaceValueMutation(GetValueStringTraversal getValueStringTraversal, GetValueTraversal getValueTraversalNewValue)
         {
             GetValueStringTraversal = getValueStringTraversal;
             GetValueTraversalNewValue = getValueTraversalNewValue;

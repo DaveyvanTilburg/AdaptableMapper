@@ -7,7 +7,7 @@ namespace AdaptableMapper.ValueMutations
 {
     public class DictionaryReplaceValueMutation : ValueMutation
     {
-        public GetValueStringTraveral GetValueStringTraversal { get; set; }
+        public GetValueStringTraversal GetValueStringTraversal { get; set; }
         public Dictionary<string, string> ReplaceValues { get; set; }
 
         public DictionaryReplaceValueMutation(Dictionary<string, string> replaceValues)

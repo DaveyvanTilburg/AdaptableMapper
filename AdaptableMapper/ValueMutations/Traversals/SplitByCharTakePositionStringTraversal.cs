@@ -1,6 +1,6 @@
 ﻿namespace AdaptableMapper.ValueMutations.Traversals
 {
-    public class SplitByCharTakePositionStringTraversal : GetValueStringTraveral
+    public class SplitByCharTakePositionStringTraversal : GetValueStringTraversal
     {
         public SplitByCharTakePositionStringTraversal(char separator, int position)
         {

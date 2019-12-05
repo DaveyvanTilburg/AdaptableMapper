@@ -4,13 +4,13 @@ namespace AdaptableMapper.Conditions
 {
     public class EqualsCondition : Condition
     {
-        public GetValueTraversal GetValueTraversalSource { get; set; }
-        public GetValueTraversal GetValueTraversalTarget { get; set; }
+        public GetValueTraversal GetValueTraversalSourceValueA { get; set; }
+        public GetValueTraversal GetValueTraversalSourceValueB { get; set; }
 
-        public EqualsCondition(GetValueTraversal getValueTraversalSource, GetValueTraversal getValueTraversalTarget)
+        public EqualsCondition(GetValueTraversal getValueTraversalSourceValueA, GetValueTraversal getValueTraversalSourceValueB)
         {
-            GetValueTraversalSource = getValueTraversalSource;
-            GetValueTraversalTarget = getValueTraversalTarget;
+            GetValueTraversalSourceValueA = getValueTraversalSourceValueA;
+            GetValueTraversalSourceValueB = getValueTraversalSourceValueB;
         }
 
         public bool Validate(object source)
@@ -18,8 +18,8 @@ namespace AdaptableMapper.Conditions
             if (!ValidateState())
                 return false;
 
-            string sourceValue = GetValueTraversalSource.GetValue(source);
-            string targetValue = GetValueTraversalTarget.GetValue(source);
+            string sourceValue = GetValueTraversalSourceValueA.GetValue(source);
+            string targetValue = GetValueTraversalSourceValueB.GetValue(source);
 
             bool result = sourceValue.Equals(targetValue);
             return result;
@@ -29,15 +29,15 @@ namespace AdaptableMapper.Conditions
         {
             bool result = true;
 
-            if (GetValueTraversalSource == null)
+            if (GetValueTraversalSourceValueA == null)
             {
-                Process.ProcessObservable.GetInstance().Raise($"EqualsCondition#1; {nameof(GetValueTraversalSource)} is null", "error");
+                Process.ProcessObservable.GetInstance().Raise($"EqualsCondition#1; {nameof(GetValueTraversalSourceValueA)} is null", "error");
                 result = false;
             }
 
-            if (GetValueTraversalTarget == null)
+            if (GetValueTraversalSourceValueB == null)
             {
-                Process.ProcessObservable.GetInstance().Raise($"EqualsCondition#2; {nameof(GetValueTraversalTarget)} is null", "error");
+                Process.ProcessObservable.GetInstance().Raise($"EqualsCondition#2; {nameof(GetValueTraversalSourceValueB)} is null", "error");
                 result = false;
             }
 

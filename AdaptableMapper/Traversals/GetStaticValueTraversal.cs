@@ -2,7 +2,7 @@
 
 namespace AdaptableMapper.Traversals
 {
-    public class GetStaticValueTraversal : GetValueTraversal, GetValueStringTraveral
+    public class GetStaticValueTraversal : GetValueTraversal, GetValueStringTraversal
     {
         public string Value { get; set; }
 
