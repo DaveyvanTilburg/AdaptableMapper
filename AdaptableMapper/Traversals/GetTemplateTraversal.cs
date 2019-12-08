@@ -2,6 +2,6 @@
 {
     public interface GetTemplateTraversal
     {
-        Template Get(object target);
+        Template GetTemplate(object target);
     }
 }

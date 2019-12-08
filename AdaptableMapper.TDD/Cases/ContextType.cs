@@ -13,6 +13,7 @@
         AlternativeTestObject = 8,
         ValidAlternativeSource = 9,
         Alternative2TestObject = 10,
-        ValidSource = 11
+        ValidSource = 11,
+        ValidParent = 12
     }
 }

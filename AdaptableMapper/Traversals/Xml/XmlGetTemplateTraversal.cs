@@ -13,7 +13,7 @@ namespace AdaptableMapper.Traversals.Xml
         public string Path { get; set; }
         public XmlInterpretation XmlInterpretation { get; set; }
 
-        public Template Get(object target)
+        public Template GetTemplate(object target)
         {
             if (!(target is XElement xElement))
             {

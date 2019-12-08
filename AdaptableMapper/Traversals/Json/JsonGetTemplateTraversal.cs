@@ -11,7 +11,7 @@ namespace AdaptableMapper.Traversals.Json
 
         public string Path { get; set; }
 
-        public Template Get(object target)
+        public Template GetTemplate(object target)
         {
             if (!(target is JToken jToken))
             {

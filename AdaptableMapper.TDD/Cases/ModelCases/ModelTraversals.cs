@@ -13,9 +13,10 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         [Theory]
         [InlineData("InvalidType", "", ContextType.EmptyString, "", "e-MODEL#12;")]
         [InlineData("EmptyPath", "", ContextType.EmptyObject, "item", "w-MODEL#7;")]
-        [InlineData("NodeIsNotAModelBase", "Items/Code/test", ContextType.TestObject, "", "e-MODEL#8;", "e-MODEL#8;")]
+        [InlineData("NodeIsNotAModelBase", "Items/Code/test", ContextType.TestObject, "item", "e-MODEL#8;", "e-MODEL#8;")]
         [InlineData("InvalidButAcceptedRoot", "/", ContextType.EmptyObject, "item", "w-MODEL#7;")]
-        [InlineData("InvalidEndNode", "Items/Code", ContextType.TestObject, "", "w-MODEL#2;", "w-MODEL#2;")]
+        [InlineData("InvalidEndNode", "Items/Code", ContextType.TestObject, "item", "w-MODEL#2;", "w-MODEL#2;")]
+        [InlineData("Valid", "Mixes{'PropertyName':'Code','Value':'1'}/Items", ContextType.TestObject, "deepmix")]
         public void ModelGetScopeTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
             var subject = new ModelGetScopeTraversal(path);
@@ -28,10 +29,10 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         [InlineData("InvalidType", "", "", ContextType.EmptyString, "", "", "e-MODEL#13;")]
         [InlineData("EmptySearchValuePath", "", "", ContextType.EmptyObject, "item", "", "e-MODEL#21;")]
         [InlineData("NoResultForSearchPath", "", "dummySearch", ContextType.EmptyObject, "item", "", "w-MODEL#9;", "w-MODEL#14;")] //Preferred cascade, 9 is extra info
-        [InlineData("NoResultForActualPath", "ab/cd", "Items{'PropertyName':'Code','Value':'1'}/Code", ContextType.TestObject, "", "", "w-MODEL#9;", "w-MODEL#15;")] //Preferred cascade, 9 is extra info
-        [InlineData("NoResultActualSearch", "ab/cd", "Items{'PropertyName':'Code','Value':'3'}/Code", ContextType.TestObject, "", "", "w-MODEL#4;")]
-        [InlineData("InvalidFilterMarkup", "ab/cd", "Items{'PropertyName':'Code','Value':'1'/Code", ContextType.TestObject, "", "", "w-MODEL#9;", "e-MODEL#32;")] //Preferred cascade, 9 is extra info
-        [InlineData("Valid", "Items{'PropertyName':'Code','Value':'{{searchValue}}'}/Name", "Items{'PropertyName':'Code','Value':'1'}/Code", ContextType.TestObject, "", "Davey")]
+        [InlineData("NoResultForActualPath", "ab/cd", "Items{'PropertyName':'Code','Value':'1'}/Code", ContextType.TestObject, "item", "", "w-MODEL#9;", "w-MODEL#15;")] //Preferred cascade, 9 is extra info
+        [InlineData("NoResultActualSearch", "ab/cd", "Items{'PropertyName':'Code','Value':'3'}/Code", ContextType.TestObject, "item", "", "w-MODEL#4;")]
+        [InlineData("InvalidFilterMarkup", "ab/cd", "Items{'PropertyName':'Code','Value':'1'/Code", ContextType.TestObject, "item", "", "w-MODEL#9;", "e-MODEL#32;")] //Preferred cascade, 9 is extra info
+        [InlineData("Valid", "Items{'PropertyName':'Code','Value':'{{searchValue}}'}/Name", "Items{'PropertyName':'Code','Value':'1'}/Code", ContextType.TestObject, "item", "Davey")]
         public void ModelGetSearchValueTraversal(string because, string path, string searchPath, ContextType contextType, string createType, string expectedValue, params string[] expectedErrors)
         {
             var subject = new ModelGetSearchValueTraversal(path, searchPath);
@@ -55,6 +56,17 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
             object context = Model.CreateTarget(contextType, createType);
             List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
+        }
+
+        [Fact]
+        public void ModelGetValueTraversalHasParent()
+        {
+            var subject = new ModelGetValueTraversal("../Items/Code");
+            object context = Model.CreateTarget(ContextType.TestObject, "item");
+            var subItem = ((ModelObjects.Simple.Item)context).Items[0];
+
+            List<Information> result = new Action(() => { subject.GetValue(subItem); }).Observe();
+            result.ValidateResult(new List<string>(), "HasParent");
         }
 
         [Theory]
@@ -86,7 +98,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         {
             var subject = new ModelGetTemplateTraversal(path);
             object context = Model.CreateTarget(contextType, createType);
-            List<Information> result = new Action(() => { subject.Get(context); }).Observe();
+            List<Information> result = new Action(() => { subject.GetTemplate(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
     }

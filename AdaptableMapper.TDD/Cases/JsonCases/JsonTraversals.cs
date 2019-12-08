@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals.Json;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace AdaptableMapper.TDD.Cases.JsonCases
@@ -39,6 +40,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         [InlineData("InvalidType", "", ContextType.EmptyString, "e-JSON#18;")]
         [InlineData("NoResults", "abcd", ContextType.EmptyObject, "w-JSON#30;")]
         [InlineData("InvalidPath", "[]", ContextType.EmptyObject, "e-JSON#29;")]
+        [InlineData("Valid", "$.SimpleItems[0].SurName", ContextType.TestObject)]
         public void JsonSetValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonSetValueTraversal(path);
@@ -59,8 +61,6 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-
-
         [Theory]
         [InlineData("InvalidType", "", ContextType.EmptyString, "e-JSON#23;")]
         [InlineData("NoParentCheck", "$", ContextType.EmptyObject, "e-JSON#9;")]
@@ -68,12 +68,25 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         [InlineData("InvalidParentPath", "ab/cd", ContextType.EmptyObject, "e-JSON#15;", "w-JSON#24;")] //Preferred cascade, the error is an extra notification of something wrong with the path
         [InlineData("NoParent", "../", ContextType.EmptyObject, "w-JSON#24;")]
         [InlineData("InvalidCharacters", "[]", ContextType.EmptyObject, "e-JSON#28;", "w-JSON#24;")] //Preferred cascade, the error is an extra notification of something wrong with the path
+        [InlineData("Valid", "$.SimpleItems[0]", ContextType.TestObject)]
         public void JsonGetTemplateTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonGetTemplateTraversal(path);
             object context = Json.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.Get(context); }).Observe();
+            List<Information> result = new Action(() => { subject.GetTemplate(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
+        }
+
+        [Fact]
+        public void DoubleParentTraversal()
+        {
+            object context = Json.CreateTarget(ContextType.TestObject);
+            JToken traversedContext = ((JToken)context).SelectToken("$.SimpleItems[0]");
+
+            var subject = new JsonGetTemplateTraversal("../../");
+            
+            List<Information> result = new Action(() => { subject.GetTemplate(traversedContext); }).Observe();
+            result.ValidateResult(new List<string>(), "DoubleParent");
         }
     }
 }

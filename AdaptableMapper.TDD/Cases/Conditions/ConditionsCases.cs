@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using AdaptableMapper.Conditions;
+using AdaptableMapper.Configuration;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals;
 using FluentAssertions;
+using Moq;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
@@ -13,6 +15,38 @@ namespace AdaptableMapper.TDD.Cases.Conditions
 {
     public class ConditionsCases
     {
+        [Fact]
+        public void IntegrationTest()
+        {
+            var condition = new Mock<Condition>();
+            condition.SetupSequence(c => c.Validate(It.IsAny<object>()))
+                .Returns(false)
+                .Returns(false)
+                .Returns(true);
+
+            var getScopeTraversal = new Mock<GetScopeTraversal>();
+            getScopeTraversal
+                .Setup(g => g.GetScope(It.IsAny<object>()))
+                .Returns(new List<object> { 1, 2, 3 });
+
+            var getTemplateTraversal = new Mock<GetTemplateTraversal>();
+            var childCreator = new Mock<ChildCreator>();
+
+            var subject = new MappingScopeComposite(
+                new List<MappingScopeComposite>() { new MappingScopeComposite(null, null, null, null, null) },
+                new List<Mapping>() { new Mapping(null, null) },
+                getScopeTraversal.Object,
+                getTemplateTraversal.Object,
+                childCreator.Object)
+            {
+                Condition = condition.Object
+            };
+
+            subject.Traverse(new Context(null, null));
+
+            childCreator.Verify(c => c.CreateChild(It.IsAny<Template>()), Times.Once);
+        }
+
         [Theory]
         [InlineData("EqualsValid", "Davey", true)]
         [InlineData("EqualsInvalid", "Joey", false)]
@@ -23,7 +57,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
             var condition = new CompareCondition(
                 new AdaptableMapper.Traversals.Xml.XmlGetValueTraversal("//SimpleItems/SimpleItem[@Id='1']/Name"),
                 CompareOperator.Equals,
-                new AdaptableMapper.Traversals.GetStaticValueTraversal(staticValue)
+                new GetStaticValueTraversal(staticValue)
                 );
 
             condition.Validate(source).Should().Be(expectedResult, because);

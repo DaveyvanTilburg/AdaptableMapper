@@ -28,6 +28,12 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
                 case ContextType.InvalidSource:
                     result = "abcd";
                     break;
+                case ContextType.ValidParent:
+                    result = CreateTestData().SelectToken("$.SimpleItems");
+                    break;
+                case ContextType.ValidSource:
+                    result = System.IO.File.ReadAllText("./Resources/Simple.json");
+                    break;
             }
 
             return result;

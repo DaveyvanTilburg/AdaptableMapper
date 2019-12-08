@@ -21,36 +21,57 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("NoResults", "abcd", ContextType.EmptyObject, "w-XML#5;")]
         public void XmlGetScopeTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
-            var subject = new XmlGetScopeTraversal(path);
+            var subject = new XmlGetScopeTraversal(path) { XmlInterpretation = XmlInterpretation.Default };
             object context = Xml.CreateTarget(contextType);
             List<Information> result = new Action(() => { subject.GetScope(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
         [Theory]
-        [InlineData("InvalidType", "", "", ContextType.EmptyString, "e-XML#13;")]
-        [InlineData("EmptySearchPath", "", "", ContextType.EmptyObject, "e-XML#25;")]
-        [InlineData("InvalidSearchPath", "", "abcd", ContextType.EmptyObject, "w-XML#30;")]
-        [InlineData("EmptySearchPathValueResult", "", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, "w-XML#14;")]
-        [InlineData("NoActualPathResult", "//SimpleItems/SimpleItem/SurName", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "w-XML#15;")]
-        public void XmlGetSearchValueTraversal(string because, string path, string searchPath, ContextType contextType, params string[] expectedErrors)
+        [InlineData("InvalidType", "", "", ContextType.EmptyString, "", "e-XML#13;")]
+        [InlineData("EmptySearchPath", "", "", ContextType.EmptyObject, "", "e-XML#25;")]
+        [InlineData("InvalidSearchPath", "", "abcd", ContextType.EmptyObject, "", "w-XML#30;")]
+        [InlineData("EmptySearchPathValueResult", "", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, "", "w-XML#14;")]
+        [InlineData("NoActualPathResult", "//SimpleItems/SimpleItem/SurName", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "", "w-XML#15;")]
+        [InlineData("Valid", "//SimpleItems/SimpleItem/Name", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "Davey")]
+        public void XmlGetSearchValueTraversal(string because, string path, string searchPath, ContextType contextType, string expectedValue, params string[] expectedErrors)
         {
             var subject = new XmlGetSearchValueTraversal(path, searchPath) { XmlInterpretation = XmlInterpretation.Default };
             object context = Xml.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
+
+            string value = string.Empty;
+            List<Information> result = new Action(() => { value = subject.GetValue(context); }).Observe();
+            
             result.ValidateResult(new List<string>(expectedErrors), because);
+            if (expectedErrors.Length == 0)
+                value.Should().BeEquivalentTo(expectedValue);
         }
 
-        [Theory]
-        [InlineData("InvalidType", ContextType.EmptyString, "e-XML#16;")]
-        public void XmlGetThisValueTraversal(string because, ContextType contextType, params string[] expectedErrors)
+        [Fact]
+        public void XmlGetThisValueTraversalInvalidType()
         {
             var subject = new XmlGetThisValueTraversal();
-            object context = Xml.CreateTarget(contextType);
+            object context = Xml.CreateTarget(ContextType.EmptyString);
             List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
-            result.ValidateResult(new List<string>(expectedErrors), because);
+            result.ValidateResult(new List<string> { "e-XML#16;" }, "InvalidType");
         }
-        
+
+        [Fact]
+        public void XmlGetThisValueTraversalValid()
+        {
+            var subject = new XmlGetThisValueTraversal();
+            object context = Xml.CreateTarget(ContextType.TestObject);
+
+            var traversal = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem[@Id='1']/Name");
+            AdaptableMapper.Traversals.Template name = traversal.GetTemplate(context);
+
+            string value = string.Empty;
+            List<Information> result = new Action(() => { value = subject.GetValue(name.Child); }).Observe();
+            result.ValidateResult(new List<string>(), "Valid");
+
+            value.Should().BeEquivalentTo("Davey");
+        }
+
         [Theory]
         [InlineData("InvalidType", "", ContextType.EmptyString, XmlInterpretation.Default, "", "e-XML#17;")]
         [InlineData("InvalidPath", "::", ContextType.EmptyObject, XmlInterpretation.Default, "", "e-XML#29;")]
@@ -74,14 +95,32 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
                 value.Should().Be(expectedValue);
         }
 
-        [Theory]
-        [InlineData("InvalidType", ContextType.EmptyString, "e-XML#20;")]
-        public void XmlSetThisValueTraversal(string because, ContextType contextType, params string[] expectedErrors)
+        [Fact]
+        public void XmlSetThisValueTraversal()
         {
             var subject = new XmlSetThisValueTraversal();
-            var context = new Context(null, Xml.CreateTarget(contextType));
+            var context = new Context(null, Xml.CreateTarget(ContextType.EmptyString));
             List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
-            result.ValidateResult(new List<string>(expectedErrors), because);
+            result.ValidateResult(new List<string> { "e-XML#20;" }, "InvalidType");
+        }
+
+        [Fact]
+        public void XmlSetThisValueTraversalValid()
+        {
+            var subject = new XmlSetThisValueTraversal();
+            object context = Xml.CreateTarget(ContextType.TestObject);
+
+            var traversal = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem[@Id='1']/Name");
+            AdaptableMapper.Traversals.Template name = traversal.GetTemplate(context);
+
+            var setContext = new Context(null, name.Child);
+
+            List<Information> result = new Action(() => { subject.SetValue(setContext, "Test"); }).Observe();
+            result.ValidateResult(new List<string>(), "Valid");
+
+            string value = new XmlGetThisValueTraversal().GetValue(setContext.Target);
+
+            value.Should().BeEquivalentTo("Test");
         }
 
         [Theory]
@@ -105,17 +144,29 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             }
         }
 
+        [Fact]
+        public void XmlSetValueTraversalOnAttributes()
+        {
+            var subject = new XmlSetValueTraversal("//SimpleItems/SimpleItem/@Id") { XmlInterpretation = XmlInterpretation.Default };
+            var context = new Context(null, Xml.CreateTarget(ContextType.TestObject));
+
+            List<Information> result = new Action(() => { subject.SetValue(context, "3"); }).Observe();
+
+            string value = new XmlGetValueTraversal("//SimpleItems/SimpleItem[@Id='3']/Name").GetValue(context.Target);
+            value.Should().BeEquivalentTo("Davey");
+        }
+
         [Theory]
         [InlineData("InvalidType", "", ContextType.EmptyString, "e-XML#23;")]
         [InlineData("InvalidPath", "::", ContextType.EmptyObject, "e-XML#27;")]
         [InlineData("NoResult", "abcd", ContextType.EmptyObject, "w-XML#2;")]
-        [InlineData("NoResult", "//SimpleItems/SimpleItem/Name", ContextType.TestObject, "w-XML#3;")]
+        [InlineData("test", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "w-XML#3;")]
         [InlineData("ResultHasNoParent", "/", ContextType.TestObject, "e-XML#8;")]
         public void XmlGetTemplateTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlGetTemplateTraversal(path) { XmlInterpretation = XmlInterpretation.Default };
             object context = Xml.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.Get(context); }).Observe();
+            List<Information> result = new Action(() => { subject.GetTemplate(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 

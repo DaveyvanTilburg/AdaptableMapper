@@ -30,7 +30,15 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
                     
                     break;
                 case ContextType.TestObject:
-                    result = CreateTestItem();
+                    switch (type)
+                    {
+                        case "item":
+                            result = CreateTestItem();
+                            break;
+                        case "deepmix":
+                            result = CreateTestDeepMix();
+                            break;
+                    }
                     break;
                 case ContextType.InvalidType:
                     result = 0;
@@ -54,22 +62,51 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
 
         private static ModelObjects.Simple.Item CreateTestItem()
         {
-            return new ModelObjects.Simple.Item
+            var result = new ModelObjects.Simple.Item();
+
+            result.Items = new AdaptableMapper.Model.ModelList<ModelObjects.Simple.Item>(result)
             {
-                Items = new List<ModelObjects.Simple.Item>
+                new ModelObjects.Simple.Item
                 {
-                    new ModelObjects.Simple.Item
-                    {
-                        Code = "1",
-                        Name = "Davey"
-                    },
-                    new ModelObjects.Simple.Item
-                    {
-                        Code = "2",
-                        Name = "Joey"
-                    }
+                    Code = "1",
+                    Name = "Davey"
+                },
+                new ModelObjects.Simple.Item
+                {
+                    Code = "2",
+                    Name = "Joey"
                 }
             };
+
+            return result;
+        }
+
+        private static ModelObjects.Simple.DeepMix CreateTestDeepMix()
+        {
+            var result = new ModelObjects.Simple.DeepMix();
+            var mixes = new AdaptableMapper.Model.ModelList<ModelObjects.Simple.Mix>(result);
+            result.Mixes = mixes;
+
+            var mix = new ModelObjects.Simple.Mix()
+            {
+                Code = "1"
+            };
+
+            var mix2 = new ModelObjects.Simple.Mix()
+            {
+                Code = "2"
+            };
+
+            mix.Items = new AdaptableMapper.Model.ModelList<ModelObjects.Simple.Item>(mix)
+            {
+                new ModelObjects.Simple.Item(),
+                new ModelObjects.Simple.Item()
+            };
+
+            mixes.Add(mix);
+            mixes.Add(mix2);
+
+            return result;
         }
 
         public static ModelTargetInstantiatorSource CreateModelTargetInstantiatorInvalidSource()

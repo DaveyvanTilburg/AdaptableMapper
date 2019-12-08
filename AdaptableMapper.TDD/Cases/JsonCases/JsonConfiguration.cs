@@ -10,13 +10,15 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
     public class JsonConfiguration
     {
         [Theory]
-        [InlineData("InvalidTypeParent", ContextType.EmptyString, "e-JSON#1;")]
-        [InlineData("InvalidType", ContextType.InvalidObject, "e-JSON#2;")]
-        public void JsonChildCreator(string because, ContextType contextType, params string[] expectedErrors)
+        [InlineData("InvalidTypeParent", ContextType.EmptyString, ContextType.EmptyString, "e-JSON#1;")]
+        [InlineData("InvalidType", ContextType.InvalidObject, ContextType.EmptyString, "e-JSON#2;")]
+        [InlineData("Valid", ContextType.ValidParent, ContextType.TestObject)]
+        public void JsonChildCreator(string because, ContextType parentType, ContextType childType, params string[] expectedErrors)
         {
             var subject = new JsonChildCreator();
-            object context = Json.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = context, Child = string.Empty }); }).Observe();
+            object parent = Json.CreateTarget(parentType);
+            object child = Json.CreateTarget(childType);
+            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = parent, Child = child }); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
@@ -34,6 +36,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         [Theory]
         [InlineData("InvalidType", ContextType.InvalidType, "e-JSON#26;")]
         [InlineData("InvalidSource", ContextType.InvalidSource, "e-JSON#20;")]
+        [InlineData("ValidSource", ContextType.ValidSource)]
         public void JsonTargetInstantiatorInvalidType(string because, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonTargetInstantiator();

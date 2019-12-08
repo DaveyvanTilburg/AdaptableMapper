@@ -36,7 +36,7 @@ namespace AdaptableMapper.Configuration
 
             IEnumerable<object> scope = GetScopeTraversal.GetScope(context.Source);
 
-            Template template = GetTemplateTraversal.Get(context.Target);
+            Template template = GetTemplateTraversal.GetTemplate(context.Target);
 
             foreach (object item in scope)
             {
