@@ -33,26 +33,13 @@ Completed plans:
  * Extend MappingScopeComposite with a slot for Condition
  * GetValueStaticTraversal (Softcodes a value to get)
  * Add DictionaryReplaceValueMutation (Softcodes a list of values to replace in a value)
-
+ 
+!!! i think something went wrong with a change in the completed plans that did not get pushed !!!
 Current plans:
  
  
 Future plans:
- * Introduce new module : Conditions
-    * FirstNotEmptyCondition (abstract generic implementation, if Condition, invoke A else B. A and B or of generic type)
-    * XXXGetValueFirstNotEmptyCondition (implements FirstNotEmptyCondition for type GetValue)
-
-    * NotEqualsCondition (GetValue != GetValue)
-    * NotEmptyCondition (GetValue != string.empty)
-    * IfElseCondition (implements condition, If condition is true, do A, else B)
-    * IfOrCondition (implements condition, If 'if' or 'or' is true, return true)
-    * ListOfConditions (List of condition)
-	
-    * XXXIfAnyInPathCondition (has a path, if path results in any hits returns true)
-	
- * GetScopeStayHere
- * GetTemplateStayHere
- 
+ * A way to map to the same path in target multiple times
  * Refactor test suite
 
 ### All release notes
