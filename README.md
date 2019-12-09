@@ -40,6 +40,7 @@ Current plans:
  
 Future plans:
  * A way to map to the same path in target multiple times
+ * Add condition that result should not be an empty string
  * Refactor test suite
 
 ### All release notes
