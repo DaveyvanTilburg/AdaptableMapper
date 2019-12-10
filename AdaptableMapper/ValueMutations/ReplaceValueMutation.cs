@@ -7,12 +7,12 @@ namespace AdaptableMapper.ValueMutations
     public sealed class ReplaceValueMutation : ValueMutation
     {
         public GetValueStringTraversal GetValueStringTraversal { get; set; }
-        public GetValueTraversal GetValueTraversalNewValue { get; set; }
+        public GetValueTraversal GetValueTraversal { get; set; }
 
-        public ReplaceValueMutation(GetValueStringTraversal getValueStringTraversal, GetValueTraversal getValueTraversalNewValue)
+        public ReplaceValueMutation(GetValueStringTraversal getValueStringTraversal, GetValueTraversal getValueTraversal)
         {
             GetValueStringTraversal = getValueStringTraversal;
-            GetValueTraversalNewValue = getValueTraversalNewValue;
+            GetValueTraversal = getValueTraversal;
         }
 
         public string Mutate(Context context, string value)
@@ -27,7 +27,7 @@ namespace AdaptableMapper.ValueMutations
             if (string.IsNullOrEmpty(valueToReplace))
                 return value;
 
-            string newValue = GetValueTraversalNewValue.GetValue(context.Source);
+            string newValue = GetValueTraversal.GetValue(context.Source);
             if (string.IsNullOrEmpty(newValue))
                 return value;
 
