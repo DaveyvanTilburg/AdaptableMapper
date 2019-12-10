@@ -21,6 +21,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
     </dependencies>
     <releaseNotes>0.16.0
 - Order properties of CompareCondition to form an comparison
+- ReplaceValueMutation property renamed
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
