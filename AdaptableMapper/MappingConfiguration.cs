@@ -9,12 +9,15 @@ namespace AdaptableMapper
         public ResultObjectConverter ResultObjectConverter { get; set; }
 
         public List<MappingScopeComposite> MappingScopeComposites { get; set; }
-        public List<Mapping> Mappings { get;set; }
+        public List<Mapping> Mappings { get; set; }
+
+        private readonly TemplateCache _templateCache;
 
         public MappingConfiguration()
         {
             Mappings = new List<Mapping>();
             MappingScopeComposites = new List<MappingScopeComposite>();
+            _templateCache = new TemplateCache();
         }
 
         public MappingConfiguration(List<MappingScopeComposite> mappingScopeComposites, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
@@ -56,7 +59,7 @@ namespace AdaptableMapper
                 mapping.Map(context);
 
             foreach (MappingScopeComposite mappingScopeComposite in MappingScopeComposites)
-                mappingScopeComposite.Traverse(context);
+                mappingScopeComposite.Traverse(context, _templateCache);
 
             object result = ResultObjectConverter.Convert(context.Target);
             return result;
@@ -68,7 +71,7 @@ namespace AdaptableMapper
 
             if (ContextFactory == null)
             {
-                Process.ProcessObservable.GetInstance().Raise("TREE#2; ContextFactory cannot be null", "error"); 
+                Process.ProcessObservable.GetInstance().Raise("TREE#2; ContextFactory cannot be null", "error");
                 result = false;
             }
 
@@ -80,7 +83,7 @@ namespace AdaptableMapper
 
             if (ResultObjectConverter == null)
             {
-                Process.ProcessObservable.GetInstance().Raise("TREE#6; ObjectConverter cannot be null", "error"); 
+                Process.ProcessObservable.GetInstance().Raise("TREE#6; ObjectConverter cannot be null", "error");
                 result = false;
             }
 

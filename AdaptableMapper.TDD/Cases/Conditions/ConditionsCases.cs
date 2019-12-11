@@ -42,7 +42,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
                 Condition = condition.Object
             };
 
-            subject.Traverse(new Context(null, null));
+            subject.Traverse(new Context(null, null), new TemplateCache());
 
             childCreator.Verify(c => c.CreateChild(It.IsAny<Template>()), Times.Once);
         }

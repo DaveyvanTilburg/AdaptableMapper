@@ -46,12 +46,6 @@ namespace AdaptableMapper.Traversals.Xml
                 return NullElement.Create();
             }
 
-            if(allMatches.Count > 1)
-            {
-                Process.ProcessObservable.GetInstance().Raise("XML#3; Path has multiple of the same node, when only one is expected", "warning", xPath);
-                return NullElement.Create();
-            }
-
             if(!(allMatches.First() is XElement result))
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#8; Path did not end in an element", "error", xPath);

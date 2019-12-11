@@ -73,7 +73,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         {
             var subject = new JsonGetTemplateTraversal(path);
             object context = Json.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.GetTemplate(context); }).Observe();
+            List<Information> result = new Action(() => { subject.GetTemplate(context, new TemplateCache()); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
@@ -85,7 +85,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
 
             var subject = new JsonGetTemplateTraversal("../../");
             
-            List<Information> result = new Action(() => { subject.GetTemplate(traversedContext); }).Observe();
+            List<Information> result = new Action(() => { subject.GetTemplate(traversedContext, new TemplateCache()); }).Observe();
             result.ValidateResult(new List<string>(), "DoubleParent");
         }
     }

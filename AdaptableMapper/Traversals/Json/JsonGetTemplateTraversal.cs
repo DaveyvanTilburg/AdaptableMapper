@@ -11,7 +11,7 @@ namespace AdaptableMapper.Traversals.Json
 
         public string Path { get; set; }
 
-        public Template GetTemplate(object target)
+        public Template GetTemplate(object target, TemplateCache templateCache)
         {
             if (!(target is JToken jToken))
             {
@@ -26,19 +26,32 @@ namespace AdaptableMapper.Traversals.Json
                 return CreateNullTemplate();
             }
 
-            if(result.Parent == null)
+            if (result.Parent == null)
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#9; Path resulted in an item that has no parent", "error", Path, target);
                 return CreateNullTemplate();
             }
 
-            var template = new Template 
+            var template = new Template
             {
-                Parent = result.Parent, 
-                Child = result
+                Parent = result.Parent
             };
 
-            result.Remove();
+            bool hasAccessed = templateCache.HasAccessed(Path, target);
+            object storedTemplate = templateCache.GetTemplate(Path, target);
+            if (storedTemplate == null)
+            {
+                templateCache.SetTemplate(Path, result);
+                result.Remove();
+
+                storedTemplate = result;
+            }
+            else if (!hasAccessed)
+            {
+                result.Remove();
+            }
+
+            template.Child = storedTemplate;
 
             return template;
         }

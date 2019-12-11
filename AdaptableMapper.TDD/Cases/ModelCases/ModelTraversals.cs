@@ -98,7 +98,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         {
             var subject = new ModelGetTemplateTraversal(path);
             object context = Model.CreateTarget(contextType, createType);
-            List<Information> result = new Action(() => { subject.GetTemplate(context); }).Observe();
+            List<Information> result = new Action(() => { subject.GetTemplate(context, new TemplateCache()); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
     }

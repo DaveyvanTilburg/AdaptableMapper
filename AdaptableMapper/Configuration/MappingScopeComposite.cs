@@ -16,10 +16,10 @@ namespace AdaptableMapper.Configuration
         public ChildCreator ChildCreator { get; set; }
 
         public MappingScopeComposite(
-            List<MappingScopeComposite> mappingScopeComposites, 
-            List<Mapping> mappings, 
-            GetScopeTraversal getScopeTraversal, 
-            GetTemplateTraversal getTemplateTraversal, 
+            List<MappingScopeComposite> mappingScopeComposites,
+            List<Mapping> mappings,
+            GetScopeTraversal getScopeTraversal,
+            GetTemplateTraversal getTemplateTraversal,
             ChildCreator childCreator)
         {
             MappingScopeComposites = mappingScopeComposites;
@@ -29,14 +29,14 @@ namespace AdaptableMapper.Configuration
             ChildCreator = childCreator;
         }
 
-        public void Traverse(Context context)
+        public void Traverse(Context context, TemplateCache templateCache)
         {
             if (!Validate())
                 return;
 
             IEnumerable<object> scope = GetScopeTraversal.GetScope(context.Source);
 
-            Template template = GetTemplateTraversal.GetTemplate(context.Target);
+            Template template = GetTemplateTraversal.GetTemplate(context.Target, templateCache);
 
             foreach (object item in scope)
             {
@@ -45,8 +45,8 @@ namespace AdaptableMapper.Configuration
 
                 object newChild = ChildCreator.CreateChild(template);
 
-                Context childContext = new Context(source:item, target:newChild);
-                TraverseChild(childContext);
+                Context childContext = new Context(source: item, target: newChild);
+                TraverseChild(childContext, templateCache);
             }
         }
 
@@ -75,13 +75,13 @@ namespace AdaptableMapper.Configuration
             return result;
         }
 
-        private void TraverseChild(Context context)
+        private void TraverseChild(Context context, TemplateCache templateCache)
         {
-            foreach(Mapping mapping in Mappings)
+            foreach (Mapping mapping in Mappings)
                 mapping.Map(context);
 
-            foreach(MappingScopeComposite mappingScopeComposite in MappingScopeComposites)
-                mappingScopeComposite.Traverse(context);
+            foreach (MappingScopeComposite mappingScopeComposite in MappingScopeComposites)
+                mappingScopeComposite.Traverse(context, templateCache);
         }
     }
 }

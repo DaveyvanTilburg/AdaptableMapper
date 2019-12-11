@@ -13,7 +13,7 @@ namespace AdaptableMapper.Traversals.Xml
         public string Path { get; set; }
         public XmlInterpretation XmlInterpretation { get; set; }
 
-        public Template GetTemplate(object target)
+        public Template GetTemplate(object target, TemplateCache templateCache)
         {
             if (!(target is XElement xElement))
             {
@@ -27,11 +27,25 @@ namespace AdaptableMapper.Traversals.Xml
 
             var template = new Template
             {
-                Parent = result.Parent,
-                Child = result
+                Parent = result.Parent
             };
 
-            result.Remove();
+            bool hasAccessed = templateCache.HasAccessed(Path, target);
+            object storedTemplate = templateCache.GetTemplate(Path, target);
+
+            if (storedTemplate == null)
+            {
+                templateCache.SetTemplate(Path, result);
+                result.Remove();
+
+                storedTemplate = result;
+            }
+            else if(!hasAccessed)
+            {
+                result.Remove();
+            }
+
+            template.Child = storedTemplate;
 
             return template;
         }

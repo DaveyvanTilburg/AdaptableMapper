@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<School>
+  <People>
+    <Person>abc</Person>
+    <Person>def</Person>
+    <Person>123</Person>
+    <Person>456</Person>
+  </People>
+</School>

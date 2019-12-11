@@ -47,6 +47,7 @@
     <Compile Include="Conditions\ListOfConditions.cs" />
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
+    <Compile Include="TemplateCache.cs" />
     <Compile Include="ValueMutations\DictionaryReplaceValueMutation.cs" />
     <Compile Include="ValueMutations\SubstringValueMutation.cs" />
     <Compile Include="ValueMutations\Traversals\GetValueStringTraversal.cs" />

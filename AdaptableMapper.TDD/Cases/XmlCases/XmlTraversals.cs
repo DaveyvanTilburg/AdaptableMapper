@@ -63,7 +63,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             object context = Xml.CreateTarget(ContextType.TestObject);
 
             var traversal = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem[@Id='1']/Name");
-            AdaptableMapper.Traversals.Template name = traversal.GetTemplate(context);
+            AdaptableMapper.Traversals.Template name = traversal.GetTemplate(context, new TemplateCache());
 
             string value = string.Empty;
             List<Information> result = new Action(() => { value = subject.GetValue(name.Child); }).Observe();
@@ -111,7 +111,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             object context = Xml.CreateTarget(ContextType.TestObject);
 
             var traversal = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem[@Id='1']/Name");
-            AdaptableMapper.Traversals.Template name = traversal.GetTemplate(context);
+            AdaptableMapper.Traversals.Template name = traversal.GetTemplate(context, new TemplateCache());
 
             var setContext = new Context(null, name.Child);
 
@@ -160,17 +160,64 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("InvalidType", "", ContextType.EmptyString, "e-XML#23;")]
         [InlineData("InvalidPath", "::", ContextType.EmptyObject, "e-XML#27;")]
         [InlineData("NoResult", "abcd", ContextType.EmptyObject, "w-XML#2;")]
-        [InlineData("test", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "w-XML#3;")]
+        [InlineData("test", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "e-XML#8;")]
         [InlineData("ResultHasNoParent", "/", ContextType.TestObject, "e-XML#8;")]
         public void XmlGetTemplateTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlGetTemplateTraversal(path) { XmlInterpretation = XmlInterpretation.Default };
             object context = Xml.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.GetTemplate(context); }).Observe();
+            List<Information> result = new Action(() => { subject.GetTemplate(context, new TemplateCache()); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
 
+
+        [Fact]
+        public void MultipleScopes()
+        {
+            var mappingConfiguration = new MappingConfiguration(
+                new List<MappingScopeComposite>
+                {
+                    new MappingScopeComposite(
+                        new List<MappingScopeComposite>(),
+                        new List<Mapping>
+                        {
+                            new Mapping(
+                                new XmlGetThisValueTraversal(),
+                                new XmlSetThisValueTraversal()
+                            )
+                        },
+                        new XmlGetScopeTraversal("./Teachers/Teacher"),
+                        new XmlGetTemplateTraversal("./People/Person"),
+                        new XmlChildCreator()),
+                    new MappingScopeComposite(
+                        new List<MappingScopeComposite>(),
+                        new List<Mapping>
+                        {
+                            new Mapping(
+                                new XmlGetThisValueTraversal(),
+                                new XmlSetThisValueTraversal()
+                            )
+                        },
+                        new XmlGetScopeTraversal("./Students/Student"),
+                        new XmlGetTemplateTraversal("./People/Person"),
+                        new XmlChildCreator())
+                },
+                new ContextFactory(
+                    new XmlObjectConverter(),
+                    new XmlTargetInstantiator()
+                ),
+                new XElementToStringObjectConverter()
+            );
+
+            string source = System.IO.File.ReadAllText("./Resources/MultipleScopesSource.xml");
+            string template = System.IO.File.ReadAllText("./Resources/MultipleScopesTemplate.xml");
+            string expectedResult = System.IO.File.ReadAllText("./Resources/MultipleScopesExpectedResult.xml");
+
+            string result = mappingConfiguration.Map(source, template) as string;
+
+            result.Should().BeEquivalentTo(expectedResult);
+        }
 
         [Fact]
         public void ComplexImplementation()

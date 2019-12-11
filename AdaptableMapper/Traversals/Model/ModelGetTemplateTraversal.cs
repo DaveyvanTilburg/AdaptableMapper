@@ -13,15 +13,15 @@ namespace AdaptableMapper.Traversals.Model
 
         public string Path { get; set; }
 
-        public Template GetTemplate(object target)
+        public Template GetTemplate(object target, TemplateCache templateCache)
         {
             if (!(target is ModelBase model))
             {
                 Process.ProcessObservable.GetInstance().Raise("MODEL#22; target is not of expected type Model", "error", Path, target);
-                return new Template 
-                { 
-                    Parent = new NullModel(), 
-                    Child = new List<NullModel>() 
+                return new Template
+                {
+                    Parent = new NullModel(),
+                    Child = new List<NullModel>()
                 };
             }
 
