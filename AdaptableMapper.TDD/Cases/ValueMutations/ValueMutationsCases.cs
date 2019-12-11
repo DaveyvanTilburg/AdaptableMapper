@@ -92,7 +92,7 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
         public void ReplaceValueMutation(string because, string valueToReplace, string newValue, string value, string expectedResult, params string[] expectedInformation)
         {
             var subject = new ReplaceValueMutation(
-                new GetStaticValueTraversal(valueToReplace), 
+                new GetStaticValueTraversal(valueToReplace),
                 new GetStaticValueTraversal(newValue)
             );
 
@@ -112,10 +112,18 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
         public void DictionaryReplaceValueMutation(string because, string value, string expectedResult, params string[] expectedInformation)
         {
             var subject = new DictionaryReplaceValueMutation(
-                new Dictionary<string, string>
+                new List<DictionaryReplaceValueMutation.ReplaceValue>
                 {
-                    ["an old"] = "a new",
-                    ["luxery"] = "hard work"
+                    new DictionaryReplaceValueMutation.ReplaceValue
+                    {
+                        ValueToReplace = "an old",
+                        NewValue = "a new"
+                    },
+                    new DictionaryReplaceValueMutation.ReplaceValue
+                    {
+                        ValueToReplace = "luxery",
+                        NewValue = "hard work"
+                    }
                 }
             );
 
@@ -133,11 +141,23 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
         public void DictionaryReplaceValueMutationWithTraversal(string because, char separator, int position, string value, string expectedResult, params string[] expectedInformation)
         {
             var subject = new DictionaryReplaceValueMutation(
-                new Dictionary<string, string>
+                new List<DictionaryReplaceValueMutation.ReplaceValue>
                 {
-                    ["value1"] = "bronze",
-                    ["value2"] = "silver",
-                    ["value3"] = "gold"
+                    new DictionaryReplaceValueMutation.ReplaceValue
+                    {
+                        ValueToReplace = "value1",
+                        NewValue = "bronze"
+                    },
+                    new DictionaryReplaceValueMutation.ReplaceValue
+                    {
+                        ValueToReplace = "value2",
+                        NewValue = "silver"
+                    },
+                    new DictionaryReplaceValueMutation.ReplaceValue
+                    {
+                        ValueToReplace = "value3",
+                        NewValue = "gold"
+                    }
                 }
             )
             {
@@ -182,7 +202,7 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
         public void DictionaryReplaceValueMutationNoReplacesSet()
         {
             var subject = new DictionaryReplaceValueMutation(
-                new Dictionary<string, string>()
+                new List<DictionaryReplaceValueMutation.ReplaceValue>()
             );
 
             List<Information> information = new Action(() => { subject.Mutate(new Context(null, null), string.Empty); }).Observe();

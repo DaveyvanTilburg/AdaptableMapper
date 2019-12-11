@@ -41,7 +41,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
 
             string value = string.Empty;
             List<Information> result = new Action(() => { value = subject.GetValue(context); }).Observe();
-            
+
             result.ValidateResult(new List<string>(expectedErrors), because);
             if (expectedErrors.Length == 0)
                 value.Should().BeEquivalentTo(expectedValue);
@@ -184,9 +184,13 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             );
             listOfValueMutations.ValueMutations.Add(
                 new DictionaryReplaceValueMutation(
-                    new Dictionary<string, string>
+                    new List<DictionaryReplaceValueMutation.ReplaceValue>
                     {
-                        ["value3"] = "SimpleItem"
+                        new DictionaryReplaceValueMutation.ReplaceValue
+                        {
+                            ValueToReplace = "value3",
+                            NewValue = "SimpleItem"
+                        }
                     }
                 )
                 {

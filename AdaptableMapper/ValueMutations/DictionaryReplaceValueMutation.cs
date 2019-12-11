@@ -8,9 +8,9 @@ namespace AdaptableMapper.ValueMutations
     public sealed class DictionaryReplaceValueMutation : ValueMutation
     {
         public GetValueStringTraversal GetValueStringTraversal { get; set; }
-        public Dictionary<string, string> ReplaceValues { get; set; }
+        public List<ReplaceValue> ReplaceValues { get; set; }
 
-        public DictionaryReplaceValueMutation(Dictionary<string, string> replaceValues)
+        public DictionaryReplaceValueMutation(List<ReplaceValue> replaceValues)
             => ReplaceValues = replaceValues;
 
         public string Mutate(Context context, string value)
@@ -32,11 +32,17 @@ namespace AdaptableMapper.ValueMutations
                 return value;
 
             string newValue = valueToMutate;
-            foreach (KeyValuePair<string, string> replaceValue in ReplaceValues)
-                newValue = newValue.Replace(replaceValue.Key, replaceValue.Value);
+            foreach (ReplaceValue replaceValue in ReplaceValues)
+                newValue = newValue.Replace(replaceValue.ValueToReplace, replaceValue.NewValue);
 
             string result = value.Replace(valueToMutate, newValue);
             return result;
+        }
+
+        public class ReplaceValue
+        {
+            public string ValueToReplace { get; set; }
+            public string NewValue { get; set; }
         }
     }
 }
