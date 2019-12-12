@@ -105,6 +105,21 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
         }
 
         [Theory]
+        [InlineData(false, true, "e-ReplaceValueMutation#2;")]
+        [InlineData(true, false, "e-ReplaceValueMutation#3;")]
+        public void ReplaceValueMutationNullsChecks(bool shouldCreateGetValueStringTraversal, bool shouldCreateGetValueTraversal, params string[] expectedErrorCodes)
+        {
+            var subject = new ReplaceValueMutation(
+                shouldCreateGetValueStringTraversal ? new GetStaticValueTraversal(string.Empty) : null,
+                shouldCreateGetValueTraversal ? new GetStaticValueTraversal(string.Empty) : null
+            );
+
+            List<Information> information = new Action(() => { subject.Mutate(new Context(null, null), string.Empty); }).Observe();
+
+            information.ValidateResult(new List<string>(expectedErrorCodes), "should check nulls");
+        }
+
+        [Theory]
         [InlineData("Valid", "this is an old message", "this is a new message")]
         [InlineData("ValidMultipleHits", "this is an old message, through luxery", "this is a new message, through hard work")]
         [InlineData("No hit", "this is an-old message", "this is an-old message")]

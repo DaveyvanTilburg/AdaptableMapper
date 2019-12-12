@@ -17,6 +17,9 @@ namespace AdaptableMapper.ValueMutations
 
         public string Mutate(Context context, string value)
         {
+            if (!Validate())
+                return string.Empty;
+
             if (string.IsNullOrWhiteSpace(value))
             {
                 Process.ProcessObservable.GetInstance().Raise("ReplaceMutation#1; cannot mutate an empty string", "warning");
@@ -32,6 +35,25 @@ namespace AdaptableMapper.ValueMutations
                 return value;
 
             string result = value.Replace(valueToReplace, newValue);
+            return result;
+        }
+
+        private bool Validate()
+        {
+            bool result = true;
+
+            if (GetValueStringTraversal == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise("ReplaceValueMutation#2; GetValueStringTraversal cannot be null", "error");
+                result = false;
+            }
+
+            if (GetValueTraversal == null)
+            {
+                Process.ProcessObservable.GetInstance().Raise("ReplaceValueMutation#3; GetValueTraversal cannot be null", "error");
+                result = false;
+            }
+
             return result;
         }
     }
