@@ -30,7 +30,7 @@ namespace AdaptableMapper.ValueMutations
             if (string.IsNullOrEmpty(valueToReplace))
                 return value;
 
-            string newValue = GetValueTraversal.GetValue(context.Source);
+            string newValue = GetValueTraversal.GetValue(context);
             if (string.IsNullOrEmpty(newValue))
                 return value;
 

@@ -19,7 +19,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
         public void IntegrationTest()
         {
             var condition = new Mock<Condition>();
-            condition.SetupSequence(c => c.Validate(It.IsAny<object>()))
+            condition.SetupSequence(c => c.Validate(It.IsAny<Context>()))
                 .Returns(false)
                 .Returns(false)
                 .Returns(true);
@@ -33,8 +33,8 @@ namespace AdaptableMapper.TDD.Cases.Conditions
             var childCreator = new Mock<ChildCreator>();
 
             var subject = new MappingScopeComposite(
-                new List<MappingScopeComposite>() { new MappingScopeComposite(null, null, null, null, null) },
-                new List<Mapping>() { new Mapping(null, null) },
+                new List<MappingScopeComposite>(),
+                new List<Mapping> { new Mapping(null, null) },
                 getScopeTraversal.Object,
                 getTemplateTraversal.Object,
                 childCreator.Object)
@@ -44,7 +44,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
 
             subject.Traverse(new Context(null, null), new TemplateCache());
 
-            childCreator.Verify(c => c.CreateChild(It.IsAny<Template>()), Times.Once);
+            childCreator.Verify(c => c.AddToParent(It.IsAny<Template>(), It.IsAny<object>()), Times.Once);
         }
 
         [Theory]
@@ -60,7 +60,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
                 new GetStaticValueTraversal(staticValue)
                 );
 
-            condition.Validate(source).Should().Be(expectedResult, because);
+            condition.Validate(new Context(source, null)).Should().Be(expectedResult, because);
         }
 
         [Theory]
@@ -77,7 +77,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
                 new AdaptableMapper.Traversals.Json.JsonGetValueTraversal(targetPath)
             );
 
-            condition.Validate(source).Should().Be(expectedResult, because);
+            condition.Validate(new Context(source, null)).Should().Be(expectedResult, because);
         }
 
         [Fact]
@@ -87,7 +87,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
                 null, CompareOperator.Equals, null
             );
 
-            condition.Validate(1);
+            condition.Validate(new Context(1, null));
         }
 
         [Fact]
@@ -98,7 +98,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
             subject.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.NotEquals, new GetStaticValueTraversal("1")));
 
             bool result = false;
-            List<Information> information = new Action(() => { result = subject.Validate(string.Empty); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Validate(new Context(string.Empty, string.Empty)); }).Observe();
 
             information.Count.Should().Be(0);
             result.Should().Be(true);
@@ -110,7 +110,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
             var subject = new ListOfConditions();
 
             bool result = false;
-            List<Information> information = new Action(() => { result = subject.Validate(string.Empty); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Validate(new Context(string.Empty, string.Empty)); }).Observe();
 
             information.Count.Should().Be(1);
             information.Any(i => i.Message.StartsWith("ListOfConditions#1;")).Should().BeTrue();

@@ -13,8 +13,8 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
     public class XmlConfiguration
     {
         [Theory]
-        [InlineData("InvalidParentType", ContextType.EmptyString, "e-XML#10;")]
-        [InlineData("InvalidTemplateType", ContextType.EmptyObject, "e-XML#11;")]
+        [InlineData("InvalidParentType", ContextType.EmptyString, "e-XmlChildCreator#1;")]
+        [InlineData("InvalidTemplateType", ContextType.EmptyObject, "e-XmlChildCreator#2;")]
         public void XmlChildCreator(string because, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlChildCreator();

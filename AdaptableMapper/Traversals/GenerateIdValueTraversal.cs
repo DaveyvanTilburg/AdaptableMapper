@@ -1,10 +1,12 @@
-﻿namespace AdaptableMapper.Traversals
+﻿using AdaptableMapper.Configuration;
+
+namespace AdaptableMapper.Traversals
 {
     public sealed class GenerateIdValueTraversal : GetValueTraversal
     {
         public int Number { get; set; }
 
-        public string GetValue(object source)
+        public string GetValue(Context context)
         {
             string result = Number.ToString();
             Number++;

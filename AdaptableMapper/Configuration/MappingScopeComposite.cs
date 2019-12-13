@@ -40,12 +40,13 @@ namespace AdaptableMapper.Configuration
 
             foreach (object item in scope)
             {
-                if (Condition != null && !Condition.Validate(item))
+                object newChild = ChildCreator.CreateChild(template);
+                Context childContext = new Context(source: item, target: newChild);
+
+                if (Condition != null && !Condition.Validate(childContext))
                     continue;
 
-                object newChild = ChildCreator.CreateChild(template);
-
-                Context childContext = new Context(source: item, target: newChild);
+                ChildCreator.AddToParent(template, newChild);
                 TraverseChild(childContext, templateCache);
             }
         }

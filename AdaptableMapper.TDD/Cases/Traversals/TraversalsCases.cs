@@ -18,7 +18,7 @@ namespace AdaptableMapper.TDD.Cases.Traversals
             var subject = new GetStaticValueTraversal(value);
 
             string result = null;
-            List<Information> information = new Action(() => { result = subject.GetValue(null); }).Observe();
+            List<Information> information = new Action(() => { result = subject.GetValue((string)null); }).Observe();
 
             information.ValidateResult(new List<string>(expectedInformation), because);
             if (expectedInformation.Length == 0)

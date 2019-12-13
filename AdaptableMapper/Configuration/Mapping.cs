@@ -20,7 +20,7 @@ namespace AdaptableMapper.Configuration
             if (!Validate())
                 return;
 
-            string value = GetValueTraversal.GetValue(context.Source);
+            string value = GetValueTraversal.GetValue(context);
 
             SetValueTraversal.SetValue(context, value);
         }

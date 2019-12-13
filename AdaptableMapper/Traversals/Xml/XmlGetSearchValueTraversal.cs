@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using AdaptableMapper.Configuration;
 using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
@@ -15,11 +16,11 @@ namespace AdaptableMapper.Traversals.Xml
         public string SearchValuePath { get; set; }
         public XmlInterpretation XmlInterpretation { get; set; }
 
-        public string GetValue(object source)
+        public string GetValue(Context context)
         {
-            if (!(source is XElement xElement))
+            if (!(context.Source is XElement xElement))
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#13; source is not of expected type XElement", "error", SearchPath, SearchValuePath, source?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("XML#13; source is not of expected type XElement", "error", SearchPath, SearchValuePath, context.Source?.GetType().Name);
                 return string.Empty;
             }
 
@@ -32,7 +33,7 @@ namespace AdaptableMapper.Traversals.Xml
             MethodResult<string> searchValue = xElement.GetXPathValue(SearchValuePath.ConvertToInterpretation(XmlInterpretation));
             if (searchValue.IsValid && string.IsNullOrWhiteSpace(searchValue.Value))
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
+                Process.ProcessObservable.GetInstance().Raise("XML#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath);
                 return string.Empty;
             }
 
@@ -41,9 +42,9 @@ namespace AdaptableMapper.Traversals.Xml
 
             string actualPath = string.IsNullOrWhiteSpace(searchValue.Value) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue.Value);
             MethodResult<string> result = xElement.GetXPathValue(actualPath.ConvertToInterpretation(XmlInterpretation));
-            if(result.IsValid && string.IsNullOrWhiteSpace(result.Value))
+            if (result.IsValid && string.IsNullOrWhiteSpace(result.Value))
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
+                Process.ProcessObservable.GetInstance().Raise("XML#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath);
                 return string.Empty;
             }
             return result.Value;

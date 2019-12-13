@@ -10,8 +10,8 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
     public class ModelConfiguration
     {
         [Theory]
-        [InlineData("ParentInvalidType", ContextType.EmptyString, "", "e-MODEL#10;")]
-        [InlineData("TemplateInvalidType", ContextType.EmptyObject, "item", "e-MODEL#11;")]
+        [InlineData("ParentInvalidType", ContextType.EmptyString, "", "e-ModelChildCreator#1;")]
+        [InlineData("TemplateInvalidType", ContextType.EmptyObject, "item", "e-ModelChildCreator#2;")]
         public void ModelChildCreator(string because, ContextType contextType, string createType, params string[] expectedErrors)
         {
             var subject = new ModelChildCreator();

@@ -1,4 +1,5 @@
-﻿using AdaptableMapper.Traversals;
+﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Conditions
 {
@@ -15,13 +16,13 @@ namespace AdaptableMapper.Conditions
         public CompareOperator CompareOperator { get; set; }
         public GetValueTraversal GetValueTraversalSourceValueB { get; set; }
 
-        public bool Validate(object source)
+        public bool Validate(Context context)
         {
             if (!ValidateState())
                 return false;
 
-            string valueA = GetValueTraversalSourceValueA.GetValue(source);
-            string valueB = GetValueTraversalSourceValueB.GetValue(source);
+            string valueA = GetValueTraversalSourceValueA.GetValue(context);
+            string valueB = GetValueTraversalSourceValueB.GetValue(context);
 
             bool result = Compare(valueA, CompareOperator, valueB);
             return result;

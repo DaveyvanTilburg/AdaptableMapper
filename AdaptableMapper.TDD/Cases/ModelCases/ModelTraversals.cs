@@ -36,7 +36,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         public void ModelGetSearchValueTraversal(string because, string path, string searchPath, ContextType contextType, string createType, string expectedValue, params string[] expectedErrors)
         {
             var subject = new ModelGetSearchValueTraversal(path, searchPath);
-            object context = Model.CreateTarget(contextType, createType);
+            var context = new Context(Model.CreateTarget(contextType, createType), null);
 
             string value = string.Empty;
             List<Information> result = new Action(() => { value = subject.GetValue(context); }).Observe();
@@ -53,7 +53,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         public void ModelGetValueTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
             var subject = new ModelGetValueTraversal(path);
-            object context = Model.CreateTarget(contextType, createType);
+            var context = new Context(Model.CreateTarget(contextType, createType), null);
             List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -65,7 +65,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
             object context = Model.CreateTarget(ContextType.TestObject, "item");
             var subItem = ((ModelObjects.Simple.Item)context).Items[0];
 
-            List<Information> result = new Action(() => { subject.GetValue(subItem); }).Observe();
+            List<Information> result = new Action(() => { subject.GetValue(new Context(subItem, null)); }).Observe();
             result.ValidateResult(new List<string>(), "HasParent");
         }
 

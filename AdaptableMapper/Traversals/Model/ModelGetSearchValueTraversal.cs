@@ -1,4 +1,5 @@
-﻿using AdaptableMapper.Model;
+﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Model;
 
 namespace AdaptableMapper.Traversals.Model
 {
@@ -13,11 +14,11 @@ namespace AdaptableMapper.Traversals.Model
         public string SearchPath { get; set; }
         public string SearchValuePath { get; set; }
 
-        public string GetValue(object source)
+        public string GetValue(Context context)
         {
-            if (!(source is ModelBase model))
+            if (!(context.Source is ModelBase model))
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#13; source is not of expected type Model", "error", SearchPath, SearchValuePath, source);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#13; source is not of expected type Model", "error", SearchPath, SearchValuePath, context.Source);
                 return string.Empty;
             }
 
@@ -35,7 +36,7 @@ namespace AdaptableMapper.Traversals.Model
             string searchValue = searchPathTarget.GetValue(searchModelPath.LastInPath);
             if (string.IsNullOrWhiteSpace(searchValue))
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#14; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath);
                 return string.Empty;
             }
 
@@ -45,7 +46,7 @@ namespace AdaptableMapper.Traversals.Model
             ModelBase pathTarget = model.NavigateToModel(modelPathContainer.CreatePathQueue());
             if (!pathTarget.IsValid())
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath);
                 return string.Empty;
             }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.Conditions
 {
@@ -10,14 +11,14 @@ namespace AdaptableMapper.Conditions
         public ListOfConditions()
             => Conditions = new List<Condition>();
 
-        public bool Validate(object source)
+        public bool Validate(Context context)
         {
             if (!Validate())
                 return false;
 
             bool result = false;
             foreach (Condition condition in Conditions)
-                result = condition.Validate(result);
+                result = condition.Validate(context);
 
             return result;
         }

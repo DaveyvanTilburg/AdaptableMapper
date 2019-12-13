@@ -1,7 +1,9 @@
-﻿namespace AdaptableMapper.Conditions
+﻿using AdaptableMapper.Configuration;
+
+namespace AdaptableMapper.Conditions
 {
     public interface Condition
     {
-        bool Validate(object source);
+        bool Validate(Context context);
     }
 }
