@@ -7,7 +7,7 @@ namespace AdaptableMapper.Traversals.Xml
     {
         public bool SetAsCData { get; set; }
 
-        public void SetValue(Context context, string value)
+        public void SetValue(Context context, MappingCaches mappingCaches, string value)
         {
             if (!(context.Target is XElement xElement))
             {

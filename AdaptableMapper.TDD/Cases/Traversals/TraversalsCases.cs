@@ -26,18 +26,16 @@ namespace AdaptableMapper.TDD.Cases.Traversals
         }
 
         [Fact]
-        public void GenerateIdValueTraversal()
+        public void GetNothingValueTraversal()
         {
-            var subject = new GenerateIdValueTraversal { Number = 3 };
+            var subject = new GetNothingValueTraversal();
 
-            string firstResult = subject.GetValue(null);
-            firstResult.Should().Be("3");
+            string result = null;
+            List<Information> information = new Action(() => { result = subject.GetValue(null); }).Observe();
 
-            string secondResult = subject.GetValue(null);
-            secondResult.Should().Be("4");
+            information.Count.Should().Be(0);
 
-            string thirdResult = subject.GetValue(null);
-            thirdResult.Should().Be("5");
+            result.Should().BeEmpty();
         }
 
         [Fact]
@@ -55,8 +53,8 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new AdaptableMapper.Traversals.GenerateIdValueTraversal(),
-                                new AdaptableMapper.Traversals.Xml.XmlSetValueTraversal("./Id")
+                                new AdaptableMapper.Traversals.GetNothingValueTraversal(),
+                                new AdaptableMapper.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
                                 new AdaptableMapper.Traversals.Xml.XmlGetThisValueTraversal(),
@@ -72,8 +70,8 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new AdaptableMapper.Traversals.GenerateIdValueTraversal(),
-                                new AdaptableMapper.Traversals.Xml.XmlSetValueTraversal("./Id")
+                                new AdaptableMapper.Traversals.GetNothingValueTraversal(),
+                                new AdaptableMapper.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
                                 new AdaptableMapper.Traversals.Xml.XmlGetThisValueTraversal(),
@@ -89,8 +87,8 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new AdaptableMapper.Traversals.GenerateIdValueTraversal(),
-                                new AdaptableMapper.Traversals.Xml.XmlSetValueTraversal("./Id")
+                                new AdaptableMapper.Traversals.GetNothingValueTraversal(),
+                                new AdaptableMapper.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
                                 new AdaptableMapper.Traversals.Xml.XmlGetThisValueTraversal(),

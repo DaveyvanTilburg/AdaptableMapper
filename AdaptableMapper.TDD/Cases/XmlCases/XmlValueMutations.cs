@@ -22,7 +22,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             var subject = new XmlSetValueTraversal(path) { XmlInterpretation = xmlInterpretation, ValueMutation = valueMutation };
             var context = new Context(null, XElement.Parse("<root><test></test></root>"));
 
-            List<Information> information = new Action(() => { subject.SetValue(context, value); }).Observe();
+            List<Information> information = new Action(() => { subject.SetValue(context, null, value); }).Observe();
 
             information.ValidateResult(new List<string>(expectedErrors), because);
             if (expectedErrors.Length == 0)

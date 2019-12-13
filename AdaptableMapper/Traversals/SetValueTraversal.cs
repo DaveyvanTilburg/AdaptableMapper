@@ -4,6 +4,6 @@ namespace AdaptableMapper.Traversals
 {
     public interface SetValueTraversal
     {
-        void SetValue(Context context, string value);
+        void SetValue(Context context, MappingCaches mappingCaches, string value);
     }
 }

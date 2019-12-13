@@ -29,14 +29,14 @@ namespace AdaptableMapper.Configuration
             ChildCreator = childCreator;
         }
 
-        public void Traverse(Context context, TemplateCache templateCache)
+        public void Traverse(Context context, MappingCaches mappingCaches)
         {
             if (!Validate())
                 return;
 
             IEnumerable<object> scope = GetScopeTraversal.GetScope(context.Source);
 
-            Template template = GetTemplateTraversal.GetTemplate(context.Target, templateCache);
+            Template template = GetTemplateTraversal.GetTemplate(context.Target, mappingCaches);
 
             foreach (object item in scope)
             {
@@ -47,7 +47,7 @@ namespace AdaptableMapper.Configuration
                     continue;
 
                 ChildCreator.AddToParent(template, newChild);
-                TraverseChild(childContext, templateCache);
+                TraverseChild(childContext, mappingCaches);
             }
         }
 
@@ -76,13 +76,13 @@ namespace AdaptableMapper.Configuration
             return result;
         }
 
-        private void TraverseChild(Context context, TemplateCache templateCache)
+        private void TraverseChild(Context context, MappingCaches mappingCaches)
         {
             foreach (Mapping mapping in Mappings)
-                mapping.Map(context);
+                mapping.Map(context, mappingCaches);
 
             foreach (MappingScopeComposite mappingScopeComposite in MappingScopeComposites)
-                mappingScopeComposite.Traverse(context, templateCache);
+                mappingScopeComposite.Traverse(context, mappingCaches);
         }
     }
 }

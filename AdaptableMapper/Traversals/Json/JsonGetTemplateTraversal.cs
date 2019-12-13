@@ -11,7 +11,7 @@ namespace AdaptableMapper.Traversals.Json
 
         public string Path { get; set; }
 
-        public Template GetTemplate(object target, TemplateCache templateCache)
+        public Template GetTemplate(object target, MappingCaches mappingCaches)
         {
             if (!(target is JToken jToken))
             {
@@ -36,6 +36,8 @@ namespace AdaptableMapper.Traversals.Json
             {
                 Parent = result.Parent
             };
+
+            var templateCache = mappingCaches.GetCache<TemplateCache>(nameof(TemplateCache));
 
             bool hasAccessed = templateCache.HasAccessed(Path, target);
             object storedTemplate = templateCache.GetTemplate(Path, target);

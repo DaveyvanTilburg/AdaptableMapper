@@ -13,7 +13,7 @@ namespace AdaptableMapper.Traversals.Model
 
         public string Path { get; set; }
 
-        public Template GetTemplate(object target, TemplateCache templateCache)
+        public Template GetTemplate(object target, MappingCaches mappingCaches)
         {
             if (!(target is ModelBase model))
             {

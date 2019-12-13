@@ -2,6 +2,6 @@
 {
     public interface GetTemplateTraversal
     {
-        Template GetTemplate(object target, TemplateCache templateCache);
+        Template GetTemplate(object target, MappingCaches mappingCache);
     }
 }

@@ -78,7 +78,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         {
             var subject = new ModelSetValueOnPathTraversal(path);
             var context = new Context(null, Model.CreateTarget(contextType, createType));
-            List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
+            List<Information> result = new Action(() => { subject.SetValue(context, null, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
@@ -88,7 +88,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         {
             var subject = new ModelSetValueOnPropertyTraversal(path);
             var context = new Context(null, Model.CreateTarget(contextType, createType));
-            List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
+            List<Information> result = new Action(() => { subject.SetValue(context, null, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
@@ -98,7 +98,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         {
             var subject = new ModelGetTemplateTraversal(path);
             object context = Model.CreateTarget(contextType, createType);
-            List<Information> result = new Action(() => { subject.GetTemplate(context, new TemplateCache()); }).Observe();
+            List<Information> result = new Action(() => { subject.GetTemplate(context, new MappingCaches()); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
     }

@@ -13,7 +13,7 @@ namespace AdaptableMapper.Traversals.Xml
         public string Path { get; set; }
         public XmlInterpretation XmlInterpretation { get; set; }
 
-        public Template GetTemplate(object target, TemplateCache templateCache)
+        public Template GetTemplate(object target, MappingCaches mappingCaches)
         {
             if (!(target is XElement xElement))
             {
@@ -30,6 +30,8 @@ namespace AdaptableMapper.Traversals.Xml
                 Parent = result.Parent
             };
 
+            var templateCache = mappingCaches.GetCache<TemplateCache>(nameof(TemplateCache));
+
             bool hasAccessed = templateCache.HasAccessed(Path, target);
             object storedTemplate = templateCache.GetTemplate(Path, target);
 
@@ -40,7 +42,7 @@ namespace AdaptableMapper.Traversals.Xml
 
                 storedTemplate = result;
             }
-            else if(!hasAccessed)
+            else if (!hasAccessed)
             {
                 result.Remove();
             }

@@ -45,7 +45,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         {
             var subject = new JsonSetValueTraversal(path);
             var context = new Context(null, Json.CreateTarget(contextType));
-            List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
+            List<Information> result = new Action(() => { subject.SetValue(context, null, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
@@ -73,7 +73,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         {
             var subject = new JsonGetTemplateTraversal(path);
             object context = Json.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.GetTemplate(context, new TemplateCache()); }).Observe();
+            List<Information> result = new Action(() => { subject.GetTemplate(context, new MappingCaches()); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
@@ -85,7 +85,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
 
             var subject = new JsonGetTemplateTraversal("../../");
 
-            List<Information> result = new Action(() => { subject.GetTemplate(traversedContext, new TemplateCache()); }).Observe();
+            List<Information> result = new Action(() => { subject.GetTemplate(traversedContext, new MappingCaches()); }).Observe();
             result.ValidateResult(new List<string>(), "DoubleParent");
         }
     }
