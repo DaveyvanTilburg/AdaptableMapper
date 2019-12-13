@@ -1,5 +1,6 @@
 ﻿using AdaptableMapper.Process;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using AdaptableMapper.Configuration;
@@ -10,6 +11,8 @@ using AdaptableMapper.ValueMutations.Traversals;
 using AdaptableMapper.Xml;
 using FluentAssertions;
 using Xunit;
+using System.Xml.XPath;
+using System.Linq;
 
 namespace AdaptableMapper.TDD.Cases.XmlCases
 {
@@ -169,6 +172,39 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             List<Information> result = new Action(() => { subject.GetTemplate(context, new TemplateCache()); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
+
+
+        [Fact]
+        public void XmlSetValueTraversalCData()
+        {
+            var target = XDocument.Load("./Resources/XmlCData/CDataTemplate.xml").Root;
+            var subject = new XmlSetValueTraversal("./item") { SetAsCData = true };
+
+            subject.SetValue(new Context(null, target), "Test");
+
+            var expectedResult = System.IO.File.ReadAllText("./Resources/XmlCData/CDataExpectedResult.xml");
+            var result = new XElementToStringObjectConverter().Convert(target);
+
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Fact]
+        public void XmlSetThisValueTraversalCData()
+        {
+            var context = XDocument.Load("./Resources/XmlCData/CDataTemplate.xml").Root;
+            var targets = context.XPathEvaluate("./item") as IEnumerable;
+            var target = targets.Cast<XObject>().FirstOrDefault() as XElement;
+
+            var subject = new XmlSetThisValueTraversal { SetAsCData = true };
+
+            subject.SetValue(new Context(null, target), "Test");
+
+            var expectedResult = System.IO.File.ReadAllText("./Resources/XmlCData/CDataExpectedResult.xml");
+            var result = new XElementToStringObjectConverter().Convert(target);
+
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
 
 
 

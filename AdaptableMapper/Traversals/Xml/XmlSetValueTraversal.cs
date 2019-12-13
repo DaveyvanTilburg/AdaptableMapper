@@ -13,6 +13,7 @@ namespace AdaptableMapper.Traversals.Xml
 
         public string Path { get; set; }
         public XmlInterpretation XmlInterpretation { get; set; }
+        public bool SetAsCData { get; set; }
 
         protected override void SetValueImplementation(Context context, string value)
         {
@@ -22,7 +23,7 @@ namespace AdaptableMapper.Traversals.Xml
                 return;
             }
 
-            xElement.SetXPathValues(Path.ConvertToInterpretation(XmlInterpretation), value);
+            xElement.SetXPathValues(Path.ConvertToInterpretation(XmlInterpretation), value, SetAsCData);
         }
     }
 }

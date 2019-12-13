@@ -89,7 +89,7 @@ namespace AdaptableMapper.Traversals.Xml
             return new MethodResult<string>(result);
         }
 
-        public static void SetXPathValues(this XElement xElement, string xPath, string value)
+        public static void SetXPathValues(this XElement xElement, string xPath, string value, bool setAsCData)
         {
             IEnumerable enumerable;
 
@@ -111,7 +111,16 @@ namespace AdaptableMapper.Traversals.Xml
                 foreach (XObject xObject in xObjects)
                 {
                     if (xObject is XElement element)
-                        element.Value = value;
+                    {
+                        if (setAsCData)
+                        {
+                            element.Add(new XCData(value));
+                        }
+                        else
+                        {
+                            element.Value = value;
+                        }
+                    }
                     else if (xObject is XAttribute attribute)
                         attribute.Value = value;
                     else if (xObject is XProcessingInstruction processingInformation)

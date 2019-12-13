@@ -5,6 +5,8 @@ namespace AdaptableMapper.Traversals.Xml
 {
     public sealed class XmlSetThisValueTraversal : SetValueTraversal
     {
+        public bool SetAsCData { get; set; }
+
         public void SetValue(Context context, string value)
         {
             if (!(context.Target is XElement xElement))
@@ -13,7 +15,14 @@ namespace AdaptableMapper.Traversals.Xml
                 return;
             }
 
-            xElement.Value = value;
+            if (SetAsCData)
+            {
+                xElement.Add(new XCData(value));
+            }
+            else
+            {
+                xElement.Value = value;
+            }
         }
     }
 }
