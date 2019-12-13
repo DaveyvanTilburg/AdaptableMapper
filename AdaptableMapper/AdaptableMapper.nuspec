@@ -19,10 +19,11 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
         <dependency id="Newtonsoft.Json" version="12.0.2" />
       </group>
     </dependencies>
-    <releaseNotes>0.16.0
-- Order properties of CompareCondition to form an comparison
-- ReplaceValueMutation property renamed
-- ReplaceValueMutation now checks if it is correctly composed
+    <releaseNotes>
+      - Order properties of CompareCondition to form an comparison
+      - ReplaceValueMutation property renamed
+      - ReplaceValueMutation now checks if it is correctly composed
+      - Add Xml CData support
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
