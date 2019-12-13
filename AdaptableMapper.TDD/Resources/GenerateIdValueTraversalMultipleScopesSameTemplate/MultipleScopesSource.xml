@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Car>
+  <Wheels>
+    <Wheel>Front left wheel</Wheel>
+    <Wheel>Front right wheel</Wheel>
+    <Wheel>Back left wheel</Wheel>
+    <Wheel>Back right wheel</Wheel>
+  </Wheels>
+  <Doors>
+    <Door>Front left door</Door>
+    <Door>Front right door</Door>
+  </Doors>
+  <Windows>
+    <Window>Front window</Window>
+    <Window>Back window</Window>
+  </Windows>
+</Car>

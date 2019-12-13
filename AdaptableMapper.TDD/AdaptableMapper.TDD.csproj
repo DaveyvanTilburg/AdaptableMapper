@@ -103,6 +103,15 @@
     <Content Include="Resources\ExampleResult.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\GenerateIdValueTraversalMultipleScopesSameTemplate\CarExpactedResult.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\GenerateIdValueTraversalMultipleScopesSameTemplate\CarTemplate.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\GenerateIdValueTraversalMultipleScopesSameTemplate\MultipleScopesSource.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\JsonTarget_HardwareExpected.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
