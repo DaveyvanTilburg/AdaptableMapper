@@ -128,9 +128,10 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         }
 
         [Theory]
-        [InlineData("InvalidType", "", "", ContextType.EmptyString, XmlInterpretation.Default, "e-XML#21;")]
-        [InlineData("ValidNamespaceless", "//SimpleItems/SimpleItem[@Id='1']/SurName", "van Tilburg", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace)]
-        public void XmlSetValueTraversal(string because, string path, string value, ContextType contextType, XmlInterpretation xmlInterpretation, params string[] expectedErrors)
+        [InlineData("InvalidType", "", "", ContextType.EmptyString, XmlInterpretation.Default, "", "e-XML#21;")]
+        [InlineData("ValidNamespaceless", "//SimpleItems/SimpleItem[@Id='1']/SurName", "van Tilburg", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "./Resources/SimpleNamespaceExpectedResult.xml")]
+        [InlineData("ValidNamespacelessAttribute", "//SimpleItems/SimpleItem[@Id='1']/@Id", "3", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "./Resources/SimpleNamespaceExpectedResultAttribute.xml")]
+        public void XmlSetValueTraversal(string because, string path, string value, ContextType contextType, XmlInterpretation xmlInterpretation, string expectedResultPath, params string[] expectedErrors)
         {
             var subject = new XmlSetValueTraversal(path) { XmlInterpretation = xmlInterpretation };
             var context = new Context(null, Xml.CreateTarget(contextType));
@@ -144,7 +145,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
 
                 var converter = new XElementToStringObjectConverter();
                 var convertedResult = converter.Convert(xElementResult);
-                convertedResult.Should().BeEquivalentTo(System.IO.File.ReadAllText("./Resources/SimpleNamespaceExpectedResult.xml"));
+                convertedResult.Should().BeEquivalentTo(System.IO.File.ReadAllText(expectedResultPath));
             }
         }
 

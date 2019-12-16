@@ -28,6 +28,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Add XmlSetGeneratedIdValueTraversal
       - Removed giving error on empty result for GetValueTraversal implementations
       - Added NotEmptyCondition
+      - Bug fix for Xml namespaceless path traversal for attributes
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

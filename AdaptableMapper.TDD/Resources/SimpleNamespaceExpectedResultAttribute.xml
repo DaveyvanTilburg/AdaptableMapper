@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<x:root xmlns:x="www.google.com" xmlns:y="www.youtube.com">
+  <x:SimpleItems>
+    <y:SimpleItem Id="3">
+      <y:Name>Davey</y:Name>
+      <x:SurName></x:SurName>
+    </y:SimpleItem>
+    <y:SimpleItem Id="2">
+      <y:Name>Joey</y:Name>
+      <x:SurName></x:SurName>
+    </y:SimpleItem>
+  </x:SimpleItems>
+</x:root>

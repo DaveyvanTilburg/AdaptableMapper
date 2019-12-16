@@ -55,6 +55,9 @@ namespace AdaptableMapper.Traversals.Xml
         {
             string result;
 
+            if (part.StartsWith("@"))
+                return $"/{part}";
+
             int indexOfOpeningBracket = part.IndexOf('[');
             if (indexOfOpeningBracket > 0)
             {
