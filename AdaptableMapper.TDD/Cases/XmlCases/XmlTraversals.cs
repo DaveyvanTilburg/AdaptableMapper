@@ -36,7 +36,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("EmptySearchPath", "", "", ContextType.EmptyObject, "", "e-XML#25;")]
         [InlineData("InvalidSearchPath", "", "abcd", ContextType.EmptyObject, "", "w-XML#30;")]
         [InlineData("EmptySearchPathValueResult", "", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, "", "w-XML#14;")]
-        [InlineData("NoActualPathResult", "//SimpleItems/SimpleItem/SurName", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "", "w-XML#15;")]
+        [InlineData("NoActualPathResult", "//SimpleItems/SimpleItem/SurName", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "")]
         [InlineData("Valid", "//SimpleItems/SimpleItem/Name", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "Davey")]
         public void XmlGetSearchValueTraversal(string because, string path, string searchPath, ContextType contextType, string expectedValue, params string[] expectedErrors)
         {
@@ -80,7 +80,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("InvalidType", "", ContextType.EmptyString, XmlInterpretation.Default, "", "e-XML#17;")]
         [InlineData("InvalidPath", "::", ContextType.EmptyObject, XmlInterpretation.Default, "", "e-XML#29;")]
         [InlineData("InvalidPathWithoutNamespace", "::", ContextType.EmptyObject, XmlInterpretation.WithoutNamespace, "", "w-XML#30;")]
-        [InlineData("EmptyString", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, XmlInterpretation.Default, "", "w-XML#4;")]
+        [InlineData("EmptyString", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, XmlInterpretation.Default, "")]
         [InlineData("ValidNamespaceless", "//SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "Davey")]
         [InlineData("ValidNamespacelessDot", "./SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "Davey")]
         [InlineData("ValidNamespacelessDifferentPrefix", "./SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "Davey")]

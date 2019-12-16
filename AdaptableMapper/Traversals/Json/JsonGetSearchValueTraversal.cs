@@ -41,11 +41,8 @@ namespace AdaptableMapper.Traversals.Json
             string actualPath = string.IsNullOrWhiteSpace(searchValue.Value) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue.Value);
 
             MethodResult<string> result = jToken.TryTraversalGetValue(actualPath);
-            if (result.IsValid && string.IsNullOrWhiteSpace(result.Value))
-            {
-                Process.ProcessObservable.GetInstance().Raise("JSON#8; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath);
+            if (!result.IsValid)
                 return string.Empty;
-            }
 
             return result.Value;
         }

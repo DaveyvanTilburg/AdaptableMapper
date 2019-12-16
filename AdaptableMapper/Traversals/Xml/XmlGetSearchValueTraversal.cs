@@ -42,11 +42,9 @@ namespace AdaptableMapper.Traversals.Xml
 
             string actualPath = string.IsNullOrWhiteSpace(searchValue.Value) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue.Value);
             MethodResult<string> result = xElement.GetXPathValue(actualPath.ConvertToInterpretation(XmlInterpretation));
-            if (result.IsValid && string.IsNullOrWhiteSpace(result.Value))
-            {
-                Process.ProcessObservable.GetInstance().Raise("XML#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath);
+            if (!result.IsValid)
                 return string.Empty;
-            }
+
             return result.Value;
         }
     }

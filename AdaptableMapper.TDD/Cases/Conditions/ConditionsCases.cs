@@ -6,6 +6,7 @@ using AdaptableMapper.Conditions;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals;
+using AdaptableMapper.Traversals.Xml;
 using FluentAssertions;
 using Moq;
 using Newtonsoft.Json.Linq;
@@ -114,6 +115,21 @@ namespace AdaptableMapper.TDD.Cases.Conditions
 
             information.Count.Should().Be(1);
             information.Any(i => i.Message.StartsWith("ListOfConditions#1;")).Should().BeTrue();
+        }
+
+        [Theory]
+        [InlineData("./item/id", true)]
+        [InlineData("./item/name", false)]
+        public void NotEmptyCondition(string path, bool expectedResult)
+        {
+            var subject = new NotEmptyCondition(new XmlGetValueTraversal(path));
+            var source = XDocument.Load("./Resources/NotEmptyCondition/SimpleSource.xml").Root;
+
+            bool result = false;
+            List<Information> information = new Action(() => { result = subject.Validate(new Context(source, string.Empty)); }).Observe();
+
+            information.Count.Should().Be(0);
+            result.Should().Be(expectedResult);
         }
     }
 }

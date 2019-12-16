@@ -21,11 +21,8 @@ namespace AdaptableMapper.Traversals.Json
             }
 
             MethodResult<string> result = jToken.TryTraversalGetValue(Path);
-            if (result.IsValid && string.IsNullOrWhiteSpace(result.Value))
-            {
-                Process.ProcessObservable.GetInstance().Raise("JSON#11; Path resulted in no items", "warning", Path);
+            if (!result.IsValid)
                 return string.Empty;
-            }
 
             return result.Value;
         }

@@ -23,11 +23,6 @@ namespace AdaptableMapper.Traversals.Xml
             }
 
             MethodResult<string> result = xElement.GetXPathValue(Path.ConvertToInterpretation(XmlInterpretation));
-            if (result.IsValid && string.IsNullOrWhiteSpace(result.Value))
-            {
-                Process.ProcessObservable.GetInstance().Raise("XML#4; Path resulted in no items", "warning", Path, xElement);
-                return string.Empty;
-            }
 
             if (!result.IsValid)
                 return string.Empty;

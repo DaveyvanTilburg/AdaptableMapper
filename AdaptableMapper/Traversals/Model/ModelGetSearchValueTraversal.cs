@@ -45,10 +45,7 @@ namespace AdaptableMapper.Traversals.Model
 
             ModelBase pathTarget = model.NavigateToModel(modelPathContainer.CreatePathQueue());
             if (!pathTarget.IsValid())
-            {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#15; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath);
                 return string.Empty;
-            }
 
             string searchResult = pathTarget.GetValue(modelPathContainer.LastInPath);
             return searchResult;
