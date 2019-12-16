@@ -45,6 +45,7 @@
     <Compile Include="Conditions\Condition.cs" />
     <Compile Include="Conditions\CompareCondition.cs" />
     <Compile Include="Conditions\ListOfConditions.cs" />
+    <Compile Include="Conditions\NotEmptyCondition.cs" />
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
     <Compile Include="TemplateCache.cs" />
