@@ -12,7 +12,7 @@ namespace AdaptableMapper.Traversals.Model
 
         public string PropertyName { get; set; }
 
-        protected override void SetValueImplementation(Context context, string value)
+        protected override void SetValueImplementation(Context context, MappingCaches mappingCaches, string value)
         {
             if (!(context.Target is ModelBase model))
             {

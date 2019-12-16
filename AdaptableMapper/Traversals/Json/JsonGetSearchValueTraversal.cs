@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using AdaptableMapper.Configuration;
+using Newtonsoft.Json.Linq;
 
 namespace AdaptableMapper.Traversals.Json
 {
@@ -13,11 +14,11 @@ namespace AdaptableMapper.Traversals.Json
         public string SearchPath { get; set; }
         public string SearchValuePath { get; set; }
 
-        public string GetValue(object source)
+        public string GetValue(Context context)
         {
-            if (!(source is JToken jToken))
+            if (!(context.Source is JToken jToken))
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#5; source is not of expected type JToken", "error", SearchPath, SearchValuePath, source?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("JSON#5; source is not of expected type JToken", "error", SearchPath, SearchValuePath, context.Source?.GetType().Name);
                 return string.Empty;
             }
 
@@ -30,7 +31,7 @@ namespace AdaptableMapper.Traversals.Json
             MethodResult<string> searchValue = jToken.TryTraversalGetValue(SearchValuePath);
             if (searchValue.IsValid && string.IsNullOrWhiteSpace(searchValue.Value))
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#7; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath, source);
+                Process.ProcessObservable.GetInstance().Raise("JSON#7; SearchPath resulted in empty string", "warning", SearchPath, SearchValuePath);
                 return string.Empty;
             }
 
@@ -42,7 +43,7 @@ namespace AdaptableMapper.Traversals.Json
             MethodResult<string> result = jToken.TryTraversalGetValue(actualPath);
             if (result.IsValid && string.IsNullOrWhiteSpace(result.Value))
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#8; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath, source);
+                Process.ProcessObservable.GetInstance().Raise("JSON#8; ActualPath resulted in no items", "warning", actualPath, SearchPath, SearchValuePath);
                 return string.Empty;
             }
 

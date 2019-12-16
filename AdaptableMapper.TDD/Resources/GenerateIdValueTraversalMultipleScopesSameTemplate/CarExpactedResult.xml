@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Car>
+  <Parts>
+    <Part>
+      <Id>1</Id>
+      <Text>Front left wheel</Text>
+    </Part>
+    <Part>
+      <Id>2</Id>
+      <Text>Front right wheel</Text>
+    </Part>
+    <Part>
+      <Id>3</Id>
+      <Text>Back left wheel</Text>
+    </Part>
+    <Part>
+      <Id>4</Id>
+      <Text>Back right wheel</Text>
+    </Part>
+    <Part>
+      <Id>5</Id>
+      <Text>Front left door</Text>
+    </Part>
+    <Part>
+      <Id>6</Id>
+      <Text>Front right door</Text>
+    </Part>
+    <Part>
+      <Id>7</Id>
+      <Text>Front window</Text>
+    </Part>
+    <Part>
+      <Id>8</Id>
+      <Text>Back window</Text>
+    </Part>
+  </Parts>
+</Car>

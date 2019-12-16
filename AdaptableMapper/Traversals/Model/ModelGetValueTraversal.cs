@@ -1,4 +1,5 @@
-﻿using AdaptableMapper.Model;
+﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Model;
 
 namespace AdaptableMapper.Traversals.Model
 {
@@ -11,11 +12,11 @@ namespace AdaptableMapper.Traversals.Model
 
         public string Path { get; set; }
 
-        public string GetValue(object source)
+        public string GetValue(Context context)
         {
-            if(!(source is ModelBase model))
+            if (!(context.Source is ModelBase model))
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#16; source is not of expected type Model", "error", Path, source);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#16; source is not of expected type Model", "error", Path);
                 return string.Empty;
             }
 

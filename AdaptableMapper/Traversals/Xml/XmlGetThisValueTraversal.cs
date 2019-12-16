@@ -1,14 +1,15 @@
 ﻿using System.Xml.Linq;
+using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.Traversals.Xml
 {
     public sealed class XmlGetThisValueTraversal : GetValueTraversal
     {
-        public string GetValue(object source)
+        public string GetValue(Context context)
         {
-            if (!(source is XElement xElement))
+            if (!(context.Source is XElement xElement))
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#16; source is not of expected type XElement", "error", source?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("XML#16; source is not of expected type XElement", "error", context.Source?.GetType().Name);
                 return string.Empty;
             }
 

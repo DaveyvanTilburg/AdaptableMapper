@@ -4,9 +4,9 @@ using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    public sealed class XmlSetValueTraversal : SetMutableValueTraversal
+    public sealed class XmlSetGeneratedIdValueTraversal : SetMutableValueTraversal
     {
-        public XmlSetValueTraversal(string path)
+        public XmlSetGeneratedIdValueTraversal(string path)
         {
             Path = path;
         }
@@ -14,6 +14,7 @@ namespace AdaptableMapper.Traversals.Xml
         public string Path { get; set; }
         public XmlInterpretation XmlInterpretation { get; set; }
         public bool SetAsCData { get; set; }
+        public int StartingNumber { get; set; }
 
         protected override void SetValueImplementation(Context context, MappingCaches mappingCaches, string value)
         {
@@ -23,7 +24,17 @@ namespace AdaptableMapper.Traversals.Xml
                 return;
             }
 
-            xElement.SetXPathValues(Path.ConvertToInterpretation(XmlInterpretation), value, SetAsCData);
+            string number = GetId(xElement.Parent, mappingCaches);
+
+            xElement.SetXPathValues(Path.ConvertToInterpretation(XmlInterpretation), number, SetAsCData);
+        }
+
+        private string GetId(XElement parent, MappingCaches mappingCaches)
+        {
+            var cache = mappingCaches.GetCache<GenerateIdCache>(nameof(GenerateIdCache));
+
+            int id = cache.GenerateNewId(parent, Path, StartingNumber);
+            return id.ToString();
         }
     }
 }

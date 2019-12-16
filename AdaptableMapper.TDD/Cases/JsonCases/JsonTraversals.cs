@@ -31,7 +31,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         public void JsonGetSearchValueTraversal_InvalidType(string because, string path, string searchPath, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonGetSearchValueTraversal(path, searchPath);
-            object context = Json.CreateTarget(contextType);
+            var context = new Context(Json.CreateTarget(contextType), null);
             List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -45,7 +45,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         {
             var subject = new JsonSetValueTraversal(path);
             var context = new Context(null, Json.CreateTarget(contextType));
-            List<Information> result = new Action(() => { subject.SetValue(context, string.Empty); }).Observe();
+            List<Information> result = new Action(() => { subject.SetValue(context, null, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
@@ -56,7 +56,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         public void JsonGetValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonGetValueTraversal(path);
-            object context = Json.CreateTarget(contextType);
+            var context = new Context(Json.CreateTarget(contextType), null);
             List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -73,7 +73,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         {
             var subject = new JsonGetTemplateTraversal(path);
             object context = Json.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.GetTemplate(context, new TemplateCache()); }).Observe();
+            List<Information> result = new Action(() => { subject.GetTemplate(context, new MappingCaches()); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
@@ -84,8 +84,8 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
             JToken traversedContext = ((JToken)context).SelectToken("$.SimpleItems[0]");
 
             var subject = new JsonGetTemplateTraversal("../../");
-            
-            List<Information> result = new Action(() => { subject.GetTemplate(traversedContext, new TemplateCache()); }).Observe();
+
+            List<Information> result = new Action(() => { subject.GetTemplate(traversedContext, new MappingCaches()); }).Observe();
             result.ValidateResult(new List<string>(), "DoubleParent");
         }
     }

@@ -7,13 +7,13 @@ namespace AdaptableMapper.Traversals
     {
         public ValueMutation ValueMutation { get; set; }
 
-        protected abstract void SetValueImplementation(Context context, string value);
+        protected abstract void SetValueImplementation(Context context, MappingCaches mappingCaches, string value);
 
-        public void SetValue(Context context, string value)
+        public void SetValue(Context context, MappingCaches mappingCaches, string value)
         {
             string formattedValue = ValueMutation?.Mutate(context, value) ?? value;
 
-            SetValueImplementation(context, formattedValue);
+            SetValueImplementation(context, mappingCaches, formattedValue);
         }
     }
 }

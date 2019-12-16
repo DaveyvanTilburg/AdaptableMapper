@@ -1,4 +1,5 @@
-﻿using AdaptableMapper.ValueMutations.Traversals;
+﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.ValueMutations.Traversals;
 
 namespace AdaptableMapper.Traversals
 {
@@ -9,12 +10,12 @@ namespace AdaptableMapper.Traversals
         public GetStaticValueTraversal(string value)
             => Value = value;
 
-        public string GetValue(string source)
+        public string GetValue(string value)
         {
-            return GetValue((object) source);
+            return GetValue(new Context(value, string.Empty));
         }
 
-        public string GetValue(object source)
+        public string GetValue(Context context)
         {
             if (string.IsNullOrWhiteSpace(Value))
                 Process.ProcessObservable.GetInstance().Raise("GetStaticValueTraversal#1; Value is set to an empty string", "error");

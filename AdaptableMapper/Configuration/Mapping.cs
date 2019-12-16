@@ -15,14 +15,14 @@ namespace AdaptableMapper.Configuration
             SetValueTraversal = setValueTraversal;
         }
 
-        public void Map(Context context)
+        public void Map(Context context, MappingCaches mappingCaches)
         {
             if (!Validate())
                 return;
 
-            string value = GetValueTraversal.GetValue(context.Source);
+            string value = GetValueTraversal.GetValue(context);
 
-            SetValueTraversal.SetValue(context, value);
+            SetValueTraversal.SetValue(context, mappingCaches, value);
         }
 
         private bool Validate()

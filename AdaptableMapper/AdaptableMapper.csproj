@@ -48,7 +48,11 @@
     <Compile Include="Conditions\NotEmptyCondition.cs" />
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
+    <Compile Include="GenerateIdCache.cs" />
+    <Compile Include="MappingCaches.cs" />
     <Compile Include="TemplateCache.cs" />
+    <Compile Include="Traversals\GetNothingValueTraversal.cs" />
+    <Compile Include="Traversals\Xml\XmlSetGeneratedIdValueTraversal.cs" />
     <Compile Include="ValueMutations\DictionaryReplaceValueMutation.cs" />
     <Compile Include="ValueMutations\SubstringValueMutation.cs" />
     <Compile Include="ValueMutations\Traversals\GetValueStringTraversal.cs" />

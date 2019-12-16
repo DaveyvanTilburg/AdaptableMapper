@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Car>
+  <Parts>
+    <Part>
+      <Id/>
+      <Text/>
+    </Part>
+  </Parts>
+</Car>

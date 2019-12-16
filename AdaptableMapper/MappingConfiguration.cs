@@ -11,13 +11,13 @@ namespace AdaptableMapper
         public List<MappingScopeComposite> MappingScopeComposites { get; set; }
         public List<Mapping> Mappings { get; set; }
 
-        private readonly TemplateCache _templateCache;
+        private readonly MappingCaches _mappingCaches;
 
         public MappingConfiguration()
         {
             Mappings = new List<Mapping>();
             MappingScopeComposites = new List<MappingScopeComposite>();
-            _templateCache = new TemplateCache();
+            _mappingCaches = new MappingCaches();
         }
 
         public MappingConfiguration(List<MappingScopeComposite> mappingScopeComposites, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
@@ -56,10 +56,10 @@ namespace AdaptableMapper
             Context context = ContextFactory.Create(source, targetSource);
 
             foreach (Mapping mapping in Mappings)
-                mapping.Map(context);
+                mapping.Map(context, _mappingCaches);
 
             foreach (MappingScopeComposite mappingScopeComposite in MappingScopeComposites)
-                mappingScopeComposite.Traverse(context, _templateCache);
+                mappingScopeComposite.Traverse(context, _mappingCaches);
 
             object result = ResultObjectConverter.Convert(context.Target);
             return result;

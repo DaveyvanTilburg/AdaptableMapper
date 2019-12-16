@@ -14,7 +14,7 @@ namespace AdaptableMapper.Traversals.Json
 
         public string Path { get; set; }
 
-        protected override void SetValueImplementation(Context context, string value)
+        protected override void SetValueImplementation(Context context, MappingCaches mappingCaches, string value)
         {
             if (!(context.Target is JToken jToken))
             {

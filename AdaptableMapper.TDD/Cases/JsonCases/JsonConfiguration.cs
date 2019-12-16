@@ -10,8 +10,8 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
     public class JsonConfiguration
     {
         [Theory]
-        [InlineData("InvalidTypeParent", ContextType.EmptyString, ContextType.EmptyString, "e-JSON#1;")]
-        [InlineData("InvalidType", ContextType.InvalidObject, ContextType.EmptyString, "e-JSON#2;")]
+        [InlineData("InvalidTypeParent", ContextType.EmptyString, ContextType.EmptyString, "e-JsonChildCreator#1;")]
+        [InlineData("InvalidType", ContextType.InvalidObject, ContextType.EmptyString, "e-JsonChildCreator#2;")]
         [InlineData("Valid", ContextType.ValidParent, ContextType.TestObject)]
         public void JsonChildCreator(string because, ContextType parentType, ContextType childType, params string[] expectedErrors)
         {

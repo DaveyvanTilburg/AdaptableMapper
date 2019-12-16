@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using AdaptableMapper.Configuration;
 using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
@@ -13,11 +14,11 @@ namespace AdaptableMapper.Traversals.Xml
         public string Path { get; set; }
         public XmlInterpretation XmlInterpretation { get; set; }
 
-        public string GetValue(object source)
+        public string GetValue(Context context)
         {
-            if (!(source is XElement xElement))
+            if (!(context.Source is XElement xElement))
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#17; source is not of expected type XElement", "error", Path, source?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("XML#17; source is not of expected type XElement", "error", Path, context.Source?.GetType().Name);
                 return string.Empty;
             }
 

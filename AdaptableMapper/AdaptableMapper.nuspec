@@ -24,6 +24,8 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - ReplaceValueMutation property renamed
       - ReplaceValueMutation now checks if it is correctly composed
       - Add Xml CData support
+      - Introduce the concept of MappingConfiguration scopes caches
+      - Add XmlSetGeneratedIdValueTraversal
       - Removed giving error on empty result for GetValueTraversal implementations
       - Added NotEmptyCondition
     </releaseNotes>

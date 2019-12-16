@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using AdaptableMapper.Configuration;
+using Newtonsoft.Json.Linq;
 
 namespace AdaptableMapper.Traversals.Json
 {
@@ -11,11 +12,11 @@ namespace AdaptableMapper.Traversals.Json
 
         public string Path { get; set; }
 
-        public string GetValue(object source)
+        public string GetValue(Context context)
         {
-            if (!(source is JToken jToken))
+            if (!(context.Source is JToken jToken))
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#10; Source is not of expected type JToken", "error", Path, source?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("JSON#10; Source is not of expected type JToken", "error", Path, context.Source?.GetType().Name);
                 return string.Empty;
             }
 
