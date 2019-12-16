@@ -91,7 +91,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
         }
 
         [Fact]
-        public void ListValueMutation()
+        public void ListOfConditions()
         {
             var subject = new ListOfConditions();
             subject.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.Equals, new GetStaticValueTraversal("0")));
@@ -105,7 +105,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
         }
 
         [Fact]
-        public void ListValueMutationEmpty()
+        public void ListOfConditionsEmpty()
         {
             var subject = new ListOfConditions();
 
