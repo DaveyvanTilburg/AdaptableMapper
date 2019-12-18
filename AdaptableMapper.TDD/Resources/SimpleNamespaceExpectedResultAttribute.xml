@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<x:root xmlns:x="www.google.com" xmlns:y="www.youtube.com">
+<x:root xmlns:x="www.google.com" xmlns:y="www.youtube.com" count="2">
   <x:SimpleItems>
     <y:SimpleItem Id="3">
       <y:Name>Davey</y:Name>

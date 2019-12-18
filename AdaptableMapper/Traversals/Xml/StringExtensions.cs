@@ -47,7 +47,7 @@ namespace AdaptableMapper.Traversals.Xml
                 return DefaultPrefix;
 
             int firstLetterIndex = path.IndexOf(firstLetter);
-            string originalPrefix = path.Substring(0, firstLetterIndex);
+            string originalPrefix = path.Substring(0, firstLetterIndex).Trim('@');
             return originalPrefix;
         }
 
