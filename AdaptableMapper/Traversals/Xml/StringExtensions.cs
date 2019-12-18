@@ -12,19 +12,19 @@ namespace AdaptableMapper.Traversals.Xml
         {
             string result = path;
 
-            string wrappingMethod = GetWrappingMethod(path);
-            if (!string.IsNullOrWhiteSpace(wrappingMethod))
-                path = UnWrap(path, wrappingMethod);
-
             switch (xmlInterpretation)
             {
                 case XmlInterpretation.WithoutNamespace:
+                    string wrappingMethod = GetWrappingMethod(path);
+                    if (!string.IsNullOrWhiteSpace(wrappingMethod))
+                        path = UnWrap(path, wrappingMethod);
+
                     result = path.ConvertToNamespacelessPath();
+
+                    if (!string.IsNullOrWhiteSpace(wrappingMethod))
+                        result = Wrap(result, wrappingMethod);
                     break;
             }
-
-            if (!string.IsNullOrWhiteSpace(wrappingMethod))
-                result = Wrap(result, wrappingMethod);
 
             return result;
         }

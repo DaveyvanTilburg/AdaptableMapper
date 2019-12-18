@@ -86,7 +86,8 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("ValidNamespacelessDifferentPrefix", "./SimpleItems/SimpleItem/Name", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "Davey")]
         [InlineData("GetProcessingInstruction", "/processing-instruction('thing')", ContextType.Alternative2TestObject, XmlInterpretation.Default, "value1|value2|value3")]
         [InlineData("GetNamespaceFromRoot", "./@count", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "2")]
-        [InlineData("CountChildNodes", "count(./SimpleItems/SimpleItem)", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "2")]
+        [InlineData("CountChildNodesWithoutNamespace", "count(./SimpleItems/SimpleItem)", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "2")]
+        [InlineData("CountChildNodes", "count(./SimpleItems/SimpleItem)", ContextType.AlternativeTestObject, XmlInterpretation.Default, "0")]
         public void XmlGetValueTraversal(string because, string path, ContextType contextType, XmlInterpretation xmlInterpretation, string expectedValue, params string[] expectedErrors)
         {
             var subject = new XmlGetValueTraversal(path) { XmlInterpretation = xmlInterpretation };
