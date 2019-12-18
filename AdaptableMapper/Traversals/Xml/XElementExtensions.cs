@@ -16,7 +16,7 @@ namespace AdaptableMapper.Traversals.Xml
             {
                 allMatches = xElement.XPathSelectElements(xPath).ToList();
             }
-            catch(XPathException exception)
+            catch (XPathException exception)
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#28; Path is invalid", "error", xPath, exception.GetType().Name, exception.Message);
                 return new List<XElement>();
@@ -40,13 +40,13 @@ namespace AdaptableMapper.Traversals.Xml
                 return NullElement.Create();
             }
 
-            if(!allMatches.Any())
+            if (!allMatches.Any())
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#2; Path could not be traversed", "warning", xPath);
                 return NullElement.Create();
             }
 
-            if(!(allMatches.First() is XElement result))
+            if (!(allMatches.First() is XElement result))
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#8; Path did not end in an element", "error", xPath);
                 return NullElement.Create();
@@ -59,10 +59,10 @@ namespace AdaptableMapper.Traversals.Xml
         {
             string result = string.Empty;
 
-            IEnumerable enumerable;
+            object pathResult;
             try
             {
-                enumerable = xElement.XPathEvaluate(xPath) as IEnumerable;
+                pathResult = xElement.XPathEvaluate(xPath);
             }
             catch (XPathException exception)
             {
@@ -70,22 +70,27 @@ namespace AdaptableMapper.Traversals.Xml
                 return new NullMethodResult<string>();
             }
 
-            var xObject = enumerable?.Cast<XObject>().FirstOrDefault();
-
-            if (xObject == null)
+            if (pathResult is IEnumerable enumerable)
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#30; Path resulted in no items", "warning", xPath);
-                return new NullMethodResult<string>();
+                var xObject = enumerable.Cast<XObject>().FirstOrDefault();
+
+                if (xObject == null)
+                {
+                    Process.ProcessObservable.GetInstance().Raise("XML#30; Path resulted in no items", "warning", xPath);
+                    return new NullMethodResult<string>();
+                }
+
+                if (xObject is XElement element)
+                    result = element.Value;
+                if (xObject is XAttribute attribute)
+                    result = attribute.Value;
+                if (xObject is XProcessingInstruction processingInstruction)
+                    result = processingInstruction.Data;
+
+                return new MethodResult<string>(result);
             }
 
-            if (xObject is XElement element)
-                result = element.Value;
-            if (xObject is XAttribute attribute)
-                result = attribute.Value;
-            if (xObject is XProcessingInstruction processingInstruction)
-                result = processingInstruction.Data;
-
-            return new MethodResult<string>(result);
+            return new MethodResult<string>(pathResult.ToString());
         }
 
         public static void SetXPathValues(this XElement xElement, string xPath, string value, bool setAsCData)

@@ -12,12 +12,19 @@ namespace AdaptableMapper.Traversals.Xml
         {
             string result = path;
 
+            string wrappingMethod = GetWrappingMethod(path);
+            if (!string.IsNullOrWhiteSpace(wrappingMethod))
+                path = UnWrap(path, wrappingMethod);
+
             switch (xmlInterpretation)
             {
                 case XmlInterpretation.WithoutNamespace:
                     result = path.ConvertToNamespacelessPath();
                     break;
             }
+
+            if (!string.IsNullOrWhiteSpace(wrappingMethod))
+                result = Wrap(result, wrappingMethod);
 
             return result;
         }
@@ -71,5 +78,30 @@ namespace AdaptableMapper.Traversals.Xml
 
             return result;
         }
+
+        private static string GetWrappingMethod(string path)
+        {
+            if (path.Length == 0)
+                return string.Empty;
+
+            if (!(path.Last().Equals(')') && char.IsLetter(path.First())))
+                return string.Empty;
+
+            int openingParenthesisIndex = path.IndexOf('(');
+            string result = path.Substring(0, openingParenthesisIndex);
+
+            return result;
+        }
+
+        private static string UnWrap(string path, string wrappingMethod)
+        {
+            string result = path.Substring(wrappingMethod.Length, path.Length - wrappingMethod.Length);
+            result = result.Trim('(', ')');
+
+            return result;
+        }
+
+        private static string Wrap(string path, string wrappingMethod)
+            => $"{wrappingMethod}({path})";
     }
 }
