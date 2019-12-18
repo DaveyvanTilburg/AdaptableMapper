@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AdaptableMapper.Configuration.Model;
+using AdaptableMapper.Model;
 
 namespace AdaptableMapper.TDD.Cases.ModelCases
 {
@@ -54,6 +55,9 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
                     break;
                 case ContextType.ValidSource:
                     result = Newtonsoft.Json.JsonConvert.SerializeObject(CreateModelTargetInstantiatorSource());
+                    break;
+                case ContextType.ValidParent:
+                    result = new List<ModelBase>();
                     break;
             }
 

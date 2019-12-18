@@ -10,13 +10,28 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
     public class ModelConfiguration
     {
         [Theory]
-        [InlineData("ParentInvalidType", ContextType.EmptyString, "", "e-ModelChildCreator#1;")]
-        [InlineData("TemplateInvalidType", ContextType.EmptyObject, "item", "e-ModelChildCreator#2;")]
-        public void ModelChildCreator(string because, ContextType contextType, string createType, params string[] expectedErrors)
+        [InlineData("InvalidParentType", ContextType.EmptyString, "", ContextType.EmptyObject, "", "e-ModelChildCreator#1;")]
+        [InlineData("InvalidChildType", ContextType.EmptyObject, "item", ContextType.EmptyObject, "", "e-ModelChildCreator#2;")]
+        public void ModelChildCreatorCreateChild(string because, ContextType parentType, string parentCreateType, ContextType childType, string childCreateType, params string[] expectedErrors)
         {
             var subject = new ModelChildCreator();
-            object context = Model.CreateTarget(contextType, createType);
-            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = context, Child = string.Empty }); }).Observe();
+            object parent = Model.CreateTarget(parentType, parentCreateType);
+            object child = Model.CreateTarget(childType, childCreateType);
+            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = parent, Child = child }); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
+        }
+
+        [Theory]
+        [InlineData("InvalidParentType", ContextType.EmptyString, "", ContextType.EmptyString, "", ContextType.EmptyString, "", "e-ModelChildCreator#3;")]
+        [InlineData("InvalidChildType", ContextType.EmptyObject, "item", ContextType.EmptyString, "", ContextType.EmptyString, "", "e-ModelChildCreator#4;")]
+        [InlineData("InvalidNewChildType", ContextType.EmptyObject, "item", ContextType.ValidParent, "", ContextType.EmptyString, "", "e-ModelChildCreator#5;")]
+        public void ModelChildCreatorAddToParent(string because, ContextType parentType, string parentCreateType, ContextType childType, string childCreateType, ContextType newChildType, string newChildCreateType, params string[] expectedErrors)
+        {
+            var subject = new ModelChildCreator();
+            object parent = Model.CreateTarget(parentType, parentCreateType);
+            object child = Model.CreateTarget(childType, childCreateType);
+            object newChild = Model.CreateTarget(newChildType, newChildCreateType);
+            List<Information> result = new Action(() => { subject.AddToParent(new Template { Parent = parent, Child = child }, newChild); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 

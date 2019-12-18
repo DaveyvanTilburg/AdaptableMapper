@@ -77,7 +77,6 @@ namespace AdaptableMapper.Traversals.Xml
                 Process.ProcessObservable.GetInstance().Raise("XML#30; Path resulted in no items", "warning", xPath);
                 return new NullMethodResult<string>();
             }
-                
 
             if (xObject is XElement element)
                 result = element.Value;

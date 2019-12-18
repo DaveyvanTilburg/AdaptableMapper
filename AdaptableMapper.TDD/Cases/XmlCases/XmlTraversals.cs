@@ -206,6 +206,15 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
+        [Fact]
+        public void XmlSetGeneratedIdValueTraversalInvalidType()
+        {
+            var subject = new XmlSetGeneratedIdValueTraversal("") { XmlInterpretation = XmlInterpretation.Default, SetAsCData = false };
+
+            List<Information> information = new Action(() => { subject.SetValue(new Context(null, 1), null, ""); }).Observe();
+            information.ValidateResult(new List<string> { "e-XmlSetGeneratedIdValueTraversal#1;" });
+        }
+
 
 
         [Fact]

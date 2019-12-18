@@ -20,7 +20,7 @@ namespace AdaptableMapper.Traversals.Xml
         {
             if (!(context.Target is XElement xElement))
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#21; target is not of expected type XElement", "error", Path, context.Target?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("XmlSetGeneratedIdValueTraversal#1; target is not of expected type XElement", "error", Path, context.Target?.GetType().Name);
                 return;
             }
 

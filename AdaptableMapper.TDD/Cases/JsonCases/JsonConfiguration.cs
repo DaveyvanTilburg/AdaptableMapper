@@ -13,12 +13,25 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         [InlineData("InvalidTypeParent", ContextType.EmptyString, ContextType.EmptyString, "e-JsonChildCreator#1;")]
         [InlineData("InvalidType", ContextType.InvalidObject, ContextType.EmptyString, "e-JsonChildCreator#2;")]
         [InlineData("Valid", ContextType.ValidParent, ContextType.TestObject)]
-        public void JsonChildCreator(string because, ContextType parentType, ContextType childType, params string[] expectedErrors)
+        public void JsonChildCreatorCreateChild(string because, ContextType parentType, ContextType childType, params string[] expectedErrors)
         {
             var subject = new JsonChildCreator();
             object parent = Json.CreateTarget(parentType);
             object child = Json.CreateTarget(childType);
             List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = parent, Child = child }); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
+        }
+
+        [Theory]
+        [InlineData("InvalidTypeParent", ContextType.EmptyString, ContextType.EmptyString, "e-JsonChildCreator#3;")]
+        [InlineData("InvalidType", ContextType.InvalidObject, ContextType.EmptyString, "e-JsonChildCreator#4;")]
+        [InlineData("Valid", ContextType.ValidParent, ContextType.TestObject)]
+        public void JsonChildCreatorAddToParent(string because, ContextType parentType, ContextType childType, params string[] expectedErrors)
+        {
+            var subject = new JsonChildCreator();
+            object parent = Json.CreateTarget(parentType);
+            object child = Json.CreateTarget(childType);
+            List<Information> result = new Action(() => { subject.AddToParent(new Template { Parent = parent, Child = child }, child); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 

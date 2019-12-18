@@ -42,8 +42,6 @@ namespace AdaptableMapper.Traversals.Xml
 
             string actualPath = string.IsNullOrWhiteSpace(searchValue.Value) ? SearchPath : SearchPath.Replace("{{searchValue}}", searchValue.Value);
             MethodResult<string> result = xElement.GetXPathValue(actualPath.ConvertToInterpretation(XmlInterpretation));
-            if (!result.IsValid)
-                return string.Empty;
 
             return result.Value;
         }

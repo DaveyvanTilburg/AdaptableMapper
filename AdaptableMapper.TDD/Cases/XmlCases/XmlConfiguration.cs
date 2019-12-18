@@ -15,11 +15,22 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [Theory]
         [InlineData("InvalidParentType", ContextType.EmptyString, "e-XmlChildCreator#1;")]
         [InlineData("InvalidTemplateType", ContextType.EmptyObject, "e-XmlChildCreator#2;")]
-        public void XmlChildCreator(string because, ContextType contextType, params string[] expectedErrors)
+        public void XmlChildCreatorCreateChild(string because, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlChildCreator();
             object context = Xml.CreateTarget(contextType);
             List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = context, Child = string.Empty }); }).Observe();
+            result.ValidateResult(new List<string>(expectedErrors), because);
+        }
+
+        [Theory]
+        [InlineData("InvalidParentType", ContextType.EmptyString, "e-XmlChildCreator#3;")]
+        [InlineData("InvalidTemplateType", ContextType.EmptyObject, "e-XmlChildCreator#4;")]
+        public void XmlChildCreatorAddToParent(string because, ContextType contextType, params string[] expectedErrors)
+        {
+            var subject = new XmlChildCreator();
+            object context = Xml.CreateTarget(contextType);
+            List<Information> result = new Action(() => { subject.AddToParent(new Template { Parent = context, Child = string.Empty }, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
