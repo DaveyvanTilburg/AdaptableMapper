@@ -34,11 +34,13 @@ namespace AdaptableMapper.Configuration
             if (!Validate())
                 return;
 
-            IEnumerable<object> scope = GetScopeTraversal.GetScope(context.Source);
+            MethodResult<IEnumerable<object>> scope = GetScopeTraversal.GetScope(context.Source);
+            if (!scope.IsValid)
+                return;
 
             Template template = GetTemplateTraversal.GetTemplate(context.Target, mappingCaches);
 
-            foreach (object item in scope)
+            foreach (object item in scope.Value)
             {
                 object newChild = ChildCreator.CreateChild(template);
                 Context childContext = new Context(source: item, target: newChild);

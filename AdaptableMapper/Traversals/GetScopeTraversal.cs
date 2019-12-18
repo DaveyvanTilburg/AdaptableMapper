@@ -4,6 +4,6 @@ namespace AdaptableMapper.Traversals
 {
     public interface GetScopeTraversal
     {
-        IEnumerable<object> GetScope(object source);
+        MethodResult<IEnumerable<object>> GetScope(object source);
     }
 }

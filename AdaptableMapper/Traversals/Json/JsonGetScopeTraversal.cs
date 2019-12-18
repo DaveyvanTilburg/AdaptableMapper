@@ -13,19 +13,22 @@ namespace AdaptableMapper.Traversals.Json
 
         public string Path { get; set; }
 
-        public IEnumerable<object> GetScope(object source)
+        public MethodResult<IEnumerable<object>> GetScope(object source)
         {
             if (!(source is JToken jToken))
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#3; Source is not of expected type jToken", "error", Path, source?.GetType().Name);
-                return new JObject();
+                return new NullMethodResult<IEnumerable<object>>();
             }
 
             IEnumerable<JToken> jTokens = jToken.TraverseAll(Path).ToList();
-            if(!jTokens.Any())
+            if (!jTokens.Any())
+            {
                 Process.ProcessObservable.GetInstance().Raise("JSON#4; Path has no results", "warning", Path);
+                return new NullMethodResult<IEnumerable<object>>();
+            }
 
-            return jTokens;
+            return new MethodResult<IEnumerable<object>>(jTokens);
         }
     }
 }

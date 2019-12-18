@@ -30,6 +30,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Added NotEmptyCondition
       - Bug fix for Xml namespaceless path traversal for attributes
       - Changed build settings for debug and release
+      - GetTemplate no longer gets called if the scope traversal finds nothing
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

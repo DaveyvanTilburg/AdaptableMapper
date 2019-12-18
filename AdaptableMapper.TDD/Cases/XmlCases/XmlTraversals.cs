@@ -223,6 +223,18 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
                                 new XmlSetThisValueTraversal()
                             )
                         },
+                        new XmlGetScopeTraversal("./InvalidPath"),
+                        new XmlGetTemplateTraversal("./People/Person"),
+                        new XmlChildCreator()),
+                    new MappingScopeComposite(
+                        new List<MappingScopeComposite>(),
+                        new List<Mapping>
+                        {
+                            new Mapping(
+                                new XmlGetThisValueTraversal(),
+                                new XmlSetThisValueTraversal()
+                            )
+                        },
                         new XmlGetScopeTraversal("./Teachers/Teacher"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator()),

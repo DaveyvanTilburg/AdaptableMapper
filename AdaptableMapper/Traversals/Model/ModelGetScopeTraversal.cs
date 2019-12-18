@@ -13,12 +13,12 @@ namespace AdaptableMapper.Traversals.Model
 
         public string Path { get; set; }
 
-        public IEnumerable<object> GetScope(object source)
+        public MethodResult<IEnumerable<object>> GetScope(object source)
         {
             if (!(source is ModelBase model))
             {
                 Process.ProcessObservable.GetInstance().Raise("MODEL#12; source is not of expected type Model", "error", Path, source);
-                return new List<object>();
+                return new NullMethodResult<IEnumerable<object>>();
             }
 
             var modelPathContainer = PathContainer.Create(Path);
@@ -30,7 +30,7 @@ namespace AdaptableMapper.Traversals.Model
                 .SelectMany(l => (IEnumerable<object>)l)
                 .ToList();
 
-            return modelScopes;
+            return new MethodResult<IEnumerable<object>>(modelScopes);
         }
     }
 }
