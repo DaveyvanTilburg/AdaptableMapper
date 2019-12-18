@@ -32,6 +32,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Changed build settings for debug and release
       - GetTemplate no longer gets called if the scope traversal finds nothing
       - Bugfix for xml namespaceless traversal for getting attribute from current element
+      - Support xpath methods wrapping the path while using namespaceless interpretation
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
