@@ -29,6 +29,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Removed giving error on empty result for GetValueTraversal implementations
       - Added NotEmptyCondition
       - Bug fix for Xml namespaceless path traversal for attributes
+      - Changed build settings for debug and release
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
