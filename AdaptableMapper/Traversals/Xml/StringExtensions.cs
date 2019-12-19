@@ -10,6 +10,9 @@ namespace AdaptableMapper.Traversals.Xml
 
         public static string ConvertToInterpretation(this string path, XmlInterpretation xmlInterpretation)
         {
+            if (path.Length == 0)
+                return string.Empty;
+
             string result = path;
 
             switch (xmlInterpretation)
@@ -81,9 +84,6 @@ namespace AdaptableMapper.Traversals.Xml
 
         private static string GetWrappingMethod(string path)
         {
-            if (path.Length == 0)
-                return string.Empty;
-
             if (!(path.Last().Equals(')') && char.IsLetter(path.First())))
                 return string.Empty;
 

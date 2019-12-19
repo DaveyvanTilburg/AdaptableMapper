@@ -34,6 +34,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Bugfix for xml namespaceless traversal for getting attribute from current element
       - Support xpath methods wrapping the path while using namespaceless interpretation
       - bugfix for xmlinterpretation default and xpathmethods
+      - Added new generic get block: IfAEmptyThenBElseCGetValueTraversal
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

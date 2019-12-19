@@ -53,6 +53,7 @@
     <Compile Include="MappingCaches.cs" />
     <Compile Include="TemplateCache.cs" />
     <Compile Include="Traversals\GetNothingValueTraversal.cs" />
+    <Compile Include="Traversals\IfAEmptyThenBElseCGetValueTraversal.cs" />
     <Compile Include="Traversals\Xml\XmlSetGeneratedIdValueTraversal.cs" />
     <Compile Include="ValueMutations\DictionaryReplaceValueMutation.cs" />
     <Compile Include="ValueMutations\SubstringValueMutation.cs" />

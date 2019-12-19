@@ -38,6 +38,39 @@ namespace AdaptableMapper.TDD.Cases.Traversals
             result.Should().BeEmpty();
         }
 
+        [Theory]
+        [InlineData("", "B", "C", "B")]
+        [InlineData("A", "B", "C", "C")]
+        public void IfAEmptyThenBElseCGetValueTraversal(string valueA, string valueB, string valueC, string expectedValue)
+        {
+            var subject = new IfAEmptyThenBElseCGetValueTraversal(new GetStaticValueTraversal(valueA), new GetStaticValueTraversal(valueB), new GetStaticValueTraversal(valueC));
+
+            string result = subject.GetValue(new Context(null, null));
+            result.Should().Be(expectedValue);
+        }
+
+        [Theory]
+        [InlineData(true, true, true)]
+        [InlineData(true, true, false, "e-IfAEmptyThenBElseCGetValueTraversal#3;")]
+        [InlineData(true, false, true, "e-IfAEmptyThenBElseCGetValueTraversal#2;")]
+        [InlineData(false, false, false, "e-IfAEmptyThenBElseCGetValueTraversal#1;", "e-IfAEmptyThenBElseCGetValueTraversal#2;", "e-IfAEmptyThenBElseCGetValueTraversal#3;")]
+        public void IfAEmptyThenBElseCGetValueTraversalValidation(bool valueA, bool valueB, bool valueC, params string[] expectedErrors)
+        {
+            GetValueTraversal getValueTraversalA = valueA ? new GetStaticValueTraversal("A") : null;
+            GetValueTraversal getValueTraversalB = valueB ? new GetStaticValueTraversal("B") : null;
+            GetValueTraversal getValueTraversalC = valueC ? new GetStaticValueTraversal("C") : null;
+
+            var subject = new IfAEmptyThenBElseCGetValueTraversal(getValueTraversalA, getValueTraversalB, getValueTraversalC);
+
+            string result = string.Empty;
+            List<Information> information = new Action(() => { result = subject.GetValue(null); }).Observe();
+            information.ValidateResult(expectedErrors, "Validation");
+            if (valueA == false || valueB == false || valueC == false)
+                result.Should().BeEmpty();
+            else
+                result.Should().NotBeEmpty();
+        }
+
         [Fact]
         public void GenerateIdValueTraversalMultipleScopesSameTemplate()
         {

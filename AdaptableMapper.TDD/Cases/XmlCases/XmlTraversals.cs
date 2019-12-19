@@ -78,6 +78,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
 
         [Theory]
         [InlineData("InvalidType", "", ContextType.EmptyString, XmlInterpretation.Default, "", "e-XML#17;")]
+        [InlineData("EmptyPath", "", ContextType.EmptyObject, XmlInterpretation.WithoutNamespace, "", "e-XML#29;")]
         [InlineData("InvalidPath", "::", ContextType.EmptyObject, XmlInterpretation.Default, "", "e-XML#29;")]
         [InlineData("InvalidPathWithoutNamespace", "::", ContextType.EmptyObject, XmlInterpretation.WithoutNamespace, "", "w-XML#30;")]
         [InlineData("EmptyString", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, XmlInterpretation.Default, "")]
