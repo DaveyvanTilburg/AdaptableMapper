@@ -35,6 +35,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Support xpath methods wrapping the path while using namespaceless interpretation
       - bugfix for xmlinterpretation default and xpathmethods
       - Added new generic get block: IfAEmptyThenBElseCGetValueTraversal
+      - Changed Empty comparison in IfAEmptyThenBElseCGetValueTraversal with a condition
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

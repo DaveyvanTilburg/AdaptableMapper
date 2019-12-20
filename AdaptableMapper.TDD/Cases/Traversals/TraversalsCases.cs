@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AdaptableMapper.Conditions;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals;
@@ -39,11 +40,11 @@ namespace AdaptableMapper.TDD.Cases.Traversals
         }
 
         [Theory]
-        [InlineData("", "B", "C", "B")]
-        [InlineData("A", "B", "C", "C")]
-        public void IfAEmptyThenBElseCGetValueTraversal(string valueA, string valueB, string valueC, string expectedValue)
+        [InlineData("", "B", "C", "C")]
+        [InlineData("A", "B", "C", "B")]
+        public void IfConditionThenAElseBGetValueTraversal(string valueA, string valueB, string valueC, string expectedValue)
         {
-            var subject = new IfAEmptyThenBElseCGetValueTraversal(new GetStaticValueTraversal(valueA), new GetStaticValueTraversal(valueB), new GetStaticValueTraversal(valueC));
+            var subject = new IfConditionThenAElseBGetValueTraversal(new NotEmptyCondition(new GetStaticValueTraversal(valueA)), new GetStaticValueTraversal(valueB), new GetStaticValueTraversal(valueC));
 
             string result = subject.GetValue(new Context(null, null));
             result.Should().Be(expectedValue);
@@ -51,16 +52,16 @@ namespace AdaptableMapper.TDD.Cases.Traversals
 
         [Theory]
         [InlineData(true, true, true)]
-        [InlineData(true, true, false, "e-IfAEmptyThenBElseCGetValueTraversal#3;")]
-        [InlineData(true, false, true, "e-IfAEmptyThenBElseCGetValueTraversal#2;")]
-        [InlineData(false, false, false, "e-IfAEmptyThenBElseCGetValueTraversal#1;", "e-IfAEmptyThenBElseCGetValueTraversal#2;", "e-IfAEmptyThenBElseCGetValueTraversal#3;")]
-        public void IfAEmptyThenBElseCGetValueTraversalValidation(bool valueA, bool valueB, bool valueC, params string[] expectedErrors)
+        [InlineData(true, true, false, "e-IfConditionThenAElseBGetValueTraversal#3;")]
+        [InlineData(true, false, true, "e-IfConditionThenAElseBGetValueTraversal#2;")]
+        [InlineData(false, false, false, "e-IfConditionThenAElseBGetValueTraversal#1;", "e-IfConditionThenAElseBGetValueTraversal#2;", "e-IfConditionThenAElseBGetValueTraversal#3;")]
+        public void IfConditionThenAElseBGetValueTraversalValidation(bool valueA, bool valueB, bool valueC, params string[] expectedErrors)
         {
-            GetValueTraversal getValueTraversalA = valueA ? new GetStaticValueTraversal("A") : null;
-            GetValueTraversal getValueTraversalB = valueB ? new GetStaticValueTraversal("B") : null;
-            GetValueTraversal getValueTraversalC = valueC ? new GetStaticValueTraversal("C") : null;
+            Condition condition = valueA ? new NotEmptyCondition(new GetStaticValueTraversal("A")) : null;
+            GetValueTraversal getValueTraversalA = valueB ? new GetStaticValueTraversal("B") : null;
+            GetValueTraversal getValueTraversalB = valueC ? new GetStaticValueTraversal("C") : null;
 
-            var subject = new IfAEmptyThenBElseCGetValueTraversal(getValueTraversalA, getValueTraversalB, getValueTraversalC);
+            var subject = new IfConditionThenAElseBGetValueTraversal(condition, getValueTraversalA, getValueTraversalB);
 
             string result = string.Empty;
             List<Information> information = new Action(() => { result = subject.GetValue(null); }).Observe();
