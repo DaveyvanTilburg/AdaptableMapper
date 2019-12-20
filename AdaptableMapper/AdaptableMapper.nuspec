@@ -38,6 +38,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Changed Empty comparison in IfAEmptyThenBElseCGetValueTraversal with a condition
       - Renamed IfAEmptyThenBElseCGetValueTraversal to IfConditionThenAElseBGetValueTraversal
       - Change list of conditions to have evaluation settings
+      - Change the constructor for list of conditions
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

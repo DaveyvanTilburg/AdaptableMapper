@@ -6,8 +6,11 @@ namespace AdaptableMapper.Conditions
 {
     public sealed class ListOfConditions : Condition
     {
-        public ListOfConditions()
-            => Conditions = new List<Condition>();
+        public ListOfConditions(ListEvaluationOperator listEvaluationOperator)
+        {
+            ListEvaluationOperator = listEvaluationOperator;
+            Conditions = new List<Condition>();
+        }
 
         public ListEvaluationOperator ListEvaluationOperator { get; set; }
         public List<Condition> Conditions { get; set; }

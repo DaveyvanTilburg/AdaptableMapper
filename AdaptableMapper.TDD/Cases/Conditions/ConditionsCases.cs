@@ -103,7 +103,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
             string entry2ValueA, CompareOperator entry2CompareOperator, string entry2ValueB,
             bool expectedResult)
         {
-            var subject = new ListOfConditions { ListEvaluationOperator = listEvaluationOperator };
+            var subject = new ListOfConditions(listEvaluationOperator);
             subject.Conditions.Add(new CompareCondition(new GetStaticValueTraversal(entry1ValueA), entry1CompareOperator, new GetStaticValueTraversal(entry1ValueB)));
             subject.Conditions.Add(new CompareCondition(new GetStaticValueTraversal(entry2ValueA), entry2CompareOperator, new GetStaticValueTraversal(entry2ValueB)));
 
@@ -117,7 +117,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
         [Fact]
         public void ListOfConditionsEmpty()
         {
-            var subject = new ListOfConditions();
+            var subject = new ListOfConditions(ListEvaluationOperator.Any);
 
             bool result = false;
             List<Information> information = new Action(() => { result = subject.Validate(new Context(string.Empty, string.Empty)); }).Observe();
@@ -129,14 +129,14 @@ namespace AdaptableMapper.TDD.Cases.Conditions
         [Fact]
         public void ListOfConditionsComplexSetupTest()
         {
-            var subject = new ListOfConditions { ListEvaluationOperator = ListEvaluationOperator.All };
+            var subject = new ListOfConditions(ListEvaluationOperator.All);
 
-            var subSubject1 = new ListOfConditions { ListEvaluationOperator = ListEvaluationOperator.All };
+            var subSubject1 = new ListOfConditions(ListEvaluationOperator.All);
             subSubject1.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.Equals, new GetStaticValueTraversal("0")));
             subSubject1.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.NotEquals, new GetStaticValueTraversal("1")));
             subject.Conditions.Add(subSubject1);
 
-            var subSubject2 = new ListOfConditions { ListEvaluationOperator = ListEvaluationOperator.Any };
+            var subSubject2 = new ListOfConditions(ListEvaluationOperator.Any);
             subSubject2.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.NotEquals, new GetStaticValueTraversal("0")));
             subSubject2.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.NotEquals, new GetStaticValueTraversal("1")));
             subject.Conditions.Add(subSubject2);
