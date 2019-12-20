@@ -7,6 +7,8 @@ namespace AdaptableMapper.Conditions
     public enum CompareOperator
     {
         Equals = 0,
-        NotEquals = 1
+        NotEquals = 1,
+        GreaterThan = 2,
+        LessThan = 3
     }
 }

@@ -49,6 +49,35 @@ namespace AdaptableMapper.TDD.Cases.Conditions
         }
 
         [Theory]
+        [InlineData("0", CompareOperator.Equals, "0", true)]
+        [InlineData("0", CompareOperator.Equals, "1", false)]
+        [InlineData("0", CompareOperator.NotEquals, "1", true)]
+        [InlineData("1", CompareOperator.NotEquals, "1", false)]
+        [InlineData("1", CompareOperator.GreaterThan, "1", false)]
+        [InlineData("1", CompareOperator.GreaterThan, "2", false)]
+        [InlineData("2", CompareOperator.GreaterThan, "1", true)]
+        [InlineData("1", CompareOperator.LessThan, "2", true)]
+        [InlineData("2", CompareOperator.LessThan, "1", false)]
+        [InlineData("abcd", CompareOperator.Equals, "1", false)]
+        [InlineData("0", CompareOperator.NotEquals, "abcd", true)]
+        [InlineData("2", CompareOperator.GreaterThan, "a", true, "w-CompareCondition#3;")]
+        [InlineData("a", CompareOperator.LessThan, "2", true, "w-CompareCondition#3;")]
+        [InlineData("a", CompareOperator.GreaterThan, "2", false, "w-CompareCondition#3;")]
+        [InlineData("2", CompareOperator.LessThan, "a", false, "w-CompareCondition#3;")]
+        [InlineData("b", CompareOperator.LessThan, "a", false, "w-CompareCondition#3;", "w-CompareCondition#3;")]
+        [InlineData("b", CompareOperator.GreaterThan, "a", false, "w-CompareCondition#3;", "w-CompareCondition#3;")]
+        public void CompareConditionStatics(string valueA, CompareOperator compareOperator, string valueB, bool expectedResult, params string[] expectedErrors)
+        {
+            var subject = new CompareCondition(new GetStaticValueTraversal(valueA), compareOperator, new GetStaticValueTraversal(valueB));
+
+            bool result = false;
+            List<Information> information = new Action(() => { result = subject.Validate(new Context(null, null)); }).Observe();
+
+            information.ValidateResult(new List<string>(expectedErrors));
+            result.Should().Be(expectedResult);
+        }
+
+        [Theory]
         [InlineData("EqualsValid", "Davey", true)]
         [InlineData("EqualsInvalid", "Joey", false)]
         public void CompareConditionXmlComparedToStatic(string because, string staticValue, bool expectedResult)
@@ -88,7 +117,9 @@ namespace AdaptableMapper.TDD.Cases.Conditions
                 null, CompareOperator.Equals, null
             );
 
-            condition.Validate(new Context(1, null));
+            List<Information> information = new Action(() => { condition.Validate(new Context(1, null)); }).Observe();
+
+            information.ValidateResult(new List<string> { "e-CompareCondition#1;", "e-CompareCondition#2;" });
         }
 
         [Theory]
