@@ -46,6 +46,9 @@ namespace AdaptableMapper.Conditions
                 case CompareOperator.LessThan:
                     result = LessThan(valueA, valueB);
                     break;
+                case CompareOperator.Contains:
+                    result = valueA.Contains(valueB);
+                    break;
             }
 
             return result;

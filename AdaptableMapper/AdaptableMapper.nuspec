@@ -40,6 +40,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Change list of conditions to have evaluation settings
       - Change the constructor for list of conditions
       - Extend CompareCondition and CompareOperation with LessThan and GreaterThan
+      - Add contains comparison operator
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

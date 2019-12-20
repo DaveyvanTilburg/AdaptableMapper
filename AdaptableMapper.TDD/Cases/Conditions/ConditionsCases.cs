@@ -66,6 +66,8 @@ namespace AdaptableMapper.TDD.Cases.Conditions
         [InlineData("2", CompareOperator.LessThan, "a", false, "w-CompareCondition#3;")]
         [InlineData("b", CompareOperator.LessThan, "a", false, "w-CompareCondition#3;", "w-CompareCondition#3;")]
         [InlineData("b", CompareOperator.GreaterThan, "a", false, "w-CompareCondition#3;", "w-CompareCondition#3;")]
+        [InlineData("abcd", CompareOperator.Contains, "a", true)]
+        [InlineData("abcd", CompareOperator.Contains, "e", false)]
         public void CompareConditionStatics(string valueA, CompareOperator compareOperator, string valueB, bool expectedResult, params string[] expectedErrors)
         {
             var subject = new CompareCondition(new GetStaticValueTraversal(valueA), compareOperator, new GetStaticValueTraversal(valueB));
