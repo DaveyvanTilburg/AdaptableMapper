@@ -36,6 +36,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - bugfix for xmlinterpretation default and xpathmethods
       - Added new generic get block: IfAEmptyThenBElseCGetValueTraversal
       - Changed Empty comparison in IfAEmptyThenBElseCGetValueTraversal with a condition
+      - Renamed IfAEmptyThenBElseCGetValueTraversal to IfConditionThenAElseBGetValueTraversal
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
