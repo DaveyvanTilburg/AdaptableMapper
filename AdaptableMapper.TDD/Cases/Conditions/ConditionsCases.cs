@@ -91,18 +91,27 @@ namespace AdaptableMapper.TDD.Cases.Conditions
             condition.Validate(new Context(1, null));
         }
 
-        [Fact]
-        public void ListOfConditions()
+        [Theory]
+        [InlineData(ListEvaluationOperator.All, "0", CompareOperator.Equals, "0", "0", CompareOperator.NotEquals, "0", false)]
+        [InlineData(ListEvaluationOperator.All, "0", CompareOperator.Equals, "0", "0", CompareOperator.NotEquals, "1", true)]
+        [InlineData(ListEvaluationOperator.Any, "0", CompareOperator.Equals, "0", "0", CompareOperator.NotEquals, "0", true)]
+        [InlineData(ListEvaluationOperator.Any, "0", CompareOperator.Equals, "0", "0", CompareOperator.NotEquals, "1", true)]
+        [InlineData(ListEvaluationOperator.Any, "0", CompareOperator.Equals, "1", "0", CompareOperator.NotEquals, "0", false)]
+        public void ListOfConditions(
+            ListEvaluationOperator listEvaluationOperator,
+            string entry1ValueA, CompareOperator entry1CompareOperator, string entry1ValueB,
+            string entry2ValueA, CompareOperator entry2CompareOperator, string entry2ValueB,
+            bool expectedResult)
         {
-            var subject = new ListOfConditions();
-            subject.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.Equals, new GetStaticValueTraversal("0")));
-            subject.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.NotEquals, new GetStaticValueTraversal("1")));
+            var subject = new ListOfConditions { ListEvaluationOperator = listEvaluationOperator };
+            subject.Conditions.Add(new CompareCondition(new GetStaticValueTraversal(entry1ValueA), entry1CompareOperator, new GetStaticValueTraversal(entry1ValueB)));
+            subject.Conditions.Add(new CompareCondition(new GetStaticValueTraversal(entry2ValueA), entry2CompareOperator, new GetStaticValueTraversal(entry2ValueB)));
 
             bool result = false;
             List<Information> information = new Action(() => { result = subject.Validate(new Context(string.Empty, string.Empty)); }).Observe();
 
             information.Count.Should().Be(0);
-            result.Should().Be(true);
+            result.Should().Be(expectedResult);
         }
 
         [Fact]
@@ -115,6 +124,25 @@ namespace AdaptableMapper.TDD.Cases.Conditions
 
             information.Count.Should().Be(1);
             information.Any(i => i.Message.StartsWith("ListOfConditions#1;")).Should().BeTrue();
+        }
+
+        [Fact]
+        public void ListOfConditionsComplexSetupTest()
+        {
+            var subject = new ListOfConditions { ListEvaluationOperator = ListEvaluationOperator.All };
+
+            var subSubject1 = new ListOfConditions { ListEvaluationOperator = ListEvaluationOperator.All };
+            subSubject1.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.Equals, new GetStaticValueTraversal("0")));
+            subSubject1.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.NotEquals, new GetStaticValueTraversal("1")));
+            subject.Conditions.Add(subSubject1);
+
+            var subSubject2 = new ListOfConditions { ListEvaluationOperator = ListEvaluationOperator.Any };
+            subSubject2.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.NotEquals, new GetStaticValueTraversal("0")));
+            subSubject2.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.NotEquals, new GetStaticValueTraversal("1")));
+            subject.Conditions.Add(subSubject2);
+
+            bool result = subject.Validate(new Context(string.Empty, string.Empty));
+            result.Should().BeTrue();
         }
 
         [Theory]

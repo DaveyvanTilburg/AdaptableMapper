@@ -6,10 +6,11 @@ namespace AdaptableMapper.Conditions
 {
     public sealed class ListOfConditions : Condition
     {
-        public List<Condition> Conditions { get; set; }
-
         public ListOfConditions()
             => Conditions = new List<Condition>();
+
+        public ListEvaluationOperator ListEvaluationOperator { get; set; }
+        public List<Condition> Conditions { get; set; }
 
         public bool Validate(Context context)
         {
@@ -17,8 +18,15 @@ namespace AdaptableMapper.Conditions
                 return false;
 
             bool result = false;
-            foreach (Condition condition in Conditions)
-                result = condition.Validate(context);
+            switch (ListEvaluationOperator)
+            {
+                case ListEvaluationOperator.Any:
+                    result = Conditions.Any(c => c.Validate(context));
+                    break;
+                case ListEvaluationOperator.All:
+                    result = Conditions.All(c => c.Validate(context));
+                    break;
+            }
 
             return result;
         }
