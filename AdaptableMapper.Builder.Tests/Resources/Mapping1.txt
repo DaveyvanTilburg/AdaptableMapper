@@ -1,0 +1,2 @@
+﻿ResultObjectConverterBuilder create XElementToStringObjectConverter
+ResultObjectConverterBuilder finish
