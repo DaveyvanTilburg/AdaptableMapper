@@ -7,11 +7,14 @@ namespace AdaptableMapper.Builder
         private readonly Queue<string> _commandParts;
 
         public Command(string command)
-        {
-            _commandParts = new Queue<string>(command.Split(' '));
-        }
+            => _commandParts = new Queue<string>(command.Split(' '));
 
         public string Next()
-            => _commandParts.Dequeue().ToLower();
+        {
+            if (_commandParts.Count == 0)
+                return string.Empty;
+
+            return _commandParts.Dequeue().ToLower();
+        }
     }
 }
