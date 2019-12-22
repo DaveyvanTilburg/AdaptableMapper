@@ -7,5 +7,14 @@ cache constructorParam1
 create JsonTargetInstantiator
 cache constructorParam2
 
-create-with contextfactory constructorParam1 constructorParam2
+create-with-cache ContextFactory constructorParam1 constructorParam2
 direct-map MappingConfiguration.ContextFactory
+
+create-with-variables XmlGetValueTraversal count(./SimpleItems/SimpleItem)
+cache GetValueTraversal
+
+create-with-variables JsonSetValueTraversal .AmountOfSimpleItems
+cache SetValueTraversal
+
+create-with-cache Mapping GetValueTraversal SetValueTraversal
+direct-add-to MappingConfiguration.Mappings

@@ -5,33 +5,31 @@ using System.Reflection;
 
 namespace AdaptableMapper.Builder.Interpreters
 {
-    internal class CreateWith : Interpreter
+    internal class CreateWithVariables : Interpreter
     {
-        public string CommandName => "create-with";
+        public string CommandName => "create-with-variables";
 
         public void Receive(Visitor visitor)
         {
             string typeToCreateName = visitor.Command.Next();
 
-            List<string> parameterNames = new List<string>();
+            List<string> parameterValues = new List<string>();
             while (true)
             {
                 string newParameterName = visitor.Command.Next();
                 if (string.IsNullOrWhiteSpace(newParameterName))
                     break;
 
-                parameterNames.Add(newParameterName);
+                parameterValues.Add(newParameterName);
             }
-
-            List<object> arguments = new List<object>();
-            foreach (string parameterName in parameterNames)
-                arguments.Add(visitor.DeStash(parameterName));
 
             Assembly adaptableMapperAssembly = GetAssemblyByName("AdaptableMapper");
             Type[] types = adaptableMapperAssembly.GetTypes();
             Type typeToCreate = types.FirstOrDefault(t => t.Name.Equals(typeToCreateName, StringComparison.OrdinalIgnoreCase));
 
-            object result = Activator.CreateInstance(typeToCreate, arguments.ToArray());
+            //typeToCreate.GetConstructors().First().GetParameters();
+
+            object result = Activator.CreateInstance(typeToCreate, parameterValues.ToArray());
             visitor.Subject = result;
         }
 

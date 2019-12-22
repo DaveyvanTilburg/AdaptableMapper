@@ -14,7 +14,7 @@ namespace AdaptableMapper.Builder
             if (_commandParts.Count == 0)
                 return string.Empty;
 
-            return _commandParts.Dequeue().ToLower();
+            return _commandParts.Dequeue();
         }
     }
 }

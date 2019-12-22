@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AdaptableMapper.Builder.Interpreters;
 
@@ -15,7 +16,9 @@ namespace AdaptableMapper.Builder
                 new Create(),
                 new Cache(),
                 new DirectMap(),
-                new CreateWith()
+                new CreateWithCache(),
+                new DirectAddTo(),
+                new CreateWithVariables()
             };
         }
 
@@ -28,7 +31,7 @@ namespace AdaptableMapper.Builder
             {
                 visitor.Command = command;
                 string commandName = command.Next();
-                Interpreter interpreter = _interpreters.FirstOrDefault(i => i.CommandName.Equals(commandName));
+                Interpreter interpreter = _interpreters.FirstOrDefault(i => i.CommandName.Equals(commandName, StringComparison.OrdinalIgnoreCase));
 
                 interpreter?.Receive(visitor);
             }
