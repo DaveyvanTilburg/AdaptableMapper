@@ -41,6 +41,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Change the constructor for list of conditions
       - Extend CompareCondition and CompareOperation with LessThan and GreaterThan
       - Add contains comparison operator
+      - Switched around order in which scopes and mappings are processed
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

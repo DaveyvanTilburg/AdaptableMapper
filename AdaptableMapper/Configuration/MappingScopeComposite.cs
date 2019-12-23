@@ -80,11 +80,11 @@ namespace AdaptableMapper.Configuration
 
         private void TraverseChild(Context context, MappingCaches mappingCaches)
         {
-            foreach (Mapping mapping in Mappings)
-                mapping.Map(context, mappingCaches);
-
             foreach (MappingScopeComposite mappingScopeComposite in MappingScopeComposites)
                 mappingScopeComposite.Traverse(context, mappingCaches);
+
+            foreach (Mapping mapping in Mappings)
+                mapping.Map(context, mappingCaches);
         }
     }
 }
