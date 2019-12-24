@@ -224,5 +224,37 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
 
             information.ValidateResult(new List<string> { "e-DictionaryReplaceValueMutation#1;" });
         }
+
+        [Theory]
+        [InlineData("", "")]
+        [InlineData("abcd", "ABCD")]
+        [InlineData("1", "1")]
+        [InlineData("ABCD", "ABCD")]
+        public void ToUpperValueMutation(string input, string expectedResult)
+        {
+            var subject = new ToUpperValueMutation();
+
+            string result = string.Empty;
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), input); }).Observe();
+
+            information.Count.Should().Be(0);
+            result.Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData("", "")]
+        [InlineData("ABCD", "abcd")]
+        [InlineData("1", "1")]
+        [InlineData("abcd", "abcd")]
+        public void ToLowerValueMutation(string input, string expectedResult)
+        {
+            var subject = new ToLowerValueMutation();
+
+            string result = string.Empty;
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), input); }).Observe();
+
+            information.Count.Should().Be(0);
+            result.Should().Be(expectedResult);
+        }
     }
 }

@@ -58,6 +58,8 @@
     <Compile Include="Traversals\Xml\XmlSetGeneratedIdValueTraversal.cs" />
     <Compile Include="ValueMutations\DictionaryReplaceValueMutation.cs" />
     <Compile Include="ValueMutations\SubstringValueMutation.cs" />
+    <Compile Include="ValueMutations\ToLowerValueMutation.cs" />
+    <Compile Include="ValueMutations\ToUpperValueMutation.cs" />
     <Compile Include="ValueMutations\Traversals\GetValueStringTraversal.cs" />
     <Compile Include="ValueMutations\Traversals\SplitByCharTakePositionStringTraversal.cs" />
     <Compile Include="ValueMutations\DateValueMutation.cs" />

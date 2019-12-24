@@ -42,6 +42,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Extend CompareCondition and CompareOperation with LessThan and GreaterThan
       - Add contains comparison operator
       - Switched around order in which scopes and mappings are processed
+      - Add ToUpper and ToLower value mutations
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
