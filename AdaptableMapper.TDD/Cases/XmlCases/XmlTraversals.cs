@@ -38,6 +38,8 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("EmptySearchPathValueResult", "", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, "", "w-XML#14;")]
         [InlineData("NoActualPathResult", "//SimpleItems/SimpleItem/SurName", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "")]
         [InlineData("Valid", "//SimpleItems/SimpleItem/Name", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "Davey")]
+        [InlineData("InvalidSearchPath2", "//SimpleItems/SimpleItem[@Id={{searchValue}}jhk]/Name", "//SimpleItems/SimpleItem[2]/@Id", ContextType.TestObject, "", "e-XML#29;")]
+        [InlineData("ValidSearchPath", "//SimpleItems/SimpleItem[@Id='{{searchValue}}']/Name", "//SimpleItems/SimpleItem[2]/@Id", ContextType.TestObject, "Joey")]
         public void XmlGetSearchValueTraversal(string because, string path, string searchPath, ContextType contextType, string expectedValue, params string[] expectedErrors)
         {
             var subject = new XmlGetSearchValueTraversal(path, searchPath) { XmlInterpretation = XmlInterpretation.Default };
@@ -47,8 +49,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             List<Information> result = new Action(() => { value = subject.GetValue(context); }).Observe();
 
             result.ValidateResult(new List<string>(expectedErrors), because);
-            if (expectedErrors.Length == 0)
-                value.Should().BeEquivalentTo(expectedValue);
+            value.Should().BeEquivalentTo(expectedValue);
         }
 
         [Fact]
