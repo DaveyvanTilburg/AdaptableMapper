@@ -72,6 +72,26 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                 result.Should().NotBeEmpty();
         }
 
+        [Theory]
+        [InlineData("RangeWithLastDate", "2019/01/01", "2019/01/04", true, "4")]
+        [InlineData("RangeWithoutLastDate", "2019/01/01", "2019/01/04", false, "3")]
+        [InlineData("invalid first path", "a", "2019/01/04", false, "", "w-GetValueTraversalDaysBetweenDates#1;")]
+        [InlineData("invalid first path", "2019/01/01", "a", false, "", "w-GetValueTraversalDaysBetweenDates#2;")]
+        public void GetValueTraversalDaysBetweenDates(string because, string firstDate, string lastDate, bool includeLastDay, string expectedResult, params string[] expectedCodes)
+        {
+            var subject = new GetValueTraversalDaysBetweenDates(new GetStaticValueTraversal(firstDate), new GetStaticValueTraversal(lastDate))
+            {
+                IncludeLastDay = includeLastDay
+            };
+
+            string value = string.Empty;
+            List<Information> result = new Action(() => { value = subject.GetValue(new Context(null, null)); }).Observe();
+
+            result.ValidateResult(new List<string>(expectedCodes), because);
+            if (expectedCodes.Length == 0)
+                value.Should().Be(expectedResult);
+        }
+
         [Fact]
         public void GenerateIdValueTraversalMultipleScopesSameTemplate()
         {

@@ -54,6 +54,7 @@
     <Compile Include="MappingCaches.cs" />
     <Compile Include="TemplateCache.cs" />
     <Compile Include="Traversals\GetNothingValueTraversal.cs" />
+    <Compile Include="Traversals\GetValueTraversalDaysBetweenDates.cs" />
     <Compile Include="Traversals\IfConditionThenAElseBGetValueTraversal.cs" />
     <Compile Include="Traversals\Xml\XmlSetGeneratedIdValueTraversal.cs" />
     <Compile Include="ValueMutations\DictionaryReplaceValueMutation.cs" />
