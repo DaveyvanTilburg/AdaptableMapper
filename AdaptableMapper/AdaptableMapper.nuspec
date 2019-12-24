@@ -45,6 +45,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Add ToUpper and ToLower value mutations
       - XmlGetSearchValueTraversal bug fix for no result on actual path
       - Added GetValueTraversalDaysBetweenDates traversal
+      - Added CreateSeparatedRangeFromNumberValueMutation
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
