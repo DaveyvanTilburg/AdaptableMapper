@@ -19,7 +19,7 @@ namespace AdaptableMapper.TDD.ATDD
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class ConfigurationValidationsFeature : Xunit.IClassFixture<ConfigurationValidationsFeature.FixtureData>, System.IDisposable
+    public partial class ConfigurationValidationsFeature : object, Xunit.IClassFixture<ConfigurationValidationsFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -31,7 +31,7 @@ namespace AdaptableMapper.TDD.ATDD
 #line 1 "ConfigurationValidations.feature"
 #line hidden
         
-        public ConfigurationValidationsFeature(ConfigurationValidationsFeature.FixtureData fixtureData, InternalSpecFlow.XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public ConfigurationValidationsFeature(ConfigurationValidationsFeature.FixtureData fixtureData, AdaptableMapper_TDD_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();

@@ -226,6 +226,23 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
         }
 
         [Theory]
+        [InlineData(",", 0, "6", "0,1,2,3,4,5")]
+        [InlineData(",", 2, "6", "2,3,4,5,6,7")]
+        [InlineData("sep", 0, "3", "0sep1sep2")]
+        [InlineData("|", 0, "abcd", "", "e-CreateSeparatedRangeFromNumberValueMutation#1;")]
+        public void CreateSeparatedRangeFromNumberValueMutation(string separator, int startingNumber, string input, string expectedResult, params string[] expectedErrorCodes)
+        {
+            var subject = new CreateSeparatedRangeFromNumberValueMutation(separator) { StartingNumber = startingNumber };
+
+            string result = string.Empty;
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), input); }).Observe();
+
+            information.ValidateResult(new List<string>(expectedErrorCodes));
+            if (expectedErrorCodes.Length == 0)
+                result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Theory]
         [InlineData("", "")]
         [InlineData("abcd", "ABCD")]
         [InlineData("1", "1")]
