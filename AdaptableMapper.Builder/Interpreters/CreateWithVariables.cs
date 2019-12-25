@@ -36,19 +36,16 @@ namespace AdaptableMapper.Builder.Interpreters
             object result = null;
             foreach (ConstructorInfo constructorInfo in validConstructors)
             {
-                List<ParameterInfo> parameterInfos = constructorInfo.GetParameters().ToList();
+                bool convertSuccessful = TryConvertParametersForConstructor(constructorInfo, parameterValues, out object[] constructorParameters);
 
-                List<object> constructorParameters = new List<object>();
-                foreach (ParameterInfo parameterInfo in parameterInfos)
-                {
-                    Type parameterType = parameterInfo.ParameterType;
-                    object changedValue = TypeDescriptor.GetConverter(parameterType).ConvertFromString(parameterValues[parameterInfos.IndexOf(parameterInfo)]);
-
-                    constructorParameters.Add(changedValue);
-                }
+                if (!convertSuccessful)
+                    continue;
 
                 result = constructorInfo.Invoke(constructorParameters.ToArray());
             }
+
+            if (result == null)
+                throw new Exception($"No constructor found for type {typeToCreateName} with parameters {string.Join(",", parameterValues)}");
 
             visitor.Subject = result;
         }
@@ -58,5 +55,44 @@ namespace AdaptableMapper.Builder.Interpreters
             return AppDomain.CurrentDomain.GetAssemblies().
                 SingleOrDefault(assembly => assembly.GetName().Name == name);
         }
+
+        private bool TryConvertParametersForConstructor(ConstructorInfo constructorInfo, List<string> parameterValues, out object[] result)
+        {
+            List<ParameterInfo> parameterInfos = constructorInfo.GetParameters().ToList();
+
+            List<object> constructorParameters = new List<object>();
+            foreach (ParameterInfo parameterInfo in parameterInfos)
+            {
+                string parameterValue = parameterValues[parameterInfos.IndexOf(parameterInfo)];
+                bool convertSuccessful = TryConvertToParameterType(parameterInfo, parameterValue, out object convertedParameter);
+
+                if (!convertSuccessful)
+                {
+                    result = null;
+                    return false;
+                }
+                
+                constructorParameters.Add(convertedParameter);
+            }
+
+            result = constructorParameters.ToArray();
+            return true;
+        }
+        private bool TryConvertToParameterType(ParameterInfo targetType, string source, out object result)
+        {
+            try
+            {
+                TypeConverter typeConverter = TypeDescriptor.GetConverter(targetType.ParameterType);
+                result = typeConverter.ConvertFromString(source);
+            }
+            catch
+            {
+                result = null;
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }
