@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
@@ -27,9 +28,28 @@ namespace AdaptableMapper.Builder.Interpreters
             Type[] types = adaptableMapperAssembly.GetTypes();
             Type typeToCreate = types.FirstOrDefault(t => t.Name.Equals(typeToCreateName, StringComparison.OrdinalIgnoreCase));
 
-            //typeToCreate.GetConstructors().First().GetParameters();
+            ConstructorInfo[] constructors = typeToCreate.GetConstructors();
 
-            object result = Activator.CreateInstance(typeToCreate, parameterValues.ToArray());
+            ConstructorInfo[] validConstructors =
+                constructors.Where(c => c.GetParameters().Length == parameterValues.Count).ToArray();
+
+            object result = null;
+            foreach (ConstructorInfo constructorInfo in validConstructors)
+            {
+                List<ParameterInfo> parameterInfos = constructorInfo.GetParameters().ToList();
+
+                List<object> constructorParameters = new List<object>();
+                foreach (ParameterInfo parameterInfo in parameterInfos)
+                {
+                    Type parameterType = parameterInfo.ParameterType;
+                    object changedValue = TypeDescriptor.GetConverter(parameterType).ConvertFromString(parameterValues[parameterInfos.IndexOf(parameterInfo)]);
+
+                    constructorParameters.Add(changedValue);
+                }
+
+                result = constructorInfo.Invoke(constructorParameters.ToArray());
+            }
+
             visitor.Subject = result;
         }
 

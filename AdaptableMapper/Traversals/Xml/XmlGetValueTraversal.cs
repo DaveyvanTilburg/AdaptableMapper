@@ -1,14 +1,22 @@
 ﻿using System.Xml.Linq;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.Xml;
+using Newtonsoft.Json;
 
 namespace AdaptableMapper.Traversals.Xml
 {
     public sealed class XmlGetValueTraversal : GetValueTraversal
     {
+        [JsonConstructor]
         public XmlGetValueTraversal(string path)
         {
             Path = path;
+        }
+
+        public XmlGetValueTraversal(string path, XmlInterpretation xmlInterpretation)
+        {
+            Path = path;
+            XmlInterpretation = XmlInterpretation;
         }
 
         public string Path { get; set; }
