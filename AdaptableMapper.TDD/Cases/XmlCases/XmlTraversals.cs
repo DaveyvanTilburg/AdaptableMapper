@@ -31,27 +31,6 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
-        [Theory]
-        [InlineData("InvalidType", "", "", ContextType.EmptyString, "", "e-XML#13;")]
-        [InlineData("EmptySearchPath", "", "", ContextType.EmptyObject, "", "e-XML#25;")]
-        [InlineData("InvalidSearchPath", "", "abcd", ContextType.EmptyObject, "", "w-XML#30;")]
-        [InlineData("EmptySearchPathValueResult", "", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, "", "w-XML#14;")]
-        [InlineData("NoActualPathResult", "//SimpleItems/SimpleItem/SurName", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "")]
-        [InlineData("Valid", "//SimpleItems/SimpleItem/Name", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "Davey")]
-        [InlineData("InvalidSearchPath2", "//SimpleItems/SimpleItem[@Id={{searchValue}}jhk]/Name", "//SimpleItems/SimpleItem[2]/@Id", ContextType.TestObject, "", "e-XML#29;")]
-        [InlineData("ValidSearchPath", "//SimpleItems/SimpleItem[@Id='{{searchValue}}']/Name", "//SimpleItems/SimpleItem[2]/@Id", ContextType.TestObject, "Joey")]
-        public void XmlGetSearchValueTraversal(string because, string path, string searchPath, ContextType contextType, string expectedValue, params string[] expectedErrors)
-        {
-            var subject = new XmlGetSearchValueTraversal(path, searchPath) { XmlInterpretation = XmlInterpretation.Default };
-            var context = new Context(Xml.CreateTarget(contextType), null);
-
-            string value = string.Empty;
-            List<Information> result = new Action(() => { value = subject.GetValue(context); }).Observe();
-
-            result.ValidateResult(new List<string>(expectedErrors), because);
-            value.Should().BeEquivalentTo(expectedValue);
-        }
-
         [Fact]
         public void XmlGetThisValueTraversalInvalidType()
         {

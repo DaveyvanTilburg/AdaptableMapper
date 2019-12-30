@@ -26,27 +26,6 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         }
 
         [Theory]
-        [InlineData("InvalidType", "", "", ContextType.EmptyString, "", "", "e-MODEL#13;")]
-        [InlineData("EmptySearchValuePath", "", "", ContextType.EmptyObject, "item", "", "e-MODEL#21;")]
-        [InlineData("NoResultForSearchPath", "", "dummySearch", ContextType.EmptyObject, "item", "", "w-MODEL#9;", "w-MODEL#14;")] //Preferred cascade, 9 is extra info
-        [InlineData("NoResultForActualPath", "ab/cd", "Items{'PropertyName':'Code','Value':'1'}/Code", ContextType.TestObject, "item", "", "w-MODEL#9;")] //Preferred cascade, 9 is extra info
-        [InlineData("NoResultActualSearch", "ab/cd", "Items{'PropertyName':'Code','Value':'3'}/Code", ContextType.TestObject, "item", "", "w-MODEL#4;")]
-        [InlineData("InvalidFilterMarkup", "ab/cd", "Items{'PropertyName':'Code','Value':'1'/Code", ContextType.TestObject, "item", "", "w-MODEL#9;", "e-MODEL#32;")] //Preferred cascade, 9 is extra info
-        [InlineData("Valid", "Items{'PropertyName':'Code','Value':'{{searchValue}}'}/Name", "Items{'PropertyName':'Code','Value':'1'}/Code", ContextType.TestObject, "item", "Davey")]
-        public void ModelGetSearchValueTraversal(string because, string path, string searchPath, ContextType contextType, string createType, string expectedValue, params string[] expectedErrors)
-        {
-            var subject = new ModelGetSearchValueTraversal(path, searchPath);
-            var context = new Context(Model.CreateTarget(contextType, createType), null);
-
-            string value = string.Empty;
-            List<Information> result = new Action(() => { value = subject.GetValue(context); }).Observe();
-
-            result.ValidateResult(new List<string>(expectedErrors), because);
-            if (expectedErrors.Length == 0)
-                value.Should().Be(expectedValue);
-        }
-
-        [Theory]
         [InlineData("InvalidType", "", ContextType.EmptyString, "", "e-MODEL#16;")]
         [InlineData("EmptyList", "Items/Code", ContextType.EmptyObject, "item", "w-MODEL#5;")]
         [InlineData("NoParent", "../", ContextType.EmptyObject, "item", "w-MODEL#3;")]

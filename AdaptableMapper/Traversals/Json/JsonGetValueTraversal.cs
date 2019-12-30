@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 namespace AdaptableMapper.Traversals.Json
 {
-    public sealed class JsonGetValueTraversal : GetValueTraversal
+    public sealed class JsonGetValueTraversal : GetValueTraversal, GetValueTraversalPathProperty
     {
         public JsonGetValueTraversal(string path)
         {

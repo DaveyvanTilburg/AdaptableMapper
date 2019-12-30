@@ -66,10 +66,12 @@ namespace AdaptableMapper.TDD
                 new Traversals.Json.JsonGetValueTraversal(".HardDrive[0].Size"),
                 new Traversals.Xml.XmlSetValueTraversal("./@storage")
             );
+
             var motherboardPartner = new Mapping(
-                new Traversals.Json.JsonGetSearchValueTraversal(
-                    "../../../../../.Brand[?(@.Name=='{{searchValue}}')].Partner",
-                    ".Brand"),
+                new Compositions.GetSearchValueTraversal(
+                    new Traversals.Json.JsonGetValueTraversal("../../../../../.Brand[?(@.Name=='{{searchValue}}')].Partner"),
+                    new Traversals.Json.JsonGetValueTraversal(".Brand")
+                ),
                 new Traversals.Xml.XmlSetValueTraversal("./@brandPartner")
             );
 

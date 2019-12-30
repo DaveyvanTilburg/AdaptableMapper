@@ -40,39 +40,6 @@ namespace AdaptableMapper.TDD.Cases.Traversals
         }
 
         [Theory]
-        [InlineData("", "B", "C", "C")]
-        [InlineData("A", "B", "C", "B")]
-        public void IfConditionThenAElseBGetValueTraversal(string valueA, string valueB, string valueC, string expectedValue)
-        {
-            var subject = new IfConditionThenAElseBGetValueTraversal(new NotEmptyCondition(new GetStaticValueTraversal(valueA)), new GetStaticValueTraversal(valueB), new GetStaticValueTraversal(valueC));
-
-            string result = subject.GetValue(new Context(null, null));
-            result.Should().Be(expectedValue);
-        }
-
-        [Theory]
-        [InlineData(true, true, true)]
-        [InlineData(true, true, false, "e-IfConditionThenAElseBGetValueTraversal#3;")]
-        [InlineData(true, false, true, "e-IfConditionThenAElseBGetValueTraversal#2;")]
-        [InlineData(false, false, false, "e-IfConditionThenAElseBGetValueTraversal#1;", "e-IfConditionThenAElseBGetValueTraversal#2;", "e-IfConditionThenAElseBGetValueTraversal#3;")]
-        public void IfConditionThenAElseBGetValueTraversalValidation(bool valueA, bool valueB, bool valueC, params string[] expectedErrors)
-        {
-            Condition condition = valueA ? new NotEmptyCondition(new GetStaticValueTraversal("A")) : null;
-            GetValueTraversal getValueTraversalA = valueB ? new GetStaticValueTraversal("B") : null;
-            GetValueTraversal getValueTraversalB = valueC ? new GetStaticValueTraversal("C") : null;
-
-            var subject = new IfConditionThenAElseBGetValueTraversal(condition, getValueTraversalA, getValueTraversalB);
-
-            string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.GetValue(null); }).Observe();
-            information.ValidateResult(expectedErrors, "Validation");
-            if (valueA == false || valueB == false || valueC == false)
-                result.Should().BeEmpty();
-            else
-                result.Should().NotBeEmpty();
-        }
-
-        [Theory]
         [InlineData("RangeWithLastDate", "2019/01/01", "2019/01/04", true, "4")]
         [InlineData("RangeWithoutLastDate", "2019/01/01", "2019/01/04", false, "3")]
         [InlineData("invalid first path", "a", "2019/01/04", false, "", "w-GetValueTraversalDaysBetweenDates#1;")]

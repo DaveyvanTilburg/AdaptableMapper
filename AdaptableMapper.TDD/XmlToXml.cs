@@ -92,11 +92,10 @@ namespace AdaptableMapper.TDD
             );
 
             var leaderNameSearch = new Mapping(
-                new Traversals.Xml.XmlGetSearchValueTraversal(
-                    "../../leaders/leader[@reference='{{searchValue}}']",
-                    "./leaderReference"
-                )
-                    { XmlInterpretation = XmlInterpretation.Default },
+                new Compositions.GetSearchValueTraversal(
+                    new Traversals.Xml.XmlGetValueTraversal("../../leaders/leader[@reference='{{searchValue}}']"),
+                    new Traversals.Xml.XmlGetValueTraversal("./leaderReference")
+                ),
                 new Traversals.Xml.XmlSetValueTraversal("./leaderName")
             );
 

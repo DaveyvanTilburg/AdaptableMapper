@@ -4,7 +4,7 @@ using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    public sealed class XmlGetValueTraversal : GetValueTraversal
+    public sealed class XmlGetValueTraversal : GetValueTraversal, GetValueTraversalPathProperty
     {
         public XmlGetValueTraversal(string path)
         {

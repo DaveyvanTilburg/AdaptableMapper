@@ -56,10 +56,12 @@ namespace AdaptableMapper.TDD
                 new Traversals.Xml.XmlSetValueTraversal("./@code")
             );
 
+            
+
             var leaderName = new Mapping(
-                new Traversals.Model.ModelGetSearchValueTraversal(
-                    "../../Organization/Leaders{'PropertyName':'Reference','Value':'{{searchValue}}'}/LeaderPerson/Person/Name",
-                    "LeaderReference"
+                new Compositions.GetSearchValueTraversal(
+                    new Traversals.Model.ModelGetValueTraversal("../../Organization/Leaders{'PropertyName':'Reference','Value':'{{searchValue}}'}/LeaderPerson/Person/Name"),
+                    new Traversals.Model.ModelGetValueTraversal("LeaderReference")
                 ),
                 new Traversals.Xml.XmlSetValueTraversal("./leaderName")
             );

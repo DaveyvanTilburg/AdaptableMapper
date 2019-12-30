@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compositions\GetSearchValueTraversal.cs" />
     <Compile Include="Conditions\CompareOperator.cs" />
     <Compile Include="Conditions\Condition.cs" />
     <Compile Include="Conditions\CompareCondition.cs" />
@@ -55,7 +56,8 @@
     <Compile Include="TemplateCache.cs" />
     <Compile Include="Traversals\GetNothingValueTraversal.cs" />
     <Compile Include="Traversals\GetValueTraversalDaysBetweenDates.cs" />
-    <Compile Include="Traversals\IfConditionThenAElseBGetValueTraversal.cs" />
+    <Compile Include="Compositions\IfConditionThenAElseBGetValueTraversal.cs" />
+    <Compile Include="Traversals\GetValueTraversalPathProperty.cs" />
     <Compile Include="Traversals\Xml\XmlSetGeneratedIdValueTraversal.cs" />
     <Compile Include="ValueMutations\CreateSeparatedRangeFromNumberValueMutation.cs" />
     <Compile Include="ValueMutations\DictionaryReplaceValueMutation.cs" />
@@ -72,7 +74,6 @@
     <Compile Include="ValueMutations\NullValueMutation.cs" />
     <Compile Include="Traversals\GetStaticValueTraversal.cs" />
     <Compile Include="Traversals\Json\JsonGetScopeTraversal.cs" />
-    <Compile Include="Traversals\Json\JsonGetSearchValueTraversal.cs" />
     <Compile Include="Traversals\Json\JsonGetValueTraversal.cs" />
     <Compile Include="Configuration\Json\JsonObjectConverter.cs" />
     <Compile Include="Traversals\Json\JsonTraverseOperations.cs" />
@@ -103,7 +104,6 @@
     <Compile Include="Process\ProcessObserver.cs" />
     <Compile Include="Configuration\Model\ModelChildCreator.cs" />
     <Compile Include="Traversals\Model\ModelGetValueTraversal.cs" />
-    <Compile Include="Traversals\Model\ModelGetSearchValueTraversal.cs" />
     <Compile Include="Traversals\Model\ModelGetScopeTraversal.cs" />
     <Compile Include="Traversals\Model\ModelSetValueOnPathTraversal.cs" />
     <Compile Include="Traversals\Model\ModelGetTemplateTraversal.cs" />
@@ -124,7 +124,6 @@
     <Compile Include="Traversals\Xml\StringExtensions.cs" />
     <Compile Include="Traversals\Xml\XmlGetValueTraversal.cs" />
     <Compile Include="Traversals\Xml\XmlGetScopeTraversal.cs" />
-    <Compile Include="Traversals\Xml\XmlGetSearchValueTraversal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\StringExtensions.cs" />
     <Compile Include="Traversals\Xml\XmlGetThisValueTraversal.cs" />

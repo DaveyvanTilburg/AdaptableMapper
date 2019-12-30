@@ -1,7 +1,8 @@
 ﻿using AdaptableMapper.Conditions;
 using AdaptableMapper.Configuration;
+using AdaptableMapper.Traversals;
 
-namespace AdaptableMapper.Traversals
+namespace AdaptableMapper.Compositions
 {
     public class IfConditionThenAElseBGetValueTraversal : GetValueTraversal
     {

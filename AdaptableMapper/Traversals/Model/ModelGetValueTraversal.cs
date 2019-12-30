@@ -3,7 +3,7 @@ using AdaptableMapper.Model;
 
 namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelGetValueTraversal : GetValueTraversal
+    public sealed class ModelGetValueTraversal : GetValueTraversal, GetValueTraversalPathProperty
     {
         public ModelGetValueTraversal(string path)
         {
