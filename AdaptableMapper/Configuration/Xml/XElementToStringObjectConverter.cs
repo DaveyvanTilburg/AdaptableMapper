@@ -18,10 +18,10 @@ namespace AdaptableMapper.Configuration.Xml
 
             using (StringWriter stringWriter = new StringWriter())
             {
-                stringWriter.WriteLine(xDocument.Declaration);
+                stringWriter.WriteLine(xDocument?.Declaration);
 
                 using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter, new XmlWriterSettings{ OmitXmlDeclaration = true, Indent = true }))
-                    xDocument.Save(xmlWriter);
+                    xDocument?.Save(xmlWriter);
 
                 return stringWriter.ToString().Trim();
             }

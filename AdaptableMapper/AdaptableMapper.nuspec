@@ -46,6 +46,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - XmlGetSearchValueTraversal bug fix for no result on actual path
       - Added GetValueTraversalDaysBetweenDates traversal
       - Added CreateSeparatedRangeFromNumberValueMutation
+      - Added some null checks to XElementToStringObjectConverter
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
