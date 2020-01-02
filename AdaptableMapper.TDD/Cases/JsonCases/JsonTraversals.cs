@@ -15,9 +15,9 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         [InlineData("NoResults", "abcd", ContextType.EmptyObject, "w-JSON#4;")]
         public void JsonGetScopeTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
-            var subject = new JsonGetScopeTraversal(path);
+            var subject = new JsonGetListValueTraversal(path);
             object context = Json.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.GetScope(context); }).Observe();
+            List<Information> result = new Action(() => { subject.GetValues(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 

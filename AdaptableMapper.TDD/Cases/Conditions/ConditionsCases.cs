@@ -26,9 +26,9 @@ namespace AdaptableMapper.TDD.Cases.Conditions
                 .Returns(false)
                 .Returns(true);
 
-            var getScopeTraversal = new Mock<GetScopeTraversal>();
+            var getScopeTraversal = new Mock<GetListValueTraversal>();
             getScopeTraversal
-                .Setup(g => g.GetScope(It.IsAny<object>()))
+                .Setup(g => g.GetValues(It.IsAny<object>()))
                 .Returns(new MethodResult<IEnumerable<object>>(new List<object> { 1, 2, 3 }));
 
             var getTemplateTraversal = new Mock<GetTemplateTraversal>();

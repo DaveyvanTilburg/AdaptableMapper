@@ -14,6 +14,7 @@ using Xunit;
 using AdaptableMapper.Traversals;
 using System.Xml.XPath;
 using System.Linq;
+using AdaptableMapper.Compositions;
 
 namespace AdaptableMapper.TDD.Cases.XmlCases
 {
@@ -25,9 +26,9 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("NoResults", "abcd", ContextType.EmptyObject, "w-XML#5;")]
         public void XmlGetScopeTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
-            var subject = new XmlGetScopeTraversal(path) { XmlInterpretation = XmlInterpretation.Default };
+            var subject = new XmlGetListValueTraversal(path) { XmlInterpretation = XmlInterpretation.Default };
             object context = Xml.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.GetScope(context); }).Observe();
+            List<Information> result = new Action(() => { subject.GetValues(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
@@ -191,17 +192,6 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         }
 
         [Fact]
-        public void XmlGetCountOfHitsCreateAStringWithEveryNumberInvalidSourceType()
-        {
-            GetValueTraversal subject = new XmlGetNumberOfHits(
-                new List<string>()
-            );
-
-            List<Information> information = new Action(() => { subject.GetValue(new Context(0, null)); }).Observe();
-            information.ValidateResult(new List<string> { "e-XmlGetNumberOfHits#1;" });
-        }
-
-        [Fact]
         public void XmlSetGeneratedIdValueTraversalInvalidType()
         {
             var subject = new XmlSetGeneratedIdValueTraversal("") { XmlInterpretation = XmlInterpretation.Default, SetAsCData = false };
@@ -213,26 +203,25 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [Fact]
         public void XmlGetNumberOfHits()
         {
-            XElement source = XElement.Load("./Resources/XmlGetNumberOfHits/MultipleComments.xml");
+            XElement source = XDocument.Load("./Resources/XmlGetNumberOfHits/MultipleComments.xml").Root;
 
-            GetValueTraversal subject = new XmlGetNumberOfHits(
-                new List<string>
+            GetValueTraversal subject = new GetNumberOfHits(
+                new List<GetListValueTraversal>
                 {
-                    "./RoomStay/Comments/Comment",
-                    "./SpecialRequests/SpecialRequest",
-                    "./GlobalStuff/GlobalComment",
-                    "",
-                    "abcd"
+                    new XmlGetListValueTraversal("./RoomStay/Comments/Comment"),
+                    new XmlGetListValueTraversal("./SpecialRequests/SpecialRequest"),
+                    new XmlGetListValueTraversal("./GlobalStuff/GlobalComment"),
+                    new XmlGetListValueTraversal(""),
+                    new XmlGetListValueTraversal("abcd")
                 }
             );
 
             string result = null;
             List<Information> information = new Action(() => { result = subject.GetValue(new Context(source, null)); }).Observe();
-            information.ValidateResult(new List<string> { "e-XmlGetNumberOfHits#2;" });
+            information.ValidateResult(new List<string> { "e-XML#28;", "w-XML#5;", "w-XML#5;" });
 
             result.Should().BeEquivalentTo("6");
         }
-
 
         [Fact]
         public void MultipleScopes()
@@ -249,7 +238,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
                                 new XmlSetThisValueTraversal()
                             )
                         },
-                        new XmlGetScopeTraversal("./InvalidPath"),
+                        new XmlGetListValueTraversal("./InvalidPath"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator()),
                     new MappingScopeComposite(
@@ -261,7 +250,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
                                 new XmlSetThisValueTraversal()
                             )
                         },
-                        new XmlGetScopeTraversal("./Teachers/Teacher"),
+                        new XmlGetListValueTraversal("./Teachers/Teacher"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator()),
                     new MappingScopeComposite(
@@ -273,7 +262,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
                                 new XmlSetThisValueTraversal()
                             )
                         },
-                        new XmlGetScopeTraversal("./Students/Student"),
+                        new XmlGetListValueTraversal("./Students/Student"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator())
                 },

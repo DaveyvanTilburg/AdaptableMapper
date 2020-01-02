@@ -18,9 +18,9 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         [InlineData("Valid", "Mixes{'PropertyName':'Code','Value':'1'}/Items", ContextType.TestObject, "deepmix")]
         public void ModelGetScopeTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
-            var subject = new ModelGetScopeTraversal(path);
+            var subject = new ModelGetListValueTraversal(path);
             object context = Model.CreateTarget(contextType, createType);
-            List<Information> result = new Action(() => { subject.GetScope(context); }).Observe();
+            List<Information> result = new Action(() => { subject.GetValues(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 

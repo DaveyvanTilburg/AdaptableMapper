@@ -90,16 +90,16 @@ namespace AdaptableMapper.TDD.ATDD
             _result.MappingScopeComposites.Add(scope);
         }
 
-        private GetScopeTraversal CreateGetScopeTraversal(ScopeCompositeModel scopeCompositeModel)
+        private GetListValueTraversal CreateGetScopeTraversal(ScopeCompositeModel scopeCompositeModel)
         {
             switch (scopeCompositeModel.GetScopeTraversal.ToLower())
             {
                 case "xml":
-                    return new Traversals.Xml.XmlGetScopeTraversal(scopeCompositeModel.GetScopeTraversalPath);
+                    return new Traversals.Xml.XmlGetListValueTraversal(scopeCompositeModel.GetScopeTraversalPath);
                 case "json":
-                    return new Traversals.Json.JsonGetScopeTraversal(scopeCompositeModel.GetScopeTraversalPath);
+                    return new Traversals.Json.JsonGetListValueTraversal(scopeCompositeModel.GetScopeTraversalPath);
                 case "model":
-                    return new Traversals.Model.ModelGetScopeTraversal(scopeCompositeModel.GetScopeTraversalPath);
+                    return new Traversals.Model.ModelGetListValueTraversal(scopeCompositeModel.GetScopeTraversalPath);
                 default:
                     return null;
             }

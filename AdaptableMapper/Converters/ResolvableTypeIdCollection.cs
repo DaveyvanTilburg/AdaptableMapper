@@ -28,6 +28,7 @@ namespace AdaptableMapper.Converters
                 [GetStaticValueTraversal._typeId] = typeof(GetStaticValueTraversal),
                 [GetValueTraversalDaysBetweenDates._typeId] = typeof(GetValueTraversalDaysBetweenDates),
                 [IfConditionThenAElseBGetValueTraversal._typeId] = typeof(IfConditionThenAElseBGetValueTraversal),
+                [GetNumberOfHits._typeId] = typeof(GetNumberOfHits),
 
                 //Conditions
                 [CompareCondition._typeId] = typeof(CompareCondition),
@@ -54,21 +55,20 @@ namespace AdaptableMapper.Converters
                 [XmlTargetInstantiator._typeId] = typeof(XmlTargetInstantiator),
 
                 //Traversals - Json
-                [JsonGetScopeTraversal._typeId] = typeof(JsonGetScopeTraversal),
+                [JsonGetListValueTraversal._typeId] = typeof(JsonGetListValueTraversal),
                 [JsonGetTemplateTraversal._typeId] = typeof(JsonGetTemplateTraversal),
                 [JsonGetValueTraversal._typeId] = typeof(JsonGetValueTraversal),
                 [JsonSetValueTraversal._typeId] = typeof(JsonSetValueTraversal),
 
                 //Traversals - Model
-                [ModelGetScopeTraversal._typeId] = typeof(ModelGetScopeTraversal),
+                [ModelGetListValueTraversal._typeId] = typeof(ModelGetListValueTraversal),
                 [ModelGetTemplateTraversal._typeId] = typeof(ModelGetTemplateTraversal),
                 [ModelGetValueTraversal._typeId] = typeof(ModelGetValueTraversal),
                 [ModelSetValueOnPathTraversal._typeId] = typeof(ModelSetValueOnPathTraversal),
                 [ModelSetValueOnPropertyTraversal._typeId] = typeof(ModelSetValueOnPropertyTraversal),
 
                 //Traversals - Xml
-                [XmlGetNumberOfHits._typeId] = typeof(XmlGetNumberOfHits),
-                [XmlGetScopeTraversal._typeId] = typeof(XmlGetScopeTraversal),
+                [XmlGetListValueTraversal._typeId] = typeof(XmlGetListValueTraversal),
                 [XmlGetTemplateTraversal._typeId] = typeof(XmlGetTemplateTraversal),
                 [XmlGetThisValueTraversal._typeId] = typeof(XmlGetThisValueTraversal),
                 [XmlGetValueTraversal._typeId] = typeof(XmlGetValueTraversal),

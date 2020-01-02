@@ -81,7 +81,7 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                                 new AdaptableMapper.Traversals.Xml.XmlSetValueTraversal("./Text")
                             )
                         },
-                        new AdaptableMapper.Traversals.Xml.XmlGetScopeTraversal("./Wheels/Wheel"),
+                        new AdaptableMapper.Traversals.Xml.XmlGetListValueTraversal("./Wheels/Wheel"),
                         new AdaptableMapper.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
                         new AdaptableMapper.Configuration.Xml.XmlChildCreator()
                     ),
@@ -98,7 +98,7 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                                 new AdaptableMapper.Traversals.Xml.XmlSetValueTraversal("./Text")
                             )
                         },
-                        new AdaptableMapper.Traversals.Xml.XmlGetScopeTraversal("./Doors/Door"),
+                        new AdaptableMapper.Traversals.Xml.XmlGetListValueTraversal("./Doors/Door"),
                         new AdaptableMapper.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
                         new AdaptableMapper.Configuration.Xml.XmlChildCreator()
                     ),
@@ -115,7 +115,7 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                                 new AdaptableMapper.Traversals.Xml.XmlSetValueTraversal("./Text")
                             )
                         },
-                        new AdaptableMapper.Traversals.Xml.XmlGetScopeTraversal("./Windows/Window"),
+                        new AdaptableMapper.Traversals.Xml.XmlGetListValueTraversal("./Windows/Window"),
                         new AdaptableMapper.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
                         new AdaptableMapper.Configuration.Xml.XmlChildCreator()
                     )

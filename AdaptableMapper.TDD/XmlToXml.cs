@@ -65,7 +65,7 @@ namespace AdaptableMapper.TDD
                 {
                     crewMemberName
                 },
-                new Traversals.Xml.XmlGetScopeTraversal("./army/platoon/members/member/crew/crewMember"),
+                new Traversals.Xml.XmlGetListValueTraversal("./army/platoon/members/member/crew/crewMember"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./crewMemberNames/crewMemberName"),
                 new Configuration.Xml.XmlChildCreator()
             );
@@ -81,7 +81,7 @@ namespace AdaptableMapper.TDD
                 {
                     memberName
                 },
-                new Traversals.Xml.XmlGetScopeTraversal("./members/member"),
+                new Traversals.Xml.XmlGetListValueTraversal("./members/member"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./memberNames/memberName"),
                 new Configuration.Xml.XmlChildCreator()
             );
@@ -109,7 +109,7 @@ namespace AdaptableMapper.TDD
                     platoonCode,
                     leaderNameSearch
                 },
-                new Traversals.Xml.XmlGetScopeTraversal("./army/platoon"),
+                new Traversals.Xml.XmlGetListValueTraversal("./army/platoon"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./platoons/platoon") { XmlInterpretation = XmlInterpretation.Default },
                 new Configuration.Xml.XmlChildCreator()
             )

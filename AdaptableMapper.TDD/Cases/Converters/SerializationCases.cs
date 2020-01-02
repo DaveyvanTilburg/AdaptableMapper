@@ -97,10 +97,40 @@ namespace AdaptableMapper.TDD.Cases.Converters
 
         public static IEnumerable<object[]> Scenarios()
         {
+            //Compositions
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new GetNothingValueTraversal()
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new GetNumberOfHits(
+                    new List<GetListValueTraversal>
+                    {
+                        new XmlGetListValueTraversal("path1"),
+                        new XmlGetListValueTraversal("path2")
+                    }
+                )
+            };
             yield return new object[]
             {
                 typeof(GetValueTraversal),
                 new GetSearchValueTraversal(
+                    new GetStaticValueTraversal("1"),
+                    new GetStaticValueTraversal("2")
+                )
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new GetStaticValueTraversal("1")
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new GetValueTraversalDaysBetweenDates(
                     new GetStaticValueTraversal("1"),
                     new GetStaticValueTraversal("2")
                 )
@@ -118,6 +148,8 @@ namespace AdaptableMapper.TDD.Cases.Converters
                     new GetStaticValueTraversal("4")
                 )
             };
+            
+            //Conditions
             yield return new object[]
             {
                 typeof(Condition),
@@ -154,6 +186,8 @@ namespace AdaptableMapper.TDD.Cases.Converters
                     new GetNothingValueTraversal()
                 )
             };
+
+            //Configuration - Json
             yield return new object[]
             {
                 typeof(ChildCreator),
@@ -174,6 +208,8 @@ namespace AdaptableMapper.TDD.Cases.Converters
                 typeof(ResultObjectConverter),
                 new JTokenToStringObjectConverter()
             };
+
+            //Configuration - Model
             yield return new object[]
             {
                 typeof(ChildCreator),
@@ -199,6 +235,8 @@ namespace AdaptableMapper.TDD.Cases.Converters
                 typeof(ResultObjectConverter),
                 new StringToModelObjectConverter()
             };
+
+            //Configuration - Xml
             yield return new object[]
             {
                 typeof(ChildCreator),
@@ -219,10 +257,12 @@ namespace AdaptableMapper.TDD.Cases.Converters
                 typeof(ResultObjectConverter),
                 new XElementToStringObjectConverter()
             };
+
+            //Traversal - Json
             yield return new object[]
             {
                 typeof(GetValueTraversal),
-                new JsonGetScopeTraversal("path")
+                new JsonGetListValueTraversal("path")
             };
             yield return new object[]
             {
@@ -239,10 +279,12 @@ namespace AdaptableMapper.TDD.Cases.Converters
                 typeof(SetValueTraversal),
                 new JsonSetValueTraversal("path")
             };
+
+            //Traversals - Model
             yield return new object[]
             {
                 typeof(GetValueTraversal),
-                new ModelGetScopeTraversal("path")
+                new ModelGetListValueTraversal("path")
             };
             yield return new object[]
             {
@@ -264,21 +306,12 @@ namespace AdaptableMapper.TDD.Cases.Converters
                 typeof(SetValueTraversal),
                 new ModelSetValueOnPropertyTraversal("path")
             };
+
+            //Traversals - Xml
             yield return new object[]
             {
                 typeof(GetValueTraversal),
-                new XmlGetNumberOfHits(
-                    new List<string>
-                    {
-                        "path1",
-                        "path2"
-                    }
-                )
-            };
-            yield return new object[]
-            {
-                typeof(GetValueTraversal),
-                new XmlGetScopeTraversal("path")
+                new XmlGetListValueTraversal("path")
             };
             yield return new object[]
             {
@@ -310,24 +343,15 @@ namespace AdaptableMapper.TDD.Cases.Converters
                 typeof(SetValueTraversal),
                 new XmlSetValueTraversal("path")
             };
+
+            //ValueMutations - GetValueStringTraversal
             yield return new object[]
             {
-                typeof(GetValueTraversal),
-                new GetNothingValueTraversal()
+                typeof(GetValueStringTraversal),
+                new SplitByCharTakePositionStringTraversal('c', 1)
             };
-            yield return new object[]
-            {
-                typeof(GetValueTraversal),
-                new GetStaticValueTraversal("1")
-            };
-            yield return new object[]
-            {
-                typeof(GetValueTraversal),
-                new GetValueTraversalDaysBetweenDates(
-                    new GetStaticValueTraversal("1"),
-                    new GetStaticValueTraversal("2")
-                )
-            };
+
+            //ValueMutations
             yield return new object[]
             {
                 typeof(ValueMutation),
@@ -386,11 +410,6 @@ namespace AdaptableMapper.TDD.Cases.Converters
             {
                 typeof(ValueMutation),
                 new ToUpperValueMutation()
-            };
-            yield return new object[]
-            {
-                typeof(GetValueStringTraversal),
-                new SplitByCharTakePositionStringTraversal('c', 1)
             };
         }
     }
