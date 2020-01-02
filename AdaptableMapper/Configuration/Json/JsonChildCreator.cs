@@ -1,9 +1,10 @@
-﻿using AdaptableMapper.Traversals;
+﻿using AdaptableMapper.Converters;
+using AdaptableMapper.Traversals;
 using Newtonsoft.Json.Linq;
 
 namespace AdaptableMapper.Configuration.Json
 {
-    public class JsonChildCreator : ChildCreator, SerializableByTypeId
+    public class JsonChildCreator : ChildCreator, ResolvableByTypeId
     {
         public const string _typeId = "88a88d4e-b79e-471a-9866-04a217e2e890";
         public string TypeId => _typeId;

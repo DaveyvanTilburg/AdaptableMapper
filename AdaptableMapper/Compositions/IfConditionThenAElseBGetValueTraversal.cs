@@ -1,10 +1,11 @@
 ﻿using AdaptableMapper.Conditions;
 using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Compositions
 {
-    public class IfConditionThenAElseBGetValueTraversal : GetValueTraversal, SerializableByTypeId
+    public class IfConditionThenAElseBGetValueTraversal : GetValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "1a695959-fa19-482a-b6ee-01556d9d1688";
         public string TypeId => _typeId;

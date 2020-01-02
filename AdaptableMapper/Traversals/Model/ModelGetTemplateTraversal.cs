@@ -1,10 +1,11 @@
 ﻿using AdaptableMapper.Model;
 using System.Collections;
 using System.Collections.Generic;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelGetTemplateTraversal : GetTemplateTraversal, SerializableByTypeId
+    public sealed class ModelGetTemplateTraversal : GetTemplateTraversal, ResolvableByTypeId
     {
         public const string _typeId = "e61aee0c-d8c9-4429-8c4b-d0f3fd63d72b";
         public string TypeId => _typeId;

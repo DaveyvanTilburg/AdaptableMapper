@@ -1,9 +1,10 @@
 ﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Conditions
 {
-    public sealed class CompareCondition : Condition, SerializableByTypeId
+    public sealed class CompareCondition : Condition, ResolvableByTypeId
     {
         public const string _typeId = "f8acf126-e297-496d-82c2-0ce9528fa2a2";
         public string TypeId => _typeId;

@@ -9,6 +9,7 @@ using AdaptableMapper.Configuration.Json;
 using AdaptableMapper.Configuration.Model;
 using AdaptableMapper.Configuration.Xml;
 using AdaptableMapper.Converters;
+using AdaptableMapper.Process;
 using AdaptableMapper.Traversals.Json;
 using AdaptableMapper.Traversals.Model;
 using AdaptableMapper.Traversals.Xml;
@@ -21,14 +22,27 @@ namespace AdaptableMapper.TDD.Cases.Converters
     public class SerializationCases
     {
         [Fact]
-        public void ShouldBeAbleToAddAssembly()
+        public void ShouldNotBeAbleToAddIrrelevantTypes()
         {
-            string testName = "test";
+            var subject = new {};
+            List<Information> result = new Action(() => ResolvableTypeIdCollection.AddType(subject.GetType())).Observe();
 
-            RelevantAssemblyCollection.AddAssemblyName(testName);
-            IReadOnlyCollection<string> storedNames = RelevantAssemblyCollection.GetAssemblyNames();
+            result.ValidateResult(new List<string> { "e-ResolvableTypeIdCollection#1;" }, "IrrelevantTypes");
+        }
 
-            storedNames.Should().Contain(testName);
+        [Fact]
+        public void ShouldBeAbleToAddAndResolve()
+        {
+            List<Information> information = new Action(() => ResolvableTypeIdCollection.AddType(typeof(TestResolvableByTypeId))).Observe();
+            Type result = ResolvableTypeIdCollection.GetType("1");
+
+            information.Should().BeEmpty();
+            result.Should().Be(typeof(TestResolvableByTypeId));
+        }
+
+        private class TestResolvableByTypeId : ResolvableByTypeId
+        {
+            public string TypeId => "1";
         }
 
         [Fact]
@@ -36,7 +50,7 @@ namespace AdaptableMapper.TDD.Cases.Converters
         {
             var subject = new JsonTypeIdBasedConverter();
 
-            subject.CanConvert(typeof(SerializableByTypeId)).Should().BeTrue();
+            subject.CanConvert(typeof(ResolvableByTypeId)).Should().BeTrue();
             subject.CanConvert(typeof(int)).Should().BeFalse();
         }
 
@@ -73,7 +87,7 @@ namespace AdaptableMapper.TDD.Cases.Converters
 
         [Theory]
         [MemberData(nameof(Scenarios), MemberType = typeof(SerializationCases))]
-        public void Test(Type interfaceType, object subject)
+        public void SerializeTestForAllResolvableByTypeIdImplementations(Type interfaceType, object subject)
         {
             string serialized = JsonSerializer.Serialize(subject);
             object deserialized = JsonSerializer.Deserialize(interfaceType, serialized);

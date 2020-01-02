@@ -1,8 +1,9 @@
-﻿using AdaptableMapper.Model;
+﻿using AdaptableMapper.Converters;
+using AdaptableMapper.Model;
 
 namespace AdaptableMapper.Configuration.Model
 {
-    public sealed class ModelObjectConverter : ObjectConverter, SerializableByTypeId
+    public sealed class ModelObjectConverter : ObjectConverter, ResolvableByTypeId
     {
         public const string _typeId = "0ff249bd-3dc5-4125-b130-42fe89cb31eb";
         public string TypeId => _typeId;

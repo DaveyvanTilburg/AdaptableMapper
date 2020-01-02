@@ -4,10 +4,11 @@ using System.Xml.XPath;
 using System.Xml.Linq;
 using System.Linq;
 using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    public class XmlGetNumberOfHits : GetValueTraversal, SerializableByTypeId
+    public class XmlGetNumberOfHits : GetValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "5f9d1ca5-95a8-4a07-aa44-4ea6e8ec8fa9";
         public string TypeId => _typeId;

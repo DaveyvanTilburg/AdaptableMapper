@@ -1,10 +1,11 @@
 ﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Traversals;
 using AdaptableMapper.ValueMutations.Traversals;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public sealed class ReplaceValueMutation : ValueMutation, SerializableByTypeId
+    public sealed class ReplaceValueMutation : ValueMutation, ResolvableByTypeId
     {
         public const string _typeId = "ff9b3844-f3a9-4339-9fb9-d41133506391";
         public string TypeId => _typeId;

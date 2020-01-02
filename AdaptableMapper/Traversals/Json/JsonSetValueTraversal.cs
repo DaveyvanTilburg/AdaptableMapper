@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.Traversals.Json
 {
-    public sealed class JsonSetValueTraversal : SetMutableValueTraversal, SerializableByTypeId
+    public sealed class JsonSetValueTraversal : SetMutableValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "4339b4c9-cdb9-44ab-bebc-b9d3bd2a5287";
         public string TypeId => _typeId;

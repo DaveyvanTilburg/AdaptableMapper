@@ -1,10 +1,11 @@
 ﻿using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.Configuration.Xml
 {
-    public sealed class XElementToStringObjectConverter : ResultObjectConverter, SerializableByTypeId
+    public sealed class XElementToStringObjectConverter : ResultObjectConverter, ResolvableByTypeId
     {
         public const string _typeId = "37423a03-fdb3-4523-b94d-7ea1bd29f0b7";
         public string TypeId => _typeId;

@@ -1,10 +1,11 @@
 ﻿using System.Xml.Linq;
 using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    public sealed class XmlSetGeneratedIdValueTraversal : SetMutableValueTraversal, SerializableByTypeId
+    public sealed class XmlSetGeneratedIdValueTraversal : SetMutableValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "907c1a97-cee0-4616-b986-c8a00fdec422";
         public string TypeId => _typeId;

@@ -1,9 +1,10 @@
 ﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Conditions
 {
-    public sealed class NotEmptyCondition : Condition, SerializableByTypeId
+    public sealed class NotEmptyCondition : Condition, ResolvableByTypeId
     {
         public const string _typeId = "63912c96-a37a-4888-b051-e226e383c652";
         public string TypeId => _typeId;

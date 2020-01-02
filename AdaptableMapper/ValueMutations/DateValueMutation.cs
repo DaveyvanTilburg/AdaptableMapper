@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Globalization;
 using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public sealed class DateValueMutation : ValueMutation, SerializableByTypeId
+    public sealed class DateValueMutation : ValueMutation, ResolvableByTypeId
     {
         public const string _typeId = "49c1f493-d14e-47cc-adef-43436898598c";
         public string TypeId => _typeId;

@@ -1,9 +1,10 @@
 ﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Model;
 
 namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelSetValueOnPathTraversal : SetMutableValueTraversal, SerializableByTypeId
+    public sealed class ModelSetValueOnPathTraversal : SetMutableValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "05f91570-3786-40ce-8edd-b33e36762804";
         public string TypeId => _typeId;

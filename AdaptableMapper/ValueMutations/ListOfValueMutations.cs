@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public sealed class ListOfValueMutations : ValueMutation, SerializableByTypeId
+    public sealed class ListOfValueMutations : ValueMutation, ResolvableByTypeId
     {
         public const string _typeId = "6b40f249-b509-482a-b98a-15616e6526f2";
         public string TypeId => _typeId;

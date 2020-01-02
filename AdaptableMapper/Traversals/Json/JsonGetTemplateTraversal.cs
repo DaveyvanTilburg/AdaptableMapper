@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using AdaptableMapper.Converters;
+using Newtonsoft.Json.Linq;
 
 namespace AdaptableMapper.Traversals.Json
 {
-    public sealed class JsonGetTemplateTraversal : GetTemplateTraversal, SerializableByTypeId
+    public sealed class JsonGetTemplateTraversal : GetTemplateTraversal, ResolvableByTypeId
     {
         public const string _typeId = "afbdac94-e752-468c-84ce-e704ec988458";
         public string TypeId => _typeId;

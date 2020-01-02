@@ -1,9 +1,10 @@
 ﻿using System;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Model;
 
 namespace AdaptableMapper.Configuration.Model
 {
-    public sealed class StringToModelObjectConverter : ObjectConverter, SerializableByTypeId
+    public sealed class StringToModelObjectConverter : ObjectConverter, ResolvableByTypeId
     {
         public const string _typeId = "42dec10d-abb3-4c96-8c9a-dcc6798caa5a";
         public string TypeId => _typeId;

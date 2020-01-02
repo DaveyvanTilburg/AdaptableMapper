@@ -2,10 +2,11 @@
 using AdaptableMapper.ValueMutations.Traversals;
 using System.Collections.Generic;
 using System.Linq;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public sealed class DictionaryReplaceValueMutation : ValueMutation, SerializableByTypeId
+    public sealed class DictionaryReplaceValueMutation : ValueMutation, ResolvableByTypeId
     {
         public const string _typeId = "1a18c1a7-1799-4a56-85d2-2e2090252945";
         public string TypeId => _typeId;

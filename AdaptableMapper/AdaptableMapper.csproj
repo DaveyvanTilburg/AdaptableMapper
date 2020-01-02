@@ -45,8 +45,8 @@
     <Compile Include="Conditions\ListEvaluationOperator.cs" />
     <Compile Include="Conditions\NotEmptyCondition.cs" />
     <Compile Include="Converters\JsonTypeIdBasedConverter.cs" />
-    <Compile Include="Converters\RelevantAssemblyCollection.cs" />
-    <Compile Include="Converters\TypeCollection.cs" />
+    <Compile Include="Converters\ResolvableByTypeId.cs" />
+    <Compile Include="Converters\ResolvableTypeIdCollection.cs" />
     <Compile Include="GenerateIdCache.cs" />
     <Compile Include="Conditions\CompareOperator.cs" />
     <Compile Include="Conditions\Condition.cs" />
@@ -55,7 +55,6 @@
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
     <Compile Include="MappingCaches.cs" />
-    <Compile Include="SerializableByTypeId.cs" />
     <Compile Include="TemplateCache.cs" />
     <Compile Include="Compositions\GetNothingValueTraversal.cs" />
     <Compile Include="Compositions\GetSearchValueTraversal.cs" />

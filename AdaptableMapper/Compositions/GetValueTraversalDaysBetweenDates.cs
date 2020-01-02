@@ -1,10 +1,11 @@
 ﻿using System;
 using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Compositions
 {
-    public class GetValueTraversalDaysBetweenDates : GetValueTraversal, SerializableByTypeId
+    public class GetValueTraversalDaysBetweenDates : GetValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "37ef235d-affc-40b2-8436-15bc73e83101";
         public string TypeId => _typeId;

@@ -1,10 +1,11 @@
 ﻿using System.Xml.Linq;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Traversals;
 using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Configuration.Xml
 {
-    public sealed class XmlChildCreator : ChildCreator, SerializableByTypeId
+    public sealed class XmlChildCreator : ChildCreator, ResolvableByTypeId
     {
         public const string _typeId = "64df916a-8fef-46e1-9c34-6322365f6d22";
         public string TypeId => _typeId;

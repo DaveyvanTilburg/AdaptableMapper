@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.Traversals.Json
 {
-    public sealed class JsonGetScopeTraversal : GetScopeTraversal, SerializableByTypeId
+    public sealed class JsonGetScopeTraversal : GetScopeTraversal, ResolvableByTypeId
     {
         public const string _typeId = "5d1df2c9-6af6-45a5-81c4-c2885de4b5c1";
         public string TypeId => _typeId;

@@ -1,10 +1,11 @@
 ﻿using AdaptableMapper.Model;
 using System.Collections;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Configuration.Model
 {
-    public sealed class ModelChildCreator : ChildCreator, SerializableByTypeId
+    public sealed class ModelChildCreator : ChildCreator, ResolvableByTypeId
     {
         public const string _typeId = "030fe21e-f4b9-4838-9aa0-960c3e8fa9a1";
         public string TypeId => _typeId;

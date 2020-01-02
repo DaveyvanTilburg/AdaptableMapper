@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.Conditions
 {
-    public sealed class ListOfConditions : Condition, SerializableByTypeId
+    public sealed class ListOfConditions : Condition, ResolvableByTypeId
     {
         public const string _typeId = "4d69f541-883c-46c5-8a31-a9ace37358f9";
         public string TypeId => _typeId;

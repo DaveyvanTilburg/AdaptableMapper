@@ -1,10 +1,11 @@
 ﻿using AdaptableMapper.Model;
 using System.Collections.Generic;
 using System.Linq;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelGetScopeTraversal : GetScopeTraversal, SerializableByTypeId
+    public sealed class ModelGetScopeTraversal : GetScopeTraversal, ResolvableByTypeId
     {
         public const string _typeId = "0e07b7e3-95bd-4d35-aa9d-e89e3c51b1b4";
         public string TypeId => _typeId;

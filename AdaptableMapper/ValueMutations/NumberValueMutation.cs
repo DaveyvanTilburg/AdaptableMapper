@@ -1,9 +1,10 @@
 ﻿using System.Linq;
 using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public sealed class NumberValueMutation : ValueMutation, SerializableByTypeId
+    public sealed class NumberValueMutation : ValueMutation, ResolvableByTypeId
     {
         public const string _typeId = "1c8deaa9-d1c8-4ecc-8344-5eb8909afde1";
         public string TypeId => _typeId;
