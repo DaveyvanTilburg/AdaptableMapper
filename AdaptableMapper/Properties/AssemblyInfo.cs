@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("XPathSerializer")]
+[assembly: AssemblyTitle("AdaptableMapper")]
 [assembly: AssemblyDescription("A package for serializing string to memory objects via configuration")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Davey van Tilburg")]
-[assembly: AssemblyProduct("XPathSerializer")]
+[assembly: AssemblyProduct("AdaptableMapper")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
