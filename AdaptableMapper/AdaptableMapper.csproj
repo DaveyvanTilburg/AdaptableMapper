@@ -26,7 +26,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
@@ -42,22 +42,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compositions\GetSearchValueTraversal.cs" />
+    <Compile Include="Conditions\ListEvaluationOperator.cs" />
+    <Compile Include="Conditions\NotEmptyCondition.cs" />
+    <Compile Include="Converters\JsonTypeIdBasedConverter.cs" />
+    <Compile Include="Converters\RelevantAssemblyCollection.cs" />
+    <Compile Include="Converters\TypeCollection.cs" />
+    <Compile Include="GenerateIdCache.cs" />
     <Compile Include="Conditions\CompareOperator.cs" />
     <Compile Include="Conditions\Condition.cs" />
     <Compile Include="Conditions\CompareCondition.cs" />
-    <Compile Include="Conditions\ListEvaluationOperator.cs" />
     <Compile Include="Conditions\ListOfConditions.cs" />
-    <Compile Include="Conditions\NotEmptyCondition.cs" />
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
-    <Compile Include="GenerateIdCache.cs" />
     <Compile Include="MappingCaches.cs" />
+    <Compile Include="SerializableByTypeId.cs" />
     <Compile Include="TemplateCache.cs" />
-    <Compile Include="Traversals\GetNothingValueTraversal.cs" />
-    <Compile Include="Traversals\GetValueTraversalDaysBetweenDates.cs" />
-    <Compile Include="Compositions\IfConditionThenAElseBGetValueTraversal.cs" />
+    <Compile Include="Compositions\GetNothingValueTraversal.cs" />
+    <Compile Include="Compositions\GetSearchValueTraversal.cs" />
     <Compile Include="Traversals\GetValueTraversalPathProperty.cs" />
+    <Compile Include="Compositions\IfConditionThenAElseBGetValueTraversal.cs" />
+    <Compile Include="Traversals\Xml\XmlGetNumberOfHits.cs" />
+    <Compile Include="Compositions\GetValueTraversalDaysBetweenDates.cs" />
     <Compile Include="Traversals\Xml\XmlSetGeneratedIdValueTraversal.cs" />
     <Compile Include="ValueMutations\CreateSeparatedRangeFromNumberValueMutation.cs" />
     <Compile Include="ValueMutations\DictionaryReplaceValueMutation.cs" />
@@ -71,8 +76,7 @@
     <Compile Include="ValueMutations\NumberValueMutation.cs" />
     <Compile Include="ValueMutations\ReplaceValueMutation.cs" />
     <Compile Include="ValueMutations\ValueMutation.cs" />
-    <Compile Include="ValueMutations\NullValueMutation.cs" />
-    <Compile Include="Traversals\GetStaticValueTraversal.cs" />
+    <Compile Include="Compositions\GetStaticValueTraversal.cs" />
     <Compile Include="Traversals\Json\JsonGetScopeTraversal.cs" />
     <Compile Include="Traversals\Json\JsonGetValueTraversal.cs" />
     <Compile Include="Configuration\Json\JsonObjectConverter.cs" />
@@ -147,9 +151,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="AdaptableMapper.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="License.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

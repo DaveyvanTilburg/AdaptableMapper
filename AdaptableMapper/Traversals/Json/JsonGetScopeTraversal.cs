@@ -4,8 +4,12 @@ using System.Linq;
 
 namespace AdaptableMapper.Traversals.Json
 {
-    public sealed class JsonGetScopeTraversal : GetScopeTraversal
+    public sealed class JsonGetScopeTraversal : GetScopeTraversal, SerializableByTypeId
     {
+        public const string _typeId = "5d1df2c9-6af6-45a5-81c4-c2885de4b5c1";
+        public string TypeId => _typeId;
+
+        public JsonGetScopeTraversal() { }
         public JsonGetScopeTraversal(string path)
         {
             Path = path;
@@ -22,7 +26,7 @@ namespace AdaptableMapper.Traversals.Json
             }
 
             IEnumerable<JToken> jTokens = jToken.TraverseAll(Path).ToList();
-            if (!jTokens.Any())
+            if(!jTokens.Any())
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#4; Path has no results", "warning", Path);
                 return new NullMethodResult<IEnumerable<object>>();

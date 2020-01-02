@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals.Model;
-using FluentAssertions;
 using Xunit;
 
 namespace AdaptableMapper.TDD.Cases.ModelCases

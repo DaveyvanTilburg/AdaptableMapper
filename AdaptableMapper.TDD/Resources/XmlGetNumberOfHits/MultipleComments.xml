@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Reservation>
+  <RoomStay>
+    <Comments>
+      <Comment>Comment 1</Comment>
+      <Comment>Comment 2</Comment>
+      <Comment>Comment 3</Comment>
+    </Comments>
+  </RoomStay>
+  <SpecialRequests>
+    <SpecialRequest>Request 1</SpecialRequest>
+    <SpecialRequest>Request 2</SpecialRequest>
+  </SpecialRequests>
+  <GlobalStuff>
+    <GlobalComment>Stuff</GlobalComment>
+  </GlobalStuff>
+</Reservation>

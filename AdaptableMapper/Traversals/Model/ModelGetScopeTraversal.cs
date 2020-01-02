@@ -4,8 +4,12 @@ using System.Linq;
 
 namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelGetScopeTraversal : GetScopeTraversal
+    public sealed class ModelGetScopeTraversal : GetScopeTraversal, SerializableByTypeId
     {
+        public const string _typeId = "0e07b7e3-95bd-4d35-aa9d-e89e3c51b1b4";
+        public string TypeId => _typeId;
+
+        public ModelGetScopeTraversal() { }
         public ModelGetScopeTraversal(string path)
         {
             Path = path;

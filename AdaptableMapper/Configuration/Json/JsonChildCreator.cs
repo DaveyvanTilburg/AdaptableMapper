@@ -3,8 +3,13 @@ using Newtonsoft.Json.Linq;
 
 namespace AdaptableMapper.Configuration.Json
 {
-    public class JsonChildCreator : ChildCreator
+    public class JsonChildCreator : ChildCreator, SerializableByTypeId
     {
+        public const string _typeId = "88a88d4e-b79e-471a-9866-04a217e2e890";
+        public string TypeId => _typeId;
+
+        public JsonChildCreator() { }
+
         public object CreateChild(Template template)
         {
             if (!(template.Parent is JArray jArray))

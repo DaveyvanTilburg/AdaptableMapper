@@ -5,13 +5,18 @@ using System.Linq;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public sealed class DictionaryReplaceValueMutation : ValueMutation
+    public sealed class DictionaryReplaceValueMutation : ValueMutation, SerializableByTypeId
     {
-        public GetValueStringTraversal GetValueStringTraversal { get; set; }
-        public List<ReplaceValue> ReplaceValues { get; set; }
+        public const string _typeId = "1a18c1a7-1799-4a56-85d2-2e2090252945";
+        public string TypeId => _typeId;
 
+        public DictionaryReplaceValueMutation()
+            => ReplaceValues = new List<ReplaceValue>();
         public DictionaryReplaceValueMutation(List<ReplaceValue> replaceValues)
             => ReplaceValues = replaceValues;
+
+        public GetValueStringTraversal GetValueStringTraversal { get; set; }
+        public List<ReplaceValue> ReplaceValues { get; set; }
 
         public string Mutate(Context context, string value)
         {
@@ -41,6 +46,13 @@ namespace AdaptableMapper.ValueMutations
 
         public class ReplaceValue
         {
+            public ReplaceValue() { }
+            public ReplaceValue(string valueToReplace, string newValue)
+            {
+                ValueToReplace = valueToReplace;
+                NewValue = newValue;
+            }
+
             public string ValueToReplace { get; set; }
             public string NewValue { get; set; }
         }

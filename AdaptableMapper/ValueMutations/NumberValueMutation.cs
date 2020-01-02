@@ -3,16 +3,20 @@ using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public sealed class NumberValueMutation : ValueMutation
+    public sealed class NumberValueMutation : ValueMutation, SerializableByTypeId
     {
-        public string Separator { get; set; }
-        public int NumberOfDecimals { get; set; }
+        public const string _typeId = "1c8deaa9-d1c8-4ecc-8344-5eb8909afde1";
+        public string TypeId => _typeId;
 
+        public NumberValueMutation() { }
         public NumberValueMutation(string separator, int numberOfDecimals)
         {
             Separator = separator;
             NumberOfDecimals = numberOfDecimals;
         }
+
+        public string Separator { get; set; }
+        public int NumberOfDecimals { get; set; }
 
         public string Mutate(Context context, string value)
         {

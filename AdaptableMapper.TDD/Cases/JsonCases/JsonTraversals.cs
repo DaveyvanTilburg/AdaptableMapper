@@ -69,7 +69,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
             JToken traversedContext = ((JToken)context).SelectToken("$.SimpleItems[0]");
 
             var subject = new JsonGetTemplateTraversal("../../");
-
+            
             List<Information> result = new Action(() => { subject.GetTemplate(traversedContext, new MappingCaches()); }).Observe();
             result.ValidateResult(new List<string>(), "DoubleParent");
         }

@@ -16,10 +16,10 @@ namespace AdaptableMapper.Configuration
         public ChildCreator ChildCreator { get; set; }
 
         public MappingScopeComposite(
-            List<MappingScopeComposite> mappingScopeComposites,
-            List<Mapping> mappings,
-            GetScopeTraversal getScopeTraversal,
-            GetTemplateTraversal getTemplateTraversal,
+            List<MappingScopeComposite> mappingScopeComposites, 
+            List<Mapping> mappings, 
+            GetScopeTraversal getScopeTraversal, 
+            GetTemplateTraversal getTemplateTraversal, 
             ChildCreator childCreator)
         {
             MappingScopeComposites = mappingScopeComposites;

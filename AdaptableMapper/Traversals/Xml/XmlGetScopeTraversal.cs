@@ -5,8 +5,12 @@ using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    public sealed class XmlGetScopeTraversal : GetScopeTraversal
+    public sealed class XmlGetScopeTraversal : GetScopeTraversal, SerializableByTypeId
     {
+        public const string _typeId = "4b9876c8-8c60-40fd-9141-86688a44dbe1";
+        public string TypeId => _typeId;
+
+        public XmlGetScopeTraversal() { }
         public XmlGetScopeTraversal(string path)
         {
             Path = path;

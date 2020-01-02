@@ -49,6 +49,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Added some null checks to XElementToStringObjectConverter
       - Removed all getsearch implementations with a generic one
       - Introduced the concept of 'compositions'
+      - Introduced an abstraction between serialized type reference to actual object type to create a more loosely coupled structure and backwards compatibility after name/space changes
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

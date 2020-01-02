@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using AdaptableMapper.Conditions;
+using AdaptableMapper.Compositions;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.Process;
-using AdaptableMapper.Traversals;
 using FluentAssertions;
 using Xunit;
 
@@ -74,7 +73,7 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new AdaptableMapper.Traversals.GetNothingValueTraversal(),
+                                new AdaptableMapper.Compositions.GetNothingValueTraversal(),
                                 new AdaptableMapper.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
@@ -91,7 +90,7 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new AdaptableMapper.Traversals.GetNothingValueTraversal(),
+                                new AdaptableMapper.Compositions.GetNothingValueTraversal(),
                                 new AdaptableMapper.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
@@ -108,7 +107,7 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new AdaptableMapper.Traversals.GetNothingValueTraversal(),
+                                new AdaptableMapper.Compositions.GetNothingValueTraversal(),
                                 new AdaptableMapper.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(

@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <entry dateA="2019-12-01" dateB="2019-12-05" invalidDate="abcd" emptyDate="" />
+</root>

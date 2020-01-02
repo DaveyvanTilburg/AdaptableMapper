@@ -4,8 +4,13 @@ using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Configuration.Xml
 {
-    public sealed class XmlChildCreator : ChildCreator
+    public sealed class XmlChildCreator : ChildCreator, SerializableByTypeId
     {
+        public const string _typeId = "64df916a-8fef-46e1-9c34-6322365f6d22";
+        public string TypeId => _typeId;
+
+        public XmlChildCreator() { }
+
         public object CreateChild(Template template)
         {
             if (!(template.Parent is XElement xElement))

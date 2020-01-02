@@ -191,6 +191,17 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         }
 
         [Fact]
+        public void XmlGetCountOfHitsCreateAStringWithEveryNumberInvalidSourceType()
+        {
+            GetValueTraversal subject = new XmlGetNumberOfHits(
+                new List<string>()
+            );
+
+            List<Information> information = new Action(() => { subject.GetValue(new Context(0, null)); }).Observe();
+            information.ValidateResult(new List<string> { "e-XmlGetNumberOfHits#1;" });
+        }
+
+        [Fact]
         public void XmlSetGeneratedIdValueTraversalInvalidType()
         {
             var subject = new XmlSetGeneratedIdValueTraversal("") { XmlInterpretation = XmlInterpretation.Default, SetAsCData = false };
@@ -199,6 +210,28 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             information.ValidateResult(new List<string> { "e-XmlSetGeneratedIdValueTraversal#1;" });
         }
 
+        [Fact]
+        public void XmlGetNumberOfHits()
+        {
+            XElement source = XElement.Load("./Resources/XmlGetNumberOfHits/MultipleComments.xml");
+
+            GetValueTraversal subject = new XmlGetNumberOfHits(
+                new List<string>
+                {
+                    "./RoomStay/Comments/Comment",
+                    "./SpecialRequests/SpecialRequest",
+                    "./GlobalStuff/GlobalComment",
+                    "",
+                    "abcd"
+                }
+            );
+
+            string result = null;
+            List<Information> information = new Action(() => { result = subject.GetValue(new Context(source, null)); }).Observe();
+            information.ValidateResult(new List<string> { "e-XmlGetNumberOfHits#2;" });
+
+            result.Should().BeEquivalentTo("6");
+        }
 
 
         [Fact]

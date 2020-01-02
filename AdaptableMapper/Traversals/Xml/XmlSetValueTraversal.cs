@@ -4,8 +4,12 @@ using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    public sealed class XmlSetValueTraversal : SetMutableValueTraversal
+    public sealed class XmlSetValueTraversal : SetMutableValueTraversal, SerializableByTypeId
     {
+        public const string _typeId = "5052f42d-894d-4215-a5f5-b86b8af89860";
+        public string TypeId => _typeId;
+
+        public XmlSetValueTraversal() { }
         public XmlSetValueTraversal(string path)
         {
             Path = path;
@@ -22,7 +26,7 @@ namespace AdaptableMapper.Traversals.Xml
                 Process.ProcessObservable.GetInstance().Raise("XML#21; target is not of expected type XElement", "error", Path, context.Target?.GetType().Name);
                 return;
             }
-
+            
             xElement.SetXPathValues(Path.ConvertToInterpretation(XmlInterpretation), value, SetAsCData);
         }
     }

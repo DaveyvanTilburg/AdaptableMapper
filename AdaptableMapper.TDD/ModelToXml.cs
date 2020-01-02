@@ -56,8 +56,6 @@ namespace AdaptableMapper.TDD
                 new Traversals.Xml.XmlSetValueTraversal("./@code")
             );
 
-            
-
             var leaderName = new Mapping(
                 new Compositions.GetSearchValueTraversal(
                     new Traversals.Model.ModelGetValueTraversal("../../Organization/Leaders{'PropertyName':'Reference','Value':'{{searchValue}}'}/LeaderPerson/Person/Name"),
@@ -81,7 +79,10 @@ namespace AdaptableMapper.TDD
                 new Configuration.Xml.XmlChildCreator()
             )
             {
-                Condition = new CompareCondition(new Traversals.Model.ModelGetValueTraversal("Deployed"), CompareOperator.Equals, new Traversals.GetStaticValueTraversal("True"))
+                Condition = new CompareCondition(
+                    new Traversals.Model.ModelGetValueTraversal("Deployed"), 
+                    CompareOperator.Equals, 
+                    new Compositions.GetStaticValueTraversal("True"))
             };
 
             var crewMemberName = new Mapping(

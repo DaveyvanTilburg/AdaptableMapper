@@ -2,8 +2,13 @@
 
 namespace AdaptableMapper.Configuration.Model
 {
-    public sealed class ModelObjectConverter : ObjectConverter
+    public sealed class ModelObjectConverter : ObjectConverter, SerializableByTypeId
     {
+        public const string _typeId = "0ff249bd-3dc5-4125-b130-42fe89cb31eb";
+        public string TypeId => _typeId;
+
+        public ModelObjectConverter() { }
+
         public object Convert(object source)
         {
             if (!(source is ModelBase model))

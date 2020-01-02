@@ -3,11 +3,16 @@ using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    public sealed class XmlSetThisValueTraversal : SetValueTraversal
+    public sealed class XmlSetThisValueTraversal : SetMutableValueTraversal, SerializableByTypeId
     {
+        public const string _typeId = "0e33e050-8da6-4d87-ad49-ff9bde9bf953";
+        public string TypeId => _typeId;
+
+        public XmlSetThisValueTraversal() { }
+
         public bool SetAsCData { get; set; }
 
-        public void SetValue(Context context, MappingCaches mappingCaches, string value)
+        protected override void SetValueImplementation(Context context, MappingCaches mappingCaches, string value)
         {
             if (!(context.Target is XElement xElement))
             {

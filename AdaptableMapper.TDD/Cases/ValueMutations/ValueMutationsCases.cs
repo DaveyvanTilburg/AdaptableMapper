@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdaptableMapper.Compositions;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.ValueMutations;
 using AdaptableMapper.Process;
-using AdaptableMapper.Traversals;
 using FluentAssertions;
 using Xunit;
 using AdaptableMapper.ValueMutations.Traversals;
@@ -92,7 +92,7 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
         public void ReplaceValueMutation(string because, string valueToReplace, string newValue, string value, string expectedResult, params string[] expectedInformation)
         {
             var subject = new ReplaceValueMutation(
-                new GetStaticValueTraversal(valueToReplace),
+                new GetStaticValueTraversal(valueToReplace), 
                 new GetStaticValueTraversal(newValue)
             );
 

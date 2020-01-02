@@ -6,6 +6,7 @@ using AdaptableMapper.Conditions;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals;
+using AdaptableMapper.Traversals.Model;
 using AdaptableMapper.Traversals.Xml;
 using FluentAssertions;
 using Xunit;
@@ -21,7 +22,7 @@ namespace AdaptableMapper.TDD.Cases.Compositions
         [InlineData("A", "B", "C", "B")]
         public void IfConditionThenAElseBGetValueTraversal(string valueA, string valueB, string valueC, string expectedValue)
         {
-            var subject = new IfConditionThenAElseBGetValueTraversal(new NotEmptyCondition(new GetStaticValueTraversal(valueA)), new GetStaticValueTraversal(valueB), new GetStaticValueTraversal(valueC));
+            var subject = new AdaptableMapper.Compositions.IfConditionThenAElseBGetValueTraversal(new NotEmptyCondition(new GetStaticValueTraversal(valueA)), new GetStaticValueTraversal(valueB), new GetStaticValueTraversal(valueC));
 
             string result = subject.GetValue(new Context(null, null));
             result.Should().Be(expectedValue);
@@ -38,7 +39,7 @@ namespace AdaptableMapper.TDD.Cases.Compositions
             GetValueTraversal getValueTraversalA = valueB ? new GetStaticValueTraversal("B") : null;
             GetValueTraversal getValueTraversalB = valueC ? new GetStaticValueTraversal("C") : null;
 
-            var subject = new IfConditionThenAElseBGetValueTraversal(condition, getValueTraversalA, getValueTraversalB);
+            var subject = new AdaptableMapper.Compositions.IfConditionThenAElseBGetValueTraversal(condition, getValueTraversalA, getValueTraversalB);
 
             string result = string.Empty;
             List<Information> information = new Action(() => { result = subject.GetValue(null); }).Observe();
@@ -52,7 +53,9 @@ namespace AdaptableMapper.TDD.Cases.Compositions
         [Fact]
         public void GetSearchValueTraversalWithXml()
         {
-            var subject = new GetSearchValueTraversal(new XmlGetValueTraversal("./SimpleItems/SimpleItem[@Id='{{searchValue}}']/Name"), new GetStaticValueTraversal("2"));
+            var subject = new GetSearchValueTraversal(
+                new XmlGetValueTraversal("./SimpleItems/SimpleItem[@Id='{{searchValue}}']/Name"), 
+                new GetStaticValueTraversal("2"));
 
             object source = XDocument.Load("./Resources/Simple.xml").Root;
             var context = new Context(source, null);
@@ -62,6 +65,34 @@ namespace AdaptableMapper.TDD.Cases.Compositions
 
             information.Should().BeEmpty();
             result.Should().BeEquivalentTo("Joey");
+        }
+
+        [Theory]
+        [InlineData("Items{'PropertyName':'Code','Value':'1'/Code", "", "w-MODEL#9;", "e-MODEL#32;")]
+        [InlineData("Items{'PropertyName':'Code','Value':'3'}/Code", "", "w-MODEL#4;")]
+        [InlineData("Items{'PropertyName':'Code','Value':'1'}/Code", "1")]
+        public void GetSearchValueTraversalWithModel(string path, string expectedResult, params string[] expectedErrorCodes)
+        {
+            var subject = new GetSearchValueTraversal(
+                new ModelGetValueTraversal(path), 
+                new GetStaticValueTraversal("2"));
+
+            object source = ModelCases.Model.CreateTarget(ContextType.TestObject, "item");
+            var context = new Context(source, null);
+
+            string result = string.Empty;
+            List<Information> information = new Action(() => { result = subject.GetValue(context); }).Observe();
+
+            if(expectedErrorCodes.Length == 0)
+            {
+                information.Should().BeEmpty();
+                result.Should().BeEquivalentTo(expectedResult);
+            }
+            else
+            {
+                information.ValidateResult(new List<string>(expectedErrorCodes), "search model");
+                result.Should().BeEmpty();
+            }
         }
 
         [Fact]

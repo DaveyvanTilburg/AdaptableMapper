@@ -33,15 +33,5 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
                 result?.Value.Should().Be(expectedResult);
             }
         }
-
-        [Fact]
-        public void XmlSetValueSerializeAndDeserialize()
-        {
-            var source = new XmlSetValueTraversal("") { ValueMutation = new DateValueMutation("yyyy/MM/dddd") };
-            string serialized = JsonSerializer.Serialize(source);
-            var target = JsonSerializer.Deserialize<XmlSetValueTraversal>(serialized);
-
-            source.Should().BeEquivalentTo(target);
-        }
     }
 }

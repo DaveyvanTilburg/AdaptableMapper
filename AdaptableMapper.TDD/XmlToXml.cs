@@ -114,7 +114,10 @@ namespace AdaptableMapper.TDD
                 new Configuration.Xml.XmlChildCreator()
             )
             {
-                Condition = new CompareCondition(new Traversals.Xml.XmlGetValueTraversal("./@deployed"), CompareOperator.Equals, new Traversals.GetStaticValueTraversal("True"))
+                Condition = new CompareCondition(
+                    new Traversals.Xml.XmlGetValueTraversal("./@deployed"), 
+                    CompareOperator.Equals, 
+                    new Compositions.GetStaticValueTraversal("True"))
             };
 
             var scopes = new List<MappingScopeComposite>

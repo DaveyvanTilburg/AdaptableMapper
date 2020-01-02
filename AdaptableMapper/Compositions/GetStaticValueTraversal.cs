@@ -1,12 +1,17 @@
 ﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Traversals;
 using AdaptableMapper.ValueMutations.Traversals;
 
-namespace AdaptableMapper.Traversals
+namespace AdaptableMapper.Compositions
 {
-    public class GetStaticValueTraversal : GetValueTraversal, GetValueStringTraversal
+    public class GetStaticValueTraversal : GetValueTraversal, GetValueStringTraversal, SerializableByTypeId
     {
+        public const string _typeId = "136fe331-e3c2-496d-a7fc-e317b7eb80aa";
+        public string TypeId => _typeId;
+
         public string Value { get; set; }
 
+        public GetStaticValueTraversal() { }
         public GetStaticValueTraversal(string value)
             => Value = value;
 

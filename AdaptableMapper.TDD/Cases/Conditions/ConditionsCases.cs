@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using AdaptableMapper.Compositions;
 using AdaptableMapper.Conditions;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.Process;
@@ -132,8 +133,8 @@ namespace AdaptableMapper.TDD.Cases.Conditions
         [InlineData(ListEvaluationOperator.Any, "0", CompareOperator.Equals, "1", "0", CompareOperator.NotEquals, "0", false)]
         public void ListOfConditions(
             ListEvaluationOperator listEvaluationOperator,
-            string entry1ValueA, CompareOperator entry1CompareOperator, string entry1ValueB,
-            string entry2ValueA, CompareOperator entry2CompareOperator, string entry2ValueB,
+            string entry1ValueA, CompareOperator entry1CompareOperator, string entry1ValueB, 
+            string entry2ValueA, CompareOperator entry2CompareOperator, string entry2ValueB, 
             bool expectedResult)
         {
             var subject = new ListOfConditions(listEvaluationOperator);

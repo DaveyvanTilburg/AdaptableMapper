@@ -1,0 +1,383 @@
+﻿using AdaptableMapper.Compositions;
+using AdaptableMapper.Traversals;
+using FluentAssertions;
+using System;
+using System.Collections.Generic;
+using AdaptableMapper.Conditions;
+using AdaptableMapper.Configuration;
+using AdaptableMapper.Configuration.Json;
+using AdaptableMapper.Configuration.Model;
+using AdaptableMapper.Configuration.Xml;
+using AdaptableMapper.Converters;
+using AdaptableMapper.Traversals.Json;
+using AdaptableMapper.Traversals.Model;
+using AdaptableMapper.Traversals.Xml;
+using AdaptableMapper.ValueMutations;
+using AdaptableMapper.ValueMutations.Traversals;
+using Xunit;
+
+namespace AdaptableMapper.TDD.Cases.Converters
+{
+    public class SerializationCases
+    {
+        [Fact]
+        public void ShouldBeAbleToAddAssembly()
+        {
+            string testName = "test";
+
+            RelevantAssemblyCollection.AddAssemblyName(testName);
+            IReadOnlyCollection<string> storedNames = RelevantAssemblyCollection.GetAssemblyNames();
+
+            storedNames.Should().Contain(testName);
+        }
+
+        [Fact]
+        public void JsonTypeIdBasedConverterShouldBeAbleToConvertSerializableByTypeId()
+        {
+            var subject = new JsonTypeIdBasedConverter();
+
+            subject.CanConvert(typeof(SerializableByTypeId)).Should().BeTrue();
+            subject.CanConvert(typeof(int)).Should().BeFalse();
+        }
+
+        [Fact]
+        public void CanWriteShouldThrowAnException()
+        {
+            var subject = new JsonTypeIdBasedConverter();
+            Action subjectAction = () => subject.WriteJson(null, null, null);
+
+            subjectAction.Should().Throw<InvalidOperationException>();
+        }
+
+        [Fact]
+        public void TypeIdsThatCannotBeFoundShouldThrowException()
+        {
+            string subject = @"
+                {
+                  ""TypeId"": ""InvalidTypeId"",
+                  ""GetValueTraversalSearchPath"": {
+                    ""TypeId"": ""136fe331-e3c2-496d-a7fc-e317b7eb80aa"",
+                    ""Value"": ""1""
+                  },
+                  ""GetValueTraversalSearchValuePath"": {
+                    ""TypeId"": ""136fe331-e3c2-496d-a7fc-e317b7eb80aa"",
+                    ""Value"": ""2""
+                  }
+                }
+            ";
+
+            Action subjectAction = () => JsonSerializer.Deserialize(typeof(GetValueTraversal), subject);
+
+            subjectAction.Should().Throw<ArgumentException>().WithMessage("Invalid typeId: InvalidTypeId");
+        }
+
+        [Theory]
+        [MemberData(nameof(Scenarios), MemberType = typeof(SerializationCases))]
+        public void Test(Type interfaceType, object subject)
+        {
+            string serialized = JsonSerializer.Serialize(subject);
+            object deserialized = JsonSerializer.Deserialize(interfaceType, serialized);
+
+            deserialized.Should().BeEquivalentTo(subject);
+        }
+
+        public static IEnumerable<object[]> Scenarios()
+        {
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new GetSearchValueTraversal(
+                    new GetStaticValueTraversal("1"),
+                    new GetStaticValueTraversal("2")
+                )
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new IfConditionThenAElseBGetValueTraversal(
+                    new CompareCondition(
+                        new GetStaticValueTraversal("1"),
+                        CompareOperator.Equals,
+                        new GetStaticValueTraversal("2")
+                    ),
+                    new GetStaticValueTraversal("3"),
+                    new GetStaticValueTraversal("4")
+                )
+            };
+            yield return new object[]
+            {
+                typeof(Condition),
+                new CompareCondition(
+                    new GetStaticValueTraversal("1"),
+                    CompareOperator.Equals,
+                    new GetStaticValueTraversal("2")
+                )
+            };
+            yield return new object[]
+            {
+                typeof(Condition),
+                new ListOfConditions(
+                    ListEvaluationOperator.Any,
+                    new List<Condition>
+                    {
+                        new CompareCondition(
+                            new GetStaticValueTraversal("1"),
+                            CompareOperator.Equals,
+                            new GetStaticValueTraversal("2")
+                        ),
+                        new CompareCondition(
+                            new GetStaticValueTraversal("1"),
+                            CompareOperator.Equals,
+                            new GetStaticValueTraversal("2")
+                        )
+                    }
+                )
+            };
+            yield return new object[]
+            {
+                typeof(Condition),
+                new NotEmptyCondition(
+                    new GetNothingValueTraversal()
+                )
+            };
+            yield return new object[]
+            {
+                typeof(ChildCreator),
+                new JsonChildCreator()
+            };
+            yield return new object[]
+            {
+                typeof(ObjectConverter),
+                new JsonObjectConverter()
+            };
+            yield return new object[]
+            {
+                typeof(TargetInstantiator),
+                new JsonTargetInstantiator()
+            };
+            yield return new object[]
+            {
+                typeof(ResultObjectConverter),
+                new JTokenToStringObjectConverter()
+            };
+            yield return new object[]
+            {
+                typeof(ChildCreator),
+                new ModelChildCreator()
+            };
+            yield return new object[]
+            {
+                typeof(ObjectConverter),
+                new ModelObjectConverter()
+            };
+            yield return new object[]
+            {
+                typeof(TargetInstantiator),
+                new ModelTargetInstantiator()
+            };
+            yield return new object[]
+            {
+                typeof(ResultObjectConverter),
+                new ModelToStringObjectConverter()
+            };
+            yield return new object[]
+            {
+                typeof(ResultObjectConverter),
+                new StringToModelObjectConverter()
+            };
+            yield return new object[]
+            {
+                typeof(ChildCreator),
+                new XmlChildCreator()
+            };
+            yield return new object[]
+            {
+                typeof(ObjectConverter),
+                new XmlObjectConverter()
+            };
+            yield return new object[]
+            {
+                typeof(TargetInstantiator),
+                new XmlTargetInstantiator()
+            };
+            yield return new object[]
+            {
+                typeof(ResultObjectConverter),
+                new XElementToStringObjectConverter()
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new JsonGetScopeTraversal("path")
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new JsonGetTemplateTraversal("path")
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new JsonGetValueTraversal("path")
+            };
+            yield return new object[]
+            {
+                typeof(SetValueTraversal),
+                new JsonSetValueTraversal("path")
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new ModelGetScopeTraversal("path")
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new ModelGetTemplateTraversal("path")
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new ModelGetValueTraversal("path")
+            };
+            yield return new object[]
+            {
+                typeof(SetValueTraversal),
+                new ModelSetValueOnPathTraversal("path")
+            };
+            yield return new object[]
+            {
+                typeof(SetValueTraversal),
+                new ModelSetValueOnPropertyTraversal("path")
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new XmlGetNumberOfHits(
+                    new List<string>
+                    {
+                        "path1",
+                        "path2"
+                    }
+                )
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new XmlGetScopeTraversal("path")
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new XmlGetTemplateTraversal("path")
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new XmlGetThisValueTraversal()
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new XmlGetValueTraversal("path")
+            };
+            yield return new object[]
+            {
+                typeof(SetValueTraversal),
+                new XmlSetGeneratedIdValueTraversal("path")
+            };
+            yield return new object[]
+            {
+                typeof(SetValueTraversal),
+                new XmlSetThisValueTraversal()
+            };
+            yield return new object[]
+            {
+                typeof(SetValueTraversal),
+                new XmlSetValueTraversal("path")
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new GetNothingValueTraversal()
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new GetStaticValueTraversal("1")
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new GetValueTraversalDaysBetweenDates(
+                    new GetStaticValueTraversal("1"),
+                    new GetStaticValueTraversal("2")
+                )
+            };
+            yield return new object[]
+            {
+                typeof(ValueMutation),
+                new CreateSeparatedRangeFromNumberValueMutation(",")
+            };
+            yield return new object[]
+            {
+                typeof(ValueMutation),
+                new DateValueMutation("d")
+            };
+            yield return new object[]
+            {
+                typeof(ValueMutation),
+                new DictionaryReplaceValueMutation(
+                    new List<DictionaryReplaceValueMutation.ReplaceValue>
+                    {
+                        new DictionaryReplaceValueMutation.ReplaceValue("x", "y")
+                    }
+                )
+            };
+            yield return new object[]
+            {
+                typeof(ValueMutation),
+                new ListOfValueMutations(
+                    new List<ValueMutation>
+                    {
+                        new NumberValueMutation(",", 2),
+                        new DateValueMutation("y")
+                    }
+                )
+            };
+            yield return new object[]
+            {
+                typeof(ValueMutation),
+                new NumberValueMutation(",", 2),
+            };
+            yield return new object[]
+            {
+                typeof(ValueMutation),
+                new ReplaceValueMutation(
+                    new SplitByCharTakePositionStringTraversal('c', 1),
+                    new GetStaticValueTraversal("1")
+                )
+            };
+            yield return new object[]
+            {
+                typeof(ValueMutation),
+                new SubstringValueMutation(new SplitByCharTakePositionStringTraversal('c', 1))
+            };
+            yield return new object[]
+            {
+                typeof(ValueMutation),
+                new ToLowerValueMutation()
+            };
+            yield return new object[]
+            {
+                typeof(ValueMutation),
+                new ToUpperValueMutation()
+            };
+            yield return new object[]
+            {
+                typeof(GetValueStringTraversal),
+                new SplitByCharTakePositionStringTraversal('c', 1)
+            };
+        }
+    }
+}

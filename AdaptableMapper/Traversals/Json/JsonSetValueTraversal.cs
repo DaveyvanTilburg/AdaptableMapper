@@ -5,8 +5,12 @@ using AdaptableMapper.Configuration;
 
 namespace AdaptableMapper.Traversals.Json
 {
-    public sealed class JsonSetValueTraversal : SetMutableValueTraversal
+    public sealed class JsonSetValueTraversal : SetMutableValueTraversal, SerializableByTypeId
     {
+        public const string _typeId = "4339b4c9-cdb9-44ab-bebc-b9d3bd2a5287";
+        public string TypeId => _typeId;
+
+        public JsonSetValueTraversal() { }
         public JsonSetValueTraversal(string path)
         {
             Path = path;
