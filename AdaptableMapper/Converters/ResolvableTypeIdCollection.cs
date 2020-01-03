@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using AdaptableMapper.Compositions;
 using AdaptableMapper.Conditions;
 using AdaptableMapper.Configuration.Json;
