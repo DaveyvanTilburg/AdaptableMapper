@@ -15,14 +15,15 @@ namespace AdaptableMapper.TDD.Cases.Compositions
 {
     public class CompositionCases
     {
-
-
         [Theory]
         [InlineData("", "B", "C", "C")]
         [InlineData("A", "B", "C", "B")]
         public void IfConditionThenAElseBGetValueTraversal(string valueA, string valueB, string valueC, string expectedValue)
         {
-            var subject = new AdaptableMapper.Compositions.IfConditionThenAElseBGetValueTraversal(new NotEmptyCondition(new GetStaticValueTraversal(valueA)), new GetStaticValueTraversal(valueB), new GetStaticValueTraversal(valueC));
+            var subject = new AdaptableMapper.Compositions.IfConditionThenAElseBGetValueTraversal(
+                new NotEmptyCondition(new GetStaticValueTraversal(valueA)),
+                new GetStaticValueTraversal(valueB),
+                new GetStaticValueTraversal(valueC));
 
             string result = subject.GetValue(new Context(null, null));
             result.Should().Be(expectedValue);

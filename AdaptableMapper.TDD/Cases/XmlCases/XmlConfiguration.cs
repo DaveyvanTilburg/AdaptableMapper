@@ -61,23 +61,6 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             }
         }
 
-        [Fact]
-        public void XmlObjectConverterProcessingInstruction()
-        {
-            var subject = new XmlObjectConverter();
-            object context = System.IO.File.ReadAllText("./Resources/SimpleProcessingInstruction.xml");
-
-            object value = null;
-            List<Information> result = new Action(() => { value = subject.Convert(context); }).Observe();
-
-            value.Should().NotBeNull();
-
-            XElement xElementValue = value as XElement;
-
-            var converter = new XElementToStringObjectConverter();
-            var convertedResult = converter.Convert(xElementValue);
-        }
-
         [Theory]
         [InlineData("InvalidType", ContextType.InvalidType, XmlInterpretation.Default, "", "e-XML#24;")]
         [InlineData("InvalidSource", ContextType.InvalidSource, XmlInterpretation.Default, "", "e-XML#6;")]
@@ -106,13 +89,27 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         }
 
         [Theory]
-        [InlineData("InvalidType", ContextType.InvalidType, "e-XML#9;")]
-        public void XElementToStringObjectConverter(string because, ContextType contextType, params string[] expectedErrors)
+        [InlineData("InvalidType", ContextType.InvalidType, true, "e-XML#9;")]
+        [InlineData("LengthCheckUseIndentation", ContextType.TestObject, true)]
+        [InlineData("LengthCheckDoNotUseIndentation", ContextType.TestObject, false)]
+        public void XElementToStringObjectConverter(string because, ContextType contextType, bool useIndentation, params string[] expectedErrors)
         {
-            var subject = new XElementToStringObjectConverter();
+            var subject = new XElementToStringObjectConverter { UseIndentation = useIndentation };
             object context = Xml.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.Convert(context); }).Observe();
-            result.ValidateResult(new List<string>(expectedErrors), because);
+
+            string result = string.Empty;
+            List<Information> information = new Action(() => { result = subject.Convert(context) as string; }).Observe();
+
+            information.ValidateResult(new List<string>(expectedErrors), because);
+
+            if (expectedErrors.Length == 0)
+            {
+                string[] lines = result.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                if (useIndentation)
+                    lines.Length.Should().BeGreaterThan(1);
+                else
+                    lines.Length.Should().Be(1);
+            }
         }
     }
 }
