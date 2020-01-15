@@ -90,8 +90,8 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
 
         [Theory]
         [InlineData("InvalidType", ContextType.InvalidType, true, "e-XML#9;")]
-        [InlineData("LengthCheckUseIndentation", ContextType.TestObject, true)]
-        [InlineData("LengthCheckDoNotUseIndentation", ContextType.TestObject, false)]
+        [InlineData("LengthCheckUseIndentation", ContextType.AlternativeTestObject, true)]
+        [InlineData("LengthCheckDoNotUseIndentation", ContextType.AlternativeTestObject, false)]
         public void XElementToStringObjectConverter(string because, ContextType contextType, bool useIndentation, params string[] expectedErrors)
         {
             var subject = new XElementToStringObjectConverter { UseIndentation = useIndentation };

@@ -25,7 +25,11 @@ namespace AdaptableMapper.Configuration.Xml
 
             using (StringWriter stringWriter = new StringWriter())
             {
-                stringWriter.WriteLine(xDocument?.Declaration);
+                if (UseIndentation)
+                    stringWriter.WriteLine(xDocument?.Declaration);
+                else
+                    stringWriter.Write(xDocument?.Declaration);
+
 
                 using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter, new XmlWriterSettings { OmitXmlDeclaration = true, Indent = UseIndentation }))
                     xDocument?.Save(xmlWriter);
