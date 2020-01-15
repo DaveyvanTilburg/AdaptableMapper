@@ -55,6 +55,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Renamed GetScopeTraversal to GetListValueTraversal
       - Renamed XmlGetNumberOfHits to GetNumberOfHits
       - Made indentation configurable for XElementToStringObjectConverter
+      - Added option to exclude declaration for xml
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

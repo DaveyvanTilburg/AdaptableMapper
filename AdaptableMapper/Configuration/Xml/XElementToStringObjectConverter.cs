@@ -10,6 +10,7 @@ namespace AdaptableMapper.Configuration.Xml
         public const string _typeId = "37423a03-fdb3-4523-b94d-7ea1bd29f0b7";
         public string TypeId => _typeId;
         public bool UseIndentation { get; set; } = true;
+        public bool IncludeDeclaration { get; set; } = true;
 
         public XElementToStringObjectConverter() { }
 
@@ -25,11 +26,13 @@ namespace AdaptableMapper.Configuration.Xml
 
             using (StringWriter stringWriter = new StringWriter())
             {
-                if (UseIndentation)
-                    stringWriter.WriteLine(xDocument?.Declaration);
-                else
-                    stringWriter.Write(xDocument?.Declaration);
-
+                if (IncludeDeclaration)
+                {
+                    if (UseIndentation)
+                        stringWriter.WriteLine(xDocument?.Declaration);
+                    else
+                        stringWriter.Write(xDocument?.Declaration);
+                }
 
                 using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter, new XmlWriterSettings { OmitXmlDeclaration = true, Indent = UseIndentation }))
                     xDocument?.Save(xmlWriter);

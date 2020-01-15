@@ -89,12 +89,14 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         }
 
         [Theory]
-        [InlineData("InvalidType", ContextType.InvalidType, true, "e-XML#9;")]
-        [InlineData("LengthCheckUseIndentation", ContextType.AlternativeTestObject, true)]
-        [InlineData("LengthCheckDoNotUseIndentation", ContextType.AlternativeTestObject, false)]
-        public void XElementToStringObjectConverter(string because, ContextType contextType, bool useIndentation, params string[] expectedErrors)
+        [InlineData("InvalidType", ContextType.InvalidType, true, true, 0, "e-XML#9;")]
+        [InlineData("LengthCheckUseIndentation", ContextType.AlternativeTestObject, true, true, 13)]
+        [InlineData("LengthCheckDoNotUseIndentation", ContextType.AlternativeTestObject, false, true, 1)]
+        [InlineData("LengthCheckUseIndentationWithoutDeclaration", ContextType.AlternativeTestObject, true, false, 12)]
+        [InlineData("LengthCheckDoNotUseIndentationWithoutDeclaration", ContextType.AlternativeTestObject, false, false, 1)]
+        public void XElementToStringObjectConverter(string because, ContextType contextType, bool useIndentation, bool includeDeclaration, int expectedLines, params string[] expectedErrors)
         {
-            var subject = new XElementToStringObjectConverter { UseIndentation = useIndentation };
+            var subject = new XElementToStringObjectConverter { UseIndentation = useIndentation, IncludeDeclaration = includeDeclaration };
             object context = Xml.CreateTarget(contextType);
 
             string result = string.Empty;
@@ -105,10 +107,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             if (expectedErrors.Length == 0)
             {
                 string[] lines = result.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-                if (useIndentation)
-                    lines.Length.Should().BeGreaterThan(1);
-                else
-                    lines.Length.Should().Be(1);
+                lines.Length.Should().Be(expectedLines);
             }
         }
     }
