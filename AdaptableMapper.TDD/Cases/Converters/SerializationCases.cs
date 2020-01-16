@@ -279,6 +279,16 @@ namespace AdaptableMapper.TDD.Cases.Converters
                 typeof(SetValueTraversal),
                 new JsonSetValueTraversal("path")
             };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new JsonSetThisValueTraversal()
+            };
+            yield return new object[]
+            {
+                typeof(SetValueTraversal),
+                new JsonGetThisValueTraversal()
+            };
 
             //Traversals - Model
             yield return new object[]

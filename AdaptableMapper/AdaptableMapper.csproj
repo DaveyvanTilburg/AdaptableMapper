@@ -62,6 +62,8 @@
     <Compile Include="Compositions\IfConditionThenAElseBGetValueTraversal.cs" />
     <Compile Include="Compositions\GetNumberOfHits.cs" />
     <Compile Include="Compositions\GetValueTraversalDaysBetweenDates.cs" />
+    <Compile Include="Traversals\Json\JsonGetThisValueTraversal.cs" />
+    <Compile Include="Traversals\Json\JsonSetThisValueTraversal.cs" />
     <Compile Include="Traversals\Xml\XmlSetGeneratedIdValueTraversal.cs" />
     <Compile Include="ValueMutations\CreateSeparatedRangeFromNumberValueMutation.cs" />
     <Compile Include="ValueMutations\DictionaryReplaceValueMutation.cs" />

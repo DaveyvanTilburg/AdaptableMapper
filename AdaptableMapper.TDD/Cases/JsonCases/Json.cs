@@ -34,6 +34,9 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
                 case ContextType.ValidSource:
                     result = System.IO.File.ReadAllText("./Resources/Simple.json");
                     break;
+                case ContextType.AlternativeTestObject:
+                    result = new JValue(string.Empty);
+                    break;
             }
 
             return result;
