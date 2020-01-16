@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using AdaptableMapper.Conditions;
+using AdaptableMapper.Compositions;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.Process;
-using AdaptableMapper.Traversals;
 using FluentAssertions;
 using Xunit;
 
@@ -37,39 +36,6 @@ namespace AdaptableMapper.TDD.Cases.Traversals
             information.Count.Should().Be(0);
 
             result.Should().BeEmpty();
-        }
-
-        [Theory]
-        [InlineData("", "B", "C", "C")]
-        [InlineData("A", "B", "C", "B")]
-        public void IfConditionThenAElseBGetValueTraversal(string valueA, string valueB, string valueC, string expectedValue)
-        {
-            var subject = new IfConditionThenAElseBGetValueTraversal(new NotEmptyCondition(new GetStaticValueTraversal(valueA)), new GetStaticValueTraversal(valueB), new GetStaticValueTraversal(valueC));
-
-            string result = subject.GetValue(new Context(null, null));
-            result.Should().Be(expectedValue);
-        }
-
-        [Theory]
-        [InlineData(true, true, true)]
-        [InlineData(true, true, false, "e-IfConditionThenAElseBGetValueTraversal#3;")]
-        [InlineData(true, false, true, "e-IfConditionThenAElseBGetValueTraversal#2;")]
-        [InlineData(false, false, false, "e-IfConditionThenAElseBGetValueTraversal#1;", "e-IfConditionThenAElseBGetValueTraversal#2;", "e-IfConditionThenAElseBGetValueTraversal#3;")]
-        public void IfConditionThenAElseBGetValueTraversalValidation(bool valueA, bool valueB, bool valueC, params string[] expectedErrors)
-        {
-            Condition condition = valueA ? new NotEmptyCondition(new GetStaticValueTraversal("A")) : null;
-            GetValueTraversal getValueTraversalA = valueB ? new GetStaticValueTraversal("B") : null;
-            GetValueTraversal getValueTraversalB = valueC ? new GetStaticValueTraversal("C") : null;
-
-            var subject = new IfConditionThenAElseBGetValueTraversal(condition, getValueTraversalA, getValueTraversalB);
-
-            string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.GetValue(null); }).Observe();
-            information.ValidateResult(expectedErrors, "Validation");
-            if (valueA == false || valueB == false || valueC == false)
-                result.Should().BeEmpty();
-            else
-                result.Should().NotBeEmpty();
         }
 
         [Theory]
@@ -107,7 +73,7 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new AdaptableMapper.Traversals.GetNothingValueTraversal(),
+                                new AdaptableMapper.Compositions.GetNothingValueTraversal(),
                                 new AdaptableMapper.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
@@ -115,7 +81,7 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                                 new AdaptableMapper.Traversals.Xml.XmlSetValueTraversal("./Text")
                             )
                         },
-                        new AdaptableMapper.Traversals.Xml.XmlGetScopeTraversal("./Wheels/Wheel"),
+                        new AdaptableMapper.Traversals.Xml.XmlGetListValueTraversal("./Wheels/Wheel"),
                         new AdaptableMapper.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
                         new AdaptableMapper.Configuration.Xml.XmlChildCreator()
                     ),
@@ -124,7 +90,7 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new AdaptableMapper.Traversals.GetNothingValueTraversal(),
+                                new AdaptableMapper.Compositions.GetNothingValueTraversal(),
                                 new AdaptableMapper.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
@@ -132,7 +98,7 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                                 new AdaptableMapper.Traversals.Xml.XmlSetValueTraversal("./Text")
                             )
                         },
-                        new AdaptableMapper.Traversals.Xml.XmlGetScopeTraversal("./Doors/Door"),
+                        new AdaptableMapper.Traversals.Xml.XmlGetListValueTraversal("./Doors/Door"),
                         new AdaptableMapper.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
                         new AdaptableMapper.Configuration.Xml.XmlChildCreator()
                     ),
@@ -141,7 +107,7 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new AdaptableMapper.Traversals.GetNothingValueTraversal(),
+                                new AdaptableMapper.Compositions.GetNothingValueTraversal(),
                                 new AdaptableMapper.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
@@ -149,7 +115,7 @@ namespace AdaptableMapper.TDD.Cases.Traversals
                                 new AdaptableMapper.Traversals.Xml.XmlSetValueTraversal("./Text")
                             )
                         },
-                        new AdaptableMapper.Traversals.Xml.XmlGetScopeTraversal("./Windows/Window"),
+                        new AdaptableMapper.Traversals.Xml.XmlGetListValueTraversal("./Windows/Window"),
                         new AdaptableMapper.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
                         new AdaptableMapper.Configuration.Xml.XmlChildCreator()
                     )

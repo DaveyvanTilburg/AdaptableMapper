@@ -1,19 +1,24 @@
 ﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Traversals;
 using AdaptableMapper.ValueMutations.Traversals;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public sealed class ReplaceValueMutation : ValueMutation
+    public sealed class ReplaceValueMutation : ValueMutation, ResolvableByTypeId
     {
-        public GetValueStringTraversal GetValueStringTraversal { get; set; }
-        public GetValueTraversal GetValueTraversal { get; set; }
+        public const string _typeId = "ff9b3844-f3a9-4339-9fb9-d41133506391";
+        public string TypeId => _typeId;
 
+        public ReplaceValueMutation() { }
         public ReplaceValueMutation(GetValueStringTraversal getValueStringTraversal, GetValueTraversal getValueTraversal)
         {
             GetValueStringTraversal = getValueStringTraversal;
             GetValueTraversal = getValueTraversal;
         }
+
+        public GetValueStringTraversal GetValueStringTraversal { get; set; }
+        public GetValueTraversal GetValueTraversal { get; set; }
 
         public string Mutate(Context context, string value)
         {

@@ -9,32 +9,19 @@ namespace AdaptableMapper
 
         public static string Serialize(object source)
         {
-            
-            var settings = new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All
-            };
-            string serialized = JsonConvert.SerializeObject(source, Indented, settings);
+            string serialized = JsonConvert.SerializeObject(source, Indented);
             return serialized;
         }
 
         public static T Deserialize<T>(string memento)
         {
-            var settings = new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All
-            };
-            var deserialized = JsonConvert.DeserializeObject<T>(memento, settings);
+            var deserialized = JsonConvert.DeserializeObject<T>(memento);
             return deserialized;
         }
 
         public static object Deserialize(Type type, string memento)
         {
-            var settings = new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All
-            };
-            var deserialized = JsonConvert.DeserializeObject(memento, type, settings);
+            var deserialized = JsonConvert.DeserializeObject(memento, type);
             return deserialized;
         }
     }

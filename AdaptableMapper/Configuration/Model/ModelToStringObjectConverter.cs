@@ -1,10 +1,16 @@
-﻿using AdaptableMapper.Model;
+﻿using AdaptableMapper.Converters;
+using AdaptableMapper.Model;
 using Newtonsoft.Json;
 
 namespace AdaptableMapper.Configuration.Model
 {
-    public sealed class ModelToStringObjectConverter : ResultObjectConverter
+    public sealed class ModelToStringObjectConverter : ResultObjectConverter, ResolvableByTypeId
     {
+        public const string _typeId = "5e251dd5-ba6e-4de4-8973-8ed67d0e1991";
+        public string TypeId => _typeId;
+
+        public ModelToStringObjectConverter() { }
+
         public object Convert(object source)
         {
             if (!(source is ModelBase model))

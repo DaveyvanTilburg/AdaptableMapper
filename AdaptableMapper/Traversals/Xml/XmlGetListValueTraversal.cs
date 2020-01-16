@@ -1,13 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    public sealed class XmlGetScopeTraversal : GetScopeTraversal
+    public sealed class XmlGetListValueTraversal : GetListValueTraversal, ResolvableByTypeId
     {
-        public XmlGetScopeTraversal(string path)
+        public const string _typeId = "4b9876c8-8c60-40fd-9141-86688a44dbe1";
+        public string TypeId => _typeId;
+
+        public XmlGetListValueTraversal() { }
+        public XmlGetListValueTraversal(string path)
         {
             Path = path;
         }
@@ -15,7 +20,7 @@ namespace AdaptableMapper.Traversals.Xml
         public string Path { get; set; }
         public XmlInterpretation XmlInterpretation { get; set; }
 
-        public MethodResult<IEnumerable<object>> GetScope(object source)
+        public MethodResult<IEnumerable<object>> GetValues(object source)
         {
             if (!(source is XElement xElement))
             {

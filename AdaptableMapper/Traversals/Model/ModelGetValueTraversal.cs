@@ -1,10 +1,15 @@
 ﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Model;
 
 namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelGetValueTraversal : GetValueTraversal
+    public sealed class ModelGetValueTraversal : GetValueTraversal, GetValueTraversalPathProperty, ResolvableByTypeId
     {
+        public const string _typeId = "9ea49672-2de5-47f5-83c4-0b6fec9432ea";
+        public string TypeId => _typeId;
+
+        public ModelGetValueTraversal() { }
         public ModelGetValueTraversal(string path)
         {
             Path = path;
@@ -14,7 +19,7 @@ namespace AdaptableMapper.Traversals.Model
 
         public string GetValue(Context context)
         {
-            if (!(context.Source is ModelBase model))
+            if(!(context.Source is ModelBase model))
             {
                 Process.ProcessObservable.GetInstance().Raise("MODEL#16; source is not of expected type Model", "error", Path);
                 return string.Empty;

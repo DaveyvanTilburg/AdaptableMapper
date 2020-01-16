@@ -46,7 +46,7 @@ namespace AdaptableMapper.TDD
                 {
                     memberName
                 },
-                new Traversals.Model.ModelGetScopeTraversal("Members"),
+                new Traversals.Model.ModelGetListValueTraversal("Members"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./memberNames/memberName"),
                 new Configuration.Xml.XmlChildCreator()
             );
@@ -57,9 +57,9 @@ namespace AdaptableMapper.TDD
             );
 
             var leaderName = new Mapping(
-                new Traversals.Model.ModelGetSearchValueTraversal(
-                    "../../Organization/Leaders{'PropertyName':'Reference','Value':'{{searchValue}}'}/LeaderPerson/Person/Name",
-                    "LeaderReference"
+                new Compositions.GetSearchValueTraversal(
+                    new Traversals.Model.ModelGetValueTraversal("../../Organization/Leaders{'PropertyName':'Reference','Value':'{{searchValue}}'}/LeaderPerson/Person/Name"),
+                    new Traversals.Model.ModelGetValueTraversal("LeaderReference")
                 ),
                 new Traversals.Xml.XmlSetValueTraversal("./leaderName")
             );
@@ -74,12 +74,15 @@ namespace AdaptableMapper.TDD
                     platoonCode,
                     leaderName
                 },
-                new Traversals.Model.ModelGetScopeTraversal("Armies/Platoons"),
+                new Traversals.Model.ModelGetListValueTraversal("Armies/Platoons"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./platoons/platoon"),
                 new Configuration.Xml.XmlChildCreator()
             )
             {
-                Condition = new CompareCondition(new Traversals.Model.ModelGetValueTraversal("Deployed"), CompareOperator.Equals, new Traversals.GetStaticValueTraversal("True"))
+                Condition = new CompareCondition(
+                    new Traversals.Model.ModelGetValueTraversal("Deployed"), 
+                    CompareOperator.Equals, 
+                    new Compositions.GetStaticValueTraversal("True"))
             };
 
             var crewMemberName = new Mapping(
@@ -93,7 +96,7 @@ namespace AdaptableMapper.TDD
                 {
                     crewMemberName
                 },
-                new Traversals.Model.ModelGetScopeTraversal("Armies/Platoons/Members/CrewMembers"),
+                new Traversals.Model.ModelGetListValueTraversal("Armies/Platoons/Members/CrewMembers"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./crewMemberNames/crewMemberName"),
                 new Configuration.Xml.XmlChildCreator()
             );

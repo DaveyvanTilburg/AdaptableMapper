@@ -1,13 +1,17 @@
 ﻿using System.Xml.Linq;
 using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Xml;
 using Newtonsoft.Json;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    public sealed class XmlGetValueTraversal : GetValueTraversal
+    public sealed class XmlGetValueTraversal : GetValueTraversal, GetValueTraversalPathProperty, ResolvableByTypeId
     {
-        [JsonConstructor]
+        public const string _typeId = "b3a8e531-2a44-42e3-bac4-1f6b0c1b80b3";
+        public string TypeId => _typeId;
+
+        public XmlGetValueTraversal() { }
         public XmlGetValueTraversal(string path)
         {
             Path = path;

@@ -1,7 +1,13 @@
-﻿namespace AdaptableMapper.ValueMutations.Traversals
+﻿using AdaptableMapper.Converters;
+
+namespace AdaptableMapper.ValueMutations.Traversals
 {
-    public sealed class SplitByCharTakePositionStringTraversal : GetValueStringTraversal
+    public sealed class SplitByCharTakePositionStringTraversal : GetValueStringTraversal, ResolvableByTypeId
     {
+        public const string _typeId = "b493ac95-5a3c-44e7-9042-440905bd5b21";
+        public string TypeId => _typeId;
+
+        public SplitByCharTakePositionStringTraversal() { }
         public SplitByCharTakePositionStringTraversal(char separator, int position)
         {
             Separator = separator;

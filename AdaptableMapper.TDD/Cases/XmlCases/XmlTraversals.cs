@@ -14,6 +14,7 @@ using Xunit;
 using AdaptableMapper.Traversals;
 using System.Xml.XPath;
 using System.Linq;
+using AdaptableMapper.Compositions;
 
 namespace AdaptableMapper.TDD.Cases.XmlCases
 {
@@ -25,31 +26,10 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("NoResults", "abcd", ContextType.EmptyObject, "w-XML#5;")]
         public void XmlGetScopeTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
-            var subject = new XmlGetScopeTraversal(path) { XmlInterpretation = XmlInterpretation.Default };
+            var subject = new XmlGetListValueTraversal(path) { XmlInterpretation = XmlInterpretation.Default };
             object context = Xml.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.GetScope(context); }).Observe();
+            List<Information> result = new Action(() => { subject.GetValues(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
-        }
-
-        [Theory]
-        [InlineData("InvalidType", "", "", ContextType.EmptyString, "", "e-XML#13;")]
-        [InlineData("EmptySearchPath", "", "", ContextType.EmptyObject, "", "e-XML#25;")]
-        [InlineData("InvalidSearchPath", "", "abcd", ContextType.EmptyObject, "", "w-XML#30;")]
-        [InlineData("EmptySearchPathValueResult", "", "//SimpleItems/SimpleItem/SurName", ContextType.TestObject, "", "w-XML#14;")]
-        [InlineData("NoActualPathResult", "//SimpleItems/SimpleItem/SurName", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "")]
-        [InlineData("Valid", "//SimpleItems/SimpleItem/Name", "//SimpleItems/SimpleItem/@Id", ContextType.TestObject, "Davey")]
-        [InlineData("InvalidSearchPath2", "//SimpleItems/SimpleItem[@Id={{searchValue}}jhk]/Name", "//SimpleItems/SimpleItem[2]/@Id", ContextType.TestObject, "", "e-XML#29;")]
-        [InlineData("ValidSearchPath", "//SimpleItems/SimpleItem[@Id='{{searchValue}}']/Name", "//SimpleItems/SimpleItem[2]/@Id", ContextType.TestObject, "Joey")]
-        public void XmlGetSearchValueTraversal(string because, string path, string searchPath, ContextType contextType, string expectedValue, params string[] expectedErrors)
-        {
-            var subject = new XmlGetSearchValueTraversal(path, searchPath) { XmlInterpretation = XmlInterpretation.Default };
-            var context = new Context(Xml.CreateTarget(contextType), null);
-
-            string value = string.Empty;
-            List<Information> result = new Action(() => { value = subject.GetValue(context); }).Observe();
-
-            result.ValidateResult(new List<string>(expectedErrors), because);
-            value.Should().BeEquivalentTo(expectedValue);
         }
 
         [Fact]
@@ -220,7 +200,28 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             information.ValidateResult(new List<string> { "e-XmlSetGeneratedIdValueTraversal#1;" });
         }
 
+        [Fact]
+        public void XmlGetNumberOfHits()
+        {
+            XElement source = XDocument.Load("./Resources/XmlGetNumberOfHits/MultipleComments.xml").Root;
 
+            GetValueTraversal subject = new GetNumberOfHits(
+                new List<GetListValueTraversal>
+                {
+                    new XmlGetListValueTraversal("./RoomStay/Comments/Comment"),
+                    new XmlGetListValueTraversal("./SpecialRequests/SpecialRequest"),
+                    new XmlGetListValueTraversal("./GlobalStuff/GlobalComment"),
+                    new XmlGetListValueTraversal(""),
+                    new XmlGetListValueTraversal("abcd")
+                }
+            );
+
+            string result = null;
+            List<Information> information = new Action(() => { result = subject.GetValue(new Context(source, null)); }).Observe();
+            information.ValidateResult(new List<string> { "e-XML#28;", "w-XML#5;", "w-XML#5;" });
+
+            result.Should().BeEquivalentTo("6");
+        }
 
         [Fact]
         public void MultipleScopes()
@@ -237,7 +238,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
                                 new XmlSetThisValueTraversal()
                             )
                         },
-                        new XmlGetScopeTraversal("./InvalidPath"),
+                        new XmlGetListValueTraversal("./InvalidPath"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator()),
                     new MappingScopeComposite(
@@ -249,7 +250,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
                                 new XmlSetThisValueTraversal()
                             )
                         },
-                        new XmlGetScopeTraversal("./Teachers/Teacher"),
+                        new XmlGetListValueTraversal("./Teachers/Teacher"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator()),
                     new MappingScopeComposite(
@@ -261,7 +262,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
                                 new XmlSetThisValueTraversal()
                             )
                         },
-                        new XmlGetScopeTraversal("./Students/Student"),
+                        new XmlGetListValueTraversal("./Students/Student"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator())
                 },

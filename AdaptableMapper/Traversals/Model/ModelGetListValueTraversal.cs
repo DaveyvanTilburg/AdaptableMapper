@@ -1,19 +1,24 @@
 ﻿using AdaptableMapper.Model;
 using System.Collections.Generic;
 using System.Linq;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelGetScopeTraversal : GetScopeTraversal
+    public sealed class ModelGetListValueTraversal : GetListValueTraversal, ResolvableByTypeId
     {
-        public ModelGetScopeTraversal(string path)
+        public const string _typeId = "0e07b7e3-95bd-4d35-aa9d-e89e3c51b1b4";
+        public string TypeId => _typeId;
+
+        public ModelGetListValueTraversal() { }
+        public ModelGetListValueTraversal(string path)
         {
             Path = path;
         }
 
         public string Path { get; set; }
 
-        public MethodResult<IEnumerable<object>> GetScope(object source)
+        public MethodResult<IEnumerable<object>> GetValues(object source)
         {
             if (!(source is ModelBase model))
             {

@@ -1,18 +1,22 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Linq;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Configuration.Xml
 {
-    public sealed class XmlTargetInstantiator : TargetInstantiator
+    public sealed class XmlTargetInstantiator : TargetInstantiator, ResolvableByTypeId
     {
-        public XmlInterpretation XmlInterpretation { get; set; }
+        public const string _typeId = "137a2d0b-c49f-491b-b5b9-24413f9969ee";
+        public string TypeId => _typeId;
 
         public XmlTargetInstantiator()
         {
             XmlInterpretation = XmlInterpretation.Default;
         }
+
+        public XmlInterpretation XmlInterpretation { get; set; }
 
         public object Create(object source)
         {

@@ -71,7 +71,7 @@ namespace AdaptableMapper
 
             if (ContextFactory == null)
             {
-                Process.ProcessObservable.GetInstance().Raise("TREE#2; ContextFactory cannot be null", "error");
+                Process.ProcessObservable.GetInstance().Raise("TREE#2; ContextFactory cannot be null", "error"); 
                 result = false;
             }
 
@@ -83,7 +83,7 @@ namespace AdaptableMapper
 
             if (ResultObjectConverter == null)
             {
-                Process.ProcessObservable.GetInstance().Raise("TREE#6; ObjectConverter cannot be null", "error");
+                Process.ProcessObservable.GetInstance().Raise("TREE#6; ObjectConverter cannot be null", "error"); 
                 result = false;
             }
 

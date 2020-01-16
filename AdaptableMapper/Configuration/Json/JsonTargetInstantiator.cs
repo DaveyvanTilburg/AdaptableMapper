@@ -1,10 +1,15 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.Configuration.Json
 {
-    public sealed class JsonTargetInstantiator : TargetInstantiator
+    public sealed class JsonTargetInstantiator : TargetInstantiator, ResolvableByTypeId
     {
+        public const string _typeId = "644aec26-82d3-4d49-8a62-bc110c0d613d";
+        public string TypeId => _typeId;
+
+        public JsonTargetInstantiator() { }
 
         public object Create(object source)
         {

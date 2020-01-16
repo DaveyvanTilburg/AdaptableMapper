@@ -49,7 +49,7 @@ namespace AdaptableMapper.TDD
                     cpuCores,
                     cpuSpeed
                 },
-                new Traversals.Json.JsonGetScopeTraversal(".GraphicalCard[*]"),
+                new Traversals.Json.JsonGetListValueTraversal(".GraphicalCard[*]"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./graphicalCard"),
                 new Configuration.Xml.XmlChildCreator()
             );
@@ -67,9 +67,10 @@ namespace AdaptableMapper.TDD
                 new Traversals.Xml.XmlSetValueTraversal("./@storage")
             );
             var motherboardPartner = new Mapping(
-                new Traversals.Json.JsonGetSearchValueTraversal(
-                    "../../../../../.Brand[?(@.Name=='{{searchValue}}')].Partner",
-                    ".Brand"),
+                new Compositions.GetSearchValueTraversal(
+                    new Traversals.Json.JsonGetValueTraversal("../../../../../.Brand[?(@.Name=='{{searchValue}}')].Partner"),
+                    new Traversals.Json.JsonGetValueTraversal(".Brand")
+                ),
                 new Traversals.Xml.XmlSetValueTraversal("./@brandPartner")
             );
 
@@ -85,7 +86,7 @@ namespace AdaptableMapper.TDD
                     motherboardTotalStorage,
                     motherboardPartner
                 },
-                new Traversals.Json.JsonGetScopeTraversal("$.Computer.Motherboard[*]"),
+                new Traversals.Json.JsonGetListValueTraversal("$.Computer.Motherboard[*]"),
                 new Traversals.Xml.XmlGetTemplateTraversal("//computers/computer"),
                 new Configuration.Xml.XmlChildCreator()
             );
@@ -113,7 +114,7 @@ namespace AdaptableMapper.TDD
                     memoryBrand,
                     memoryMotherboardBrand
                 },
-                new Traversals.Json.JsonGetScopeTraversal("$.Computer.Motherboard[*].Memory[*].MemoryChip[*]"),
+                new Traversals.Json.JsonGetListValueTraversal("$.Computer.Motherboard[*].Memory[*].MemoryChip[*]"),
                 new Traversals.Xml.XmlGetTemplateTraversal("//allMemories/memory"),
                 new Configuration.Xml.XmlChildCreator()
             );

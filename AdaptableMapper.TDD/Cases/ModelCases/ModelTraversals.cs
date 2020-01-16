@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals.Model;
-using FluentAssertions;
 using Xunit;
 
 namespace AdaptableMapper.TDD.Cases.ModelCases
@@ -19,31 +18,10 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         [InlineData("Valid", "Mixes{'PropertyName':'Code','Value':'1'}/Items", ContextType.TestObject, "deepmix")]
         public void ModelGetScopeTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
-            var subject = new ModelGetScopeTraversal(path);
+            var subject = new ModelGetListValueTraversal(path);
             object context = Model.CreateTarget(contextType, createType);
-            List<Information> result = new Action(() => { subject.GetScope(context); }).Observe();
+            List<Information> result = new Action(() => { subject.GetValues(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
-        }
-
-        [Theory]
-        [InlineData("InvalidType", "", "", ContextType.EmptyString, "", "", "e-MODEL#13;")]
-        [InlineData("EmptySearchValuePath", "", "", ContextType.EmptyObject, "item", "", "e-MODEL#21;")]
-        [InlineData("NoResultForSearchPath", "", "dummySearch", ContextType.EmptyObject, "item", "", "w-MODEL#9;", "w-MODEL#14;")] //Preferred cascade, 9 is extra info
-        [InlineData("NoResultForActualPath", "ab/cd", "Items{'PropertyName':'Code','Value':'1'}/Code", ContextType.TestObject, "item", "", "w-MODEL#9;")] //Preferred cascade, 9 is extra info
-        [InlineData("NoResultActualSearch", "ab/cd", "Items{'PropertyName':'Code','Value':'3'}/Code", ContextType.TestObject, "item", "", "w-MODEL#4;")]
-        [InlineData("InvalidFilterMarkup", "ab/cd", "Items{'PropertyName':'Code','Value':'1'/Code", ContextType.TestObject, "item", "", "w-MODEL#9;", "e-MODEL#32;")] //Preferred cascade, 9 is extra info
-        [InlineData("Valid", "Items{'PropertyName':'Code','Value':'{{searchValue}}'}/Name", "Items{'PropertyName':'Code','Value':'1'}/Code", ContextType.TestObject, "item", "Davey")]
-        public void ModelGetSearchValueTraversal(string because, string path, string searchPath, ContextType contextType, string createType, string expectedValue, params string[] expectedErrors)
-        {
-            var subject = new ModelGetSearchValueTraversal(path, searchPath);
-            var context = new Context(Model.CreateTarget(contextType, createType), null);
-
-            string value = string.Empty;
-            List<Information> result = new Action(() => { value = subject.GetValue(context); }).Observe();
-
-            result.ValidateResult(new List<string>(expectedErrors), because);
-            if (expectedErrors.Length == 0)
-                value.Should().Be(expectedValue);
         }
 
         [Theory]

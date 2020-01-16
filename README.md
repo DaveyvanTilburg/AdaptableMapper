@@ -13,35 +13,8 @@ This package is only an abstract representation of that idea. Storage of configu
 So please, ask questions, give feedback, make comments, create pullrequests!
 Copy my code, install my packages, use it for yourself and help it grow. :)
 
-### Roadmap
-
-Completed plans:
- * Create an algorithm flexible enough to support any to any conversion
- * Soft error handling (through observer)
- * Implement Xml mapping
- * Implement Model mapping
- * Implement Json mapping
- * Add null checks for the composite tree
- * Write documentation
- * Add 100% code coverage for Model Mapping
- * Add 100% code coverage for Xml Mapping
- * Add 100% code coverage for Json Mapping
- * Simplify some error messaging (some errors cascade into other errors) 
- * Isolate everything regarding traversal functionality, so that new functionalities can be added (conditionals and Formatting)
- * Add formatting for Dates, included as a formatter for SetValue implementations
- * Add formatting for Numbers, included as a formatter for SetValue implementations
- * Extend MappingScopeComposite with a slot for Condition
- * GetValueStaticTraversal (Softcodes a value to get)
- * Add DictionaryReplaceValueMutation (Softcodes a list of values to replace in a value)
- 
-!!! i think something went wrong with a change in the completed plans that did not get pushed !!!
-Current plans:
- 
- 
-Future plans:
- * A way to map to the same path in target multiple times
- * Add condition that result should not be an empty string
- * Refactor test suite
+###Future plans:
+ * Add new concept: Compositions (building blocks (get/set) composed out of leafs (xml get/set)
 
 ### All release notes
 

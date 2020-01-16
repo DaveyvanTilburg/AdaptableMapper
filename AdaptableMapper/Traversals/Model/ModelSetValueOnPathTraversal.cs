@@ -1,10 +1,15 @@
 ﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Model;
 
 namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelSetValueOnPathTraversal : SetMutableValueTraversal
+    public sealed class ModelSetValueOnPathTraversal : SetMutableValueTraversal, ResolvableByTypeId
     {
+        public const string _typeId = "05f91570-3786-40ce-8edd-b33e36762804";
+        public string TypeId => _typeId;
+
+        public ModelSetValueOnPathTraversal() { }
         public ModelSetValueOnPathTraversal(string path)
         {
             Path = path;

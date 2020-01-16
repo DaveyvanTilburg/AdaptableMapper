@@ -1,10 +1,15 @@
 ﻿using System.Xml.Linq;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    public sealed class XmlGetTemplateTraversal : GetTemplateTraversal
+    public sealed class XmlGetTemplateTraversal : GetTemplateTraversal, ResolvableByTypeId
     {
+        public const string _typeId = "f6459be3-8ff7-438a-bcee-832d17be9af0";
+        public string TypeId => _typeId;
+
+        public XmlGetTemplateTraversal() { }
         public XmlGetTemplateTraversal(string path)
         {
             Path = path;

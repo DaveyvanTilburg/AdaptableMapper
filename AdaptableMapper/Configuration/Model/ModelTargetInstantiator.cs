@@ -1,10 +1,16 @@
 ﻿using AdaptableMapper.Model;
 using System;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.Configuration.Model
 {
-    public sealed class ModelTargetInstantiator : TargetInstantiator
+    public sealed class ModelTargetInstantiator : TargetInstantiator, ResolvableByTypeId
     {
+        public const string _typeId = "6a36996c-2376-45f3-b556-a0e66da9a891";
+        public string TypeId => _typeId;
+
+        public ModelTargetInstantiator() { }
+
         public object Create(object source)
         {
             if (!(source is string template))

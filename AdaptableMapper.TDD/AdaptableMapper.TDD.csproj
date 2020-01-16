@@ -46,11 +46,12 @@
     <Compile Include="ATDD\MappingConfigurationBuilder.cs" />
     <Compile Include="ATDD\MappingModel.cs" />
     <Compile Include="ATDD\ScopeCompositeModel.cs" />
+    <Compile Include="Cases\Compositions\CompositionCases.cs" />
     <Compile Include="Cases\Conditions\ConditionsCases.cs" />
+    <Compile Include="Cases\Converters\SerializationCases.cs" />
     <Compile Include="Cases\StringTraversals\StringTraversalsCases.cs" />
     <Compile Include="Cases\Traversals\TraversalsCases.cs" />
     <Compile Include="Cases\ValueMutations\ValueMutationsCases.cs" />
-    <Compile Include="Cases\ValueMutations\NullFormatterCases.cs" />
     <Compile Include="Cases\XmlCases\XmlValueMutations.cs" />
     <Compile Include="Cases\ContextType.cs" />
     <Compile Include="Cases\JsonCases\Json.cs" />
@@ -61,7 +62,6 @@
     <Compile Include="Cases\Configuration.cs" />
     <Compile Include="Cases\XmlCases\Xml.cs" />
     <Compile Include="Cases\XmlCases\XmlConfiguration.cs" />
-    <Compile Include="ConfigurationSaveAndLoad.cs" />
     <Compile Include="JsonToXml.cs" />
     <Compile Include="LanguageExtensions.cs" />
     <Compile Include="Cases\ModelCases\ModelConfiguration.cs" />
@@ -103,13 +103,13 @@
     <Content Include="Resources\ExampleResult.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\GenerateIdValueTraversalMultipleScopesSameTemplate\MultipleScopesSource.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\GenerateIdValueTraversalMultipleScopesSameTemplate\CarExpactedResult.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\GenerateIdValueTraversalMultipleScopesSameTemplate\CarTemplate.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\GenerateIdValueTraversalMultipleScopesSameTemplate\MultipleScopesSource.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\JsonTarget_HardwareExpected.txt">
@@ -121,10 +121,10 @@
     <Content Include="Resources\MultipleScopesExpectedResult.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\MultipleScopesSource.xml">
+    <Content Include="Resources\MultipleScopesTemplate.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\MultipleScopesTemplate.xml">
+    <Content Include="Resources\MultipleScopesSource.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\NotEmptyCondition\SimpleSource.xml">
@@ -158,6 +158,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\XmlCData\CDataTemplate.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\XmlDaysBetweenDates.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\XmlGetNumberOfHits\MultipleComments.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\XmlSource_ArmyComposition.xml">

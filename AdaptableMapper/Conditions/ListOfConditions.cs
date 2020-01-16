@@ -1,15 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.Conditions
 {
-    public sealed class ListOfConditions : Condition
+    public sealed class ListOfConditions : Condition, ResolvableByTypeId
     {
+        public const string _typeId = "4d69f541-883c-46c5-8a31-a9ace37358f9";
+        public string TypeId => _typeId;
+
+        public ListOfConditions() { }
         public ListOfConditions(ListEvaluationOperator listEvaluationOperator)
         {
             ListEvaluationOperator = listEvaluationOperator;
             Conditions = new List<Condition>();
+        }
+        public ListOfConditions(ListEvaluationOperator listEvaluationOperator, IEnumerable<Condition> conditions)
+        {
+            ListEvaluationOperator = listEvaluationOperator;
+            Conditions = new List<Condition>(conditions);
         }
 
         public ListEvaluationOperator ListEvaluationOperator { get; set; }

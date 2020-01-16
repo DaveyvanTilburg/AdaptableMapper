@@ -1,10 +1,15 @@
 ﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 using AdaptableMapper.Traversals;
 
 namespace AdaptableMapper.Conditions
 {
-    public sealed class CompareCondition : Condition
+    public sealed class CompareCondition : Condition, ResolvableByTypeId
     {
+        public const string _typeId = "f8acf126-e297-496d-82c2-0ce9528fa2a2";
+        public string TypeId => _typeId;
+
+        public CompareCondition() { }
         public CompareCondition(GetValueTraversal getValueTraversalSourceValueA, CompareOperator compareOperator, GetValueTraversal getValueTraversalSourceValueB)
         {
             GetValueTraversalSourceValueA = getValueTraversalSourceValueA;
@@ -74,7 +79,7 @@ namespace AdaptableMapper.Conditions
 
         private static double ToDouble(string value)
         {
-            if (!double.TryParse(value, out double result))
+            if(!double.TryParse(value, out double result))
             {
                 Process.ProcessObservable.GetInstance().Raise($"CompareCondition#3; value {value} is not numerical, using value 0", "warning");
                 return 0;

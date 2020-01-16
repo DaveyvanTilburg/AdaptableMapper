@@ -37,7 +37,7 @@ namespace AdaptableMapper.TDD
                 {
                     platoonCode
                 },
-                new Traversals.Xml.XmlGetScopeTraversal("./army/platoon"),
+                new Traversals.Xml.XmlGetListValueTraversal("./army/platoon"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./platoons/platoon"),
                 new Configuration.Xml.XmlChildCreator()
             );

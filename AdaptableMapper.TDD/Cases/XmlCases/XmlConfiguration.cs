@@ -61,23 +61,6 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
             }
         }
 
-        [Fact]
-        public void XmlObjectConverterProcessingInstruction()
-        {
-            var subject = new XmlObjectConverter();
-            object context = System.IO.File.ReadAllText("./Resources/SimpleProcessingInstruction.xml");
-
-            object value = null;
-            List<Information> result = new Action(() => { value = subject.Convert(context); }).Observe();
-
-            value.Should().NotBeNull();
-
-            XElement xElementValue = value as XElement;
-
-            var converter = new XElementToStringObjectConverter();
-            var convertedResult = converter.Convert(xElementValue);
-        }
-
         [Theory]
         [InlineData("InvalidType", ContextType.InvalidType, XmlInterpretation.Default, "", "e-XML#24;")]
         [InlineData("InvalidSource", ContextType.InvalidSource, XmlInterpretation.Default, "", "e-XML#6;")]
@@ -106,13 +89,26 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         }
 
         [Theory]
-        [InlineData("InvalidType", ContextType.InvalidType, "e-XML#9;")]
-        public void XElementToStringObjectConverter(string because, ContextType contextType, params string[] expectedErrors)
+        [InlineData("InvalidType", ContextType.InvalidType, true, true, 0, "e-XML#9;")]
+        [InlineData("LengthCheckUseIndentation", ContextType.AlternativeTestObject, true, true, 13)]
+        [InlineData("LengthCheckDoNotUseIndentation", ContextType.AlternativeTestObject, false, true, 1)]
+        [InlineData("LengthCheckUseIndentationWithoutDeclaration", ContextType.AlternativeTestObject, true, false, 12)]
+        [InlineData("LengthCheckDoNotUseIndentationWithoutDeclaration", ContextType.AlternativeTestObject, false, false, 1)]
+        public void XElementToStringObjectConverter(string because, ContextType contextType, bool useIndentation, bool includeDeclaration, int expectedLines, params string[] expectedErrors)
         {
-            var subject = new XElementToStringObjectConverter();
+            var subject = new XElementToStringObjectConverter { UseIndentation = useIndentation, IncludeDeclaration = includeDeclaration };
             object context = Xml.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.Convert(context); }).Observe();
-            result.ValidateResult(new List<string>(expectedErrors), because);
+
+            string result = string.Empty;
+            List<Information> information = new Action(() => { result = subject.Convert(context) as string; }).Observe();
+
+            information.ValidateResult(new List<string>(expectedErrors), because);
+
+            if (expectedErrors.Length == 0)
+            {
+                string[] lines = result.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                lines.Length.Should().Be(expectedLines);
+            }
         }
     }
 }

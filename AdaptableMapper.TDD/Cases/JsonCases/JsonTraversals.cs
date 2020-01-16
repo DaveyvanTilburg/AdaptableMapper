@@ -15,24 +15,9 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         [InlineData("NoResults", "abcd", ContextType.EmptyObject, "w-JSON#4;")]
         public void JsonGetScopeTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
-            var subject = new JsonGetScopeTraversal(path);
+            var subject = new JsonGetListValueTraversal(path);
             object context = Json.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.GetScope(context); }).Observe();
-            result.ValidateResult(new List<string>(expectedErrors), because);
-        }
-
-        [Theory]
-        [InlineData("InvalidType", "", "", ContextType.EmptyString, "e-JSON#5;")]
-        [InlineData("EmptySearchValuePath", "", "", ContextType.EmptyObject, "e-JSON#31;")]
-        [InlineData("NoResultOnSearchValuePath", "", "abcd", ContextType.EmptyObject, "e-JSON#6;")]
-        [InlineData("NoResultOnActualPath", "", "$.SimpleItems[0].Id", ContextType.TestObject, "e-JSON#6;")]
-        [InlineData("EmptySearchPathValue", "", "$.SimpleItems[0].SurName", ContextType.TestObject, "w-JSON#7;")]
-        [InlineData("EmptyActualPath", "$.SimpleItems[0].SurName", "$.SimpleItems[0].Id", ContextType.TestObject)]
-        public void JsonGetSearchValueTraversal_InvalidType(string because, string path, string searchPath, ContextType contextType, params string[] expectedErrors)
-        {
-            var subject = new JsonGetSearchValueTraversal(path, searchPath);
-            var context = new Context(Json.CreateTarget(contextType), null);
-            List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
+            List<Information> result = new Action(() => { subject.GetValues(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
@@ -84,7 +69,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
             JToken traversedContext = ((JToken)context).SelectToken("$.SimpleItems[0]");
 
             var subject = new JsonGetTemplateTraversal("../../");
-
+            
             List<Information> result = new Action(() => { subject.GetTemplate(traversedContext, new MappingCaches()); }).Observe();
             result.ValidateResult(new List<string>(), "DoubleParent");
         }

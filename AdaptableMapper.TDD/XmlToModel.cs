@@ -82,7 +82,7 @@ namespace AdaptableMapper.TDD
                 {
                     crewMember
                 },
-                new Traversals.Xml.XmlGetScopeTraversal("./crew/crewMember"),
+                new Traversals.Xml.XmlGetListValueTraversal("./crew/crewMember"),
                 new Traversals.Model.ModelGetTemplateTraversal("CrewMembers"),
                 new Configuration.Model.ModelChildCreator()
             );
@@ -101,7 +101,7 @@ namespace AdaptableMapper.TDD
                 {
                     memberName
                 },
-                new Traversals.Xml.XmlGetScopeTraversal("./members/member"),
+                new Traversals.Xml.XmlGetListValueTraversal("./members/member"),
                 new Traversals.Model.ModelGetTemplateTraversal("Members"),
                 new Configuration.Model.ModelChildCreator()
             );
@@ -126,7 +126,7 @@ namespace AdaptableMapper.TDD
                     platoonCode,
                     leaderReference
                 },
-                new Traversals.Xml.XmlGetScopeTraversal("./platoon"),
+                new Traversals.Xml.XmlGetListValueTraversal("./platoon"),
                 new Traversals.Model.ModelGetTemplateTraversal("Platoons"),
                 new Configuration.Model.ModelChildCreator()
             );
@@ -145,7 +145,7 @@ namespace AdaptableMapper.TDD
                 {
                     armyCode
                 },
-                new Traversals.Xml.XmlGetScopeTraversal("./army"),
+                new Traversals.Xml.XmlGetListValueTraversal("./army"),
                 new Traversals.Model.ModelGetTemplateTraversal("Armies"),
                 new Configuration.Model.ModelChildCreator()
             );
@@ -167,7 +167,7 @@ namespace AdaptableMapper.TDD
                     reference,
                     leaderName
                 },
-                new Traversals.Xml.XmlGetScopeTraversal("./leaders/leader"),
+                new Traversals.Xml.XmlGetListValueTraversal("./leaders/leader"),
                 new Traversals.Model.ModelGetTemplateTraversal("Organization/Leaders"),
                 new Configuration.Model.ModelChildCreator()
             );
