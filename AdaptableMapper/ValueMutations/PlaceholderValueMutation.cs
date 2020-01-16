@@ -11,14 +11,14 @@ namespace AdaptableMapper.ValueMutations
         public PlaceholderValueMutation() { }
         public PlaceholderValueMutation(string placeholder)
         {
-            _placeholder = placeholder;
+            Placeholder = placeholder;
         }
 
-        private readonly string _placeholder;
+        public string Placeholder { get; set; }
 
         public string Mutate(Context context, string value)
         {
-            string result = string.Format(_placeholder, value);
+            string result = string.Format(Placeholder, value);
             return result;
         }
     }
