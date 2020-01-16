@@ -1,9 +1,14 @@
 ﻿using AdaptableMapper.Configuration;
+using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.ValueMutations
 {
-    public sealed class PlaceholderValueMutation : ValueMutation
+    public sealed class PlaceholderValueMutation : ValueMutation, ResolvableByTypeId
     {
+        public const string _typeId = "57c5ed76-0bd0-4634-8b2c-0553075ec80d";
+        public string TypeId => _typeId;
+
+        public PlaceholderValueMutation() { }
         public PlaceholderValueMutation(string placeholder)
         {
             _placeholder = placeholder;

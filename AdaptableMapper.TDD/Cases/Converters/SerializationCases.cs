@@ -391,6 +391,11 @@ namespace AdaptableMapper.TDD.Cases.Converters
             yield return new object[]
             {
                 typeof(ValueMutation),
+                new PlaceholderValueMutation("")
+            };
+            yield return new object[]
+            {
+                typeof(ValueMutation),
                 new ReplaceValueMutation(
                     new SplitByCharTakePositionStringTraversal('c', 1),
                     new GetStaticValueTraversal("1")

@@ -83,6 +83,7 @@ namespace AdaptableMapper.Converters
                 [DictionaryReplaceValueMutation._typeId] = typeof(DictionaryReplaceValueMutation),
                 [ListOfValueMutations._typeId] = typeof(ListOfValueMutations),
                 [NumberValueMutation._typeId] = typeof(NumberValueMutation),
+                [PlaceholderValueMutation._typeId] = typeof(PlaceholderValueMutation),
                 [ReplaceValueMutation._typeId] = typeof(ReplaceValueMutation),
                 [SubstringValueMutation._typeId] = typeof(SubstringValueMutation),
                 [ToLowerValueMutation._typeId] = typeof(ToLowerValueMutation),
