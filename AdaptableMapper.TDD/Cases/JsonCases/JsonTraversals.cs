@@ -35,35 +35,12 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         }
 
         [Theory]
-        [InlineData("InvalidType", ContextType.EmptyString, "e-JsonSetThisValueTraversal#1;")]
-        [InlineData("InvalidObject", ContextType.EmptyObject, "e-JsonSetThisValueTraversal#2;")]
-        [InlineData("Valid", ContextType.AlternativeTestObject)]
-        public void JsonSetThisValueTraversal(string because, ContextType contextType, params string[] expectedErrors)
-        {
-            var subject = new JsonSetThisValueTraversal();
-            var context = new Context(null, Json.CreateTarget(contextType));
-            List<Information> result = new Action(() => { subject.SetValue(context, null, string.Empty); }).Observe();
-            result.ValidateResult(new List<string>(expectedErrors), because);
-        }
-
-        [Theory]
         [InlineData("InvalidType", "", ContextType.EmptyString, "e-JSON#10;")]
         [InlineData("NoResult", "", ContextType.EmptyObject, "e-JSON#6;")]
         [InlineData("EmptyResult", "$.SimpleItems[0].SurName", ContextType.TestObject)]
         public void JsonGetValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonGetValueTraversal(path);
-            var context = new Context(Json.CreateTarget(contextType), null);
-            List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
-            result.ValidateResult(new List<string>(expectedErrors), because);
-        }
-
-        [Theory]
-        [InlineData("InvalidType", ContextType.EmptyString, "e-JsonGetThisValueTraversal#1;")]
-        [InlineData("Valid", ContextType.AlternativeTestObject)]
-        public void JsonGetThisValueTraversal(string because, ContextType contextType, params string[] expectedErrors)
-        {
-            var subject = new JsonGetThisValueTraversal();
             var context = new Context(Json.CreateTarget(contextType), null);
             List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);

@@ -56,9 +56,7 @@ namespace AdaptableMapper.Converters
                 [JsonGetListValueTraversal._typeId] = typeof(JsonGetListValueTraversal),
                 [JsonGetTemplateTraversal._typeId] = typeof(JsonGetTemplateTraversal),
                 [JsonGetValueTraversal._typeId] = typeof(JsonGetValueTraversal),
-                [JsonGetThisValueTraversal._typeId] = typeof(JsonGetThisValueTraversal),
                 [JsonSetValueTraversal._typeId] = typeof(JsonSetValueTraversal),
-                [JsonSetThisValueTraversal._typeId] = typeof(JsonSetThisValueTraversal),
 
                 //Traversals - Model
                 [ModelGetListValueTraversal._typeId] = typeof(ModelGetListValueTraversal),
