@@ -273,5 +273,21 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
             information.Count.Should().Be(0);
             result.Should().Be(expectedResult);
         }
+
+        [Theory]
+        [InlineData("value", "this is a {0}", "this is a value")]
+        [InlineData("", "", "")]
+        [InlineData("value", "", "")]
+        [InlineData("", "this is a", "this is a")]
+        public void PlaceholderValueMutation(string input, string placeholder, string expectedResult)
+        {
+            var subject = new PlaceholderValueMutation(placeholder);
+
+            string result = string.Empty;
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), input); }).Observe();
+
+            information.Count.Should().Be(0);
+            result.Should().Be(expectedResult);
+        }
     }
 }

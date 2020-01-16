@@ -65,6 +65,7 @@
     <Compile Include="Traversals\Xml\XmlSetGeneratedIdValueTraversal.cs" />
     <Compile Include="ValueMutations\CreateSeparatedRangeFromNumberValueMutation.cs" />
     <Compile Include="ValueMutations\DictionaryReplaceValueMutation.cs" />
+    <Compile Include="ValueMutations\PlaceholderValueMutation.cs" />
     <Compile Include="ValueMutations\SubstringValueMutation.cs" />
     <Compile Include="ValueMutations\ToLowerValueMutation.cs" />
     <Compile Include="ValueMutations\ToUpperValueMutation.cs" />
@@ -151,6 +152,8 @@
   <ItemGroup>
     <None Include="AdaptableMapper.nuspec" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="License.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
