@@ -18,6 +18,9 @@ namespace AdaptableMapper.ValueMutations
 
         public string Mutate(Context context, string value)
         {
+            if (string.IsNullOrWhiteSpace(value))
+                return value;
+
             string result = string.Format(Placeholder, value);
             return result;
         }

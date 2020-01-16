@@ -278,7 +278,7 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
         [InlineData("value", "this is a {0}", "this is a value")]
         [InlineData("", "", "")]
         [InlineData("value", "", "")]
-        [InlineData("", "this is a", "this is a")]
+        [InlineData("", "this is a", "")]
         public void PlaceholderValueMutation(string input, string placeholder, string expectedResult)
         {
             var subject = new PlaceholderValueMutation(placeholder);
