@@ -70,6 +70,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("GetNamespaceFromRoot", "./@count", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "2")]
         [InlineData("CountChildNodesWithoutNamespace", "count(./SimpleItems/SimpleItem)", ContextType.AlternativeTestObject, XmlInterpretation.WithoutNamespace, "2")]
         [InlineData("CountChildNodes", "count(./SimpleItems/SimpleItem)", ContextType.AlternativeTestObject, XmlInterpretation.Default, "0")]
+        [InlineData("ValidNamespaceless", "concat(./SimpleItems/SimpleItem[1]/Name,',',./SimpleItems/SimpleItem[2]/Name)", ContextType.TestObject, XmlInterpretation.Default, "Davey,Joey")]
         public void XmlGetValueTraversal(string because, string path, ContextType contextType, XmlInterpretation xmlInterpretation, string expectedValue, params string[] expectedErrors)
         {
             var subject = new XmlGetValueTraversal(path) { XmlInterpretation = xmlInterpretation };

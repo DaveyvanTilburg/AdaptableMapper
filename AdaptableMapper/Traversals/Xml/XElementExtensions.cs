@@ -16,7 +16,7 @@ namespace AdaptableMapper.Traversals.Xml
             {
                 allMatches = xElement.XPathSelectElements(xPath).ToList();
             }
-            catch(XPathException exception)
+            catch (XPathException exception)
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#28; Path is invalid", "error", xPath, exception.GetType().Name, exception.Message);
                 return new List<XElement>();
@@ -40,13 +40,13 @@ namespace AdaptableMapper.Traversals.Xml
                 return NullElement.Create();
             }
 
-            if(!allMatches.Any())
+            if (!allMatches.Any())
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#2; Path could not be traversed", "warning", xPath);
                 return NullElement.Create();
             }
 
-            if(!(allMatches.First() is XElement result))
+            if (!(allMatches.First() is XElement result))
             {
                 Process.ProcessObservable.GetInstance().Raise("XML#8; Path did not end in an element", "error", xPath);
                 return NullElement.Create();
@@ -70,21 +70,24 @@ namespace AdaptableMapper.Traversals.Xml
                 return new NullMethodResult<string>();
             }
 
-            if(pathResult is IEnumerable enumerable)
-            {
-                var xObject = enumerable.Cast<XObject>().FirstOrDefault();
+            if (pathResult is string stringValue)
+                return new MethodResult<string>(stringValue);
 
-                if (xObject == null)
+            if (pathResult is IEnumerable enumerable)
+            {
+                object value = enumerable.Cast<object>().FirstOrDefault();
+
+                if (value == null)
                 {
                     Process.ProcessObservable.GetInstance().Raise("XML#30; Path resulted in no items", "warning", xPath);
                     return new NullMethodResult<string>();
                 }
 
-                if (xObject is XElement element)
+                if (value is XElement element)
                     result = element.Value;
-                if (xObject is XAttribute attribute)
+                if (value is XAttribute attribute)
                     result = attribute.Value;
-                if (xObject is XProcessingInstruction processingInstruction)
+                if (value is XProcessingInstruction processingInstruction)
                     result = processingInstruction.Data;
 
                 return new MethodResult<string>(result);
