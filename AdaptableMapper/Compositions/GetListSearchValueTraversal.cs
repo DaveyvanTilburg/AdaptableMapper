@@ -11,29 +11,29 @@ namespace AdaptableMapper.Compositions
         public string TypeId => _typeId;
 
         public GetListSearchValueTraversal() { }
-        public GetListSearchValueTraversal(GetListValueTraversal getListValueTraversalSearchPath, GetValueTraversal getValueTraversalSearchValuePath)
+        public GetListSearchValueTraversal(GetListValueTraversal getListValueTraversal, GetValueTraversal getValueTraversal)
         {
-            GetListValueTraversalSearchPath = getListValueTraversalSearchPath;
-            GetValueTraversalSearchValuePath = getValueTraversalSearchValuePath;
+            GetListValueTraversal = getListValueTraversal;
+            GetValueTraversal = getValueTraversal;
         }
 
-        public GetListValueTraversal GetListValueTraversalSearchPath { get; set; }
-        public GetValueTraversal GetValueTraversalSearchValuePath { get; set; }
+        public GetListValueTraversal GetListValueTraversal { get; set; }
+        public GetValueTraversal GetValueTraversal { get; set; }
 
         public MethodResult<IEnumerable<object>> GetValues(Context context)
         {
             if (!Validate())
                 return new NullMethodResult<IEnumerable<object>>();
 
-            GetValueTraversalPathProperty pathProperty = GetListValueTraversalSearchPath as GetValueTraversalPathProperty;
+            GetValueTraversalPathProperty pathProperty = GetListValueTraversal as GetValueTraversalPathProperty;
 
-            string searchValue = GetValueTraversalSearchValuePath.GetValue(context);
+            string searchValue = GetValueTraversal.GetValue(context);
 
             string tempPath = pathProperty.Path;
             string actualPath = pathProperty.Path.Replace("{{searchValue}}", searchValue);
             pathProperty.Path = actualPath;
 
-            MethodResult<IEnumerable<object>> result = GetListValueTraversalSearchPath.GetValues(context);
+            MethodResult<IEnumerable<object>> result = GetListValueTraversal.GetValues(context);
             pathProperty.Path = tempPath;
 
             return result;
@@ -43,15 +43,15 @@ namespace AdaptableMapper.Compositions
         {
             bool result = true;
 
-            if (GetListValueTraversalSearchPath == null)
+            if (GetListValueTraversal == null)
             {
-                Process.ProcessObservable.GetInstance().Raise($"GetListSearchValueTraversal#1; {nameof(GetListValueTraversalSearchPath)} cannot be null", "error");
+                Process.ProcessObservable.GetInstance().Raise($"GetListSearchValueTraversal#1; {nameof(GetListValueTraversal)} cannot be null", "error");
                 result = false;
             }
 
-            if (GetValueTraversalSearchValuePath == null)
+            if (GetValueTraversal == null)
             {
-                Process.ProcessObservable.GetInstance().Raise($"GetListSearchValueTraversal#2; {nameof(GetValueTraversalSearchValuePath)} cannot be null", "error");
+                Process.ProcessObservable.GetInstance().Raise($"GetListSearchValueTraversal#2; {nameof(GetValueTraversal)} cannot be null", "error");
                 result = false;
             }
 
