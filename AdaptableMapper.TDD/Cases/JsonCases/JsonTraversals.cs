@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using AdaptableMapper.Configuration;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals.Json;
+using FluentAssertions;
+using ModelObjects.Simple;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
@@ -32,6 +35,19 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
             var context = new Context(null, Json.CreateTarget(contextType));
             List<Information> result = new Action(() => { subject.SetValue(context, null, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
+        }
+
+        [Fact]
+        public void JsonSetValueTraversalUninitializedValue()
+        {
+            JToken target = JToken.Parse(JsonConvert.SerializeObject(new SimpleItem()));
+
+            var subject = new JsonSetValueTraversal(".Title");
+            var context = new Context(null, target);
+            List<Information> result = new Action(() => { subject.SetValue(context, null, "test"); }).Observe();
+            result.Should().BeEmpty();
+
+            target.TryTraversalGetValue(".Title").Value.Should().BeEquivalentTo("test");
         }
 
         [Theory]

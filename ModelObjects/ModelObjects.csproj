@@ -62,6 +62,7 @@
     <Compile Include="Simple\Item.cs" />
     <Compile Include="Simple\Mix.cs" />
     <Compile Include="Simple\NoItem.cs" />
+    <Compile Include="Simple\SimpleItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AdaptableMapper\AdaptableMapper.csproj">

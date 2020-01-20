@@ -35,7 +35,7 @@ namespace AdaptableMapper.Traversals.Json
                 return;
             }
 
-            foreach (JToken jTokenTarget in jTokens.Where(t => t.Type != JTokenType.Null))
+            foreach (JToken jTokenTarget in jTokens.Where(t => !(t.Type == JTokenType.Null && t.Parent == null)))
             {
                 if (jTokenTarget is JValue jTokenTargetValue)
                     jTokenTargetValue.Value = value;
