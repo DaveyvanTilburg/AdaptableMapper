@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using AdaptableMapper.Compositions;
@@ -15,6 +16,8 @@ namespace AdaptableMapper.TDD.Cases.Compositions
 {
     public class CompositionCases
     {
+
+
         [Theory]
         [InlineData("", "B", "C", "C")]
         [InlineData("A", "B", "C", "B")]
@@ -55,7 +58,7 @@ namespace AdaptableMapper.TDD.Cases.Compositions
         public void GetSearchValueTraversalWithXml()
         {
             var subject = new GetSearchValueTraversal(
-                new XmlGetValueTraversal("./SimpleItems/SimpleItem[@Id='{{searchValue}}']/Name"), 
+                new XmlGetValueTraversal("./SimpleItems/SimpleItem[@Id='{{searchValue}}']/Name"),
                 new GetStaticValueTraversal("2"));
 
             object source = XDocument.Load("./Resources/Simple.xml").Root;
@@ -75,7 +78,7 @@ namespace AdaptableMapper.TDD.Cases.Compositions
         public void GetSearchValueTraversalWithModel(string path, string expectedResult, params string[] expectedErrorCodes)
         {
             var subject = new GetSearchValueTraversal(
-                new ModelGetValueTraversal(path), 
+                new ModelGetValueTraversal(path),
                 new GetStaticValueTraversal("2"));
 
             object source = ModelCases.Model.CreateTarget(ContextType.TestObject, "item");
@@ -84,7 +87,7 @@ namespace AdaptableMapper.TDD.Cases.Compositions
             string result = string.Empty;
             List<Information> information = new Action(() => { result = subject.GetValue(context); }).Observe();
 
-            if(expectedErrorCodes.Length == 0)
+            if (expectedErrorCodes.Length == 0)
             {
                 information.Should().BeEmpty();
                 result.Should().BeEquivalentTo(expectedResult);
@@ -114,6 +117,37 @@ namespace AdaptableMapper.TDD.Cases.Compositions
             List<Information> information = new Action(() => { subject.GetValue(null); }).Observe();
 
             information.ValidateResult(new List<string> { "e-GetSearchValueTraversal#3;" }, "InvalidSearchPathType");
+        }
+
+        [Fact]
+        public void GetListSearchValueTraversalXml()
+        {
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+
+            var subject = new GetListSearchValueTraversal(
+                new XmlGetListValueTraversal("./SimpleItems/SimpleItem[@Type='{{searchValue}}']"),
+                new GetStaticValueTraversal("Person")
+            );
+
+            MethodResult<IEnumerable<object>> result = new MethodResult<IEnumerable<object>>(null);
+            List<Information> information = new Action(() => { result = subject.GetValues(context); }).Observe();
+
+            information.Should().BeEmpty();
+            result.IsValid.Should().BeTrue();
+            result.Value.Count().Should().Be(2);
+        }
+
+        [Fact]
+        public void GetListSearchValueTraversalEmpty()
+        {
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+
+            var subject = new GetListSearchValueTraversal(null, null);
+
+            MethodResult<IEnumerable<object>> result = new MethodResult<IEnumerable<object>>(null);
+            List<Information> information = new Action(() => { result = subject.GetValues(context); }).Observe();
+
+            information.ValidateResult(new List<string> { "e-GetListSearchValueTraversal#1;", "e-GetListSearchValueTraversal#2;" }, "Empty");
         }
     }
 }

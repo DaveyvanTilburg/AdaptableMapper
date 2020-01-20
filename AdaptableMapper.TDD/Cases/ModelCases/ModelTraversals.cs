@@ -19,7 +19,7 @@ namespace AdaptableMapper.TDD.Cases.ModelCases
         public void ModelGetScopeTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
             var subject = new ModelGetListValueTraversal(path);
-            object context = Model.CreateTarget(contextType, createType);
+            Context context = new Context(Model.CreateTarget(contextType, createType), null);
             List<Information> result = new Action(() => { subject.GetValues(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }

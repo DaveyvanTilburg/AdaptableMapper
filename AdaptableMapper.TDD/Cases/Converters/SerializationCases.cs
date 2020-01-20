@@ -24,7 +24,7 @@ namespace AdaptableMapper.TDD.Cases.Converters
         [Fact]
         public void ShouldNotBeAbleToAddIrrelevantTypes()
         {
-            var subject = new {};
+            var subject = new { };
             List<Information> result = new Action(() => ResolvableTypeIdCollection.AddType(subject.GetType())).Observe();
 
             result.ValidateResult(new List<string> { "e-ResolvableTypeIdCollection#1;" }, "IrrelevantTypes");
@@ -124,6 +124,14 @@ namespace AdaptableMapper.TDD.Cases.Converters
             };
             yield return new object[]
             {
+                typeof(GetListValueTraversal),
+                new GetListSearchValueTraversal(
+                    new XmlGetListValueTraversal("path"),
+                    new GetStaticValueTraversal("1")
+                )
+            };
+            yield return new object[]
+            {
                 typeof(GetValueTraversal),
                 new GetStaticValueTraversal("1")
             };
@@ -148,7 +156,7 @@ namespace AdaptableMapper.TDD.Cases.Converters
                     new GetStaticValueTraversal("4")
                 )
             };
-            
+
             //Conditions
             yield return new object[]
             {

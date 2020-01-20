@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compositions\GetListSearchValueTraversal.cs" />
     <Compile Include="Conditions\ListEvaluationOperator.cs" />
     <Compile Include="Conditions\NotEmptyCondition.cs" />
     <Compile Include="Converters\JsonTypeIdBasedConverter.cs" />

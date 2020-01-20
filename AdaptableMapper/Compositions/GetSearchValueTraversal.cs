@@ -24,7 +24,7 @@ namespace AdaptableMapper.Compositions
             if (!Validate())
                 return string.Empty;
 
-            if(!(GetValueTraversalSearchPath is GetValueTraversalPathProperty pathProperty))
+            if (!(GetValueTraversalSearchPath is GetValueTraversalPathProperty pathProperty))
             {
                 Process.ProcessObservable.GetInstance().Raise($"GetSearchValueTraversal#3; {nameof(GetValueTraversalSearchPath)} does not have a path to update with searchValue", "error");
                 return string.Empty;

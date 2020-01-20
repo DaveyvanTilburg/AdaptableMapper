@@ -57,6 +57,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Made indentation configurable for XElementToStringObjectConverter
       - Added option to exclude declaration for xml
       - Added PlaceholderValueMutation
+      - Added GetListSearchValueTraversal
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

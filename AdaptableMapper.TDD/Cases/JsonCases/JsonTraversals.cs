@@ -16,7 +16,7 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         public void JsonGetScopeTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonGetListValueTraversal(path);
-            object context = Json.CreateTarget(contextType);
+            Context context = new Context(Json.CreateTarget(contextType), null);
             List<Information> result = new Action(() => { subject.GetValues(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }

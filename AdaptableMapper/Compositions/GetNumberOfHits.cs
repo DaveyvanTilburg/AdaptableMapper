@@ -23,9 +23,9 @@ namespace AdaptableMapper.Compositions
         {
             var objects = new List<object>();
 
-            foreach(GetListValueTraversal getListValueTraversal in GetListValueTraversals)
+            foreach (GetListValueTraversal getListValueTraversal in GetListValueTraversals)
             {
-                MethodResult<IEnumerable<object>> getListValueTraversalObjects = getListValueTraversal.GetValues(context.Source);
+                MethodResult<IEnumerable<object>> getListValueTraversalObjects = getListValueTraversal.GetValues(context);
                 if (getListValueTraversalObjects.IsValid)
                     objects.AddRange(getListValueTraversalObjects.Value);
             }

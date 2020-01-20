@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
+using AdaptableMapper.Configuration;
 using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.Traversals.Json
 {
-    public sealed class JsonGetListValueTraversal : GetListValueTraversal, ResolvableByTypeId
+    public sealed class JsonGetListValueTraversal : GetListValueTraversal, ResolvableByTypeId, GetValueTraversalPathProperty
     {
         public const string _typeId = "5d1df2c9-6af6-45a5-81c4-c2885de4b5c1";
         public string TypeId => _typeId;
@@ -18,16 +19,16 @@ namespace AdaptableMapper.Traversals.Json
 
         public string Path { get; set; }
 
-        public MethodResult<IEnumerable<object>> GetValues(object source)
+        public MethodResult<IEnumerable<object>> GetValues(Context context)
         {
-            if (!(source is JToken jToken))
+            if (!(context.Source is JToken jToken))
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#3; Source is not of expected type jToken", "error", Path, source?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("JSON#3; Source is not of expected type jToken", "error", Path, context.Source?.GetType().Name);
                 return new NullMethodResult<IEnumerable<object>>();
             }
 
             IEnumerable<JToken> jTokens = jToken.TraverseAll(Path).ToList();
-            if(!jTokens.Any())
+            if (!jTokens.Any())
             {
                 Process.ProcessObservable.GetInstance().Raise("JSON#4; Path has no results", "warning", Path);
                 return new NullMethodResult<IEnumerable<object>>();

@@ -1,11 +1,12 @@
 ﻿using AdaptableMapper.Model;
 using System.Collections.Generic;
 using System.Linq;
+using AdaptableMapper.Configuration;
 using AdaptableMapper.Converters;
 
 namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelGetListValueTraversal : GetListValueTraversal, ResolvableByTypeId
+    public sealed class ModelGetListValueTraversal : GetListValueTraversal, ResolvableByTypeId, GetValueTraversalPathProperty
     {
         public const string _typeId = "0e07b7e3-95bd-4d35-aa9d-e89e3c51b1b4";
         public string TypeId => _typeId;
@@ -18,11 +19,11 @@ namespace AdaptableMapper.Traversals.Model
 
         public string Path { get; set; }
 
-        public MethodResult<IEnumerable<object>> GetValues(object source)
+        public MethodResult<IEnumerable<object>> GetValues(Context context)
         {
-            if (!(source is ModelBase model))
+            if (!(context.Source is ModelBase model))
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#12; source is not of expected type Model", "error", Path, source);
+                Process.ProcessObservable.GetInstance().Raise("MODEL#12; source is not of expected type Model", "error", Path, context.Source);
                 return new NullMethodResult<IEnumerable<object>>();
             }
 

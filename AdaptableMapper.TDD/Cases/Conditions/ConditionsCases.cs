@@ -28,7 +28,7 @@ namespace AdaptableMapper.TDD.Cases.Conditions
 
             var getScopeTraversal = new Mock<GetListValueTraversal>();
             getScopeTraversal
-                .Setup(g => g.GetValues(It.IsAny<object>()))
+                .Setup(g => g.GetValues(It.IsAny<Context>()))
                 .Returns(new MethodResult<IEnumerable<object>>(new List<object> { 1, 2, 3 }));
 
             var getTemplateTraversal = new Mock<GetTemplateTraversal>();
@@ -133,8 +133,8 @@ namespace AdaptableMapper.TDD.Cases.Conditions
         [InlineData(ListEvaluationOperator.Any, "0", CompareOperator.Equals, "1", "0", CompareOperator.NotEquals, "0", false)]
         public void ListOfConditions(
             ListEvaluationOperator listEvaluationOperator,
-            string entry1ValueA, CompareOperator entry1CompareOperator, string entry1ValueB, 
-            string entry2ValueA, CompareOperator entry2CompareOperator, string entry2ValueB, 
+            string entry1ValueA, CompareOperator entry1CompareOperator, string entry1ValueB,
+            string entry2ValueA, CompareOperator entry2CompareOperator, string entry2ValueB,
             bool expectedResult)
         {
             var subject = new ListOfConditions(listEvaluationOperator);

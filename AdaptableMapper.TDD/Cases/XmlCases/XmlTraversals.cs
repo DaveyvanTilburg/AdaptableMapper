@@ -27,7 +27,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         public void XmlGetScopeTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlGetListValueTraversal(path) { XmlInterpretation = XmlInterpretation.Default };
-            object context = Xml.CreateTarget(contextType);
+            Context context = new Context(Xml.CreateTarget(contextType), null);
             List<Information> result = new Action(() => { subject.GetValues(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }

@@ -16,10 +16,10 @@ namespace AdaptableMapper.Configuration
         public ChildCreator ChildCreator { get; set; }
 
         public MappingScopeComposite(
-            List<MappingScopeComposite> mappingScopeComposites, 
-            List<Mapping> mappings, 
-            GetListValueTraversal getListValueTraversal, 
-            GetTemplateTraversal getTemplateTraversal, 
+            List<MappingScopeComposite> mappingScopeComposites,
+            List<Mapping> mappings,
+            GetListValueTraversal getListValueTraversal,
+            GetTemplateTraversal getTemplateTraversal,
             ChildCreator childCreator)
         {
             MappingScopeComposites = mappingScopeComposites;
@@ -34,7 +34,7 @@ namespace AdaptableMapper.Configuration
             if (!Validate())
                 return;
 
-            MethodResult<IEnumerable<object>> scope = GetListValueTraversal.GetValues(context.Source);
+            MethodResult<IEnumerable<object>> scope = GetListValueTraversal.GetValues(context);
             if (!scope.IsValid)
                 return;
 

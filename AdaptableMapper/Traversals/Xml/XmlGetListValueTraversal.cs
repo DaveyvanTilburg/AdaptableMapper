@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using AdaptableMapper.Configuration;
 using AdaptableMapper.Converters;
 using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    public sealed class XmlGetListValueTraversal : GetListValueTraversal, ResolvableByTypeId
+    public sealed class XmlGetListValueTraversal : GetListValueTraversal, ResolvableByTypeId, GetValueTraversalPathProperty
     {
         public const string _typeId = "4b9876c8-8c60-40fd-9141-86688a44dbe1";
         public string TypeId => _typeId;
@@ -20,18 +21,18 @@ namespace AdaptableMapper.Traversals.Xml
         public string Path { get; set; }
         public XmlInterpretation XmlInterpretation { get; set; }
 
-        public MethodResult<IEnumerable<object>> GetValues(object source)
+        public MethodResult<IEnumerable<object>> GetValues(Context context)
         {
-            if (!(source is XElement xElement))
+            if (!(context.Source is XElement xElement))
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#12; source is not of expected type XElement", "error", Path, source?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("XML#12; source is not of expected type XElement", "error", Path, context.Source?.GetType().Name);
                 return new NullMethodResult<IEnumerable<object>>();
             }
 
             IEnumerable<XElement> xScope = xElement.NavigateToPathSelectAll(Path.ConvertToInterpretation(XmlInterpretation));
             if (!xScope.Any())
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#5; Path resulted in no items", "warning", Path, source.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("XML#5; Path resulted in no items", "warning", Path, context.Source.GetType().Name);
                 return new NullMethodResult<IEnumerable<object>>();
             }
 

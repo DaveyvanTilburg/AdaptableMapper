@@ -1,0 +1,24 @@
+﻿<root>
+  <SimpleItems>
+    <SimpleItem Type="Person">
+      <Name>Davey</Name>
+      <SurName></SurName>
+    </SimpleItem>
+    <SimpleItem Type="Person">
+      <Name>Joey</Name>
+      <SurName></SurName>
+    </SimpleItem>
+    <SimpleItem Type="AI">
+      <Name>Easy</Name>
+      <SurName></SurName>
+    </SimpleItem>
+    <SimpleItem Type="AI">
+      <Name>Medium</Name>
+      <SurName></SurName>
+    </SimpleItem>
+    <SimpleItem Type="AI">
+      <Name>Hard</Name>
+      <SurName></SurName>
+    </SimpleItem>
+  </SimpleItems>
+</root>

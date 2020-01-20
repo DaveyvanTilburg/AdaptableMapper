@@ -27,6 +27,7 @@ namespace AdaptableMapper.Converters
                 [GetValueTraversalDaysBetweenDates._typeId] = typeof(GetValueTraversalDaysBetweenDates),
                 [IfConditionThenAElseBGetValueTraversal._typeId] = typeof(IfConditionThenAElseBGetValueTraversal),
                 [GetNumberOfHits._typeId] = typeof(GetNumberOfHits),
+                [GetListSearchValueTraversal._typeId] = typeof(GetListSearchValueTraversal),
 
                 //Conditions
                 [CompareCondition._typeId] = typeof(CompareCondition),
@@ -76,7 +77,7 @@ namespace AdaptableMapper.Converters
 
                 //ValueMutations - Traversals
                 [SplitByCharTakePositionStringTraversal._typeId] = typeof(SplitByCharTakePositionStringTraversal),
-                
+
                 //ValueMutations
                 [CreateSeparatedRangeFromNumberValueMutation._typeId] = typeof(CreateSeparatedRangeFromNumberValueMutation),
                 [DateValueMutation._typeId] = typeof(DateValueMutation),
