@@ -88,7 +88,8 @@ namespace AdaptableMapper.Converters
                 [ReplaceValueMutation._typeId] = typeof(ReplaceValueMutation),
                 [SubstringValueMutation._typeId] = typeof(SubstringValueMutation),
                 [ToLowerValueMutation._typeId] = typeof(ToLowerValueMutation),
-                [ToUpperValueMutation._typeId] = typeof(ToUpperValueMutation)
+                [ToUpperValueMutation._typeId] = typeof(ToUpperValueMutation),
+                [TrimValueMutation._typeId] = typeof(TrimValueMutation)
             };
 
         public static Type GetType(string typeId)

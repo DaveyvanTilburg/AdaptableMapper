@@ -289,5 +289,20 @@ namespace AdaptableMapper.TDD.Cases.ValueMutations
             information.Count.Should().Be(0);
             result.Should().Be(expectedResult);
         }
+
+        [Theory]
+        [InlineData(" test ", " ", "test")]
+        [InlineData(" test)", ")", " test")]
+        [InlineData(" tsest)", " et)", "ses")]
+        public void TrimValueMutation(string input, string characters, string expectedResult)
+        {
+            var subject = new TrimValueMutation(characters);
+
+            string result = string.Empty;
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), input); }).Observe();
+
+            information.Count.Should().Be(0);
+            result.Should().Be(expectedResult);
+        }
     }
 }

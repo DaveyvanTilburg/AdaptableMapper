@@ -31,9 +31,9 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Bug fix for Xml namespaceless path traversal for attributes
       - Changed build settings for debug and release
       - GetTemplate no longer gets called if the scope traversal finds nothing
-      - Bugfix for xml namespaceless traversal for getting attribute from current element
+      - Bug fix for xml namespaceless traversal for getting attribute from current element
       - Support xpath methods wrapping the path while using namespaceless interpretation
-      - bugfix for xmlinterpretation default and xpathmethods
+      - Bug fix for xmlinterpretation default and xpathmethods
       - Added new generic get block: IfAEmptyThenBElseCGetValueTraversal
       - Changed Empty comparison in IfAEmptyThenBElseCGetValueTraversal with a condition
       - Renamed IfAEmptyThenBElseCGetValueTraversal to IfConditionThenAElseBGetValueTraversal
@@ -58,6 +58,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Added option to exclude declaration for xml
       - Added PlaceholderValueMutation
       - Added GetListSearchValueTraversal
+      - Added TrimValueMutation
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

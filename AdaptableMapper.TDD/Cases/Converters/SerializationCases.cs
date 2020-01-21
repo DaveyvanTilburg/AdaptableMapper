@@ -424,6 +424,11 @@ namespace AdaptableMapper.TDD.Cases.Converters
                 typeof(ValueMutation),
                 new ToUpperValueMutation()
             };
+            yield return new object[]
+            {
+                typeof(ValueMutation),
+                new TrimValueMutation()
+            };
         }
     }
 }

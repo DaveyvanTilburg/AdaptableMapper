@@ -76,6 +76,7 @@
     <Compile Include="ValueMutations\ListOfValueMutations.cs" />
     <Compile Include="ValueMutations\NumberValueMutation.cs" />
     <Compile Include="ValueMutations\ReplaceValueMutation.cs" />
+    <Compile Include="ValueMutations\TrimValueMutation.cs" />
     <Compile Include="ValueMutations\ValueMutation.cs" />
     <Compile Include="Compositions\GetStaticValueTraversal.cs" />
     <Compile Include="Traversals\Json\JsonGetListValueTraversal.cs" />
