@@ -11,6 +11,8 @@ namespace AdaptableMapper.Configuration.Json
 
         public JTokenToStringObjectConverter() { }
 
+        public bool UseIndentation { get; set; } = true;
+
         public object Convert(object source)
         {
             if (!(source is JToken jToken))
@@ -19,7 +21,7 @@ namespace AdaptableMapper.Configuration.Json
                 return new JObject();
             }
 
-            return jToken.ToString(Formatting.Indented);
+            return jToken.ToString(UseIndentation ? Formatting.Indented : Formatting.None);
         }
     }
 }

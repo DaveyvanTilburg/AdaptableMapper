@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AdaptableMapper.Configuration.Json;
 using AdaptableMapper.Process;
 using AdaptableMapper.Traversals;
+using FluentAssertions;
 using Xunit;
 
 namespace AdaptableMapper.TDD.Cases.JsonCases
@@ -59,13 +60,24 @@ namespace AdaptableMapper.TDD.Cases.JsonCases
         }
 
         [Theory]
-        [InlineData("InvalidType", ContextType.EmptyString, "e-JSON#25;")]
-        public void JTokenToStringObjectConverter(string because, ContextType contextType, params string[] expectedErrors)
+        [InlineData("InvalidType", ContextType.InvalidType, true, 0, "e-JSON#25;")]
+        [InlineData("LengthCheckUseIndentation", ContextType.TestObject, true, 14)]
+        [InlineData("LengthCheckDoNotUseIndentation", ContextType.TestObject, false, 1)]
+        public void XElementToStringObjectConverter(string because, ContextType contextType, bool useIndentation, int expectedLines, params string[] expectedErrors)
         {
-            var subject = new JTokenToStringObjectConverter();
+            var subject = new JTokenToStringObjectConverter { UseIndentation = useIndentation };
             object context = Json.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.Convert(context); }).Observe();
-            result.ValidateResult(new List<string>(expectedErrors), because);
+
+            string result = string.Empty;
+            List<Information> information = new Action(() => { result = subject.Convert(context) as string; }).Observe();
+
+            information.ValidateResult(new List<string>(expectedErrors), because);
+
+            if (expectedErrors.Length == 0)
+            {
+                string[] lines = result.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                lines.Length.Should().Be(expectedLines);
+            }
         }
     }
 }
