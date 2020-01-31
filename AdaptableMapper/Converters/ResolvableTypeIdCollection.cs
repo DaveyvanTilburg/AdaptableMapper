@@ -28,6 +28,8 @@ namespace AdaptableMapper.Converters
                 [IfConditionThenAElseBGetValueTraversal._typeId] = typeof(IfConditionThenAElseBGetValueTraversal),
                 [GetNumberOfHits._typeId] = typeof(GetNumberOfHits),
                 [GetListSearchValueTraversal._typeId] = typeof(GetListSearchValueTraversal),
+                [GetConditionedListValueTraversal._typeId] = typeof(GetConditionedListValueTraversal),
+                [GetConcatenatedValueTraversal._typeId] = typeof(GetConcatenatedValueTraversal),
 
                 //Conditions
                 [CompareCondition._typeId] = typeof(CompareCondition),

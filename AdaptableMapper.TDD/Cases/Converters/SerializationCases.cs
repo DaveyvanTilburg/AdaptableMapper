@@ -194,6 +194,29 @@ namespace AdaptableMapper.TDD.Cases.Converters
                     new GetNothingValueTraversal()
                 )
             };
+            yield return new object[]
+            {
+                typeof(GetListValueTraversal),
+                new GetConditionedListValueTraversal(
+                    new GetListSearchValueTraversal(
+                        new XmlGetListValueTraversal("path"),
+                        new GetStaticValueTraversal("1")
+                    ),
+                    new NotEmptyCondition()
+                )
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new GetConcatenatedValueTraversal(
+                    new GetListSearchValueTraversal(
+                        new XmlGetListValueTraversal("path"),
+                        new GetStaticValueTraversal("1")
+                    ),
+                    new GetStaticValueTraversal("2"),
+                    "-"
+                )
+            };
 
             //Configuration - Json
             yield return new object[]

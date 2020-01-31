@@ -24,7 +24,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
         [InlineData("InvalidType", "", ContextType.EmptyString, "e-XML#12;")]
         [InlineData("InvalidPath", "::", ContextType.EmptyObject, "e-XML#28;", "w-XML#5;")] //Preferred cascade, 28 contains extra info
         [InlineData("NoResults", "abcd", ContextType.EmptyObject, "w-XML#5;")]
-        public void XmlGetScopeTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
+        public void XmlGetListValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlGetListValueTraversal(path) { XmlInterpretation = XmlInterpretation.Default };
             Context context = new Context(Xml.CreateTarget(contextType), null);
@@ -299,7 +299,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
                     new List<DictionaryReplaceValueMutation.ReplaceValue>
                     {
                         new DictionaryReplaceValueMutation.ReplaceValue
-                        {
+                        { 
                             ValueToReplace = "value3",
                             NewValue = "SimpleItem"
                         }

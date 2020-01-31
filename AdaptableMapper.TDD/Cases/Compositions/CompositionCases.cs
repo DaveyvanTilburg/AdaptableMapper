@@ -9,6 +9,7 @@ using AdaptableMapper.Process;
 using AdaptableMapper.Traversals;
 using AdaptableMapper.Traversals.Model;
 using AdaptableMapper.Traversals.Xml;
+using AdaptableMapper.Xml;
 using FluentAssertions;
 using Xunit;
 
@@ -148,6 +149,75 @@ namespace AdaptableMapper.TDD.Cases.Compositions
             List<Information> information = new Action(() => { result = subject.GetValues(context); }).Observe();
 
             information.ValidateResult(new List<string> { "e-GetListSearchValueTraversal#1;", "e-GetListSearchValueTraversal#2;" }, "Empty");
+        }
+
+        [Fact]
+        public void GetConditionedListValueTraversalEmpty()
+        {
+            var subject = new GetConditionedListValueTraversal(null, null);
+
+            List<Information> information = new Action(() => { subject.GetValues(null); }).Observe();
+
+            information.ValidateResult(new List<string> { "e-GetConditionedListValueTraversal#1;", "e-GetConditionedListValueTraversal#2;" }, "Empty");
+        }
+
+        [Fact]
+        public void GetConditionedListValueTraversal()
+        {
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+
+            var subject = new GetConditionedListValueTraversal(
+                new XmlGetListValueTraversal("//SimpleItems/SimpleItem") { XmlInterpretation = XmlInterpretation.Default },
+                new CompareCondition(
+                    new XmlGetValueTraversal("./@Type"),
+                    CompareOperator.Equals,
+                    new GetStaticValueTraversal("Person")
+                )
+            );
+
+            MethodResult<IEnumerable<object>> result = new MethodResult<IEnumerable<object>>(null);
+            List<Information> information = new Action(() => { result = subject.GetValues(context); }).Observe();
+
+            information.ValidateResult(new List<string>(), "GetConditionedListValueTraversal");
+
+            result.IsValid.Should().BeTrue();
+            result.Value.Count().Should().Be(2);
+        }
+
+        [Fact]
+        public void GetConcatenatedValueTraversalEmpty()
+        {
+            var subject = new GetConcatenatedValueTraversal(null, null, null);
+
+            List<Information> information = new Action(() => { subject.GetValue(null); }).Observe();
+
+            information.ValidateResult(new List<string> { "e-GetConcatenatedValueTraversal#1;", "e-GetConcatenatedValueTraversal#2;", "e-GetConcatenatedValueTraversal#3;" }, "Empty");
+        }
+
+        [Fact]
+        public void GetConcatenatedValueTraversal()
+        {
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+
+            var subject = new GetConcatenatedValueTraversal(
+                new GetConditionedListValueTraversal(
+                    new XmlGetListValueTraversal("//SimpleItems/SimpleItem") { XmlInterpretation = XmlInterpretation.Default },
+                    new CompareCondition(
+                        new XmlGetValueTraversal("./@Type"),
+                        CompareOperator.Equals,
+                        new GetStaticValueTraversal("Person")
+                    )
+                ),
+                new XmlGetValueTraversal("./Name"),
+                "-"
+            );
+
+            string result = null;
+            List<Information> information = new Action(() => { result = subject.GetValue(context); }).Observe();
+
+            information.ValidateResult(new List<string>(), "GetConcatenatedValueTraversal");
+
+            result.Should().BeEquivalentTo("Davey-Joey");
         }
     }
 }
