@@ -19,9 +19,22 @@ namespace AdaptableMapper.Compositions
             Condition = condition;
         }
 
+        public GetConditionedListValueTraversal(GetListValueTraversal getListValueTraversal, GetValueTraversal distinctByGetValueTraversal)
+        {
+            GetListValueTraversal = getListValueTraversal;
+            DistinctByGetValueTraversal = distinctByGetValueTraversal;
+        }
+
+        public GetConditionedListValueTraversal(GetListValueTraversal getListValueTraversal, Condition condition, GetValueTraversal distinctByGetValueTraversal)
+        {
+            GetListValueTraversal = getListValueTraversal;
+            Condition = condition;
+            DistinctByGetValueTraversal = distinctByGetValueTraversal;
+        }
+
         public GetListValueTraversal GetListValueTraversal { get; set; }
         public Condition Condition { get; set; }
-
+        public GetValueTraversal DistinctByGetValueTraversal { get; set; }
 
         public MethodResult<IEnumerable<object>> GetValues(Context context)
         {
@@ -30,8 +43,17 @@ namespace AdaptableMapper.Compositions
 
             MethodResult<IEnumerable<object>> values = GetListValueTraversal.GetValues(context);
 
-            if (values.IsValid)
+            if (!values.IsValid)
+                return values;
+
+            if (Condition != null)
                 values = new MethodResult<IEnumerable<object>>(values.Value.Where(v => Condition.Validate(new Context(v, context.Target))));
+
+            if (DistinctByGetValueTraversal != null)
+                values = new MethodResult<IEnumerable<object>>(
+                    values.Value.GroupBy(e => DistinctByGetValueTraversal.GetValue(new Context(e, context.Target)))
+                    .Select(e => e.First())
+                    .ToList());
 
             return values;
         }
@@ -46,9 +68,9 @@ namespace AdaptableMapper.Compositions
                 result = false;
             }
 
-            if (Condition == null)
+            if (Condition == null && DistinctByGetValueTraversal == null)
             {
-                Process.ProcessObservable.GetInstance().Raise($"GetConditionedListValueTraversal#2; {nameof(Condition)} cannot be null", "error");
+                Process.ProcessObservable.GetInstance().Raise($"GetConditionedListValueTraversal#2; Either {nameof(Condition)} or {nameof(DistinctByGetValueTraversal)} should be used", "error");
                 result = false;
             }
 

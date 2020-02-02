@@ -154,11 +154,34 @@ namespace AdaptableMapper.TDD.Cases.Compositions
         [Fact]
         public void GetConditionedListValueTraversalEmpty()
         {
-            var subject = new GetConditionedListValueTraversal(null, null);
+            var subject = new GetConditionedListValueTraversal(null, (Condition)null);
 
             List<Information> information = new Action(() => { subject.GetValues(null); }).Observe();
 
             information.ValidateResult(new List<string> { "e-GetConditionedListValueTraversal#1;", "e-GetConditionedListValueTraversal#2;" }, "Empty");
+        }
+
+        [Fact]
+        public void GetConditionedListValueTraversalBadPath()
+        {
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+
+            var subject = new GetConditionedListValueTraversal(
+                new XmlGetListValueTraversal("//SimpleItems/SimpleItem***$%#$") { XmlInterpretation = XmlInterpretation.Default },
+                new CompareCondition(
+                    new XmlGetValueTraversal("./@Type"),
+                    CompareOperator.Equals,
+                    new GetStaticValueTraversal("AI")
+                )
+            );
+
+            MethodResult<IEnumerable<object>> result = new MethodResult<IEnumerable<object>>(null);
+            List<Information> information = new Action(() => { result = subject.GetValues(context); }).Observe();
+
+            information.ValidateResult(new List<string> { "e-XML#28;", "w-XML#5;" }, "GetConditionedListValueTraversalBadPath");
+
+            result.IsValid.Should().BeFalse();
+            result.Value.Should().BeNull();
         }
 
         [Fact]
@@ -171,7 +194,7 @@ namespace AdaptableMapper.TDD.Cases.Compositions
                 new CompareCondition(
                     new XmlGetValueTraversal("./@Type"),
                     CompareOperator.Equals,
-                    new GetStaticValueTraversal("Person")
+                    new GetStaticValueTraversal("AI")
                 )
             );
 
@@ -181,7 +204,59 @@ namespace AdaptableMapper.TDD.Cases.Compositions
             information.ValidateResult(new List<string>(), "GetConditionedListValueTraversal");
 
             result.IsValid.Should().BeTrue();
+            result.Value.Count().Should().Be(3);
+
+            result.Value.First().ToString().Should().Contain("Easy");
+            result.Value.ToList()[1].ToString().Should().Contain("Medium");
+            result.Value.Last().ToString().Should().Contain("Hard");
+        }
+
+        [Fact]
+        public void GetConditionedListValueTraversalDistinctBy()
+        {
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+
+            var subject = new GetConditionedListValueTraversal(
+                new XmlGetListValueTraversal("//SimpleItems/SimpleItem") { XmlInterpretation = XmlInterpretation.Default },
+                new XmlGetValueTraversal("./@Type")
+            );
+
+            MethodResult<IEnumerable<object>> result = new MethodResult<IEnumerable<object>>(null);
+            List<Information> information = new Action(() => { result = subject.GetValues(context); }).Observe();
+
+            information.ValidateResult(new List<string>(), "GetConditionedListValueTraversal");
+
+            result.IsValid.Should().BeTrue();
             result.Value.Count().Should().Be(2);
+
+            result.Value.First().ToString().Should().Contain("Davey");
+            result.Value.Last().ToString().Should().Contain("Easy");
+        }
+
+        [Fact]
+        public void GetConditionedListValueTraversalDistinctByConditioned()
+        {
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+
+            var subject = new GetConditionedListValueTraversal(
+                new XmlGetListValueTraversal("//SimpleItems/SimpleItem") { XmlInterpretation = XmlInterpretation.Default },
+                new CompareCondition(
+                    new XmlGetValueTraversal("./@Type"),
+                    CompareOperator.Equals,
+                    new GetStaticValueTraversal("AI")
+                ),
+                new XmlGetValueTraversal("./@Type")
+            );
+
+            MethodResult<IEnumerable<object>> result = new MethodResult<IEnumerable<object>>(null);
+            List<Information> information = new Action(() => { result = subject.GetValues(context); }).Observe();
+
+            information.ValidateResult(new List<string>(), "GetConditionedListValueTraversal");
+
+            result.IsValid.Should().BeTrue();
+            result.Value.Count().Should().Be(1);
+
+            result.Value.Last().ToString().Should().Contain("Easy");
         }
 
         [Fact]
