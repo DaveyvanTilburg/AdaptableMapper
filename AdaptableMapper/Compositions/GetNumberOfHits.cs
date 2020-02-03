@@ -12,18 +12,18 @@ namespace AdaptableMapper.Compositions
         public string TypeId => _typeId;
 
         public GetNumberOfHits()
-            => GetListValueTraversals = new List<GetListValueTraversal>();
+            => ListOfGetListValueTraversal = new List<GetListValueTraversal>();
 
         public GetNumberOfHits(List<GetListValueTraversal> getListValueTraversals)
-            => GetListValueTraversals = getListValueTraversals;
+            => ListOfGetListValueTraversal = getListValueTraversals;
 
-        public List<GetListValueTraversal> GetListValueTraversals { get; set; }
+        public List<GetListValueTraversal> ListOfGetListValueTraversal { get; set; }
 
         public string GetValue(Context context)
         {
             var objects = new List<object>();
 
-            foreach (GetListValueTraversal getListValueTraversal in GetListValueTraversals)
+            foreach (GetListValueTraversal getListValueTraversal in ListOfGetListValueTraversal)
             {
                 MethodResult<IEnumerable<object>> getListValueTraversalObjects = getListValueTraversal.GetValues(context);
                 if (getListValueTraversalObjects.IsValid)

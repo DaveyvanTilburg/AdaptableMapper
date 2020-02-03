@@ -11,15 +11,15 @@ namespace AdaptableMapper.Compositions
         public string TypeId => _typeId;
 
         public GetConcatenatedValueTraversal()
-            => GetValueTraversals = new List<GetValueTraversal>();
+            => ListOfGetValueTraversals = new List<GetValueTraversal>();
 
-        public GetConcatenatedValueTraversal(List<GetValueTraversal> getListValueTraversals, string separator)
+        public GetConcatenatedValueTraversal(List<GetValueTraversal> listOfGetValueTraversals, string separator)
         {
-            GetValueTraversals = getListValueTraversals;
+            ListOfGetValueTraversals = listOfGetValueTraversals;
             Separator = separator;
         }
 
-        public List<GetValueTraversal> GetValueTraversals { get; set; }
+        public List<GetValueTraversal> ListOfGetValueTraversals { get; set; }
         public string Separator { get; set; }
 
 
@@ -29,7 +29,7 @@ namespace AdaptableMapper.Compositions
                 return string.Empty;
 
             var resultParts = new List<string>();
-            foreach (GetValueTraversal getValueTraversal in GetValueTraversals)
+            foreach (GetValueTraversal getValueTraversal in ListOfGetValueTraversals)
             {
                 resultParts.Add(getValueTraversal.GetValue(context));
             }
@@ -42,9 +42,9 @@ namespace AdaptableMapper.Compositions
         {
             bool result = true;
 
-            if (GetValueTraversals == null || GetValueTraversals.Count == 0)
+            if (ListOfGetValueTraversals == null || ListOfGetValueTraversals.Count == 0)
             {
-                Process.ProcessObservable.GetInstance().Raise($"GetConcatenatedValueTraversal#1; {nameof(GetValueTraversals)} cannot be null", "error");
+                Process.ProcessObservable.GetInstance().Raise($"GetConcatenatedValueTraversal#1; {nameof(ListOfGetValueTraversals)} cannot be null", "error");
                 result = false;
             }
 
