@@ -314,7 +314,8 @@ namespace AdaptableMapper.TDD.Cases.Compositions
                 new List<GetValueTraversal>
                 {
                     new XmlGetValueTraversal("/root/SimpleItems/SimpleItem[1]/Name"),
-                    new XmlGetValueTraversal("/root/SimpleItems/SimpleItem[4]/Name")
+                    new XmlGetValueTraversal("/root/SimpleItems/SimpleItem[4]/Name"),
+                    new XmlGetValueTraversal("/root/SimpleItems/SimpleItem[6]/Name")
                 },
                 "-"
             );
@@ -322,7 +323,7 @@ namespace AdaptableMapper.TDD.Cases.Compositions
             string result = null;
             List<Information> information = new Action(() => { result = subject.GetValue(context); }).Observe();
 
-            information.ValidateResult(new List<string>(), "GetConcatenatedValueTraversal");
+            information.ValidateResult(new List<string> { "w-XML#30;" }, "GetConcatenatedValueTraversal");
 
             result.Should().BeEquivalentTo("Davey-Medium");
         }

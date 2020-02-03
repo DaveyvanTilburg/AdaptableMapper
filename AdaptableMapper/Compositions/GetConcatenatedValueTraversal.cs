@@ -13,9 +13,9 @@ namespace AdaptableMapper.Compositions
         public GetConcatenatedValueTraversal()
             => ListOfGetValueTraversal = new List<GetValueTraversal>();
 
-        public GetConcatenatedValueTraversal(List<GetValueTraversal> listOfGetValueTraversal, string separator)
+        public GetConcatenatedValueTraversal(List<GetValueTraversal> listOfGetValueTraversals, string separator)
         {
-            ListOfGetValueTraversal = listOfGetValueTraversal;
+            ListOfGetValueTraversal = listOfGetValueTraversals;
             Separator = separator;
         }
 
@@ -31,7 +31,10 @@ namespace AdaptableMapper.Compositions
             var resultParts = new List<string>();
             foreach (GetValueTraversal getValueTraversal in ListOfGetValueTraversal)
             {
-                resultParts.Add(getValueTraversal.GetValue(context));
+                string value = getValueTraversal.GetValue(context);
+
+                if (!string.IsNullOrEmpty(value))
+                    resultParts.Add(value);
             }
 
             string result = string.Join(Separator, resultParts);
