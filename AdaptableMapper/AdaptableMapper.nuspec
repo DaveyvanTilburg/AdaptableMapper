@@ -62,6 +62,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Added GetConcatenatedByListValueTraversal
       - Added GetConcatenatedValueTraversal
       - Added GetConditionedListValueTraversal
+      - Switched to the decorator pattern for value mutations
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>
