@@ -11,6 +11,11 @@ namespace AdaptableMapper.Compositions
         public string TypeId => _typeId;
 
         public GetConcatenatedByListValueTraversal() { }
+        public GetConcatenatedByListValueTraversal(GetListValueTraversal getListValueTraversal, GetValueTraversal getValueTraversal)
+        {
+            GetListValueTraversal = getListValueTraversal;
+            GetValueTraversal = getValueTraversal;
+        }
         public GetConcatenatedByListValueTraversal(GetListValueTraversal getListValueTraversal, GetValueTraversal getValueTraversal, string separator)
         {
             GetListValueTraversal = getListValueTraversal;
@@ -37,7 +42,7 @@ namespace AdaptableMapper.Compositions
                 resultParts.Add(resultPart);
             }
 
-            string result = string.Join(Separator, resultParts);
+            string result = string.Join(Separator ?? string.Empty, resultParts);
             return result;
         }
 
@@ -54,12 +59,6 @@ namespace AdaptableMapper.Compositions
             if (GetValueTraversal == null)
             {
                 Process.ProcessObservable.GetInstance().Raise($"GetConcatenatedByListValueTraversal#2; {nameof(GetValueTraversal)} cannot be null", "error");
-                result = false;
-            }
-
-            if (Separator == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"GetConcatenatedByListValueTraversal#3; {nameof(Separator)} cannot be null", "error");
                 result = false;
             }
 

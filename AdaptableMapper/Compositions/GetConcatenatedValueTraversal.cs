@@ -13,6 +13,8 @@ namespace AdaptableMapper.Compositions
         public GetConcatenatedValueTraversal()
             => ListOfGetValueTraversal = new List<GetValueTraversal>();
 
+        public GetConcatenatedValueTraversal(List<GetValueTraversal> listOfGetValueTraversals)
+            => ListOfGetValueTraversal = listOfGetValueTraversals;
         public GetConcatenatedValueTraversal(List<GetValueTraversal> listOfGetValueTraversals, string separator)
         {
             ListOfGetValueTraversal = listOfGetValueTraversals;
@@ -37,7 +39,7 @@ namespace AdaptableMapper.Compositions
                     resultParts.Add(value);
             }
 
-            string result = string.Join(Separator, resultParts);
+            string result = string.Join(Separator ?? string.Empty, resultParts);
             return result;
         }
 
@@ -48,12 +50,6 @@ namespace AdaptableMapper.Compositions
             if (ListOfGetValueTraversal == null || ListOfGetValueTraversal.Count == 0)
             {
                 Process.ProcessObservable.GetInstance().Raise($"GetConcatenatedValueTraversal#1; {nameof(ListOfGetValueTraversal)} cannot be null", "error");
-                result = false;
-            }
-
-            if (Separator == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"GetConcatenatedValueTraversal#2; {nameof(Separator)} cannot be null", "error");
                 result = false;
             }
 
