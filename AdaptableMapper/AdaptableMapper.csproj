@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compositions\GetConcatenatedByListValueTraversal.cs" />
     <Compile Include="Compositions\GetConcatenatedValueTraversal.cs" />
     <Compile Include="Compositions\GetConditionedListValueTraversal.cs" />
     <Compile Include="Compositions\GetListSearchValueTraversal.cs" />

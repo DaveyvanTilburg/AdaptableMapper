@@ -156,6 +156,41 @@ namespace AdaptableMapper.TDD.Cases.Converters
                     new GetStaticValueTraversal("4")
                 )
             };
+            yield return new object[]
+            {
+                typeof(GetListValueTraversal),
+                new GetConditionedListValueTraversal(
+                    new GetListSearchValueTraversal(
+                        new XmlGetListValueTraversal("path"),
+                        new GetStaticValueTraversal("1")
+                    ),
+                    new NotEmptyCondition()
+                )
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new GetConcatenatedByListValueTraversal(
+                    new GetListSearchValueTraversal(
+                        new XmlGetListValueTraversal("path"),
+                        new GetStaticValueTraversal("1")
+                    ),
+                    new GetStaticValueTraversal("2"),
+                    "-"
+                )
+            };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new GetConcatenatedValueTraversal(
+                    new List<GetValueTraversal>
+                    {
+                        new XmlGetValueTraversal("path"),
+                        new XmlGetValueTraversal("path")
+                    },
+                    "-"
+                )
+            };
 
             //Conditions
             yield return new object[]
@@ -192,29 +227,6 @@ namespace AdaptableMapper.TDD.Cases.Converters
                 typeof(Condition),
                 new NotEmptyCondition(
                     new GetNothingValueTraversal()
-                )
-            };
-            yield return new object[]
-            {
-                typeof(GetListValueTraversal),
-                new GetConditionedListValueTraversal(
-                    new GetListSearchValueTraversal(
-                        new XmlGetListValueTraversal("path"),
-                        new GetStaticValueTraversal("1")
-                    ),
-                    new NotEmptyCondition()
-                )
-            };
-            yield return new object[]
-            {
-                typeof(GetValueTraversal),
-                new GetConcatenatedValueTraversal(
-                    new GetListSearchValueTraversal(
-                        new XmlGetListValueTraversal("path"),
-                        new GetStaticValueTraversal("1")
-                    ),
-                    new GetStaticValueTraversal("2"),
-                    "-"
                 )
             };
 

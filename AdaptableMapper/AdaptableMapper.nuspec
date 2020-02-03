@@ -59,6 +59,7 @@ See https://github.com/DaveyvanTilburg/AdaptableMapper/ for documentation
       - Added PlaceholderValueMutation
       - Added GetListSearchValueTraversal
       - Added TrimValueMutation
+      - Added GetConcatenatedByListValueTraversal
       - Added GetConcatenatedValueTraversal
       - Added GetConditionedListValueTraversal
     </releaseNotes>

@@ -7,19 +7,19 @@ namespace AdaptableMapper.Compositions
 {
     public class GetConcatenatedValueTraversal : GetValueTraversal, ResolvableByTypeId
     {
-        public const string _typeId = "292d79b5-e5f6-4029-b4d6-413e0a093d87";
+        public const string _typeId = "0c64cc9e-4273-4440-b7b0-ddf42db8a8fb";
         public string TypeId => _typeId;
 
-        public GetConcatenatedValueTraversal() { }
-        public GetConcatenatedValueTraversal(GetListValueTraversal getListValueTraversal, GetValueTraversal getValueTraversal, string separator)
+        public GetConcatenatedValueTraversal()
+            => GetValueTraversals = new List<GetValueTraversal>();
+
+        public GetConcatenatedValueTraversal(List<GetValueTraversal> getListValueTraversals, string separator)
         {
-            GetListValueTraversal = getListValueTraversal;
-            GetValueTraversal = getValueTraversal;
+            GetValueTraversals = getListValueTraversals;
             Separator = separator;
         }
 
-        public GetListValueTraversal GetListValueTraversal { get; set; }
-        public GetValueTraversal GetValueTraversal { get; set; }
+        public List<GetValueTraversal> GetValueTraversals { get; set; }
         public string Separator { get; set; }
 
 
@@ -28,13 +28,10 @@ namespace AdaptableMapper.Compositions
             if (!Validate())
                 return string.Empty;
 
-            MethodResult<IEnumerable<object>> values = GetListValueTraversal.GetValues(context);
-
             var resultParts = new List<string>();
-            foreach (object value in values.Value)
+            foreach (GetValueTraversal getValueTraversal in GetValueTraversals)
             {
-                string resultPart = GetValueTraversal.GetValue(new Context(value, context.Target));
-                resultParts.Add(resultPart);
+                resultParts.Add(getValueTraversal.GetValue(context));
             }
 
             string result = string.Join(Separator, resultParts);
@@ -45,21 +42,15 @@ namespace AdaptableMapper.Compositions
         {
             bool result = true;
 
-            if (GetListValueTraversal == null)
+            if (GetValueTraversals == null || GetValueTraversals.Count == 0)
             {
-                Process.ProcessObservable.GetInstance().Raise($"GetConcatenatedValueTraversal#1; {nameof(GetListValueTraversal)} cannot be null", "error");
-                result = false;
-            }
-
-            if (GetValueTraversal == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"GetConcatenatedValueTraversal#2; {nameof(GetValueTraversal)} cannot be null", "error");
+                Process.ProcessObservable.GetInstance().Raise($"GetConcatenatedValueTraversal#1; {nameof(GetValueTraversals)} cannot be null", "error");
                 result = false;
             }
 
             if (Separator == null)
             {
-                Process.ProcessObservable.GetInstance().Raise($"GetConcatenatedValueTraversal#3; {nameof(Separator)} cannot be null", "error");
+                Process.ProcessObservable.GetInstance().Raise($"GetConcatenatedValueTraversal#2; {nameof(Separator)} cannot be null", "error");
                 result = false;
             }
 
