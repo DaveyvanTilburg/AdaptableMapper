@@ -191,6 +191,22 @@ namespace AdaptableMapper.TDD.Cases.Converters
                     "-"
                 )
             };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new GetMutatedValueTraversal(
+                    new GetStaticValueTraversal("test"),
+                    new TrimValueMutation()
+                )
+            };
+            yield return new object[]
+            {
+                typeof(SetValueTraversal),
+                new SetMutatedValueTraversal(
+                    new XmlSetValueTraversal("path"),
+                    new TrimValueMutation()
+                )
+            };
 
             //Conditions
             yield return new object[]

@@ -31,6 +31,8 @@ namespace AdaptableMapper.Converters
                 [GetConditionedListValueTraversal._typeId] = typeof(GetConditionedListValueTraversal),
                 [GetConcatenatedByListValueTraversal._typeId] = typeof(GetConcatenatedByListValueTraversal),
                 [GetConcatenatedValueTraversal._typeId] = typeof(GetConcatenatedValueTraversal),
+                [GetMutatedValueTraversal._typeId] = typeof(GetMutatedValueTraversal),
+                [SetMutatedValueTraversal._typeId] = typeof(SetMutatedValueTraversal),
 
                 //Conditions
                 [CompareCondition._typeId] = typeof(CompareCondition),

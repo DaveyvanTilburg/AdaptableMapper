@@ -46,6 +46,8 @@
     <Compile Include="Compositions\GetConcatenatedValueTraversal.cs" />
     <Compile Include="Compositions\GetConditionedListValueTraversal.cs" />
     <Compile Include="Compositions\GetListSearchValueTraversal.cs" />
+    <Compile Include="Compositions\GetMutatedValueTraversal.cs" />
+    <Compile Include="Compositions\SetMutatedValueTraversal.cs" />
     <Compile Include="Conditions\ListEvaluationOperator.cs" />
     <Compile Include="Conditions\NotEmptyCondition.cs" />
     <Compile Include="Converters\JsonTypeIdBasedConverter.cs" />
@@ -124,7 +126,6 @@
     <Compile Include="Traversals\GetValueTraversal.cs" />
     <Compile Include="Configuration\Mapping.cs" />
     <Compile Include="Configuration\MappingScopeComposite.cs" />
-    <Compile Include="Traversals\SetMutableValueTraversal.cs" />
     <Compile Include="Traversals\SetValueTraversal.cs" />
     <Compile Include="Traversals\Template.cs" />
     <Compile Include="Traversals\GetTemplateTraversal.cs" />

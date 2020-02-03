@@ -9,6 +9,7 @@ using AdaptableMapper.Process;
 using AdaptableMapper.Traversals;
 using AdaptableMapper.Traversals.Model;
 using AdaptableMapper.Traversals.Xml;
+using AdaptableMapper.ValueMutations;
 using AdaptableMapper.Xml;
 using FluentAssertions;
 using Xunit;
@@ -373,6 +374,64 @@ namespace AdaptableMapper.TDD.Cases.Compositions
             information.ValidateResult(new List<string> { "w-XML#30;" }, "GetConcatenatedValueTraversal");
 
             result.Should().BeEquivalentTo("Davey-Medium");
+        }
+
+        [Fact]
+        public void GetMutatedValueTraversalEmpty()
+        {
+            var subject = new GetMutatedValueTraversal(null, null);
+
+            List<Information> information = new Action(() => { subject.GetValue(null); }).Observe();
+
+            information.ValidateResult(new List<string> { "e-GetMutatedValueTraversal#1;", "e-GetMutatedValueTraversal#2;" }, "Empty");
+        }
+
+        [Fact]
+        public void GetMutatedValueTraversal()
+        {
+            var subject = new GetMutatedValueTraversal(
+                new GetStaticValueTraversal("test"),
+                new PlaceholderValueMutation("({0})")
+            );
+
+            string result = null;
+            List<Information> information = new Action(() => { result = subject.GetValue(null); }).Observe();
+
+            information.ValidateResult(new List<string>(), "GetMutatedValueTraversal");
+
+            result.Should().BeEquivalentTo("(test)");
+        }
+
+        [Fact]
+        public void SetMutatedValueTraversalEmpty()
+        {
+            var subject = new SetMutatedValueTraversal(null, null);
+
+            List<Information> information = new Action(() => { subject.SetValue(null, null, null); }).Observe();
+
+            information.ValidateResult(new List<string> { "e-SetMutatedValueTraversal#1;", "e-SetMutatedValueTraversal#2;" }, "Empty");
+        }
+
+        [Fact]
+        public void SetMutatedValueTraversal()
+        {
+            var subject = new SetMutatedValueTraversal(
+                new XmlSetThisValueTraversal(),
+                new PlaceholderValueMutation("({0})")
+            );
+            object context = XmlCases.Xml.CreateTarget(ContextType.TestObject);
+
+            var traversal = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem[@Id='1']/Name");
+            AdaptableMapper.Traversals.Template name = traversal.GetTemplate(context, new MappingCaches());
+
+            var setContext = new Context(null, name.Child);
+
+            List<Information> result = new Action(() => { subject.SetValue(setContext, null, "Test"); }).Observe();
+            result.ValidateResult(new List<string>(), "Valid");
+
+            string value = new XmlGetThisValueTraversal().GetValue(new Context(setContext.Target, null));
+
+            value.Should().BeEquivalentTo("(Test)");
         }
     }
 }

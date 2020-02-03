@@ -299,7 +299,7 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
                     new List<DictionaryReplaceValueMutation.ReplaceValue>
                     {
                         new DictionaryReplaceValueMutation.ReplaceValue
-                        { 
+                        {
                             ValueToReplace = "value3",
                             NewValue = "SimpleItem"
                         }
@@ -312,10 +312,10 @@ namespace AdaptableMapper.TDD.Cases.XmlCases
 
             var mapping = new Mapping(
                 new XmlGetValueTraversal("/processing-instruction('thing')"),
-                new XmlSetValueTraversal("/processing-instruction('thing')")
-                {
-                    ValueMutation = listOfValueMutations
-                }
+                new SetMutatedValueTraversal(
+                    new XmlSetValueTraversal("/processing-instruction('thing')"),
+                    listOfValueMutations
+                )
             );
 
             var context = new Context(

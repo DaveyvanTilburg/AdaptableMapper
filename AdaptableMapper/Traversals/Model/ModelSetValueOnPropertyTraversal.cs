@@ -4,7 +4,7 @@ using AdaptableMapper.Model;
 
 namespace AdaptableMapper.Traversals.Model
 {
-    public sealed class ModelSetValueOnPropertyTraversal : SetMutableValueTraversal, ResolvableByTypeId
+    public sealed class ModelSetValueOnPropertyTraversal : SetValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "12151374-07cd-4a74-93e3-550e69ce61c0";
         public string TypeId => _typeId;
@@ -17,7 +17,7 @@ namespace AdaptableMapper.Traversals.Model
 
         public string PropertyName { get; set; }
 
-        protected override void SetValueImplementation(Context context, MappingCaches mappingCaches, string value)
+        public void SetValue(Context context, MappingCaches mappingCaches, string value)
         {
             if (!(context.Target is ModelBase model))
             {

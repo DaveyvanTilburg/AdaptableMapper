@@ -5,7 +5,7 @@ using AdaptableMapper.Xml;
 
 namespace AdaptableMapper.Traversals.Xml
 {
-    public sealed class XmlSetGeneratedIdValueTraversal : SetMutableValueTraversal, ResolvableByTypeId
+    public sealed class XmlSetGeneratedIdValueTraversal : SetValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "907c1a97-cee0-4616-b986-c8a00fdec422";
         public string TypeId => _typeId;
@@ -21,7 +21,7 @@ namespace AdaptableMapper.Traversals.Xml
         public bool SetAsCData { get; set; }
         public int StartingNumber { get; set; }
 
-        protected override void SetValueImplementation(Context context, MappingCaches mappingCaches, string value)
+        public void SetValue(Context context, MappingCaches mappingCaches, string value)
         {
             if (!(context.Target is XElement xElement))
             {
