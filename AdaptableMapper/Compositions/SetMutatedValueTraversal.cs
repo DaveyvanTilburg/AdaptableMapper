@@ -35,7 +35,7 @@ namespace AdaptableMapper.Compositions
 
             if (SetValueTraversal == null)
             {
-                Process.ProcessObservable.GetInstance().Raise($"SetMutatedValueTraversal#1; {nameof(GetValueTraversal)} cannot be null", "error");
+                Process.ProcessObservable.GetInstance().Raise($"SetMutatedValueTraversal#1; {nameof(SetValueTraversal)} cannot be null", "error");
                 result = false;
             }
 
