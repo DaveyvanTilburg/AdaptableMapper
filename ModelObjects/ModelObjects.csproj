@@ -65,9 +65,9 @@
     <Compile Include="Simple\SimpleItem.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AdaptableMapper\AdaptableMapper.csproj">
+    <ProjectReference Include="..\MappingFramework\MappingFramework.csproj">
       <Project>{67899dec-ec73-4a4b-8e12-6915045573ce}</Project>
-      <Name>AdaptableMapper</Name>
+      <Name>MappingFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

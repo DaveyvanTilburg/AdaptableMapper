@@ -1,4 +1,4 @@
-﻿using AdaptableMapper.Model;
+﻿using MappingFramework.Model;
 
 namespace ModelObjects.Armies
 {
