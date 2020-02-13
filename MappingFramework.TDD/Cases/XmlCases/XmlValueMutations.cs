@@ -19,7 +19,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
         [InlineData("TranslateDateTime", "./test", "2019-12-01T00:00:10Z", XmlInterpretation.Default, "yyyy/MM/dd", "2019/12/01")]
         public void XmlSetValueTraversalWithDateFormatter(string because, string path, string value, XmlInterpretation xmlInterpretation, string formatTemplate, string expectedResult, params string[] expectedErrors)
         {
-            ValueMutation valueMutation = new DateValueMutation(formatTemplate);
+            ValueMutation valueMutation = new DateValueMutation { FormatTemplate = formatTemplate };
             var subject = new SetMutatedValueTraversal(new XmlSetValueTraversal(path) { XmlInterpretation = xmlInterpretation }, valueMutation);
             var context = new Context(null, XElement.Parse("<root><test></test></root>"));
 

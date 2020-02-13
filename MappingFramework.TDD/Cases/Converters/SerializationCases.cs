@@ -419,7 +419,7 @@ namespace MappingFramework.TDD.Cases.Converters
             yield return new object[]
             {
                 typeof(ValueMutation),
-                new DateValueMutation("d")
+                new DateValueMutation { FormatTemplate = "d"}
             };
             yield return new object[]
             {
@@ -438,7 +438,7 @@ namespace MappingFramework.TDD.Cases.Converters
                     new List<ValueMutation>
                     {
                         new NumberValueMutation(",", 2),
-                        new DateValueMutation("y")
+                        new DateValueMutation { FormatTemplate = "d"}
                     }
                 )
             };

@@ -14,16 +14,22 @@ namespace MappingFramework.TDD.Cases.ValueMutations
     public class ValueMutationsCases
     {
         [Theory]
-        [InlineData("InvalidDateTime", "", "test", "", "w-DateValueMutation#1;")]
-        [InlineData("ValidDate", "yyyy/MM/dd", "2019-12-01T00:00:00", "2019/12/01")]
-        [InlineData("ValidDate", "yyyy|MM|dd", "2019/12/19T00:00:00", "2019|12|19")]
-        [InlineData("ValidDateISO", "o", "2019-12-01T00:00:00", "2019-12-01T00:00:00.0000000")]
-        [InlineData("StrangeFormatTemplate1", "&#$#$", "2019-12-01T00:00:00", "&#$#$")]
-        [InlineData("StrangeFormatTemplate2", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{", "2019-12-01T00:00:00", "2019-12-01T00:00:00", "e-DateValueMutation#2;")]
-        [InlineData("StrangeFormatTemplate3", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{\"", "2019-12-01T00:00:00", "2019345789aw19AUJI0SEU0#&*$Sunday12::{:{")]
-        public void DateValueMutation(string because, string formatTemplate, string value, string expectedResult, params string[] expectedInformation)
+        [InlineData("InvalidDateTime", "", "", "test", "", "w-DateValueMutation#1;")]
+        [InlineData("ValidDate", "yyyy/MM/dd", "", "2019-12-01T00:00:00", "2019/12/01")]
+        [InlineData("ValidDate", "yyyy|MM|dd", "", "2019/12/19T00:00:00", "2019|12|19")]
+        [InlineData("ValidDateISO", "o", "", "2019-12-01T00:00:00", "2019-12-01T00:00:00.0000000")]
+        [InlineData("S", "s", "", "2019-12-01T00:00:00", "2019-12-01T00:00:00")]
+        [InlineData("StrangeFormatTemplate1", "&#$#$", "", "2019-12-01T00:00:00", "&#$#$")]
+        [InlineData("StrangeFormatTemplate2", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{", "", "2019-12-01T00:00:00", "2019-12-01T00:00:00", "e-DateValueMutation#2;")]
+        [InlineData("StrangeFormatTemplate3", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{\"", "", "2019-12-01T00:00:00", "2019345789aw19AUJI0SEU0#&*$Sunday12::{:{")]
+        [InlineData("ValidDateRead", "yyyy/MM/dd", "yyMMdd", "911230", "1991/12/30")]
+        [InlineData("ValidDateInvalidRead", "yyyy/MM/dd", "yyMdd", "91230", "911230", "w-DateValueMutation#3;")]
+        [InlineData("ValidDateDirectRead", "yyyy/MM/dd", "", "2019-12-01T00:00:00", "2019/12/01")]
+        [InlineData("ValidDateDirectReadWrite", "", "", "2019-12-01", "2019-12-01T00:00:00")]
+
+        public void DateValueMutation(string because, string formatTemplate, string readFormatTemplate, string value, string expectedResult, params string[] expectedInformation)
         {
-            var subject = new DateValueMutation(formatTemplate);
+            var subject = new DateValueMutation { FormatTemplate = formatTemplate, ReadFormatTemplate = readFormatTemplate };
 
             string result = null;
             List<Information> information = new Action(() => { result = subject.Mutate(null, value); }).Observe();
