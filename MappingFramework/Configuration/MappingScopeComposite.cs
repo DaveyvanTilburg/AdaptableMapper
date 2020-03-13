@@ -43,7 +43,7 @@ namespace MappingFramework.Configuration
             foreach (object item in scope.Value)
             {
                 object newChild = ChildCreator.CreateChild(template);
-                Context childContext = new Context(source: item, target: newChild);
+                Context childContext = new Context(source: item, target: newChild, context.AdditionalSourceValues);
 
                 if (Condition != null && !Condition.Validate(childContext))
                     continue;

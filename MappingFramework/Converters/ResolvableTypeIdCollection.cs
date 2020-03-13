@@ -23,7 +23,7 @@ namespace MappingFramework.Converters
                 //Compositions
                 [GetNothingValueTraversal._typeId] = typeof(GetNothingValueTraversal),
                 [GetSearchValueTraversal._typeId] = typeof(GetSearchValueTraversal),
-                [GetStaticValueTraversal._typeId] = typeof(GetStaticValueTraversal),
+                [GetStaticValue._typeId] = typeof(GetStaticValue),
                 [GetValueTraversalDaysBetweenDates._typeId] = typeof(GetValueTraversalDaysBetweenDates),
                 [IfConditionThenAElseBGetValueTraversal._typeId] = typeof(IfConditionThenAElseBGetValueTraversal),
                 [GetNumberOfHits._typeId] = typeof(GetNumberOfHits),
@@ -33,6 +33,7 @@ namespace MappingFramework.Converters
                 [GetConcatenatedValueTraversal._typeId] = typeof(GetConcatenatedValueTraversal),
                 [GetMutatedValueTraversal._typeId] = typeof(GetMutatedValueTraversal),
                 [SetMutatedValueTraversal._typeId] = typeof(SetMutatedValueTraversal),
+                [GetAdditionalSourceValue._typeId] = typeof(GetAdditionalSourceValue),
 
                 //Conditions
                 [CompareCondition._typeId] = typeof(CompareCondition),

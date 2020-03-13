@@ -63,6 +63,7 @@ See https://github.com/DaveyvanTilburg/MappingFramework/ for documentation
       - Added GetConcatenatedValueTraversal
       - Added GetConditionedListValueTraversal
       - Switched to the decorator pattern for value mutations
+      - Add concept of additionalSources to the context
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

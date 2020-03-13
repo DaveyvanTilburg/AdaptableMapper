@@ -98,12 +98,12 @@ namespace MappingFramework.TDD.Cases.ValueMutations
         public void ReplaceValueMutation(string because, string valueToReplace, string newValue, string value, string expectedResult, params string[] expectedInformation)
         {
             var subject = new ReplaceValueMutation(
-                new GetStaticValueTraversal(valueToReplace), 
-                new GetStaticValueTraversal(newValue)
+                new GetStaticValue(valueToReplace),
+                new GetStaticValue(newValue)
             );
 
             string result = null;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), value); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), value); }).Observe();
 
             information.ValidateResult(new List<string>(expectedInformation), because);
             if (expectedInformation.Length == 0)
@@ -116,11 +116,11 @@ namespace MappingFramework.TDD.Cases.ValueMutations
         public void ReplaceValueMutationNullsChecks(bool shouldCreateGetValueStringTraversal, bool shouldCreateGetValueTraversal, params string[] expectedErrorCodes)
         {
             var subject = new ReplaceValueMutation(
-                shouldCreateGetValueStringTraversal ? new GetStaticValueTraversal(string.Empty) : null,
-                shouldCreateGetValueTraversal ? new GetStaticValueTraversal(string.Empty) : null
+                shouldCreateGetValueStringTraversal ? new GetStaticValue(string.Empty) : null,
+                shouldCreateGetValueTraversal ? new GetStaticValue(string.Empty) : null
             );
 
-            List<Information> information = new Action(() => { subject.Mutate(new Context(null, null), string.Empty); }).Observe();
+            List<Information> information = new Action(() => { subject.Mutate(new Context(null, null, null), string.Empty); }).Observe();
 
             information.ValidateResult(new List<string>(expectedErrorCodes), "should check nulls");
         }
@@ -149,7 +149,7 @@ namespace MappingFramework.TDD.Cases.ValueMutations
             );
 
             string result = null;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), value); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), value); }).Observe();
 
             information.ValidateResult(new List<string>(expectedInformation), because);
             if (expectedInformation.Length == 0)
@@ -186,7 +186,7 @@ namespace MappingFramework.TDD.Cases.ValueMutations
             };
 
             string result = null;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), value); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), value); }).Observe();
 
             information.ValidateResult(new List<string>(expectedInformation), because);
 
@@ -204,7 +204,7 @@ namespace MappingFramework.TDD.Cases.ValueMutations
             );
 
             string result = null;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), value); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), value); }).Observe();
 
             information.ValidateResult(new List<string>(expectedInformation), because);
 
@@ -215,7 +215,7 @@ namespace MappingFramework.TDD.Cases.ValueMutations
         public void SubstringValueMutationNotSet()
         {
             var subject = new SubstringValueMutation(null);
-            List<Information> information = new Action(() => { subject.Mutate(new Context(null, null), ""); }).Observe();
+            List<Information> information = new Action(() => { subject.Mutate(new Context(null, null, null), ""); }).Observe();
             information.ValidateResult(new List<string> { "e-SubstringValueMutation#1;" });
         }
 
@@ -226,7 +226,7 @@ namespace MappingFramework.TDD.Cases.ValueMutations
                 new List<DictionaryReplaceValueMutation.ReplaceValue>()
             );
 
-            List<Information> information = new Action(() => { subject.Mutate(new Context(null, null), string.Empty); }).Observe();
+            List<Information> information = new Action(() => { subject.Mutate(new Context(null, null, null), string.Empty); }).Observe();
 
             information.ValidateResult(new List<string> { "e-DictionaryReplaceValueMutation#1;" });
         }
@@ -241,7 +241,7 @@ namespace MappingFramework.TDD.Cases.ValueMutations
             var subject = new CreateSeparatedRangeFromNumberValueMutation(separator) { StartingNumber = startingNumber };
 
             string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), input); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), input); }).Observe();
 
             information.ValidateResult(new List<string>(expectedErrorCodes));
             if (expectedErrorCodes.Length == 0)
@@ -258,7 +258,7 @@ namespace MappingFramework.TDD.Cases.ValueMutations
             var subject = new ToUpperValueMutation();
 
             string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), input); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), input); }).Observe();
 
             information.Count.Should().Be(0);
             result.Should().Be(expectedResult);
@@ -274,7 +274,7 @@ namespace MappingFramework.TDD.Cases.ValueMutations
             var subject = new ToLowerValueMutation();
 
             string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), input); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), input); }).Observe();
 
             information.Count.Should().Be(0);
             result.Should().Be(expectedResult);
@@ -290,7 +290,7 @@ namespace MappingFramework.TDD.Cases.ValueMutations
             var subject = new PlaceholderValueMutation(placeholder);
 
             string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), input); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), input); }).Observe();
 
             information.Count.Should().Be(0);
             result.Should().Be(expectedResult);
@@ -305,7 +305,7 @@ namespace MappingFramework.TDD.Cases.ValueMutations
             var subject = new TrimValueMutation(characters);
 
             string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null), input); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), input); }).Observe();
 
             information.Count.Should().Be(0);
             result.Should().Be(expectedResult);

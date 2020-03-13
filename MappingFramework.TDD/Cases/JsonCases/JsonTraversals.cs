@@ -19,7 +19,7 @@ namespace MappingFramework.TDD.Cases.JsonCases
         public void JsonGetScopeTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonGetListValueTraversal(path);
-            Context context = new Context(Json.CreateTarget(contextType), null);
+            Context context = new Context(Json.CreateTarget(contextType), null, null);
             List<Information> result = new Action(() => { subject.GetValues(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -32,7 +32,7 @@ namespace MappingFramework.TDD.Cases.JsonCases
         public void JsonSetValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonSetValueTraversal(path);
-            var context = new Context(null, Json.CreateTarget(contextType));
+            var context = new Context(null, Json.CreateTarget(contextType), null);
             List<Information> result = new Action(() => { subject.SetValue(context, null, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -43,7 +43,7 @@ namespace MappingFramework.TDD.Cases.JsonCases
             JToken target = JToken.Parse(JsonConvert.SerializeObject(new SimpleItem()));
 
             var subject = new JsonSetValueTraversal(".Title");
-            var context = new Context(null, target);
+            var context = new Context(null, target, null);
             List<Information> result = new Action(() => { subject.SetValue(context, null, "test"); }).Observe();
             result.Should().BeEmpty();
 
@@ -57,7 +57,7 @@ namespace MappingFramework.TDD.Cases.JsonCases
         public void JsonGetValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new JsonGetValueTraversal(path);
-            var context = new Context(Json.CreateTarget(contextType), null);
+            var context = new Context(Json.CreateTarget(contextType), null, null);
             List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }

@@ -19,7 +19,7 @@ namespace MappingFramework.TDD.Cases.ModelCases
         public void ModelGetScopeTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
             var subject = new ModelGetListValueTraversal(path);
-            Context context = new Context(Model.CreateTarget(contextType, createType), null);
+            Context context = new Context(Model.CreateTarget(contextType, createType), null, null);
             List<Information> result = new Action(() => { subject.GetValues(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -31,7 +31,7 @@ namespace MappingFramework.TDD.Cases.ModelCases
         public void ModelGetValueTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
             var subject = new ModelGetValueTraversal(path);
-            var context = new Context(Model.CreateTarget(contextType, createType), null);
+            var context = new Context(Model.CreateTarget(contextType, createType), null, null);
             List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -43,7 +43,7 @@ namespace MappingFramework.TDD.Cases.ModelCases
             object context = Model.CreateTarget(ContextType.TestObject, "item");
             var subItem = ((ModelObjects.Simple.Item)context).Items[0];
 
-            List<Information> result = new Action(() => { subject.GetValue(new Context(subItem, null)); }).Observe();
+            List<Information> result = new Action(() => { subject.GetValue(new Context(subItem, null, null)); }).Observe();
             result.ValidateResult(new List<string>(), "HasParent");
         }
 
@@ -55,7 +55,7 @@ namespace MappingFramework.TDD.Cases.ModelCases
         public void ModelSetValueOnPathTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
             var subject = new ModelSetValueOnPathTraversal(path);
-            var context = new Context(null, Model.CreateTarget(contextType, createType));
+            var context = new Context(null, Model.CreateTarget(contextType, createType), null);
             List<Information> result = new Action(() => { subject.SetValue(context, null, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -65,7 +65,7 @@ namespace MappingFramework.TDD.Cases.ModelCases
         public void ModelSetValueOnPropertyTraversal(string because, string path, ContextType contextType, string createType, params string[] expectedErrors)
         {
             var subject = new ModelSetValueOnPropertyTraversal(path);
-            var context = new Context(null, Model.CreateTarget(contextType, createType));
+            var context = new Context(null, Model.CreateTarget(contextType, createType), null);
             List<Information> result = new Action(() => { subject.SetValue(context, null, string.Empty); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }

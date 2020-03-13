@@ -117,7 +117,7 @@ namespace MappingFramework.TDD
                 Condition = new CompareCondition(
                     new Traversals.Xml.XmlGetValueTraversal("./@deployed"), 
                     CompareOperator.Equals, 
-                    new Compositions.GetStaticValueTraversal("True"))
+                    new Compositions.GetStaticValue("True"))
             };
 
             var scopes = new List<MappingScopeComposite>

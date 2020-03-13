@@ -1,9 +1,12 @@
-﻿namespace MappingFramework.Configuration
+﻿using System.Collections.Generic;
+
+namespace MappingFramework.Configuration
 {
     public class ContextFactory
     {
         public ObjectConverter ObjectConverter { get; set; }
         public TargetInstantiator TargetInstantiator { get; set; }
+        public List<AdditionalSource> AdditionalSources { get; set; }
 
         public ContextFactory(ObjectConverter objectConverter, TargetInstantiator targetInstantiator)
         {
@@ -11,12 +14,29 @@
             TargetInstantiator = targetInstantiator;
         }
 
-        internal Context Create(object input, object targetSource)
+        public ContextFactory(ObjectConverter objectConverter, TargetInstantiator targetInstantiator, List<AdditionalSource> additionalSources)
+        {
+            ObjectConverter = objectConverter;
+            TargetInstantiator = targetInstantiator;
+            AdditionalSources = additionalSources;
+        }
+
+        public Context Create(object input, object targetSource)
         {
             if (!Validate())
-                return new Context(null, null);
+                return new Context(null, null, null);
 
-            return new Context(source: ObjectConverter.Convert(input), target: TargetInstantiator.Create(targetSource));
+            var additionalSourceValues = new AdditionalSourceValues();
+            if (AdditionalSources != null)
+            {
+                foreach (AdditionalSource additionalSource in AdditionalSources)
+                    additionalSourceValues.AddAdditionalSource(additionalSource);
+            }
+
+            return new Context(
+                ObjectConverter.Convert(input),
+                TargetInstantiator.Create(targetSource),
+                additionalSourceValues);
         }
 
         private bool Validate()
@@ -25,13 +45,13 @@
 
             if (ObjectConverter == null)
             {
-                Process.ProcessObservable.GetInstance().Raise("TREE#3; ObjectConverter cannot be null", "error"); 
+                Process.ProcessObservable.GetInstance().Raise("TREE#3; ObjectConverter cannot be null", "error");
                 result = false;
             }
 
             if (TargetInstantiator == null)
             {
-                Process.ProcessObservable.GetInstance().Raise("TREE#4; TargetInstantiator cannot be null", "error"); 
+                Process.ProcessObservable.GetInstance().Raise("TREE#4; TargetInstantiator cannot be null", "error");
                 result = false;
             }
 

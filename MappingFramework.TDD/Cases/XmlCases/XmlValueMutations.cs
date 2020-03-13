@@ -21,7 +21,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
         {
             ValueMutation valueMutation = new DateValueMutation { FormatTemplate = formatTemplate };
             var subject = new SetMutatedValueTraversal(new XmlSetValueTraversal(path) { XmlInterpretation = xmlInterpretation }, valueMutation);
-            var context = new Context(null, XElement.Parse("<root><test></test></root>"));
+            var context = new Context(null, XElement.Parse("<root><test></test></root>"), null);
 
             List<Information> information = new Action(() => { subject.SetValue(context, null, value); }).Observe();
 

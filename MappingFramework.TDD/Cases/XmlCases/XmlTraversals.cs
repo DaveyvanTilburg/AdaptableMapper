@@ -27,7 +27,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
         public void XmlGetListValueTraversal(string because, string path, ContextType contextType, params string[] expectedErrors)
         {
             var subject = new XmlGetListValueTraversal(path) { XmlInterpretation = XmlInterpretation.Default };
-            Context context = new Context(Xml.CreateTarget(contextType), null);
+            Context context = new Context(Xml.CreateTarget(contextType), null, null);
             List<Information> result = new Action(() => { subject.GetValues(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -36,7 +36,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
         public void XmlGetThisValueTraversalInvalidType()
         {
             var subject = new XmlGetThisValueTraversal();
-            var context = new Context(null, Xml.CreateTarget(ContextType.EmptyString));
+            var context = new Context(null, Xml.CreateTarget(ContextType.EmptyString), null);
             List<Information> result = new Action(() => { subject.GetValue(context); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#16;" }, "InvalidType");
         }
@@ -48,10 +48,10 @@ namespace MappingFramework.TDD.Cases.XmlCases
             object context = Xml.CreateTarget(ContextType.TestObject);
 
             var traversal = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem[@Id='1']/Name");
-            MappingFramework.Traversals.Template name = traversal.GetTemplate(context, new MappingCaches());
+            Template name = traversal.GetTemplate(context, new MappingCaches());
 
             string value = string.Empty;
-            List<Information> result = new Action(() => { value = subject.GetValue(new Context(name.Child, null)); }).Observe();
+            List<Information> result = new Action(() => { value = subject.GetValue(new Context(name.Child, null, null)); }).Observe();
             result.ValidateResult(new List<string>(), "Valid");
 
             value.Should().BeEquivalentTo("Davey");
@@ -74,7 +74,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
         public void XmlGetValueTraversal(string because, string path, ContextType contextType, XmlInterpretation xmlInterpretation, string expectedValue, params string[] expectedErrors)
         {
             var subject = new XmlGetValueTraversal(path) { XmlInterpretation = xmlInterpretation };
-            var context = new Context(Xml.CreateTarget(contextType), null);
+            var context = new Context(Xml.CreateTarget(contextType), null, null);
 
             string value = null;
             List<Information> result = new Action(() => { value = subject.GetValue(context); }).Observe();
@@ -89,7 +89,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
         public void XmlSetThisValueTraversal()
         {
             var subject = new XmlSetThisValueTraversal();
-            var context = new Context(null, Xml.CreateTarget(ContextType.EmptyString));
+            var context = new Context(null, Xml.CreateTarget(ContextType.EmptyString), null);
             List<Information> result = new Action(() => { subject.SetValue(context, null, string.Empty); }).Observe();
             result.ValidateResult(new List<string> { "e-XML#20;" }, "InvalidType");
         }
@@ -101,14 +101,14 @@ namespace MappingFramework.TDD.Cases.XmlCases
             object context = Xml.CreateTarget(ContextType.TestObject);
 
             var traversal = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem[@Id='1']/Name");
-            MappingFramework.Traversals.Template name = traversal.GetTemplate(context, new MappingCaches());
+            Template name = traversal.GetTemplate(context, new MappingCaches());
 
-            var setContext = new Context(null, name.Child);
+            var setContext = new Context(null, name.Child, null);
 
             List<Information> result = new Action(() => { subject.SetValue(setContext, null, "Test"); }).Observe();
             result.ValidateResult(new List<string>(), "Valid");
 
-            string value = new XmlGetThisValueTraversal().GetValue(new Context(setContext.Target, null));
+            string value = new XmlGetThisValueTraversal().GetValue(new Context(setContext.Target, null, null));
 
             value.Should().BeEquivalentTo("Test");
         }
@@ -120,7 +120,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
         public void XmlSetValueTraversal(string because, string path, string value, ContextType contextType, XmlInterpretation xmlInterpretation, string expectedResultPath, params string[] expectedErrors)
         {
             var subject = new XmlSetValueTraversal(path) { XmlInterpretation = xmlInterpretation };
-            var context = new Context(null, Xml.CreateTarget(contextType));
+            var context = new Context(null, Xml.CreateTarget(contextType), null);
 
             List<Information> result = new Action(() => { subject.SetValue(context, null, value); }).Observe();
 
@@ -139,11 +139,11 @@ namespace MappingFramework.TDD.Cases.XmlCases
         public void XmlSetValueTraversalOnAttributes()
         {
             var subject = new XmlSetValueTraversal("//SimpleItems/SimpleItem/@Id") { XmlInterpretation = XmlInterpretation.Default };
-            var context = new Context(null, Xml.CreateTarget(ContextType.TestObject));
+            var context = new Context(null, Xml.CreateTarget(ContextType.TestObject), null);
 
             List<Information> result = new Action(() => { subject.SetValue(context, null, "3"); }).Observe();
 
-            string value = new XmlGetValueTraversal("//SimpleItems/SimpleItem[@Id='3']/Name").GetValue(new Context(context.Target, null));
+            string value = new XmlGetValueTraversal("//SimpleItems/SimpleItem[@Id='3']/Name").GetValue(new Context(context.Target, null, null));
             value.Should().BeEquivalentTo("Davey");
         }
 
@@ -153,7 +153,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
             var target = XDocument.Load("./Resources/XmlCData/CDataTemplate.xml").Root;
             var subject = new XmlSetValueTraversal("./item") { SetAsCData = true };
 
-            subject.SetValue(new Context(null, target), null, "Test");
+            subject.SetValue(new Context(null, target, null), null, "Test");
 
             var expectedResult = System.IO.File.ReadAllText("./Resources/XmlCData/CDataExpectedResult.xml");
             var result = new XElementToStringObjectConverter().Convert(target);
@@ -170,7 +170,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
 
             var subject = new XmlSetThisValueTraversal { SetAsCData = true };
 
-            subject.SetValue(new Context(null, target), null, "Test");
+            subject.SetValue(new Context(null, target, null), null, "Test");
 
             var expectedResult = System.IO.File.ReadAllText("./Resources/XmlCData/CDataExpectedResult.xml");
             var result = new XElementToStringObjectConverter().Convert(target);
@@ -197,7 +197,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
         {
             var subject = new XmlSetGeneratedIdValueTraversal("") { XmlInterpretation = XmlInterpretation.Default, SetAsCData = false };
 
-            List<Information> information = new Action(() => { subject.SetValue(new Context(null, 1), null, ""); }).Observe();
+            List<Information> information = new Action(() => { subject.SetValue(new Context(null, 1, null), null, ""); }).Observe();
             information.ValidateResult(new List<string> { "e-XmlSetGeneratedIdValueTraversal#1;" });
         }
 
@@ -218,7 +218,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
             );
 
             string result = null;
-            List<Information> information = new Action(() => { result = subject.GetValue(new Context(source, null)); }).Observe();
+            List<Information> information = new Action(() => { result = subject.GetValue(new Context(source, null, null)); }).Observe();
             information.ValidateResult(new List<string> { "e-XML#28;", "w-XML#5;", "w-XML#5;" });
 
             result.Should().BeEquivalentTo("6");
@@ -320,7 +320,8 @@ namespace MappingFramework.TDD.Cases.XmlCases
 
             var context = new Context(
                 XDocument.Parse(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstruction.xml")).Root,
-                XDocument.Parse(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstructionTemplate.xml")).Root
+                XDocument.Parse(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstructionTemplate.xml")).Root,
+                null
             );
 
             List<Information> result = new Action(() => { mapping.Map(context, null); }).Observe();

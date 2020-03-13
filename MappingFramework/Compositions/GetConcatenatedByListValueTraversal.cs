@@ -38,7 +38,7 @@ namespace MappingFramework.Compositions
             var resultParts = new List<string>();
             foreach (object value in values.Value)
             {
-                string resultPart = GetValueTraversal.GetValue(new Context(value, context.Target));
+                string resultPart = GetValueTraversal.GetValue(new Context(value, context.Target, context.AdditionalSourceValues));
                 resultParts.Add(resultPart);
             }
 

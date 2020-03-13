@@ -118,8 +118,8 @@ namespace MappingFramework.TDD.Cases.Converters
             {
                 typeof(GetValueTraversal),
                 new GetSearchValueTraversal(
-                    new GetStaticValueTraversal("1"),
-                    new GetStaticValueTraversal("2")
+                    new GetStaticValue("1"),
+                    new GetStaticValue("2")
                 )
             };
             yield return new object[]
@@ -127,20 +127,20 @@ namespace MappingFramework.TDD.Cases.Converters
                 typeof(GetListValueTraversal),
                 new GetListSearchValueTraversal(
                     new XmlGetListValueTraversal("path"),
-                    new GetStaticValueTraversal("1")
+                    new GetStaticValue("1")
                 )
             };
             yield return new object[]
             {
                 typeof(GetValueTraversal),
-                new GetStaticValueTraversal("1")
+                new GetStaticValue("1")
             };
             yield return new object[]
             {
                 typeof(GetValueTraversal),
                 new GetValueTraversalDaysBetweenDates(
-                    new GetStaticValueTraversal("1"),
-                    new GetStaticValueTraversal("2")
+                    new GetStaticValue("1"),
+                    new GetStaticValue("2")
                 )
             };
             yield return new object[]
@@ -148,12 +148,12 @@ namespace MappingFramework.TDD.Cases.Converters
                 typeof(GetValueTraversal),
                 new IfConditionThenAElseBGetValueTraversal(
                     new CompareCondition(
-                        new GetStaticValueTraversal("1"),
+                        new GetStaticValue("1"),
                         CompareOperator.Equals,
-                        new GetStaticValueTraversal("2")
+                        new GetStaticValue("2")
                     ),
-                    new GetStaticValueTraversal("3"),
-                    new GetStaticValueTraversal("4")
+                    new GetStaticValue("3"),
+                    new GetStaticValue("4")
                 )
             };
             yield return new object[]
@@ -162,7 +162,7 @@ namespace MappingFramework.TDD.Cases.Converters
                 new GetConditionedListValueTraversal(
                     new GetListSearchValueTraversal(
                         new XmlGetListValueTraversal("path"),
-                        new GetStaticValueTraversal("1")
+                        new GetStaticValue("1")
                     ),
                     new NotEmptyCondition()
                 )
@@ -173,9 +173,9 @@ namespace MappingFramework.TDD.Cases.Converters
                 new GetConcatenatedByListValueTraversal(
                     new GetListSearchValueTraversal(
                         new XmlGetListValueTraversal("path"),
-                        new GetStaticValueTraversal("1")
+                        new GetStaticValue("1")
                     ),
-                    new GetStaticValueTraversal("2"),
+                    new GetStaticValue("2"),
                     "-"
                 )
             };
@@ -195,7 +195,7 @@ namespace MappingFramework.TDD.Cases.Converters
             {
                 typeof(GetValueTraversal),
                 new GetMutatedValueTraversal(
-                    new GetStaticValueTraversal("test"),
+                    new GetStaticValue("test"),
                     new TrimValueMutation()
                 )
             };
@@ -207,15 +207,23 @@ namespace MappingFramework.TDD.Cases.Converters
                     new TrimValueMutation()
                 )
             };
+            yield return new object[]
+            {
+                typeof(GetValueTraversal),
+                new GetAdditionalSourceValue(
+                    new GetStaticValue("A"),
+                    new GetStaticValue("B")
+                )
+            };
 
             //Conditions
             yield return new object[]
             {
                 typeof(Condition),
                 new CompareCondition(
-                    new GetStaticValueTraversal("1"),
+                    new GetStaticValue("1"),
                     CompareOperator.Equals,
-                    new GetStaticValueTraversal("2")
+                    new GetStaticValue("2")
                 )
             };
             yield return new object[]
@@ -226,14 +234,14 @@ namespace MappingFramework.TDD.Cases.Converters
                     new List<Condition>
                     {
                         new CompareCondition(
-                            new GetStaticValueTraversal("1"),
+                            new GetStaticValue("1"),
                             CompareOperator.Equals,
-                            new GetStaticValueTraversal("2")
+                            new GetStaticValue("2")
                         ),
                         new CompareCondition(
-                            new GetStaticValueTraversal("1"),
+                            new GetStaticValue("1"),
                             CompareOperator.Equals,
-                            new GetStaticValueTraversal("2")
+                            new GetStaticValue("2")
                         )
                     }
                 )
@@ -457,7 +465,7 @@ namespace MappingFramework.TDD.Cases.Converters
                 typeof(ValueMutation),
                 new ReplaceValueMutation(
                     new SplitByCharTakePositionStringTraversal('c', 1),
-                    new GetStaticValueTraversal("1")
+                    new GetStaticValue("1")
                 )
             };
             yield return new object[]

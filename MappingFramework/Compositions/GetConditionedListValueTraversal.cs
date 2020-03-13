@@ -47,11 +47,11 @@ namespace MappingFramework.Compositions
                 return values;
 
             if (Condition != null)
-                values = new MethodResult<IEnumerable<object>>(values.Value.Where(v => Condition.Validate(new Context(v, context.Target))));
+                values = new MethodResult<IEnumerable<object>>(values.Value.Where(v => Condition.Validate(new Context(v, context.Target, context.AdditionalSourceValues))));
 
             if (DistinctByGetValueTraversal != null)
                 values = new MethodResult<IEnumerable<object>>(
-                    values.Value.GroupBy(e => DistinctByGetValueTraversal.GetValue(new Context(e, context.Target)))
+                    values.Value.GroupBy(e => DistinctByGetValueTraversal.GetValue(new Context(e, context.Target, context.AdditionalSourceValues)))
                     .Select(e => e.First())
                     .ToList());
 

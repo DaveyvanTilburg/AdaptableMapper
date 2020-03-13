@@ -9,6 +9,7 @@ using MappingFramework.Process;
 using MappingFramework.Traversals;
 using MappingFramework.Traversals.Xml;
 using FluentAssertions;
+using MappingFramework.Traversals.Json;
 using Moq;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -44,7 +45,7 @@ namespace MappingFramework.TDD.Cases.Conditions
                 Condition = condition.Object
             };
 
-            subject.Traverse(new Context(null, null), new MappingCaches());
+            subject.Traverse(new Context(null, null, null), new MappingCaches());
 
             childCreator.Verify(c => c.AddToParent(It.IsAny<Template>(), It.IsAny<object>()), Times.Once);
         }
@@ -71,10 +72,10 @@ namespace MappingFramework.TDD.Cases.Conditions
         [InlineData("abcd", CompareOperator.Contains, "e", false)]
         public void CompareConditionStatics(string valueA, CompareOperator compareOperator, string valueB, bool expectedResult, params string[] expectedErrors)
         {
-            var subject = new CompareCondition(new GetStaticValueTraversal(valueA), compareOperator, new GetStaticValueTraversal(valueB));
+            var subject = new CompareCondition(new GetStaticValue(valueA), compareOperator, new GetStaticValue(valueB));
 
             bool result = false;
-            List<Information> information = new Action(() => { result = subject.Validate(new Context(null, null)); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Validate(new Context(null, null, null)); }).Observe();
 
             information.ValidateResult(new List<string>(expectedErrors));
             result.Should().Be(expectedResult);
@@ -88,12 +89,12 @@ namespace MappingFramework.TDD.Cases.Conditions
             var source = XElement.Parse(System.IO.File.ReadAllText("./Resources/Simple.xml"));
 
             var condition = new CompareCondition(
-                new MappingFramework.Traversals.Xml.XmlGetValueTraversal("//SimpleItems/SimpleItem[@Id='1']/Name"),
+                new XmlGetValueTraversal("//SimpleItems/SimpleItem[@Id='1']/Name"),
                 CompareOperator.Equals,
-                new GetStaticValueTraversal(staticValue)
+                new GetStaticValue(staticValue)
                 );
 
-            condition.Validate(new Context(source, null)).Should().Be(expectedResult, because);
+            condition.Validate(new Context(source, null, null)).Should().Be(expectedResult, because);
         }
 
         [Theory]
@@ -105,12 +106,12 @@ namespace MappingFramework.TDD.Cases.Conditions
             var source = JObject.Parse(System.IO.File.ReadAllText("./Resources/Simple.json"));
 
             var condition = new CompareCondition(
-                new MappingFramework.Traversals.Json.JsonGetValueTraversal(sourcePath),
+                new JsonGetValueTraversal(sourcePath),
                 compareOperator,
-                new MappingFramework.Traversals.Json.JsonGetValueTraversal(targetPath)
+                new JsonGetValueTraversal(targetPath)
             );
 
-            condition.Validate(new Context(source, null)).Should().Be(expectedResult, because);
+            condition.Validate(new Context(source, null, null)).Should().Be(expectedResult, because);
         }
 
         [Fact]
@@ -120,7 +121,7 @@ namespace MappingFramework.TDD.Cases.Conditions
                 null, CompareOperator.Equals, null
             );
 
-            List<Information> information = new Action(() => { condition.Validate(new Context(1, null)); }).Observe();
+            List<Information> information = new Action(() => { condition.Validate(new Context(1, null, null)); }).Observe();
 
             information.ValidateResult(new List<string> { "e-CompareCondition#1;", "e-CompareCondition#2;" });
         }
@@ -138,11 +139,11 @@ namespace MappingFramework.TDD.Cases.Conditions
             bool expectedResult)
         {
             var subject = new ListOfConditions(listEvaluationOperator);
-            subject.Conditions.Add(new CompareCondition(new GetStaticValueTraversal(entry1ValueA), entry1CompareOperator, new GetStaticValueTraversal(entry1ValueB)));
-            subject.Conditions.Add(new CompareCondition(new GetStaticValueTraversal(entry2ValueA), entry2CompareOperator, new GetStaticValueTraversal(entry2ValueB)));
+            subject.Conditions.Add(new CompareCondition(new GetStaticValue(entry1ValueA), entry1CompareOperator, new GetStaticValue(entry1ValueB)));
+            subject.Conditions.Add(new CompareCondition(new GetStaticValue(entry2ValueA), entry2CompareOperator, new GetStaticValue(entry2ValueB)));
 
             bool result = false;
-            List<Information> information = new Action(() => { result = subject.Validate(new Context(string.Empty, string.Empty)); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Validate(new Context(string.Empty, string.Empty, null)); }).Observe();
 
             information.Count.Should().Be(0);
             result.Should().Be(expectedResult);
@@ -154,7 +155,7 @@ namespace MappingFramework.TDD.Cases.Conditions
             var subject = new ListOfConditions(ListEvaluationOperator.Any);
 
             bool result = false;
-            List<Information> information = new Action(() => { result = subject.Validate(new Context(string.Empty, string.Empty)); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Validate(new Context(string.Empty, string.Empty, null)); }).Observe();
 
             information.Count.Should().Be(1);
             information.Any(i => i.Message.StartsWith("ListOfConditions#1;")).Should().BeTrue();
@@ -166,16 +167,16 @@ namespace MappingFramework.TDD.Cases.Conditions
             var subject = new ListOfConditions(ListEvaluationOperator.All);
 
             var subSubject1 = new ListOfConditions(ListEvaluationOperator.All);
-            subSubject1.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.Equals, new GetStaticValueTraversal("0")));
-            subSubject1.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.NotEquals, new GetStaticValueTraversal("1")));
+            subSubject1.Conditions.Add(new CompareCondition(new GetStaticValue("0"), CompareOperator.Equals, new GetStaticValue("0")));
+            subSubject1.Conditions.Add(new CompareCondition(new GetStaticValue("0"), CompareOperator.NotEquals, new GetStaticValue("1")));
             subject.Conditions.Add(subSubject1);
 
             var subSubject2 = new ListOfConditions(ListEvaluationOperator.Any);
-            subSubject2.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.NotEquals, new GetStaticValueTraversal("0")));
-            subSubject2.Conditions.Add(new CompareCondition(new GetStaticValueTraversal("0"), CompareOperator.NotEquals, new GetStaticValueTraversal("1")));
+            subSubject2.Conditions.Add(new CompareCondition(new GetStaticValue("0"), CompareOperator.NotEquals, new GetStaticValue("0")));
+            subSubject2.Conditions.Add(new CompareCondition(new GetStaticValue("0"), CompareOperator.NotEquals, new GetStaticValue("1")));
             subject.Conditions.Add(subSubject2);
 
-            bool result = subject.Validate(new Context(string.Empty, string.Empty));
+            bool result = subject.Validate(new Context(string.Empty, string.Empty, null));
             result.Should().BeTrue();
         }
 
@@ -188,7 +189,7 @@ namespace MappingFramework.TDD.Cases.Conditions
             var source = XDocument.Load("./Resources/NotEmptyCondition/SimpleSource.xml").Root;
 
             bool result = false;
-            List<Information> information = new Action(() => { result = subject.Validate(new Context(source, string.Empty)); }).Observe();
+            List<Information> information = new Action(() => { result = subject.Validate(new Context(source, string.Empty, null)); }).Observe();
 
             information.Count.Should().Be(0);
             result.Should().Be(expectedResult);

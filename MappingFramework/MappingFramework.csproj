@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compositions\GetAdditionalSourceValue.cs" />
     <Compile Include="Compositions\GetConcatenatedByListValueTraversal.cs" />
     <Compile Include="Compositions\GetConcatenatedValueTraversal.cs" />
     <Compile Include="Compositions\GetConditionedListValueTraversal.cs" />
@@ -50,6 +51,8 @@
     <Compile Include="Compositions\SetMutatedValueTraversal.cs" />
     <Compile Include="Conditions\ListEvaluationOperator.cs" />
     <Compile Include="Conditions\NotEmptyCondition.cs" />
+    <Compile Include="Configuration\AdditionalSource.cs" />
+    <Compile Include="Configuration\AdditionalSourceValues.cs" />
     <Compile Include="Converters\JsonTypeIdBasedConverter.cs" />
     <Compile Include="Converters\ResolvableByTypeId.cs" />
     <Compile Include="Converters\ResolvableTypeIdCollection.cs" />
@@ -83,7 +86,7 @@
     <Compile Include="ValueMutations\ReplaceValueMutation.cs" />
     <Compile Include="ValueMutations\TrimValueMutation.cs" />
     <Compile Include="ValueMutations\ValueMutation.cs" />
-    <Compile Include="Compositions\GetStaticValueTraversal.cs" />
+    <Compile Include="Compositions\GetStaticValue.cs" />
     <Compile Include="Traversals\Json\JsonGetListValueTraversal.cs" />
     <Compile Include="Traversals\Json\JsonGetValueTraversal.cs" />
     <Compile Include="Configuration\Json\JsonObjectConverter.cs" />

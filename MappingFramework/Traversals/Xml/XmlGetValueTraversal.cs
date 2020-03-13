@@ -2,7 +2,6 @@
 using MappingFramework.Configuration;
 using MappingFramework.Converters;
 using MappingFramework.Xml;
-using Newtonsoft.Json;
 
 namespace MappingFramework.Traversals.Xml
 {

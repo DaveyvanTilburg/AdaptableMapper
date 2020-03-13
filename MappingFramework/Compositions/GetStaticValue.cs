@@ -5,20 +5,20 @@ using MappingFramework.ValueMutations.Traversals;
 
 namespace MappingFramework.Compositions
 {
-    public class GetStaticValueTraversal : GetValueTraversal, GetValueStringTraversal, ResolvableByTypeId
+    public class GetStaticValue : GetValueTraversal, GetValueStringTraversal, ResolvableByTypeId
     {
         public const string _typeId = "136fe331-e3c2-496d-a7fc-e317b7eb80aa";
         public string TypeId => _typeId;
 
         public string Value { get; set; }
 
-        public GetStaticValueTraversal() { }
-        public GetStaticValueTraversal(string value)
+        public GetStaticValue() { }
+        public GetStaticValue(string value)
             => Value = value;
 
         public string GetValue(string value)
         {
-            return GetValue(new Context(value, string.Empty));
+            return GetValue((Context)null);
         }
 
         public string GetValue(Context context)

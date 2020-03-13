@@ -15,7 +15,7 @@ namespace MappingFramework.TDD.Cases.Traversals
         [InlineData("Invalid", "", "", "e-GetStaticValueTraversal#1;")]
         public void GetStaticValueTraversal(string because, string value, string expectedResult, params string[] expectedInformation)
         {
-            var subject = new GetStaticValueTraversal(value);
+            var subject = new GetStaticValue(value);
 
             string result = null;
             List<Information> information = new Action(() => { result = subject.GetValue((string)null); }).Observe();
@@ -45,13 +45,13 @@ namespace MappingFramework.TDD.Cases.Traversals
         [InlineData("invalid first path", "2019/01/01", "a", false, "", "w-GetValueTraversalDaysBetweenDates#2;")]
         public void GetValueTraversalDaysBetweenDates(string because, string firstDate, string lastDate, bool includeLastDay, string expectedResult, params string[] expectedCodes)
         {
-            var subject = new GetValueTraversalDaysBetweenDates(new GetStaticValueTraversal(firstDate), new GetStaticValueTraversal(lastDate))
+            var subject = new GetValueTraversalDaysBetweenDates(new GetStaticValue(firstDate), new GetStaticValue(lastDate))
             {
                 IncludeLastDay = includeLastDay
             };
 
             string value = string.Empty;
-            List<Information> result = new Action(() => { value = subject.GetValue(new Context(null, null)); }).Observe();
+            List<Information> result = new Action(() => { value = subject.GetValue(new Context(null, null, null)); }).Observe();
 
             result.ValidateResult(new List<string>(expectedCodes), because);
             if (expectedCodes.Length == 0)

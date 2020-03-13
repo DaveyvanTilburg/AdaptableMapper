@@ -18,19 +18,17 @@ namespace MappingFramework.TDD.Cases.Compositions
 {
     public class CompositionCases
     {
-
-
         [Theory]
         [InlineData("", "B", "C", "C")]
         [InlineData("A", "B", "C", "B")]
         public void IfConditionThenAElseBGetValueTraversal(string valueA, string valueB, string valueC, string expectedValue)
         {
-            var subject = new MappingFramework.Compositions.IfConditionThenAElseBGetValueTraversal(
-                new NotEmptyCondition(new GetStaticValueTraversal(valueA)),
-                new GetStaticValueTraversal(valueB),
-                new GetStaticValueTraversal(valueC));
+            var subject = new IfConditionThenAElseBGetValueTraversal(
+                new NotEmptyCondition(new GetStaticValue(valueA)),
+                new GetStaticValue(valueB),
+                new GetStaticValue(valueC));
 
-            string result = subject.GetValue(new Context(null, null));
+            string result = subject.GetValue(new Context(null, null, null));
             result.Should().Be(expectedValue);
         }
 
@@ -41,11 +39,11 @@ namespace MappingFramework.TDD.Cases.Compositions
         [InlineData(false, false, false, "e-IfConditionThenAElseBGetValueTraversal#1;", "e-IfConditionThenAElseBGetValueTraversal#2;", "e-IfConditionThenAElseBGetValueTraversal#3;")]
         public void IfConditionThenAElseBGetValueTraversalValidation(bool valueA, bool valueB, bool valueC, params string[] expectedErrors)
         {
-            Condition condition = valueA ? new NotEmptyCondition(new GetStaticValueTraversal("A")) : null;
-            GetValueTraversal getValueTraversalA = valueB ? new GetStaticValueTraversal("B") : null;
-            GetValueTraversal getValueTraversalB = valueC ? new GetStaticValueTraversal("C") : null;
+            Condition condition = valueA ? new NotEmptyCondition(new GetStaticValue("A")) : null;
+            GetValueTraversal getValueTraversalA = valueB ? new GetStaticValue("B") : null;
+            GetValueTraversal getValueTraversalB = valueC ? new GetStaticValue("C") : null;
 
-            var subject = new MappingFramework.Compositions.IfConditionThenAElseBGetValueTraversal(condition, getValueTraversalA, getValueTraversalB);
+            var subject = new IfConditionThenAElseBGetValueTraversal(condition, getValueTraversalA, getValueTraversalB);
 
             string result = string.Empty;
             List<Information> information = new Action(() => { result = subject.GetValue(null); }).Observe();
@@ -61,10 +59,10 @@ namespace MappingFramework.TDD.Cases.Compositions
         {
             var subject = new GetSearchValueTraversal(
                 new XmlGetValueTraversal("./SimpleItems/SimpleItem[@Id='{{searchValue}}']/Name"),
-                new GetStaticValueTraversal("2"));
+                new GetStaticValue("2"));
 
             object source = XDocument.Load("./Resources/Simple.xml").Root;
-            var context = new Context(source, null);
+            var context = new Context(source, null, null);
 
             string result = string.Empty;
             List<Information> information = new Action(() => { result = subject.GetValue(context); }).Observe();
@@ -81,10 +79,10 @@ namespace MappingFramework.TDD.Cases.Compositions
         {
             var subject = new GetSearchValueTraversal(
                 new ModelGetValueTraversal(path),
-                new GetStaticValueTraversal("2"));
+                new GetStaticValue("2"));
 
             object source = ModelCases.Model.CreateTarget(ContextType.TestObject, "item");
-            var context = new Context(source, null);
+            var context = new Context(source, null, null);
 
             string result = string.Empty;
             List<Information> information = new Action(() => { result = subject.GetValue(context); }).Observe();
@@ -124,11 +122,11 @@ namespace MappingFramework.TDD.Cases.Compositions
         [Fact]
         public void GetListSearchValueTraversalXml()
         {
-            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null, null);
 
             var subject = new GetListSearchValueTraversal(
                 new XmlGetListValueTraversal("./SimpleItems/SimpleItem[@Type='{{searchValue}}']"),
-                new GetStaticValueTraversal("Person")
+                new GetStaticValue("Person")
             );
 
             MethodResult<IEnumerable<object>> result = new MethodResult<IEnumerable<object>>(null);
@@ -142,7 +140,7 @@ namespace MappingFramework.TDD.Cases.Compositions
         [Fact]
         public void GetListSearchValueTraversalEmpty()
         {
-            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null, null);
 
             var subject = new GetListSearchValueTraversal(null, null);
 
@@ -165,14 +163,14 @@ namespace MappingFramework.TDD.Cases.Compositions
         [Fact]
         public void GetConditionedListValueTraversalBadPath()
         {
-            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null, null);
 
             var subject = new GetConditionedListValueTraversal(
                 new XmlGetListValueTraversal("//SimpleItems/SimpleItem***$%#$") { XmlInterpretation = XmlInterpretation.Default },
                 new CompareCondition(
                     new XmlGetValueTraversal("./@Type"),
                     CompareOperator.Equals,
-                    new GetStaticValueTraversal("AI")
+                    new GetStaticValue("AI")
                 )
             );
 
@@ -188,14 +186,14 @@ namespace MappingFramework.TDD.Cases.Compositions
         [Fact]
         public void GetConditionedListValueTraversal()
         {
-            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null, null);
 
             var subject = new GetConditionedListValueTraversal(
                 new XmlGetListValueTraversal("//SimpleItems/SimpleItem") { XmlInterpretation = XmlInterpretation.Default },
                 new CompareCondition(
                     new XmlGetValueTraversal("./@Type"),
                     CompareOperator.Equals,
-                    new GetStaticValueTraversal("AI")
+                    new GetStaticValue("AI")
                 )
             );
 
@@ -215,7 +213,7 @@ namespace MappingFramework.TDD.Cases.Compositions
         [Fact]
         public void GetConditionedListValueTraversalDistinctBy()
         {
-            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null, null);
 
             var subject = new GetConditionedListValueTraversal(
                 new XmlGetListValueTraversal("//SimpleItems/SimpleItem") { XmlInterpretation = XmlInterpretation.Default },
@@ -237,14 +235,14 @@ namespace MappingFramework.TDD.Cases.Compositions
         [Fact]
         public void GetConditionedListValueTraversalDistinctByConditioned()
         {
-            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null, null);
 
             var subject = new GetConditionedListValueTraversal(
                 new XmlGetListValueTraversal("//SimpleItems/SimpleItem") { XmlInterpretation = XmlInterpretation.Default },
                 new CompareCondition(
                     new XmlGetValueTraversal("./@Type"),
                     CompareOperator.Equals,
-                    new GetStaticValueTraversal("AI")
+                    new GetStaticValue("AI")
                 ),
                 new XmlGetValueTraversal("./@Type")
             );
@@ -273,7 +271,7 @@ namespace MappingFramework.TDD.Cases.Compositions
         [Fact]
         public void GetConcatenatedByListValueTraversal()
         {
-            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null, null);
 
             var subject = new GetConcatenatedByListValueTraversal(
                 new GetConditionedListValueTraversal(
@@ -281,7 +279,7 @@ namespace MappingFramework.TDD.Cases.Compositions
                     new CompareCondition(
                         new XmlGetValueTraversal("./@Type"),
                         CompareOperator.Equals,
-                        new GetStaticValueTraversal("Person")
+                        new GetStaticValue("Person")
                     )
                 ),
                 new XmlGetValueTraversal("./Name"),
@@ -299,7 +297,7 @@ namespace MappingFramework.TDD.Cases.Compositions
         [Fact]
         public void GetConcatenatedByListValueTraversalNullSeparator()
         {
-            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null, null);
 
             var subject = new GetConcatenatedByListValueTraversal(
                 new GetConditionedListValueTraversal(
@@ -307,7 +305,7 @@ namespace MappingFramework.TDD.Cases.Compositions
                     new CompareCondition(
                         new XmlGetValueTraversal("./@Type"),
                         CompareOperator.Equals,
-                        new GetStaticValueTraversal("Person")
+                        new GetStaticValue("Person")
                     )
                 ),
                 new XmlGetValueTraversal("./Name")
@@ -334,7 +332,7 @@ namespace MappingFramework.TDD.Cases.Compositions
         [Fact]
         public void GetConcatenatedValueTraversalNullSeparator()
         {
-            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null, null);
 
             var subject = new GetConcatenatedValueTraversal(
                 new List<GetValueTraversal>
@@ -356,7 +354,7 @@ namespace MappingFramework.TDD.Cases.Compositions
         [Fact]
         public void GetConcatenatedValueTraversal()
         {
-            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null);
+            Context context = new Context(XDocument.Load("./Resources/SimpleLists.xml").Root, null, null);
 
             var subject = new GetConcatenatedValueTraversal(
                 new List<GetValueTraversal>
@@ -390,7 +388,7 @@ namespace MappingFramework.TDD.Cases.Compositions
         public void GetMutatedValueTraversal()
         {
             var subject = new GetMutatedValueTraversal(
-                new GetStaticValueTraversal("test"),
+                new GetStaticValue("test"),
                 new PlaceholderValueMutation("({0})")
             );
 
@@ -422,14 +420,14 @@ namespace MappingFramework.TDD.Cases.Compositions
             object context = XmlCases.Xml.CreateTarget(ContextType.TestObject);
 
             var traversal = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem[@Id='1']/Name");
-            MappingFramework.Traversals.Template name = traversal.GetTemplate(context, new MappingCaches());
+            Template name = traversal.GetTemplate(context, new MappingCaches());
 
-            var setContext = new Context(null, name.Child);
+            var setContext = new Context(null, name.Child, null);
 
             List<Information> result = new Action(() => { subject.SetValue(setContext, null, "Test"); }).Observe();
             result.ValidateResult(new List<string>(), "Valid");
 
-            string value = new XmlGetThisValueTraversal().GetValue(new Context(setContext.Target, null));
+            string value = new XmlGetThisValueTraversal().GetValue(new Context(setContext.Target, null, null));
 
             value.Should().BeEquivalentTo("(Test)");
         }

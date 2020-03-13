@@ -46,6 +46,8 @@
     <Compile Include="ATDD\MappingConfigurationBuilder.cs" />
     <Compile Include="ATDD\MappingModel.cs" />
     <Compile Include="ATDD\ScopeCompositeModel.cs" />
+    <Compile Include="Cases\AdditionalSources\AdditionalSourceCases.cs" />
+    <Compile Include="Cases\AdditionalSources\TestAdditionalSource.cs" />
     <Compile Include="Cases\Compositions\CompositionCases.cs" />
     <Compile Include="Cases\Conditions\ConditionsCases.cs" />
     <Compile Include="Cases\Converters\SerializationCases.cs" />
@@ -210,6 +212,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ATDD\ConfigurationValidations.feature" />
+    <Content Include="Cases\AdditionalSources\AdditionalSourceValueFullExpectedResult.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cases\AdditionalSources\AdditionalSourceValueFullSource.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cases\AdditionalSources\AdditionalSourceValueFullTarget.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\Simple.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

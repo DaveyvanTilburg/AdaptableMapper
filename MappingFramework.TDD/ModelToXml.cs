@@ -82,7 +82,7 @@ namespace MappingFramework.TDD
                 Condition = new CompareCondition(
                     new Traversals.Model.ModelGetValueTraversal("Deployed"), 
                     CompareOperator.Equals, 
-                    new Compositions.GetStaticValueTraversal("True"))
+                    new Compositions.GetStaticValue("True"))
             };
 
             var crewMemberName = new Mapping(
