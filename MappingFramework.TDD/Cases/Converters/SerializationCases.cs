@@ -5,11 +5,13 @@ using System;
 using System.Collections.Generic;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
+using MappingFramework.Configuration.Dictionary;
 using MappingFramework.Configuration.Json;
 using MappingFramework.Configuration.Model;
 using MappingFramework.Configuration.Xml;
 using MappingFramework.Converters;
 using MappingFramework.Process;
+using MappingFramework.Traversals.Dictionary;
 using MappingFramework.Traversals.Json;
 using MappingFramework.Traversals.Model;
 using MappingFramework.Traversals.Xml;
@@ -254,6 +256,13 @@ namespace MappingFramework.TDD.Cases.Converters
                 )
             };
 
+            //Configuration - Dictionary
+            yield return new object[]
+            {
+                typeof(TargetInstantiator),
+                new DictionaryTargetInstantiator()
+            };
+
             //Configuration - Json
             yield return new object[]
             {
@@ -323,6 +332,13 @@ namespace MappingFramework.TDD.Cases.Converters
             {
                 typeof(ResultObjectConverter),
                 new XElementToStringObjectConverter()
+            };
+
+            //Traversal - Dictionary
+            yield return new object[]
+            {
+                typeof(SetValueTraversal),
+                new DictionarySetValueTraversal()
             };
 
             //Traversal - Json

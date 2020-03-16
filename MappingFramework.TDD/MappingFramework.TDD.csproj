@@ -51,6 +51,9 @@
     <Compile Include="Cases\Compositions\CompositionCases.cs" />
     <Compile Include="Cases\Conditions\ConditionsCases.cs" />
     <Compile Include="Cases\Converters\SerializationCases.cs" />
+    <Compile Include="Cases\DictionaryCases\Dictionary.cs" />
+    <Compile Include="Cases\DictionaryCases\DictionaryConfiguration.cs" />
+    <Compile Include="Cases\DictionaryCases\DictionaryTraversals.cs" />
     <Compile Include="Cases\StringTraversals\StringTraversalsCases.cs" />
     <Compile Include="Cases\Traversals\TraversalsCases.cs" />
     <Compile Include="Cases\ValueMutations\ValueMutationsCases.cs" />
@@ -64,6 +67,7 @@
     <Compile Include="Cases\Configuration.cs" />
     <Compile Include="Cases\XmlCases\Xml.cs" />
     <Compile Include="Cases\XmlCases\XmlConfiguration.cs" />
+    <Compile Include="JsonToDictionary.cs" />
     <Compile Include="JsonToXml.cs" />
     <Compile Include="LanguageExtensions.cs" />
     <Compile Include="Cases\ModelCases\ModelConfiguration.cs" />

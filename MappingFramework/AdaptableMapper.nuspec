@@ -64,6 +64,7 @@ See https://github.com/DaveyvanTilburg/MappingFramework/ for documentation
       - Added GetConditionedListValueTraversal
       - Switched to the decorator pattern for value mutations
       - Add concept of additionalSources to the context
+      - Add dictionary as an output type
     </releaseNotes>
     <license type="file">License.txt</license>
   </metadata>

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using MappingFramework.Compositions;
 using MappingFramework.Conditions;
+using MappingFramework.Configuration.Dictionary;
 using MappingFramework.Configuration.Json;
 using MappingFramework.Configuration.Model;
 using MappingFramework.Configuration.Xml;
+using MappingFramework.Traversals.Dictionary;
 using MappingFramework.Traversals.Json;
 using MappingFramework.Traversals.Model;
 using MappingFramework.Traversals.Xml;
@@ -40,6 +42,9 @@ namespace MappingFramework.Converters
                 [ListOfConditions._typeId] = typeof(ListOfConditions),
                 [NotEmptyCondition._typeId] = typeof(NotEmptyCondition),
 
+                //Configuration - Dictionary
+                [DictionaryTargetInstantiator._typeId] = typeof(DictionaryTargetInstantiator),
+
                 //Configuration - Json
                 [JsonChildCreator._typeId] = typeof(JsonChildCreator),
                 [JsonObjectConverter._typeId] = typeof(JsonObjectConverter),
@@ -58,6 +63,9 @@ namespace MappingFramework.Converters
                 [XmlChildCreator._typeId] = typeof(XmlChildCreator),
                 [XmlObjectConverter._typeId] = typeof(XmlObjectConverter),
                 [XmlTargetInstantiator._typeId] = typeof(XmlTargetInstantiator),
+
+                //Traversals - Dictionary
+                [DictionarySetValueTraversal._typeId] = typeof(DictionarySetValueTraversal),
 
                 //Traversals - Json
                 [JsonGetListValueTraversal._typeId] = typeof(JsonGetListValueTraversal),

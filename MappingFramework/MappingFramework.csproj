@@ -53,9 +53,11 @@
     <Compile Include="Conditions\NotEmptyCondition.cs" />
     <Compile Include="Configuration\AdditionalSource.cs" />
     <Compile Include="Configuration\AdditionalSourceValues.cs" />
+    <Compile Include="Configuration\Dictionary\DictionaryTargetInstantiator.cs" />
     <Compile Include="Converters\JsonTypeIdBasedConverter.cs" />
     <Compile Include="Converters\ResolvableByTypeId.cs" />
     <Compile Include="Converters\ResolvableTypeIdCollection.cs" />
+    <Compile Include="Dictionary\EasyAccessDictionary.cs" />
     <Compile Include="GenerateIdCache.cs" />
     <Compile Include="Conditions\CompareOperator.cs" />
     <Compile Include="Conditions\Condition.cs" />
@@ -67,6 +69,8 @@
     <Compile Include="TemplateCache.cs" />
     <Compile Include="Compositions\GetNothingValueTraversal.cs" />
     <Compile Include="Compositions\GetSearchValueTraversal.cs" />
+    <Compile Include="Traversals\Dictionary\DictionarySetValueTraversal.cs" />
+    <Compile Include="Traversals\Dictionary\DictionaryValueTypes.cs" />
     <Compile Include="Traversals\GetValueTraversalPathProperty.cs" />
     <Compile Include="Compositions\IfConditionThenAElseBGetValueTraversal.cs" />
     <Compile Include="Compositions\GetNumberOfHits.cs" />
@@ -164,5 +168,6 @@
   <ItemGroup>
     <Content Include="License.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
