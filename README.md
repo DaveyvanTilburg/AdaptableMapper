@@ -7,7 +7,6 @@ But ofcourse you can use your own methods for storage!
 ### I'd like your help!
 
 Simply put, do what you want with my code, help me build it, test it, and help it grow, my goal is to spread this idea, and hopefully make the lives of programmers in companies that are build around API intergrations allot easier!
-I've worked for a few companies that all struggle with integrations. I think i've found a simple yet useful concept that elevates the configuration of mapping from hardcoding to softcoding.
 This package is only an abstract representation of that idea. Storage of configuration and giving it actual meaning is up to you. And I hope with you and your experience this idea can grow!
 
 So please, ask questions, give feedback, make comments, create pullrequests!
@@ -20,16 +19,11 @@ Copy my code, install my packages, use it for yourself and help it grow. :)
 
 [ReleaseNotes.txt](ReleaseNotes.txt)
 
-### Prerequisites
-
-As long as I'm in alpha, Ill only build the package for .NET framework.
-After I feel confident the package is stable I will research how to deploy for .NET standard (I think that includes .NET Core or visa versa)
-
 ### Installing
 
 See installation instructions on nuget.org where the package is hosted:
 ```
-https://www.nuget.org/packages/AdaptableMapper/
+link here
 ```
 
 ### How to use
@@ -163,7 +157,7 @@ I use [SemVer](http://semver.org/) for versioning. (I've got no clue on what tha
 
 ### License
 
-See the [License.txt](AdaptableMapper/License.txt) file for details.
+See the [License.txt](MappingFramework/License.txt) file for details.
 Do what ever the f*** you want! (But please respect eachother in the process)
 
 ### Acknowledgments
