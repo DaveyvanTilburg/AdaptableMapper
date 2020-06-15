@@ -1,4 +1,4 @@
-# AdaptableMapper
+# MappingFramework
 
 A package for any to any mapping without hardcoding.
 The implementation is set up with storage in mind through serialization. I use newtonsoft for serializing the composite for storage (see object JsonSerializer)
@@ -7,7 +7,6 @@ But ofcourse you can use your own methods for storage!
 ### I'd like your help!
 
 Simply put, do what you want with my code, help me build it, test it, and help it grow, my goal is to spread this idea, and hopefully make the lives of programmers in companies that are build around API intergrations allot easier!
-This package is only an abstract representation of that idea. Storage of configuration and giving it actual meaning is up to you. And I hope with you and your experience this idea can grow!
 
 So please, ask questions, give feedback, make comments, create pullrequests!
 Copy my code, install my packages, use it for yourself and help it grow. :)
