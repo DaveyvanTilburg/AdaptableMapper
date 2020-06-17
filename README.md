@@ -2,7 +2,7 @@
 
 A package for any to any mapping without hardcoding.
 The implementation is set up with storage in mind through serialization. I use newtonsoft for serializing the composite for storage (see object JsonSerializer)
-But ofcourse you can use your own methods for storage!
+But of course you can use your own methods for storage!
 
 ### I'd like your help!
 
