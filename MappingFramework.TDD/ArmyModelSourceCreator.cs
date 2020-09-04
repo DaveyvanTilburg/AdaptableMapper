@@ -1,4 +1,4 @@
-﻿using ModelObjects.Armies;
+﻿using MappingFramework.TDD.Armies;
 
 namespace MappingFramework.TDD
 {

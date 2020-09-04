@@ -43,7 +43,7 @@ namespace MappingFramework.TDD.ATDD
                     _result.ContextFactory.TargetInstantiator = new Configuration.Json.JsonTargetInstantiator();
                     break;
                 case "model":
-                    _result.ContextFactory.TargetInstantiator = new Configuration.Model.ModelTargetInstantiator();
+                    _result.ContextFactory.TargetInstantiator = new Configuration.DataStructure.DataStructureTargetInstantiator();
                     break;
             }
         }
@@ -59,12 +59,12 @@ namespace MappingFramework.TDD.ATDD
                     _result.ContextFactory.ObjectConverter = new Configuration.Json.JsonObjectConverter();
                     break;
                 case "modelbase":
-                    _result.ContextFactory.ObjectConverter = new Configuration.Model.ModelObjectConverter();
+                    _result.ContextFactory.ObjectConverter = new Configuration.DataStructure.DataStructureObjectConverter();
                     break;
                 case "model":
-                    Type itemType = typeof(ModelObjects.Simple.Item);
-                    _result.ContextFactory.ObjectConverter = new Configuration.Model.StringToModelObjectConverter(
-                        new Configuration.Model.ModelTargetInstantiatorSource
+                    Type itemType = typeof(Simple.Item);
+                    _result.ContextFactory.ObjectConverter = new Configuration.DataStructure.StringToDataStructureObjectConverter(
+                        new Configuration.DataStructure.DataStructureTargetInstantiatorSource
                         {
                             AssemblyFullName = itemType.Assembly.FullName,
                             TypeFullName = itemType.FullName
@@ -129,7 +129,7 @@ namespace MappingFramework.TDD.ATDD
                 case "json":
                     return new Configuration.Json.JsonChildCreator();
                 case "model":
-                    return new Configuration.Model.ModelChildCreator();
+                    return new Configuration.DataStructure.DataStructureChildCreator();
                 default:
                     return null;
             }
@@ -146,7 +146,7 @@ namespace MappingFramework.TDD.ATDD
                     _result.ResultObjectConverter = new Configuration.Json.JTokenToStringObjectConverter();
                     break;
                 case "model":
-                    _result.ResultObjectConverter = new Configuration.Model.ModelToStringObjectConverter();
+                    _result.ResultObjectConverter = new Configuration.DataStructure.DataStructureToStringObjectConverter();
                     break;
                 case "null":
                     _result.ResultObjectConverter = new NullObjectConverter();

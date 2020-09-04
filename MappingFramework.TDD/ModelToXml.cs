@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
+using MappingFramework.DataStructure;
 using Xunit;
-using MappingFramework.Model;
 
 namespace MappingFramework.TDD
 {
@@ -18,7 +18,7 @@ namespace MappingFramework.TDD
 
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
 
-            ModelBase source = ArmyModelSourceCreator.CreateArmyModel();
+            TraversableDataStructure source = ArmyModelSourceCreator.CreateArmyModel();
             XElement result = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml")) as XElement;
 
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
@@ -108,7 +108,7 @@ namespace MappingFramework.TDD
             };
 
             var contextFactory = new ContextFactory(
-                new Configuration.Model.ModelObjectConverter(),
+                new Configuration.DataStructure.DataStructureObjectConverter(),
                 new Configuration.Xml.XmlTargetInstantiator()
             );
 

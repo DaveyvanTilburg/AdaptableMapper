@@ -21,7 +21,7 @@ namespace MappingFramework.TDD.Cases.ValueMutations
         [InlineData("S", "s", "", "2019-12-01T00:00:00", "2019-12-01T00:00:00")]
         [InlineData("StrangeFormatTemplate1", "&#$#$", "", "2019-12-01T00:00:00", "&#$#$")]
         [InlineData("StrangeFormatTemplate2", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{", "", "2019-12-01T00:00:00", "2019-12-01T00:00:00", "e-DateValueMutation#2;")]
-        [InlineData("StrangeFormatTemplate3", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{\"", "", "2019-12-01T00:00:00", "2019345789aw19AUJI0SEU0#&*$Sunday12::{:{")]
+        [InlineData("StrangeFormatTemplate3", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{\"", "", "2019-12-01T00:00:00", "2019345789aw19aUJI0SEU0#&*$Sunday12::{:{")]
         [InlineData("ValidDateRead", "yyyy/MM/dd", "yyMMdd", "911230", "1991/12/30")]
         [InlineData("ValidDateInvalidRead", "yyyy/MM/dd", "yyMdd", "91230", "911230", "w-DateValueMutation#3;")]
         [InlineData("ValidDateDirectRead", "yyyy/MM/dd", "", "2019-12-01T00:00:00", "2019/12/01")]

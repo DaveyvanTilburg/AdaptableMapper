@@ -1,9 +1,9 @@
-﻿using MappingFramework.Model;
-using FluentAssertions;
-using ModelObjects.Hardwares;
+﻿using FluentAssertions;
+using MappingFramework.TDD.Hardwares;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using MappingFramework.Configuration;
+using MappingFramework.DataStructure;
 using Xunit;
 
 namespace MappingFramework.TDD
@@ -18,7 +18,7 @@ namespace MappingFramework.TDD
 
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
 
-            ModelBase source = CreateHardwareModel();
+            TraversableDataStructure source = CreateHardwareModel();
             JToken result = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareTemplate.json")) as JToken;
 
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
@@ -39,7 +39,7 @@ namespace MappingFramework.TDD
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
             mappingConfiguration.ResultObjectConverter = new Configuration.Json.JTokenToStringObjectConverter();
 
-            ModelBase source = CreateHardwareModel();
+            TraversableDataStructure source = CreateHardwareModel();
             object resultObject = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareTemplate.json"));
 
             var result = resultObject as string;
@@ -49,7 +49,7 @@ namespace MappingFramework.TDD
             result.Should().BeEquivalentTo(expectedResult);
         }
 
-        private static ModelBase CreateHardwareModel()
+        private static TraversableDataStructure CreateHardwareModel()
         {
             var root = new Root();
             root.Motherboards.Add(CreateMotherboard1());
@@ -296,7 +296,7 @@ namespace MappingFramework.TDD
             };
 
             var contextFactory = new ContextFactory(
-                new Configuration.Model.ModelObjectConverter(),
+                new Configuration.DataStructure.DataStructureObjectConverter(),
                 new Configuration.Json.JsonTargetInstantiator()
             );
 

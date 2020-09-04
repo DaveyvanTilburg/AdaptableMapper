@@ -18,7 +18,7 @@ namespace MappingFramework.TDD
 
             object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), modelTargetInstantiatorSource);
 
-            var result = resultObject as ModelObjects.Armies.Root;
+            var result = resultObject as Armies.Root;
             result.Should().NotBeNull();
 
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
@@ -45,7 +45,7 @@ namespace MappingFramework.TDD
         public void XmlToModelToString()
         {
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
-            mappingConfiguration.ResultObjectConverter = new Configuration.Model.ModelToStringObjectConverter();
+            mappingConfiguration.ResultObjectConverter = new Configuration.DataStructure.DataStructureToStringObjectConverter();
             string modelTargetInstantiatorSource = CreateModelTargetInstantiatorSource();
 
             object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), modelTargetInstantiatorSource);
@@ -59,8 +59,8 @@ namespace MappingFramework.TDD
 
         private string CreateModelTargetInstantiatorSource()
         {
-            var rootType = typeof(ModelObjects.Armies.Root);
-            var result = new Configuration.Model.ModelTargetInstantiatorSource
+            var rootType = typeof(Armies.Root);
+            var result = new Configuration.DataStructure.DataStructureTargetInstantiatorSource
             {
                 AssemblyFullName = rootType.Assembly.FullName,
                 TypeFullName = rootType.FullName
@@ -84,7 +84,7 @@ namespace MappingFramework.TDD
                 },
                 new Traversals.Xml.XmlGetListValueTraversal("./crew/crewMember"),
                 new Traversals.Model.ModelGetTemplateTraversal("CrewMembers"),
-                new Configuration.Model.ModelChildCreator()
+                new Configuration.DataStructure.DataStructureChildCreator()
             );
 
             var memberName = new Mapping(
@@ -103,7 +103,7 @@ namespace MappingFramework.TDD
                 },
                 new Traversals.Xml.XmlGetListValueTraversal("./members/member"),
                 new Traversals.Model.ModelGetTemplateTraversal("Members"),
-                new Configuration.Model.ModelChildCreator()
+                new Configuration.DataStructure.DataStructureChildCreator()
             );
 
             var platoonCode = new Mapping(
@@ -128,7 +128,7 @@ namespace MappingFramework.TDD
                 },
                 new Traversals.Xml.XmlGetListValueTraversal("./platoon"),
                 new Traversals.Model.ModelGetTemplateTraversal("Platoons"),
-                new Configuration.Model.ModelChildCreator()
+                new Configuration.DataStructure.DataStructureChildCreator()
             );
 
             var armyCode = new Mapping(
@@ -147,7 +147,7 @@ namespace MappingFramework.TDD
                 },
                 new Traversals.Xml.XmlGetListValueTraversal("./army"),
                 new Traversals.Model.ModelGetTemplateTraversal("Armies"),
-                new Configuration.Model.ModelChildCreator()
+                new Configuration.DataStructure.DataStructureChildCreator()
             );
 
             var reference = new Mapping(
@@ -169,7 +169,7 @@ namespace MappingFramework.TDD
                 },
                 new Traversals.Xml.XmlGetListValueTraversal("./leaders/leader"),
                 new Traversals.Model.ModelGetTemplateTraversal("Organization/Leaders"),
-                new Configuration.Model.ModelChildCreator()
+                new Configuration.DataStructure.DataStructureChildCreator()
             );
 
             var scopes = new List<MappingScopeComposite>
@@ -180,7 +180,7 @@ namespace MappingFramework.TDD
 
             var contextFactory = new ContextFactory(
                 new Configuration.Xml.XmlObjectConverter(),
-                new Configuration.Model.ModelTargetInstantiator()
+                new Configuration.DataStructure.DataStructureTargetInstantiator()
             );
 
             var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObjectConverter());

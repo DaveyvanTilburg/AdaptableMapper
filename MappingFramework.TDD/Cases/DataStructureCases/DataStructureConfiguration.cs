@@ -1,36 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using MappingFramework.Configuration.Model;
+using MappingFramework.Configuration.DataStructure;
 using MappingFramework.Process;
 using MappingFramework.Traversals;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases.ModelCases
+namespace MappingFramework.TDD.Cases.DataStructureCases
 {
-    public class ModelConfiguration
+    public class DataStructureConfiguration
     {
         [Theory]
-        [InlineData("InvalidParentType", ContextType.EmptyString, "", ContextType.EmptyObject, "", "e-ModelChildCreator#1;")]
-        [InlineData("InvalidChildType", ContextType.EmptyObject, "item", ContextType.EmptyObject, "", "e-ModelChildCreator#2;")]
+        [InlineData("InvalidParentType", ContextType.EmptyString, "", ContextType.EmptyObject, "", "e-DataStructureChildCreator#1;")]
+        [InlineData("InvalidChildType", ContextType.EmptyObject, "item", ContextType.EmptyObject, "", "e-DataStructureChildCreator#2;")]
         public void ModelChildCreatorCreateChild(string because, ContextType parentType, string parentCreateType, ContextType childType, string childCreateType, params string[] expectedErrors)
         {
-            var subject = new ModelChildCreator();
-            object parent = Model.CreateTarget(parentType, parentCreateType);
-            object child = Model.CreateTarget(childType, childCreateType);
+            var subject = new DataStructureChildCreator();
+            object parent = DataStructure.CreateTarget(parentType, parentCreateType);
+            object child = DataStructure.CreateTarget(childType, childCreateType);
             List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = parent, Child = child }); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
 
         [Theory]
-        [InlineData("InvalidParentType", ContextType.EmptyString, "", ContextType.EmptyString, "", ContextType.EmptyString, "", "e-ModelChildCreator#3;")]
-        [InlineData("InvalidChildType", ContextType.EmptyObject, "item", ContextType.EmptyString, "", ContextType.EmptyString, "", "e-ModelChildCreator#4;")]
-        [InlineData("InvalidNewChildType", ContextType.EmptyObject, "item", ContextType.ValidParent, "", ContextType.EmptyString, "", "e-ModelChildCreator#5;")]
+        [InlineData("InvalidParentType", ContextType.EmptyString, "", ContextType.EmptyString, "", ContextType.EmptyString, "", "e-DataStructureChildCreator#3;")]
+        [InlineData("InvalidChildType", ContextType.EmptyObject, "item", ContextType.EmptyString, "", ContextType.EmptyString, "", "e-DataStructureChildCreator#4;")]
+        [InlineData("InvalidNewChildType", ContextType.EmptyObject, "item", ContextType.ValidParent, "", ContextType.EmptyString, "", "e-DataStructureChildCreator#5;")]
         public void ModelChildCreatorAddToParent(string because, ContextType parentType, string parentCreateType, ContextType childType, string childCreateType, ContextType newChildType, string newChildCreateType, params string[] expectedErrors)
         {
-            var subject = new ModelChildCreator();
-            object parent = Model.CreateTarget(parentType, parentCreateType);
-            object child = Model.CreateTarget(childType, childCreateType);
-            object newChild = Model.CreateTarget(newChildType, newChildCreateType);
+            var subject = new DataStructureChildCreator();
+            object parent = DataStructure.CreateTarget(parentType, parentCreateType);
+            object child = DataStructure.CreateTarget(childType, childCreateType);
+            object newChild = DataStructure.CreateTarget(newChildType, newChildCreateType);
             List<Information> result = new Action(() => { subject.AddToParent(new Template { Parent = parent, Child = child }, newChild); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -40,8 +40,8 @@ namespace MappingFramework.TDD.Cases.ModelCases
         [InlineData("Valid", ContextType.EmptyObject, "item")]
         public void ModelObjectConverter(string because, ContextType contextType, string createType, params string[] expectedErrors)
         {
-            var subject = new ModelObjectConverter();
-            object context = Model.CreateTarget(contextType, createType);
+            var subject = new DataStructureObjectConverter();
+            object context = DataStructure.CreateTarget(contextType, createType);
             List<Information> result = new Action(() => { subject.Convert(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -54,8 +54,8 @@ namespace MappingFramework.TDD.Cases.ModelCases
         [InlineData("Valid", ContextType.ValidSource, "")]
         public void ModelTargetInstantiator(string because, ContextType contextType, string createType, params string[] expectedErrors)
         {
-            var subject = new ModelTargetInstantiator();
-            object context = Model.CreateTarget(contextType, createType);
+            var subject = new DataStructureTargetInstantiator();
+            object context = DataStructure.CreateTarget(contextType, createType);
             List<Information> result = new Action(() => { subject.Create(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -64,8 +64,8 @@ namespace MappingFramework.TDD.Cases.ModelCases
         [InlineData("InvalidType", ContextType.EmptyString, "", "e-MODEL#20;")]
         public void ModelToStringObjectConverter(string because, ContextType contextType, string createType, params string[] expectedErrors)
         {
-            var subject = new ModelToStringObjectConverter();
-            object context = Model.CreateTarget(contextType, createType);
+            var subject = new DataStructureToStringObjectConverter();
+            object context = DataStructure.CreateTarget(contextType, createType);
             List<Information> result = new Action(() => { subject.Convert(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -75,8 +75,8 @@ namespace MappingFramework.TDD.Cases.ModelCases
         [InlineData("InvalidSourceType", ContextType.EmptyString, "", "e-MODEL#28;")]
         public void StringToModelObjectConverterInvalidType(string because, ContextType contextType, string createType, params string[] expectedErrors)
         {
-            var subject = new StringToModelObjectConverter(null);
-            object context = Model.CreateTarget(contextType, createType);
+            var subject = new StringToDataStructureObjectConverter(null);
+            object context = DataStructure.CreateTarget(contextType, createType);
             List<Information> result = new Action(() => { subject.Convert(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);
         }
@@ -84,8 +84,8 @@ namespace MappingFramework.TDD.Cases.ModelCases
         [Fact]
         public void StringToModelObjectConverterInvalidSourceStringDeserialize()
         {
-            ModelTargetInstantiatorSource testModel = Model.CreateModelTargetInstantiatorInvalidSource();
-            var subject = new StringToModelObjectConverter(testModel);
+            DataStructureTargetInstantiatorSource testDataStructure = DataStructure.CreateModelTargetInstantiatorInvalidSource();
+            var subject = new StringToDataStructureObjectConverter(testDataStructure);
             List<Information> result = new Action(() => { subject.Convert("abcd"); }).Observe();
             result.ValidateResult(new List<string> { "e-MODEL#29;" });
         }
@@ -93,10 +93,10 @@ namespace MappingFramework.TDD.Cases.ModelCases
         [Fact]
         public void StringToModelObjectConverterInvalidDeserializedType()
         {
-            ModelTargetInstantiatorSource testModel = Model.CreateModelTargetInstantiatorInvalidSource();
-            var subject = new StringToModelObjectConverter(testModel);
+            DataStructureTargetInstantiatorSource testDataStructure = DataStructure.CreateModelTargetInstantiatorInvalidSource();
+            var subject = new StringToDataStructureObjectConverter(testDataStructure);
 
-            string testSource = Newtonsoft.Json.JsonConvert.SerializeObject(testModel);
+            string testSource = Newtonsoft.Json.JsonConvert.SerializeObject(testDataStructure);
             List<Information> result = new Action(() => { subject.Convert(testSource); }).Observe();
 
             result.ValidateResult(new List<string> { "e-MODEL#30;" });

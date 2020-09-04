@@ -35,12 +35,12 @@ namespace MappingFramework.TDD
 
         public void Register()
         {
-            Process.ProcessObservable.GetInstance().Register(this);
+            ProcessObservable.GetInstance().Register(this);
         }
 
         public void Unregister()
         {
-            Process.ProcessObservable.GetInstance().Unregister(this);
+            ProcessObservable.GetInstance().Unregister(this);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using MappingFramework.Configuration;
 using MappingFramework.Converters;
-using MappingFramework.Model;
+using MappingFramework.DataStructure;
 
 namespace MappingFramework.Traversals.Model
 {
@@ -19,14 +19,14 @@ namespace MappingFramework.Traversals.Model
 
         public void SetValue(Context context, MappingCaches mappingCaches, string value)
         {
-            if (!(context.Target is ModelBase model))
+            if (!(context.Target is TraversableDataStructure model))
             {
                 Process.ProcessObservable.GetInstance().Raise("MODEL#18; target is not of expected type Model", "error", Path, context.Target);
                 return;
             }
 
             var modelPathContainer = PathContainer.Create(Path);
-            ModelBase pathTarget = model.GetOrCreateModel(modelPathContainer.CreatePathQueue());
+            TraversableDataStructure pathTarget = model.GetOrCreate(modelPathContainer.CreatePathQueue());
 
             pathTarget.SetValue(modelPathContainer.LastInPath, value);
         }

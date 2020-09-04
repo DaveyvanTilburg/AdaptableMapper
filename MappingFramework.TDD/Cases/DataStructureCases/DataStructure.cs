@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
-using MappingFramework.Configuration.Model;
-using MappingFramework.Model;
+using MappingFramework.Configuration.DataStructure;
+using MappingFramework.DataStructure;
+using MappingFramework.TDD.Simple;
 
-namespace MappingFramework.TDD.Cases.ModelCases
+namespace MappingFramework.TDD.Cases.DataStructureCases
 {
-    public class Model
+    public class DataStructure
     {
         public static object CreateTarget(ContextType contextType, string type)
         {
@@ -19,13 +20,13 @@ namespace MappingFramework.TDD.Cases.ModelCases
                     switch (type)
                     {
                         case "item":
-                            result = new ModelObjects.Simple.Item();
+                            result = new Item();
                             break;
                         case "mix":
-                            result = new ModelObjects.Simple.Mix();
+                            result = new Mix();
                             break;
                         case "deepmix":
-                            result = new ModelObjects.Simple.DeepMix();
+                            result = new DeepMix();
                             break;
                     }
                     
@@ -48,7 +49,7 @@ namespace MappingFramework.TDD.Cases.ModelCases
                     result = "abcd";
                     break;
                 case ContextType.EmptySourceType:
-                    result = Newtonsoft.Json.JsonConvert.SerializeObject(new ModelTargetInstantiatorSource());
+                    result = Newtonsoft.Json.JsonConvert.SerializeObject(new DataStructureTargetInstantiatorSource());
                     break;
                 case ContextType.InvalidSourceType:
                     result = Newtonsoft.Json.JsonConvert.SerializeObject(CreateModelTargetInstantiatorInvalidSource());
@@ -57,25 +58,25 @@ namespace MappingFramework.TDD.Cases.ModelCases
                     result = Newtonsoft.Json.JsonConvert.SerializeObject(CreateModelTargetInstantiatorSource());
                     break;
                 case ContextType.ValidParent:
-                    result = new List<ModelBase>();
+                    result = new List<TraversableDataStructure>();
                     break;
             }
 
             return result;
         }
 
-        private static ModelObjects.Simple.Item CreateTestItem()
+        private static Item CreateTestItem()
         {
-            var result = new ModelObjects.Simple.Item();
+            var result = new Item();
 
-            result.Items = new MappingFramework.Model.ModelList<ModelObjects.Simple.Item>(result)
+            result.Items = new ChildList<Item>(result)
             {
-                new ModelObjects.Simple.Item
+                new Item
                 {
                     Code = "1",
                     Name = "Davey"
                 },
-                new ModelObjects.Simple.Item
+                new Item
                 {
                     Code = "2",
                     Name = "Joey"
@@ -85,26 +86,26 @@ namespace MappingFramework.TDD.Cases.ModelCases
             return result;
         }
 
-        private static ModelObjects.Simple.DeepMix CreateTestDeepMix()
+        private static DeepMix CreateTestDeepMix()
         {
-            var result = new ModelObjects.Simple.DeepMix();
-            var mixes = new MappingFramework.Model.ModelList<ModelObjects.Simple.Mix>(result);
+            var result = new DeepMix();
+            var mixes = new ChildList<Mix>(result);
             result.Mixes = mixes;
 
-            var mix = new ModelObjects.Simple.Mix()
+            var mix = new Mix()
             {
                 Code = "1"
             };
 
-            var mix2 = new ModelObjects.Simple.Mix()
+            var mix2 = new Mix()
             {
                 Code = "2"
             };
 
-            mix.Items = new MappingFramework.Model.ModelList<ModelObjects.Simple.Item>(mix)
+            mix.Items = new ChildList<Item>(mix)
             {
-                new ModelObjects.Simple.Item(),
-                new ModelObjects.Simple.Item()
+                new Item(),
+                new Item()
             };
 
             mixes.Add(mix);
@@ -113,10 +114,10 @@ namespace MappingFramework.TDD.Cases.ModelCases
             return result;
         }
 
-        public static ModelTargetInstantiatorSource CreateModelTargetInstantiatorInvalidSource()
+        public static DataStructureTargetInstantiatorSource CreateModelTargetInstantiatorInvalidSource()
         {
-            var testType = typeof(ModelObjects.Simple.NoItem);
-            var testModel = new ModelTargetInstantiatorSource
+            var testType = typeof(NoItem);
+            var testModel = new DataStructureTargetInstantiatorSource
             {
                 AssemblyFullName = testType.Assembly.FullName,
                 TypeFullName = testType.FullName
@@ -125,10 +126,10 @@ namespace MappingFramework.TDD.Cases.ModelCases
             return testModel;
         }
 
-        public static ModelTargetInstantiatorSource CreateModelTargetInstantiatorSource()
+        public static DataStructureTargetInstantiatorSource CreateModelTargetInstantiatorSource()
         {
-            var testType = typeof(ModelObjects.Simple.Item);
-            var testModel = new ModelTargetInstantiatorSource
+            var testType = typeof(Item);
+            var testModel = new DataStructureTargetInstantiatorSource
             {
                 AssemblyFullName = testType.Assembly.FullName,
                 TypeFullName = testType.FullName

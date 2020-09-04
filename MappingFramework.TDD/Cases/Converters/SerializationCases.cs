@@ -7,7 +7,7 @@ using MappingFramework.Conditions;
 using MappingFramework.Configuration;
 using MappingFramework.Configuration.Dictionary;
 using MappingFramework.Configuration.Json;
-using MappingFramework.Configuration.Model;
+using MappingFramework.Configuration.DataStructure;
 using MappingFramework.Configuration.Xml;
 using MappingFramework.Converters;
 using MappingFramework.Process;
@@ -289,27 +289,27 @@ namespace MappingFramework.TDD.Cases.Converters
             yield return new object[]
             {
                 typeof(ChildCreator),
-                new ModelChildCreator()
+                new DataStructureChildCreator()
             };
             yield return new object[]
             {
                 typeof(ObjectConverter),
-                new ModelObjectConverter()
+                new DataStructureObjectConverter()
             };
             yield return new object[]
             {
                 typeof(TargetInstantiator),
-                new ModelTargetInstantiator()
+                new DataStructureTargetInstantiator()
             };
             yield return new object[]
             {
                 typeof(ResultObjectConverter),
-                new ModelToStringObjectConverter()
+                new DataStructureToStringObjectConverter()
             };
             yield return new object[]
             {
                 typeof(ResultObjectConverter),
-                new StringToModelObjectConverter()
+                new StringToDataStructureObjectConverter()
             };
 
             //Configuration - Xml

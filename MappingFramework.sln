@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MappingFramework", "Mapping
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MappingFramework.TDD", "MappingFramework.TDD\MappingFramework.TDD.csproj", "{CA567CD1-EFC3-4ED4-B852-C7A0D103039A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelObjects", "ModelObjects\ModelObjects.csproj", "{590CB8EC-396D-4012-8385-25BA2149EE9A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MappingFramework.Builder.Tests", "MappingFramework.Builder.Tests\MappingFramework.Builder.Tests.csproj", "{7C734CC8-545F-4F8F-BAAC-9262E3FDDF0F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MappingFramework.Builder", "MappingFramework.Builder\MappingFramework.Builder.csproj", "{F3E0249C-405C-43E0-A533-0FD4AF8A8B54}"
@@ -27,10 +25,6 @@ Global
 		{CA567CD1-EFC3-4ED4-B852-C7A0D103039A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA567CD1-EFC3-4ED4-B852-C7A0D103039A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA567CD1-EFC3-4ED4-B852-C7A0D103039A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{590CB8EC-396D-4012-8385-25BA2149EE9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{590CB8EC-396D-4012-8385-25BA2149EE9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{590CB8EC-396D-4012-8385-25BA2149EE9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{590CB8EC-396D-4012-8385-25BA2149EE9A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C734CC8-545F-4F8F-BAAC-9262E3FDDF0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C734CC8-545F-4F8F-BAAC-9262E3FDDF0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C734CC8-545F-4F8F-BAAC-9262E3FDDF0F}.Release|Any CPU.ActiveCfg = Release|Any CPU

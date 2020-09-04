@@ -73,7 +73,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new MappingFramework.Compositions.GetNothingValueTraversal(),
+                                new GetNothingValueTraversal(),
                                 new MappingFramework.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
@@ -90,7 +90,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new MappingFramework.Compositions.GetNothingValueTraversal(),
+                                new GetNothingValueTraversal(),
                                 new MappingFramework.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
@@ -107,7 +107,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new MappingFramework.Compositions.GetNothingValueTraversal(),
+                                new GetNothingValueTraversal(),
                                 new MappingFramework.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(

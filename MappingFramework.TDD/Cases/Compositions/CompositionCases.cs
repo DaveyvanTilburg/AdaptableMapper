@@ -81,7 +81,7 @@ namespace MappingFramework.TDD.Cases.Compositions
                 new ModelGetValueTraversal(path),
                 new GetStaticValue("2"));
 
-            object source = ModelCases.Model.CreateTarget(ContextType.TestObject, "item");
+            object source = DataStructureCases.DataStructure.CreateTarget(ContextType.TestObject, "item");
             var context = new Context(source, null, null);
 
             string result = string.Empty;

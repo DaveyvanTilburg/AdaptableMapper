@@ -62,17 +62,38 @@
     <Compile Include="Cases\JsonCases\Json.cs" />
     <Compile Include="Cases\JsonCases\JsonConfiguration.cs" />
     <Compile Include="Cases\JsonCases\JsonTraversals.cs" />
-    <Compile Include="Cases\ModelCases\Model.cs" />
-    <Compile Include="Cases\ModelCases\ModelTraversals.cs" />
+    <Compile Include="Cases\DataStructureCases\DataStructure.cs" />
+    <Compile Include="Cases\DataStructureCases\DataStructureTraversals.cs" />
     <Compile Include="Cases\Configuration.cs" />
     <Compile Include="Cases\XmlCases\Xml.cs" />
     <Compile Include="Cases\XmlCases\XmlConfiguration.cs" />
     <Compile Include="JsonToDictionary.cs" />
     <Compile Include="JsonToXml.cs" />
     <Compile Include="LanguageExtensions.cs" />
-    <Compile Include="Cases\ModelCases\ModelConfiguration.cs" />
+    <Compile Include="Cases\DataStructureCases\DataStructureConfiguration.cs" />
     <Compile Include="Cases\XmlCases\XmlTraversals.cs" />
     <Compile Include="ErrorObserverTester.cs" />
+    <Compile Include="DataStructureExamples\Armies\Army.cs" />
+    <Compile Include="DataStructureExamples\Armies\CrewMember.cs" />
+    <Compile Include="DataStructureExamples\Armies\Leader.cs" />
+    <Compile Include="DataStructureExamples\Armies\LeaderPerson.cs" />
+    <Compile Include="DataStructureExamples\Armies\Member.cs" />
+    <Compile Include="DataStructureExamples\Armies\Organization.cs" />
+    <Compile Include="DataStructureExamples\Armies\Person.cs" />
+    <Compile Include="DataStructureExamples\Armies\Platoon.cs" />
+    <Compile Include="DataStructureExamples\Armies\Root.cs" />
+    <Compile Include="DataStructureExamples\Hardwares\CPU.cs" />
+    <Compile Include="DataStructureExamples\Hardwares\GraphicalCard.cs" />
+    <Compile Include="DataStructureExamples\Hardwares\HardDrive.cs" />
+    <Compile Include="DataStructureExamples\Hardwares\Memory.cs" />
+    <Compile Include="DataStructureExamples\Hardwares\MemoryChip.cs" />
+    <Compile Include="DataStructureExamples\Hardwares\Motherboard.cs" />
+    <Compile Include="DataStructureExamples\Hardwares\Root.cs" />
+    <Compile Include="DataStructureExamples\Simple\DeepMix.cs" />
+    <Compile Include="DataStructureExamples\Simple\Item.cs" />
+    <Compile Include="DataStructureExamples\Simple\Mix.cs" />
+    <Compile Include="DataStructureExamples\Simple\NoItem.cs" />
+    <Compile Include="DataStructureExamples\Simple\SimpleItem.cs" />
     <Compile Include="ModelToJson.cs" />
     <Compile Include="ModelToXml.cs" />
     <Compile Include="TestErrorObserver.cs" />
@@ -195,10 +216,6 @@
     <ProjectReference Include="..\MappingFramework\MappingFramework.csproj">
       <Project>{67899dec-ec73-4a4b-8e12-6915045573ce}</Project>
       <Name>MappingFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ModelObjects\ModelObjects.csproj">
-      <Project>{590cb8ec-396d-4012-8385-25ba2149ee9a}</Project>
-      <Name>ModelObjects</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

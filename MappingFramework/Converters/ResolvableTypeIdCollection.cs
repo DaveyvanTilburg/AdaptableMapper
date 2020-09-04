@@ -4,7 +4,7 @@ using MappingFramework.Compositions;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration.Dictionary;
 using MappingFramework.Configuration.Json;
-using MappingFramework.Configuration.Model;
+using MappingFramework.Configuration.DataStructure;
 using MappingFramework.Configuration.Xml;
 using MappingFramework.Traversals.Dictionary;
 using MappingFramework.Traversals.Json;
@@ -52,11 +52,11 @@ namespace MappingFramework.Converters
                 [JTokenToStringObjectConverter._typeId] = typeof(JTokenToStringObjectConverter),
 
                 //Configuration - Model
-                [ModelChildCreator._typeId] = typeof(ModelChildCreator),
-                [ModelObjectConverter._typeId] = typeof(ModelObjectConverter),
-                [ModelTargetInstantiator._typeId] = typeof(ModelTargetInstantiator),
-                [ModelToStringObjectConverter._typeId] = typeof(ModelToStringObjectConverter),
-                [StringToModelObjectConverter._typeId] = typeof(StringToModelObjectConverter),
+                [DataStructureChildCreator._typeId] = typeof(DataStructureChildCreator),
+                [DataStructureObjectConverter._typeId] = typeof(DataStructureObjectConverter),
+                [DataStructureTargetInstantiator._typeId] = typeof(DataStructureTargetInstantiator),
+                [DataStructureToStringObjectConverter._typeId] = typeof(DataStructureToStringObjectConverter),
+                [StringToDataStructureObjectConverter._typeId] = typeof(StringToDataStructureObjectConverter),
 
                 //Configuration - Xml
                 [XElementToStringObjectConverter._typeId] = typeof(XElementToStringObjectConverter),

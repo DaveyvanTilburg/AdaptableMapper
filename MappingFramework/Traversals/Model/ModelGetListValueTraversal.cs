@@ -1,8 +1,8 @@
-﻿using MappingFramework.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MappingFramework.Configuration;
 using MappingFramework.Converters;
+using MappingFramework.DataStructure;
 
 namespace MappingFramework.Traversals.Model
 {
@@ -21,7 +21,7 @@ namespace MappingFramework.Traversals.Model
 
         public MethodResult<IEnumerable<object>> GetValues(Context context)
         {
-            if (!(context.Source is ModelBase model))
+            if (!(context.Source is TraversableDataStructure model))
             {
                 Process.ProcessObservable.GetInstance().Raise("MODEL#12; source is not of expected type Model", "error", Path, context.Source);
                 return new NullMethodResult<IEnumerable<object>>();
@@ -29,7 +29,7 @@ namespace MappingFramework.Traversals.Model
 
             var modelPathContainer = PathContainer.Create(Path);
 
-            List<ModelBase> pathTargets = model.NavigateToAllModels(modelPathContainer.CreatePathQueue()).ToList();
+            List<TraversableDataStructure> pathTargets = model.NavigateToAll(modelPathContainer.CreatePathQueue()).ToList();
             List<object> modelScopes = pathTargets
                 .Where(m => m.IsValid())
                 .Select(p => p.GetListProperty(modelPathContainer.LastInPath))
