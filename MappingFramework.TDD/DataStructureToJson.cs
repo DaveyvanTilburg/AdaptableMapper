@@ -8,7 +8,7 @@ using Xunit;
 
 namespace MappingFramework.TDD
 {
-    public class ModelToJson
+    public class DataStructureToJson
     {
         [Fact]
         public void ModelToJsonTest()

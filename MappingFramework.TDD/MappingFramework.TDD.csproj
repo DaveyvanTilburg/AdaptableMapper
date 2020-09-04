@@ -94,11 +94,11 @@
     <Compile Include="DataStructureExamples\Simple\Mix.cs" />
     <Compile Include="DataStructureExamples\Simple\NoItem.cs" />
     <Compile Include="DataStructureExamples\Simple\SimpleItem.cs" />
-    <Compile Include="ModelToJson.cs" />
-    <Compile Include="ModelToXml.cs" />
+    <Compile Include="DataStructureToJson.cs" />
+    <Compile Include="DataStructureToXml.cs" />
     <Compile Include="TestErrorObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XmlToModel.cs" />
+    <Compile Include="XmlToDataStructure.cs" />
     <Compile Include="XmlToXml.cs" />
   </ItemGroup>
   <ItemGroup>

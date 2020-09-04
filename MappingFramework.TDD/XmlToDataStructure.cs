@@ -5,7 +5,7 @@ using Xunit;
 
 namespace MappingFramework.TDD
 {
-    public class XmlToModel
+    public class XmlToDataStructure
     {
         [Fact]
         public void XmlToModelTest()
