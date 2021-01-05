@@ -54,6 +54,7 @@
     <Compile Include="Configuration\AdditionalSource.cs" />
     <Compile Include="Configuration\AdditionalSourceValues.cs" />
     <Compile Include="Configuration\Dictionary\DictionaryTargetInstantiator.cs" />
+    <Compile Include="ContentType.cs" />
     <Compile Include="Converters\JsonTypeIdBasedConverter.cs" />
     <Compile Include="Converters\ResolvableByTypeId.cs" />
     <Compile Include="Converters\ResolvableTypeIdCollection.cs" />

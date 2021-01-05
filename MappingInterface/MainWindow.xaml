@@ -1,0 +1,26 @@
+﻿<Window x:Class="MappingInterface.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MappingInterface"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="90" Width="220" ResizeMode="NoResize">
+    <Grid Margin="0,0,0,0">
+        <GroupBox x:Name="SourceType" Margin="0,10,0,0">
+            <StackPanel>
+                <RadioButton x:Name="SourceXml" Content="Xml" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <RadioButton x:Name="SourceJson" Content="Json" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox x:Name="TargetType" Margin="70,10,0,0">
+            <StackPanel>
+                <RadioButton x:Name="TargetXml" Content="Xml" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <RadioButton x:Name="TargetJson" Content="Json" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </StackPanel>
+        </GroupBox>
+
+        <Button Content="Go" HorizontalAlignment="Left" Margin="145,17,0,0" VerticalAlignment="Top" Width="40" Click="Go_Click"/>
+    </Grid>
+</Window>
