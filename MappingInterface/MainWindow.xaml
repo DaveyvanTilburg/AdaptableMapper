@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MappingInterface"
         mc:Ignorable="d"
-        Title="MainWindow" Height="90" Width="220" ResizeMode="NoResize">
+        Title="MainWindow" Height="100" Width="230" ResizeMode="NoResize">
     <Grid Margin="0,0,0,0">
         <GroupBox x:Name="SourceType" Margin="0,10,0,0">
             <StackPanel>
                 <RadioButton x:Name="SourceXml" Content="Xml" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <RadioButton x:Name="SourceJson" Content="Json" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <RadioButton x:Name="SourceString" Content="String" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </StackPanel>
         </GroupBox>
 
@@ -18,9 +19,10 @@
             <StackPanel>
                 <RadioButton x:Name="TargetXml" Content="Xml" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <RadioButton x:Name="TargetJson" Content="Json" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <RadioButton x:Name="TargetDictionary" Content="Dictionary" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </StackPanel>
         </GroupBox>
 
-        <Button Content="Go" HorizontalAlignment="Left" Margin="145,17,0,0" VerticalAlignment="Top" Width="40" Click="Go_Click"/>
+        <Button Content="Go" HorizontalAlignment="Left" Margin="164,0,0,0" VerticalAlignment="Center" Width="40" Click="Go_Click"/>
     </Grid>
 </Window>

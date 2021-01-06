@@ -4,6 +4,8 @@
     {
         Xml,
         Json,
-        DataStructure
+        DataStructure,
+        String,
+        Dictionary
     }
 }

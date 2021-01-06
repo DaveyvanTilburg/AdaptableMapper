@@ -1,26 +1,45 @@
 ﻿using MappingFramework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using MappingFramework.Configuration;
+using MappingFramework.Configuration.DataStructure;
+using MappingFramework.Configuration.Dictionary;
+using MappingFramework.Configuration.Json;
+using MappingFramework.Configuration.Xml;
 
 namespace MappingInterface
 {
     public partial class Mapping : Window
     {
+        MappingConfiguration _mappingConfiguration;
+        
         public Mapping(ContentType sourceType, ContentType targetType)
         {
             InitializeComponent();
+
+            ObjectConverter objectConverter =
+                sourceType == ContentType.Xml ? new XmlObjectConverter() :
+                sourceType == ContentType.Json ? new JsonObjectConverter() :
+                //sourceType == ContentType.DataStructure ? new DataStructureObjectConverter() :
+                sourceType == ContentType.String ? new StringToDataStructureObjectConverter() : (ObjectConverter)null;
+
+            TargetInstantiator targetInstantiator =
+                targetType == ContentType.Xml ? new XmlTargetInstantiator() :
+                targetType == ContentType.Json ? new JsonTargetInstantiator() :
+                //sourceType == ContentType.DataStructure ? new DataStructureObjectConverter() :
+                sourceType == ContentType.Dictionary ? new DictionaryTargetInstantiator() : (TargetInstantiator)null;
+
+            ResultObjectConverter resultObjectConverter =
+                targetType == ContentType.Xml ? new XElementToStringObjectConverter():
+                targetType == ContentType.Json ? new JTokenToStringObjectConverter():
+                //sourceType == ContentType.DataStructure ? new DataStructureToStringObjectConverter():
+                sourceType == ContentType.Dictionary ? new DataStructureToStringObjectConverter(): (ResultObjectConverter)null;
+
+            _mappingConfiguration = new MappingConfiguration(
+                new List<MappingScopeComposite>(),
+                new List<MappingFramework.Configuration.Mapping>(),
+                new ContextFactory(objectConverter, targetInstantiator),
+                resultObjectConverter);
         }
     }
 }
