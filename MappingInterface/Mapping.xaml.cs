@@ -6,6 +6,7 @@ using MappingFramework.Configuration.DataStructure;
 using MappingFramework.Configuration.Dictionary;
 using MappingFramework.Configuration.Json;
 using MappingFramework.Configuration.Xml;
+using MappingFramework.MappingInterface;
 
 namespace MappingInterface
 {
@@ -40,6 +41,10 @@ namespace MappingInterface
                 new List<MappingFramework.Configuration.Mapping>(),
                 new ContextFactory(objectConverter, targetInstantiator),
                 resultObjectConverter);
+
+            MappingPanel.Children.Add(new GenericComponentView(objectConverter));
+            MappingPanel.Children.Add(new GenericComponentView(targetInstantiator));
+            MappingPanel.Children.Add(new GenericComponentView(resultObjectConverter));
         }
     }
 }
