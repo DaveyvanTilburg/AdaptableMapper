@@ -5,6 +5,8 @@
         Undefined,
         TextBox,
         CheckBox,
+        GetValueTraversal,
+        SetValueTraversal,
         RadioGroupBox
     }
 }

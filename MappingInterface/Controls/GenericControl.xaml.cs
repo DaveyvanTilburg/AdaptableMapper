@@ -8,6 +8,7 @@ namespace MappingFramework.MappingInterface.Controls
     public partial class GenericControl : UserControl
     {
         private readonly object _subject;
+        private readonly ContentType _contentType;
         
         public GenericControl(object subject)
         {
@@ -15,6 +16,11 @@ namespace MappingFramework.MappingInterface.Controls
 
             Initialized += LoadObjectConverter;
             InitializeComponent();
+        }
+        
+        public GenericControl(object subject, ContentType contentType) : this(subject)
+        {
+            _contentType = contentType;
         }
         
         private void LoadObjectConverter(object o, EventArgs e)
@@ -34,6 +40,14 @@ namespace MappingFramework.MappingInterface.Controls
                     case InterfaceRequirementType.RadioGroupBox:
                         ComponentPanel.Children.Add(new RadioGroupField(interfaceRequirement));
                         break;
+                    case InterfaceRequirementType.GetValueTraversal:
+                        ComponentPanel.Children.Add(new GetValueTraversalControl(interfaceRequirement.PropertyInfo(), _subject, _contentType));
+                        break;
+                    case InterfaceRequirementType.SetValueTraversal:
+                        ComponentPanel.Children.Add(new SetValueTraversalControl(interfaceRequirement.PropertyInfo(), _subject, _contentType));
+                        break;
+                    //default:
+                        //throw new Exception($"Type is not supported: {interfaceRequirement.PropertyType()}");
                 }
             }
         }

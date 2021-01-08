@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using MappingFramework.Traversals;
 
 namespace MappingFramework.MappingInterface.Generics
 {
@@ -18,6 +19,8 @@ namespace MappingFramework.MappingInterface.Generics
             _propertyInfo.PropertyType == typeof(string) ? InterfaceRequirementType.TextBox :
             _propertyInfo.PropertyType == typeof(bool) ? InterfaceRequirementType.CheckBox :
             _propertyInfo.PropertyType.IsEnum ? InterfaceRequirementType.RadioGroupBox :
+            _propertyInfo.PropertyType == typeof(GetValueTraversal) ? InterfaceRequirementType.GetValueTraversal :
+            _propertyInfo.PropertyType == typeof(SetValueTraversal) ? InterfaceRequirementType.SetValueTraversal :
                 InterfaceRequirementType.Undefined;
 
         public string Name() => _propertyInfo.Name;
@@ -25,5 +28,7 @@ namespace MappingFramework.MappingInterface.Generics
         public Type PropertyType() => _propertyInfo.PropertyType;
 
         public void Update(object value) => _propertyInfo.SetValue(_subject, value);
+
+        public PropertyInfo PropertyInfo() => _propertyInfo;
     }
 }

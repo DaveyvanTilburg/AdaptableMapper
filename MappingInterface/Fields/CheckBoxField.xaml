@@ -7,7 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="32" d:DesignWidth="800">
     <Grid>
-        <Label x:Name="ComponentLabel"></Label>
-        <CheckBox x:Name="ComponentCheckBox" Margin="200,5,5,5">Checked</CheckBox>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="0.8*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Label x:Name="ComponentLabel" Grid.Column="0"></Label>
+        <CheckBox x:Name="ComponentCheckBox" Grid.Column="1">Checked</CheckBox>
     </Grid>
 </UserControl>

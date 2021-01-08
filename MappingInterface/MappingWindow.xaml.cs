@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using MappingFramework.Compositions;
 using MappingFramework.Configuration;
 using MappingFramework.Configuration.DataStructure;
 using MappingFramework.Configuration.Dictionary;
@@ -53,11 +54,14 @@ namespace MappingFramework.MappingInterface
 
             AddMapping.Click += OnClickAddMapping;
             ButtonTest.Click += OnTest;
+
+            SourceTextBox.Text = @"<root><test/></root>";
+            TargetTextBox.Text = @"<root><test/></root>";
         }
 
         private void OnClickAddMapping(object o, EventArgs e)
         {
-            var mapping = new Mapping();
+            var mapping = new Mapping(new GetNothingValueTraversal(), new SetMutatedValueTraversal());
             _mappingConfiguration.Mappings.Add(mapping);
 
             MappingPanel.Children.Add(new MappingControl(mapping, _mappingConfiguration.Mappings, _sourceType, _targetType));
@@ -65,7 +69,11 @@ namespace MappingFramework.MappingInterface
         
         private void OnTest(object o, EventArgs e)
         {
-            
+            string source = SourceTextBox.Text;
+            string target = TargetTextBox.Text;
+
+            string result = _mappingConfiguration.Map(source, target) as string;
+            MessageBox.Show(result);
         }
     }
 }

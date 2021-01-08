@@ -10,7 +10,7 @@ namespace MappingFramework.Traversals.Xml
 
         public static string ConvertToInterpretation(this string path, XmlInterpretation xmlInterpretation)
         {
-            if (path.Length == 0)
+            if ((path?.Length ?? 0) == 0)
                 return string.Empty;
 
             string result = path;

@@ -11,7 +11,7 @@ namespace MappingFramework
 {
     public static class OptionLists
     {
-        private static readonly List<GetValueTraversal> _composedGetValueTraversals = new List<GetValueTraversal>
+        private static List<GetValueTraversal> ComposedGetValueTraversals => new List<GetValueTraversal>
         {
             new GetAdditionalSourceValue(),
             new GetConcatenatedByListValueTraversal(),
@@ -25,25 +25,25 @@ namespace MappingFramework
             new IfConditionThenAElseBGetValueTraversal()
         };
 
-        private static readonly List<GetValueTraversal> _xmlGetValueTraversals = new List<GetValueTraversal>
+        private static List<GetValueTraversal> NewXmlGetValueTraversals => new List<GetValueTraversal>
         {
             new XmlGetValueTraversal(),
             new XmlGetThisValueTraversal()
         };
 
-        private static readonly List<GetValueTraversal> _jsonGetValueTraversals = new List<GetValueTraversal>
+        private static List<GetValueTraversal> NewJsonGetValueTraversals => new List<GetValueTraversal>
         {
             new JsonGetValueTraversal()
         };
 
-        private static readonly List<GetValueTraversal> _dataStructureGetValueTraversals = new List<GetValueTraversal>
+        private static List<GetValueTraversal> NewDataStructureGetValueTraversals => new List<GetValueTraversal>
         {
             new ModelGetValueTraversal()
         };
 
-        private static List<GetValueTraversal> XmlGetValueTraversals() => CreateList(_xmlGetValueTraversals, _composedGetValueTraversals);
-        private static List<GetValueTraversal> JsonGetValueTraversals() => CreateList(_jsonGetValueTraversals, _composedGetValueTraversals);
-        private static List<GetValueTraversal> DataStructureGetValueTraversals() => CreateList(_dataStructureGetValueTraversals, _composedGetValueTraversals);
+        private static List<GetValueTraversal> XmlGetValueTraversals() => CreateList(NewXmlGetValueTraversals, ComposedGetValueTraversals);
+        private static List<GetValueTraversal> JsonGetValueTraversals() => CreateList(NewJsonGetValueTraversals, ComposedGetValueTraversals);
+        private static List<GetValueTraversal> DataStructureGetValueTraversals() => CreateList(NewDataStructureGetValueTraversals, ComposedGetValueTraversals);
         
         public static List<GetValueTraversal> GetValueTraversals(ContentType contentType)
         {
@@ -62,38 +62,38 @@ namespace MappingFramework
 
 
 
-        private static readonly List<SetValueTraversal> _composedSetValueTraversals = new List<SetValueTraversal>
+        private static List<SetValueTraversal> ComposedSetValueTraversals => new List<SetValueTraversal>
         {
             new SetMutatedValueTraversal()
         };
 
-        private static readonly List<SetValueTraversal> _xmlSetValueTraversals = new List<SetValueTraversal>
+        private static List<SetValueTraversal> NewXmlSetValueTraversals => new List<SetValueTraversal>
         {
             new XmlSetValueTraversal(),
             new XmlSetThisValueTraversal(),
             new XmlSetGeneratedIdValueTraversal()
         };
 
-        private static readonly List<SetValueTraversal> _jsonSetValueTraversals = new List<SetValueTraversal>
+        private static List<SetValueTraversal> NewJsonSetValueTraversals => new List<SetValueTraversal>
         {
             new JsonSetValueTraversal()
         };
 
-        private static readonly List<SetValueTraversal> _dataStructureSetValueTraversals = new List<SetValueTraversal>
+        private static List<SetValueTraversal> NewDataStructureSetValueTraversals => new List<SetValueTraversal>
         {
             new ModelSetValueOnPathTraversal(),
             new ModelSetValueOnPropertyTraversal()
         };
 
-        private static readonly List<SetValueTraversal> _dictionarySetValueTraversals = new List<SetValueTraversal>
+        private static List<SetValueTraversal> NewDictionarySetValueTraversals => new List<SetValueTraversal>
         {
             new DictionarySetValueTraversal()
         };
 
-        private static List<SetValueTraversal> XmlSetValueTraversals() => CreateList(_xmlSetValueTraversals, _composedSetValueTraversals);
-        private static List<SetValueTraversal> JsonSetValueTraversals() => CreateList(_jsonSetValueTraversals, _composedSetValueTraversals);
-        private static List<SetValueTraversal> DataStructureSetValueTraversals() => CreateList(_dataStructureSetValueTraversals, _composedSetValueTraversals);
-        private static List<SetValueTraversal> DictionaryGetValueTraversals() => CreateList(_dictionarySetValueTraversals, _composedSetValueTraversals);
+        private static List<SetValueTraversal> XmlSetValueTraversals() => CreateList(NewXmlSetValueTraversals, ComposedSetValueTraversals);
+        private static List<SetValueTraversal> JsonSetValueTraversals() => CreateList(NewJsonSetValueTraversals, ComposedSetValueTraversals);
+        private static List<SetValueTraversal> DataStructureSetValueTraversals() => CreateList(NewDataStructureSetValueTraversals, ComposedSetValueTraversals);
+        private static List<SetValueTraversal> DictionaryGetValueTraversals() => CreateList(NewDictionarySetValueTraversals, ComposedSetValueTraversals);
 
         public static List<SetValueTraversal> SetValueTraversals(ContentType contentType)
         {

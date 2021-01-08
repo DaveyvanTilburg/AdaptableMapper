@@ -5,15 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mappingInterface="clr-namespace:MappingFramework.MappingInterface"
         mc:Ignorable="d"
-        Title="MainWindow" Height="820" Width="1020" ResizeMode="NoResize">
-    <Grid Margin="0,0,0,-16">
-        <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="725" Margin="10,10,0,0" VerticalAlignment="Top" Width="199">
-            <TextBox Text="TextBox" TextWrapping="Wrap" AcceptsReturn="True"/>
+        Title="MainWindow" Height="1024" Width="1600" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.12*" />
+            <ColumnDefinition Width="0.76*" />
+            <ColumnDefinition Width="0.12*" />
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.95*" />
+            <RowDefinition Height="0.05*" />
+        </Grid.RowDefinitions>
+        
+        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="0" Grid.Row="0">
+            <TextBox x:Name="SourceTextBox" TextWrapping="Wrap" AcceptsReturn="True"/>
         </Border>
-        <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Height="725" Margin="791,10,0,0" VerticalAlignment="Top" Width="199">
-            <TextBox Text="TextBox" TextWrapping="Wrap" AcceptsReturn="True"/>
-        </Border>
-        <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" Height="725" VerticalAlignment="Top" Width="572" Margin="0,10,0,0">
+        
+        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1" Grid.Row="0">
             <StackPanel x:Name="MappingConfigurationPanel">
                 <Border BorderThickness="1" BorderBrush="Black">
                     <StackPanel x:Name="ObjectConverterPanel">
@@ -41,6 +50,11 @@
                 </Border>
             </StackPanel>
         </Border>
-        <Button x:Name="ButtonTest" Content="Test" HorizontalAlignment="Left" Height="24" Margin="910,748,0,0" VerticalAlignment="Top" Width="80"/>
+
+        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="2" Grid.Row="0">
+            <TextBox x:Name="TargetTextBox" TextWrapping="Wrap" AcceptsReturn="True"/>
+        </Border>
+
+        <Button Grid.Column="2" Grid.Row="1" x:Name="ButtonTest" Content="Test" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Margin="0,0,0,0" Width="80"/>
     </Grid>
 </Window>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Controls;
 using MappingFramework.Configuration;
 
@@ -28,15 +27,8 @@ namespace MappingFramework.MappingInterface.Controls
         
         private void Load(object o, EventArgs e)
         {
-            IEnumerable<string> getValueTraversalOptions = OptionLists.GetValueTraversals(_sourceType).Select(t => t.GetType().Name);
-
-            foreach (string option in getValueTraversalOptions)
-                GetValueTraversalComboBox.Items.Add(option);
-
-            IEnumerable<string> setValueTraversalOptions = OptionLists.SetValueTraversals(_targetType).Select(t => t.GetType().Name);
-
-            foreach (string option in setValueTraversalOptions)
-                SetValueTraversalComboBox.Items.Add(option);
+            GetValueStackPanelComponent.Children.Add(new GetValueTraversalControl(_mapping.GetType().GetProperty(nameof(_mapping.GetValueTraversal)), _mapping, _sourceType));
+            SetValueStackPanelComponent.Children.Add(new SetValueTraversalControl(_mapping.GetType().GetProperty(nameof(_mapping.SetValueTraversal)), _mapping, _targetType));
         }
 
         private void OnRemoveClick(object o, EventArgs e)
