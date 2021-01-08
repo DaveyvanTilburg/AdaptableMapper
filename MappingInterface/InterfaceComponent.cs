@@ -20,7 +20,7 @@ namespace MappingFramework.MappingInterface
             IEnumerable<InterfaceRequirement> result = subjectType
                 .GetProperties()
                 .Where(p => !p.Name.Equals("TypeId"))
-                .Select(p => new InterfaceRequirement(p));
+                .Select(p => new InterfaceRequirement(p, _subject));
 
             return result;
         }

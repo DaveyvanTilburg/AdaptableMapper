@@ -31,8 +31,18 @@ namespace MappingFramework.MappingInterface.Fields
                     IsChecked = values.IndexOf(value) == 0
                 };
 
+                radioButton.Click += OnClicked;
+
                 ComponentStackPanel.Children.Add(radioButton);
             }
+        }
+
+        private void OnClicked(object o, EventArgs e)
+        {
+            string value = ComponentStackPanel.Children.OfType<RadioButton>().FirstOrDefault(rb => rb.IsChecked ?? false)?.Content?.ToString() ?? string.Empty;
+            object enumValue = Enum.Parse(_interfaceRequirement.PropertyType(), value);
+            
+            _interfaceRequirement.Update(enumValue);
         }
     }
 }

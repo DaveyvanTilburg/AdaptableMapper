@@ -19,6 +19,6 @@
                 
             </StackPanel>
         </Border>
-        <Button Content="Test" HorizontalAlignment="Left" Height="24" Margin="910,748,0,0" VerticalAlignment="Top" Width="80"/>
+        <Button x:Name="ButtonTest" Content="Test" HorizontalAlignment="Left" Height="24" Margin="910,748,0,0" VerticalAlignment="Top" Width="80"/>
     </Grid>
 </Window>

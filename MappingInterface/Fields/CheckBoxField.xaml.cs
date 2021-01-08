@@ -13,11 +13,18 @@ namespace MappingFramework.MappingInterface
 
             Initialized += Load;
             InitializeComponent();
+
+            ComponentCheckBox.Click += OnClicked;
         }
 
         private void Load(object o, EventArgs e)
         {
             ComponentLabel.Content = _interfaceRequirement.Name();
+        }
+
+        private void OnClicked(object o, EventArgs e)
+        {
+            _interfaceRequirement.Update(ComponentCheckBox.IsChecked ?? false);
         }
     }
 }

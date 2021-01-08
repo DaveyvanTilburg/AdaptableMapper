@@ -6,10 +6,12 @@ namespace MappingFramework.MappingInterface
     public class InterfaceRequirement
     {
         private readonly PropertyInfo _propertyInfo;
-        
-        public InterfaceRequirement(PropertyInfo propertyInfo)
+        private readonly object _subject;
+
+        public InterfaceRequirement(PropertyInfo propertyInfo, object subject)
         {
             _propertyInfo = propertyInfo;
+            _subject = subject;
         }
 
         public InterfaceRequirementType Type() =>
@@ -21,5 +23,7 @@ namespace MappingFramework.MappingInterface
         public string Name() => _propertyInfo.Name;
 
         public Type PropertyType() => _propertyInfo.PropertyType;
+
+        public void Update(object value) => _propertyInfo.SetValue(_subject, value);
     }
 }

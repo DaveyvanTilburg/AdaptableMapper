@@ -13,11 +13,18 @@ namespace MappingFramework.MappingInterface
 
             Initialized += Load;
             InitializeComponent();
+
+            ComponentTextBox.LostFocus += OnFocusLost;
         }
 
         private void Load(object o, EventArgs e)
         {
             ComponentLabel.Content = _interfaceRequirement.Name();
+        }
+
+        private void OnFocusLost(object o, EventArgs e)
+        {
+            _interfaceRequirement.Update(ComponentTextBox.Text);
         }
     }
 }

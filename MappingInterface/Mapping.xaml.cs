@@ -1,4 +1,5 @@
-﻿using MappingFramework;
+﻿using System;
+using MappingFramework;
 using System.Collections.Generic;
 using System.Windows;
 using MappingFramework.Configuration;
@@ -45,6 +46,13 @@ namespace MappingInterface
             MappingPanel.Children.Add(new GenericComponentView(objectConverter));
             MappingPanel.Children.Add(new GenericComponentView(targetInstantiator));
             MappingPanel.Children.Add(new GenericComponentView(resultObjectConverter));
+
+            ButtonTest.Click += OnTest;
+        }
+
+        private void OnTest(object o, EventArgs e)
+        {
+            
         }
     }
 }
