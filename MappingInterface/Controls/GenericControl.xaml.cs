@@ -4,11 +4,11 @@ using MappingFramework.MappingInterface.Fields;
 
 namespace MappingFramework.MappingInterface
 {
-    public partial class GenericComponentView : UserControl
+    public partial class GenericControl : UserControl
     {
         private readonly object _subject;
         
-        public GenericComponentView(object subject)
+        public GenericControl(object subject)
         {
             _subject = subject;
 

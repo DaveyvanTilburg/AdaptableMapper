@@ -67,6 +67,7 @@
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
     <Compile Include="MappingCaches.cs" />
+    <Compile Include="OptionLists.cs" />
     <Compile Include="TemplateCache.cs" />
     <Compile Include="Compositions\GetNothingValueTraversal.cs" />
     <Compile Include="Compositions\GetSearchValueTraversal.cs" />

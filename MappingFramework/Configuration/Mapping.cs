@@ -7,6 +7,8 @@ namespace MappingFramework.Configuration
         public GetValueTraversal GetValueTraversal { get; set; }
         public SetValueTraversal SetValueTraversal { get; set; }
 
+        public Mapping(){}
+        
         public Mapping(
             GetValueTraversal getValueTraversal, 
             SetValueTraversal setValueTraversal)

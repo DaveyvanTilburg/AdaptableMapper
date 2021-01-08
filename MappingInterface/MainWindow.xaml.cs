@@ -22,8 +22,8 @@ namespace MappingInterface
                 TargetJson.IsChecked ?? false ? ContentType.Json :
                 ContentType.DataStructure;
 
-            Mapping mapping = new Mapping(sourceType, targetType);
-            mapping.Show();
+            MappingWindow mappingWindow = new MappingWindow(sourceType, targetType);
+            mappingWindow.Show();
 
             Close();
         }

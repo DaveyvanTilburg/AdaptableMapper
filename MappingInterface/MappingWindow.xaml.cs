@@ -8,15 +8,21 @@ using MappingFramework.Configuration.Dictionary;
 using MappingFramework.Configuration.Json;
 using MappingFramework.Configuration.Xml;
 using MappingFramework.MappingInterface;
+using MappingFramework.MappingInterface.Controls;
 
 namespace MappingInterface
 {
-    public partial class Mapping : Window
+    public partial class MappingWindow : Window
     {
-        MappingConfiguration _mappingConfiguration;
-        
-        public Mapping(ContentType sourceType, ContentType targetType)
+        private readonly ContentType _sourceType;
+        private readonly ContentType _targetType;
+        private readonly MappingConfiguration _mappingConfiguration;
+
+        public MappingWindow(ContentType sourceType, ContentType targetType)
         {
+            _sourceType = sourceType;
+            _targetType = targetType;
+            
             InitializeComponent();
 
             ObjectConverter objectConverter =
@@ -39,17 +45,26 @@ namespace MappingInterface
 
             _mappingConfiguration = new MappingConfiguration(
                 new List<MappingScopeComposite>(),
-                new List<MappingFramework.Configuration.Mapping>(),
+                new List<Mapping>(),
                 new ContextFactory(objectConverter, targetInstantiator),
                 resultObjectConverter);
 
-            MappingPanel.Children.Add(new GenericComponentView(objectConverter));
-            MappingPanel.Children.Add(new GenericComponentView(targetInstantiator));
-            MappingPanel.Children.Add(new GenericComponentView(resultObjectConverter));
+            ObjectConverterPanel.Children.Add(new GenericControl(objectConverter));
+            TargetInstantiatorPanel.Children.Add(new GenericControl(targetInstantiator));
+            ResultObjectConverterPanel.Children.Add(new GenericControl(resultObjectConverter));
 
+            AddMapping.Click += OnClickAddMapping;
             ButtonTest.Click += OnTest;
         }
 
+        private void OnClickAddMapping(object o, EventArgs e)
+        {
+            var mapping = new Mapping();
+            _mappingConfiguration.Mappings.Add(mapping);
+
+            MappingPanel.Children.Add(new MappingControl(mapping, _mappingConfiguration.Mappings, _sourceType, _targetType));
+        }
+        
         private void OnTest(object o, EventArgs e)
         {
             
