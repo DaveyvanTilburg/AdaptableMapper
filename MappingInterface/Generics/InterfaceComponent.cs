@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MappingFramework.MappingInterface
+namespace MappingFramework.MappingInterface.Generics
 {
     public class InterfaceComponent
     {

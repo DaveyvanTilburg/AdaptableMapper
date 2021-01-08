@@ -1,7 +1,6 @@
-﻿<Application x:Class="MappingInterface.App"
+﻿<Application x:Class="MappingFramework.MappingInterface.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:MappingInterface"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

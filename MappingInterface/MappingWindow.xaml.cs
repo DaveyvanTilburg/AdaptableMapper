@@ -1,5 +1,4 @@
 ﻿using System;
-using MappingFramework;
 using System.Collections.Generic;
 using System.Windows;
 using MappingFramework.Configuration;
@@ -7,10 +6,9 @@ using MappingFramework.Configuration.DataStructure;
 using MappingFramework.Configuration.Dictionary;
 using MappingFramework.Configuration.Json;
 using MappingFramework.Configuration.Xml;
-using MappingFramework.MappingInterface;
 using MappingFramework.MappingInterface.Controls;
 
-namespace MappingInterface
+namespace MappingFramework.MappingInterface
 {
     public partial class MappingWindow : Window
     {

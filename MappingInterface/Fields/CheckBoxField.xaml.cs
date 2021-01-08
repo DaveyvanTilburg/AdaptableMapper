@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Controls;
+using MappingFramework.MappingInterface.Generics;
 
-namespace MappingFramework.MappingInterface
+namespace MappingFramework.MappingInterface.Fields
 {
     public partial class CheckBoxField : UserControl
     {

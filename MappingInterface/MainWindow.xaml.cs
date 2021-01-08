@@ -1,7 +1,6 @@
-﻿using MappingFramework;
-using System.Windows;
+﻿using System.Windows;
 
-namespace MappingInterface
+namespace MappingFramework.MappingInterface
 {
     public partial class MainWindow : Window
     {

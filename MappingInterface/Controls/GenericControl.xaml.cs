@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Controls;
 using MappingFramework.MappingInterface.Fields;
+using MappingFramework.MappingInterface.Generics;
 
-namespace MappingFramework.MappingInterface
+namespace MappingFramework.MappingInterface.Controls
 {
     public partial class GenericControl : UserControl
     {

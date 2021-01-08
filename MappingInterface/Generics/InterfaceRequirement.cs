@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace MappingFramework.MappingInterface
+namespace MappingFramework.MappingInterface.Generics
 {
     public class InterfaceRequirement
     {

@@ -1,4 +1,4 @@
-﻿namespace MappingFramework.MappingInterface
+﻿namespace MappingFramework.MappingInterface.Generics
 {
     public enum InterfaceRequirementType
     {
