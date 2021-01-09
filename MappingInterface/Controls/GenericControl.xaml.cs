@@ -56,6 +56,9 @@ namespace MappingFramework.MappingInterface.Controls
                     case InterfaceRequirementType.ValueMutation:
                         ComponentPanel.Children.Add(new ValueMutationControl(interfaceRequirement.PropertyInfo(), _subject));
                         break;
+                    case InterfaceRequirementType.Condition:
+                        ComponentPanel.Children.Add(new ConditionControl(interfaceRequirement.PropertyInfo(), _subject, _contentType));
+                        break;
                     //default:
                         //throw new Exception($"Type is not supported: {interfaceRequirement.PropertyType()}");
                 }

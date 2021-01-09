@@ -25,9 +25,9 @@ namespace MappingFramework.MappingInterface.Controls
         {
             LabelComponent.Content = _valueMutation.Name;
 
-            IEnumerable<string> setValueTraversalOptions = OptionLists.ValueMutations().Select(t => t.GetType().Name);
+            IEnumerable<string> options = OptionLists.ValueMutations().Select(t => t.GetType().Name);
 
-            foreach (string option in setValueTraversalOptions)
+            foreach (string option in options)
                 ValueMutationComboBox.Items.Add(option);
         }
 

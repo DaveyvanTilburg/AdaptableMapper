@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MappingFramework.Compositions;
+using MappingFramework.Conditions;
 using MappingFramework.Traversals;
 using MappingFramework.Traversals.Dictionary;
 using MappingFramework.Traversals.Json;
@@ -126,6 +127,13 @@ namespace MappingFramework
             new ToLowerValueMutation(),
             new ToUpperValueMutation(),
             new TrimValueMutation()
+        };
+
+        public static List<Condition> Conditions() => new List<Condition>
+        {
+            new CompareCondition(),
+            new ListOfConditions(),
+            new NotEmptyCondition()
         };
 
         private static List<T> CreateList<T>(params IEnumerable<T>[] itemsList)

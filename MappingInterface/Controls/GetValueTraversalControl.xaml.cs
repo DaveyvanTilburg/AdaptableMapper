@@ -28,9 +28,9 @@ namespace MappingFramework.MappingInterface.Controls
         {
             LabelComponent.Content = _getValueTraversal.Name;
             
-            IEnumerable<string> getValueTraversalOptions = OptionLists.GetValueTraversals(_sourceType).Select(t => t.GetType().Name);
+            IEnumerable<string> options = OptionLists.GetValueTraversals(_sourceType).Select(t => t.GetType().Name);
 
-            foreach (string option in getValueTraversalOptions)
+            foreach (string option in options)
                 GetValueTraversalComboBox.Items.Add(option);
         }
 

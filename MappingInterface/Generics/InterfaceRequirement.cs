@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using MappingFramework.Conditions;
 using MappingFramework.Traversals;
 using MappingFramework.ValueMutations;
 
@@ -24,6 +25,7 @@ namespace MappingFramework.MappingInterface.Generics
             _propertyInfo.PropertyType == typeof(GetValueTraversal) ? InterfaceRequirementType.GetValueTraversal :
             _propertyInfo.PropertyType == typeof(SetValueTraversal) ? InterfaceRequirementType.SetValueTraversal :
             _propertyInfo.PropertyType == typeof(ValueMutation) ? InterfaceRequirementType.ValueMutation :
+            _propertyInfo.PropertyType == typeof(Condition) ? InterfaceRequirementType.Condition :
                 InterfaceRequirementType.Undefined;
 
         public string Name() => _propertyInfo.Name;
