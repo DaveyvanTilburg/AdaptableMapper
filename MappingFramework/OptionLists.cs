@@ -19,7 +19,7 @@ namespace MappingFramework
             new GetConcatenatedByListValueTraversal(),
             new GetConcatenatedValueTraversal(),
             new GetMutatedValueTraversal(),
-            new GetNothingValueTraversal(),
+            new NullGetValueTraversal(),
             new GetNumberOfHits(),
             new GetSearchValueTraversal(),
             new GetStaticValue(),

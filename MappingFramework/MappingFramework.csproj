@@ -48,9 +48,11 @@
     <Compile Include="Compositions\GetConditionedListValueTraversal.cs" />
     <Compile Include="Compositions\GetListSearchValueTraversal.cs" />
     <Compile Include="Compositions\GetMutatedValueTraversal.cs" />
+    <Compile Include="Compositions\NullSetValueTraversal.cs" />
     <Compile Include="Compositions\SetMutatedValueTraversal.cs" />
     <Compile Include="Conditions\ListEvaluationOperator.cs" />
     <Compile Include="Conditions\NotEmptyCondition.cs" />
+    <Compile Include="Conditions\NullCondition.cs" />
     <Compile Include="Configuration\AdditionalSource.cs" />
     <Compile Include="Configuration\AdditionalSourceValues.cs" />
     <Compile Include="Configuration\Dictionary\DictionaryTargetInstantiator.cs" />
@@ -69,7 +71,7 @@
     <Compile Include="MappingCaches.cs" />
     <Compile Include="OptionLists.cs" />
     <Compile Include="TemplateCache.cs" />
-    <Compile Include="Compositions\GetNothingValueTraversal.cs" />
+    <Compile Include="Compositions\NullGetValueTraversal.cs" />
     <Compile Include="Compositions\GetSearchValueTraversal.cs" />
     <Compile Include="Traversals\Dictionary\DictionarySetValueTraversal.cs" />
     <Compile Include="Traversals\Dictionary\DictionaryValueTypes.cs" />

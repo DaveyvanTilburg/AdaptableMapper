@@ -28,7 +28,7 @@ namespace MappingFramework.TDD.Cases.Traversals
         [Fact]
         public void GetNothingValueTraversal()
         {
-            var subject = new GetNothingValueTraversal();
+            var subject = new NullGetValueTraversal();
 
             string result = null;
             List<Information> information = new Action(() => { result = subject.GetValue(null); }).Observe();
@@ -73,7 +73,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new GetNothingValueTraversal(),
+                                new NullGetValueTraversal(),
                                 new MappingFramework.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
@@ -90,7 +90,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new GetNothingValueTraversal(),
+                                new NullGetValueTraversal(),
                                 new MappingFramework.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
@@ -107,7 +107,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new GetNothingValueTraversal(),
+                                new NullGetValueTraversal(),
                                 new MappingFramework.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(

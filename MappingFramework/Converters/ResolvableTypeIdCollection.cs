@@ -23,7 +23,7 @@ namespace MappingFramework.Converters
             => _types = new Dictionary<string, Type>
             {
                 //Compositions
-                [GetNothingValueTraversal._typeId] = typeof(GetNothingValueTraversal),
+                [NullGetValueTraversal._typeId] = typeof(NullGetValueTraversal),
                 [GetSearchValueTraversal._typeId] = typeof(GetSearchValueTraversal),
                 [GetStaticValue._typeId] = typeof(GetStaticValue),
                 [GetValueTraversalDaysBetweenDates._typeId] = typeof(GetValueTraversalDaysBetweenDates),

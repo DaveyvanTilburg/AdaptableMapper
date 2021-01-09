@@ -40,12 +40,8 @@
                     </StackPanel>
                 </Border>
                 <Border BorderThickness="1" BorderBrush="Black">
-                    <StackPanel>
+                    <StackPanel x:Name="MappingListStackPanel">
                         <Label Foreground="Blue" FontWeight="Bold">Mapping</Label>
-                        <StackPanel x:Name="MappingPanel">
-                            
-                        </StackPanel>
-                        <Button x:Name="AddMapping">Add mapping</Button>
                     </StackPanel>
                 </Border>
             </StackPanel>

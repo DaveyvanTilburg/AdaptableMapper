@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Controls;
+using MappingFramework.Conditions;
 using MappingFramework.MappingInterface.Fields;
 using MappingFramework.MappingInterface.Generics;
 
@@ -48,21 +50,40 @@ namespace MappingFramework.MappingInterface.Controls
                         ComponentPanel.Children.Add(new RadioGroupField(interfaceRequirement));
                         break;
                     case InterfaceRequirementType.GetValueTraversal:
-                        ComponentPanel.Children.Add(new GetValueTraversalControl(interfaceRequirement.PropertyInfo(), _subject, _contentType));
+                        ComponentPanel.Children.Add(new GetValueTraversalControl(interfaceRequirement.UpdateAction(), interfaceRequirement.Name(), _contentType));
                         break;
                     case InterfaceRequirementType.SetValueTraversal:
-                        ComponentPanel.Children.Add(new SetValueTraversalControl(interfaceRequirement.PropertyInfo(), _subject, _contentType));
+                        ComponentPanel.Children.Add(new SetValueTraversalControl(interfaceRequirement.UpdateAction(), interfaceRequirement.Name(), _contentType));
                         break;
                     case InterfaceRequirementType.ValueMutation:
-                        ComponentPanel.Children.Add(new ValueMutationControl(interfaceRequirement.PropertyInfo(), _subject));
+                        ComponentPanel.Children.Add(new ValueMutationControl(interfaceRequirement.UpdateAction(), interfaceRequirement.Name()));
                         break;
                     case InterfaceRequirementType.Condition:
-                        ComponentPanel.Children.Add(new ConditionControl(interfaceRequirement.PropertyInfo(), _subject, _contentType));
+                        ComponentPanel.Children.Add(new ConditionControl(interfaceRequirement.UpdateAction(), interfaceRequirement.Name(), _contentType));
+                        break;
+                    case InterfaceRequirementType.List:
+                        ComponentPanel.Children.Add(
+                            new ListOfTControl(
+                                interfaceRequirement.UpdateAction(),
+                                interfaceRequirement.PropertyType(),
+                                interfaceRequirement.PropertyType().GenericTypeArguments.First().Name, 
+                                (updateAction, name, contentType, newItem) => UserControl(interfaceRequirement.PropertyType().GenericTypeArguments.First(), updateAction, name, contentType), 
+                                typeof(NullCondition), 
+                                _contentType)
+                            );
                         break;
                     //default:
                         //throw new Exception($"Type is not supported: {interfaceRequirement.PropertyType()}");
                 }
             }
+        }
+        
+        private UserControl UserControl(Type type, Action<object> updateAction, string name, ContentType contentType)
+        {
+            if (type == typeof(Condition))
+                return new ConditionControl(updateAction, name, contentType);
+
+            throw new Exception($"Type is not supported: {type}");
         }
     }
 }

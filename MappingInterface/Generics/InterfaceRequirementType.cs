@@ -10,6 +10,7 @@
         GetValueTraversal,
         SetValueTraversal,
         ValueMutation,
+        List,
         Condition
     }
 }

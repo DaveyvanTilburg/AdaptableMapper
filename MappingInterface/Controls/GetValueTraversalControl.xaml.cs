@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Controls;
 
 namespace MappingFramework.MappingInterface.Controls
 {
     public partial class GetValueTraversalControl : UserControl
     {
-        private readonly PropertyInfo _getValueTraversal;
-        private readonly object _propertyOwner;
-        private readonly ContentType _sourceType;
+        private readonly Action<object> _assignValue;
+        private readonly string _name;
+        private readonly ContentType _contentType;
 
-        public GetValueTraversalControl(PropertyInfo getValueTraversal, object propertyOwner, ContentType sourceType)
+        public GetValueTraversalControl(Action<object> assignValue, string name, ContentType contentType)
         {
-            _getValueTraversal = getValueTraversal;
-            _propertyOwner = propertyOwner;
-            _sourceType = sourceType;
+            _assignValue = assignValue;
+            _name = name;
+            _contentType = contentType;
 
             Initialized += Load;
             InitializeComponent();
@@ -26,9 +25,9 @@ namespace MappingFramework.MappingInterface.Controls
 
         private void Load(object o, EventArgs e)
         {
-            LabelComponent.Content = _getValueTraversal.Name;
+            LabelComponent.Content = _name;
             
-            IEnumerable<string> options = OptionLists.GetValueTraversals(_sourceType).Select(t => t.GetType().Name);
+            IEnumerable<string> options = OptionLists.GetValueTraversals(_contentType).Select(t => t.GetType().Name);
 
             foreach (string option in options)
                 GetValueTraversalComboBox.Items.Add(option);
@@ -38,11 +37,11 @@ namespace MappingFramework.MappingInterface.Controls
         {
             string selectedValue = GetValueTraversalComboBox.SelectedItem.ToString();
 
-            object value = OptionLists.GetValueTraversals(_sourceType).FirstOrDefault(t => t.GetType().Name.Equals(selectedValue, StringComparison.OrdinalIgnoreCase));
-            _getValueTraversal.SetValue(_propertyOwner, value);
+            object value = OptionLists.GetValueTraversals(_contentType).FirstOrDefault(t => t.GetType().Name.Equals(selectedValue, StringComparison.OrdinalIgnoreCase));
+            _assignValue(value);
 
             GetValueStackPanelComponent.Children.Clear();
-            GetValueStackPanelComponent.Children.Add(new GenericControl(value, _sourceType));
+            GetValueStackPanelComponent.Children.Add(new GenericControl(value, _contentType));
         }
     }
 }

@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Controls;
 
 namespace MappingFramework.MappingInterface.Controls
 {
     public partial class ValueMutationControl : UserControl
     {
-        private readonly PropertyInfo _valueMutation;
-        private readonly object _propertyOwner;
-        public ValueMutationControl(PropertyInfo valueMutation, object propertyOwner)
+        private readonly Action<object> _assignValue;
+        private readonly string _name;
+        public ValueMutationControl(Action<object> assignValue, string name)
         {
-            _valueMutation = valueMutation;
-            _propertyOwner = propertyOwner;
+            _assignValue = assignValue;
+            _name = name;
 
             Initialized += Load;
             InitializeComponent();
@@ -23,7 +22,7 @@ namespace MappingFramework.MappingInterface.Controls
 
         private void Load(object o, EventArgs e)
         {
-            LabelComponent.Content = _valueMutation.Name;
+            LabelComponent.Content = _name;
 
             IEnumerable<string> options = OptionLists.ValueMutations().Select(t => t.GetType().Name);
 
@@ -36,7 +35,7 @@ namespace MappingFramework.MappingInterface.Controls
             string selectedValue = ValueMutationComboBox.SelectedItem.ToString();
 
             object value = OptionLists.ValueMutations().FirstOrDefault(t => t.GetType().Name.Equals(selectedValue, StringComparison.OrdinalIgnoreCase));
-            _valueMutation.SetValue(_propertyOwner, value);
+            _assignValue(value);
 
             ValueMutationStackPanelComponent.Children.Clear();
             ValueMutationStackPanelComponent.Children.Add(new GenericControl(value));

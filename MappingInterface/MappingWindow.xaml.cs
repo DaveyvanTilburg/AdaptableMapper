@@ -52,19 +52,21 @@ namespace MappingFramework.MappingInterface
             TargetInstantiatorPanel.Children.Add(new GenericControl(targetInstantiator));
             ResultObjectConverterPanel.Children.Add(new GenericControl(resultObjectConverter));
 
-            AddMapping.Click += OnClickAddMapping;
             ButtonTest.Click += OnTest;
 
             SourceTextBox.Text = @"<root><test/></root>";
             TargetTextBox.Text = @"<root><test/></root>";
-        }
 
-        private void OnClickAddMapping(object o, EventArgs e)
-        {
-            var mapping = new Mapping(new GetNothingValueTraversal(), new SetMutatedValueTraversal());
-            _mappingConfiguration.Mappings.Add(mapping);
-
-            MappingPanel.Children.Add(new MappingControl(mapping, _mappingConfiguration.Mappings, _sourceType, _targetType));
+            MappingListStackPanel.Children.Add(
+                new ListOfTControl(
+                        list => _mappingConfiguration.Mappings = (List<Mapping>)list,
+                        typeof(List<Mapping>),
+                        nameof(_mappingConfiguration.Mappings),
+                        (updateAction, name, contentType, newItem) => new MappingControl((Mapping)newItem, _sourceType, _targetType),
+                        typeof(Mapping),
+                        ContentType.Undefined
+                    )
+                );
         }
         
         private void OnTest(object o, EventArgs e)

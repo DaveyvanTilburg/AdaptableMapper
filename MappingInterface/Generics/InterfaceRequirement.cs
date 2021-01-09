@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Reflection;
 using MappingFramework.Conditions;
 using MappingFramework.Traversals;
@@ -26,6 +27,7 @@ namespace MappingFramework.MappingInterface.Generics
             _propertyInfo.PropertyType == typeof(SetValueTraversal) ? InterfaceRequirementType.SetValueTraversal :
             _propertyInfo.PropertyType == typeof(ValueMutation) ? InterfaceRequirementType.ValueMutation :
             _propertyInfo.PropertyType == typeof(Condition) ? InterfaceRequirementType.Condition :
+            typeof(IEnumerable).IsAssignableFrom(_propertyInfo.PropertyType) ? InterfaceRequirementType.List :
                 InterfaceRequirementType.Undefined;
 
         public string Name() => _propertyInfo.Name;
@@ -34,6 +36,6 @@ namespace MappingFramework.MappingInterface.Generics
 
         public void Update(object value) => _propertyInfo.SetValue(_subject, value);
 
-        public PropertyInfo PropertyInfo() => _propertyInfo;
+        public Action<object> UpdateAction() => Update;
     }
 }
