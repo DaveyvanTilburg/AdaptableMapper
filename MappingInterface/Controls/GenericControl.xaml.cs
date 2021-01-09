@@ -38,6 +38,9 @@ namespace MappingFramework.MappingInterface.Controls
                     case InterfaceRequirementType.TextBox:
                         ComponentPanel.Children.Add(new TextField(interfaceRequirement));
                         break;
+                    case InterfaceRequirementType.NumberBox:
+                        ComponentPanel.Children.Add(new NumberField(interfaceRequirement));
+                        break;
                     case InterfaceRequirementType.CheckBox:
                         ComponentPanel.Children.Add(new CheckBoxField(interfaceRequirement));
                         break;

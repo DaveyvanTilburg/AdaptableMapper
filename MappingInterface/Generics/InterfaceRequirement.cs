@@ -19,6 +19,7 @@ namespace MappingFramework.MappingInterface.Generics
         public InterfaceRequirementType Type() =>
             _propertyInfo.PropertyType == typeof(string) ? InterfaceRequirementType.TextBox :
             _propertyInfo.PropertyType == typeof(bool) ? InterfaceRequirementType.CheckBox :
+            _propertyInfo.PropertyType == typeof(int) ? InterfaceRequirementType.NumberBox :
             _propertyInfo.PropertyType.IsEnum ? InterfaceRequirementType.RadioGroupBox :
             _propertyInfo.PropertyType == typeof(GetValueTraversal) ? InterfaceRequirementType.GetValueTraversal :
             _propertyInfo.PropertyType == typeof(SetValueTraversal) ? InterfaceRequirementType.SetValueTraversal :

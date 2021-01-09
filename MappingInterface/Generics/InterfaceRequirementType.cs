@@ -4,6 +4,7 @@
     {
         Undefined,
         TextBox,
+        NumberBox,
         CheckBox,
         GetValueTraversal,
         SetValueTraversal,
