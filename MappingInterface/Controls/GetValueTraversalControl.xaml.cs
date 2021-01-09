@@ -42,7 +42,7 @@ namespace MappingFramework.MappingInterface.Controls
             _getValueTraversal.SetValue(_propertyOwner, value);
 
             GetValueStackPanelComponent.Children.Clear();
-            GetValueStackPanelComponent.Children.Add(new GenericControl(value));
+            GetValueStackPanelComponent.Children.Add(new GenericControl(value, _sourceType));
         }
     }
 }

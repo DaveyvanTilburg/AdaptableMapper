@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using MappingFramework.Traversals;
+using MappingFramework.ValueMutations;
 
 namespace MappingFramework.MappingInterface.Generics
 {
@@ -21,6 +22,7 @@ namespace MappingFramework.MappingInterface.Generics
             _propertyInfo.PropertyType.IsEnum ? InterfaceRequirementType.RadioGroupBox :
             _propertyInfo.PropertyType == typeof(GetValueTraversal) ? InterfaceRequirementType.GetValueTraversal :
             _propertyInfo.PropertyType == typeof(SetValueTraversal) ? InterfaceRequirementType.SetValueTraversal :
+            _propertyInfo.PropertyType == typeof(ValueMutation) ? InterfaceRequirementType.ValueMutation :
                 InterfaceRequirementType.Undefined;
 
         public string Name() => _propertyInfo.Name;

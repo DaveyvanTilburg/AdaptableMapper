@@ -7,6 +7,7 @@
         CheckBox,
         GetValueTraversal,
         SetValueTraversal,
+        ValueMutation,
         RadioGroupBox
     }
 }

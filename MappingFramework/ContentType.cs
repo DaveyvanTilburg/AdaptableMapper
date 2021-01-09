@@ -2,6 +2,7 @@
 {
     public enum ContentType
     {
+        Undefined,
         Xml,
         Json,
         DataStructure,

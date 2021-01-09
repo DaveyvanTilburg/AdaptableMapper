@@ -6,6 +6,7 @@ using MappingFramework.Traversals.Dictionary;
 using MappingFramework.Traversals.Json;
 using MappingFramework.Traversals.Model;
 using MappingFramework.Traversals.Xml;
+using MappingFramework.ValueMutations;
 
 namespace MappingFramework
 {
@@ -112,6 +113,20 @@ namespace MappingFramework
             }
         }
 
+        public static List<ValueMutation> ValueMutations() => new List<ValueMutation>
+        {
+            new CreateSeparatedRangeFromNumberValueMutation(),
+            new DateValueMutation(),
+            new DictionaryReplaceValueMutation(),
+            new ListOfValueMutations(),
+            new NumberValueMutation(),
+            new PlaceholderValueMutation(),
+            new ReplaceValueMutation(),
+            new SubstringValueMutation(),
+            new ToLowerValueMutation(),
+            new ToUpperValueMutation(),
+            new TrimValueMutation()
+        };
 
         private static List<T> CreateList<T>(params IEnumerable<T>[] itemsList)
         {

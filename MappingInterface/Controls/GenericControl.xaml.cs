@@ -18,9 +18,13 @@ namespace MappingFramework.MappingInterface.Controls
             InitializeComponent();
         }
         
-        public GenericControl(object subject, ContentType contentType) : this(subject)
+        public GenericControl(object subject, ContentType contentType)
         {
             _contentType = contentType;
+            _subject = subject;
+
+            Initialized += LoadObjectConverter;
+            InitializeComponent();
         }
         
         private void LoadObjectConverter(object o, EventArgs e)
@@ -45,6 +49,9 @@ namespace MappingFramework.MappingInterface.Controls
                         break;
                     case InterfaceRequirementType.SetValueTraversal:
                         ComponentPanel.Children.Add(new SetValueTraversalControl(interfaceRequirement.PropertyInfo(), _subject, _contentType));
+                        break;
+                    case InterfaceRequirementType.ValueMutation:
+                        ComponentPanel.Children.Add(new ValueMutationControl(interfaceRequirement.PropertyInfo(), _subject));
                         break;
                     //default:
                         //throw new Exception($"Type is not supported: {interfaceRequirement.PropertyType()}");
