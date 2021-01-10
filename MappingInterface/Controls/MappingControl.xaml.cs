@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Windows.Controls;
 using MappingFramework.Configuration;
-using MappingFramework.Traversals;
+using MappingFramework.MappingInterface.Generics;
 
 namespace MappingFramework.MappingInterface.Controls
 {
     public partial class MappingControl : UserControl
     {
         private readonly Mapping _mapping;
-        private readonly ContentType _sourceType;
-        private readonly ContentType _targetType;
 
-        public MappingControl(Mapping mapping, ContentType sourceType, ContentType targetType)
+        public MappingControl(Mapping mapping)
         {
             _mapping = mapping;
-            _sourceType = sourceType;
-            _targetType = targetType;
 
             Initialized += Load;
             InitializeComponent();
@@ -23,11 +19,21 @@ namespace MappingFramework.MappingInterface.Controls
         
         private void Load(object o, EventArgs e)
         {
+            var getValueInterfaceRequirement = new InterfaceRequirement(_mapping.GetType().GetProperty(nameof(_mapping.GetValueTraversal)), _mapping);
             GetValueStackPanelComponent.Children.Add(
-                new GetValueTraversalControl(getValueTraversal => _mapping.GetValueTraversal = (GetValueTraversal)getValueTraversal, nameof(_mapping.GetValueTraversal), _sourceType));
-            
+                new SelectionControl(
+                    getValueInterfaceRequirement.UpdateAction(), 
+                    getValueInterfaceRequirement.Name(), 
+                    getValueInterfaceRequirement.PropertyType())
+                );
+
+            var setValueInterfaceRequirement = new InterfaceRequirement(_mapping.GetType().GetProperty(nameof(_mapping.SetValueTraversal)), _mapping);
             SetValueStackPanelComponent.Children.Add(
-                new SetValueTraversalControl(setValueTraversal => _mapping.SetValueTraversal = (SetValueTraversal)setValueTraversal, nameof(_mapping.SetValueTraversal), _targetType));
+                new SelectionControl(
+                    setValueInterfaceRequirement.UpdateAction(), 
+                    setValueInterfaceRequirement.Name(), 
+                    setValueInterfaceRequirement.PropertyType())
+                );
         }
     }
 }

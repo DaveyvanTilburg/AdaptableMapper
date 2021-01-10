@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using MappingFramework.Compositions;
 using MappingFramework.Conditions;
+using MappingFramework.Configuration;
+using MappingFramework.Configuration.DataStructure;
+using MappingFramework.Configuration.Dictionary;
+using MappingFramework.Configuration.Json;
+using MappingFramework.Configuration.Xml;
 using MappingFramework.Traversals;
 using MappingFramework.Traversals.Dictionary;
 using MappingFramework.Traversals.Json;
@@ -14,41 +19,41 @@ namespace MappingFramework
 {
     public static class OptionLists
     {
-        private static List<GetValueTraversal> ComposedGetValueTraversals => new List<GetValueTraversal>
+        private static List<Type> ComposedGetValueTraversals => new List<Type>
         {
-            new GetAdditionalSourceValue(),
-            new GetConcatenatedByListValueTraversal(),
-            new GetConcatenatedValueTraversal(),
-            new GetMutatedValueTraversal(),
-            new GetNumberOfHits(),
-            new GetSearchValueTraversal(),
-            new GetStaticValue(),
-            new GetValueTraversalDaysBetweenDates(),
-            new IfConditionThenAElseBGetValueTraversal(),
-            new NullObject()
+            typeof(GetAdditionalSourceValue),
+            typeof(GetConcatenatedByListValueTraversal),
+            typeof(GetConcatenatedValueTraversal),
+            typeof(GetMutatedValueTraversal),
+            typeof(GetNumberOfHits),
+            typeof(GetSearchValueTraversal),
+            typeof(GetStaticValue),
+            typeof(GetValueTraversalDaysBetweenDates),
+            typeof(IfConditionThenAElseBGetValueTraversal),
+            typeof(NullObject)
         };
 
-        private static List<GetValueTraversal> NewXmlGetValueTraversals => new List<GetValueTraversal>
+        private static List<Type> NewXmlGetValueTraversals => new List<Type>
         {
-            new XmlGetValueTraversal(),
-            new XmlGetThisValueTraversal()
+            typeof(XmlGetValueTraversal),
+            typeof(XmlGetThisValueTraversal)
         };
 
-        private static List<GetValueTraversal> NewJsonGetValueTraversals => new List<GetValueTraversal>
+        private static List<Type> NewJsonGetValueTraversals => new List<Type>
         {
-            new JsonGetValueTraversal()
+            typeof(JsonGetValueTraversal)
         };
 
-        private static List<GetValueTraversal> NewDataStructureGetValueTraversals => new List<GetValueTraversal>
+        private static List<Type> NewDataStructureGetValueTraversals => new List<Type>
         {
-            new ModelGetValueTraversal()
+            typeof(ModelGetValueTraversal)
         };
 
-        private static List<GetValueTraversal> XmlGetValueTraversals() => CreateList(NewXmlGetValueTraversals, ComposedGetValueTraversals);
-        private static List<GetValueTraversal> JsonGetValueTraversals() => CreateList(NewJsonGetValueTraversals, ComposedGetValueTraversals);
-        private static List<GetValueTraversal> DataStructureGetValueTraversals() => CreateList(NewDataStructureGetValueTraversals, ComposedGetValueTraversals);
-        
-        public static List<GetValueTraversal> GetValueTraversals(ContentType contentType)
+        private static List<Type> XmlGetValueTraversals() => CreateList(NewXmlGetValueTraversals, ComposedGetValueTraversals);
+        private static List<Type> JsonGetValueTraversals() => CreateList(NewJsonGetValueTraversals, ComposedGetValueTraversals);
+        private static List<Type> DataStructureGetValueTraversals() => CreateList(NewDataStructureGetValueTraversals, ComposedGetValueTraversals);
+
+        private static List<Type> GetValueTraversals(ContentType contentType)
         {
             switch(contentType)
             {
@@ -63,42 +68,40 @@ namespace MappingFramework
             }
         }
 
-
-
-        private static List<SetValueTraversal> ComposedSetValueTraversals => new List<SetValueTraversal>
+        private static List<Type> ComposedSetValueTraversals => new List<Type>
         {
-            new SetMutatedValueTraversal()
+            typeof(SetMutatedValueTraversal)
         };
 
-        private static List<SetValueTraversal> NewXmlSetValueTraversals => new List<SetValueTraversal>
+        private static List<Type> NewXmlSetValueTraversals => new List<Type>
         {
-            new XmlSetValueTraversal(),
-            new XmlSetThisValueTraversal(),
-            new XmlSetGeneratedIdValueTraversal()
+            typeof(XmlSetValueTraversal),
+            typeof(XmlSetThisValueTraversal),
+            typeof(XmlSetGeneratedIdValueTraversal)
         };
 
-        private static List<SetValueTraversal> NewJsonSetValueTraversals => new List<SetValueTraversal>
+        private static List<Type> NewJsonSetValueTraversals => new List<Type>
         {
-            new JsonSetValueTraversal()
+            typeof(JsonSetValueTraversal)
         };
 
-        private static List<SetValueTraversal> NewDataStructureSetValueTraversals => new List<SetValueTraversal>
+        private static List<Type> NewDataStructureSetValueTraversals => new List<Type>
         {
-            new ModelSetValueOnPathTraversal(),
-            new ModelSetValueOnPropertyTraversal()
+            typeof(ModelSetValueOnPathTraversal),
+            typeof(ModelSetValueOnPropertyTraversal)
         };
 
-        private static List<SetValueTraversal> NewDictionarySetValueTraversals => new List<SetValueTraversal>
+        private static List<Type> NewDictionarySetValueTraversals => new List<Type>
         {
-            new DictionarySetValueTraversal()
+            typeof(DictionarySetValueTraversal)
         };
 
-        private static List<SetValueTraversal> XmlSetValueTraversals() => CreateList(NewXmlSetValueTraversals, ComposedSetValueTraversals);
-        private static List<SetValueTraversal> JsonSetValueTraversals() => CreateList(NewJsonSetValueTraversals, ComposedSetValueTraversals);
-        private static List<SetValueTraversal> DataStructureSetValueTraversals() => CreateList(NewDataStructureSetValueTraversals, ComposedSetValueTraversals);
-        private static List<SetValueTraversal> DictionaryGetValueTraversals() => CreateList(NewDictionarySetValueTraversals, ComposedSetValueTraversals);
+        private static List<Type> XmlSetValueTraversals() => CreateList(NewXmlSetValueTraversals, ComposedSetValueTraversals);
+        private static List<Type> JsonSetValueTraversals() => CreateList(NewJsonSetValueTraversals, ComposedSetValueTraversals);
+        private static List<Type> DataStructureSetValueTraversals() => CreateList(NewDataStructureSetValueTraversals, ComposedSetValueTraversals);
+        private static List<Type> DictionaryGetValueTraversals() => CreateList(NewDictionarySetValueTraversals, ComposedSetValueTraversals);
 
-        public static List<SetValueTraversal> SetValueTraversals(ContentType contentType)
+        private static List<Type> SetValueTraversals(ContentType contentType)
         {
             switch (contentType)
             {
@@ -115,32 +118,70 @@ namespace MappingFramework
             }
         }
 
-        public static List<ValueMutation> ValueMutations() => new List<ValueMutation>
-        {
-            new CreateSeparatedRangeFromNumberValueMutation(),
-            new DateValueMutation(),
-            new DictionaryReplaceValueMutation(),
-            new ListOfValueMutations(),
-            new NumberValueMutation(),
-            new PlaceholderValueMutation(),
-            new ReplaceValueMutation(),
-            new SubstringValueMutation(),
-            new ToLowerValueMutation(),
-            new ToUpperValueMutation(),
-            new TrimValueMutation()
-        };
+        private static Type ObjectConverter(ContentType contentType) =>
+            contentType == ContentType.Xml ? typeof(XmlObjectConverter) :
+            contentType == ContentType.Json ? typeof(JsonObjectConverter) :
+            contentType == ContentType.DataStructure ? typeof(DataStructureObjectConverter) :
+            contentType == ContentType.String ? typeof(StringToDataStructureObjectConverter) : null;
 
-        public static List<Condition> Conditions() => new List<Condition>
-        {
-            new CompareCondition(),
-            new ListOfConditions(),
-            new NotEmptyCondition()
-        };
+        private static Type TargetInstantiator(ContentType contentType) =>
+            contentType == ContentType.Xml ? typeof(XmlTargetInstantiator) :
+            contentType == ContentType.Json ? typeof(JsonTargetInstantiator) :
+            contentType == ContentType.DataStructure ? typeof(DataStructureTargetInstantiator) : 
+            contentType == ContentType.Dictionary ? typeof(DictionaryTargetInstantiator) : null;
 
-        public static List<GetValueStringTraversal> GetValueStringTraversals() => new List<GetValueStringTraversal>
+        private static Type ResultObjectConverter(ContentType contentType) =>
+            contentType == ContentType.Xml ? typeof(XElementToStringObjectConverter) :
+            contentType == ContentType.Json ? typeof(JTokenToStringObjectConverter) :
+            contentType == ContentType.DataStructure ? typeof(DataStructureToStringObjectConverter):
+            contentType == ContentType.Dictionary ? typeof(DataStructureToStringObjectConverter) : null;
+
+        public static List<Type> List(Type type, ContentType contentType)
         {
-            new SplitByCharTakePositionStringTraversal()
-        };
+            if (!type.IsInterface)
+                throw new Exception("List is meant to be called with an interface type as parameter");
+
+            if (type == typeof(ObjectConverter))
+                return new List<Type> { ObjectConverter(contentType) };
+            if (type == typeof(TargetInstantiator))
+                return new List<Type> { TargetInstantiator(contentType) };
+            if (type == typeof(ResultObjectConverter))
+                return new List<Type> { ResultObjectConverter(contentType) };
+
+            if (type == typeof(Condition))
+                return new List<Type>
+                {
+                    typeof(CompareCondition),
+                    typeof(ListOfConditions),
+                    typeof(NotEmptyCondition)
+                };
+            if (type == typeof(ValueMutation))
+                return new List<Type>
+                {
+                    typeof(CreateSeparatedRangeFromNumberValueMutation),
+                    typeof(DateValueMutation),
+                    typeof(DictionaryReplaceValueMutation),
+                    typeof(ListOfValueMutations),
+                    typeof(NumberValueMutation),
+                    typeof(PlaceholderValueMutation),
+                    typeof(ReplaceValueMutation),
+                    typeof(SubstringValueMutation),
+                    typeof(ToLowerValueMutation),
+                    typeof(ToUpperValueMutation),
+                    typeof(TrimValueMutation)
+                };
+            if (type == typeof(GetValueStringTraversal))
+                return new List<Type>
+                {
+                    typeof(SplitByCharTakePositionStringTraversal)
+                };
+            if (type == typeof(GetValueTraversal))
+                return GetValueTraversals(contentType);
+            if (type == typeof(SetValueTraversal))
+                return SetValueTraversals(contentType);
+
+            throw new Exception($"{type.Name} is not supported");
+        }
 
         private static List<T> CreateList<T>(params IEnumerable<T>[] itemsList)
         {

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace MappingFramework.Configuration
 {
-    [JsonConverter(typeof(JsonTypeIdBasedConverter))]
+    [JsonConverter(typeof(JsonTypeIdBasedConverter)), ContextType(ContextType.Target)]
     public interface ResultObjectConverter
     {
         object Convert(object source);

@@ -9,23 +9,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controls\ConditionControl.xaml.cs" />
+    <Compile Remove="Controls\GetValueStringTraversalControl.xaml.cs" />
+    <Compile Remove="Controls\GetValueTraversalControl.xaml.cs" />
+    <Compile Remove="Controls\SetValueTraversalControl.xaml.cs" />
+    <Compile Remove="Controls\ValueMutationControl.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Controls\ConditionControl.xaml" />
+    <Page Remove="Controls\GetValueStringTraversalControl.xaml" />
+    <Page Remove="Controls\GetValueTraversalControl.xaml" />
+    <Page Remove="Controls\SetValueTraversalControl.xaml" />
+    <Page Remove="Controls\ValueMutationControl.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MappingFramework\MappingFramework.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Controls\GetValueStringTraversalControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Fields\TextField - Copy.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Controls\GetValueStringTraversalControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Fields\TextField - Copy.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

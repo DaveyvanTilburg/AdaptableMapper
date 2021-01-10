@@ -8,6 +8,8 @@ namespace MappingFramework.Configuration
         public TargetInstantiator TargetInstantiator { get; set; }
         public List<AdditionalSource> AdditionalSources { get; set; }
 
+        public ContextFactory() { }
+        
         public ContextFactory(ObjectConverter objectConverter, TargetInstantiator targetInstantiator)
         {
             ObjectConverter = objectConverter;

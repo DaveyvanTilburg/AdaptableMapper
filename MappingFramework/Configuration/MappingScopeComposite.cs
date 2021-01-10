@@ -15,6 +15,8 @@ namespace MappingFramework.Configuration
         public GetTemplateTraversal GetTemplateTraversal { get; set; }
         public ChildCreator ChildCreator { get; set; }
 
+        public MappingScopeComposite() { }
+
         public MappingScopeComposite(
             List<MappingScopeComposite> mappingScopeComposites,
             List<Mapping> mappings,

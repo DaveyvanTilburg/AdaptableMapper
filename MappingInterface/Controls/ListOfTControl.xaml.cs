@@ -12,9 +12,7 @@ namespace MappingFramework.MappingInterface.Controls
         
         private readonly List<ListOfTEntry> _entries;
         
-        private readonly Func<object> _createAction;
-        private readonly Func<Action<object>, string, ContentType, object, UserControl> _createUserControl;
-        private readonly ContentType _contentType;
+        private readonly Func<Action<object>, string, UserControl> _createUserControl;
         private readonly string _name;
 
         private IList _list;
@@ -23,16 +21,12 @@ namespace MappingFramework.MappingInterface.Controls
             Action<object> update, 
             Type listType, 
             string name, 
-            Func<object> createAction, 
-            Func<Action<object>, string, ContentType, object, UserControl> createUserControl, 
-            ContentType contentType)
+            Func<Action<object>, string, UserControl> createUserControl)
         {
             _update = update;
             _listType = listType;
             _name = name;
-            _createAction = createAction;
             _createUserControl = createUserControl;
-            _contentType = contentType;
 
             _entries = new List<ListOfTEntry>();
 
@@ -50,13 +44,12 @@ namespace MappingFramework.MappingInterface.Controls
         
         private void OnAddConditionClick(object o, EventArgs e)
         {
-            object newListItem = _createAction();
-            _list?.Add(newListItem);
+            _list?.Add(null);
 
             var newEntry = new ListOfTEntry(_list, _entries, _list.Count - 1);
             _entries.Add(newEntry);
 
-            UserControl userControl = _createUserControl(newEntry.Update, _name, _contentType, newListItem);
+            UserControl userControl = _createUserControl(newEntry.Update, _name);
             var removeAbleEntry = new ListOfTEntryControl(newEntry.Remove, userControl);
             StackPanelComponent.Children.Add(removeAbleEntry);
         }
