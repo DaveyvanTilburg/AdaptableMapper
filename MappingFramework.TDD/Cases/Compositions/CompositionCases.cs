@@ -112,7 +112,7 @@ namespace MappingFramework.TDD.Cases.Compositions
         [Fact]
         public void GetSearchValueTraversalInvalidSearchPathType()
         {
-            var subject = new GetSearchValueTraversal(new NullGetValueTraversal(), new NullGetValueTraversal());
+            var subject = new GetSearchValueTraversal(new NullObject(), new NullObject());
 
             List<Information> information = new Action(() => { subject.GetValue(null); }).Observe();
 

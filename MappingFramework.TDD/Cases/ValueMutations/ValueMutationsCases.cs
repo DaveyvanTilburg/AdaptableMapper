@@ -126,9 +126,9 @@ namespace MappingFramework.TDD.Cases.ValueMutations
         }
 
         [Theory]
-        [InlineData("Valid", "this is an old message", "this is a new message")]
-        [InlineData("ValidMultipleHits", "this is an old message, through luxery", "this is a new message, through hard work")]
-        [InlineData("No hit", "this is an-old message", "this is an-old message")]
+        [InlineData("Valid1", "Old", "New")]
+        [InlineData("Valid2", "1", "2")]
+        [InlineData("No Hit", "Something", "Something")]
         [InlineData("Empty", "", "", "w-DictionaryReplaceValueMutation#2;")]
         public void DictionaryReplaceValueMutation(string because, string value, string expectedResult, params string[] expectedInformation)
         {
@@ -137,13 +137,13 @@ namespace MappingFramework.TDD.Cases.ValueMutations
                 {
                     new DictionaryReplaceValueMutation.ReplaceValue
                     {
-                        ValueToReplace = "an old",
-                        NewValue = "a new"
+                        ValueToReplace = "Old",
+                        NewValue = "New"
                     },
                     new DictionaryReplaceValueMutation.ReplaceValue
                     {
-                        ValueToReplace = "luxery",
-                        NewValue = "hard work"
+                        ValueToReplace = "1",
+                        NewValue = "2"
                     }
                 }
             );

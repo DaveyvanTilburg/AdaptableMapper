@@ -103,7 +103,7 @@ namespace MappingFramework.TDD.Cases.Converters
             yield return new object[]
             {
                 typeof(GetValueTraversal),
-                new NullGetValueTraversal()
+                new NullObject()
             };
             yield return new object[]
             {
@@ -252,7 +252,7 @@ namespace MappingFramework.TDD.Cases.Converters
             {
                 typeof(Condition),
                 new NotEmptyCondition(
-                    new NullGetValueTraversal()
+                    new NullObject()
                 )
             };
 

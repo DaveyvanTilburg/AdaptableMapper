@@ -7,32 +7,50 @@ namespace MappingFramework.MappingInterface.Controls
 {
     public partial class ListOfTControl : UserControl
     {
+        private readonly Action<object> _update;
+        private readonly Type _listType;
+        
         private readonly List<ListOfTEntry> _entries;
-        private readonly Type _defaultType;
-        private readonly IList _list;
+        
+        private readonly Func<object> _createAction;
         private readonly Func<Action<object>, string, ContentType, object, UserControl> _createUserControl;
         private readonly ContentType _contentType;
         private readonly string _name;
-        
-        public ListOfTControl(Action<object> update, Type listType, string name, Func<Action<object>, string, ContentType, object, UserControl> createUserControl, Type defaultType, ContentType contentType)
+
+        private IList _list;
+
+        public ListOfTControl(
+            Action<object> update, 
+            Type listType, 
+            string name, 
+            Func<object> createAction, 
+            Func<Action<object>, string, ContentType, object, UserControl> createUserControl, 
+            ContentType contentType)
         {
-            _entries = new List<ListOfTEntry>();
-            _defaultType = defaultType;
+            _update = update;
+            _listType = listType;
+            _name = name;
+            _createAction = createAction;
             _createUserControl = createUserControl;
             _contentType = contentType;
-            _name = name;
 
+            _entries = new List<ListOfTEntry>();
+
+            Initialized += Load;
             InitializeComponent();
-
-            _list = (IList)Activator.CreateInstance(listType);
-            update(_list);
 
             AddButton.Click += OnAddConditionClick;
         }
         
+        private void Load(object o, EventArgs e)
+        {
+            _list = (IList)Activator.CreateInstance(_listType);
+            _update(_list);
+        }
+        
         private void OnAddConditionClick(object o, EventArgs e)
         {
-            object newListItem = Activator.CreateInstance(_defaultType);
+            object newListItem = _createAction();
             _list?.Add(newListItem);
 
             var newEntry = new ListOfTEntry(_list, _entries, _list.Count - 1);

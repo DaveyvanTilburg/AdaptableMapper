@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using MappingFramework.Compositions;
 using MappingFramework.Configuration;
 using MappingFramework.Configuration.DataStructure;
 using MappingFramework.Configuration.Dictionary;
@@ -62,8 +61,8 @@ namespace MappingFramework.MappingInterface
                         list => _mappingConfiguration.Mappings = (List<Mapping>)list,
                         typeof(List<Mapping>),
                         nameof(_mappingConfiguration.Mappings),
+                        () => new Mapping(),
                         (updateAction, name, contentType, newItem) => new MappingControl((Mapping)newItem, _sourceType, _targetType),
-                        typeof(Mapping),
                         ContentType.Undefined
                     )
                 );

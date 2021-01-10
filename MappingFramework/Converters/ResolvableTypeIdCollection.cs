@@ -23,7 +23,6 @@ namespace MappingFramework.Converters
             => _types = new Dictionary<string, Type>
             {
                 //Compositions
-                [NullGetValueTraversal._typeId] = typeof(NullGetValueTraversal),
                 [GetSearchValueTraversal._typeId] = typeof(GetSearchValueTraversal),
                 [GetStaticValue._typeId] = typeof(GetStaticValue),
                 [GetValueTraversalDaysBetweenDates._typeId] = typeof(GetValueTraversalDaysBetweenDates),
@@ -103,7 +102,10 @@ namespace MappingFramework.Converters
                 [SubstringValueMutation._typeId] = typeof(SubstringValueMutation),
                 [ToLowerValueMutation._typeId] = typeof(ToLowerValueMutation),
                 [ToUpperValueMutation._typeId] = typeof(ToUpperValueMutation),
-                [TrimValueMutation._typeId] = typeof(TrimValueMutation)
+                [TrimValueMutation._typeId] = typeof(TrimValueMutation),
+                
+                //Other
+                [NullObject._typeId] = typeof(NullObject)
             };
 
         public static Type GetType(string typeId)

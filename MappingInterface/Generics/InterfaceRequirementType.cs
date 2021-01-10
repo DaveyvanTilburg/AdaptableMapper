@@ -7,10 +7,12 @@
         NumberBox,
         CheckBox,
         RadioGroupBox,
+        CharBox,
         GetValueTraversal,
         SetValueTraversal,
         ValueMutation,
         List,
-        Condition
+        Condition,
+        GetValueStringTraversal
     }
 }

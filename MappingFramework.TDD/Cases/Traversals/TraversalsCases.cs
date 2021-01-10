@@ -28,10 +28,10 @@ namespace MappingFramework.TDD.Cases.Traversals
         [Fact]
         public void GetNothingValueTraversal()
         {
-            var subject = new NullGetValueTraversal();
+            var subject = new NullObject();
 
             string result = null;
-            List<Information> information = new Action(() => { result = subject.GetValue(null); }).Observe();
+            List<Information> information = new Action(() => { result = subject.GetValue((string)null); }).Observe();
 
             information.Count.Should().Be(0);
 
@@ -73,7 +73,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new NullGetValueTraversal(),
+                                new NullObject(),
                                 new MappingFramework.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
@@ -90,7 +90,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new NullGetValueTraversal(),
+                                new NullObject(),
                                 new MappingFramework.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
@@ -107,7 +107,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                         new List<Mapping>
                         {
                             new Mapping(
-                                new NullGetValueTraversal(),
+                                new NullObject(),
                                 new MappingFramework.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(

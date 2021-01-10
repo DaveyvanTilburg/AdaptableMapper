@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using MappingFramework.Conditions;
 using MappingFramework.MappingInterface.Fields;
 using MappingFramework.MappingInterface.Generics;
+using MappingFramework.ValueMutations;
 
 namespace MappingFramework.MappingInterface.Controls
 {
@@ -49,6 +50,9 @@ namespace MappingFramework.MappingInterface.Controls
                     case InterfaceRequirementType.RadioGroupBox:
                         ComponentPanel.Children.Add(new RadioGroupField(interfaceRequirement));
                         break;
+                    case InterfaceRequirementType.CharBox:
+                        ComponentPanel.Children.Add(new CharField(interfaceRequirement));
+                        break;
                     case InterfaceRequirementType.GetValueTraversal:
                         ComponentPanel.Children.Add(new GetValueTraversalControl(interfaceRequirement.UpdateAction(), interfaceRequirement.Name(), _contentType));
                         break;
@@ -58,6 +62,9 @@ namespace MappingFramework.MappingInterface.Controls
                     case InterfaceRequirementType.ValueMutation:
                         ComponentPanel.Children.Add(new ValueMutationControl(interfaceRequirement.UpdateAction(), interfaceRequirement.Name()));
                         break;
+                    case InterfaceRequirementType.GetValueStringTraversal:
+                        ComponentPanel.Children.Add(new GetValueStringTraversalControl(interfaceRequirement.UpdateAction(), interfaceRequirement.Name()));
+                        break;
                     case InterfaceRequirementType.Condition:
                         ComponentPanel.Children.Add(new ConditionControl(interfaceRequirement.UpdateAction(), interfaceRequirement.Name(), _contentType));
                         break;
@@ -66,14 +73,14 @@ namespace MappingFramework.MappingInterface.Controls
                             new ListOfTControl(
                                 interfaceRequirement.UpdateAction(),
                                 interfaceRequirement.PropertyType(),
-                                interfaceRequirement.PropertyType().GenericTypeArguments.First().Name, 
-                                (updateAction, name, contentType, newItem) => UserControl(interfaceRequirement.PropertyType().GenericTypeArguments.First(), updateAction, name, contentType), 
-                                typeof(NullCondition), 
+                                interfaceRequirement.PropertyType().GenericTypeArguments.First().Name,
+                                () => null,
+                                (updateAction, name, contentType, newItem) => UserControl(interfaceRequirement.PropertyType().GenericTypeArguments.First(), updateAction, name, contentType),
                                 _contentType)
                             );
                         break;
-                    //default:
-                        //throw new Exception($"Type is not supported: {interfaceRequirement.PropertyType()}");
+                    default:
+                        throw new Exception($"Type is not supported: {interfaceRequirement.PropertyType()}");
                 }
             }
         }
@@ -82,6 +89,14 @@ namespace MappingFramework.MappingInterface.Controls
         {
             if (type == typeof(Condition))
                 return new ConditionControl(updateAction, name, contentType);
+            if (type == typeof(ValueMutation))
+                return new ValueMutationControl(updateAction, name);
+            if (type == typeof(DictionaryReplaceValueMutation.ReplaceValue))
+            {
+                var newValue = new DictionaryReplaceValueMutation.ReplaceValue();
+                updateAction(newValue);
+                return new GenericControl(newValue);
+            }
 
             throw new Exception($"Type is not supported: {type}");
         }

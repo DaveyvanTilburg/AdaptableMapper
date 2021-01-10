@@ -37,9 +37,7 @@ namespace MappingFramework.ValueMutations
             if (string.IsNullOrEmpty(valueToMutate))
                 return value;
 
-            string newValue = valueToMutate;
-            foreach (ReplaceValue replaceValue in ReplaceValues)
-                newValue = newValue.Replace(replaceValue.ValueToReplace, replaceValue.NewValue);
+            string newValue = ReplaceValues.FirstOrDefault(r => r.ValueToReplace.Equals(valueToMutate))?.NewValue ?? valueToMutate;
 
             string result = value.Replace(valueToMutate, newValue);
             return result;

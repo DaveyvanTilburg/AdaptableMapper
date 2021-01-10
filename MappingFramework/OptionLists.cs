@@ -8,6 +8,7 @@ using MappingFramework.Traversals.Json;
 using MappingFramework.Traversals.Model;
 using MappingFramework.Traversals.Xml;
 using MappingFramework.ValueMutations;
+using MappingFramework.ValueMutations.Traversals;
 
 namespace MappingFramework
 {
@@ -19,12 +20,12 @@ namespace MappingFramework
             new GetConcatenatedByListValueTraversal(),
             new GetConcatenatedValueTraversal(),
             new GetMutatedValueTraversal(),
-            new NullGetValueTraversal(),
             new GetNumberOfHits(),
             new GetSearchValueTraversal(),
             new GetStaticValue(),
             new GetValueTraversalDaysBetweenDates(),
-            new IfConditionThenAElseBGetValueTraversal()
+            new IfConditionThenAElseBGetValueTraversal(),
+            new NullObject()
         };
 
         private static List<GetValueTraversal> NewXmlGetValueTraversals => new List<GetValueTraversal>
@@ -134,6 +135,11 @@ namespace MappingFramework
             new CompareCondition(),
             new ListOfConditions(),
             new NotEmptyCondition()
+        };
+
+        public static List<GetValueStringTraversal> GetValueStringTraversals() => new List<GetValueStringTraversal>
+        {
+            new SplitByCharTakePositionStringTraversal()
         };
 
         private static List<T> CreateList<T>(params IEnumerable<T>[] itemsList)
