@@ -7,9 +7,9 @@ namespace MappingFramework
     {
         public ContextFactory ContextFactory { get; set; }
         public ResultObjectConverter ResultObjectConverter { get; set; }
-
-        public List<MappingScopeComposite> MappingScopeComposites { get; set; }
+        
         public List<Mapping> Mappings { get; set; }
+        public List<MappingScopeComposite> MappingScopeComposites { get; set; }
 
         private readonly MappingCaches _mappingCaches;
 

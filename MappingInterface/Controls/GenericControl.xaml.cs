@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
-using MappingFramework.Configuration;
+using System.Windows.Media;
 using MappingFramework.MappingInterface.Fields;
 using MappingFramework.MappingInterface.Generics;
 
@@ -10,10 +10,12 @@ namespace MappingFramework.MappingInterface.Controls
     public partial class GenericControl : UserControl
     {
         private readonly object _subject;
+        private readonly bool _showName;
         
-        public GenericControl(object subject)
+        public GenericControl(object subject, bool showName)
         {
             _subject = subject;
+            _showName = showName;
 
             Initialized += LoadObjectConverter;
             InitializeComponent();
@@ -21,6 +23,9 @@ namespace MappingFramework.MappingInterface.Controls
         
         private void LoadObjectConverter(object o, EventArgs e)
         {
+            if (_showName)
+                ComponentPanel.Children.Add(new Label { Content = _subject.GetType().Name, FontWeight = FontWeights.Bold, Foreground = new SolidColorBrush(Colors.Red) });
+            
             var interfaceComponent = new InterfaceComponent(_subject);
 
             foreach(InterfaceRequirement interfaceRequirement in interfaceComponent.Requirements())
@@ -50,19 +55,12 @@ namespace MappingFramework.MappingInterface.Controls
                     
                     
                     case InterfaceRequirementType.List:
-                        ComponentPanel.Children.Add(
-                            new ListOfTControl(
-                                interfaceRequirement.UpdateAction(),
-                                interfaceRequirement.PropertyType(),
-                                interfaceRequirement.PropertyType().GenericTypeArguments.First().Name,
-                                (updateAction, name) => UserControl(interfaceRequirement.PropertyType().GenericTypeArguments.First(), updateAction, name)
-                            )
-                        );
+                        ComponentPanel.Children.Add(new ListOfTControl(interfaceRequirement));
                         break;
                     case InterfaceRequirementType.Direct:
                         var newValue = Activator.CreateInstance(interfaceRequirement.PropertyType());
                         interfaceRequirement.Update(newValue);
-                        ComponentPanel.Children.Add(new GenericControl(newValue));
+                        ComponentPanel.Children.Add(new GenericControl(newValue, true));
                         break;
                     
                     
@@ -70,28 +68,6 @@ namespace MappingFramework.MappingInterface.Controls
                         throw new Exception($"Type is not supported: {interfaceRequirement.PropertyType()}");
                 }
             }
-        }
-        
-        private UserControl UserControl(Type type, Action<object> updateAction, string name)
-        {
-            if (type == typeof(AdditionalSource))
-            {
-                var newValue = new AdditionalSourceList();
-                updateAction(newValue);
-                return new GenericControl(newValue);
-            }
-            
-            if (type.IsInterface)
-                return new SelectionControl(updateAction, name, type);
-            
-            if (type.IsClass)
-            {
-                var newValue = Activator.CreateInstance(type);
-                updateAction(newValue);
-                return new GenericControl(newValue);
-            }
-
-            throw new Exception($"Type is not supported: {type}");
         }
     }
 }

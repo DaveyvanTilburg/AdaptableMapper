@@ -6,14 +6,14 @@ namespace MappingFramework.Configuration
 {
     public sealed class MappingScopeComposite
     {
-        public List<MappingScopeComposite> MappingScopeComposites { get; set; }
-        public List<Mapping> Mappings { get; set; }
-
         public GetListValueTraversal GetListValueTraversal { get; set; }
         public Condition Condition { get; set; }
 
         public GetTemplateTraversal GetTemplateTraversal { get; set; }
         public ChildCreator ChildCreator { get; set; }
+
+        public List<Mapping> Mappings { get; set; }
+        public List<MappingScopeComposite> MappingScopeComposites { get; set; }
 
         public MappingScopeComposite() { }
 

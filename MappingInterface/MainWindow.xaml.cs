@@ -6,6 +6,8 @@ namespace MappingFramework.MappingInterface
     {
         public MainWindow()
         {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             InitializeComponent();
         }
 

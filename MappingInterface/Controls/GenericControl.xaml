@@ -8,7 +8,7 @@
              d:DesignHeight="32" d:DesignWidth="572">
     <Grid>
         <StackPanel x:Name="ComponentPanel">
-            
+
         </StackPanel>
     </Grid>
 </UserControl>

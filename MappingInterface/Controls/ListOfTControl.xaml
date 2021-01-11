@@ -5,15 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MappingFramework.MappingInterface.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="64" d:DesignWidth="832">
+             d:DesignHeight="96" d:DesignWidth="832">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.33*"/>
+            <RowDefinition Height="0.33*"/>
+            <RowDefinition Height="0.33*"/>
         </Grid.RowDefinitions>
-        <StackPanel x:Name="StackPanelComponent" Grid.Row="0">
+        <Label x:Name="LabelComponent" Grid.Row="0" FontWeight="Bold" Foreground="Red"/>
+        <StackPanel x:Name="StackPanelComponent" Grid.Row="1">
 
         </StackPanel>
-        <Button x:Name="AddButton" Grid.Row="1">Add</Button>
+        <Button x:Name="AddButton" Grid.Row="2">Add</Button>
     </Grid>
 </UserControl>

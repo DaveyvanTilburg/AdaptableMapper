@@ -12,7 +12,7 @@
             <ColumnDefinition Width="0.13*"/>
             <ColumnDefinition Width="0.76*"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="LabelComponent" Grid.Column="0"></Label>
+        <Label x:Name="LabelComponent" Grid.Column="0" FontWeight="Bold"></Label>
         <ComboBox x:Name="SelectionComboBox" Height="32" Grid.Column="1"></ComboBox>
         <StackPanel x:Name="StackPanelComponent" Grid.Column="2">
 

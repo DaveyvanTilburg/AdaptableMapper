@@ -1,32 +1,25 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
+using MappingFramework.Configuration;
+using MappingFramework.MappingInterface.Generics;
 
 namespace MappingFramework.MappingInterface.Controls
 {
     public partial class ListOfTControl : UserControl
     {
-        private readonly Action<object> _update;
-        private readonly Type _listType;
+        private readonly InterfaceRequirement _interfaceRequirement;
         
         private readonly List<ListOfTEntry> _entries;
-        
-        private readonly Func<Action<object>, string, UserControl> _createUserControl;
-        private readonly string _name;
 
         private IList _list;
 
         public ListOfTControl(
-            Action<object> update, 
-            Type listType, 
-            string name, 
-            Func<Action<object>, string, UserControl> createUserControl)
+            InterfaceRequirement interfaceRequirement)
         {
-            _update = update;
-            _listType = listType;
-            _name = name;
-            _createUserControl = createUserControl;
+            _interfaceRequirement = interfaceRequirement;
 
             _entries = new List<ListOfTEntry>();
 
@@ -38,8 +31,10 @@ namespace MappingFramework.MappingInterface.Controls
         
         private void Load(object o, EventArgs e)
         {
-            _list = (IList)Activator.CreateInstance(_listType);
-            _update(_list);
+            LabelComponent.Content = _interfaceRequirement.Name();
+            
+            _list = (IList)Activator.CreateInstance(_interfaceRequirement.PropertyType());
+            _interfaceRequirement.Update(_list);
         }
         
         private void OnAddConditionClick(object o, EventArgs e)
@@ -49,11 +44,35 @@ namespace MappingFramework.MappingInterface.Controls
             var newEntry = new ListOfTEntry(_list, _entries, _list.Count - 1);
             _entries.Add(newEntry);
 
-            UserControl userControl = _createUserControl(newEntry.Update, _name);
-            var removeAbleEntry = new ListOfTEntryControl(newEntry.Remove, userControl);
+            UserControl userControl = UserControl(newEntry.Update);
+            var removeAbleEntry = new ListOfTEntryControl(newEntry.Remove, userControl, _interfaceRequirement.PropertyType().GetGenericArguments().First().Name);
             StackPanelComponent.Children.Add(removeAbleEntry);
         }
-        
+
+        private UserControl UserControl(Action<object> updateAction)
+        {
+            Type type = _interfaceRequirement.PropertyType().GetGenericArguments().First();
+
+            if (type == typeof(AdditionalSource))
+            {
+                var newValue = new AdditionalSourceList();
+                updateAction(newValue);
+                return new GenericControl(newValue, false);
+            }
+
+            if (type.IsInterface)
+                return new SelectionControl(updateAction, _interfaceRequirement.PropertyType().GetGenericArguments().First().Name, type);
+
+            if (type.IsClass)
+            {
+                var newValue = Activator.CreateInstance(type);
+                updateAction(newValue);
+                return new GenericControl(newValue, false);
+            }
+
+            throw new Exception($"Type is not supported: {type}");
+        }
+
         private class ListOfTEntry
         {
             private readonly IList _list;

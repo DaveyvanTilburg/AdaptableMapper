@@ -26,29 +26,37 @@ namespace MappingFramework.MappingInterface.Controls
         private void Load(object o, EventArgs e)
         {
             LabelComponent.Content = _name;
+
+            List<string> options = OptionLists.List(_type, ContentType()).Select(t => t.Name).ToList();
             
-            IEnumerable<string> options = OptionLists.List(_type, ContentType()).Select(t => t.Name);
-            
+            if (options.Count > 1)
+                options.Insert(0, " ");
+
             foreach (string option in options)
                 SelectionComboBox.Items.Add(option);
 
-            if (options.Count() == 1)
-            {
-                SelectionComboBox.SelectedIndex = 0;
-                ComboBoxChanged(null, null);
-            }
+            SelectionComboBox.SelectedIndex = 0;
+            ComboBoxChanged(null, null);
         }
 
         private void ComboBoxChanged(object o, EventArgs e)
         {
-            string selectedValue = SelectionComboBox.SelectedItem.ToString();
+            string selectedValue = SelectionComboBox.SelectedItem.ToString() ?? string.Empty;
+            
+            if(string.IsNullOrWhiteSpace(selectedValue))
+            {
+                _updateAction(null);
+                StackPanelComponent.Children.Clear();
+            }
+            else
+            {
+                Type valueType = OptionLists.List(_type, ContentType()).FirstOrDefault(t => t.Name.Equals(selectedValue, StringComparison.OrdinalIgnoreCase));
+                object value = Activator.CreateInstance(valueType);
+                _updateAction(value);
 
-            Type valueType = OptionLists.List(_type, ContentType()).FirstOrDefault(t => t.Name.Equals(selectedValue, StringComparison.OrdinalIgnoreCase));
-            object value = Activator.CreateInstance(valueType);
-            _updateAction(value);
-
-            StackPanelComponent.Children.Clear();
-            StackPanelComponent.Children.Add(new GenericControl(value));
+                StackPanelComponent.Children.Clear();
+                StackPanelComponent.Children.Add(new GenericControl(value, false));
+            }
         }
         
         private ContentType ContentType()

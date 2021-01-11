@@ -9,11 +9,15 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.9*"/>
-            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
-        <StackPanel x:Name="StackPanelComponent" Grid.Column="0">
-            
+        
+        <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="2" />
+
+        <StackPanel x:Name="StackPanelComponent">
+            <Label x:Name="LabelComponent" FontWeight="Bold" Foreground="Blue" />
         </StackPanel>
-        <Button x:Name="RemoveButton" Grid.Column="1">Remove</Button>
+
+        <Button x:Name="RemoveButton" Grid.Column="1">X</Button>
     </Grid>
 </UserControl>

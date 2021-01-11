@@ -12,6 +12,8 @@ namespace MappingFramework.MappingInterface
 
         public MappingWindow(ContentType sourceType, ContentType targetType)
         {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             SourceType = sourceType;
             TargetType = targetType;
             
@@ -24,7 +26,7 @@ namespace MappingFramework.MappingInterface
 
             _mappingConfiguration = new MappingConfiguration();
 
-            MainStackPanel.Children.Add(new GenericControl(_mappingConfiguration));
+            MainStackPanel.Children.Add(new GenericControl(_mappingConfiguration, false));
         }
         
         private void OnTest(object o, EventArgs e)
