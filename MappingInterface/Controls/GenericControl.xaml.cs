@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Controls;
+using MappingFramework.Configuration;
 using MappingFramework.MappingInterface.Fields;
 using MappingFramework.MappingInterface.Generics;
 
@@ -73,6 +74,13 @@ namespace MappingFramework.MappingInterface.Controls
         
         private UserControl UserControl(Type type, Action<object> updateAction, string name)
         {
+            if (type == typeof(AdditionalSource))
+            {
+                var newValue = new AdditionalSourceList();
+                updateAction(newValue);
+                return new GenericControl(newValue);
+            }
+            
             if (type.IsInterface)
                 return new SelectionControl(updateAction, name, type);
             

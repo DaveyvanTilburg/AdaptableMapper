@@ -19,12 +19,12 @@ namespace MappingFramework.MappingInterface
             
             ButtonTest.Click += OnTest;
 
-            SourceTextBox.Text = @"<root><test/></root>";
-            TargetTextBox.Text = @"<root><test/></root>";
+            SourceTextBox.Text = @"<root><tests><test>1</test><test>2</test></tests></root>";
+            TargetTextBox.Text = @"<root><ids><id/></ids></root>";
 
             _mappingConfiguration = new MappingConfiguration();
 
-            MappingListStackPanel.Children.Add(new GenericControl(_mappingConfiguration));
+            MainStackPanel.Children.Add(new GenericControl(_mappingConfiguration));
         }
         
         private void OnTest(object o, EventArgs e)

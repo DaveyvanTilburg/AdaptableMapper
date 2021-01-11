@@ -23,27 +23,7 @@
         </Border>
         
         <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1" Grid.Row="0">
-            <StackPanel x:Name="MappingConfigurationPanel">
-                <Border BorderThickness="1" BorderBrush="Black">
-                    <StackPanel x:Name="ObjectConverterPanel">
-                        <Label Foreground="Blue" FontWeight="Bold">ObjectConverter</Label>
-                    </StackPanel>
-                </Border>
-                <Border BorderThickness="1" BorderBrush="Black">
-                    <StackPanel x:Name="TargetInstantiatorPanel">
-                        <Label Foreground="Blue" FontWeight="Bold">TargetInstantiator</Label>
-                    </StackPanel>
-                </Border>
-                <Border BorderThickness="1" BorderBrush="Black">
-                    <StackPanel x:Name="ResultObjectConverterPanel">
-                        <Label Foreground="Blue" FontWeight="Bold">ResultObjectConverter</Label>
-                    </StackPanel>
-                </Border>
-                <Border BorderThickness="1" BorderBrush="Black">
-                    <StackPanel x:Name="MappingListStackPanel">
-                        <Label Foreground="Blue" FontWeight="Bold">Mapping</Label>
-                    </StackPanel>
-                </Border>
+            <StackPanel x:Name="MainStackPanel">
             </StackPanel>
         </Border>
 

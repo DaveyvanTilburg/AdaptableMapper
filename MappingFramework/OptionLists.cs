@@ -136,6 +136,21 @@ namespace MappingFramework
             contentType == ContentType.DataStructure ? typeof(DataStructureToStringObjectConverter):
             contentType == ContentType.Dictionary ? typeof(DataStructureToStringObjectConverter) : null;
 
+        private static Type GetListValueTraversal(ContentType contentType) =>
+            contentType == ContentType.Xml ? typeof(XmlGetListValueTraversal) :
+            contentType == ContentType.Json ? typeof(JsonGetListValueTraversal) :
+            contentType == ContentType.DataStructure ? typeof(ModelGetListValueTraversal) : null;
+
+        private static Type GetTemplateTraversal(ContentType contentType) =>
+            contentType == ContentType.Xml ? typeof(XmlGetTemplateTraversal) :
+            contentType == ContentType.Json ? typeof(JsonGetTemplateTraversal) :
+            contentType == ContentType.DataStructure ? typeof(ModelGetTemplateTraversal) : null;
+
+        private static Type ChildCreator(ContentType contentType) =>
+            contentType == ContentType.Xml ? typeof(XmlChildCreator) :
+            contentType == ContentType.Json ? typeof(JsonChildCreator) :
+            contentType == ContentType.DataStructure ? typeof(DataStructureChildCreator) : null;
+
         public static List<Type> List(Type type, ContentType contentType)
         {
             if (!type.IsInterface)
@@ -179,6 +194,12 @@ namespace MappingFramework
                 return GetValueTraversals(contentType);
             if (type == typeof(SetValueTraversal))
                 return SetValueTraversals(contentType);
+            if (type == typeof(GetListValueTraversal))
+                return new List<Type> { GetListValueTraversal(contentType), typeof(GetConditionedListValueTraversal), typeof(GetListSearchValueTraversal) };
+            if (type == typeof(GetTemplateTraversal))
+                return new List<Type> { GetTemplateTraversal(contentType) };
+            if (type == typeof(ChildCreator))
+                return new List<Type> { ChildCreator(contentType) };
 
             throw new Exception($"{type.Name} is not supported");
         }

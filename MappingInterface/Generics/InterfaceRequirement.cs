@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
@@ -36,12 +37,18 @@ namespace MappingFramework.MappingInterface.Generics
             _propertyInfo.PropertyType == typeof(ValueMutation) ? InterfaceRequirementType.Item :
             _propertyInfo.PropertyType == typeof(Condition) ? InterfaceRequirementType.Item :
             _propertyInfo.PropertyType == typeof(GetValueStringTraversal) ? InterfaceRequirementType.Item :
-            
+            _propertyInfo.PropertyType == typeof(GetListValueTraversal) ? InterfaceRequirementType.Item :
+            _propertyInfo.PropertyType == typeof(GetTemplateTraversal) ? InterfaceRequirementType.Item :
+            _propertyInfo.PropertyType == typeof(ChildCreator) ? InterfaceRequirementType.Item :
+
             _propertyInfo.PropertyType == typeof(Mapping) ? InterfaceRequirementType.Direct :
             _propertyInfo.PropertyType == typeof(ContextFactory) ? InterfaceRequirementType.Direct :
+            _propertyInfo.PropertyType == typeof(MappingScopeComposite) ? InterfaceRequirementType.Direct :
+            _propertyInfo.PropertyType == typeof(AdditionalSourceEntry) ? InterfaceRequirementType.Direct :
 
+            _propertyInfo.PropertyType == typeof(List<AdditionalSource>) ? InterfaceRequirementType.List :
             typeof(IEnumerable).IsAssignableFrom(_propertyInfo.PropertyType) ? InterfaceRequirementType.List :
-                InterfaceRequirementType.Undefined;
+            InterfaceRequirementType.Undefined;
 
         public string Name() => _propertyInfo.Name;
 
