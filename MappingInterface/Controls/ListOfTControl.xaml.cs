@@ -10,16 +10,16 @@ namespace MappingFramework.MappingInterface.Controls
 {
     public partial class ListOfTControl : UserControl
     {
-        private readonly InterfaceRequirement _interfaceRequirement;
+        private readonly ObjectComponentLink _objectComponentLink;
         
         private readonly List<ListOfTEntry> _entries;
 
         private IList _list;
 
         public ListOfTControl(
-            InterfaceRequirement interfaceRequirement)
+            ObjectComponentLink objectComponentLink)
         {
-            _interfaceRequirement = interfaceRequirement;
+            _objectComponentLink = objectComponentLink;
 
             _entries = new List<ListOfTEntry>();
 
@@ -31,10 +31,10 @@ namespace MappingFramework.MappingInterface.Controls
         
         private void Load(object o, EventArgs e)
         {
-            LabelComponent.Content = _interfaceRequirement.Name();
+            LabelComponent.Content = _objectComponentLink.Name();
             
-            _list = (IList)Activator.CreateInstance(_interfaceRequirement.PropertyType());
-            _interfaceRequirement.Update(_list);
+            _list = (IList)Activator.CreateInstance(_objectComponentLink.PropertyType());
+            _objectComponentLink.Update(_list);
         }
         
         private void OnAddConditionClick(object o, EventArgs e)
@@ -45,29 +45,29 @@ namespace MappingFramework.MappingInterface.Controls
             _entries.Add(newEntry);
 
             UserControl userControl = UserControl(newEntry.Update);
-            var removeAbleEntry = new ListOfTEntryControl(newEntry.Remove, userControl, _interfaceRequirement.PropertyType().GetGenericArguments().First().Name);
+            var removeAbleEntry = new ListOfTEntryControl(newEntry.Remove, userControl, _objectComponentLink.PropertyType().GetGenericArguments().First().Name);
             StackPanelComponent.Children.Add(removeAbleEntry);
         }
 
         private UserControl UserControl(Action<object> updateAction)
         {
-            Type type = _interfaceRequirement.PropertyType().GetGenericArguments().First();
+            Type type = _objectComponentLink.PropertyType().GetGenericArguments().First();
 
             if (type == typeof(AdditionalSource))
             {
                 var newValue = new AdditionalSourceList();
                 updateAction(newValue);
-                return new GenericControl(newValue, false);
+                return new ComponentControl(newValue, false);
             }
 
             if (type.IsInterface)
-                return new SelectionControl(updateAction, _interfaceRequirement.PropertyType().GetGenericArguments().First().Name, type);
+                return new SelectionControl(updateAction, _objectComponentLink.PropertyType().GetGenericArguments().First().Name, type);
 
             if (type.IsClass)
             {
                 var newValue = Activator.CreateInstance(type);
                 updateAction(newValue);
-                return new GenericControl(newValue, false);
+                return new ComponentControl(newValue, false);
             }
 
             throw new Exception($"Type is not supported: {type}");

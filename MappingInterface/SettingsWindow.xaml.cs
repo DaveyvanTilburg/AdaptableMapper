@@ -2,9 +2,9 @@
 
 namespace MappingFramework.MappingInterface
 {
-    public partial class MainWindow : Window
+    public partial class SettingsWindow : Window
     {
-        public MainWindow()
+        public SettingsWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 

@@ -6,11 +6,11 @@ namespace MappingFramework.MappingInterface.Fields
 {
     partial class TextField : UserControl
     {
-        private readonly InterfaceRequirement _interfaceRequirement;
+        private readonly ObjectComponentLink _objectComponentLink;
         
-        public TextField(InterfaceRequirement interfaceRequirement)
+        public TextField(ObjectComponentLink objectComponentLink)
         {
-            _interfaceRequirement = interfaceRequirement;
+            _objectComponentLink = objectComponentLink;
 
             Initialized += Load;
             InitializeComponent();
@@ -20,12 +20,12 @@ namespace MappingFramework.MappingInterface.Fields
 
         private void Load(object o, EventArgs e)
         {
-            ComponentLabel.Content = _interfaceRequirement.Name();
+            ComponentLabel.Content = _objectComponentLink.Name();
         }
 
         private void OnFocusLost(object o, EventArgs e)
         {
-            _interfaceRequirement.Update(ComponentTextBox.Text);
+            _objectComponentLink.Update(ComponentTextBox.Text);
         }
     }
 }

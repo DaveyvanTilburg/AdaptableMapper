@@ -7,12 +7,12 @@ using MappingFramework.MappingInterface.Generics;
 
 namespace MappingFramework.MappingInterface.Controls
 {
-    public partial class GenericControl : UserControl
+    public partial class ComponentControl : UserControl
     {
         private readonly object _subject;
         private readonly bool _showName;
         
-        public GenericControl(object subject, bool showName)
+        public ComponentControl(object subject, bool showName)
         {
             _subject = subject;
             _showName = showName;
@@ -26,41 +26,39 @@ namespace MappingFramework.MappingInterface.Controls
             if (_showName)
                 ComponentPanel.Children.Add(new Label { Content = _subject.GetType().Name, FontWeight = FontWeights.Bold, Foreground = new SolidColorBrush(Colors.Red) });
             
-            var interfaceComponent = new InterfaceComponent(_subject);
+            var interfaceComponent = new ObjectComponent(_subject);
 
-            foreach(InterfaceRequirement interfaceRequirement in interfaceComponent.Requirements())
+            foreach(ObjectComponentLink interfaceRequirement in interfaceComponent.Requirements())
             {
                 switch(interfaceRequirement.Type())
                 {
-                    case InterfaceRequirementType.TextBox:
+                    case ObjectComponentDisplayType.TextBox:
                         ComponentPanel.Children.Add(new TextField(interfaceRequirement));
                         break;
-                    case InterfaceRequirementType.NumberBox:
+                    case ObjectComponentDisplayType.NumberBox:
                         ComponentPanel.Children.Add(new NumberField(interfaceRequirement));
                         break;
-                    case InterfaceRequirementType.CheckBox:
+                    case ObjectComponentDisplayType.CheckBox:
                         ComponentPanel.Children.Add(new CheckBoxField(interfaceRequirement));
                         break;
-                    case InterfaceRequirementType.RadioGroupBox:
+                    case ObjectComponentDisplayType.RadioGroupBox:
                         ComponentPanel.Children.Add(new RadioGroupField(interfaceRequirement));
                         break;
-                    case InterfaceRequirementType.CharBox:
+                    case ObjectComponentDisplayType.CharBox:
                         ComponentPanel.Children.Add(new CharField(interfaceRequirement));
                         break;
                     
                     
-                    case InterfaceRequirementType.Item:
+                    case ObjectComponentDisplayType.Item:
                         ComponentPanel.Children.Add(new SelectionControl(interfaceRequirement.UpdateAction(), interfaceRequirement.Name(), interfaceRequirement.PropertyType()));
                         break;
-                    
-                    
-                    case InterfaceRequirementType.List:
+                    case ObjectComponentDisplayType.List:
                         ComponentPanel.Children.Add(new ListOfTControl(interfaceRequirement));
                         break;
-                    case InterfaceRequirementType.Direct:
+                    case ObjectComponentDisplayType.Direct:
                         var newValue = Activator.CreateInstance(interfaceRequirement.PropertyType());
                         interfaceRequirement.Update(newValue);
-                        ComponentPanel.Children.Add(new GenericControl(newValue, true));
+                        ComponentPanel.Children.Add(new ComponentControl(newValue, true));
                         break;
                     
                     

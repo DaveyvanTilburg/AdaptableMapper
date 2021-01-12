@@ -4,23 +4,23 @@ using System.Linq;
 
 namespace MappingFramework.MappingInterface.Generics
 {
-    public class InterfaceComponent
+    public class ObjectComponent
     {
         private readonly object _subject;
         
-        public InterfaceComponent(object subject)
+        public ObjectComponent(object subject)
         {
             _subject = subject;
         }
         
-        public IEnumerable<InterfaceRequirement> Requirements()
+        public IEnumerable<ObjectComponentLink> Requirements()
         {
             Type subjectType = _subject.GetType();
             
-            IEnumerable<InterfaceRequirement> result = subjectType
+            IEnumerable<ObjectComponentLink> result = subjectType
                 .GetProperties()
                 .Where(p => !p.Name.Equals("TypeId"))
-                .Select(p => new InterfaceRequirement(p, _subject));
+                .Select(p => new ObjectComponentLink(p, _subject));
 
             return result;
         }

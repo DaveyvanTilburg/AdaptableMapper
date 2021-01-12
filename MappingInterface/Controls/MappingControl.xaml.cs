@@ -19,7 +19,7 @@ namespace MappingFramework.MappingInterface.Controls
         
         private void Load(object o, EventArgs e)
         {
-            var getValueInterfaceRequirement = new InterfaceRequirement(_mapping.GetType().GetProperty(nameof(_mapping.GetValueTraversal)), _mapping);
+            var getValueInterfaceRequirement = new ObjectComponentLink(_mapping.GetType().GetProperty(nameof(_mapping.GetValueTraversal)), _mapping);
             GetValueStackPanelComponent.Children.Add(
                 new SelectionControl(
                     getValueInterfaceRequirement.UpdateAction(), 
@@ -27,7 +27,7 @@ namespace MappingFramework.MappingInterface.Controls
                     getValueInterfaceRequirement.PropertyType())
                 );
 
-            var setValueInterfaceRequirement = new InterfaceRequirement(_mapping.GetType().GetProperty(nameof(_mapping.SetValueTraversal)), _mapping);
+            var setValueInterfaceRequirement = new ObjectComponentLink(_mapping.GetType().GetProperty(nameof(_mapping.SetValueTraversal)), _mapping);
             SetValueStackPanelComponent.Children.Add(
                 new SelectionControl(
                     setValueInterfaceRequirement.UpdateAction(), 

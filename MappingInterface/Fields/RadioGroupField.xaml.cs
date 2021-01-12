@@ -8,11 +8,11 @@ namespace MappingFramework.MappingInterface.Fields
 {
     public partial class RadioGroupField : UserControl
     {
-        private readonly InterfaceRequirement _interfaceRequirement;
+        private readonly ObjectComponentLink _objectComponentLink;
 
-        public RadioGroupField(InterfaceRequirement interfaceRequirement)
+        public RadioGroupField(ObjectComponentLink objectComponentLink)
         {
-            _interfaceRequirement = interfaceRequirement;
+            _objectComponentLink = objectComponentLink;
 
             Initialized += Load;
             InitializeComponent();
@@ -20,9 +20,9 @@ namespace MappingFramework.MappingInterface.Fields
 
         private void Load(object o, EventArgs e)
         {
-            ComponentLabel.Content = _interfaceRequirement.Name();
+            ComponentLabel.Content = _objectComponentLink.Name();
 
-            List<object> values = Enum.GetValues(_interfaceRequirement.PropertyType()).OfType<object>().ToList();
+            List<object> values = Enum.GetValues(_objectComponentLink.PropertyType()).OfType<object>().ToList();
             
             foreach(object value in values)
             {
@@ -41,9 +41,9 @@ namespace MappingFramework.MappingInterface.Fields
         private void OnClicked(object o, EventArgs e)
         {
             string value = ComponentStackPanel.Children.OfType<RadioButton>().FirstOrDefault(rb => rb.IsChecked ?? false)?.Content?.ToString() ?? string.Empty;
-            object enumValue = Enum.Parse(_interfaceRequirement.PropertyType(), value);
+            object enumValue = Enum.Parse(_objectComponentLink.PropertyType(), value);
             
-            _interfaceRequirement.Update(enumValue);
+            _objectComponentLink.Update(enumValue);
         }
     }
 }

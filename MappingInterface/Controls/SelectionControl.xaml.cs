@@ -55,7 +55,7 @@ namespace MappingFramework.MappingInterface.Controls
                 _updateAction(value);
 
                 StackPanelComponent.Children.Clear();
-                StackPanelComponent.Children.Add(new GenericControl(value, false));
+                StackPanelComponent.Children.Add(new ComponentControl(value, false));
             }
         }
         

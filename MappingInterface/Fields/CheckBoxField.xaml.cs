@@ -6,11 +6,11 @@ namespace MappingFramework.MappingInterface.Fields
 {
     public partial class CheckBoxField : UserControl
     {
-        private readonly InterfaceRequirement _interfaceRequirement;
+        private readonly ObjectComponentLink _objectComponentLink;
 
-        public CheckBoxField(InterfaceRequirement interfaceRequirement)
+        public CheckBoxField(ObjectComponentLink objectComponentLink)
         {
-            _interfaceRequirement = interfaceRequirement;
+            _objectComponentLink = objectComponentLink;
 
             Initialized += Load;
             InitializeComponent();
@@ -20,12 +20,12 @@ namespace MappingFramework.MappingInterface.Fields
 
         private void Load(object o, EventArgs e)
         {
-            ComponentLabel.Content = _interfaceRequirement.Name();
+            ComponentLabel.Content = _objectComponentLink.Name();
         }
 
         private void OnClicked(object o, EventArgs e)
         {
-            _interfaceRequirement.Update(ComponentCheckBox.IsChecked ?? false);
+            _objectComponentLink.Update(ComponentCheckBox.IsChecked ?? false);
         }
     }
 }

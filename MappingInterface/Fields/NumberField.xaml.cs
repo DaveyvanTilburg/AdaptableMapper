@@ -8,11 +8,11 @@ namespace MappingFramework.MappingInterface.Fields
 {
     public partial class NumberField : UserControl
     {
-        private readonly InterfaceRequirement _interfaceRequirement;
+        private readonly ObjectComponentLink _objectComponentLink;
 
-        public NumberField(InterfaceRequirement interfaceRequirement)
+        public NumberField(ObjectComponentLink objectComponentLink)
         {
-            _interfaceRequirement = interfaceRequirement;
+            _objectComponentLink = objectComponentLink;
 
             Initialized += Load;
             InitializeComponent();
@@ -23,13 +23,13 @@ namespace MappingFramework.MappingInterface.Fields
 
         private void Load(object o, EventArgs e)
         {
-            ComponentLabel.Content = _interfaceRequirement.Name();
+            ComponentLabel.Content = _objectComponentLink.Name();
         }
 
         private void OnFocusLost(object o, EventArgs e)
         {
             int value = !string.IsNullOrWhiteSpace(ComponentTextBox.Text) ? int.Parse(ComponentTextBox.Text) : 0;
-            _interfaceRequirement.Update(value);
+            _objectComponentLink.Update(value);
         }
 
         private void NumericOnly(object sender, TextCompositionEventArgs e)

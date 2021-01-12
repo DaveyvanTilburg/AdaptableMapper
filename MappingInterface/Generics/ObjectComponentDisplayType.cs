@@ -1,6 +1,6 @@
 ﻿namespace MappingFramework.MappingInterface.Generics
 {
-    public enum InterfaceRequirementType
+    public enum ObjectComponentDisplayType
     {
         Undefined,
         
