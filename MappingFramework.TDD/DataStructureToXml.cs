@@ -4,6 +4,7 @@ using System.Xml.Linq;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
 using MappingFramework.DataStructure;
+using MappingFramework.Traversals.DataStructure;
 using Xunit;
 
 namespace MappingFramework.TDD
@@ -11,14 +12,14 @@ namespace MappingFramework.TDD
     public class DataStructureToXml
     {
         [Fact]
-        public void ModelToXmlTest()
+        public void DataStructureToXmlTest()
         {
             var errorObserver = new TestErrorObserver();
             Process.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
 
-            TraversableDataStructure source = ArmyModelSourceCreator.CreateArmyModel();
+            TraversableDataStructure source = ArmySourceCreator.CreateArmy();
             XElement result = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml")) as XElement;
 
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
@@ -36,7 +37,7 @@ namespace MappingFramework.TDD
         private static MappingConfiguration GetFakedMappingConfiguration()
         {
             var memberName = new Mapping(
-                new Traversals.Model.ModelGetValueTraversal("Name"),
+                new DataStructureGetValueTraversal("Name"),
                 new Traversals.Xml.XmlSetThisValueTraversal()
             );
 
@@ -46,20 +47,20 @@ namespace MappingFramework.TDD
                 {
                     memberName
                 },
-                new Traversals.Model.ModelGetListValueTraversal("Members"),
+                new DataStructureGetListValueTraversal("Members"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./memberNames/memberName"),
                 new Configuration.Xml.XmlChildCreator()
             );
 
             var platoonCode = new Mapping(
-                new Traversals.Model.ModelGetValueTraversal("Code"),
+                new DataStructureGetValueTraversal("Code"),
                 new Traversals.Xml.XmlSetValueTraversal("./@code")
             );
 
             var leaderName = new Mapping(
                 new Compositions.GetSearchValueTraversal(
-                    new Traversals.Model.ModelGetValueTraversal("../../Organization/Leaders{'PropertyName':'Reference','Value':'{{searchValue}}'}/LeaderPerson/Person/Name"),
-                    new Traversals.Model.ModelGetValueTraversal("LeaderReference")
+                    new DataStructureGetValueTraversal("../../Organization/Leaders{'PropertyName':'Reference','Value':'{{searchValue}}'}/LeaderPerson/Person/Name"),
+                    new DataStructureGetValueTraversal("LeaderReference")
                 ),
                 new Traversals.Xml.XmlSetValueTraversal("./leaderName")
             );
@@ -74,19 +75,19 @@ namespace MappingFramework.TDD
                     platoonCode,
                     leaderName
                 },
-                new Traversals.Model.ModelGetListValueTraversal("Armies/Platoons"),
+                new DataStructureGetListValueTraversal("Armies/Platoons"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./platoons/platoon"),
                 new Configuration.Xml.XmlChildCreator()
             )
             {
                 Condition = new CompareCondition(
-                    new Traversals.Model.ModelGetValueTraversal("Deployed"), 
+                    new DataStructureGetValueTraversal("Deployed"), 
                     CompareOperator.Equals, 
                     new Compositions.GetStaticValue("True"))
             };
 
             var crewMemberName = new Mapping(
-                new Traversals.Model.ModelGetValueTraversal("Name"),
+                new DataStructureGetValueTraversal("Name"),
                 new Traversals.Xml.XmlSetThisValueTraversal()
             );
 
@@ -96,7 +97,7 @@ namespace MappingFramework.TDD
                 {
                     crewMemberName
                 },
-                new Traversals.Model.ModelGetListValueTraversal("Armies/Platoons/Members/CrewMembers"),
+                new DataStructureGetListValueTraversal("Armies/Platoons/Members/CrewMembers"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./crewMemberNames/crewMemberName"),
                 new Configuration.Xml.XmlChildCreator()
             );

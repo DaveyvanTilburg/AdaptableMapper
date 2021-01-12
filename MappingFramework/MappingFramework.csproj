@@ -116,7 +116,7 @@
     <Compile Include="Configuration\TargetInstantiator.cs" />
     <Compile Include="MappingConfiguration.cs" />
     <Compile Include="Configuration\DataStructure\DataStructureObjectConverter.cs" />
-    <Compile Include="Traversals\Model\ModelSetValueOnPropertyTraversal.cs" />
+    <Compile Include="Traversals\DataStructure\DataStructureSetValueOnPropertyTraversal.cs" />
     <Compile Include="Configuration\DataStructure\DataStructureTargetInstantiator.cs" />
     <Compile Include="DataStructure\TraversableDataStructure.cs" />
     <Compile Include="DataStructure\DataStructureFilter.cs" />
@@ -125,10 +125,10 @@
     <Compile Include="Process\ProcessObservable.cs" />
     <Compile Include="Process\ProcessObserver.cs" />
     <Compile Include="Configuration\DataStructure\DataStructureChildCreator.cs" />
-    <Compile Include="Traversals\Model\ModelGetValueTraversal.cs" />
-    <Compile Include="Traversals\Model\ModelGetListValueTraversal.cs" />
-    <Compile Include="Traversals\Model\ModelSetValueOnPathTraversal.cs" />
-    <Compile Include="Traversals\Model\ModelGetTemplateTraversal.cs" />
+    <Compile Include="Traversals\DataStructure\DataStructureGetValueTraversal.cs" />
+    <Compile Include="Traversals\DataStructure\DataStructureGetListValueTraversal.cs" />
+    <Compile Include="Traversals\DataStructure\DataStructureSetValueOnPathTraversal.cs" />
+    <Compile Include="Traversals\DataStructure\DataStructureGetTemplateTraversal.cs" />
     <Compile Include="Configuration\Context.cs" />
     <Compile Include="DataStructure\NullDataStructure.cs" />
     <Compile Include="Configuration\ChildCreator.cs" />

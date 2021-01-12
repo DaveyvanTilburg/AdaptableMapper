@@ -15,7 +15,7 @@ namespace MappingFramework.Configuration.DataStructure
         {
             if (!(source is TraversableDataStructure converted))
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#20; source is not of expected type Model", "error", source);
+                Process.ProcessObservable.GetInstance().Raise("DataStructure#20; source is not of expected type DataStructure", "error", source);
                 return new NullDataStructure();
             }
 

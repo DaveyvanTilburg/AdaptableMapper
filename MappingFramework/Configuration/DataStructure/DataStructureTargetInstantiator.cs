@@ -15,7 +15,7 @@ namespace MappingFramework.Configuration.DataStructure
         {
             if (!(source is string template))
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#25; Source is not of expected type string", "error", source, source?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("DataStructure#25; Source is not of expected type string", "error", source, source?.GetType().Name);
                 return new NullDataStructure();
             }
 
@@ -26,7 +26,7 @@ namespace MappingFramework.Configuration.DataStructure
             }
             catch(Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#26; string does not contain a serialized DataStructureTargetInstantiatorSource", "error", template, exception.GetType().Name, exception.Message);
+                Process.ProcessObservable.GetInstance().Raise("DataStructure#26; string does not contain a serialized DataStructureTargetInstantiatorSource", "error", template, exception.GetType().Name, exception.Message);
                 return new NullDataStructure();
             }
 
@@ -37,13 +37,13 @@ namespace MappingFramework.Configuration.DataStructure
             }
             catch(Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#24; assembly and typename could not be instantiated", "error", dataStructureTargetInstantiatorSource, exception.GetType().Name, exception.Message);
+                Process.ProcessObservable.GetInstance().Raise("DataStructure#24; assembly and typename could not be instantiated", "error", dataStructureTargetInstantiatorSource, exception.GetType().Name, exception.Message);
                 return new NullDataStructure();
             }
 
             if (!(result is TraversableDataStructure))
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#31; instantiated object is not of type TraversableDataStructure", "error", dataStructureTargetInstantiatorSource);
+                Process.ProcessObservable.GetInstance().Raise("DataStructure#31; instantiated object is not of type TraversableDataStructure", "error", dataStructureTargetInstantiatorSource);
                 return new NullDataStructure();
             }
 

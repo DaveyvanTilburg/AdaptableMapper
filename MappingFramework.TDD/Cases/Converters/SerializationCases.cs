@@ -11,9 +11,9 @@ using MappingFramework.Configuration.DataStructure;
 using MappingFramework.Configuration.Xml;
 using MappingFramework.Converters;
 using MappingFramework.Process;
+using MappingFramework.Traversals.DataStructure;
 using MappingFramework.Traversals.Dictionary;
 using MappingFramework.Traversals.Json;
-using MappingFramework.Traversals.Model;
 using MappingFramework.Traversals.Xml;
 using MappingFramework.ValueMutations;
 using MappingFramework.ValueMutations.Traversals;
@@ -285,7 +285,7 @@ namespace MappingFramework.TDD.Cases.Converters
                 new JTokenToStringObjectConverter()
             };
 
-            //Configuration - Model
+            //Configuration - DataStructure
             yield return new object[]
             {
                 typeof(ChildCreator),
@@ -363,31 +363,31 @@ namespace MappingFramework.TDD.Cases.Converters
                 new JsonSetValueTraversal("path")
             };
 
-            //Traversals - Model
+            //Traversals - DataStructure
             yield return new object[]
             {
                 typeof(GetValueTraversal),
-                new ModelGetListValueTraversal("path")
+                new DataStructureGetListValueTraversal("path")
             };
             yield return new object[]
             {
                 typeof(GetValueTraversal),
-                new ModelGetTemplateTraversal("path")
+                new DataStructureGetTemplateTraversal("path")
             };
             yield return new object[]
             {
                 typeof(GetValueTraversal),
-                new ModelGetValueTraversal("path")
+                new DataStructureGetValueTraversal("path")
             };
             yield return new object[]
             {
                 typeof(SetValueTraversal),
-                new ModelSetValueOnPathTraversal("path")
+                new DataStructureSetValueOnPathTraversal("path")
             };
             yield return new object[]
             {
                 typeof(SetValueTraversal),
-                new ModelSetValueOnPropertyTraversal("path")
+                new DataStructureSetValueOnPropertyTraversal("path")
             };
 
             //Traversals - Xml

@@ -6,9 +6,9 @@ using MappingFramework.Configuration.Dictionary;
 using MappingFramework.Configuration.Json;
 using MappingFramework.Configuration.DataStructure;
 using MappingFramework.Configuration.Xml;
+using MappingFramework.Traversals.DataStructure;
 using MappingFramework.Traversals.Dictionary;
 using MappingFramework.Traversals.Json;
-using MappingFramework.Traversals.Model;
 using MappingFramework.Traversals.Xml;
 using MappingFramework.ValueMutations;
 using MappingFramework.ValueMutations.Traversals;
@@ -50,7 +50,7 @@ namespace MappingFramework.Converters
                 [JsonTargetInstantiator._typeId] = typeof(JsonTargetInstantiator),
                 [JTokenToStringObjectConverter._typeId] = typeof(JTokenToStringObjectConverter),
 
-                //Configuration - Model
+                //Configuration - DataStructure
                 [DataStructureChildCreator._typeId] = typeof(DataStructureChildCreator),
                 [DataStructureObjectConverter._typeId] = typeof(DataStructureObjectConverter),
                 [DataStructureTargetInstantiator._typeId] = typeof(DataStructureTargetInstantiator),
@@ -72,12 +72,12 @@ namespace MappingFramework.Converters
                 [JsonGetValueTraversal._typeId] = typeof(JsonGetValueTraversal),
                 [JsonSetValueTraversal._typeId] = typeof(JsonSetValueTraversal),
 
-                //Traversals - Model
-                [ModelGetListValueTraversal._typeId] = typeof(ModelGetListValueTraversal),
-                [ModelGetTemplateTraversal._typeId] = typeof(ModelGetTemplateTraversal),
-                [ModelGetValueTraversal._typeId] = typeof(ModelGetValueTraversal),
-                [ModelSetValueOnPathTraversal._typeId] = typeof(ModelSetValueOnPathTraversal),
-                [ModelSetValueOnPropertyTraversal._typeId] = typeof(ModelSetValueOnPropertyTraversal),
+                //Traversals - DataStructure
+                [DataStructureGetListValueTraversal._typeId] = typeof(DataStructureGetListValueTraversal),
+                [DataStructureGetTemplateTraversal._typeId] = typeof(DataStructureGetTemplateTraversal),
+                [DataStructureGetValueTraversal._typeId] = typeof(DataStructureGetValueTraversal),
+                [DataStructureSetValueOnPathTraversal._typeId] = typeof(DataStructureSetValueOnPathTraversal),
+                [DataStructureSetValueOnPropertyTraversal._typeId] = typeof(DataStructureSetValueOnPropertyTraversal),
 
                 //Traversals - Xml
                 [XmlGetListValueTraversal._typeId] = typeof(XmlGetListValueTraversal),

@@ -11,11 +11,11 @@ namespace MappingFramework.DataStructure
             _parent = parent;
         }
 
-        public new void Add(T model)
+        public new void Add(T dataStructure)
         {
-            model.Parent = _parent;
+            dataStructure.Parent = _parent;
 
-            base.Add(model);
+            base.Add(dataStructure);
         }
     }
 }

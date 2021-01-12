@@ -2,9 +2,9 @@
 
 namespace MappingFramework.TDD
 {
-    internal static class ArmyModelSourceCreator
+    internal static class ArmySourceCreator
     {
-        public static Root CreateArmyModel()
+        public static Root CreateArmy()
         {
             var leader1 = new Leader { Reference = "alpha-bravo-tango-delta" , LeaderPerson = new LeaderPerson { Person = new Person { Name = "Christopher columbus" } } };
             var leader2 = new Leader { Reference = "Ween", LeaderPerson = new LeaderPerson { Person = new Person { Name = "Ocean man" } } };

@@ -22,7 +22,7 @@ namespace MappingFramework.Configuration.DataStructure
         {
             if (!(source is string input))
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#27; source is not of expected type string", "error", source);
+                Process.ProcessObservable.GetInstance().Raise("DataStructure#27; source is not of expected type string", "error", source);
                 return new NullDataStructure();
             }
 
@@ -36,7 +36,7 @@ namespace MappingFramework.Configuration.DataStructure
             }
             catch (Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#28; could not instantiate sourceType", "error", DataStructureTargetInstantiatorSource, exception.GetType().Name, exception.Message);
+                Process.ProcessObservable.GetInstance().Raise("DataStructure#28; could not instantiate sourceType", "error", DataStructureTargetInstantiatorSource, exception.GetType().Name, exception.Message);
                 return new NullDataStructure();
             }
 
@@ -47,13 +47,13 @@ namespace MappingFramework.Configuration.DataStructure
             }
             catch(Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#29; could not deserialize to type", "error", source, exception.GetType().Name, exception.Message);
+                Process.ProcessObservable.GetInstance().Raise("DataStructure#29; could not deserialize to type", "error", source, exception.GetType().Name, exception.Message);
                 return new NullDataStructure();
             }
 
             if (!(result is TraversableDataStructure))
             {
-                Process.ProcessObservable.GetInstance().Raise("MODEL#30; sourceType is not of type modelBase", "error", DataStructureTargetInstantiatorSource);
+                Process.ProcessObservable.GetInstance().Raise("DataStructure#30; sourceType is not of type TraversableDataStructure", "error", DataStructureTargetInstantiatorSource);
                 return new NullDataStructure();
             }
 

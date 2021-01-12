@@ -14,9 +14,9 @@ namespace MappingFramework.Configuration.DataStructure
 
         public object CreateChild(Template template)
         {
-            if (!(template.Parent is TraversableDataStructure model))
+            if (!(template.Parent is TraversableDataStructure parent))
             {
-                Process.ProcessObservable.GetInstance().Raise("DataStructureChildCreator#1; parent is not of expected type Model", "error", template.Parent?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("DataStructureChildCreator#1; parent is not of expected type TraversableDataStructure", "error", template.Parent?.GetType().Name);
                 return new NullDataStructure();
             }
 
@@ -34,7 +34,7 @@ namespace MappingFramework.Configuration.DataStructure
         {
             if (!(template.Parent is TraversableDataStructure parent))
             {
-                Process.ProcessObservable.GetInstance().Raise("DataStructureChildCreator#3; parent is not of expected type Model", "error", template.Parent?.GetType().Name);
+                Process.ProcessObservable.GetInstance().Raise("DataStructureChildCreator#3; parent is not of expected type TraversableDataStructure", "error", template.Parent?.GetType().Name);
                 return;
             }
 

@@ -12,7 +12,7 @@ namespace MappingFramework.DataStructure
 
             if (!(instance is TraversableDataStructure result))
             {
-                ProcessObservable.GetInstance().Raise($"MODEL#23; Model has a list property with generic type {listItemType.Name} that is not a Model", "error");
+                ProcessObservable.GetInstance().Raise($"DataStructure#23; DataStructure has a list property with generic type {listItemType.Name} that is not a DataStructure", "error");
                 return new NullDataStructure();
             }
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MappingFramework.Configuration;
+using MappingFramework.Traversals.DataStructure;
 
 namespace MappingFramework.TDD.ATDD
 {
@@ -42,7 +43,7 @@ namespace MappingFramework.TDD.ATDD
                 case "json":
                     _result.ContextFactory.TargetInstantiator = new Configuration.Json.JsonTargetInstantiator();
                     break;
-                case "model":
+                case "datastructure":
                     _result.ContextFactory.TargetInstantiator = new Configuration.DataStructure.DataStructureTargetInstantiator();
                     break;
             }
@@ -58,10 +59,10 @@ namespace MappingFramework.TDD.ATDD
                 case "json":
                     _result.ContextFactory.ObjectConverter = new Configuration.Json.JsonObjectConverter();
                     break;
-                case "modelbase":
+                case "datastructurebase":
                     _result.ContextFactory.ObjectConverter = new Configuration.DataStructure.DataStructureObjectConverter();
                     break;
-                case "model":
+                case "datastructure":
                     Type itemType = typeof(Simple.Item);
                     _result.ContextFactory.ObjectConverter = new Configuration.DataStructure.StringToDataStructureObjectConverter(
                         new Configuration.DataStructure.DataStructureTargetInstantiatorSource
@@ -98,8 +99,8 @@ namespace MappingFramework.TDD.ATDD
                     return new Traversals.Xml.XmlGetListValueTraversal(scopeCompositeModel.GetScopeTraversalPath);
                 case "json":
                     return new Traversals.Json.JsonGetListValueTraversal(scopeCompositeModel.GetScopeTraversalPath);
-                case "model":
-                    return new Traversals.Model.ModelGetListValueTraversal(scopeCompositeModel.GetScopeTraversalPath);
+                case "datastructure":
+                    return new DataStructureGetListValueTraversal(scopeCompositeModel.GetScopeTraversalPath);
                 default:
                     return null;
             }
@@ -113,8 +114,8 @@ namespace MappingFramework.TDD.ATDD
                     return new Traversals.Xml.XmlGetTemplateTraversal(string.Empty);
                 case "json":
                     return new Traversals.Json.JsonGetTemplateTraversal(string.Empty);
-                case "model":
-                    return new Traversals.Model.ModelGetTemplateTraversal(string.Empty);
+                case "datastructure":
+                    return new DataStructureGetTemplateTraversal(string.Empty);
                 default:
                     return null;
             }
@@ -128,7 +129,7 @@ namespace MappingFramework.TDD.ATDD
                     return new Configuration.Xml.XmlChildCreator();
                 case "json":
                     return new Configuration.Json.JsonChildCreator();
-                case "model":
+                case "datastructure":
                     return new Configuration.DataStructure.DataStructureChildCreator();
                 default:
                     return null;
@@ -145,7 +146,7 @@ namespace MappingFramework.TDD.ATDD
                 case "json":
                     _result.ResultObjectConverter = new Configuration.Json.JTokenToStringObjectConverter();
                     break;
-                case "model":
+                case "datastructure":
                     _result.ResultObjectConverter = new Configuration.DataStructure.DataStructureToStringObjectConverter();
                     break;
                 case "null":
@@ -176,8 +177,8 @@ namespace MappingFramework.TDD.ATDD
                     return new Traversals.Xml.XmlGetValueTraversal(string.Empty);
                 case "json":
                     return new Traversals.Json.JsonGetValueTraversal(string.Empty);
-                case "model":
-                    return new Traversals.Model.ModelGetValueTraversal(string.Empty);
+                case "datastructure":
+                    return new DataStructureGetValueTraversal(string.Empty);
                 default:
                     return null;
             }
@@ -191,8 +192,8 @@ namespace MappingFramework.TDD.ATDD
                     return new Traversals.Xml.XmlSetValueTraversal(string.Empty);
                 case "json":
                     return new Traversals.Json.JsonSetValueTraversal(string.Empty);
-                case "model":
-                    return new Traversals.Model.ModelSetValueOnPropertyTraversal(string.Empty);
+                case "datastructure":
+                    return new DataStructureSetValueOnPropertyTraversal(string.Empty);
                 default:
                     return null;
             }

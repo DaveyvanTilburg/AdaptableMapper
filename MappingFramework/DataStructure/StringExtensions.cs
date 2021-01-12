@@ -16,7 +16,7 @@ namespace MappingFramework.DataStructure
 
             if (positionEnd == -1)
             {
-                ProcessObservable.GetInstance().Raise("MODEL#32; No } found in after {", "error", value);
+                ProcessObservable.GetInstance().Raise("DataStructure#32; No } found in after {", "error", value);
                 return false;
             }
 

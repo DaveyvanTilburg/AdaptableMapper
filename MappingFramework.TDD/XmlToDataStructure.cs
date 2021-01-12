@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using System.Collections.Generic;
 using MappingFramework.Configuration;
+using MappingFramework.Traversals.DataStructure;
 using Xunit;
 
 namespace MappingFramework.TDD
@@ -8,15 +9,15 @@ namespace MappingFramework.TDD
     public class XmlToDataStructure
     {
         [Fact]
-        public void XmlToModelTest()
+        public void XmlToDataStructureTest()
         {
             var errorObserver = new TestErrorObserver();
             Process.ProcessObservable.GetInstance().Register(errorObserver);
 
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
-            string modelTargetInstantiatorSource = CreateModelTargetInstantiatorSource();
+            string targetInstantiatorSource = CreateDataStructureTargetInstantiatorSource();
 
-            object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), modelTargetInstantiatorSource);
+            object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), targetInstantiatorSource);
 
             var result = resultObject as Armies.Root;
             result.Should().NotBeNull();
@@ -42,13 +43,13 @@ namespace MappingFramework.TDD
         }
 
         [Fact]
-        public void XmlToModelToString()
+        public void XmlToDataStructureToString()
         {
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
             mappingConfiguration.ResultObjectConverter = new Configuration.DataStructure.DataStructureToStringObjectConverter();
-            string modelTargetInstantiatorSource = CreateModelTargetInstantiatorSource();
+            string dataStructureTargetInstantiatorSource = CreateDataStructureTargetInstantiatorSource();
 
-            object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), modelTargetInstantiatorSource);
+            object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), dataStructureTargetInstantiatorSource);
 
             var result = resultObject as string;
             result.Should().NotBeNull();
@@ -57,7 +58,7 @@ namespace MappingFramework.TDD
             result.Should().BeEquivalentTo(expectedResult);
         }
 
-        private string CreateModelTargetInstantiatorSource()
+        private string CreateDataStructureTargetInstantiatorSource()
         {
             var rootType = typeof(Armies.Root);
             var result = new Configuration.DataStructure.DataStructureTargetInstantiatorSource
@@ -73,7 +74,7 @@ namespace MappingFramework.TDD
         {
             var crewMember = new Mapping(
                 new Traversals.Xml.XmlGetThisValueTraversal(),
-                new Traversals.Model.ModelSetValueOnPropertyTraversal("Name")
+                new DataStructureSetValueOnPropertyTraversal("Name")
             );
 
             var crewMemberScope = new MappingScopeComposite(
@@ -83,13 +84,13 @@ namespace MappingFramework.TDD
                     crewMember
                 },
                 new Traversals.Xml.XmlGetListValueTraversal("./crew/crewMember"),
-                new Traversals.Model.ModelGetTemplateTraversal("CrewMembers"),
+                new DataStructureGetTemplateTraversal("CrewMembers"),
                 new Configuration.DataStructure.DataStructureChildCreator()
             );
 
             var memberName = new Mapping(
                 new Traversals.Xml.XmlGetValueTraversal("./@name"),
-                new Traversals.Model.ModelSetValueOnPropertyTraversal("Name")
+                new DataStructureSetValueOnPropertyTraversal("Name")
             );
 
             var memberScope = new MappingScopeComposite(
@@ -102,18 +103,18 @@ namespace MappingFramework.TDD
                     memberName
                 },
                 new Traversals.Xml.XmlGetListValueTraversal("./members/member"),
-                new Traversals.Model.ModelGetTemplateTraversal("Members"),
+                new DataStructureGetTemplateTraversal("Members"),
                 new Configuration.DataStructure.DataStructureChildCreator()
             );
 
             var platoonCode = new Mapping(
                 new Traversals.Xml.XmlGetValueTraversal("./@code"),
-                new Traversals.Model.ModelSetValueOnPropertyTraversal("Code")
+                new DataStructureSetValueOnPropertyTraversal("Code")
             );
 
             var leaderReference = new Mapping(
                 new Traversals.Xml.XmlGetValueTraversal("./leaderReference"),
-                new Traversals.Model.ModelSetValueOnPropertyTraversal("LeaderReference")
+                new DataStructureSetValueOnPropertyTraversal("LeaderReference")
             );
 
             var platoonScope = new MappingScopeComposite(
@@ -127,13 +128,13 @@ namespace MappingFramework.TDD
                     leaderReference
                 },
                 new Traversals.Xml.XmlGetListValueTraversal("./platoon"),
-                new Traversals.Model.ModelGetTemplateTraversal("Platoons"),
+                new DataStructureGetTemplateTraversal("Platoons"),
                 new Configuration.DataStructure.DataStructureChildCreator()
             );
 
             var armyCode = new Mapping(
                 new Traversals.Xml.XmlGetValueTraversal("./@code"),
-                new Traversals.Model.ModelSetValueOnPropertyTraversal("Code")
+                new DataStructureSetValueOnPropertyTraversal("Code")
             );
 
             var armyScope = new MappingScopeComposite(
@@ -146,18 +147,18 @@ namespace MappingFramework.TDD
                     armyCode
                 },
                 new Traversals.Xml.XmlGetListValueTraversal("./army"),
-                new Traversals.Model.ModelGetTemplateTraversal("Armies"),
+                new DataStructureGetTemplateTraversal("Armies"),
                 new Configuration.DataStructure.DataStructureChildCreator()
             );
 
             var reference = new Mapping(
                 new Traversals.Xml.XmlGetValueTraversal("./@reference"),
-                new Traversals.Model.ModelSetValueOnPropertyTraversal("Reference")
+                new DataStructureSetValueOnPropertyTraversal("Reference")
             );
 
             var leaderName = new Mapping(
                 new Traversals.Xml.XmlGetThisValueTraversal(),
-                new Traversals.Model.ModelSetValueOnPathTraversal("LeaderPerson/Person/Name")
+                new DataStructureSetValueOnPathTraversal("LeaderPerson/Person/Name")
             );
 
             var leadersScope = new MappingScopeComposite(
@@ -168,7 +169,7 @@ namespace MappingFramework.TDD
                     leaderName
                 },
                 new Traversals.Xml.XmlGetListValueTraversal("./leaders/leader"),
-                new Traversals.Model.ModelGetTemplateTraversal("Organization/Leaders"),
+                new DataStructureGetTemplateTraversal("Organization/Leaders"),
                 new Configuration.DataStructure.DataStructureChildCreator()
             );
 

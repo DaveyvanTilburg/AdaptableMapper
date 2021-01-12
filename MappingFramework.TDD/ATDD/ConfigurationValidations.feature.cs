@@ -347,8 +347,8 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.SkippableTheoryAttribute(DisplayName="MappingConfiguration")]
         [Xunit.TraitAttribute("FeatureTitle", "ConfigurationValidations")]
         [Xunit.TraitAttribute("Description", "MappingConfiguration")]
-        [Xunit.InlineDataAttribute("Model-Xml-Xml", "ModelBase", "Xml", "Xml", "e-XML#24;e-MODEL#17;e-TREE#7;e-TREE#9;e-TREE#10;", "<nullElement />", new string[0])]
-        [Xunit.InlineDataAttribute("Json-Model-Model", "Json", "Model", "Model", "e-JSON#13;e-MODEL#25;e-TREE#7;e-TREE#9;e-TREE#10;", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("DataStructure-Xml-Xml", "DataStructureBase", "Xml", "Xml", "e-XML#24;e-DataStructure#17;e-TREE#7;e-TREE#9;e-TREE#10;", "<nullElement />", new string[0])]
+        [Xunit.InlineDataAttribute("Json-DataStructure-DataStructure", "Json", "DataStructure", "DataStructure", "e-JSON#13;e-DataStructure#25;e-TREE#7;e-TREE#9;e-TREE#10;", "{}", new string[0])]
         [Xunit.InlineDataAttribute("Xml-Json-Json", "Xml", "Json", "Json", "e-XML#19;e-JSON#26;e-TREE#7;e-TREE#9;e-TREE#10;", "{}", new string[0])]
         public virtual void MappingConfiguration(string testName, string contextFactoryObjectConverter, string contextFactoryTargetInitiator, string objectConverter, string informationCodes, string result, string[] exampleTags)
         {
@@ -416,9 +416,10 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.InlineDataAttribute("json-json-json-json-null-null", "Json", "{ \"testItem\": [ {\"item\": \"value\"} ]}", "json", ".testItem", "json", "json", "null", "null", "e-JSON#26;e-JSON#9;e-JsonChildCreator#1;e-JsonChildCreator#3;e-TREE#11;e-TREE#12;" +
             "", "{}", new string[0])]
         [Xunit.InlineDataAttribute("json-json-json-json-json-json", "Json", "{ \"testItem\": [ {\"item\": \"value\"} ]}", "json", ".testItem", "json", "json", "json", "json", "e-JSON#26;e-JSON#9;e-JsonChildCreator#1;e-JsonChildCreator#3;e-JSON#6;e-JSON#19;", "{}", new string[0])]
-        [Xunit.InlineDataAttribute("model-model-null-null-null-null", "Model", "{ \"Items\": [{ \"Items\": []}]}", "model", "", "null", "null", "null", "null", "e-TREE#9;e-TREE#10;e-MODEL#25;", "{}", new string[0])]
-        [Xunit.InlineDataAttribute("model-model-model-model-null-null", "Model", "{ \"Items\": [{ \"Items\": []}]}", "model", "/Items", "model", "model", "null", "null", "e-MODEL#25;e-TREE#11;e-TREE#12;w-MODEL#7;", "{}", new string[0])]
-        [Xunit.InlineDataAttribute("model-model-model-model-model-model", "Model", "{ \"Items\": [{ \"Items\": []}]}", "model", "/Items", "model", "model", "model", "model", "e-MODEL#25;w-MODEL#7;w-MODEL#9;", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("DataStructure-DataStructure-null-null-null-null", "DataStructure", "{ \"Items\": [{ \"Items\": []}]}", "DataStructure", "", "null", "null", "null", "null", "e-TREE#9;e-TREE#10;e-DataStructure#25;", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("DataStructure-DataStructure-DataStructure-DataStructure-null-null", "DataStructure", "{ \"Items\": [{ \"Items\": []}]}", "DataStructure", "/Items", "DataStructure", "DataStructure", "null", "null", "e-DataStructure#25;e-TREE#11;e-TREE#12;w-DataStructure#7;", "{}", new string[0])]
+        [Xunit.InlineDataAttribute("DataStructure-DataStructure-DataStructure-DataStructure-DataStructure-DataStructu" +
+            "re", "DataStructure", "{ \"Items\": [{ \"Items\": []}]}", "DataStructure", "/Items", "DataStructure", "DataStructure", "DataStructure", "DataStructure", "e-DataStructure#25;w-DataStructure#7;w-DataStructure#9;", "{}", new string[0])]
         public virtual void Mapping(string testName, string type, string source, string getScopeTraversal, string getScopeTraversalPath, string traversalToGetTemplate, string childCreator, string getValueTraversal, string setValueTraversal, string informationCodes, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;

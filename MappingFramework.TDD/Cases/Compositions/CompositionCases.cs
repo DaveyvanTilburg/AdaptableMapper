@@ -7,11 +7,11 @@ using MappingFramework.Conditions;
 using MappingFramework.Configuration;
 using MappingFramework.Process;
 using MappingFramework.Traversals;
-using MappingFramework.Traversals.Model;
 using MappingFramework.Traversals.Xml;
 using MappingFramework.ValueMutations;
 using MappingFramework.Xml;
 using FluentAssertions;
+using MappingFramework.Traversals.DataStructure;
 using Xunit;
 
 namespace MappingFramework.TDD.Cases.Compositions
@@ -72,13 +72,13 @@ namespace MappingFramework.TDD.Cases.Compositions
         }
 
         [Theory]
-        [InlineData("Items{'PropertyName':'Code','Value':'1'/Code", "", "w-MODEL#9;", "e-MODEL#32;")]
-        [InlineData("Items{'PropertyName':'Code','Value':'3'}/Code", "", "w-MODEL#4;")]
+        [InlineData("Items{'PropertyName':'Code','Value':'1'/Code", "", "w-DataStructure#9;", "e-DataStructure#32;")]
+        [InlineData("Items{'PropertyName':'Code','Value':'3'}/Code", "", "w-DataStructure#4;")]
         [InlineData("Items{'PropertyName':'Code','Value':'1'}/Code", "1")]
-        public void GetSearchValueTraversalWithModel(string path, string expectedResult, params string[] expectedErrorCodes)
+        public void GetSearchValueTraversalWithDataStructure(string path, string expectedResult, params string[] expectedErrorCodes)
         {
             var subject = new GetSearchValueTraversal(
-                new ModelGetValueTraversal(path),
+                new DataStructureGetValueTraversal(path),
                 new GetStaticValue("2"));
 
             object source = DataStructureCases.DataStructure.CreateTarget(ContextType.TestObject, "item");
@@ -94,7 +94,7 @@ namespace MappingFramework.TDD.Cases.Compositions
             }
             else
             {
-                information.ValidateResult(new List<string>(expectedErrorCodes), "search model");
+                information.ValidateResult(new List<string>(expectedErrorCodes), "search datastructure");
                 result.Should().BeEmpty();
             }
         }

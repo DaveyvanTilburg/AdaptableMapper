@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArmyModelSourceCreator.cs" />
+    <Compile Include="ArmySourceCreator.cs" />
     <Compile Include="ATDD\ConfigurationValidationsSteps.cs" />
     <Compile Include="ATDD\MappingConfigurationBuilder.cs" />
     <Compile Include="ATDD\MappingModel.cs" />

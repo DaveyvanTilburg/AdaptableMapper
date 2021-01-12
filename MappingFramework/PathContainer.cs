@@ -18,9 +18,9 @@ namespace MappingFramework
             LastInPath = lastInPath;
         }
 
-        public static PathContainer Create(string modelPath)
+        public static PathContainer Create(string dataStructurePath)
         {
-            Stack<string> pathStack = modelPath.ToStack();
+            Stack<string> pathStack = dataStructurePath.ToStack();
             string lastInPath = pathStack.Pop();
 
             var path = pathStack.Reverse().ToList();

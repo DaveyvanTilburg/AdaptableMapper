@@ -8,9 +8,9 @@ using MappingFramework.Configuration.Dictionary;
 using MappingFramework.Configuration.Json;
 using MappingFramework.Configuration.Xml;
 using MappingFramework.Traversals;
+using MappingFramework.Traversals.DataStructure;
 using MappingFramework.Traversals.Dictionary;
 using MappingFramework.Traversals.Json;
-using MappingFramework.Traversals.Model;
 using MappingFramework.Traversals.Xml;
 using MappingFramework.ValueMutations;
 using MappingFramework.ValueMutations.Traversals;
@@ -46,7 +46,7 @@ namespace MappingFramework
 
         private static List<Type> NewDataStructureGetValueTraversals => new List<Type>
         {
-            typeof(ModelGetValueTraversal)
+            typeof(DataStructureGetValueTraversal)
         };
 
         private static List<Type> XmlGetValueTraversals() => CreateList(NewXmlGetValueTraversals, ComposedGetValueTraversals);
@@ -87,8 +87,8 @@ namespace MappingFramework
 
         private static List<Type> NewDataStructureSetValueTraversals => new List<Type>
         {
-            typeof(ModelSetValueOnPathTraversal),
-            typeof(ModelSetValueOnPropertyTraversal)
+            typeof(DataStructureSetValueOnPathTraversal),
+            typeof(DataStructureSetValueOnPropertyTraversal)
         };
 
         private static List<Type> NewDictionarySetValueTraversals => new List<Type>
@@ -139,12 +139,12 @@ namespace MappingFramework
         private static Type GetListValueTraversal(ContentType contentType) =>
             contentType == ContentType.Xml ? typeof(XmlGetListValueTraversal) :
             contentType == ContentType.Json ? typeof(JsonGetListValueTraversal) :
-            contentType == ContentType.DataStructure ? typeof(ModelGetListValueTraversal) : null;
+            contentType == ContentType.DataStructure ? typeof(DataStructureGetListValueTraversal) : null;
 
         private static Type GetTemplateTraversal(ContentType contentType) =>
             contentType == ContentType.Xml ? typeof(XmlGetTemplateTraversal) :
             contentType == ContentType.Json ? typeof(JsonGetTemplateTraversal) :
-            contentType == ContentType.DataStructure ? typeof(ModelGetTemplateTraversal) : null;
+            contentType == ContentType.DataStructure ? typeof(DataStructureGetTemplateTraversal) : null;
 
         private static Type ChildCreator(ContentType contentType) =>
             contentType == ContentType.Xml ? typeof(XmlChildCreator) :

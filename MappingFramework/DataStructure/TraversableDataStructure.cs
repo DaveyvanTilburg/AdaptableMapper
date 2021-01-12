@@ -28,7 +28,7 @@ namespace MappingFramework.DataStructure
             PropertyInfo propertyInfo = GetPropertyInfo(step);
             if(propertyInfo == null)
             {
-                ProcessObservable.GetInstance().Raise($"MODEL#1; No property with name {step} found on type {this.GetType().Name}", "warning");
+                ProcessObservable.GetInstance().Raise($"DataStructure#1; No property with name {step} found on type {this.GetType().Name}", "warning");
                 return new NullDataStructure();
             }
 
@@ -56,7 +56,7 @@ namespace MappingFramework.DataStructure
 
             if (propertyValue == null)
             {
-                ProcessObservable.GetInstance().Raise($"MODEL#7; No property with name {propertyName} found on type {this.GetType().Name}", "warning");
+                ProcessObservable.GetInstance().Raise($"DataStructure#7; No property with name {propertyName} found on type {this.GetType().Name}", "warning");
                 return new List<NullDataStructure>();
             }
 
@@ -68,7 +68,7 @@ namespace MappingFramework.DataStructure
         {
             if (!(propertyValue is IList listProperty))
             {
-                ProcessObservable.GetInstance().Raise("MODEL#2; Property is not traversable, it is not a list of Model", "warning");
+                ProcessObservable.GetInstance().Raise("DataStructure#2; Property is not traversable, it is not a list of DataStructure", "warning");
                 return new List<NullDataStructure>();
             }
 
@@ -88,7 +88,7 @@ namespace MappingFramework.DataStructure
                 next = Parent;
                 if (next == null)
                 {
-                    ProcessObservable.GetInstance().Raise($"MODEL#3; Parent node was null while navigating to parent of type {this.GetType().Name}", "warning");
+                    ProcessObservable.GetInstance().Raise($"DataStructure#3; Parent node was null while navigating to parent of type {this.GetType().Name}", "warning");
                     return new NullDataStructure();
                 }
             }
@@ -99,7 +99,7 @@ namespace MappingFramework.DataStructure
 
                 if (next == null)
                 {
-                    ProcessObservable.GetInstance().Raise($"MODEL#4; No match found for filter on list with name {filter.DataStructureName} with a value that has a {filter.PropertyName} with value {filter.Value}", "warning");
+                    ProcessObservable.GetInstance().Raise($"DataStructure#4; No match found for filter on list with name {filter.DataStructureName} with a value that has a {filter.PropertyName} with value {filter.Value}", "warning");
                     return new NullDataStructure();
                 }
             }
@@ -110,7 +110,7 @@ namespace MappingFramework.DataStructure
 
                 if (next == null)
                 {
-                    ProcessObservable.GetInstance().Raise($"MODEL#5; No items found in {step} in type {this.GetType().Name}", "warning");
+                    ProcessObservable.GetInstance().Raise($"DataStructure#5; No items found in {step} in type {this.GetType().Name}", "warning");
                     return new NullDataStructure();
                 }
             }
@@ -177,7 +177,7 @@ namespace MappingFramework.DataStructure
             {
                 if(!(property is TraversableDataStructure item))
                 {
-                    ProcessObservable.GetInstance().Raise($"MODEL#8; Property {propertyName} on type {this.GetType().Name} is not traversable, it is not a list of TraversableDataStructure or a derivative of TraversableDataStructure", "error");
+                    ProcessObservable.GetInstance().Raise($"DataStructure#8; Property {propertyName} on type {this.GetType().Name} is not traversable, it is not a list of TraversableDataStructure or a derivative of TraversableDataStructure", "error");
                     return new List<NullDataStructure> { new NullDataStructure() };
                 }
 
@@ -200,7 +200,7 @@ namespace MappingFramework.DataStructure
 
             if (propertyValue == null)
             {
-                ProcessObservable.GetInstance().Raise($"MODEL#9; Property {propertyName} is not a part of {this.GetType().Name}", "warning");
+                ProcessObservable.GetInstance().Raise($"DataStructure#9; Property {propertyName} is not a part of {this.GetType().Name}", "warning");
                 return new NullDataStructure();
             }
 
