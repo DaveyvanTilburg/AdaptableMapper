@@ -4,18 +4,21 @@ using MappingFramework.MappingInterface.Generics;
 
 namespace MappingFramework.MappingInterface.Fields
 {
-    partial class TextField : UserControl
+    partial class TextField : UserControl, Publisher<IdentifierLinkUpdateEventArgs>
     {
         private readonly ObjectComponentLink _objectComponentLink;
-        
-        public TextField(ObjectComponentLink objectComponentLink)
+
+        public event EventHandler<IdentifierLinkUpdateEventArgs> UpdateEvent;
+
+        public TextField(ObjectComponentLink objectComponentLink, IdentifierLink identifierLink)
         {
             _objectComponentLink = objectComponentLink;
 
             Initialized += Load;
             InitializeComponent();
 
-            ComponentTextBox.LostFocus += OnFocusLost;
+            identifierLink?.SubscribeTo(this);
+            ComponentTextBox.KeyUp += OnKeyUp;
         }
 
         private void Load(object o, EventArgs e)
@@ -23,9 +26,10 @@ namespace MappingFramework.MappingInterface.Fields
             ComponentLabel.Content = _objectComponentLink.Name();
         }
 
-        private void OnFocusLost(object o, EventArgs e)
+        private void OnKeyUp(object o, EventArgs e)
         {
             _objectComponentLink.Update(ComponentTextBox.Text);
+            UpdateEvent?.Invoke(this, new IdentifierLinkUpdateEventArgs(ComponentTextBox.Text));
         }
     }
 }

@@ -26,7 +26,7 @@ namespace MappingFramework.MappingInterface
 
             _mappingConfiguration = new MappingConfiguration();
 
-            MainStackPanel.Children.Add(new ComponentControl(_mappingConfiguration, false));
+            MainStackPanel.Children.Add(new ComponentControl(_mappingConfiguration, false, null));
         }
         
         private void OnTest(object o, EventArgs e)

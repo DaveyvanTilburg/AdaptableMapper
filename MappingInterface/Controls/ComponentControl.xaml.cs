@@ -11,29 +11,31 @@ namespace MappingFramework.MappingInterface.Controls
     {
         private readonly object _subject;
         private readonly bool _showName;
-        
-        public ComponentControl(object subject, bool showName)
+        private readonly IdentifierLink _identifierLink;
+
+        public ComponentControl(object subject, bool showName, IdentifierLink identifierLink)
         {
             _subject = subject;
             _showName = showName;
+            _identifierLink = identifierLink;
 
             Initialized += LoadObjectConverter;
             InitializeComponent();
         }
-        
+
         private void LoadObjectConverter(object o, EventArgs e)
         {
             if (_showName)
                 ComponentPanel.Children.Add(new Label { Content = _subject.GetType().Name, FontWeight = FontWeights.Bold, Foreground = new SolidColorBrush(Colors.Red) });
-            
+
             var interfaceComponent = new ObjectComponent(_subject);
 
-            foreach(ObjectComponentLink interfaceRequirement in interfaceComponent.Requirements())
+            foreach (ObjectComponentLink interfaceRequirement in interfaceComponent.Requirements())
             {
-                switch(interfaceRequirement.Type())
+                switch (interfaceRequirement.Type())
                 {
                     case ObjectComponentDisplayType.TextBox:
-                        ComponentPanel.Children.Add(new TextField(interfaceRequirement));
+                        ComponentPanel.Children.Add(new TextField(interfaceRequirement, IdentifierLink()));
                         break;
                     case ObjectComponentDisplayType.NumberBox:
                         ComponentPanel.Children.Add(new NumberField(interfaceRequirement));
@@ -47,10 +49,10 @@ namespace MappingFramework.MappingInterface.Controls
                     case ObjectComponentDisplayType.CharBox:
                         ComponentPanel.Children.Add(new CharField(interfaceRequirement));
                         break;
-                    
-                    
+
+
                     case ObjectComponentDisplayType.Item:
-                        ComponentPanel.Children.Add(new SelectionControl(interfaceRequirement.UpdateAction(), interfaceRequirement.Name(), interfaceRequirement.PropertyType()));
+                        ComponentPanel.Children.Add(new SelectionControl(interfaceRequirement.UpdateAction(), interfaceRequirement.Name(), interfaceRequirement.PropertyType(), IdentifierLink()));
                         break;
                     case ObjectComponentDisplayType.List:
                         ComponentPanel.Children.Add(new ListOfTControl(interfaceRequirement));
@@ -58,14 +60,16 @@ namespace MappingFramework.MappingInterface.Controls
                     case ObjectComponentDisplayType.Direct:
                         var newValue = Activator.CreateInstance(interfaceRequirement.PropertyType());
                         interfaceRequirement.Update(newValue);
-                        ComponentPanel.Children.Add(new ComponentControl(newValue, true));
+                        ComponentPanel.Children.Add(new ComponentControl(newValue, true, IdentifierLink()));
                         break;
-                    
-                    
+
+
                     default:
                         throw new Exception($"Type is not supported: {interfaceRequirement.PropertyType()}");
                 }
             }
         }
+
+        private IdentifierLink IdentifierLink() => ComponentPanel.Children.Count == 0 ? _identifierLink : null;
     }
 }

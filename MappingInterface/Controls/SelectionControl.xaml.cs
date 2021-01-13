@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using MappingFramework.MappingInterface.Fields;
 
 namespace MappingFramework.MappingInterface.Controls
 {
@@ -10,12 +13,14 @@ namespace MappingFramework.MappingInterface.Controls
         private readonly Action<object> _updateAction;
         private readonly string _name;
         private readonly Type _type;
+        private readonly IdentifierLink _identifierLink;
 
-        public SelectionControl(Action<object> updateAction, string name, Type type)
+        public SelectionControl(Action<object> updateAction, string name, Type type, IdentifierLink identifierLink)
         {
             _updateAction = updateAction;
             _name = name;
             _type = type;
+            _identifierLink = identifierLink;
 
             Initialized += Load;
             InitializeComponent();
@@ -46,6 +51,9 @@ namespace MappingFramework.MappingInterface.Controls
             if(string.IsNullOrWhiteSpace(selectedValue))
             {
                 _updateAction(null);
+
+                UnSubscribeAll();
+
                 StackPanelComponent.Children.Clear();
             }
             else
@@ -54,11 +62,37 @@ namespace MappingFramework.MappingInterface.Controls
                 object value = Activator.CreateInstance(valueType);
                 _updateAction(value);
 
+                UnSubscribeAll();
+
                 StackPanelComponent.Children.Clear();
-                StackPanelComponent.Children.Add(new ComponentControl(value, false));
+                StackPanelComponent.Children.Add(new ComponentControl(value, false, _identifierLink));
             }
         }
-        
+
+        private void UnSubscribeAll()
+        {
+            IEnumerable<TextField> textFields = FindVisualChildren<TextField>(StackPanelComponent);
+
+            foreach (TextField publisher in textFields)
+                _identifierLink.UnSubscribe(publisher);
+        }
+
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child is T dependencyObject)
+                        yield return dependencyObject;
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                        yield return childOfChild;
+                }
+            }
+        }
+
         private ContentType ContentType()
         {
             ContextTypeAttribute attribute = (ContextTypeAttribute)_type.GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof(ContextTypeAttribute));
