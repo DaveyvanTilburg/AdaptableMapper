@@ -61,10 +61,10 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
         }
 
         [Theory]
-        [InlineData("InvalidType", ContextType.EmptyString, "", "e-DataStructure#20;")]
+        [InlineData("Valid", ContextType.EmptyString, "")]
         public void DataStructureToStringObjectConverter(string because, ContextType contextType, string createType, params string[] expectedErrors)
         {
-            var subject = new DataStructureToStringObjectConverter();
+            var subject = new ObjectToJsonResultObjectConverter();
             object context = DataStructure.CreateTarget(contextType, createType);
             List<Information> result = new Action(() => { subject.Convert(context); }).Observe();
             result.ValidateResult(new List<string>(expectedErrors), because);

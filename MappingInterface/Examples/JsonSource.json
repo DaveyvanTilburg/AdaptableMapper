@@ -1,0 +1,83 @@
+{
+  "house": {
+    "rooms": {
+      "bedrooms": [
+        {
+          "occupants": [
+            {
+              "name": "Johnny",
+              "gender": "Male"
+            }
+          ],
+          "beds": [
+            {
+              "name": "Single"
+            }
+          ],
+          "windows": [
+            {
+              "size": "2x4"
+            }
+          ]
+        },
+        {
+          "occupants": [
+            {
+              "name": "Emma"
+            }
+          ],
+          "beds": [
+            {
+              "name": "Single"
+            }
+          ],
+          "windows": [
+            {
+              "size": "2x4"
+            },
+            {
+              "size": "2x4"
+            }
+          ]
+        },
+        {
+          "occupants": [
+            {
+              "name": "Mom"
+            },
+            {
+              "name": "Dad"
+            }
+          ],
+          "beds": [
+            {
+              "name": "KingSize"
+            }
+          ],
+          "windows": [
+            {
+              "size": "4x4"
+            }
+          ],
+          "closets": [
+            {
+              "size": "1x4"
+            }
+          ]
+        }
+      ],
+      "bathrooms": [
+        {
+          "public": true,
+          "toilet": true,
+          "washBin": true,
+          "shower": true
+        },
+        {
+          "public": false,
+          "toilet": true
+        }
+      ] 
+    }
+  } 
+}

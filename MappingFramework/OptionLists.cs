@@ -133,8 +133,8 @@ namespace MappingFramework
         private static Type ResultObjectConverter(ContentType contentType) =>
             contentType == ContentType.Xml ? typeof(XElementToStringObjectConverter) :
             contentType == ContentType.Json ? typeof(JTokenToStringObjectConverter) :
-            contentType == ContentType.DataStructure ? typeof(DataStructureToStringObjectConverter):
-            contentType == ContentType.Dictionary ? typeof(DataStructureToStringObjectConverter) : null;
+            contentType == ContentType.DataStructure ? typeof(ObjectToJsonResultObjectConverter):
+            contentType == ContentType.Dictionary ? typeof(ObjectToJsonResultObjectConverter) : null;
 
         private static Type GetListValueTraversal(ContentType contentType) =>
             contentType == ContentType.Xml ? typeof(XmlGetListValueTraversal) :

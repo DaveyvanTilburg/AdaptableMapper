@@ -304,7 +304,7 @@ namespace MappingFramework.TDD.Cases.Converters
             yield return new object[]
             {
                 typeof(ResultObjectConverter),
-                new DataStructureToStringObjectConverter()
+                new ObjectToJsonResultObjectConverter()
             };
             yield return new object[]
             {

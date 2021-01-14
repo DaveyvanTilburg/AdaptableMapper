@@ -147,7 +147,7 @@ namespace MappingFramework.TDD.ATDD
                     _result.ResultObjectConverter = new Configuration.Json.JTokenToStringObjectConverter();
                     break;
                 case "datastructure":
-                    _result.ResultObjectConverter = new Configuration.DataStructure.DataStructureToStringObjectConverter();
+                    _result.ResultObjectConverter = new Configuration.DataStructure.ObjectToJsonResultObjectConverter();
                     break;
                 case "null":
                     _result.ResultObjectConverter = new NullObjectConverter();

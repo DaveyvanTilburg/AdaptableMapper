@@ -17,11 +17,33 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Examples\JsonSource.json" />
+    <None Remove="Examples\JsonTarget.json" />
+    <None Remove="Examples\XmlSource.xml" />
+    <None Remove="Examples\XmlTarget.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Remove="Controls\ConditionControl.xaml" />
     <Page Remove="Controls\GetValueStringTraversalControl.xaml" />
     <Page Remove="Controls\GetValueTraversalControl.xaml" />
     <Page Remove="Controls\SetValueTraversalControl.xaml" />
     <Page Remove="Controls\ValueMutationControl.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Examples\JsonSource.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Examples\JsonTarget.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Examples\XmlSource.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Examples\XmlTarget.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

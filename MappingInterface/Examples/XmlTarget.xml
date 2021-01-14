@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<message>
+  <nrOfToilets/>
+  <nrOfWashBins/>
+  <nrOfShowers/>
+  <nrOfBedRooms/>
+  <occupants>
+    <occupant/>
+  </occupants>
+  <windowSizes/>
+  <closetSizes/>
+  <beds>
+    <bed type="" occupant=""/>
+  </beds>
+</message>

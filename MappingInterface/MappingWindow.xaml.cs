@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using MappingFramework.MappingInterface.Controls;
 
@@ -21,8 +23,30 @@ namespace MappingFramework.MappingInterface
             
             ButtonTest.Click += OnTest;
 
-            SourceTextBox.Text = @"<root><tests><test>1</test><test>2</test></tests></root>";
-            TargetTextBox.Text = @"<root><ids><id/></ids></root>";
+            string sourceText = string.Empty;
+            switch(sourceType)
+            {
+                case ContentType.Xml:
+                    sourceText = GetResource("MappingFramework.MappingInterface.Examples.XmlSource.xml");
+                    break;
+                case ContentType.Json:
+                    sourceText = GetResource("MappingFramework.MappingInterface.Examples.JsonSource.json");
+                    break;
+            }
+
+            string targetText = string.Empty;
+            switch (targetType)
+            {
+                case ContentType.Xml:
+                    targetText = GetResource("MappingFramework.MappingInterface.Examples.XmlTarget.xml");
+                    break;
+                case ContentType.Json:
+                    targetText = GetResource("MappingFramework.MappingInterface.Examples.JsonTarget.json");
+                    break;
+            }
+
+            SourceTextBox.Text = sourceText;
+            TargetTextBox.Text = targetText;
 
             _mappingConfiguration = new MappingConfiguration();
 
@@ -36,6 +60,15 @@ namespace MappingFramework.MappingInterface
 
             string result = _mappingConfiguration.Map(source, target) as string;
             MessageBox.Show(result);
+        }
+        
+        private string GetResource(string name)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+
+            using (Stream stream = assembly.GetManifestResourceStream(name))
+            using (StreamReader reader = new StreamReader(stream))
+                return reader.ReadToEnd();
         }
     }
 }

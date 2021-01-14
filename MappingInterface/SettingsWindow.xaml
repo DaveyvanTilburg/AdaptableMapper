@@ -11,15 +11,14 @@
             <ColumnDefinition Width="0.33*" />
             <ColumnDefinition Width="0.33*" />
         </Grid.ColumnDefinitions>
-        
-        <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+        <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Label Content="Source" FontWeight="Bold" />
             <RadioButton x:Name="SourceXml" Content="Xml" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <RadioButton x:Name="SourceJson" Content="Json" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <RadioButton x:Name="SourceString" Content="String" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Label Content="Target" FontWeight="Bold" />
             <RadioButton x:Name="TargetXml" Content="Xml" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <RadioButton x:Name="TargetJson" Content="Json" HorizontalAlignment="Left" VerticalAlignment="Top"/>

@@ -46,7 +46,7 @@ namespace MappingFramework.TDD
         public void XmlToDataStructureToString()
         {
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
-            mappingConfiguration.ResultObjectConverter = new Configuration.DataStructure.DataStructureToStringObjectConverter();
+            mappingConfiguration.ResultObjectConverter = new Configuration.DataStructure.ObjectToJsonResultObjectConverter();
             string dataStructureTargetInstantiatorSource = CreateDataStructureTargetInstantiatorSource();
 
             object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), dataStructureTargetInstantiatorSource);

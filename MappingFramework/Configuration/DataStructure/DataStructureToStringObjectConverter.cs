@@ -1,25 +1,18 @@
 ﻿using MappingFramework.Converters;
-using MappingFramework.DataStructure;
 using Newtonsoft.Json;
 
 namespace MappingFramework.Configuration.DataStructure
 {
-    public sealed class DataStructureToStringObjectConverter : ResultObjectConverter, ResolvableByTypeId
+    public sealed class ObjectToJsonResultObjectConverter : ResultObjectConverter, ResolvableByTypeId
     {
         public const string _typeId = "5e251dd5-ba6e-4de4-8973-8ed67d0e1991";
         public string TypeId => _typeId;
 
-        public DataStructureToStringObjectConverter() { }
+        public ObjectToJsonResultObjectConverter() { }
 
         public object Convert(object source)
         {
-            if (!(source is TraversableDataStructure converted))
-            {
-                Process.ProcessObservable.GetInstance().Raise("DataStructure#20; source is not of expected type DataStructure", "error", source);
-                return new NullDataStructure();
-            }
-
-            string result = JsonConvert.SerializeObject(converted);
+            string result = JsonConvert.SerializeObject(source);
             return result;
         }
     }

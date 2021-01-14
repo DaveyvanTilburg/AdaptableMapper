@@ -21,6 +21,7 @@ namespace MappingFramework.MappingInterface
             ContentType targetType =
                 TargetXml.IsChecked ?? false ? ContentType.Xml :
                 TargetJson.IsChecked ?? false ? ContentType.Json :
+                TargetDictionary.IsChecked ?? false ? ContentType.Dictionary :
                 ContentType.DataStructure;
 
             MappingWindow mappingWindow = new MappingWindow(sourceType, targetType);

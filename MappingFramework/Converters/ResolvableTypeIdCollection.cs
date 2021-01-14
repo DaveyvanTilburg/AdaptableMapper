@@ -54,7 +54,7 @@ namespace MappingFramework.Converters
                 [DataStructureChildCreator._typeId] = typeof(DataStructureChildCreator),
                 [DataStructureObjectConverter._typeId] = typeof(DataStructureObjectConverter),
                 [DataStructureTargetInstantiator._typeId] = typeof(DataStructureTargetInstantiator),
-                [DataStructureToStringObjectConverter._typeId] = typeof(DataStructureToStringObjectConverter),
+                [ObjectToJsonResultObjectConverter._typeId] = typeof(ObjectToJsonResultObjectConverter),
                 [StringToDataStructureObjectConverter._typeId] = typeof(StringToDataStructureObjectConverter),
 
                 //Configuration - Xml
