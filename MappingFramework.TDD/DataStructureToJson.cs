@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
-using MappingFramework.TDD.Hardwares;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using MappingFramework.Configuration;
 using MappingFramework.DataStructure;
+using MappingFramework.TDD.DataStructureExamples.Hardwares;
 using MappingFramework.Traversals.DataStructure;
 using Xunit;
 

@@ -1,6 +1,6 @@
 ﻿using MappingFramework.DataStructure;
 
-namespace MappingFramework.TDD.Armies
+namespace MappingFramework.TDD.DataStructureExamples.Armies
 {
     public class Army : TraversableDataStructure
     {

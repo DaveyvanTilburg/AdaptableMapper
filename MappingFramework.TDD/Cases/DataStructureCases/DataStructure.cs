@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MappingFramework.Configuration.DataStructure;
 using MappingFramework.DataStructure;
-using MappingFramework.TDD.Simple;
+using MappingFramework.TDD.DataStructureExamples.Simple;
 
 namespace MappingFramework.TDD.Cases.DataStructureCases
 {

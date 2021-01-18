@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using MappingFramework.MappingInterface.Generics;
+using MappingFramework.MappingInterface.Identifiers;
 
 namespace MappingFramework.MappingInterface.Fields
 {
@@ -10,14 +11,14 @@ namespace MappingFramework.MappingInterface.Fields
 
         public event EventHandler<IdentifierLinkUpdateEventArgs> UpdateEvent;
 
-        public TextField(ObjectComponentLink objectComponentLink, IdentifierLink identifierLink)
+        public TextField(ObjectComponentLink objectComponentLink, IIdentifierLink identifierLink)
         {
             _objectComponentLink = objectComponentLink;
 
             Initialized += Load;
             InitializeComponent();
 
-            identifierLink?.SubscribeTo(this);
+            identifierLink.SubscribeTo(this);
             ComponentTextBox.KeyUp += OnKeyUp;
         }
 

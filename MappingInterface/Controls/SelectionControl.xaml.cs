@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using MappingFramework.MappingInterface.Fields;
+using MappingFramework.MappingInterface.Generics;
+using MappingFramework.MappingInterface.Identifiers;
 
 namespace MappingFramework.MappingInterface.Controls
 {
@@ -13,9 +15,12 @@ namespace MappingFramework.MappingInterface.Controls
         private readonly Action<object> _updateAction;
         private readonly string _name;
         private readonly Type _type;
-        private readonly IdentifierLink _identifierLink;
+        private readonly IIdentifierLink _identifierLink;
 
-        public SelectionControl(Action<object> updateAction, string name, Type type, IdentifierLink identifierLink)
+        public SelectionControl(ObjectComponentLink objectComponentLink, IIdentifierLink identifierLink) 
+            : this(objectComponentLink.UpdateAction(), objectComponentLink.Name(), objectComponentLink.PropertyType(), identifierLink) { }
+
+        public SelectionControl(Action<object> updateAction, string name, Type type, IIdentifierLink identifierLink)
         {
             _updateAction = updateAction;
             _name = name;
@@ -65,7 +70,7 @@ namespace MappingFramework.MappingInterface.Controls
                 UnSubscribeAll();
 
                 StackPanelComponent.Children.Clear();
-                StackPanelComponent.Children.Add(new ComponentControl(value, false, _identifierLink));
+                StackPanelComponent.Children.Add(new ComponentControl(value, _identifierLink));
             }
         }
 

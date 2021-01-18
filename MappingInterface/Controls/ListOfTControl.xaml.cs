@@ -45,7 +45,7 @@ namespace MappingFramework.MappingInterface.Controls
             var newEntry = new ListOfTEntry(_list, _entries, ListUpdated, _list.Count - 1);
             _entries.Add(newEntry);
 
-            var removeAbleEntry = new ListOfTEntryControl(_objectComponentLink, newEntry, _objectComponentLink.PropertyType().GetGenericArguments().First().Name);
+            var removeAbleEntry = new ListOfTEntryControl(_objectComponentLink, newEntry);
             StackPanelComponent.Children.Add(removeAbleEntry);
 
             ListUpdated?.Invoke(null, EventArgs.Empty);

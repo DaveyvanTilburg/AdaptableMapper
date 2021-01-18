@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MappingFramework.MappingInterface
+namespace MappingFramework.MappingInterface.Identifiers
 {
     public class IdentifierLinkUpdateEventArgs : EventArgs
     {

@@ -1,6 +1,6 @@
-﻿namespace MappingFramework.MappingInterface
+﻿namespace MappingFramework.MappingInterface.Identifiers
 {
-    public class IdentifierLink
+    public class IdentifierLink : IIdentifierLink
     {
         public delegate void IdentifierUpdate(string text);
         private object _subscribedTo;

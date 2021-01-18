@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace MappingFramework.MappingInterface
+namespace MappingFramework.MappingInterface.Controls
 {
     public class ListOfTEntry
     {

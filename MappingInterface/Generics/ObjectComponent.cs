@@ -13,7 +13,7 @@ namespace MappingFramework.MappingInterface.Generics
             _subject = subject;
         }
         
-        public IEnumerable<ObjectComponentLink> Requirements()
+        public IEnumerable<ObjectComponentLink> Links()
         {
             Type subjectType = _subject.GetType();
             

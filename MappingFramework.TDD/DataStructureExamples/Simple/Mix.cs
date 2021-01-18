@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MappingFramework.DataStructure;
 
-namespace MappingFramework.TDD.Simple
+namespace MappingFramework.TDD.DataStructureExamples.Simple
 {
     public class Mix : TraversableDataStructure
     {

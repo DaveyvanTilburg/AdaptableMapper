@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using System.Collections.Generic;
 using MappingFramework.Configuration;
+using MappingFramework.TDD.DataStructureExamples.Armies;
 using MappingFramework.Traversals.DataStructure;
 using Xunit;
 
@@ -19,7 +20,7 @@ namespace MappingFramework.TDD
 
             object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), targetInstantiatorSource);
 
-            var result = resultObject as Armies.Root;
+            var result = resultObject as Root;
             result.Should().NotBeNull();
 
             Process.ProcessObservable.GetInstance().Unregister(errorObserver);
@@ -60,7 +61,7 @@ namespace MappingFramework.TDD
 
         private string CreateDataStructureTargetInstantiatorSource()
         {
-            var rootType = typeof(Armies.Root);
+            var rootType = typeof(Root);
             var result = new Configuration.DataStructure.DataStructureTargetInstantiatorSource
             {
                 AssemblyFullName = rootType.Assembly.FullName,

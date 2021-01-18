@@ -1,6 +1,6 @@
 ﻿using MappingFramework.DataStructure;
 
-namespace MappingFramework.TDD.Simple
+namespace MappingFramework.TDD.DataStructureExamples.Simple
 {
     public class Item : TraversableDataStructure
     {

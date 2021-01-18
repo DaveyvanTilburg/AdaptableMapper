@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MappingFramework.Configuration;
+using MappingFramework.TDD.DataStructureExamples.Simple;
 using MappingFramework.Traversals.DataStructure;
 
 namespace MappingFramework.TDD.ATDD
@@ -63,7 +64,7 @@ namespace MappingFramework.TDD.ATDD
                     _result.ContextFactory.ObjectConverter = new Configuration.DataStructure.DataStructureObjectConverter();
                     break;
                 case "datastructure":
-                    Type itemType = typeof(Simple.Item);
+                    Type itemType = typeof(Item);
                     _result.ContextFactory.ObjectConverter = new Configuration.DataStructure.StringToDataStructureObjectConverter(
                         new Configuration.DataStructure.DataStructureTargetInstantiatorSource
                         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MappingFramework.Configuration;
 using MappingFramework.Process;
+using MappingFramework.TDD.DataStructureExamples.Simple;
 using MappingFramework.Traversals.DataStructure;
 using Xunit;
 
@@ -41,7 +42,7 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
         {
             var subject = new DataStructureGetValueTraversal("../Items/Code");
             object context = DataStructure.CreateTarget(ContextType.TestObject, "item");
-            var subItem = ((Simple.Item)context).Items[0];
+            var subItem = ((Item)context).Items[0];
 
             List<Information> result = new Action(() => { subject.GetValue(new Context(subItem, null, null)); }).Observe();
             result.ValidateResult(new List<string>(), "HasParent");

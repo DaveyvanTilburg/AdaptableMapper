@@ -1,4 +1,4 @@
-﻿namespace MappingFramework.TDD.Simple
+﻿namespace MappingFramework.TDD.DataStructureExamples.Simple
 {
     public class SimpleItem
     {

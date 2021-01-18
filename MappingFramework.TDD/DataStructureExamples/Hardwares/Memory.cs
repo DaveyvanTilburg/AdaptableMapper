@@ -1,6 +1,6 @@
 ﻿using MappingFramework.DataStructure;
 
-namespace MappingFramework.TDD.Hardwares
+namespace MappingFramework.TDD.DataStructureExamples.Hardwares
 {
     public class Memory : TraversableDataStructure
     {

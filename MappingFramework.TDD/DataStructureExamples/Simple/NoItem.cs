@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MappingFramework.TDD.Simple
+namespace MappingFramework.TDD.DataStructureExamples.Simple
 {
     public class NoItem
     {

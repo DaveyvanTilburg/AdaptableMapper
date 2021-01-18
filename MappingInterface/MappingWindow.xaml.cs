@@ -50,7 +50,7 @@ namespace MappingFramework.MappingInterface
 
             _mappingConfiguration = new MappingConfiguration();
 
-            MainStackPanel.Children.Add(new ComponentControl(_mappingConfiguration, false, null));
+            MainStackPanel.Children.Add(new ComponentControl(_mappingConfiguration, null));
         }
         
         private void OnTest(object o, EventArgs e)

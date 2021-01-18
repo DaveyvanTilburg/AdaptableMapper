@@ -4,7 +4,7 @@ using MappingFramework.Configuration;
 using MappingFramework.Process;
 using MappingFramework.Traversals.Json;
 using FluentAssertions;
-using MappingFramework.TDD.Simple;
+using MappingFramework.TDD.DataStructureExamples.Simple;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;

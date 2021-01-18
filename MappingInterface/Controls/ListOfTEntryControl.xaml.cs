@@ -3,22 +3,21 @@ using System.Linq;
 using System.Windows.Controls;
 using MappingFramework.Configuration;
 using MappingFramework.MappingInterface.Generics;
+using MappingFramework.MappingInterface.Identifiers;
 
 namespace MappingFramework.MappingInterface.Controls
 {
     public partial class ListOfTEntryControl : UserControl
     {
-        private readonly IdentifierLink _identifierLink;
+        private readonly IIdentifierLink _identifierLink;
         private readonly ObjectComponentLink _objectComponentLink;
         private readonly ListOfTEntry _listOfTEntry;
-        private readonly string _name;
         
-        public ListOfTEntryControl(ObjectComponentLink objectComponentLink, ListOfTEntry listOfTEntry, string name)
+        public ListOfTEntryControl(ObjectComponentLink objectComponentLink, ListOfTEntry listOfTEntry)
         {
             _identifierLink = new IdentifierLink(UpdateLabel);
             _objectComponentLink = objectComponentLink;
             _listOfTEntry = listOfTEntry;
-            _name = name;
 
             Initialized += Load;
             InitializeComponent();
@@ -29,7 +28,7 @@ namespace MappingFramework.MappingInterface.Controls
         private void Load(object o, EventArgs e)
         {
             StackPanelComponent.Children.Add(UserControl());
-            LabelComponent.Content = _name;
+            LabelComponent.Content = ComponentName();
         }
 
         private UserControl UserControl()
@@ -40,17 +39,17 @@ namespace MappingFramework.MappingInterface.Controls
             {
                 var newValue = new AdditionalSourceList();
                 _listOfTEntry.Update(newValue);
-                return new ComponentControl(newValue, false, _identifierLink);
+                return new ComponentControl(newValue, _identifierLink);
             }
 
             if (type.IsInterface)
-                return new SelectionControl(_listOfTEntry.Update, _objectComponentLink.PropertyType().GetGenericArguments().First().Name, type, _identifierLink);
+                return new SelectionControl(_listOfTEntry.Update, ComponentName(), type, _identifierLink);
 
             if (type.IsClass)
             {
                 var newValue = Activator.CreateInstance(type);
                 _listOfTEntry.Update(newValue);
-                return new ComponentControl(newValue, false, _identifierLink);
+                return new ComponentControl(newValue, _identifierLink);
             }
 
             throw new Exception($"Type is not supported: {type}");
@@ -59,9 +58,9 @@ namespace MappingFramework.MappingInterface.Controls
         private void UpdateLabel(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
-                LabelComponent.Content = _name;
+                LabelComponent.Content = ComponentName();
             else
-                LabelComponent.Content = $"{_name} - {text}";
+                LabelComponent.Content = $"{ComponentName()} - {text}";
         }
 
         private void OnRemoveClick(object o, EventArgs e)
@@ -69,5 +68,7 @@ namespace MappingFramework.MappingInterface.Controls
             _listOfTEntry.Remove();
             ((Panel)Parent).Children.Remove(this);
         }
+        
+        private string ComponentName() => _objectComponentLink.PropertyType().GetGenericArguments().First().Name;
     }
 }
