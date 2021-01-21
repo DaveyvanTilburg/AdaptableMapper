@@ -45,11 +45,11 @@ Example target Json
     </professions>
 </root>
 ```
-    * Example Scope : //people/person
-    * Example JsonTraversal : $.root.people
-    * SearchPath : ../../professions/profession[@id='{{searchValue}}']/name
-    * SearchPathValue : ./professionId
-    * Example JsonSetValue : .person.professionName
+ * Example Scope : //people/person
+ * Example JsonTraversal : $.root.people
+ * SearchPath : ../../professions/profession[@id='{{searchValue}}']/name
+ * SearchPathValue : ./professionId
+ * Example JsonSetValue : .person.professionName
     
 ```
 { 
