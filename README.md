@@ -9,6 +9,8 @@ Mock up of structure and flow:
 See unit tests for examples on mappingConfiguration
 
 ### How to use searches
+ * SearchPath : This path should have use for the placeholder {{searchValue}}, so that traversal is possible outside of this scope with values of inside this scope
+ * SearchPathValue : {{searchValue}} will be replaced with the result of this path
 
 Example target Json
 ```
@@ -24,9 +26,8 @@ Example target Json
    }
 }
 ```
-* Documentation
-    * SearchPath : This path should have use for the placeholder {{searchValue}}, so that traversal is possible outside of this scope with values of inside this scope
-    * SearchPathValue : {{searchValue}} will be replaced with the result of this path
+
+* Xml as Source
 ```
 <root>
     <people>
@@ -44,7 +45,6 @@ Example target Json
     </professions>
 </root>
 ```
-* Xml
     * Example Scope : //people/person
     * Example JsonTraversal : $.root.people
     * SearchPath : ../../professions/profession[@id='{{searchValue}}']/name
@@ -75,7 +75,7 @@ Example target Json
    }
 }
 ```
-* Json
+* Json as source
     * Example Scope : $.root.people[*]
     * Example JsonTraversal : $.root.people
     * SearchPath : ../../../.profession[?(@.id=='{{searchValue}}')].name
@@ -105,7 +105,7 @@ Example target Json
    }
 }
 ```
-* Model
+* Model as source
     * Example Scope : /root/people
     * Example JsonTraversal : $.root.people
     * SearchPath : ../../profession{'PropertyName':'id','Value':'{{searchValue}}'}/name
