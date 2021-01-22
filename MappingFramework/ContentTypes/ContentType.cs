@@ -1,4 +1,4 @@
-﻿namespace MappingFramework
+﻿namespace MappingFramework.ContentTypes
 {
     public enum ContentType
     {

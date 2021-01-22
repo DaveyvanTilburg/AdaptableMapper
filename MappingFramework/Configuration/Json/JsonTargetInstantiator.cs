@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 
 namespace MappingFramework.Configuration.Json
 {
+    [ContentType(ContentType.Json)]
     public sealed class JsonTargetInstantiator : TargetInstantiator, ResolvableByTypeId
     {
         public const string _typeId = "644aec26-82d3-4d49-8a62-bc110c0d613d";

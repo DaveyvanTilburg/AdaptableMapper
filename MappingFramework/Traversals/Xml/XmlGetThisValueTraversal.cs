@@ -1,9 +1,11 @@
 ﻿using System.Xml.Linq;
 using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 
 namespace MappingFramework.Traversals.Xml
 {
+    [ContentType(ContentType.Xml)]
     public sealed class XmlGetThisValueTraversal : GetValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "2be460d7-4f86-4b72-983b-09b323d63abf";

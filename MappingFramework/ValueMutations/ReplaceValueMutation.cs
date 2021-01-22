@@ -2,10 +2,11 @@
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
 using MappingFramework.ValueMutations.Traversals;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.ValueMutations
 {
-    public sealed class ReplaceValueMutation : ValueMutation, ResolvableByTypeId
+    public sealed class ReplaceValueMutation : ValueMutation, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "ff9b3844-f3a9-4339-9fb9-d41133506391";
         public string TypeId => _typeId;
@@ -22,9 +23,6 @@ namespace MappingFramework.ValueMutations
 
         public string Mutate(Context context, string value)
         {
-            if (!Validate())
-                return string.Empty;
-
             if (string.IsNullOrWhiteSpace(value))
             {
                 Process.ProcessObservable.GetInstance().Raise("ReplaceMutation#1; cannot mutate an empty string", "warning");
@@ -43,23 +41,9 @@ namespace MappingFramework.ValueMutations
             return result;
         }
 
-        private bool Validate()
+        void IVisitable.Receive(IVisitor visitor)
         {
-            bool result = true;
-
-            if (GetValueStringTraversal == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("ReplaceValueMutation#2; GetValueStringTraversal cannot be null", "error");
-                result = false;
-            }
-
-            if (GetValueTraversal == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("ReplaceValueMutation#3; GetValueTraversal cannot be null", "error");
-                result = false;
-            }
-
-            return result;
+            visitor.Visit(GetValueTraversal);
         }
     }
 }

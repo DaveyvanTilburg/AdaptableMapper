@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.Configuration
 {
-    public class ContextFactory
+    public class ContextFactory : IVisitable
     {
         public ObjectConverter ObjectConverter { get; set; }
         public TargetInstantiator TargetInstantiator { get; set; }
@@ -25,9 +26,6 @@ namespace MappingFramework.Configuration
 
         public Context Create(object input, object targetSource)
         {
-            if (!Validate())
-                return new Context(null, null, null);
-
             var additionalSourceValues = new AdditionalSourceValues();
             if (AdditionalSources != null)
             {
@@ -41,23 +39,10 @@ namespace MappingFramework.Configuration
                 additionalSourceValues);
         }
 
-        private bool Validate()
+        void IVisitable.Receive(IVisitor visitor)
         {
-            bool result = true;
-
-            if (ObjectConverter == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("TREE#3; ObjectConverter cannot be null", "error");
-                result = false;
-            }
-
-            if (TargetInstantiator == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("TREE#4; TargetInstantiator cannot be null", "error");
-                result = false;
-            }
-
-            return result;
+            visitor.Visit(ObjectConverter);
+            visitor.Visit(TargetInstantiator);
         }
     }
 }

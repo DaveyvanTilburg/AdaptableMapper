@@ -2,10 +2,11 @@
 using MappingFramework.Configuration;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
-    public class IfConditionThenAElseBGetValueTraversal : GetValueTraversal, ResolvableByTypeId
+    public class IfConditionThenAElseBGetValueTraversal : GetValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "1a695959-fa19-482a-b6ee-01556d9d1688";
         public string TypeId => _typeId;
@@ -24,9 +25,6 @@ namespace MappingFramework.Compositions
 
         public string GetValue(Context context)
         {
-            if (!Validate())
-                return string.Empty;
-
             bool conditionResult = Condition.Validate(context);
             if(conditionResult)
                 return GetValueTraversalA.GetValue(context);
@@ -34,29 +32,11 @@ namespace MappingFramework.Compositions
             return GetValueTraversalB.GetValue(context);
         }
 
-        private bool Validate()
+        void IVisitable.Receive(IVisitor visitor)
         {
-            bool result = true;
-
-            if (Condition == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("IfConditionThenAElseBGetValueTraversal#1; Condition cannot be null", "error");
-                result = false;
-            }
-
-            if (GetValueTraversalA == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("IfConditionThenAElseBGetValueTraversal#2; GetValueTraversalA cannot be null", "error");
-                result = false;
-            }
-
-            if (GetValueTraversalB == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("IfConditionThenAElseBGetValueTraversal#3; GetValueTraversalB cannot be null", "error");
-                result = false;
-            }
-
-            return result;
+            visitor.Visit(Condition);
+            visitor.Visit(GetValueTraversalA);
+            visitor.Visit(GetValueTraversalB);
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.DataStructure;
 
 namespace MappingFramework.Traversals.DataStructure
 {
+    [ContentType(ContentType.DataStructure)]
     public sealed class DataStructureGetTemplateTraversal : GetTemplateTraversal, ResolvableByTypeId
     {
         public const string _typeId = "e61aee0c-d8c9-4429-8c4b-d0f3fd63d72b";

@@ -1,10 +1,11 @@
 ﻿using MappingFramework.Configuration;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.Conditions
 {
-    public sealed class NotEmptyCondition : Condition, ResolvableByTypeId
+    public sealed class NotEmptyCondition : Condition, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "63912c96-a37a-4888-b051-e226e383c652";
         public string TypeId => _typeId;
@@ -21,6 +22,11 @@ namespace MappingFramework.Conditions
 
             bool result = !string.IsNullOrWhiteSpace(value);
             return result;
+        }
+
+        void IVisitable.Receive(IVisitor visitor)
+        {
+            visitor.Visit(GetValueTraversal);
         }
     }
 }

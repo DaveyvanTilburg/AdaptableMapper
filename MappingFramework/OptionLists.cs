@@ -7,6 +7,7 @@ using MappingFramework.Configuration.DataStructure;
 using MappingFramework.Configuration.Dictionary;
 using MappingFramework.Configuration.Json;
 using MappingFramework.Configuration.Xml;
+using MappingFramework.ContentTypes;
 using MappingFramework.Traversals;
 using MappingFramework.Traversals.DataStructure;
 using MappingFramework.Traversals.Dictionary;

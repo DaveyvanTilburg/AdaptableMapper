@@ -2,10 +2,11 @@
 using System.Linq;
 using MappingFramework.Configuration;
 using MappingFramework.Converters;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.Conditions
 {
-    public sealed class ListOfConditions : Condition, ResolvableByTypeId
+    public sealed class ListOfConditions : Condition, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "4d69f541-883c-46c5-8a31-a9ace37358f9";
         public string TypeId => _typeId;
@@ -19,7 +20,7 @@ namespace MappingFramework.Conditions
         public ListOfConditions(ListEvaluationOperator listEvaluationOperator, IEnumerable<Condition> conditions)
         {
             ListEvaluationOperator = listEvaluationOperator;
-            Conditions = new List<Condition>(conditions);
+            Conditions = new List<Condition>(conditions ?? new List<Condition>());
         }
 
         public ListEvaluationOperator ListEvaluationOperator { get; set; }
@@ -27,9 +28,6 @@ namespace MappingFramework.Conditions
 
         public bool Validate(Context context)
         {
-            if (!Validate())
-                return false;
-
             bool result = false;
             switch (ListEvaluationOperator)
             {
@@ -44,17 +42,10 @@ namespace MappingFramework.Conditions
             return result;
         }
 
-        private bool Validate()
+        void IVisitable.Receive(IVisitor visitor)
         {
-            bool result = true;
-
-            if ((Conditions?.Any() ?? false) == false)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"ListOfConditions#1; {nameof(Conditions)} is empty", "error");
-                result = false;
-            }
-
-            return result;
+            foreach (Condition condition in Conditions)
+                visitor.Visit(condition);
         }
     }
 }

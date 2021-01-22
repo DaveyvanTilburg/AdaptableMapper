@@ -10,8 +10,6 @@ namespace MappingFramework.ValueMutations
 
         public ToUpperValueMutation() { }
         public string Mutate(Context context, string value)
-        {
-            return value.ToUpper();
-        }
+            => value.ToUpper();
     }
 }

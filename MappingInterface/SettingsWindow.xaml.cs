@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using MappingFramework.ContentTypes;
 
 namespace MappingFramework.MappingInterface
 {

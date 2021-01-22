@@ -37,7 +37,8 @@ namespace MappingFramework.TDD.Cases.Conditions
 
             var subject = new MappingScopeComposite(
                 new List<MappingScopeComposite>(),
-                new List<Mapping> { new Mapping(null, null) },
+                new List<Mapping> { new Mapping(new GetStaticValue(""), new XmlSetThisValueTraversal()) },
+                null,
                 getScopeTraversal.Object,
                 getTemplateTraversal.Object,
                 childCreator.Object)
@@ -114,18 +115,6 @@ namespace MappingFramework.TDD.Cases.Conditions
             condition.Validate(new Context(source, null, null)).Should().Be(expectedResult, because);
         }
 
-        [Fact]
-        public void CompareConditionNulls()
-        {
-            var condition = new CompareCondition(
-                null, CompareOperator.Equals, null
-            );
-
-            List<Information> information = new Action(() => { condition.Validate(new Context(1, null, null)); }).Observe();
-
-            information.ValidateResult(new List<string> { "e-CompareCondition#1;", "e-CompareCondition#2;" });
-        }
-
         [Theory]
         [InlineData(ListEvaluationOperator.All, "0", CompareOperator.Equals, "0", "0", CompareOperator.NotEquals, "0", false)]
         [InlineData(ListEvaluationOperator.All, "0", CompareOperator.Equals, "0", "0", CompareOperator.NotEquals, "1", true)]
@@ -147,18 +136,6 @@ namespace MappingFramework.TDD.Cases.Conditions
 
             information.Count.Should().Be(0);
             result.Should().Be(expectedResult);
-        }
-
-        [Fact]
-        public void ListOfConditionsEmpty()
-        {
-            var subject = new ListOfConditions(ListEvaluationOperator.Any);
-
-            bool result = false;
-            List<Information> information = new Action(() => { result = subject.Validate(new Context(string.Empty, string.Empty, null)); }).Observe();
-
-            information.Count.Should().Be(1);
-            information.Any(i => i.Message.StartsWith("ListOfConditions#1;")).Should().BeTrue();
         }
 
         [Fact]

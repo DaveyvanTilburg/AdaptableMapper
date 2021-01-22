@@ -2,10 +2,11 @@
 using MappingFramework.Configuration;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
-    public class GetConcatenatedByListValueTraversal : GetValueTraversal, ResolvableByTypeId
+    public class GetConcatenatedByListValueTraversal : GetValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "292d79b5-e5f6-4029-b4d6-413e0a093d87";
         public string TypeId => _typeId;
@@ -30,9 +31,6 @@ namespace MappingFramework.Compositions
 
         public string GetValue(Context context)
         {
-            if (!Validate())
-                return string.Empty;
-
             MethodResult<IEnumerable<object>> values = GetListValueTraversal.GetValues(context);
 
             var resultParts = new List<string>();
@@ -46,23 +44,10 @@ namespace MappingFramework.Compositions
             return result;
         }
 
-        private bool Validate()
+        void IVisitable.Receive(IVisitor visitor)
         {
-            bool result = true;
-
-            if (GetListValueTraversal == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"GetConcatenatedByListValueTraversal#1; {nameof(GetListValueTraversal)} cannot be null", "error");
-                result = false;
-            }
-
-            if (GetValueTraversal == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"GetConcatenatedByListValueTraversal#2; {nameof(GetValueTraversal)} cannot be null", "error");
-                result = false;
-            }
-
-            return result;
+            visitor.Visit(GetListValueTraversal);
+            visitor.Visit(GetValueTraversal);
         }
     }
 }

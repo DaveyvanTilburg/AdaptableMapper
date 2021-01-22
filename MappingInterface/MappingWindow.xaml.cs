@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Windows;
+using MappingFramework.ContentTypes;
 using MappingFramework.MappingInterface.Controls;
 
 namespace MappingFramework.MappingInterface

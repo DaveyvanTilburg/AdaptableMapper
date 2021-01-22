@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using MappingFramework.Configuration;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
-    public class GetNumberOfHits : GetValueTraversal, ResolvableByTypeId
+    public class GetNumberOfHits : GetValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "5f9d1ca5-95a8-4a07-aa44-4ea6e8ec8fa9";
         public string TypeId => _typeId;
@@ -15,7 +15,7 @@ namespace MappingFramework.Compositions
             => ListOfGetListValueTraversal = new List<GetListValueTraversal>();
 
         public GetNumberOfHits(List<GetListValueTraversal> getListValueTraversals)
-            => ListOfGetListValueTraversal = getListValueTraversals;
+            => ListOfGetListValueTraversal = new List<GetListValueTraversal>(getListValueTraversals ?? new List<GetListValueTraversal>());
 
         public List<GetListValueTraversal> ListOfGetListValueTraversal { get; set; }
 
@@ -30,8 +30,14 @@ namespace MappingFramework.Compositions
                     objects.AddRange(getListValueTraversalObjects.Value);
             }
 
-            int hits = objects.Count();
+            int hits = objects.Count;
             return hits.ToString();
+        }
+
+        void IVisitable.Receive(IVisitor visitor)
+        {
+            foreach (GetListValueTraversal getListValueTraversal in ListOfGetListValueTraversal)
+                visitor.Visit(getListValueTraversal);
         }
     }
 }

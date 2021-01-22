@@ -54,9 +54,10 @@
     <Compile Include="Configuration\AdditionalSource.cs" />
     <Compile Include="Configuration\AdditionalSourceValues.cs" />
     <Compile Include="Configuration\Dictionary\DictionaryTargetInstantiator.cs" />
-    <Compile Include="ContentType.cs" />
-    <Compile Include="ContextType.cs" />
-    <Compile Include="ContextTypeAttribute.cs" />
+    <Compile Include="ContentTypes\ContentType.cs" />
+    <Compile Include="ContentTypes\ContentTypeAttribute.cs" />
+    <Compile Include="ContextTypes\ContextType.cs" />
+    <Compile Include="ContextTypes\ContextTypeAttribute.cs" />
     <Compile Include="Converters\JsonTypeIdBasedConverter.cs" />
     <Compile Include="Converters\ResolvableByTypeId.cs" />
     <Compile Include="Converters\ResolvableTypeIdCollection.cs" />
@@ -140,6 +141,9 @@
     <Compile Include="Traversals\SetValueTraversal.cs" />
     <Compile Include="Traversals\Template.cs" />
     <Compile Include="Traversals\GetTemplateTraversal.cs" />
+    <Compile Include="Visitors\CompositionValidationVisitor.cs" />
+    <Compile Include="Visitors\IVisitor.cs" />
+    <Compile Include="Visitors\Visitable.cs" />
     <Compile Include="Xml\NullElement.cs" />
     <Compile Include="Configuration\Xml\XmlChildCreator.cs" />
     <Compile Include="Traversals\Xml\StringExtensions.cs" />

@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.Dictionary;
 
 namespace MappingFramework.Configuration.Dictionary
 {
+    [ContentType(ContentType.Dictionary)]
     public sealed class DictionaryTargetInstantiator : TargetInstantiator, ResolvableByTypeId
     {
         public const string _typeId = "e8a1efee-981d-443d-b363-4f1796491fab";

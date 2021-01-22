@@ -37,6 +37,7 @@ namespace MappingFramework.TDD
                 {
                     platoonCode
                 },
+                null,
                 new Traversals.Xml.XmlGetListValueTraversal("./army/platoon"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./platoons/platoon"),
                 new Configuration.Xml.XmlChildCreator()

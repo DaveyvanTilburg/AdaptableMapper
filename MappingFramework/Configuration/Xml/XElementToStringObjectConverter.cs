@@ -1,10 +1,12 @@
 ﻿using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 
 namespace MappingFramework.Configuration.Xml
 {
+    [ContentType(ContentType.Xml)]
     public sealed class XElementToStringObjectConverter : ResultObjectConverter, ResolvableByTypeId
     {
         public const string _typeId = "37423a03-fdb3-4523-b94d-7ea1bd29f0b7";
@@ -16,13 +18,7 @@ namespace MappingFramework.Configuration.Xml
 
         public object Convert(object source)
         {
-            if (!(source is XElement xElement))
-            {
-                Process.ProcessObservable.GetInstance().Raise("XML#9; source is not of expected type XElement", "error", source?.GetType().Name);
-                return string.Empty;
-            }
-
-            XDocument xDocument = xElement.Document;
+            XDocument xDocument = ((XElement)source).Document;
 
             using (StringWriter stringWriter = new StringWriter())
             {

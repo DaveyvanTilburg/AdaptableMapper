@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 
 namespace MappingFramework.Traversals.Json
 {
+    [ContentType(ContentType.Json)]
     public sealed class JsonSetValueTraversal : SetValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "4339b4c9-cdb9-44ab-bebc-b9d3bd2a5287";

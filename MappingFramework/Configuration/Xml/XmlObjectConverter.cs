@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Linq;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.Xml;
 
 namespace MappingFramework.Configuration.Xml
 {
+    [ContentType(ContentType.Xml)]
     public sealed class XmlObjectConverter : ObjectConverter, ResolvableByTypeId
     {
         public const string _typeId = "d695068f-499b-4189-aaf6-4bb86d564889";

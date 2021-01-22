@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MappingFramework
+namespace MappingFramework.ContextTypes
 {
     [AttributeUsage(AttributeTargets.Interface)]
     public class ContextTypeAttribute : Attribute

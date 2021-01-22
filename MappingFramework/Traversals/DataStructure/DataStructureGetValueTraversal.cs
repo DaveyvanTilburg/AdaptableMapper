@@ -1,9 +1,11 @@
 ﻿using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.DataStructure;
 
 namespace MappingFramework.Traversals.DataStructure
 {
+    [ContentType(ContentType.DataStructure)]
     public sealed class DataStructureGetValueTraversal : GetValueTraversal, GetValueTraversalPathProperty, ResolvableByTypeId
     {
         public const string _typeId = "9ea49672-2de5-47f5-83c4-0b6fec9432ea";

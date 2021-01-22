@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using MappingFramework.Configuration;
+using MappingFramework.Visitors;
 
 namespace MappingFramework
 {
-    public sealed class MappingConfiguration
+    public sealed class MappingConfiguration : IVisitable
     {
         public ContextFactory ContextFactory { get; set; }
         public ResultObjectConverter ResultObjectConverter { get; set; }
@@ -22,34 +23,30 @@ namespace MappingFramework
 
         public MappingConfiguration(List<MappingScopeComposite> mappingScopeComposites, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
         {
-            MappingScopeComposites = mappingScopeComposites;
+            MappingScopeComposites = new List<MappingScopeComposite>(mappingScopeComposites ?? new List<MappingScopeComposite>());
+            Mappings = new List<Mapping>();
             ContextFactory = contextFactory;
             ResultObjectConverter = resultObjectConverter;
         }
 
         public MappingConfiguration(List<Mapping> mappings, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
         {
-            Mappings = mappings;
+            MappingScopeComposites = new List<MappingScopeComposite>();
+            Mappings = new List<Mapping>(mappings ?? new List<Mapping>());
             ContextFactory = contextFactory;
             ResultObjectConverter = resultObjectConverter;
         }
 
         public MappingConfiguration(List<MappingScopeComposite> mappingScopeComposites, List<Mapping> mappings, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
         {
-            MappingScopeComposites = mappingScopeComposites;
-            Mappings = mappings;
+            MappingScopeComposites = new List<MappingScopeComposite>(mappingScopeComposites ?? new List<MappingScopeComposite>());
+            Mappings = new List<Mapping>(mappings ?? new List<Mapping>());
             ContextFactory = contextFactory;
             ResultObjectConverter = resultObjectConverter;
         }
 
         public object Map(object source, object targetSource)
         {
-            if (source == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("TREE#1; Argument cannot be null for MappingConfiguration.Map(string)", "error");
-                return null;
-            }
-
             if (!Validate())
                 return null;
 
@@ -75,12 +72,6 @@ namespace MappingFramework
                 result = false;
             }
 
-            if (!(MappingScopeComposites?.Count > 0 || Mappings?.Count > 0))
-            {
-                Process.ProcessObservable.GetInstance().Raise("TREE#5; MappingScope or mappings should be used", "error");
-                result = false;
-            }
-
             if (ResultObjectConverter == null)
             {
                 Process.ProcessObservable.GetInstance().Raise("TREE#6; ObjectConverter cannot be null", "error"); 
@@ -88,6 +79,20 @@ namespace MappingFramework
             }
 
             return result;
+        }
+
+        void IVisitable.Receive(IVisitor visitor)
+        {
+            visitor.Visit(ContextFactory);
+            visitor.Visit(ResultObjectConverter);
+
+            if (Mappings != null)
+                foreach (Mapping mapping in Mappings)
+                    visitor.Visit(mapping);
+
+            if (MappingScopeComposites != null)
+                foreach (MappingScopeComposite scope in MappingScopeComposites)
+                    visitor.Visit(scope);
         }
     }
 }

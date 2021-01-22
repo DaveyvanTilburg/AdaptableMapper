@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using MappingFramework.Configuration.Xml;
-using MappingFramework.Traversals;
 using MappingFramework.Xml;
 using Xunit;
 using FluentAssertions;
@@ -12,28 +11,6 @@ namespace MappingFramework.TDD.Cases.XmlCases
 {
     public class XmlConfiguration
     {
-        [Theory]
-        [InlineData("InvalidParentType", ContextType.EmptyString, "e-XmlChildCreator#1;")]
-        [InlineData("InvalidTemplateType", ContextType.EmptyObject, "e-XmlChildCreator#2;")]
-        public void XmlChildCreatorCreateChild(string because, ContextType contextType, params string[] expectedErrors)
-        {
-            var subject = new XmlChildCreator();
-            object context = Xml.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.CreateChild(new Template { Parent = context, Child = string.Empty }); }).Observe();
-            result.ValidateResult(new List<string>(expectedErrors), because);
-        }
-
-        [Theory]
-        [InlineData("InvalidParentType", ContextType.EmptyString, "e-XmlChildCreator#3;")]
-        [InlineData("InvalidTemplateType", ContextType.EmptyObject, "e-XmlChildCreator#4;")]
-        public void XmlChildCreatorAddToParent(string because, ContextType contextType, params string[] expectedErrors)
-        {
-            var subject = new XmlChildCreator();
-            object context = Xml.CreateTarget(contextType);
-            List<Information> result = new Action(() => { subject.AddToParent(new Template { Parent = context, Child = string.Empty }, string.Empty); }).Observe();
-            result.ValidateResult(new List<string>(expectedErrors), because);
-        }
-
         [Theory]
         [InlineData("InvalidType", ContextType.InvalidType, XmlInterpretation.Default, "", "e-XML#18;")]
         [InlineData("InvalidSource", ContextType.InvalidSource, XmlInterpretation.Default, "", "e-XML#19;")]
@@ -89,7 +66,6 @@ namespace MappingFramework.TDD.Cases.XmlCases
         }
 
         [Theory]
-        [InlineData("InvalidType", ContextType.InvalidType, true, true, 0, "e-XML#9;")]
         [InlineData("LengthCheckUseIndentation", ContextType.AlternativeTestObject, true, true, 13)]
         [InlineData("LengthCheckDoNotUseIndentation", ContextType.AlternativeTestObject, false, true, 1)]
         [InlineData("LengthCheckUseIndentationWithoutDeclaration", ContextType.AlternativeTestObject, true, false, 12)]

@@ -1,4 +1,4 @@
-﻿namespace MappingFramework
+﻿namespace MappingFramework.ContextTypes
 {
     public enum ContextType
     {

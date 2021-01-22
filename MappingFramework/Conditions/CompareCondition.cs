@@ -1,10 +1,11 @@
 ﻿using MappingFramework.Configuration;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.Conditions
 {
-    public sealed class CompareCondition : Condition, ResolvableByTypeId
+    public sealed class CompareCondition : Condition, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "f8acf126-e297-496d-82c2-0ce9528fa2a2";
         public string TypeId => _typeId;
@@ -23,9 +24,6 @@ namespace MappingFramework.Conditions
 
         public bool Validate(Context context)
         {
-            if (!ValidateState())
-                return false;
-
             string valueA = GetValueTraversalSourceValueA.GetValue(context);
             string valueB = GetValueTraversalSourceValueB.GetValue(context);
 
@@ -88,23 +86,10 @@ namespace MappingFramework.Conditions
             return result;
         }
 
-        private bool ValidateState()
+        void IVisitable.Receive(IVisitor visitor)
         {
-            bool result = true;
-
-            if (GetValueTraversalSourceValueA == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"CompareCondition#1; {nameof(GetValueTraversalSourceValueA)} is null", "error");
-                result = false;
-            }
-
-            if (GetValueTraversalSourceValueB == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"CompareCondition#2; {nameof(GetValueTraversalSourceValueB)} is null", "error");
-                result = false;
-            }
-
-            return result;
+            visitor.Visit(GetValueTraversalSourceValueA);
+            visitor.Visit(GetValueTraversalSourceValueB);
         }
     }
 }

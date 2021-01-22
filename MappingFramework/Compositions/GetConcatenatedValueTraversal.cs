@@ -2,10 +2,11 @@
 using MappingFramework.Configuration;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
-    public class GetConcatenatedValueTraversal : GetValueTraversal, ResolvableByTypeId
+    public class GetConcatenatedValueTraversal : GetValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "0c64cc9e-4273-4440-b7b0-ddf42db8a8fb";
         public string TypeId => _typeId;
@@ -14,10 +15,10 @@ namespace MappingFramework.Compositions
             => ListOfGetValueTraversal = new List<GetValueTraversal>();
 
         public GetConcatenatedValueTraversal(List<GetValueTraversal> listOfGetValueTraversals)
-            => ListOfGetValueTraversal = listOfGetValueTraversals;
+            => ListOfGetValueTraversal = new List<GetValueTraversal>(listOfGetValueTraversals ?? new List<GetValueTraversal>());
         public GetConcatenatedValueTraversal(List<GetValueTraversal> listOfGetValueTraversals, string separator)
         {
-            ListOfGetValueTraversal = listOfGetValueTraversals;
+            ListOfGetValueTraversal = new List<GetValueTraversal>(listOfGetValueTraversals ?? new List<GetValueTraversal>());
             Separator = separator;
         }
 
@@ -27,9 +28,6 @@ namespace MappingFramework.Compositions
 
         public string GetValue(Context context)
         {
-            if (!Validate())
-                return string.Empty;
-
             var resultParts = new List<string>();
             foreach (GetValueTraversal getValueTraversal in ListOfGetValueTraversal)
             {
@@ -43,17 +41,10 @@ namespace MappingFramework.Compositions
             return result;
         }
 
-        private bool Validate()
+        void IVisitable.Receive(IVisitor visitor)
         {
-            bool result = true;
-
-            if (ListOfGetValueTraversal == null || ListOfGetValueTraversal.Count == 0)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"GetConcatenatedValueTraversal#1; {nameof(ListOfGetValueTraversal)} cannot be null", "error");
-                result = false;
-            }
-
-            return result;
+            foreach (GetValueTraversal getValueTraversal in ListOfGetValueTraversal)
+                visitor.Visit(getValueTraversal);
         }
     }
 }

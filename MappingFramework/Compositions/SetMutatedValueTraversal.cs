@@ -2,10 +2,11 @@
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
 using MappingFramework.ValueMutations;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
-    public class SetMutatedValueTraversal : SetValueTraversal, ResolvableByTypeId
+    public class SetMutatedValueTraversal : SetValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "1dfdbb1e-addc-4fb6-a197-e0c276f4fba0";
         public string TypeId => _typeId;
@@ -22,30 +23,14 @@ namespace MappingFramework.Compositions
 
         public void SetValue(Context context, MappingCaches mappingCaches, string value)
         {
-            if (!Validate())
-                return;
-
             string mutatedValue = ValueMutation.Mutate(context, value);
             SetValueTraversal.SetValue(context, mappingCaches, mutatedValue);
         }
 
-        private bool Validate()
+        void IVisitable.Receive(IVisitor visitor)
         {
-            bool result = true;
-
-            if (SetValueTraversal == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"SetMutatedValueTraversal#1; {nameof(SetValueTraversal)} cannot be null", "error");
-                result = false;
-            }
-
-            if (ValueMutation == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"SetMutatedValueTraversal#2; {nameof(ValueMutation)} cannot be null", "error");
-                result = false;
-            }
-
-            return result;
+            visitor.Visit(SetValueTraversal);
+            visitor.Visit(ValueMutation);
         }
     }
 }

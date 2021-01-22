@@ -1,9 +1,11 @@
-﻿using MappingFramework.Converters;
+﻿using MappingFramework.ContentTypes;
+using MappingFramework.Converters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace MappingFramework.Configuration.Json
 {
+    [ContentType(ContentType.Json)]
     public sealed class JTokenToStringObjectConverter : ResultObjectConverter, ResolvableByTypeId
     {
         public const string _typeId = "111821e4-70dd-43b4-9c5d-3738aa4a102c";
@@ -14,14 +16,6 @@ namespace MappingFramework.Configuration.Json
         public bool UseIndentation { get; set; } = true;
 
         public object Convert(object source)
-        {
-            if (!(source is JToken jToken))
-            {
-                Process.ProcessObservable.GetInstance().Raise("JSON#25; source is not of expected type JToken", "error", source?.GetType().Name);
-                return new JObject();
-            }
-
-            return jToken.ToString(UseIndentation ? Formatting.Indented : Formatting.None);
-        }
+            => ((JToken)source).ToString(UseIndentation ? Formatting.Indented : Formatting.None);
     }
 }

@@ -1,8 +1,9 @@
 ﻿using MappingFramework.Traversals;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.Configuration
 {
-    public sealed class Mapping
+    public sealed class Mapping : IVisitable
     {
         public GetValueTraversal GetValueTraversal { get; set; }
         public SetValueTraversal SetValueTraversal { get; set; }
@@ -19,31 +20,15 @@ namespace MappingFramework.Configuration
 
         public void Map(Context context, MappingCaches mappingCaches)
         {
-            if (!Validate())
-                return;
-
             string value = GetValueTraversal.GetValue(context);
 
             SetValueTraversal.SetValue(context, mappingCaches, value);
         }
 
-        private bool Validate()
+        void IVisitable.Receive(IVisitor visitor)
         {
-            bool result = true;
-
-            if (GetValueTraversal == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("TREE#11; GetValueTraversal cannot be null", "error");
-                result = false;
-            }
-
-            if (SetValueTraversal == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("TREE#12; SetValueTraversal cannot be null", "error");
-                result = false;
-            }
-
-            return result;
+            visitor.Visit(GetValueTraversal);
+            visitor.Visit(SetValueTraversal);
         }
     }
 }

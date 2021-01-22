@@ -2,10 +2,11 @@
 using MappingFramework.Configuration;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
-    public sealed class GetListSearchValueTraversal : GetListValueTraversal, ResolvableByTypeId
+    public sealed class GetListSearchValueTraversal : GetListValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "692a9cb3-61e6-4e99-a698-1e537b22be19";
         public string TypeId => _typeId;
@@ -22,9 +23,6 @@ namespace MappingFramework.Compositions
 
         public MethodResult<IEnumerable<object>> GetValues(Context context)
         {
-            if (!Validate())
-                return new NullMethodResult<IEnumerable<object>>();
-
             GetValueTraversalPathProperty pathProperty = GetListValueTraversal as GetValueTraversalPathProperty;
 
             string searchValue = GetValueTraversal.GetValue(context);
@@ -39,23 +37,10 @@ namespace MappingFramework.Compositions
             return result;
         }
 
-        private bool Validate()
+        void IVisitable.Receive(IVisitor visitor)
         {
-            bool result = true;
-
-            if (GetListValueTraversal == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"GetListSearchValueTraversal#1; {nameof(GetListValueTraversal)} cannot be null", "error");
-                result = false;
-            }
-
-            if (GetValueTraversal == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"GetListSearchValueTraversal#2; {nameof(GetValueTraversal)} cannot be null", "error");
-                result = false;
-            }
-
-            return result;
+            visitor.Visit(GetListValueTraversal);
+            visitor.Visit(GetValueTraversal);
         }
     }
 }

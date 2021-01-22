@@ -1,10 +1,11 @@
 ﻿using MappingFramework.Configuration;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
-    public class GetAdditionalSourceValue : GetValueTraversal, ResolvableByTypeId
+    public class GetAdditionalSourceValue : GetValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "9b8e8006-318b-42a7-a521-5809cda750ce";
         public string TypeId => _typeId;
@@ -21,16 +22,12 @@ namespace MappingFramework.Compositions
 
         public string GetValue(Context context)
         {
-            if (!Validate())
-                return string.Empty;
-
             string name = GetValueTraversalForAdditionalSourceName.GetValue(context);
             if (string.IsNullOrEmpty(name))
             {
                 Process.ProcessObservable.GetInstance().Raise($"GetAdditionalSourceValue#3; {nameof(GetValueTraversalForAdditionalSourceName)} resulted in a empty value", "warning");
                 return string.Empty;
             }
-
 
             string key = GetValueTraversalForAdditionalSourceKey.GetValue(context);
             if (string.IsNullOrWhiteSpace(key))
@@ -43,23 +40,10 @@ namespace MappingFramework.Compositions
             return result;
         }
 
-        private bool Validate()
+        void IVisitable.Receive(IVisitor visitor)
         {
-            bool result = true;
-
-            if (GetValueTraversalForAdditionalSourceName == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"GetAdditionalSourceValue#1; {nameof(GetValueTraversalForAdditionalSourceName)} cannot be null", "error");
-                result = false;
-            }
-
-            if (GetValueTraversalForAdditionalSourceKey == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"GetAdditionalSourceValue#2; {nameof(GetValueTraversalForAdditionalSourceKey)} cannot be null", "error");
-                result = false;
-            }
-
-            return result;
+            visitor.Visit(GetValueTraversalForAdditionalSourceKey);
+            visitor.Visit(GetValueTraversalForAdditionalSourceName);
         }
     }
 }

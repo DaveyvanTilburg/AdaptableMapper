@@ -24,7 +24,7 @@ namespace MappingFramework.Compositions
         public string GetValue(Context context)
         {
             if (string.IsNullOrWhiteSpace(Value))
-                Process.ProcessObservable.GetInstance().Raise("GetStaticValueTraversal#1; Value is set to an empty string", "error");
+                Process.ProcessObservable.GetInstance().Raise("GetStaticValueTraversal#1; Value is set to an empty string", "warning");
 
             return Value;
         }

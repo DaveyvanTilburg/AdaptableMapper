@@ -11,8 +11,6 @@ namespace MappingFramework.ValueMutations
         public ToLowerValueMutation() { }
 
         public string Mutate(Context context, string value)
-        {
-            return value.ToLower();
-        }
+            => value.ToLower();
     }
 }

@@ -17,8 +17,6 @@ namespace MappingFramework.ValueMutations
         public string Characters { get; set; }
 
         public string Mutate(Context context, string value)
-        {
-            return value.Trim((Characters ?? string.Empty).ToCharArray());
-        }
+            => value.Trim((Characters ?? string.Empty).ToCharArray());
     }
 }

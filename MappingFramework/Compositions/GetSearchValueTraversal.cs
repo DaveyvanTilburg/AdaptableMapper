@@ -1,10 +1,11 @@
 ﻿using MappingFramework.Configuration;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
-    public sealed class GetSearchValueTraversal : GetValueTraversal, ResolvableByTypeId
+    public sealed class GetSearchValueTraversal : GetValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "a077997f-3bee-4814-91d8-f88bf041005f";
         public string TypeId => _typeId;
@@ -21,9 +22,6 @@ namespace MappingFramework.Compositions
 
         public string GetValue(Context context)
         {
-            if (!Validate())
-                return string.Empty;
-
             if (!(GetValueTraversalSearchPath is GetValueTraversalPathProperty pathProperty))
             {
                 Process.ProcessObservable.GetInstance().Raise($"GetSearchValueTraversal#3; {nameof(GetValueTraversalSearchPath)} does not have a path to update with searchValue", "error");
@@ -42,23 +40,10 @@ namespace MappingFramework.Compositions
             return result;
         }
 
-        private bool Validate()
+        void IVisitable.Receive(IVisitor visitor)
         {
-            bool result = true;
-
-            if (GetValueTraversalSearchPath == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"GetSearchValueTraversal#1; {nameof(GetValueTraversalSearchPath)} cannot be null", "error");
-                result = false;
-            }
-
-            if (GetValueTraversalSearchValuePath == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"GetSearchValueTraversal#2; {nameof(GetValueTraversalSearchValuePath)} cannot be null", "error");
-                result = false;
-            }
-
-            return result;
+            visitor.Visit(GetValueTraversalSearchPath);
+            visitor.Visit(GetValueTraversalSearchValuePath);
         }
     }
 }

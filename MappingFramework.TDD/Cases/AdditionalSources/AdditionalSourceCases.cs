@@ -18,9 +18,9 @@ namespace MappingFramework.TDD.Cases.AdditionalSources
         [InlineData("Valuesy", "Identifier", "", "w-AdditionalSourceValues#2;")]
         [InlineData("Valuesy", "Identifiery", "", "w-AdditionalSourceValues#2;")]
         [InlineData("Values", "Identifiery", "", "w-AdditionalSourceValues#3;")]
-        [InlineData("", "", "", "e-GetStaticValueTraversal#1;", "w-GetAdditionalSourceValue#3;")]
-        [InlineData("", "Identifier", "", "e-GetStaticValueTraversal#1;", "w-GetAdditionalSourceValue#3;")]
-        [InlineData("Values", "", "", "e-GetStaticValueTraversal#1;", "w-GetAdditionalSourceValue#4;")]
+        [InlineData("", "", "", "w-GetStaticValueTraversal#1;", "w-GetAdditionalSourceValue#3;")]
+        [InlineData("", "Identifier", "", "w-GetStaticValueTraversal#1;", "w-GetAdditionalSourceValue#3;")]
+        [InlineData("Values", "", "", "w-GetStaticValueTraversal#1;", "w-GetAdditionalSourceValue#4;")]
         public void GetAdditionalSourceValue(string name, string key, string value, params string[] expectedErrorCodes)
         {
             var subject = new GetAdditionalSourceValue(
@@ -41,15 +41,6 @@ namespace MappingFramework.TDD.Cases.AdditionalSources
             information.ValidateResult(expectedErrorCodes);
 
             result.Should().BeEquivalentTo(value);
-        }
-
-        [Fact]
-        public void GetAdditionalSourceValueNullChecks()
-        {
-            var subject = new GetAdditionalSourceValue(null, null);
-            List<Information> information = new Action(() => { subject.GetValue(new Context(null, null, null)); }).Observe();
-
-            information.ValidateResult(new List<string> { "e-GetAdditionalSourceValue#1;", "e-GetAdditionalSourceValue#2;" });
         }
 
         [Fact]
@@ -98,6 +89,7 @@ namespace MappingFramework.TDD.Cases.AdditionalSources
                         new JsonSetValueTraversal(".DOB")
                     )
                 },
+                null,
                 new JsonGetListValueTraversal(".People[*]"),
                 new JsonGetTemplateTraversal(".People[0]"),
                 new JsonChildCreator()

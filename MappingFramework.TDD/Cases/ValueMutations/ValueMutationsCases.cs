@@ -93,8 +93,6 @@ namespace MappingFramework.TDD.Cases.ValueMutations
         [InlineData("Valid", "an old", "a new", "this is an old message", "this is a new message")]
         [InlineData("Invalid", "an old", "a new", "this is an old message", "this is a new message")]
         [InlineData("InvalidEmpty", "an old", "a new", "", "this is a new message", "w-ReplaceMutation#1;")]
-        [InlineData("InvalidEmptyValue", "", "a new", "this is an old message", "this is a new message", "e-GetStaticValueTraversal#1;")]
-        [InlineData("InvalidEmptyReplaceValue", "an old", "", "this is an old message", "this is a new message", "e-GetStaticValueTraversal#1;")]
         public void ReplaceValueMutation(string because, string valueToReplace, string newValue, string value, string expectedResult, params string[] expectedInformation)
         {
             var subject = new ReplaceValueMutation(
@@ -109,22 +107,7 @@ namespace MappingFramework.TDD.Cases.ValueMutations
             if (expectedInformation.Length == 0)
                 result.Should().Be(expectedResult);
         }
-
-        [Theory]
-        [InlineData(false, true, "e-ReplaceValueMutation#2;")]
-        [InlineData(true, false, "e-ReplaceValueMutation#3;")]
-        public void ReplaceValueMutationNullsChecks(bool shouldCreateGetValueStringTraversal, bool shouldCreateGetValueTraversal, params string[] expectedErrorCodes)
-        {
-            var subject = new ReplaceValueMutation(
-                shouldCreateGetValueStringTraversal ? new GetStaticValue(string.Empty) : null,
-                shouldCreateGetValueTraversal ? new GetStaticValue(string.Empty) : null
-            );
-
-            List<Information> information = new Action(() => { subject.Mutate(new Context(null, null, null), string.Empty); }).Observe();
-
-            information.ValidateResult(new List<string>(expectedErrorCodes), "should check nulls");
-        }
-
+        
         [Theory]
         [InlineData("Valid1", "Old", "New")]
         [InlineData("Valid2", "1", "2")]
@@ -209,14 +192,6 @@ namespace MappingFramework.TDD.Cases.ValueMutations
             information.ValidateResult(new List<string>(expectedInformation), because);
 
             result.Should().Be(expectedResult);
-        }
-
-        [Fact]
-        public void SubstringValueMutationNotSet()
-        {
-            var subject = new SubstringValueMutation(null);
-            List<Information> information = new Action(() => { subject.Mutate(new Context(null, null, null), ""); }).Observe();
-            information.ValidateResult(new List<string> { "e-SubstringValueMutation#1;" });
         }
 
         [Fact]

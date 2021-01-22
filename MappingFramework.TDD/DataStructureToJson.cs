@@ -167,6 +167,7 @@ namespace MappingFramework.TDD
                     graphicalCardCpuCores,
                     graphicalCardCpuSpeed
                 },
+                null,
                 new DataStructureGetListValueTraversal("CPUs"),
                 new Traversals.Json.JsonGetTemplateTraversal("$.CPUs[0]"),
                 new Configuration.Json.JsonChildCreator()
@@ -183,6 +184,7 @@ namespace MappingFramework.TDD
                 {
                     graphicalCardMemoryChipSize
                 },
+                null,
                 new DataStructureGetListValueTraversal("MemoryChips"),
                 new Traversals.Json.JsonGetTemplateTraversal(".MemoryChips[0]"),
                 new Configuration.Json.JsonChildCreator()
@@ -203,6 +205,7 @@ namespace MappingFramework.TDD
                 {
                     graphicalCardBrand
                 },
+                null,
                 new DataStructureGetListValueTraversal("GraphicalCards"),
                 new Traversals.Json.JsonGetTemplateTraversal(".GraphicalCards[0]"),
                 new Configuration.Json.JsonChildCreator()
@@ -219,6 +222,7 @@ namespace MappingFramework.TDD
                 {
                     motherboardMemorySize
                 },
+                null,
                 new DataStructureGetListValueTraversal("Memories{'PropertyName':'Type','Value':'External'}/MemoryChips"),
                 new Traversals.Json.JsonGetTemplateTraversal(".CPUs[0].MemoryChips[0]"),
                 new Configuration.Json.JsonChildCreator()
@@ -257,6 +261,7 @@ namespace MappingFramework.TDD
                     motherBoardCpuCores,
                     motherBoardCpuSpeed
                 },
+                null,
                 new DataStructureGetListValueTraversal("Motherboards"),
                 new Traversals.Json.JsonGetTemplateTraversal("$.Motherboards[0]"),
                 new Configuration.Json.JsonChildCreator()
@@ -285,6 +290,7 @@ namespace MappingFramework.TDD
                     hardDriveSize,
                     hardDriveSpeed
                 },
+                null,
                 new DataStructureGetListValueTraversal("Motherboards/HardDrives"),
                 new Traversals.Json.JsonGetTemplateTraversal("$.AvailableHardDrives[0]"),
                 new Configuration.Json.JsonChildCreator()

@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 
 namespace MappingFramework.Traversals.Dictionary
 {
+    [ContentType(ContentType.Dictionary)]
     public sealed class DictionarySetValueTraversal : SetValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "0ea332ca-fe05-4cad-99f1-9cd1eb54be2e";

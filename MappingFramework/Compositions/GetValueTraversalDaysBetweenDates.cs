@@ -2,10 +2,11 @@
 using MappingFramework.Configuration;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
+using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
-    public class GetValueTraversalDaysBetweenDates : GetValueTraversal, ResolvableByTypeId
+    public class GetValueTraversalDaysBetweenDates : GetValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "37ef235d-affc-40b2-8436-15bc73e83101";
         public string TypeId => _typeId;
@@ -41,6 +42,12 @@ namespace MappingFramework.Compositions
             int includeLastDay = IncludeLastDay ? 1 : 0;
             string result = (Math.Abs(valueADateTime.Subtract(valueBDateTime).Days) + includeLastDay).ToString();
             return result;
+        }
+
+        void IVisitable.Receive(IVisitor visitor)
+        {
+            visitor.Visit(GetValueTraversalA);
+            visitor.Visit(GetValueTraversalB);
         }
     }
 }

@@ -12,7 +12,6 @@ namespace MappingFramework.TDD.Cases.Traversals
     {
         [Theory]
         [InlineData("Valid", "value", "value")]
-        [InlineData("Invalid", "", "", "e-GetStaticValueTraversal#1;")]
         public void GetStaticValueTraversal(string because, string value, string expectedResult, params string[] expectedInformation)
         {
             var subject = new GetStaticValue(value);
@@ -81,6 +80,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                                 new MappingFramework.Traversals.Xml.XmlSetValueTraversal("./Text")
                             )
                         },
+                        null,
                         new MappingFramework.Traversals.Xml.XmlGetListValueTraversal("./Wheels/Wheel"),
                         new MappingFramework.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
                         new MappingFramework.Configuration.Xml.XmlChildCreator()
@@ -98,6 +98,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                                 new MappingFramework.Traversals.Xml.XmlSetValueTraversal("./Text")
                             )
                         },
+                        null,
                         new MappingFramework.Traversals.Xml.XmlGetListValueTraversal("./Doors/Door"),
                         new MappingFramework.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
                         new MappingFramework.Configuration.Xml.XmlChildCreator()
@@ -115,6 +116,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                                 new MappingFramework.Traversals.Xml.XmlSetValueTraversal("./Text")
                             )
                         },
+                        null,
                         new MappingFramework.Traversals.Xml.XmlGetListValueTraversal("./Windows/Window"),
                         new MappingFramework.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
                         new MappingFramework.Configuration.Xml.XmlChildCreator()

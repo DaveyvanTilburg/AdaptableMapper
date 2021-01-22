@@ -1,10 +1,12 @@
 ﻿using System.Collections;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.DataStructure;
 using MappingFramework.Traversals;
 
 namespace MappingFramework.Configuration.DataStructure
 {
+    [ContentType(ContentType.DataStructure)]
     public sealed class DataStructureChildCreator : ChildCreator, ResolvableByTypeId
     {
         public const string _typeId = "030fe21e-f4b9-4838-9aa0-960c3e8fa9a1";

@@ -239,6 +239,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
                                 new XmlSetThisValueTraversal()
                             )
                         },
+                        null,
                         new XmlGetListValueTraversal("./InvalidPath"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator()),
@@ -251,6 +252,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
                                 new XmlSetThisValueTraversal()
                             )
                         },
+                        null,
                         new XmlGetListValueTraversal("./Teachers/Teacher"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator()),
@@ -263,6 +265,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
                                 new XmlSetThisValueTraversal()
                             )
                         },
+                        null,
                         new XmlGetListValueTraversal("./Students/Student"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator())

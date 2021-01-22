@@ -1,9 +1,11 @@
 ﻿using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using Newtonsoft.Json.Linq;
 
 namespace MappingFramework.Traversals.Json
 {
+    [ContentType(ContentType.Json)]
     public sealed class JsonGetValueTraversal : GetValueTraversal, GetValueTraversalPathProperty, ResolvableByTypeId
     {
         public const string _typeId = "fb65549b-5593-42f9-9ffe-3eddf10913e6";

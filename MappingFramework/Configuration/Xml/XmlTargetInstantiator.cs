@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Linq;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.Xml;
 
 namespace MappingFramework.Configuration.Xml
 {
+    [ContentType(ContentType.Xml)]
     public sealed class XmlTargetInstantiator : TargetInstantiator, ResolvableByTypeId
     {
         public const string _typeId = "137a2d0b-c49f-491b-b5b9-24413f9969ee";

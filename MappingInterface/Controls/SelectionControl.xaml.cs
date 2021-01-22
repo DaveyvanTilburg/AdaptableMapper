@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using MappingFramework.ContentTypes;
+using MappingFramework.ContextTypes;
 using MappingFramework.MappingInterface.Fields;
 using MappingFramework.MappingInterface.Generics;
 using MappingFramework.MappingInterface.Identifiers;

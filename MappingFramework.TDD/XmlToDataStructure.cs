@@ -84,6 +84,7 @@ namespace MappingFramework.TDD
                 {
                     crewMember
                 },
+                null,
                 new Traversals.Xml.XmlGetListValueTraversal("./crew/crewMember"),
                 new DataStructureGetTemplateTraversal("CrewMembers"),
                 new Configuration.DataStructure.DataStructureChildCreator()
@@ -103,6 +104,7 @@ namespace MappingFramework.TDD
                 {
                     memberName
                 },
+                null,
                 new Traversals.Xml.XmlGetListValueTraversal("./members/member"),
                 new DataStructureGetTemplateTraversal("Members"),
                 new Configuration.DataStructure.DataStructureChildCreator()
@@ -128,6 +130,7 @@ namespace MappingFramework.TDD
                     platoonCode,
                     leaderReference
                 },
+                null,
                 new Traversals.Xml.XmlGetListValueTraversal("./platoon"),
                 new DataStructureGetTemplateTraversal("Platoons"),
                 new Configuration.DataStructure.DataStructureChildCreator()
@@ -147,6 +150,7 @@ namespace MappingFramework.TDD
                 {
                     armyCode
                 },
+                null,
                 new Traversals.Xml.XmlGetListValueTraversal("./army"),
                 new DataStructureGetTemplateTraversal("Armies"),
                 new Configuration.DataStructure.DataStructureChildCreator()
@@ -169,6 +173,7 @@ namespace MappingFramework.TDD
                     reference,
                     leaderName
                 },
+                null,
                 new Traversals.Xml.XmlGetListValueTraversal("./leaders/leader"),
                 new DataStructureGetTemplateTraversal("Organization/Leaders"),
                 new Configuration.DataStructure.DataStructureChildCreator()

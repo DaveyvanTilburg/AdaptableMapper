@@ -1,8 +1,10 @@
-﻿using MappingFramework.Converters;
+﻿using MappingFramework.ContentTypes;
+using MappingFramework.Converters;
 using MappingFramework.DataStructure;
 
 namespace MappingFramework.Configuration.DataStructure
 {
+    [ContentType(ContentType.DataStructure)]
     public sealed class DataStructureObjectConverter : ObjectConverter, ResolvableByTypeId
     {
         public const string _typeId = "0ff249bd-3dc5-4125-b130-42fe89cb31eb";
