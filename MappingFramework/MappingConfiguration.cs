@@ -47,9 +47,6 @@ namespace MappingFramework
 
         public object Map(object source, object targetSource)
         {
-            if (!Validate())
-                return null;
-
             Context context = ContextFactory.Create(source, targetSource);
 
             foreach (Mapping mapping in Mappings)
@@ -59,25 +56,6 @@ namespace MappingFramework
                 mappingScopeComposite.Traverse(context, _mappingCaches);
 
             object result = ResultObjectConverter.Convert(context.Target);
-            return result;
-        }
-
-        private bool Validate()
-        {
-            bool result = true;
-
-            if (ContextFactory == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("TREE#2; ContextFactory cannot be null", "error"); 
-                result = false;
-            }
-
-            if (ResultObjectConverter == null)
-            {
-                Process.ProcessObservable.GetInstance().Raise("TREE#6; ObjectConverter cannot be null", "error"); 
-                result = false;
-            }
-
             return result;
         }
 
