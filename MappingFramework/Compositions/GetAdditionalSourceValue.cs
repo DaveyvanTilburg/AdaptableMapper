@@ -25,18 +25,18 @@ namespace MappingFramework.Compositions
             string name = GetValueTraversalForAdditionalSourceName.GetValue(context);
             if (string.IsNullOrEmpty(name))
             {
-                Process.ProcessObservable.GetInstance().Raise($"GetAdditionalSourceValue#3; {nameof(GetValueTraversalForAdditionalSourceName)} resulted in a empty value", "warning");
+                context.ResultIsEmpty(GetValueTraversalForAdditionalSourceName);
                 return string.Empty;
             }
 
             string key = GetValueTraversalForAdditionalSourceKey.GetValue(context);
             if (string.IsNullOrWhiteSpace(key))
             {
-                Process.ProcessObservable.GetInstance().Raise($"GetAdditionalSourceValue#4; {nameof(GetValueTraversalForAdditionalSourceKey)} resulted in a empty value", "warning");
+                context.ResultIsEmpty(GetValueTraversalForAdditionalSourceKey);
                 return string.Empty;
             }
 
-            string result = context.AdditionalSourceValues.GetValue(name, key);
+            string result = context.AdditionalValue(name, key);
             return result;
         }
 

@@ -2,6 +2,7 @@
 using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.DataStructure;
+using MappingFramework.Process;
 
 namespace MappingFramework.Configuration.DataStructure
 {
@@ -20,11 +21,11 @@ namespace MappingFramework.Configuration.DataStructure
 
         public DataStructureTargetInstantiatorSource DataStructureTargetInstantiatorSource { get; set; }
 
-        public object Convert(object source)
+        public object Convert(Context context, object source)
         {
             if (!(source is string input))
             {
-                Process.ProcessObservable.GetInstance().Raise("DataStructure#27; source is not of expected type string", "error", source);
+                context.InvalidInput(source, typeof(string));
                 return new NullDataStructure();
             }
 
@@ -36,9 +37,9 @@ namespace MappingFramework.Configuration.DataStructure
                     DataStructureTargetInstantiatorSource.TypeFullName
                 ).Unwrap().GetType();
             }
-            catch (Exception exception)
+            catch
             {
-                Process.ProcessObservable.GetInstance().Raise("DataStructure#28; could not instantiate sourceType", "error", DataStructureTargetInstantiatorSource, exception.GetType().Name, exception.Message);
+                context.AddInformation($"Could not instantiate sourceType from {nameof(DataStructureTargetInstantiatorSource)}", InformationType.Error);
                 return new NullDataStructure();
             }
 
@@ -47,15 +48,15 @@ namespace MappingFramework.Configuration.DataStructure
             {
                 result = JsonSerializer.Deserialize(sourceType, input);
             }
-            catch(Exception exception)
+            catch
             {
-                Process.ProcessObservable.GetInstance().Raise("DataStructure#29; could not deserialize to type", "error", source, exception.GetType().Name, exception.Message);
+                context.AddInformation("Could not deserialize source", InformationType.Error);
                 return new NullDataStructure();
             }
 
             if (!(result is TraversableDataStructure))
             {
-                Process.ProcessObservable.GetInstance().Raise("DataStructure#30; sourceType is not of type TraversableDataStructure", "error", DataStructureTargetInstantiatorSource);
+                context.InvalidType(result, typeof(TraversableDataStructure));
                 return new NullDataStructure();
             }
 

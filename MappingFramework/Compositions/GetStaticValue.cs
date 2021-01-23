@@ -16,7 +16,7 @@ namespace MappingFramework.Compositions
         public GetStaticValue(string value)
             => Value = value;
 
-        public string GetValue(string value)
+        public string GetValue(Context context, string value)
         {
             return GetValue((Context)null);
         }
@@ -24,7 +24,7 @@ namespace MappingFramework.Compositions
         public string GetValue(Context context)
         {
             if (string.IsNullOrWhiteSpace(Value))
-                Process.ProcessObservable.GetInstance().Raise("GetStaticValueTraversal#1; Value is set to an empty string", "warning");
+                context.PropertyIsEmpty(this, nameof(Value));
 
             return Value;
         }

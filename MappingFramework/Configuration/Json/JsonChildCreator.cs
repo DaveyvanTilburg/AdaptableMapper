@@ -13,10 +13,10 @@ namespace MappingFramework.Configuration.Json
 
         public JsonChildCreator() { }
 
-        public object CreateChild(Template template)
+        public object CreateChild(Context context, Template template)
             => ((JToken)template.Child).DeepClone();
 
-        public void AddToParent(Template template, object newChild)
+        public void AddToParent(Context context, Template template, object newChild)
             => ((JArray)template.Parent).Add((JToken)newChild);
     }
 }

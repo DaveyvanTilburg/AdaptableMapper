@@ -23,16 +23,12 @@ namespace MappingFramework.Traversals.Json
 
         public MethodResult<IEnumerable<object>> GetValues(Context context)
         {
-            if (!(context.Source is JToken jToken))
-            {
-                Process.ProcessObservable.GetInstance().Raise("JSON#3; Source is not of expected type jToken", "error", Path, context.Source?.GetType().Name);
-                return new NullMethodResult<IEnumerable<object>>();
-            }
+            JToken jToken = (JToken)context.Source;
 
-            IEnumerable<JToken> jTokens = jToken.TraverseAll(Path).ToList();
+            IEnumerable<JToken> jTokens = jToken.TraverseAll(Path, context).ToList();
             if (!jTokens.Any())
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#4; Path has no results", "warning", Path);
+                context.ResultIsEmpty(this);
                 return new NullMethodResult<IEnumerable<object>>();
             }
 

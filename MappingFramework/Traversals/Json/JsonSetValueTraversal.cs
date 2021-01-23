@@ -23,17 +23,12 @@ namespace MappingFramework.Traversals.Json
 
         public void SetValue(Context context, MappingCaches mappingCaches, string value)
         {
-            if (!(context.Target is JToken jToken))
-            {
-                Process.ProcessObservable.GetInstance().Raise("JSON#18; target is not of expected type jToken", "error", context.Target?.GetType().Name);
-                return;
-            }
-
-            IReadOnlyCollection<JToken> jTokens = jToken.TraverseAll(Path).ToList();
+            JToken jToken = (JToken)context.Target;
+            IReadOnlyCollection<JToken> jTokens = jToken.TraverseAll(Path, context).ToList();
 
             if (!jTokens.Any())
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#30; Path resulted in no targets to set value to", "warning", Path);
+                context.NavigationResultIsEmpty(Path);
                 return;
             }
 
@@ -42,7 +37,7 @@ namespace MappingFramework.Traversals.Json
                 if (jTokenTarget is JValue jTokenTargetValue)
                     jTokenTargetValue.Value = value;
                 else
-                    Process.ProcessObservable.GetInstance().Raise("JSON#19; result of traversal is not of expected type JValue", "error", jTokenTarget?.GetType().Name);
+                    context.NavigationFailed(Path);
             }
         }
     }

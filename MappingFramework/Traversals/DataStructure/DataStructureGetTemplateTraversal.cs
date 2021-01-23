@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using MappingFramework.Configuration;
 using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.DataStructure;
@@ -20,22 +20,14 @@ namespace MappingFramework.Traversals.DataStructure
 
         public string Path { get; set; }
 
-        public Template GetTemplate(object target, MappingCaches mappingCaches)
+        public Template GetTemplate(Context context, object target, MappingCaches mappingCaches)
         {
-            if (!(target is TraversableDataStructure dataStructure))
-            {
-                Process.ProcessObservable.GetInstance().Raise("DataStructure#22; target is not of expected type DataStructure", "error", Path, target);
-                return new Template 
-                { 
-                    Parent = new NullDataStructure(), 
-                    Child = new List<NullDataStructure>() 
-                };
-            }
+            TraversableDataStructure dataStructure = (TraversableDataStructure)target;
 
             var pathContainer = PathContainer.Create(Path);
 
-            TraversableDataStructure pathTarget = dataStructure.GetOrCreate(pathContainer.CreatePathQueue());
-            IList scopes = pathTarget.GetListProperty(pathContainer.LastInPath);
+            TraversableDataStructure pathTarget = dataStructure.GetOrCreate(pathContainer.CreatePathQueue(), context);
+            IList scopes = pathTarget.GetListProperty(pathContainer.LastInPath, context);
 
             var template = new Template
             {

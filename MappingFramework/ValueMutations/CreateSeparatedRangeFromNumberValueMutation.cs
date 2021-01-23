@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using MappingFramework.Configuration;
 using MappingFramework.Converters;
+using MappingFramework.Process;
 
 namespace MappingFramework.ValueMutations
 {
@@ -20,7 +21,7 @@ namespace MappingFramework.ValueMutations
         {
             if(!int.TryParse(value, out int hits))
             {
-                Process.ProcessObservable.GetInstance().Raise("CreateSeparatedRangeFromNumberValueMutation#1; source is not numeric", "error", value);
+                context.AddInformation($"{value} is not numerical", InformationType.Warning);
                 return string.Empty;
             }
 

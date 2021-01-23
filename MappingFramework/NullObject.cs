@@ -19,6 +19,6 @@ namespace MappingFramework
 
         public bool Validate(Context context) => false;
 
-        public string GetValue(string source) => string.Empty;
+        public string GetValue(Context context, string source) => string.Empty;
     }
 }

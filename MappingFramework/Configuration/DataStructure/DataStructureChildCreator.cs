@@ -14,45 +14,33 @@ namespace MappingFramework.Configuration.DataStructure
 
         public DataStructureChildCreator() { }
 
-        public object CreateChild(Template template)
+        public object CreateChild(Context context, Template template)
         {
-            if (!(template.Parent is TraversableDataStructure parent))
-            {
-                Process.ProcessObservable.GetInstance().Raise("DataStructureChildCreator#1; parent is not of expected type TraversableDataStructure", "error", template.Parent?.GetType().Name);
-                return new NullDataStructure();
-            }
-
             if (!(template.Child is IList parentProperty))
             {
-                Process.ProcessObservable.GetInstance().Raise("DataStructureChildCreator#2; template is not of expected type IList", "error", template.Child?.GetType().Name);
+                context.InvalidType(template.Child, typeof(IList));
                 return new NullDataStructure();
             }
 
-            TraversableDataStructure newEntry = parentProperty.GetType().CreateDataStructure();
+            TraversableDataStructure newEntry = parentProperty.GetType().CreateDataStructure(context);
             return newEntry;
         }
 
-        public void AddToParent(Template template, object newChild)
+        public void AddToParent(Context context, Template template, object newChild)
         {
             if (!(template.Parent is TraversableDataStructure parent))
             {
-                Process.ProcessObservable.GetInstance().Raise("DataStructureChildCreator#3; parent is not of expected type TraversableDataStructure", "error", template.Parent?.GetType().Name);
+                context.InvalidType(template.Parent, typeof(TraversableDataStructure));
                 return;
             }
 
             if (!(template.Child is IList parentProperty))
             {
-                Process.ProcessObservable.GetInstance().Raise("DataStructureChildCreator#4; template is not of expected type IList", "error", template.Child?.GetType().Name);
+                context.InvalidType(template.Child, typeof(IList));
                 return;
             }
 
-            if(!(newChild is TraversableDataStructure newChildInType))
-            {
-                Process.ProcessObservable.GetInstance().Raise("DataStructureChildCreator#5; template is not of expected type IList", "error", template.Child?.GetType().Name);
-                return;
-            }
-
-            newChildInType.Parent = parent;
+            ((TraversableDataStructure)newChild).Parent = parent;
             parentProperty.Add(newChild);
         }
     }

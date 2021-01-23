@@ -13,22 +13,22 @@ namespace MappingFramework.Configuration.Json
 
         public JsonTargetInstantiator() { }
 
-        public object Create(object source)
+        public object Create(Context context, object source)
         {
             if (!(source is string template))
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#26; Source is not of expected type string", "error", source, source?.GetType().Name);
+                context.InvalidInput(source, typeof(string));
                 return new JObject();
             }
 
             JToken jToken;
             try
             {
-                jToken =JToken.Parse(template);
+                jToken = JToken.Parse(template);
             }
             catch (Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#20; Template could not be parsed to JToken", "error", exception.GetType().Name, exception.Message);
+                context.OperationFailed(this, exception);
                 return new JObject();
             }
 

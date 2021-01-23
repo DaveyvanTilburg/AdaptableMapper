@@ -118,14 +118,11 @@ namespace MappingFramework.Converters
             return result;
         }
 
-        private static readonly Type _serializableByTypeIdType = typeof(ResolvableByTypeId);
+        private static readonly Type SerializableByTypeIdType = typeof(ResolvableByTypeId);
         public static void AddType(Type type)
         {
-            if (!_serializableByTypeIdType.IsAssignableFrom(type))
-            {
-                Process.ProcessObservable.GetInstance().Raise($"ResolvableTypeIdCollection#1; Type '{type.FullName}' is not assignable from '{_serializableByTypeIdType.Name}'", "error");
-                return;
-            }
+            if (!SerializableByTypeIdType.IsAssignableFrom(type))
+                throw new Exception($"Types registered need to inherit from {nameof(ResolvableByTypeId)}");
 
             ResolvableByTypeId temp = Activator.CreateInstance(type) as ResolvableByTypeId;
 

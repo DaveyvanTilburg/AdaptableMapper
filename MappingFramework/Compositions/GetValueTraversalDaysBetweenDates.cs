@@ -1,6 +1,7 @@
 ﻿using System;
 using MappingFramework.Configuration;
 using MappingFramework.Converters;
+using MappingFramework.Process;
 using MappingFramework.Traversals;
 using MappingFramework.Visitors;
 
@@ -29,13 +30,13 @@ namespace MappingFramework.Compositions
 
             if (!DateTime.TryParse(valueA, out DateTime valueADateTime))
             {
-                Process.ProcessObservable.GetInstance().Raise($"GetValueTraversalDaysBetweenDates#1; Result of {nameof(GetValueTraversalA)} is not a date", "warning", valueA);
+                context.AddInformation($"Result: {valueA}, of {nameof(GetValueTraversalA)} is not a valid date", InformationType.Warning);
                 return string.Empty;
             }
 
             if (!DateTime.TryParse(valueB, out DateTime valueBDateTime))
             {
-                Process.ProcessObservable.GetInstance().Raise($"GetValueTraversalDaysBetweenDates#2; Result of {nameof(GetValueTraversalB)} is not a date", "warning", valueB);
+                context.AddInformation($"Result: {valueB}, of {nameof(GetValueTraversalB)} is not a valid date", InformationType.Warning);
                 return string.Empty;
             }
 

@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using MappingFramework.Configuration;
 using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.Xml;
@@ -20,15 +21,11 @@ namespace MappingFramework.Traversals.Xml
         public string Path { get; set; }
         public XmlInterpretation XmlInterpretation { get; set; }
 
-        public Template GetTemplate(object target, MappingCaches mappingCaches)
+        public Template GetTemplate(Context context, object target, MappingCaches mappingCaches)
         {
-            if (!(target is XElement xElement))
-            {
-                Process.ProcessObservable.GetInstance().Raise("XML#23; target is not of expected type XElement", "error", target?.GetType().Name, Path);
-                return CreateNullTemplate();
-            }
+            XElement xElement = (XElement)target;
 
-            XElement result = xElement.NavigateToPath(Path.ConvertToInterpretation(XmlInterpretation));
+            XElement result = xElement.NavigateToPath(Path.ConvertToInterpretation(XmlInterpretation), context);
             if (result.NodeType == System.Xml.XmlNodeType.None)
                 return CreateNullTemplate();
 

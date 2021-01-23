@@ -1,6 +1,4 @@
-﻿using MappingFramework.Process;
-
-namespace MappingFramework.DataStructure
+﻿namespace MappingFramework.DataStructure
 {
     public static class StringExtensions
     {
@@ -12,13 +10,9 @@ namespace MappingFramework.DataStructure
             int positionEnd = value.LastIndexOf('}');
             if (positionStart == -1)
                 return false;
-                
 
             if (positionEnd == -1)
-            {
-                ProcessObservable.GetInstance().Raise("DataStructure#32; No } found in after {", "error", value);
                 return false;
-            }
 
             filter = Newtonsoft.Json.JsonConvert.DeserializeObject<DataStructureFilter>(value.Substring(positionStart, positionEnd + 1 - positionStart));
             filter.DataStructureName = value.Substring(0, positionStart);

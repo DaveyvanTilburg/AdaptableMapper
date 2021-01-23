@@ -20,11 +20,11 @@ namespace MappingFramework.Configuration.Xml
 
         public XmlInterpretation XmlInterpretation { get; set; }
 
-        public object Create(object source)
+        public object Create(Context context, object source)
         {
             if (!(source is string template))
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#24; Source is not of expected type string", "error", source, source?.GetType().Name);
+                context.InvalidInput(source, typeof(string));
                 return NullElement.Create();
             }
 
@@ -37,7 +37,7 @@ namespace MappingFramework.Configuration.Xml
             }
             catch(Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#6; Template is not valid Xml", "error", exception.GetType().Name, exception.Message);
+                context.OperationFailed(this, exception);
                 return NullElement.Create();
             }
 

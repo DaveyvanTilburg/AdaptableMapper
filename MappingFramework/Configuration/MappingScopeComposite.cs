@@ -40,17 +40,17 @@ namespace MappingFramework.Configuration
             if (!scope.IsValid)
                 return;
 
-            Template template = GetTemplateTraversal.GetTemplate(context.Target, mappingCaches);
+            Template template = GetTemplateTraversal.GetTemplate(context, context.Target, mappingCaches);
 
             foreach (object item in scope.Value)
             {
-                object newChild = ChildCreator.CreateChild(template);
+                object newChild = ChildCreator.CreateChild(context, template);
                 Context childContext = new Context(source: item, target: newChild, context.AdditionalSourceValues);
 
                 if (Condition != null && !Condition.Validate(childContext))
                     continue;
 
-                ChildCreator.AddToParent(template, newChild);
+                ChildCreator.AddToParent(context, template, newChild);
                 TraverseChild(childContext, mappingCaches);
             }
         }

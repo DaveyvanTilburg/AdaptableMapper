@@ -21,12 +21,7 @@ namespace MappingFramework.Traversals.DataStructure
 
         public void SetValue(Context context, MappingCaches mappingCaches, string value)
         {
-            if (!(context.Target is TraversableDataStructure dataStructure))
-            {
-                Process.ProcessObservable.GetInstance().Raise("DataStructure#19; target is not of expected type DataStructure", "error", PropertyName, context.Target);
-                return;
-            }
-
+            TraversableDataStructure dataStructure = (TraversableDataStructure)context.Target;
             dataStructure.SetValue(PropertyName, value);
         }
     }

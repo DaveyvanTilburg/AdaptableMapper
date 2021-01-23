@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MappingFramework.Process;
 
 namespace MappingFramework.Configuration
 {
@@ -10,27 +11,30 @@ namespace MappingFramework.Configuration
 
         public void AddAdditionalSource(AdditionalSource additionalSource)
         {
+            Dictionary<string, string> dictionary;
             if (_values.ContainsKey(additionalSource.Name))
+                dictionary = _values[additionalSource.Name];
+            else
             {
-                Process.ProcessObservable.GetInstance().Raise($"AdditionalSourceValues#1; Duplicate name for AdditionalSource: {additionalSource.Name}", "error");
-                return;
+                dictionary = new Dictionary<string, string>();
+                _values.Add(additionalSource.Name, dictionary);
             }
 
-            var value = new Dictionary<string, string>(additionalSource.GetValues());
-            _values.Add(additionalSource.Name, value);
+            foreach (KeyValuePair<string, string> kvp in additionalSource.GetValues())
+                dictionary.Add(kvp.Key, kvp.Value);
         }
 
-        public string GetValue(string additionalSourceName, string key)
+        public string GetValue(string additionalSourceName, string key, Context context)
         {
             if (!_values.ContainsKey(additionalSourceName))
             {
-                Process.ProcessObservable.GetInstance().Raise($"AdditionalSourceValues#2; No additionalSource defined with name {additionalSourceName}", "warning");
+                context.AddInformation($"No additionalSource defined with name {additionalSourceName}", InformationType.Warning);
                 return string.Empty;
             }
 
             if (!_values[additionalSourceName].ContainsKey(key))
             {
-                Process.ProcessObservable.GetInstance().Raise($"AdditionalSourceValues#3; No value found for key {key} in additionalSource with name {additionalSourceName}", "warning");
+                context.AddInformation($"No additionalSource value defined with key {key}", InformationType.Warning);
                 return string.Empty;
             }
 

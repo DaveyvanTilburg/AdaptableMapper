@@ -33,10 +33,15 @@ namespace MappingFramework.Configuration
                     additionalSourceValues.AddAdditionalSource(additionalSource);
             }
 
-            return new Context(
-                ObjectConverter.Convert(input),
-                TargetInstantiator.Create(targetSource),
-                additionalSourceValues);
+            var context = new Context();
+            var source = ObjectConverter.Convert(context, input);
+            var target = TargetInstantiator.Create(context, targetSource);
+
+            context.Source = source;
+            context.Target = target;
+            context.AdditionalSourceValues = additionalSourceValues;
+
+            return context;
         }
 
         void IVisitable.Receive(IVisitor visitor)

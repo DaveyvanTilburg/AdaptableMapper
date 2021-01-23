@@ -20,11 +20,11 @@ namespace MappingFramework.Configuration.Xml
 
         public XmlInterpretation XmlInterpretation { get; set; }
 
-        public object Convert(object source)
+        public object Convert(Context context, object source)
         {
             if (!(source is string input))
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#18; source is not of expected type String", "error", source?.GetType().Name);
+                context.InvalidType(source, typeof(string));
                 return NullElement.Create();
             }
 
@@ -37,7 +37,7 @@ namespace MappingFramework.Configuration.Xml
             }
             catch(Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#19; input could not be parsed to XElement", "error", input, exception.GetType().Name, exception.Message);
+                context.OperationFailed(this, exception);
                 root = NullElement.Create();
             }
 

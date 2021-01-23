@@ -1,18 +1,18 @@
 ﻿using System;
-using MappingFramework.Process;
+using MappingFramework.Configuration;
 
 namespace MappingFramework.DataStructure
 {
     public static class TypeExtensions
     {
-        public static TraversableDataStructure CreateDataStructure(this Type type)
+        public static TraversableDataStructure CreateDataStructure(this Type type, Context context)
         {
             Type listItemType = type.GetGenericArguments()[0];
             object instance = Activator.CreateInstance(listItemType);
 
             if (!(instance is TraversableDataStructure result))
             {
-                ProcessObservable.GetInstance().Raise($"DataStructure#23; DataStructure has a list property with generic type {listItemType.Name} that is not a DataStructure", "error");
+                context.InvalidType(instance, typeof(TraversableDataStructure));
                 return new NullDataStructure();
             }
 

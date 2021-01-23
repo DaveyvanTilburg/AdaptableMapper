@@ -8,7 +8,7 @@ namespace MappingFramework.Configuration
     [JsonConverter(typeof(JsonTypeIdBasedConverter)), ContextType(ContextType.Target)]
     public interface ChildCreator
     {
-        object CreateChild(Template template);
-        void AddToParent(Template template, object newChild);
+        object CreateChild(Context context, Template template);
+        void AddToParent(Context context, Template template, object newChild);
     }
 }

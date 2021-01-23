@@ -23,18 +23,14 @@ namespace MappingFramework.Traversals.DataStructure
 
         public MethodResult<IEnumerable<object>> GetValues(Context context)
         {
-            if (!(context.Source is TraversableDataStructure dataStructure))
-            {
-                Process.ProcessObservable.GetInstance().Raise("DataStructure#12; source is not of expected type DataStructure", "error", Path, context.Source);
-                return new NullMethodResult<IEnumerable<object>>();
-            }
+            TraversableDataStructure dataStructure = (TraversableDataStructure)context.Source;
 
             var pathContainer = PathContainer.Create(Path);
 
-            List<TraversableDataStructure> pathTargets = dataStructure.NavigateToAll(pathContainer.CreatePathQueue()).ToList();
+            List<TraversableDataStructure> pathTargets = dataStructure.NavigateToAll(pathContainer.CreatePathQueue(), context).ToList();
             List<object> scopes = pathTargets
                 .Where(m => m.IsValid())
-                .Select(p => p.GetListProperty(pathContainer.LastInPath))
+                .Select(p => p.GetListProperty(pathContainer.LastInPath, context))
                 .SelectMany(l => (IEnumerable<object>)l)
                 .ToList();
 

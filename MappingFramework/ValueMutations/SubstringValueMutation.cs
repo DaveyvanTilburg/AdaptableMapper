@@ -16,6 +16,6 @@ namespace MappingFramework.ValueMutations
         public GetValueStringTraversal GetValueStringTraversal { get; set; }
 
         public string Mutate(Context context, string value)
-            => GetValueStringTraversal.GetValue(value);
+            => GetValueStringTraversal.GetValue(context, value);
     }
 }

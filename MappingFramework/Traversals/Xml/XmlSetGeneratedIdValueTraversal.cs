@@ -25,15 +25,10 @@ namespace MappingFramework.Traversals.Xml
 
         public void SetValue(Context context, MappingCaches mappingCaches, string value)
         {
-            if (!(context.Target is XElement xElement))
-            {
-                Process.ProcessObservable.GetInstance().Raise("XmlSetGeneratedIdValueTraversal#1; target is not of expected type XElement", "error", Path, context.Target?.GetType().Name);
-                return;
-            }
-
+            XElement xElement = (XElement)context.Target;
             string number = GetId(xElement.Parent, mappingCaches);
 
-            xElement.SetXPathValues(Path.ConvertToInterpretation(XmlInterpretation), number, SetAsCData);
+            xElement.SetXPathValues(Path.ConvertToInterpretation(XmlInterpretation), number, SetAsCData, context);
         }
 
         private string GetId(XElement parent, MappingCaches mappingCaches)

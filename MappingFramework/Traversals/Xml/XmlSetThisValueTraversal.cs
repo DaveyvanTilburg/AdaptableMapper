@@ -17,20 +17,12 @@ namespace MappingFramework.Traversals.Xml
 
         public void SetValue(Context context, MappingCaches mappingCaches, string value)
         {
-            if (!(context.Target is XElement xElement))
-            {
-                Process.ProcessObservable.GetInstance().Raise("XML#20; target is not of expected type XElement", "error", context.Target?.GetType().Name);
-                return;
-            }
+            XElement xElement = (XElement)context.Target;
 
             if (SetAsCData)
-            {
                 xElement.Add(new XCData(value));
-            }
             else
-            {
                 xElement.Value = value;
-            }
         }
     }
 }

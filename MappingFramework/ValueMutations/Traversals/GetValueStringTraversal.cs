@@ -1,4 +1,5 @@
-﻿using MappingFramework.Converters;
+﻿using MappingFramework.Configuration;
+using MappingFramework.Converters;
 using Newtonsoft.Json;
 
 namespace MappingFramework.ValueMutations.Traversals
@@ -6,6 +7,6 @@ namespace MappingFramework.ValueMutations.Traversals
     [JsonConverter(typeof(JsonTypeIdBasedConverter))]
     public interface GetValueStringTraversal
     {
-        string GetValue(string source);
+        string GetValue(Context context, string source);
     }
 }

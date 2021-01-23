@@ -15,12 +15,7 @@ namespace MappingFramework.Traversals.Xml
 
         public string GetValue(Context context)
         {
-            if (!(context.Source is XElement xElement))
-            {
-                Process.ProcessObservable.GetInstance().Raise("XML#16; source is not of expected type XElement", "error", context.Source?.GetType().Name);
-                return string.Empty;
-            }
-
+            XElement xElement = (XElement)context.Source;
             return xElement.Value;
         }
     }

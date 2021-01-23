@@ -3,13 +3,14 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Linq;
 using System.Collections;
+using MappingFramework.Configuration;
 using MappingFramework.Xml;
 
 namespace MappingFramework.Traversals.Xml
 {
     public static class XElementExtensions
     {
-        public static IReadOnlyCollection<XElement> NavigateToPathSelectAll(this XElement xElement, string xPath)
+        public static IReadOnlyCollection<XElement> NavigateToPathSelectAll(this XElement xElement, string xPath, Context context)
         {
             IReadOnlyCollection<XElement> allMatches;
             try
@@ -18,14 +19,14 @@ namespace MappingFramework.Traversals.Xml
             }
             catch (XPathException exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#28; Path is invalid", "error", xPath, exception.GetType().Name, exception.Message);
+                context.NavigationException(xPath, exception);
                 return new List<XElement>();
             }
 
             return allMatches;
         }
 
-        public static XElement NavigateToPath(this XElement xElement, string xPath)
+        public static XElement NavigateToPath(this XElement xElement, string xPath, Context context)
         {
             IReadOnlyCollection<XObject> allMatches;
 
@@ -36,26 +37,26 @@ namespace MappingFramework.Traversals.Xml
             }
             catch (XPathException exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#27; Path is invalid", "error", xPath, exception.GetType().Name, exception.Message);
+                context.NavigationException(xPath, exception);
                 return NullElement.Create();
             }
 
             if (!allMatches.Any())
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#2; Path could not be traversed", "warning", xPath);
+                context.NavigationResultIsEmpty(xPath);
                 return NullElement.Create();
             }
 
             if (!(allMatches.First() is XElement result))
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#8; Path did not end in an element", "error", xPath);
+                context.NavigationInvalid(xPath, "Path did not end in an element");
                 return NullElement.Create();
             }
 
             return result;
         }
 
-        public static MethodResult<string> GetXPathValue(this XElement xElement, string xPath)
+        public static MethodResult<string> GetXPathValue(this XElement xElement, string xPath, Context context)
         {
             string result = string.Empty;
 
@@ -66,7 +67,7 @@ namespace MappingFramework.Traversals.Xml
             }
             catch (XPathException exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#29; Path is invalid", "error", xPath, exception.GetType().Name, exception.Message);
+                context.NavigationException(xPath, exception);
                 return new NullMethodResult<string>();
             }
 
@@ -79,7 +80,7 @@ namespace MappingFramework.Traversals.Xml
 
                 if (value == null)
                 {
-                    Process.ProcessObservable.GetInstance().Raise("XML#30; Path resulted in no items", "warning", xPath);
+                    context.NavigationResultIsEmpty(xPath);
                     return new NullMethodResult<string>();
                 }
 
@@ -96,7 +97,7 @@ namespace MappingFramework.Traversals.Xml
             return new MethodResult<string>(pathResult.ToString());
         }
 
-        public static void SetXPathValues(this XElement xElement, string xPath, string value, bool setAsCData)
+        public static void SetXPathValues(this XElement xElement, string xPath, string value, bool setAsCData, Context context)
         {
             IEnumerable enumerable;
 
@@ -112,7 +113,7 @@ namespace MappingFramework.Traversals.Xml
             var xObjects = enumerable?.Cast<XObject>();
 
             if (!xObjects.Any())
-                Process.ProcessObservable.GetInstance().Raise("XML#7; Path could not be traversed", "warning", xPath);
+                context.NavigationResultIsEmpty(xPath);
             else
             {
                 foreach (XObject xObject in xObjects)

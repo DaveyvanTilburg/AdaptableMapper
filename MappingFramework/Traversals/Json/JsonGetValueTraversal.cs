@@ -21,13 +21,9 @@ namespace MappingFramework.Traversals.Json
 
         public string GetValue(Context context)
         {
-            if (!(context.Source is JToken jToken))
-            {
-                Process.ProcessObservable.GetInstance().Raise("JSON#10; Source is not of expected type JToken", "error", Path, context.Source?.GetType().Name);
-                return string.Empty;
-            }
+            JToken jToken = (JToken)context.Source;
 
-            MethodResult<string> result = jToken.TryTraversalGetValue(Path);
+            MethodResult<string> result = jToken.TryTraversalGetValue(Path, context);
             if (!result.IsValid)
                 return string.Empty;
 

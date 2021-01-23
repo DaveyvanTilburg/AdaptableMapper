@@ -24,13 +24,8 @@ namespace MappingFramework.Traversals.Xml
 
         public void SetValue(Context context, MappingCaches mappingCaches, string value)
         {
-            if (!(context.Target is XElement xElement))
-            {
-                Process.ProcessObservable.GetInstance().Raise("XML#21; target is not of expected type XElement", "error", Path, context.Target?.GetType().Name);
-                return;
-            }
-
-            xElement.SetXPathValues(Path.ConvertToInterpretation(XmlInterpretation), value, SetAsCData);
+            XElement xElement = (XElement)context.Target;
+            xElement.SetXPathValues(Path.ConvertToInterpretation(XmlInterpretation), value, SetAsCData, context);
         }
     }
 }

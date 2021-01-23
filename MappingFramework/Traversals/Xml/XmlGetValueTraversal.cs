@@ -21,7 +21,7 @@ namespace MappingFramework.Traversals.Xml
         public XmlGetValueTraversal(string path, XmlInterpretation xmlInterpretation)
         {
             Path = path;
-            XmlInterpretation = XmlInterpretation;
+            XmlInterpretation = xmlInterpretation;
         }
 
         public string Path { get; set; }
@@ -29,13 +29,8 @@ namespace MappingFramework.Traversals.Xml
 
         public string GetValue(Context context)
         {
-            if (!(context.Source is XElement xElement))
-            {
-                Process.ProcessObservable.GetInstance().Raise("XML#17; source is not of expected type XElement", "error", Path, context.Source?.GetType().Name);
-                return string.Empty;
-            }
-
-            MethodResult<string> result = xElement.GetXPathValue(Path.ConvertToInterpretation(XmlInterpretation));
+            XElement xElement = (XElement)context.Source;
+            MethodResult<string> result = xElement.GetXPathValue(Path.ConvertToInterpretation(XmlInterpretation), context);
 
             if (!result.IsValid)
                 return string.Empty;

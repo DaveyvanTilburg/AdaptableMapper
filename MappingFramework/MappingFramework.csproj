@@ -72,6 +72,7 @@
     <Compile Include="MappingCaches.cs" />
     <Compile Include="NullObject.cs" />
     <Compile Include="OptionLists.cs" />
+    <Compile Include="Process\InformationType.cs" />
     <Compile Include="TemplateCache.cs" />
     <Compile Include="Compositions\GetSearchValueTraversal.cs" />
     <Compile Include="Traversals\Dictionary\DictionarySetValueTraversal.cs" />
@@ -122,9 +123,6 @@
     <Compile Include="DataStructure\TraversableDataStructure.cs" />
     <Compile Include="DataStructure\DataStructureFilter.cs" />
     <Compile Include="Process\Information.cs" />
-    <Compile Include="Process\ProcessObservable.Singleton.cs" />
-    <Compile Include="Process\ProcessObservable.cs" />
-    <Compile Include="Process\ProcessObserver.cs" />
     <Compile Include="Configuration\DataStructure\DataStructureChildCreator.cs" />
     <Compile Include="Traversals\DataStructure\DataStructureGetValueTraversal.cs" />
     <Compile Include="Traversals\DataStructure\DataStructureGetListValueTraversal.cs" />

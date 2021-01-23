@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MappingFramework.Configuration;
 using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
@@ -32,15 +33,11 @@ namespace MappingFramework.Traversals.Dictionary
         {
             if (string.IsNullOrWhiteSpace(Key))
             {
-                Process.ProcessObservable.GetInstance().Raise("DictionarySetValueTraversal#1; Key is not set", "error", Key, context.Target?.GetType().Name);
+                context.PropertyIsEmpty(this, nameof(Key));
                 return;
             }
 
-            if (!(context.Target is IDictionary<string, object> dictionary))
-            {
-                Process.ProcessObservable.GetInstance().Raise("DictionarySetValueTraversal#2; target is not of expected type IDictionary<string, object>", "error", Key, context.Target?.GetType().Name);
-                return;
-            }
+            IDictionary<string, object> dictionary = (IDictionary<string, object>)context.Target;
 
             switch (DictionaryValueType)
             {
@@ -49,7 +46,7 @@ namespace MappingFramework.Traversals.Dictionary
                     break;
                 case DictionaryValueTypes.Integer:
                     if (!int.TryParse(value, out int integerValue))
-                        Process.ProcessObservable.GetInstance().Raise($"DictionarySetValueTraversal#3; value: {value} is not parsable to requested type: {DictionaryValueType}", "warning", Key, context.Target?.GetType().Name);
+                        context.OperationFailed(this, new Exception($"Value: '{value}' can not be parsed to an integer"));
                     else
                         dictionary[Key] = integerValue;
                     break;

@@ -13,11 +13,11 @@ namespace MappingFramework.Configuration.Json
 
         public JsonObjectConverter() { }
 
-        public object Convert(object source)
+        public object Convert(Context context, object source)
         {
             if (!(source is string input))
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#12; Source is not of expected type String", "error", source?.GetType().Name);
+                context.InvalidInput(source, typeof(string));
                 return string.Empty;
             }
 
@@ -28,7 +28,7 @@ namespace MappingFramework.Configuration.Json
             }
             catch (Exception exception)
             {
-                Process.ProcessObservable.GetInstance().Raise("JSON#13; Source could not be parsed to JToken", "error", source, exception.GetType().Name, exception.Message);
+                context.OperationFailed(this, exception);
                 jToken = new JObject();
             }
 

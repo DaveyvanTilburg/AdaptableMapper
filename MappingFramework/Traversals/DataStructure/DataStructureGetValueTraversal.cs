@@ -21,19 +21,15 @@ namespace MappingFramework.Traversals.DataStructure
 
         public string GetValue(Context context)
         {
-            if(!(context.Source is TraversableDataStructure dataStructure))
-            {
-                Process.ProcessObservable.GetInstance().Raise("DataStructure#16; source is not of expected type TraversableDataStructure", "error", Path);
-                return string.Empty;
-            }
+            TraversableDataStructure dataStructure = (TraversableDataStructure)context.Source;
 
             var pathContainer = PathContainer.Create(Path);
 
-            TraversableDataStructure pathTarget = dataStructure.NavigateTo(pathContainer.CreatePathQueue());
+            TraversableDataStructure pathTarget = dataStructure.NavigateTo(pathContainer.CreatePathQueue(), context);
             if (!pathTarget.IsValid())
                 return string.Empty;
 
-            string value = pathTarget.GetValue(pathContainer.LastInPath);
+            string value = pathTarget.GetValue(pathContainer.LastInPath, context);
             return value;
         }
     }

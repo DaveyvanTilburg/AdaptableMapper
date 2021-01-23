@@ -1,5 +1,6 @@
 ﻿using MappingFramework.Configuration;
 using MappingFramework.Converters;
+using MappingFramework.Process;
 using MappingFramework.Traversals;
 using MappingFramework.Visitors;
 
@@ -27,11 +28,11 @@ namespace MappingFramework.Conditions
             string valueA = GetValueTraversalSourceValueA.GetValue(context);
             string valueB = GetValueTraversalSourceValueB.GetValue(context);
 
-            bool result = Compare(valueA, CompareOperator, valueB);
+            bool result = Compare(valueA, CompareOperator, valueB, context);
             return result;
         }
 
-        private static bool Compare(string valueA, CompareOperator compareOperator, string valueB)
+        private static bool Compare(string valueA, CompareOperator compareOperator, string valueB, Context context)
         {
             bool result = false;
 
@@ -44,10 +45,10 @@ namespace MappingFramework.Conditions
                     result = !valueA.Equals(valueB);
                     break;
                 case CompareOperator.GreaterThan:
-                    result = GreaterThan(valueA, valueB);
+                    result = GreaterThan(valueA, valueB, context);
                     break;
                 case CompareOperator.LessThan:
-                    result = LessThan(valueA, valueB);
+                    result = LessThan(valueA, valueB, context);
                     break;
                 case CompareOperator.Contains:
                     result = valueA.Contains(valueB);
@@ -57,29 +58,29 @@ namespace MappingFramework.Conditions
             return result;
         }
 
-        private static bool GreaterThan(string valueA, string valueB)
+        private static bool GreaterThan(string valueA, string valueB, Context context)
         {
-            double numericalA = ToDouble(valueA);
-            double numericalB = ToDouble(valueB);
+            double numericalA = ToDouble(valueA, context);
+            double numericalB = ToDouble(valueB, context);
 
             bool result = numericalA > numericalB;
             return result;
         }
 
-        private static bool LessThan(string valueA, string valueB)
+        private static bool LessThan(string valueA, string valueB, Context context)
         {
-            double numericalA = ToDouble(valueA);
-            double numericalB = ToDouble(valueB);
+            double numericalA = ToDouble(valueA, context);
+            double numericalB = ToDouble(valueB, context);
 
             bool result = numericalA < numericalB;
             return result;
         }
 
-        private static double ToDouble(string value)
+        private static double ToDouble(string value, Context context)
         {
             if(!double.TryParse(value, out double result))
             {
-                Process.ProcessObservable.GetInstance().Raise($"CompareCondition#3; value {value} is not numerical, using value 0", "warning");
+                context.AddInformation($"{value} is not numerical", InformationType.Warning);
                 return 0;
             }
 

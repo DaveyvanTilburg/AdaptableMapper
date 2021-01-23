@@ -25,16 +25,12 @@ namespace MappingFramework.Traversals.Xml
 
         public MethodResult<IEnumerable<object>> GetValues(Context context)
         {
-            if (!(context.Source is XElement xElement))
-            {
-                Process.ProcessObservable.GetInstance().Raise("XML#12; source is not of expected type XElement", "error", Path, context.Source?.GetType().Name);
-                return new NullMethodResult<IEnumerable<object>>();
-            }
+            XElement xElement = (XElement)context.Source;
 
-            IEnumerable<XElement> xScope = xElement.NavigateToPathSelectAll(Path.ConvertToInterpretation(XmlInterpretation));
+            IEnumerable<XElement> xScope = xElement.NavigateToPathSelectAll(Path.ConvertToInterpretation(XmlInterpretation), context);
             if (!xScope.Any())
             {
-                Process.ProcessObservable.GetInstance().Raise("XML#5; Path resulted in no items", "warning", Path, context.Source.GetType().Name);
+                context.NavigationResultIsEmpty(Path);
                 return new NullMethodResult<IEnumerable<object>>();
             }
 

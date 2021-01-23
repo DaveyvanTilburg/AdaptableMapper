@@ -76,7 +76,7 @@ namespace MappingFramework.Visitors
         {
             if (subject == null)
             {
-                _information.Add(new Information($"Composition incomplete, object empty", "error"));
+                _information.Add(new Information($"Composition incomplete, object empty : {subject.GetType().Name}", InformationType.Error));
                 return;
             }
 
@@ -93,7 +93,7 @@ namespace MappingFramework.Visitors
             ContentType subjectContentType = ClassContentType(subject);
 
             if (contentType != subjectContentType)
-                _information.Add(new Information($"Inconsistent types in the composition, expected: {contentType}, found: {subjectContentType}, objectType: {subject.GetType().Name}", "error"));
+                _information.Add(new Information($"Inconsistent types in the composition, expected: {contentType}, found: {subjectContentType}, objectType: {subject.GetType().Name}", InformationType.Error));
         }
         
         private void NullChecks(object subject)
@@ -103,7 +103,7 @@ namespace MappingFramework.Visitors
             foreach (PropertyInfo propertyInfo in propertyInfos)
                 if (propertyInfo.PropertyType.IsClass || propertyInfo.PropertyType.IsInterface)
                     if (propertyInfo.GetValue(subject) == null)
-                        _information.Add(new Information($"Composition incomplete, object missing of type {propertyInfo.PropertyType.Name}", "error"));
+                        _information.Add(new Information($"Composition incomplete, object missing of type {propertyInfo.PropertyType.Name}", InformationType.Error));
         }
         
         private ContentType ClassContentType(object subject)

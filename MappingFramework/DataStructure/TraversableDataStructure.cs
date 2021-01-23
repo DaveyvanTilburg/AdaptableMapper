@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using MappingFramework.Process;
+using MappingFramework.Configuration;
 
 namespace MappingFramework.DataStructure
 {
@@ -12,70 +12,70 @@ namespace MappingFramework.DataStructure
         [JsonIgnore]
         public TraversableDataStructure Parent { get; set; }
 
-        public TraversableDataStructure GetOrCreate(Queue<string> path)
+        public TraversableDataStructure GetOrCreate(Queue<string> path, Context context)
         {
             TraversableDataStructure item = this;
             if (path.Count > 0)
-                item = NavigateAndCreatePath(new Queue<string>(path));
+                item = NavigateAndCreatePath(new Queue<string>(path), context);
 
             return item;
         }
 
-        private TraversableDataStructure NavigateAndCreatePath(Queue<string> path)
+        private TraversableDataStructure NavigateAndCreatePath(Queue<string> path, Context context)
         {
             string step = path.Dequeue();
 
             PropertyInfo propertyInfo = GetPropertyInfo(step);
             if(propertyInfo == null)
             {
-                ProcessObservable.GetInstance().Raise($"DataStructure#1; No property with name {step} found on type {this.GetType().Name}", "warning");
+                context.NavigationFailed(step);
                 return new NullDataStructure();
             }
 
             object propertyValue = propertyInfo.GetValue(this);
             if (!(propertyValue is TraversableDataStructure next))
             {
-                IList propertyList = GetIListFromProperty(propertyValue);
+                IList propertyList = GetIListFromProperty(propertyValue, context);
 
-                next = propertyInfo.PropertyType.CreateDataStructure();
+                next = propertyInfo.PropertyType.CreateDataStructure(context);
 
                 if(!(next is NullDataStructure))
                     propertyList.Add(next);
             }
 
             if (path.Count > 0)
-                return next.NavigateAndCreatePath(path);
+                return next.NavigateAndCreatePath(path, context);
 
             return next;
         }
 
-        public IList GetListProperty(string propertyName)
+        public IList GetListProperty(string propertyName, Context context)
         {
             PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
             object propertyValue = propertyInfo?.GetValue(this);
 
             if (propertyValue == null)
             {
-                ProcessObservable.GetInstance().Raise($"DataStructure#7; No property with name {propertyName} found on type {this.GetType().Name}", "warning");
+                context.NavigationFailed(propertyName);
                 return new List<NullDataStructure>();
             }
 
-            IList result = GetIListFromProperty(propertyValue);
+            IList result = GetIListFromProperty(propertyValue, context);
             return result;
         }
 
-        private IList GetIListFromProperty(object propertyValue)
+        private IList GetIListFromProperty(object propertyValue, Context context)
         {
             if (!(propertyValue is IList listProperty))
             {
-                ProcessObservable.GetInstance().Raise("DataStructure#2; Property is not traversable, it is not a list of DataStructure", "warning");
+                context.InvalidType(propertyValue, typeof(IList));
                 return new List<NullDataStructure>();
             }
 
             return listProperty;
         }
 
-        public TraversableDataStructure NavigateTo(Queue<string> path)
+        public TraversableDataStructure NavigateTo(Queue<string> path, Context context)
         {
             if (path.Count == 0)
                 return this;
@@ -88,29 +88,29 @@ namespace MappingFramework.DataStructure
                 next = Parent;
                 if (next == null)
                 {
-                    ProcessObservable.GetInstance().Raise($"DataStructure#3; Parent node was null while navigating to parent of type {this.GetType().Name}", "warning");
+                    context.NavigationFailed(step);
                     return new NullDataStructure();
                 }
             }
             else if(step.TryGetObjectFilter(out DataStructureFilter filter))
             {
-                IEnumerable<TraversableDataStructure> propertyValue = GetEnumerableProperty(filter.DataStructureName);
-                next = propertyValue.FirstOrDefault(a => a.GetValue(filter.PropertyName).Equals(filter.Value));
+                IEnumerable<TraversableDataStructure> propertyValue = GetEnumerableProperty(filter.DataStructureName, context);
+                next = propertyValue.FirstOrDefault(a => a.GetValue(filter.PropertyName, context).Equals(filter.Value));
 
                 if (next == null)
                 {
-                    ProcessObservable.GetInstance().Raise($"DataStructure#4; No match found for filter on list with name {filter.DataStructureName} with a value that has a {filter.PropertyName} with value {filter.Value}", "warning");
+                    context.NavigationFailed(filter.Value);
                     return new NullDataStructure();
                 }
             }
             else
             {
-                IEnumerable<TraversableDataStructure> propertyValue = GetEnumerableProperty(step);
+                IEnumerable<TraversableDataStructure> propertyValue = GetEnumerableProperty(step, context);
                 next = propertyValue.FirstOrDefault();
 
                 if (next == null)
                 {
-                    ProcessObservable.GetInstance().Raise($"DataStructure#5; No items found in {step} in type {this.GetType().Name}", "warning");
+                    context.NavigationFailed(step);
                     return new NullDataStructure();
                 }
             }
@@ -119,12 +119,12 @@ namespace MappingFramework.DataStructure
                 return next;
 
             if (path.Count > 0)
-                return next.NavigateTo(path);
+                return next.NavigateTo(path, context);
 
             return next;
         }
 
-        public IEnumerable<TraversableDataStructure> NavigateToAll(Queue<string> path)
+        public IEnumerable<TraversableDataStructure> NavigateToAll(Queue<string> path, Context context)
         {
             if(path.Count == 0)
             {
@@ -140,44 +140,44 @@ namespace MappingFramework.DataStructure
                 yield break;
             }
 
-            foreach (TraversableDataStructure item in NavigateToAll(step))
+            foreach (TraversableDataStructure item in NavigateToAll(step, context))
             {
                 if(path.Count == 0)
                     yield return item;
                 else
                 {
-                    foreach (TraversableDataStructure result in item.NavigateToAll(new Queue<string>(path)))
+                    foreach (TraversableDataStructure result in item.NavigateToAll(new Queue<string>(path), context))
                         yield return result;
                 }
             }
         }
 
-        private IEnumerable<TraversableDataStructure> NavigateToAll(string step)
+        private IEnumerable<TraversableDataStructure> NavigateToAll(string step, Context context)
         {
             if (step.TryGetObjectFilter(out DataStructureFilter filter))
             {
-                IEnumerable<TraversableDataStructure> propertyValue = GetEnumerableProperty(filter.DataStructureName);
-                foreach (TraversableDataStructure item in propertyValue.Where(a => a.GetValue(filter.PropertyName).Equals(filter.Value)))
+                IEnumerable<TraversableDataStructure> propertyValue = GetEnumerableProperty(filter.DataStructureName, context);
+                foreach (TraversableDataStructure item in propertyValue.Where(a => a.GetValue(filter.PropertyName, context).Equals(filter.Value)))
                     yield return item;
             }
             else
             {
-                IEnumerable<TraversableDataStructure> propertyValue = GetEnumerableProperty(step);
+                IEnumerable<TraversableDataStructure> propertyValue = GetEnumerableProperty(step, context);
 
                 foreach (TraversableDataStructure item in propertyValue)
                     yield return item;
             }
         }
 
-        private IEnumerable<TraversableDataStructure> GetEnumerableProperty(string propertyName)
+        private IEnumerable<TraversableDataStructure> GetEnumerableProperty(string propertyName, Context context)
         {
-            object property = GetProperty(propertyName);
+            object property = GetProperty(propertyName, context);
 
             if (!(property is IEnumerable<TraversableDataStructure> enumerableProperty))
             {
                 if(!(property is TraversableDataStructure item))
                 {
-                    ProcessObservable.GetInstance().Raise($"DataStructure#8; Property {propertyName} on type {this.GetType().Name} is not traversable, it is not a list of TraversableDataStructure or a derivative of TraversableDataStructure", "error");
+                    context.NavigationFailed(propertyName);
                     return new List<NullDataStructure> { new NullDataStructure() };
                 }
 
@@ -186,21 +186,22 @@ namespace MappingFramework.DataStructure
 
             return enumerableProperty;
         }
+        
         private PropertyInfo GetPropertyInfo(string propertyName)
         {
-            PropertyInfo propertyInfo = this.GetType().GetProperty(propertyName);
+            PropertyInfo propertyInfo = GetType().GetProperty(propertyName);
             return propertyInfo;
         }
 
 
-        private object GetProperty(string propertyName)
+        private object GetProperty(string propertyName, Context context)
         {
             PropertyInfo propertyInfo = GetPropertyInfo(propertyName);
             object propertyValue = propertyInfo?.GetValue(this);
 
             if (propertyValue == null)
             {
-                ProcessObservable.GetInstance().Raise($"DataStructure#9; Property {propertyName} is not a part of {this.GetType().Name}", "warning");
+                context.NavigationFailed(propertyName);
                 return new NullDataStructure();
             }
 
@@ -213,9 +214,9 @@ namespace MappingFramework.DataStructure
             propertyInfo?.SetValue(this, value);
         }
 
-        public string GetValue(string propertyName)
+        public string GetValue(string propertyName, Context context)
         {
-            object valueContainer = GetProperty(propertyName);
+            object valueContainer = GetProperty(propertyName, context);
 
             if (valueContainer is TraversableDataStructure traversableDataStructure)
                 return traversableDataStructure.IsValid() ? traversableDataStructure.ToString() : string.Empty;
@@ -223,9 +224,6 @@ namespace MappingFramework.DataStructure
             return valueContainer?.ToString() ?? string.Empty;
         }
 
-        internal virtual bool IsValid()
-        {
-            return true;
-        }
+        internal virtual bool IsValid() => true;
     }
 }

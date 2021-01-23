@@ -23,13 +23,7 @@ namespace MappingFramework.ValueMutations
 
         public string Mutate(Context context, string value)
         {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                Process.ProcessObservable.GetInstance().Raise("ReplaceMutation#1; cannot mutate an empty string", "warning");
-                return value;
-            }
-
-            string valueToReplace = GetValueStringTraversal.GetValue(value);
+            string valueToReplace = GetValueStringTraversal.GetValue(context, value);
             if (string.IsNullOrEmpty(valueToReplace))
                 return value;
 

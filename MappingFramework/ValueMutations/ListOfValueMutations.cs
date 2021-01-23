@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using MappingFramework.Configuration;
 using MappingFramework.Converters;
 using MappingFramework.Visitors;
@@ -23,24 +22,8 @@ namespace MappingFramework.ValueMutations
         {
             var result = value;
 
-            if (!Validate())
-                return result;
-
             foreach(ValueMutation valueMutation in ValueMutations)
                 result = valueMutation.Mutate(context, result);
-
-            return result;
-        }
-
-        private bool Validate()
-        {
-            bool result = true;
-
-            if ((ValueMutations?.Any() ?? false) == false)
-            {
-                Process.ProcessObservable.GetInstance().Raise($"ListOfValueMutations#1; {nameof(ValueMutations)} is empty", "error");
-                result = false;
-            }
 
             return result;
         }

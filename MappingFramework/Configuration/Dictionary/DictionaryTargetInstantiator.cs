@@ -14,7 +14,7 @@ namespace MappingFramework.Configuration.Dictionary
         public DictionaryTargetInstantiator() { }
 
 
-        public object Create(object source)
+        public object Create(Context context, object source)
         {
             if (source is IDictionary<string, object> dictionary)
                 return dictionary;

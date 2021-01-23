@@ -12,11 +12,11 @@ namespace MappingFramework.Configuration.DataStructure
 
         public DataStructureObjectConverter() { }
 
-        public object Convert(object source)
+        public object Convert(Context context, object source)
         {
             if (!(source is TraversableDataStructure converted))
             {
-                Process.ProcessObservable.GetInstance().Raise("DataStructure#17; source is not of expected type TraversableDataStructure", "error", source);
+                context.InvalidType(source, typeof(TraversableDataStructure));
                 return new NullDataStructure();
             }
 

@@ -13,10 +13,10 @@ namespace MappingFramework.Configuration.Xml
 
         public XmlChildCreator() { }
 
-        public object CreateChild(Template template)
+        public object CreateChild(Context context, Template template)
             => new XElement((XElement)template.Child);
 
-        public void AddToParent(Template template, object newChild)
+        public void AddToParent(Context context, Template template, object newChild)
             => ((XElement)template.Parent).Add((XElement)newChild);
     }
 }
