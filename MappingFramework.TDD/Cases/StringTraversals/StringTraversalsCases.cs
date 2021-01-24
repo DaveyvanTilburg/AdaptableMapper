@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using MappingFramework.Process;
-using MappingFramework.ValueMutations.Traversals;
+﻿using MappingFramework.ValueMutations.Traversals;
 using FluentAssertions;
+using MappingFramework.Configuration;
 using Xunit;
 
 namespace MappingFramework.TDD.Cases.StringTraversals
@@ -10,20 +8,21 @@ namespace MappingFramework.TDD.Cases.StringTraversals
     public class StringTraversalsCases
     {
         [Theory]
-        [InlineData("Valid", '|', 2, "value1|value2|value3", "value2")]
-        [InlineData("InvalidEmptyString", '|', 2, "", "", "w-SplitByCharTakePositionStringTraversal#1;")]
-        [InlineData("InvalidPosition", '|', 5, "value1|value2|value3", "", "w-SplitByCharTakePositionStringTraversal#2;")]
-        [InlineData("InvalidPosition", '|', 4, "value1|value2|value3", "", "w-SplitByCharTakePositionStringTraversal#2;")]
-        public void SplitByCharTakePositionStringTraversal(string because, char separator, int position, string value, string expectedResult, params string[] expectedInformation)
+        [InlineData("Valid", '|', 2, "value1|value2|value3", "value2", 0)]
+        [InlineData("InvalidEmptyString", '|', 2, "", "", 1)]
+        [InlineData("InvalidPosition", '|', 5, "value1|value2|value3", "", 1)]
+        [InlineData("InvalidPosition", '|', 4, "value1|value2|value3", "", 1)]
+        public void SplitByCharTakePositionStringTraversal(string because, char separator, int position, string value, string expectedResult, int informationCount)
         {
             var subject = new SplitByCharTakePositionStringTraversal(separator, position);
+            var context = new Context();
+            
+            string result = subject.GetValue(context, value);
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.GetValue(value); }).Observe();
+            context.Information().Count.Should().Be(informationCount);
 
-            information.ValidateResult(new List<string>(expectedInformation), because);
-            if (expectedInformation.Length == 0)
-                result.Should().Be(expectedResult);
+            if (informationCount == 0)
+                result.Should().Be(expectedResult, because);
         }
     }
 }

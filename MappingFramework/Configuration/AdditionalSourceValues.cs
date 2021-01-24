@@ -9,7 +9,7 @@ namespace MappingFramework.Configuration
 
         public AdditionalSourceValues() { }
 
-        public void AddAdditionalSource(AdditionalSource additionalSource)
+        public void AddAdditionalSource(AdditionalSource additionalSource, Context context)
         {
             Dictionary<string, string> dictionary;
             if (_values.ContainsKey(additionalSource.Name))
@@ -21,7 +21,10 @@ namespace MappingFramework.Configuration
             }
 
             foreach (KeyValuePair<string, string> kvp in additionalSource.GetValues())
-                dictionary.Add(kvp.Key, kvp.Value);
+                if (!dictionary.ContainsKey(kvp.Key))
+                    dictionary.Add(kvp.Key, kvp.Value);
+                else
+                    context.AddInformation($"Duplicate key for additional source: {kvp.Key}", InformationType.Error);
         }
 
         public string GetValue(string additionalSourceName, string key, Context context)

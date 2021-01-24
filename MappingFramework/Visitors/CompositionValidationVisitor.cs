@@ -76,7 +76,7 @@ namespace MappingFramework.Visitors
         {
             if (subject == null)
             {
-                _information.Add(new Information($"Composition incomplete, object empty : {subject.GetType().Name}", InformationType.Error));
+                _information.Add(new Information($"Composition incomplete, required object is empty", InformationType.Error));
                 return;
             }
 

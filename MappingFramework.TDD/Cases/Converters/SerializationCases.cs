@@ -27,18 +27,16 @@ namespace MappingFramework.TDD.Cases.Converters
         public void ShouldNotBeAbleToAddIrrelevantTypes()
         {
             var subject = new { };
-            List<Information> result = new Action(() => ResolvableTypeIdCollection.AddType(subject.GetType())).Observe();
-
-            result.ValidateResult(new List<string> { "e-ResolvableTypeIdCollection#1;" }, "IrrelevantTypes");
+            Action action = () => ResolvableTypeIdCollection.AddType(subject.GetType());
+            action.Should().Throw<Exception>();
         }
 
         [Fact]
         public void ShouldBeAbleToAddAndResolve()
         {
-            List<Information> information = new Action(() => ResolvableTypeIdCollection.AddType(typeof(TestResolvableByTypeId))).Observe();
+            ResolvableTypeIdCollection.AddType(typeof(TestResolvableByTypeId));
             Type result = ResolvableTypeIdCollection.GetType("1");
 
-            information.Should().BeEmpty();
             result.Should().Be(typeof(TestResolvableByTypeId));
         }
 

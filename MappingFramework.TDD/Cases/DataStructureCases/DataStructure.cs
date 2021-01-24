@@ -7,7 +7,7 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
 {
     public class DataStructure
     {
-        public static object CreateTarget(ContextType contextType, string type)
+        public static object Stub(ContextType contextType, string type)
         {
             object result = null;
 

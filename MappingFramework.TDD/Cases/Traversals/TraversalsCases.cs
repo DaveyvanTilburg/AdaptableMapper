@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MappingFramework.Compositions;
 using MappingFramework.Configuration;
-using MappingFramework.Process;
 using FluentAssertions;
 using Xunit;
 
@@ -11,50 +9,31 @@ namespace MappingFramework.TDD.Cases.Traversals
     public class TraversalsCases
     {
         [Theory]
-        [InlineData("Valid", "value", "value")]
-        public void GetStaticValueTraversal(string because, string value, string expectedResult, params string[] expectedInformation)
+        [InlineData("Valid", "value", "value", 0)]
+        [InlineData("Empty", "value", "value", 1)]
+        public void GetStaticValueTraversal(string because, string value, string expectedResult, int informationCount)
         {
             var subject = new GetStaticValue(value);
+            var context = new Context();
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.GetValue((string)null); }).Observe();
+            var result = subject.GetValue(context, null);
 
-            information.ValidateResult(new List<string>(expectedInformation), because);
-            if (expectedInformation.Length == 0)
-                result.Should().Be(expectedResult);
+            context.Information().Count.Should().Be(informationCount);
+            
+            if (informationCount == 0)
+                result.Should().Be(expectedResult, because);
         }
 
         [Fact]
         public void GetNothingValueTraversal()
         {
             var subject = new NullObject();
+            var context = new Context();
+            
+            string result = subject.GetValue(context, null);
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.GetValue((string)null); }).Observe();
-
-            information.Count.Should().Be(0);
-
+            context.Information().Count.Should().Be(0);
             result.Should().BeEmpty();
-        }
-
-        [Theory]
-        [InlineData("RangeWithLastDate", "2019/01/01", "2019/01/04", true, "4")]
-        [InlineData("RangeWithoutLastDate", "2019/01/01", "2019/01/04", false, "3")]
-        [InlineData("invalid first path", "a", "2019/01/04", false, "", "w-GetValueTraversalDaysBetweenDates#1;")]
-        [InlineData("invalid first path", "2019/01/01", "a", false, "", "w-GetValueTraversalDaysBetweenDates#2;")]
-        public void GetValueTraversalDaysBetweenDates(string because, string firstDate, string lastDate, bool includeLastDay, string expectedResult, params string[] expectedCodes)
-        {
-            var subject = new GetValueTraversalDaysBetweenDates(new GetStaticValue(firstDate), new GetStaticValue(lastDate))
-            {
-                IncludeLastDay = includeLastDay
-            };
-
-            string value = string.Empty;
-            List<Information> result = new Action(() => { value = subject.GetValue(new Context(null, null, null)); }).Observe();
-
-            result.ValidateResult(new List<string>(expectedCodes), because);
-            if (expectedCodes.Length == 0)
-                value.Should().Be(expectedResult);
         }
 
         [Fact]
@@ -129,7 +108,8 @@ namespace MappingFramework.TDD.Cases.Traversals
                 new MappingFramework.Configuration.Xml.XElementToStringObjectConverter()
             );
 
-            string result = mappingConfiguration.Map(source, template) as string;
+            MapResult mapResult = mappingConfiguration.Map(source, template);
+            string result = mapResult.Result as string;
 
             result.Should().BeEquivalentTo(expectedResult);
         }

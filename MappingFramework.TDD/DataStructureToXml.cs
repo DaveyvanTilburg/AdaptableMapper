@@ -14,22 +14,16 @@ namespace MappingFramework.TDD
         [Fact]
         public void DataStructureToXmlTest()
         {
-            var errorObserver = new TestErrorObserver();
-            Process.ProcessObservable.GetInstance().Register(errorObserver);
-
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
 
             TraversableDataStructure source = ArmySourceCreator.CreateArmy();
-            XElement result = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml")) as XElement;
-
-            Process.ProcessObservable.GetInstance().Unregister(errorObserver);
+            MapResult mapResult = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml"));
+            XElement result = mapResult.Result as XElement;
 
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyExpected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
-            errorObserver.GetRaisedWarnings().Count.Should().Be(0);
-            errorObserver.GetRaisedErrors().Count.Should().Be(0);
-            errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
+            mapResult.Information.Count.Should().Be(0);
 
             result.Should().BeEquivalentTo(xExpectedResult);
         }

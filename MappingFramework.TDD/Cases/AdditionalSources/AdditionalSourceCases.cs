@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FluentAssertions;
 using MappingFramework.Compositions;
 using MappingFramework.Configuration;
 using MappingFramework.Configuration.Json;
-using MappingFramework.Process;
 using MappingFramework.Traversals.Json;
 using MappingFramework.ValueMutations;
 using Xunit;
@@ -14,14 +12,14 @@ namespace MappingFramework.TDD.Cases.AdditionalSources
     public class AdditionalSourceCases
     {
         [Theory]
-        [InlineData("Values", "Identifier", "0123")]
-        [InlineData("Valuesy", "Identifier", "", "w-AdditionalSourceValues#2;")]
-        [InlineData("Valuesy", "Identifiery", "", "w-AdditionalSourceValues#2;")]
-        [InlineData("Values", "Identifiery", "", "w-AdditionalSourceValues#3;")]
-        [InlineData("", "", "", "w-GetStaticValueTraversal#1;", "w-GetAdditionalSourceValue#3;")]
-        [InlineData("", "Identifier", "", "w-GetStaticValueTraversal#1;", "w-GetAdditionalSourceValue#3;")]
-        [InlineData("Values", "", "", "w-GetStaticValueTraversal#1;", "w-GetAdditionalSourceValue#4;")]
-        public void GetAdditionalSourceValue(string name, string key, string value, params string[] expectedErrorCodes)
+        [InlineData("Values", "Identifier", "0123", 0)]
+        [InlineData("Valuesy", "Identifier", "", 1)]
+        [InlineData("Valuesy", "Identifiery", "", 1)]
+        [InlineData("Values", "Identifiery", "", 1)]
+        [InlineData("", "", "", 2)]
+        [InlineData("", "Identifier", "", 2)]
+        [InlineData("Values", "", "", 2)]
+        public void GetAdditionalSourceValue(string name, string key, string value, int informationCount)
         {
             var subject = new GetAdditionalSourceValue(
                 new GetStaticValue(name),
@@ -36,11 +34,9 @@ namespace MappingFramework.TDD.Cases.AdditionalSources
             var contextFactory = new ContextFactory(new JsonObjectConverter(), new JsonTargetInstantiator(), additionalSources);
             Context context = contextFactory.Create("{}", "{}");
 
-            string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.GetValue(context); }).Observe();
-            information.ValidateResult(expectedErrorCodes);
-
+            string result = subject.GetValue(context);
             result.Should().BeEquivalentTo(value);
+            context.Information().Count.Should().Be(informationCount);
         }
 
         [Fact]
@@ -53,8 +49,9 @@ namespace MappingFramework.TDD.Cases.AdditionalSources
             };
 
             var contextFactory = new ContextFactory(new JsonObjectConverter(), new JsonTargetInstantiator(), additionalSources);
-            List<Information> information = new Action(() => { contextFactory.Create("{}", "{}"); }).Observe();
-            information.ValidateResult(new List<string> { "e-AdditionalSourceValues#1;" });
+            var context = contextFactory.Create("{}", "{}");
+
+            context.Information().Count.Should().Be(4);
         }
 
         [Fact]
@@ -117,12 +114,13 @@ namespace MappingFramework.TDD.Cases.AdditionalSources
 
 
             string result = string.Empty;
-            List<Information> information = new Action(() => {
-                result = mappingConfiguration.Map(
-                    System.IO.File.ReadAllText("./Cases/AdditionalSources/AdditionalSourceValueFullSource.json"),
-                    System.IO.File.ReadAllText("./Cases/AdditionalSources/AdditionalSourceValueFullTarget.json")) as string;
-            }).Observe();
-            information.Should().BeEmpty();
+
+            var mapResult = mappingConfiguration.Map(
+                System.IO.File.ReadAllText("./Cases/AdditionalSources/AdditionalSourceValueFullSource.json"),
+                System.IO.File.ReadAllText("./Cases/AdditionalSources/AdditionalSourceValueFullTarget.json")
+            );
+
+            mapResult.Information.Should().BeEmpty();
 
             string expectedResult = System.IO.File.ReadAllText("./Cases/AdditionalSources/AdditionalSourceValueFullExpectedResult.json");
             result.Should().BeEquivalentTo(expectedResult);

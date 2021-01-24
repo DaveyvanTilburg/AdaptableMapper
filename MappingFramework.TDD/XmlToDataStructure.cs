@@ -12,22 +12,15 @@ namespace MappingFramework.TDD
         [Fact]
         public void XmlToDataStructureTest()
         {
-            var errorObserver = new TestErrorObserver();
-            Process.ProcessObservable.GetInstance().Register(errorObserver);
-
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
             string targetInstantiatorSource = CreateDataStructureTargetInstantiatorSource();
 
-            object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), targetInstantiatorSource);
+            MapResult mapResult = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), targetInstantiatorSource);
 
-            var result = resultObject as Root;
+            var result = mapResult.Result as Root;
             result.Should().NotBeNull();
 
-            Process.ProcessObservable.GetInstance().Unregister(errorObserver);
-
-            errorObserver.GetRaisedWarnings().Count.Should().Be(2);
-            errorObserver.GetRaisedErrors().Count.Should().Be(0);
-            errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
+            mapResult.Information.Count.Should().Be(2);
 
             result.Organization.Leaders.Count.Should().Be(3);
             result.Organization.Leaders[0].Reference.Should().Be("alpha-bravo-tango-delta");
@@ -50,9 +43,9 @@ namespace MappingFramework.TDD
             mappingConfiguration.ResultObjectConverter = new Configuration.DataStructure.ObjectToJsonResultObjectConverter();
             string dataStructureTargetInstantiatorSource = CreateDataStructureTargetInstantiatorSource();
 
-            object resultObject = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), dataStructureTargetInstantiatorSource);
-
-            var result = resultObject as string;
+            MapResult mapResult = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), dataStructureTargetInstantiatorSource);
+            
+            var result = mapResult.Result as string;
             result.Should().NotBeNull();
 
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\ModelTarget_ArmyExpected.txt");

@@ -36,7 +36,8 @@ namespace MappingFramework.TDD
             );
 
             string source = File.ReadAllText("./Resources/JsonSource_HardwareComposition.json");
-            var result = mappingConfiguration.Map(source, null) as EasyAccessDictionary;
+            MapResult mapResult = mappingConfiguration.Map(source, null);
+            var result = mapResult.Result as EasyAccessDictionary;
 
             result.GetValueAs<string>("Brand").Should().Be("MSI");
             result.GetValueAs<int>("CPUs").Should().Be(2);

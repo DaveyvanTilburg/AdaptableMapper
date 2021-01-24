@@ -1,32 +1,30 @@
-﻿using MappingFramework.Process;
-using System;
-using System.Collections.Generic;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using MappingFramework.Configuration.Xml;
 using MappingFramework.Xml;
 using Xunit;
 using FluentAssertions;
+using MappingFramework.Configuration;
 
 namespace MappingFramework.TDD.Cases.XmlCases
 {
     public class XmlConfiguration
     {
         [Theory]
-        [InlineData("InvalidType", ContextType.InvalidType, XmlInterpretation.Default, "", "e-XML#18;")]
-        [InlineData("InvalidSource", ContextType.InvalidSource, XmlInterpretation.Default, "", "e-XML#19;")]
-        [InlineData("Valid", ContextType.ValidAlternativeSource, XmlInterpretation.WithoutNamespace, "./Resources/SimpleRemovedNamespaceExpectedResult.xml")]
-        public void XmlObjectConverter(string because, ContextType contextType, XmlInterpretation xmlInterpretation, string expectedResultFile, params string[] expectedErrors)
+        [InlineData("InvalidType", ContextType.InvalidType, XmlInterpretation.Default, "", 1)]
+        [InlineData("InvalidSource", ContextType.InvalidSource, XmlInterpretation.Default, "", 1)]
+        [InlineData("Valid", ContextType.ValidAlternativeSource, XmlInterpretation.WithoutNamespace, "./Resources/SimpleRemovedNamespaceExpectedResult.xml", 0)]
+        public void XmlObjectConverter(string because, ContextType contextType, XmlInterpretation xmlInterpretation, string expectedResultFile, int informationCount)
         {
             var subject = new XmlObjectConverter { XmlInterpretation = xmlInterpretation };
-            object context = Xml.CreateTarget(contextType);
+            object source = Xml.Stub(contextType);
+            var context = new Context();
 
-            object value = null;
-            List<Information> result = new Action(() => { value = subject.Convert(context); }).Observe();
+            object value = subject.Convert(context, source);
+            value.Should().NotBeNull(because);
 
-            value.Should().NotBeNull();
-            result.ValidateResult(new List<string>(expectedErrors), because);
-
-            if (expectedErrors.Length == 0)
+            context.Information().Count.Should().Be(informationCount, because);
+            
+            if (informationCount == 0)
             {
                 string expectedResult = System.IO.File.ReadAllText(expectedResultFile);
 
@@ -34,26 +32,26 @@ namespace MappingFramework.TDD.Cases.XmlCases
 
                 var converter = new XElementToStringObjectConverter();
                 var convertedResult = converter.Convert(xElementValue);
-                convertedResult.Should().Be(expectedResult);
+                convertedResult.Should().Be(expectedResult, because);
             }
         }
 
         [Theory]
-        [InlineData("InvalidType", ContextType.InvalidType, XmlInterpretation.Default, "", "e-XML#24;")]
-        [InlineData("InvalidSource", ContextType.InvalidSource, XmlInterpretation.Default, "", "e-XML#6;")]
-        [InlineData("Valid", ContextType.ValidAlternativeSource, XmlInterpretation.WithoutNamespace, "./Resources/SimpleRemovedNamespaceExpectedResult.xml")]
-        public void XmlTargetInstantiator(string because, ContextType contextType, XmlInterpretation xmlInterpretation, string expectedResultFile, params string[] expectedErrors)
+        [InlineData("InvalidType", ContextType.InvalidType, XmlInterpretation.Default, "", 1)]
+        [InlineData("InvalidSource", ContextType.InvalidSource, XmlInterpretation.Default, "", 1)]
+        [InlineData("Valid", ContextType.ValidAlternativeSource, XmlInterpretation.WithoutNamespace, "./Resources/SimpleRemovedNamespaceExpectedResult.xml", 0)]
+        public void XmlTargetInstantiator(string because, ContextType contextType, XmlInterpretation xmlInterpretation, string expectedResultFile, int informationCount)
         {
             var subject = new XmlTargetInstantiator { XmlInterpretation = xmlInterpretation };
-            object context = Xml.CreateTarget(contextType);
+            object source = Xml.Stub(contextType);
+            var context = new Context();
 
-            object value = null;
-            List<Information> result = new Action(() => { value = subject.Create(context); }).Observe();
+            object value = subject.Create(context, source);
+            value.Should().NotBeNull(because);
 
-            value.Should().NotBeNull();
-            result.ValidateResult(new List<string>(expectedErrors), because);
+            context.Information().Count.Should().Be(informationCount, because);
 
-            if (expectedErrors.Length == 0)
+            if (informationCount == 0)
             {
                 string expectedResult = System.IO.File.ReadAllText(expectedResultFile);
 
@@ -61,29 +59,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
 
                 var converter = new XElementToStringObjectConverter();
                 var convertedResult = converter.Convert(xElementValue);
-                convertedResult.Should().Be(expectedResult);
-            }
-        }
-
-        [Theory]
-        [InlineData("LengthCheckUseIndentation", ContextType.AlternativeTestObject, true, true, 13)]
-        [InlineData("LengthCheckDoNotUseIndentation", ContextType.AlternativeTestObject, false, true, 1)]
-        [InlineData("LengthCheckUseIndentationWithoutDeclaration", ContextType.AlternativeTestObject, true, false, 12)]
-        [InlineData("LengthCheckDoNotUseIndentationWithoutDeclaration", ContextType.AlternativeTestObject, false, false, 1)]
-        public void XElementToStringObjectConverter(string because, ContextType contextType, bool useIndentation, bool includeDeclaration, int expectedLines, params string[] expectedErrors)
-        {
-            var subject = new XElementToStringObjectConverter { UseIndentation = useIndentation, IncludeDeclaration = includeDeclaration };
-            object context = Xml.CreateTarget(contextType);
-
-            string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.Convert(context) as string; }).Observe();
-
-            information.ValidateResult(new List<string>(expectedErrors), because);
-
-            if (expectedErrors.Length == 0)
-            {
-                string[] lines = result.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-                lines.Length.Should().Be(expectedLines);
+                convertedResult.Should().Be(expectedResult, because);
             }
         }
     }

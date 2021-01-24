@@ -15,33 +15,12 @@ namespace MappingFramework.Configuration.DataStructure
         public DataStructureChildCreator() { }
 
         public object CreateChild(Context context, Template template)
-        {
-            if (!(template.Child is IList parentProperty))
-            {
-                context.InvalidType(template.Child, typeof(IList));
-                return new NullDataStructure();
-            }
-
-            TraversableDataStructure newEntry = parentProperty.GetType().CreateDataStructure(context);
-            return newEntry;
-        }
+            => ((IList)template.Child).GetType().CreateDataStructure(context);
 
         public void AddToParent(Context context, Template template, object newChild)
         {
-            if (!(template.Parent is TraversableDataStructure parent))
-            {
-                context.InvalidType(template.Parent, typeof(TraversableDataStructure));
-                return;
-            }
-
-            if (!(template.Child is IList parentProperty))
-            {
-                context.InvalidType(template.Child, typeof(IList));
-                return;
-            }
-
-            ((TraversableDataStructure)newChild).Parent = parent;
-            parentProperty.Add(newChild);
+            ((TraversableDataStructure)newChild).Parent = (TraversableDataStructure)template.Parent;
+            ((IList)template.Child).Add(newChild);
         }
     }
 }

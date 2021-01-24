@@ -59,7 +59,8 @@ namespace MappingFramework.MappingInterface
             string source = SourceTextBox.Text;
             string target = TargetTextBox.Text;
 
-            string result = _mappingConfiguration.Map(source, target) as string;
+            MapResult mapResult = _mappingConfiguration.Map(source, target);
+            string result = mapResult.Result as string;
             MessageBox.Show(result);
         }
         

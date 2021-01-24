@@ -11,21 +11,15 @@ namespace MappingFramework.TDD
         [Fact]
         public void JsonToXmlTest()
         {
-            var errorObserver = new TestErrorObserver();
-            Process.ProcessObservable.GetInstance().Register(errorObserver);
-
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
 
-            XElement result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\JsonSource_HardwareComposition.json"), System.IO.File.ReadAllText(@".\Resources\XmlTarget_HardwareTemplate.xml")) as XElement;
-
-            Process.ProcessObservable.GetInstance().Unregister(errorObserver);
+            MapResult mapResult = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\JsonSource_HardwareComposition.json"), System.IO.File.ReadAllText(@".\Resources\XmlTarget_HardwareTemplate.xml"));
+            XElement result = mapResult.Result as XElement;
 
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_HardwareExpected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
-            errorObserver.GetRaisedWarnings().Count.Should().Be(0);
-            errorObserver.GetRaisedErrors().Count.Should().Be(0);
-            errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
+            mapResult.Information.Count.Should().Be(0);
 
             result.Should().BeEquivalentTo(xExpectedResult);
         }

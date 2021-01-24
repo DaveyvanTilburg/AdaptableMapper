@@ -36,6 +36,12 @@ namespace MappingFramework.Traversals.Json
                 return CreateNullTemplate();
             }
 
+            if (!(result.Parent is JArray))
+            {
+                context.NavigationInvalid(Path, "Path should end in a node whose parent is an array", this);
+                return CreateNullTemplate();
+            }
+
             var template = new Template
             {
                 Parent = result.Parent
@@ -53,10 +59,10 @@ namespace MappingFramework.Traversals.Json
                 storedTemplate = result;
             }
             else if (!hasAccessed)
-            {
                 result.Remove();
-            }
 
+            
+            
             template.Child = storedTemplate;
 
             return template;

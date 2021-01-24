@@ -60,7 +60,10 @@ namespace MappingFramework.Configuration
 
         public void NavigationInvalid(string path, string message)
             => _information.Add(new Information($"Path is invalid, path: {path}, message: {message}", InformationType.Error));
-        
+
+        public void NavigationInvalid(string path, string message, object subject)
+            => _information.Add(new Information($"Path is invalid for {subject.GetType().Name}, path: {path}, message: {message}", InformationType.Error));
+
         public string AdditionalValue(string name, string key)
             => AdditionalSourceValues.GetValue(name, key, this);
 

@@ -13,9 +13,6 @@ namespace MappingFramework.Configuration.DataStructure
         public ObjectToJsonResultObjectConverter() { }
 
         public object Convert(object source)
-        {
-            string result = JsonConvert.SerializeObject(source);
-            return result;
-        }
+            => JsonConvert.SerializeObject(source);
     }
 }

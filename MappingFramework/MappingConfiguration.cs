@@ -45,8 +45,14 @@ namespace MappingFramework
             ResultObjectConverter = resultObjectConverter;
         }
 
-        public object Map(object source, object targetSource)
+        public MapResult Map(object source, object targetSource)
         {
+            var validation = new CompositionValidationVisitor();
+            validation.Visit(this);
+
+            if (validation.Feedback().Count > 0)
+                return new MapResult(null, validation.Feedback());
+
             Context context = ContextFactory.Create(source, targetSource);
 
             foreach (Mapping mapping in Mappings)
@@ -56,7 +62,7 @@ namespace MappingFramework
                 mappingScopeComposite.Traverse(context, _mappingCaches);
 
             object result = ResultObjectConverter.Convert(context.Target);
-            return result;
+            return new MapResult(result, context.Information());
         }
 
         void IVisitable.Receive(IVisitor visitor)

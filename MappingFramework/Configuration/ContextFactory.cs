@@ -26,19 +26,19 @@ namespace MappingFramework.Configuration
 
         public Context Create(object input, object targetSource)
         {
-            var additionalSourceValues = new AdditionalSourceValues();
-            if (AdditionalSources != null)
-            {
-                foreach (AdditionalSource additionalSource in AdditionalSources)
-                    additionalSourceValues.AddAdditionalSource(additionalSource);
-            }
-
             var context = new Context();
             var source = ObjectConverter.Convert(context, input);
             var target = TargetInstantiator.Create(context, targetSource);
 
             context.Source = source;
             context.Target = target;
+            var additionalSourceValues = new AdditionalSourceValues();
+            if (AdditionalSources != null)
+            {
+                foreach (AdditionalSource additionalSource in AdditionalSources)
+                    additionalSourceValues.AddAdditionalSource(additionalSource, context);
+            }
+
             context.AdditionalSourceValues = additionalSourceValues;
 
             return context;

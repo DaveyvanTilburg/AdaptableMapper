@@ -4,7 +4,7 @@ namespace MappingFramework.TDD.Cases.JsonCases
 {
     public class Json
     {
-        public static object CreateTarget(ContextType contextType)
+        public static object Stub(ContextType contextType)
         {
             object result = null;
 

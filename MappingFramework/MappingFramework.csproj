@@ -70,6 +70,7 @@
     <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="Configuration\Json\JsonChildCreator.cs" />
     <Compile Include="MappingCaches.cs" />
+    <Compile Include="MapResult.cs" />
     <Compile Include="NullObject.cs" />
     <Compile Include="OptionLists.cs" />
     <Compile Include="Process\InformationType.cs" />

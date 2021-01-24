@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using MappingFramework.Compositions;
 using MappingFramework.Configuration;
 using MappingFramework.ValueMutations;
-using MappingFramework.Process;
 using FluentAssertions;
 using Xunit;
 using MappingFramework.ValueMutations.Traversals;
@@ -14,29 +11,29 @@ namespace MappingFramework.TDD.Cases.ValueMutations
     public class ValueMutationsCases
     {
         [Theory]
-        [InlineData("InvalidDateTime", "", "", "test", "", "w-DateValueMutation#1;")]
-        [InlineData("ValidDate", "yyyy/MM/dd", "", "2019-12-01T00:00:00", "2019/12/01")]
-        [InlineData("ValidDate", "yyyy|MM|dd", "", "2019/12/19T00:00:00", "2019|12|19")]
-        [InlineData("ValidDateISO", "o", "", "2019-12-01T00:00:00", "2019-12-01T00:00:00.0000000")]
-        [InlineData("S", "s", "", "2019-12-01T00:00:00", "2019-12-01T00:00:00")]
-        [InlineData("StrangeFormatTemplate1", "&#$#$", "", "2019-12-01T00:00:00", "&#$#$")]
-        [InlineData("StrangeFormatTemplate2", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{", "", "2019-12-01T00:00:00", "2019-12-01T00:00:00", "e-DateValueMutation#2;")]
-        [InlineData("StrangeFormatTemplate3", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{\"", "", "2019-12-01T00:00:00", "2019345789aw19aUJI0SEU0#&*$Sunday12::{:{")]
-        [InlineData("ValidDateRead", "yyyy/MM/dd", "yyMMdd", "911230", "1991/12/30")]
-        [InlineData("ValidDateInvalidRead", "yyyy/MM/dd", "yyMdd", "91230", "911230", "w-DateValueMutation#3;")]
-        [InlineData("ValidDateDirectRead", "yyyy/MM/dd", "", "2019-12-01T00:00:00", "2019/12/01")]
-        [InlineData("ValidDateDirectReadWrite", "", "", "2019-12-01", "2019-12-01T00:00:00")]
+        [InlineData("InvalidDateTime", "", "", "test", "", 1)]
+        [InlineData("ValidDate", "yyyy/MM/dd", "", "2019-12-01T00:00:00", "2019/12/01", 0)]
+        [InlineData("ValidDate", "yyyy|MM|dd", "", "2019/12/19T00:00:00", "2019|12|19", 0)]
+        [InlineData("ValidDateISO", "o", "", "2019-12-01T00:00:00", "2019-12-01T00:00:00.0000000", 0)]
+        [InlineData("S", "s", "", "2019-12-01T00:00:00", "2019-12-01T00:00:00", 0)]
+        [InlineData("StrangeFormatTemplate1", "&#$#$", "", "2019-12-01T00:00:00", "&#$#$", 0)]
+        [InlineData("StrangeFormatTemplate2", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{", "", "2019-12-01T00:00:00", "2019-12-01T00:00:00", 1)]
+        [InlineData("StrangeFormatTemplate3", "yyyy345789awytUJIHSEFUH#&*$ddddMM:\":{:{\"", "", "2019-12-01T00:00:00", "2019345789aw19aUJI0SEU0#&*$Sunday12::{:{", 0)]
+        [InlineData("ValidDateRead", "yyyy/MM/dd", "yyMMdd", "911230", "1991/12/30", 0)]
+        [InlineData("ValidDateInvalidRead", "yyyy/MM/dd", "yyMdd", "91230", "911230", 1)]
+        [InlineData("ValidDateDirectRead", "yyyy/MM/dd", "", "2019-12-01T00:00:00", "2019/12/01", 0)]
+        [InlineData("ValidDateDirectReadWrite", "", "", "2019-12-01", "2019-12-01T00:00:00", 0)]
 
-        public void DateValueMutation(string because, string formatTemplate, string readFormatTemplate, string value, string expectedResult, params string[] expectedInformation)
+        public void DateValueMutation(string because, string formatTemplate, string readFormatTemplate, string value, string expectedResult, int informationCount)
         {
             var subject = new DateValueMutation { FormatTemplate = formatTemplate, ReadFormatTemplate = readFormatTemplate };
+            var context = new Context();
+            
+            string result = subject.Mutate(context, value); ;
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.Mutate(null, value); }).Observe();
-
-            information.ValidateResult(new List<string>(expectedInformation), because);
-            if (expectedInformation.Length == 0)
-                result.Should().Be(expectedResult);
+            context.Information().Count.Should().Be(informationCount);
+            if (informationCount == 0)
+                result.Should().Be(expectedResult, because);
         }
 
         [Theory]
@@ -52,16 +49,15 @@ namespace MappingFramework.TDD.Cases.ValueMutations
         [InlineData("ValidDecimalNoSeparator7", "", 7, "abc", "")]
         [InlineData("ValidDecimalNoSeparator0", "", 0, "10", "10")]
         [InlineData("Empty", ".", 5, "", "0.00000")]
-        public void NumberValueMutation(string because, string formatTemplate, int numberOfDecimals, string value, string expectedResult, params string[] expectedInformation)
+        public void NumberValueMutation(string because, string formatTemplate, int numberOfDecimals, string value, string expectedResult)
         {
             var subject = new NumberValueMutation(formatTemplate, numberOfDecimals);
+            var context = new Context();
+            
+            string result = subject.Mutate(context, value); ;
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.Mutate(null, value); }).Observe();
-
-            information.ValidateResult(new List<string>(expectedInformation), because);
-            if (expectedInformation.Length == 0)
-                result.Should().Be(expectedResult);
+            context.Information().Count.Should().Be(0);
+            result.Should().Be(expectedResult, because);
         }
 
         [Fact]
@@ -69,11 +65,11 @@ namespace MappingFramework.TDD.Cases.ValueMutations
         {
             var subject = new ListOfValueMutations();
             subject.ValueMutations.Add(new NumberValueMutation(".", 2));
+            var context = new Context();
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.Mutate(null, "36500"); }).Observe();
+            string result = subject.Mutate(context, "36500");
 
-            information.Count.Should().Be(0);
+            context.Information().Count.Should().Be(0);
             result.Should().Be("365.00");
         }
 
@@ -81,39 +77,39 @@ namespace MappingFramework.TDD.Cases.ValueMutations
         public void ListValueMutationEmpty()
         {
             var subject = new ListOfValueMutations();
+            var context = new Context();
+            
+            string result = subject.Mutate(context, "36500");
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.Mutate(null, "36500"); }).Observe();
-
-            information.Count.Should().Be(1);
-            information.Any(i => i.Message.StartsWith("ListOfValueMutations#1;")).Should().BeTrue();
+            context.Information().Count.Should().Be(1);
+            result.Should().Be("36500");
         }
 
         [Theory]
-        [InlineData("Valid", "an old", "a new", "this is an old message", "this is a new message")]
-        [InlineData("Invalid", "an old", "a new", "this is an old message", "this is a new message")]
-        [InlineData("InvalidEmpty", "an old", "a new", "", "this is a new message", "w-ReplaceMutation#1;")]
-        public void ReplaceValueMutation(string because, string valueToReplace, string newValue, string value, string expectedResult, params string[] expectedInformation)
+        [InlineData("Valid", "an old", "a new", "this is an old message", "this is a new message", 0)]
+        [InlineData("Invalid", "an old", "a new", "this is an old message", "this is a new message", 0)]
+        [InlineData("InvalidEmpty", "an old", "a new", "", "this is a new message", 1)]
+        public void ReplaceValueMutation(string because, string valueToReplace, string newValue, string value, string expectedResult, int informationCount)
         {
             var subject = new ReplaceValueMutation(
                 new GetStaticValue(valueToReplace),
                 new GetStaticValue(newValue)
             );
+            var context = new Context();
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), value); }).Observe();
+            string result = subject.Mutate(context, value);
 
-            information.ValidateResult(new List<string>(expectedInformation), because);
-            if (expectedInformation.Length == 0)
-                result.Should().Be(expectedResult);
+            context.Information().Count.Should().Be(informationCount);
+            if (informationCount == 0)
+                result.Should().Be(expectedResult, because);
         }
         
         [Theory]
-        [InlineData("Valid1", "Old", "New")]
-        [InlineData("Valid2", "1", "2")]
-        [InlineData("No Hit", "Something", "Something")]
-        [InlineData("Empty", "", "", "w-DictionaryReplaceValueMutation#2;")]
-        public void DictionaryReplaceValueMutation(string because, string value, string expectedResult, params string[] expectedInformation)
+        [InlineData("Valid1", "Old", "New", 0)]
+        [InlineData("Valid2", "1", "2", 0)]
+        [InlineData("No Hit", "Something", "Something", 0)]
+        [InlineData("Empty", "", "", 1)]
+        public void DictionaryReplaceValueMutation(string because, string value, string expectedResult, int informationCount)
         {
             var subject = new DictionaryReplaceValueMutation(
                 new List<DictionaryReplaceValueMutation.ReplaceValue>
@@ -130,19 +126,19 @@ namespace MappingFramework.TDD.Cases.ValueMutations
                     }
                 }
             );
+            var context = new Context();
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), value); }).Observe();
+            string result = subject.Mutate(context, value);
 
-            information.ValidateResult(new List<string>(expectedInformation), because);
-            if (expectedInformation.Length == 0)
-                result.Should().Be(expectedResult);
+            context.Information().Count.Should().Be(informationCount);
+            if (informationCount == 0)
+                result.Should().Be(expectedResult, because);
         }
 
         [Theory]
-        [InlineData("Valid", '|', 2, "value1|value2|value3", "value1|silver|value3")]
-        [InlineData("No hit", '|', 4, "value1|value2|value3", "value1|value2|value3", "w-SplitByCharTakePositionStringTraversal#2;")]
-        public void DictionaryReplaceValueMutationWithTraversal(string because, char separator, int position, string value, string expectedResult, params string[] expectedInformation)
+        [InlineData("Valid", '|', 2, "value1|value2|value3", "value1|silver|value3", 0)]
+        [InlineData("No hit", '|', 4, "value1|value2|value3", "value1|value2|value3", 1)]
+        public void DictionaryReplaceValueMutationWithTraversal(string because, char separator, int position, string value, string expectedResult, int informationCount)
         {
             var subject = new DictionaryReplaceValueMutation(
                 new List<DictionaryReplaceValueMutation.ReplaceValue>
@@ -167,31 +163,31 @@ namespace MappingFramework.TDD.Cases.ValueMutations
             {
                 GetValueStringTraversal = new SplitByCharTakePositionStringTraversal(separator, position)
             };
+            var context = new Context();
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), value); }).Observe();
+            string result = subject.Mutate(context, value);
 
-            information.ValidateResult(new List<string>(expectedInformation), because);
-
-            result.Should().Be(expectedResult);
+            context.Information().Count.Should().Be(informationCount);
+            if (informationCount == 0)
+                result.Should().Be(expectedResult, because);
         }
 
         [Theory]
-        [InlineData("Valid", '|', 2, "value1|value2|value3", "value2")]
-        [InlineData("No hit", '|', 4, "value1|value2|value3", "", "w-SplitByCharTakePositionStringTraversal#2;")]
-        public void SubstringValueMutation(string because, char separator, int position, string value, string expectedResult, params string[] expectedInformation)
+        [InlineData("Valid", '|', 2, "value1|value2|value3", "value2", 0)]
+        [InlineData("No hit", '|', 4, "value1|value2|value3", "", 1)]
+        public void SubstringValueMutation(string because, char separator, int position, string value, string expectedResult, int informationCount)
         {
             var subject = new SubstringValueMutation
             (
                 new SplitByCharTakePositionStringTraversal(separator, position)
             );
+            var context = new Context();
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), value); }).Observe();
+            string result = subject.Mutate(context, value);
 
-            information.ValidateResult(new List<string>(expectedInformation), because);
-
-            result.Should().Be(expectedResult);
+            context.Information().Count.Should().Be(informationCount);
+            if (informationCount == 0)
+                result.Should().Be(expectedResult, because);
         }
 
         [Fact]
@@ -200,27 +196,28 @@ namespace MappingFramework.TDD.Cases.ValueMutations
             var subject = new DictionaryReplaceValueMutation(
                 new List<DictionaryReplaceValueMutation.ReplaceValue>()
             );
+            var context = new Context();
 
-            List<Information> information = new Action(() => { subject.Mutate(new Context(null, null, null), string.Empty); }).Observe();
+            subject.Mutate(context, string.Empty);
 
-            information.ValidateResult(new List<string> { "e-DictionaryReplaceValueMutation#1;" });
+            context.Information().Count.Should().Be(1);
         }
 
         [Theory]
-        [InlineData(",", 0, "6", "0,1,2,3,4,5")]
-        [InlineData(",", 2, "6", "2,3,4,5,6,7")]
-        [InlineData("sep", 0, "3", "0sep1sep2")]
-        [InlineData("|", 0, "abcd", "", "e-CreateSeparatedRangeFromNumberValueMutation#1;")]
-        public void CreateSeparatedRangeFromNumberValueMutation(string separator, int startingNumber, string input, string expectedResult, params string[] expectedErrorCodes)
+        [InlineData(",", 0, "6", "0,1,2,3,4,5", 0)]
+        [InlineData(",", 2, "6", "2,3,4,5,6,7", 0)]
+        [InlineData("sep", 0, "3", "0sep1sep2", 0)]
+        [InlineData("|", 0, "abcd", "", 1)]
+        public void CreateSeparatedRangeFromNumberValueMutation(string separator, int startingNumber, string value, string expectedResult, int informationCount)
         {
             var subject = new CreateSeparatedRangeFromNumberValueMutation(separator) { StartingNumber = startingNumber };
+            var context = new Context();
 
-            string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), input); }).Observe();
+            string result = subject.Mutate(context, value);
 
-            information.ValidateResult(new List<string>(expectedErrorCodes));
-            if (expectedErrorCodes.Length == 0)
-                result.Should().BeEquivalentTo(expectedResult);
+            context.Information().Count.Should().Be(informationCount);
+            if (informationCount == 0)
+                result.Should().Be(expectedResult);
         }
 
         [Theory]
@@ -231,11 +228,11 @@ namespace MappingFramework.TDD.Cases.ValueMutations
         public void ToUpperValueMutation(string input, string expectedResult)
         {
             var subject = new ToUpperValueMutation();
+            var context = new Context();
+            
+            string result = subject.Mutate(context, input);
 
-            string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), input); }).Observe();
-
-            information.Count.Should().Be(0);
+            context.Information().Count.Should().Be(0);
             result.Should().Be(expectedResult);
         }
 
@@ -247,11 +244,11 @@ namespace MappingFramework.TDD.Cases.ValueMutations
         public void ToLowerValueMutation(string input, string expectedResult)
         {
             var subject = new ToLowerValueMutation();
+            var context = new Context();
 
-            string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), input); }).Observe();
+            string result = subject.Mutate(context, input);
 
-            information.Count.Should().Be(0);
+            context.Information().Count.Should().Be(0);
             result.Should().Be(expectedResult);
         }
 
@@ -263,11 +260,11 @@ namespace MappingFramework.TDD.Cases.ValueMutations
         public void PlaceholderValueMutation(string input, string placeholder, string expectedResult)
         {
             var subject = new PlaceholderValueMutation(placeholder);
+            var context = new Context();
 
-            string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), input); }).Observe();
+            string result = subject.Mutate(context, input);
 
-            information.Count.Should().Be(0);
+            context.Information().Count.Should().Be(0);
             result.Should().Be(expectedResult);
         }
 
@@ -278,11 +275,11 @@ namespace MappingFramework.TDD.Cases.ValueMutations
         public void TrimValueMutation(string input, string characters, string expectedResult)
         {
             var subject = new TrimValueMutation(characters);
+            var context = new Context();
 
-            string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.Mutate(new Context(null, null, null), input); }).Observe();
+            string result = subject.Mutate(context, input);
 
-            information.Count.Should().Be(0);
+            context.Information().Count.Should().Be(0);
             result.Should().Be(expectedResult);
         }
     }

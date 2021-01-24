@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Xml.Linq;
 using MappingFramework.Compositions;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
-using MappingFramework.Process;
 using MappingFramework.Traversals;
 using MappingFramework.Traversals.Xml;
 using FluentAssertions;
@@ -48,37 +45,37 @@ namespace MappingFramework.TDD.Cases.Conditions
 
             subject.Traverse(new Context(null, null, null), new MappingCaches());
 
-            childCreator.Verify(c => c.AddToParent(It.IsAny<Template>(), It.IsAny<object>()), Times.Once);
+            childCreator.Verify(c => c.AddToParent(It.IsAny<Context>(), It.IsAny<Template>(), It.IsAny<object>()), Times.Once);
         }
 
         [Theory]
-        [InlineData("0", CompareOperator.Equals, "0", true)]
-        [InlineData("0", CompareOperator.Equals, "1", false)]
-        [InlineData("0", CompareOperator.NotEquals, "1", true)]
-        [InlineData("1", CompareOperator.NotEquals, "1", false)]
-        [InlineData("1", CompareOperator.GreaterThan, "1", false)]
-        [InlineData("1", CompareOperator.GreaterThan, "2", false)]
-        [InlineData("2", CompareOperator.GreaterThan, "1", true)]
-        [InlineData("1", CompareOperator.LessThan, "2", true)]
-        [InlineData("2", CompareOperator.LessThan, "1", false)]
-        [InlineData("abcd", CompareOperator.Equals, "1", false)]
-        [InlineData("0", CompareOperator.NotEquals, "abcd", true)]
-        [InlineData("2", CompareOperator.GreaterThan, "a", true, "w-CompareCondition#3;")]
-        [InlineData("a", CompareOperator.LessThan, "2", true, "w-CompareCondition#3;")]
-        [InlineData("a", CompareOperator.GreaterThan, "2", false, "w-CompareCondition#3;")]
-        [InlineData("2", CompareOperator.LessThan, "a", false, "w-CompareCondition#3;")]
-        [InlineData("b", CompareOperator.LessThan, "a", false, "w-CompareCondition#3;", "w-CompareCondition#3;")]
-        [InlineData("b", CompareOperator.GreaterThan, "a", false, "w-CompareCondition#3;", "w-CompareCondition#3;")]
-        [InlineData("abcd", CompareOperator.Contains, "a", true)]
-        [InlineData("abcd", CompareOperator.Contains, "e", false)]
-        public void CompareConditionStatics(string valueA, CompareOperator compareOperator, string valueB, bool expectedResult, params string[] expectedErrors)
+        [InlineData("0", CompareOperator.Equals, "0", true, 0)]
+        [InlineData("0", CompareOperator.Equals, "1", false, 0)]
+        [InlineData("0", CompareOperator.NotEquals, "1", true, 0)]
+        [InlineData("1", CompareOperator.NotEquals, "1", false, 0)]
+        [InlineData("1", CompareOperator.GreaterThan, "1", false, 0)]
+        [InlineData("1", CompareOperator.GreaterThan, "2", false, 0)]
+        [InlineData("2", CompareOperator.GreaterThan, "1", true, 0)]
+        [InlineData("1", CompareOperator.LessThan, "2", true, 0)]
+        [InlineData("2", CompareOperator.LessThan, "1", false, 0)]
+        [InlineData("abcd", CompareOperator.Equals, "1", false, 0)]
+        [InlineData("0", CompareOperator.NotEquals, "abcd", true, 0)]
+        [InlineData("2", CompareOperator.GreaterThan, "a", true, 1)]
+        [InlineData("a", CompareOperator.LessThan, "2", true, 1)]
+        [InlineData("a", CompareOperator.GreaterThan, "2", false, 1)]
+        [InlineData("2", CompareOperator.LessThan, "a", false, 1)]
+        [InlineData("b", CompareOperator.LessThan, "a", false, 2)]
+        [InlineData("b", CompareOperator.GreaterThan, "a", false, 2)]
+        [InlineData("abcd", CompareOperator.Contains, "a", true, 0)]
+        [InlineData("abcd", CompareOperator.Contains, "e", false, 0)]
+        public void CompareConditionStatics(string valueA, CompareOperator compareOperator, string valueB, bool expectedResult, int informationCount)
         {
             var subject = new CompareCondition(new GetStaticValue(valueA), compareOperator, new GetStaticValue(valueB));
+            var context = new Context();
 
-            bool result = false;
-            List<Information> information = new Action(() => { result = subject.Validate(new Context(null, null, null)); }).Observe();
-
-            information.ValidateResult(new List<string>(expectedErrors));
+            bool result = subject.Validate(context);
+            context.Information().Count.Should().Be(informationCount);
+            
             result.Should().Be(expectedResult);
         }
 
@@ -131,10 +128,10 @@ namespace MappingFramework.TDD.Cases.Conditions
             subject.Conditions.Add(new CompareCondition(new GetStaticValue(entry1ValueA), entry1CompareOperator, new GetStaticValue(entry1ValueB)));
             subject.Conditions.Add(new CompareCondition(new GetStaticValue(entry2ValueA), entry2CompareOperator, new GetStaticValue(entry2ValueB)));
 
-            bool result = false;
-            List<Information> information = new Action(() => { result = subject.Validate(new Context(string.Empty, string.Empty, null)); }).Observe();
+            var context = new Context();
+            bool result = subject.Validate(context);
 
-            information.Count.Should().Be(0);
+            context.Information().Count.Should().Be(0);
             result.Should().Be(expectedResult);
         }
 
@@ -164,11 +161,11 @@ namespace MappingFramework.TDD.Cases.Conditions
         {
             var subject = new NotEmptyCondition(new XmlGetValueTraversal(path));
             var source = XDocument.Load("./Resources/NotEmptyCondition/SimpleSource.xml").Root;
+            var context = new Context(source, null, null);
 
-            bool result = false;
-            List<Information> information = new Action(() => { result = subject.Validate(new Context(source, string.Empty, null)); }).Observe();
+            bool result = subject.Validate(context);
 
-            information.Count.Should().Be(0);
+            context.Information().Count.Should().Be(0);
             result.Should().Be(expectedResult);
         }
     }

@@ -42,37 +42,35 @@ namespace MappingFramework.TDD.Cases.Compositions
             object source = XDocument.Load("./Resources/Simple.xml").Root;
             var context = new Context(source, null, null);
 
-            string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.GetValue(context); }).Observe();
+            string result = subject.GetValue(context);
 
-            information.Should().BeEmpty();
+            context.Information().Should().BeEmpty();
             result.Should().BeEquivalentTo("Joey");
         }
 
         [Theory]
-        [InlineData("Items{'PropertyName':'Code','Value':'1'/Code", "", "w-DataStructure#9;", "e-DataStructure#32;")]
-        [InlineData("Items{'PropertyName':'Code','Value':'3'}/Code", "", "w-DataStructure#4;")]
-        [InlineData("Items{'PropertyName':'Code','Value':'1'}/Code", "1")]
-        public void GetSearchValueTraversalWithDataStructure(string path, string expectedResult, params string[] expectedErrorCodes)
+        [InlineData("Items{'PropertyName':'Code','Value':'1'/Code", "", 2)]
+        [InlineData("Items{'PropertyName':'Code','Value':'3'}/Code", "", 1)]
+        [InlineData("Items{'PropertyName':'Code','Value':'1'}/Code", "1", 0)]
+        public void GetSearchValueTraversalWithDataStructure(string path, string expectedResult, int informationCount)
         {
             var subject = new GetSearchValueTraversal(
                 new DataStructureGetValueTraversal(path),
                 new GetStaticValue("2"));
 
-            object source = DataStructureCases.DataStructure.CreateTarget(ContextType.TestObject, "item");
+            object source = DataStructureCases.DataStructure.Stub(ContextType.TestObject, "item");
             var context = new Context(source, null, null);
 
-            string result = string.Empty;
-            List<Information> information = new Action(() => { result = subject.GetValue(context); }).Observe();
+            string result = subject.GetValue(context);
 
-            if (expectedErrorCodes.Length == 0)
+            if (informationCount == 0)
             {
-                information.Should().BeEmpty();
+                context.Information().Should().BeEmpty();
                 result.Should().BeEquivalentTo(expectedResult);
             }
             else
             {
-                information.ValidateResult(new List<string>(expectedErrorCodes), "search datastructure");
+                context.Information().Count.Should().Be(informationCount);
                 result.Should().BeEmpty();
             }
         }
@@ -81,10 +79,11 @@ namespace MappingFramework.TDD.Cases.Compositions
         public void GetSearchValueTraversalInvalidSearchPathType()
         {
             var subject = new GetSearchValueTraversal(new NullObject(), new NullObject());
+            var context = new Context();
 
-            List<Information> information = new Action(() => { subject.GetValue(null); }).Observe();
+            subject.GetValue(context);
 
-            information.ValidateResult(new List<string> { "e-GetSearchValueTraversal#3;" }, "InvalidSearchPathType");
+            context.Information().Count.Should().Be(2);
         }
 
         [Fact]
@@ -97,10 +96,9 @@ namespace MappingFramework.TDD.Cases.Compositions
                 new GetStaticValue("Person")
             );
 
-            MethodResult<IEnumerable<object>> result = new MethodResult<IEnumerable<object>>(null);
-            List<Information> information = new Action(() => { result = subject.GetValues(context); }).Observe();
+            MethodResult<IEnumerable<object>> result = subject.GetValues(context);
 
-            information.Should().BeEmpty();
+            context.Information().Should().BeEmpty();
             result.IsValid.Should().BeTrue();
             result.Value.Count().Should().Be(2);
         }
@@ -119,10 +117,9 @@ namespace MappingFramework.TDD.Cases.Compositions
                 )
             );
 
-            MethodResult<IEnumerable<object>> result = new MethodResult<IEnumerable<object>>(null);
-            List<Information> information = new Action(() => { result = subject.GetValues(context); }).Observe();
+            MethodResult<IEnumerable<object>> result = subject.GetValues(context);
 
-            information.ValidateResult(new List<string> { "e-XML#28;", "w-XML#5;" }, "GetConditionedListValueTraversalBadPath");
+            context.Information().Count.Should().Be(2);
 
             result.IsValid.Should().BeFalse();
             result.Value.Should().BeNull();
@@ -142,10 +139,9 @@ namespace MappingFramework.TDD.Cases.Compositions
                 )
             );
 
-            MethodResult<IEnumerable<object>> result = new MethodResult<IEnumerable<object>>(null);
-            List<Information> information = new Action(() => { result = subject.GetValues(context); }).Observe();
+            MethodResult<IEnumerable<object>> result = subject.GetValues(context);
 
-            information.ValidateResult(new List<string>(), "GetConditionedListValueTraversal");
+            context.Information().Count.Should().Be(0);
 
             result.IsValid.Should().BeTrue();
             result.Value.Count().Should().Be(3);
@@ -165,10 +161,9 @@ namespace MappingFramework.TDD.Cases.Compositions
                 new XmlGetValueTraversal("./@Type")
             );
 
-            MethodResult<IEnumerable<object>> result = new MethodResult<IEnumerable<object>>(null);
-            List<Information> information = new Action(() => { result = subject.GetValues(context); }).Observe();
+            MethodResult<IEnumerable<object>> result = subject.GetValues(context);
 
-            information.ValidateResult(new List<string>(), "GetConditionedListValueTraversal");
+            context.Information().Count.Should().Be(0);
 
             result.IsValid.Should().BeTrue();
             result.Value.Count().Should().Be(2);
@@ -192,10 +187,9 @@ namespace MappingFramework.TDD.Cases.Compositions
                 new XmlGetValueTraversal("./@Type")
             );
 
-            MethodResult<IEnumerable<object>> result = new MethodResult<IEnumerable<object>>(null);
-            List<Information> information = new Action(() => { result = subject.GetValues(context); }).Observe();
+            MethodResult<IEnumerable<object>> result = subject.GetValues(context);
 
-            information.ValidateResult(new List<string>(), "GetConditionedListValueTraversal");
+            context.Information().Count.Should().Be(0);
 
             result.IsValid.Should().BeTrue();
             result.Value.Count().Should().Be(1);
@@ -221,10 +215,9 @@ namespace MappingFramework.TDD.Cases.Compositions
                 "-"
             );
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.GetValue(context); }).Observe();
+            string result = subject.GetValue(context);
 
-            information.ValidateResult(new List<string>(), "GetConcatenatedByListValueTraversal");
+            context.Information().Count.Should().Be(0);
 
             result.Should().BeEquivalentTo("Davey-Joey");
         }
@@ -246,10 +239,9 @@ namespace MappingFramework.TDD.Cases.Compositions
                 new XmlGetValueTraversal("./Name")
             );
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.GetValue(context); }).Observe();
+            string result = subject.GetValue(context);
 
-            information.ValidateResult(new List<string>(), "GetConcatenatedByListValueTraversal");
+            context.Information().Count.Should().Be(0);
 
             result.Should().BeEquivalentTo("DaveyJoey");
         }
@@ -268,10 +260,9 @@ namespace MappingFramework.TDD.Cases.Compositions
                 }
             );
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.GetValue(context); }).Observe();
+            string result = subject.GetValue(context);
 
-            information.ValidateResult(new List<string> { "w-XML#30;" }, "GetConcatenatedValueTraversal");
+            context.Information().Count.Should().Be(1);
 
             result.Should().BeEquivalentTo("DaveyMedium");
         }
@@ -291,10 +282,9 @@ namespace MappingFramework.TDD.Cases.Compositions
                 "-"
             );
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.GetValue(context); }).Observe();
+            string result = subject.GetValue(context);
 
-            information.ValidateResult(new List<string> { "w-XML#30;" }, "GetConcatenatedValueTraversal");
+            context.Information().Count.Should().Be(1);
 
             result.Should().BeEquivalentTo("Davey-Medium");
         }
@@ -302,15 +292,16 @@ namespace MappingFramework.TDD.Cases.Compositions
         [Fact]
         public void GetMutatedValueTraversal()
         {
+            var context = new Context();
+            
             var subject = new GetMutatedValueTraversal(
                 new GetStaticValue("test"),
                 new PlaceholderValueMutation("({0})")
             );
 
-            string result = null;
-            List<Information> information = new Action(() => { result = subject.GetValue(null); }).Observe();
+            string result = subject.GetValue(context);
 
-            information.ValidateResult(new List<string>(), "GetMutatedValueTraversal");
+            context.Information().Count.Should().Be(0);
 
             result.Should().BeEquivalentTo("(test)");
         }
@@ -318,23 +309,43 @@ namespace MappingFramework.TDD.Cases.Compositions
         [Fact]
         public void SetMutatedValueTraversal()
         {
+            var context = new Context();
             var subject = new SetMutatedValueTraversal(
                 new XmlSetThisValueTraversal(),
                 new PlaceholderValueMutation("({0})")
             );
-            object context = XmlCases.Xml.CreateTarget(ContextType.TestObject);
+            object source = XmlCases.Xml.Stub(ContextType.TestObject);
 
             var traversal = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem[@Id='1']/Name");
-            Template name = traversal.GetTemplate(context, new MappingCaches());
+            Template name = traversal.GetTemplate(context, source, new MappingCaches());
 
             var setContext = new Context(null, name.Child, null);
 
-            List<Information> result = new Action(() => { subject.SetValue(setContext, null, "Test"); }).Observe();
-            result.ValidateResult(new List<string>(), "Valid");
+            subject.SetValue(setContext, null, "Test");
+            context.Information().Count.Should().Be(0);
 
             string value = new XmlGetThisValueTraversal().GetValue(new Context(setContext.Target, null, null));
-
             value.Should().BeEquivalentTo("(Test)");
+        }
+
+        [Theory]
+        [InlineData("RangeWithLastDate", "2019/01/01", "2019/01/04", true, "4", 0)]
+        [InlineData("RangeWithoutLastDate", "2019/01/01", "2019/01/04", false, "3", 0)]
+        [InlineData("invalid first path", "a", "2019/01/04", false, "", 1)]
+        [InlineData("invalid first path", "2019/01/01", "a", false, "", 1)]
+        public void GetValueTraversalDaysBetweenDates(string because, string firstDate, string lastDate, bool includeLastDay, string expectedResult, int informationCount)
+        {
+            var subject = new GetValueTraversalDaysBetweenDates(new GetStaticValue(firstDate), new GetStaticValue(lastDate))
+            {
+                IncludeLastDay = includeLastDay
+            };
+            var context = new Context();
+            
+            string result = subject.GetValue(context);
+
+            context.Information().Count.Should().Be(informationCount, because);
+            if (informationCount == 0)
+                result.Should().Be(expectedResult, because);
         }
     }
 }

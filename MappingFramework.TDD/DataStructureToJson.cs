@@ -14,23 +14,16 @@ namespace MappingFramework.TDD
         [Fact]
         public void DataStructureToJsonTest()
         {
-            var errorObserver = new TestErrorObserver();
-            Process.ProcessObservable.GetInstance().Register(errorObserver);
-
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
 
             TraversableDataStructure source = CreateHardwareDataStructure();
-            JToken result = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareTemplate.json")) as JToken;
-
-            Process.ProcessObservable.GetInstance().Unregister(errorObserver);
+            MapResult mapResult = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareTemplate.json"));
+            JToken result = mapResult.Result as JToken;
 
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareExpected.json");
             JToken jExpectedResult = JToken.Parse(expectedResult);
 
-            errorObserver.GetRaisedWarnings().Count.Should().Be(0);
-            errorObserver.GetRaisedErrors().Count.Should().Be(0);
-            errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
-
+            mapResult.Information.Count.Should().Be(0);
             result.Should().BeEquivalentTo(jExpectedResult);
         }
 
@@ -41,9 +34,9 @@ namespace MappingFramework.TDD
             mappingConfiguration.ResultObjectConverter = new Configuration.Json.JTokenToStringObjectConverter();
 
             TraversableDataStructure source = CreateHardwareDataStructure();
-            object resultObject = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareTemplate.json"));
+            MapResult mapResult = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareTemplate.json"));
 
-            var result = resultObject as string;
+            string result = mapResult.Result as string;
             result.Should().NotBeNull();
 
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareExpected.txt");

@@ -13,21 +13,15 @@ namespace MappingFramework.TDD
         [Fact]
         public void XmlToXmlTest()
         {
-            var errorObserver = new TestErrorObserver();
-            Process.ProcessObservable.GetInstance().Register(errorObserver);
-
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
 
-            XElement result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml")) as XElement;
-
-            Process.ProcessObservable.GetInstance().Unregister(errorObserver);
+            MapResult mapResult = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml"));
+            XElement result = mapResult.Result as XElement;
 
             string expectedResult = System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyExpected.xml");
             XElement xExpectedResult = XElement.Parse(expectedResult);
 
-            errorObserver.GetRaisedWarnings().Count.Should().Be(0);
-            errorObserver.GetRaisedErrors().Count.Should().Be(0);
-            errorObserver.GetRaisedOtherTypes().Count.Should().Be(0);
+            mapResult.Information.Count.Should().Be(0);
 
             result.Should().BeEquivalentTo(xExpectedResult);
         }
@@ -35,20 +29,15 @@ namespace MappingFramework.TDD
         [Fact]
         public void XmlTestIfResultIsString()
         {
-            var errorObserver = new TestErrorObserver();
-            Process.ProcessObservable.GetInstance().Register(errorObserver);
-
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
             mappingConfiguration.ResultObjectConverter = new Configuration.Xml.XElementToStringObjectConverter();
 
-            object result = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml"));
+            MapResult mapResult = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml"));
 
-            Process.ProcessObservable.GetInstance().Unregister(errorObserver);
-
-            XElement resultXElement = result as XElement;
+            XElement resultXElement = mapResult.Result as XElement;
             resultXElement.Should().BeNull();
 
-            string resultString = result as string;
+            string resultString = mapResult.Result as string;
             resultString.Should().NotBeNull();
         }
 

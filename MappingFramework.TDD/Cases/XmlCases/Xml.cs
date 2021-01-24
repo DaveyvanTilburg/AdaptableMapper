@@ -4,7 +4,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
 {
     public class Xml
     {
-        public static object CreateTarget(ContextType contextType)
+        public static object Stub(ContextType contextType)
         {
             object result = null;
 

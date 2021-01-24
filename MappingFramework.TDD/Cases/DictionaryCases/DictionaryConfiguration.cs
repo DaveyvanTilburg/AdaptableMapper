@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using FluentAssertions;
+using MappingFramework.Configuration;
 using MappingFramework.Configuration.Dictionary;
 using MappingFramework.Dictionary;
 using Xunit;
@@ -17,16 +18,17 @@ namespace MappingFramework.TDD.Cases.DictionaryCases
         public void DictionaryTargetInitiator(ContextType contextType)
         {
             var subject = new DictionaryTargetInstantiator();
-
-            var context = Dictionary.CreateTarget(contextType);
-            IDictionary<string, object> result = null;
-            result = subject.Create(context) as IDictionary<string, object>;
+            var source = Dictionary.CreateTarget(contextType);
+            var context = new Context();
+            
+            IDictionary<string, object> result = subject.Create(context, source) as IDictionary<string, object>;
 
             result.Should().NotBeNull();
+            context.Information().Count.Should().Be(0);
         }
 
         [Fact]
-        public void Test()
+        public void SerializationTest()
         {
             var subject = new EasyAccessDictionary();
             var formatter = new BinaryFormatter();

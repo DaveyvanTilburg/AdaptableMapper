@@ -65,10 +65,8 @@
     <Compile Include="Cases\XmlCases\XmlConfiguration.cs" />
     <Compile Include="JsonToDictionary.cs" />
     <Compile Include="JsonToXml.cs" />
-    <Compile Include="LanguageExtensions.cs" />
     <Compile Include="Cases\DataStructureCases\DataStructureConfiguration.cs" />
     <Compile Include="Cases\XmlCases\XmlTraversals.cs" />
-    <Compile Include="ErrorObserverTester.cs" />
     <Compile Include="DataStructureExamples\Armies\Army.cs" />
     <Compile Include="DataStructureExamples\Armies\CrewMember.cs" />
     <Compile Include="DataStructureExamples\Armies\Leader.cs" />
