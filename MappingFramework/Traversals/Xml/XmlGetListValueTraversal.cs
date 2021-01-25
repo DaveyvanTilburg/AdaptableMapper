@@ -36,5 +36,8 @@ namespace MappingFramework.Traversals.Xml
 
             return new MethodResult<IEnumerable<object>>(xScope);
         }
+
+        string GetValueTraversalPath.Path() => Path;
+        void GetValueTraversalPath.Path(string path) => Path = path;
     }
 }

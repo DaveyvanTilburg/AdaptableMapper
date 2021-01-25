@@ -24,7 +24,10 @@ namespace MappingFramework
 
         public string GetValue(Context context, string source) => source;
         public object Convert(object source) => source;
-        public string Path { get; set; } = string.Empty;
+        
         public MethodResult<IEnumerable<object>> GetValues(Context context) => new MethodResult<IEnumerable<object>>(new List<object>());
+        string GetValueTraversalPath.Path() => string.Empty;
+
+        void GetValueTraversalPath.Path(string path) { }
     }
 }

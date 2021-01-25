@@ -34,5 +34,8 @@ namespace MappingFramework.Traversals.Json
 
             return new MethodResult<IEnumerable<object>>(jTokens);
         }
+
+        string GetValueTraversalPath.Path() => Path;
+        void GetValueTraversalPath.Path(string path) => Path = path;
     }
 }

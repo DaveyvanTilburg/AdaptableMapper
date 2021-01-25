@@ -1,6 +1,6 @@
 ﻿namespace MappingFramework.Traversals
 {
-    public interface GetSearchPathValueTraversal : GetValueTraversal, GetValueTraversalPathProperty
+    public interface GetSearchPathValueTraversal : GetValueTraversal, GetValueTraversalPath
     {
     }
 }

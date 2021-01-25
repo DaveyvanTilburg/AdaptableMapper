@@ -36,5 +36,8 @@ namespace MappingFramework.Traversals.DataStructure
 
             return new MethodResult<IEnumerable<object>>(scopes);
         }
+
+        string GetValueTraversalPath.Path() => Path;
+        void GetValueTraversalPath.Path(string path) => Path = path;
     }
 }

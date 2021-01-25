@@ -13,7 +13,6 @@ namespace MappingFramework.Compositions
         public string TypeId => _typeId;
 
         public string Value { get; set; }
-        string GetValueTraversalPathProperty.Path { get; set; } = string.Empty;
         
         public GetStaticValue() { }
         public GetStaticValue(string value)
@@ -26,5 +25,8 @@ namespace MappingFramework.Compositions
 
         public string GetValue(Context context)
             => Value;
+
+        string GetValueTraversalPath.Path() => string.Empty;
+        void GetValueTraversalPath.Path(string path) { }
     }
 }

@@ -27,12 +27,12 @@ namespace MappingFramework.Compositions
         {
             string searchValue = GetValueTraversal.GetValue(context);
 
-            string tempPath = GetListValueTraversal.Path;
-            string actualPath = GetListValueTraversal.Path.Replace("{{searchValue}}", searchValue);
-            GetListValueTraversal.Path = actualPath;
+            string tempPath = GetListValueTraversal.Path();
+            string actualPath = tempPath.Replace("{{searchValue}}", searchValue);
+            GetListValueTraversal.Path(actualPath);
 
             MethodResult<IEnumerable<object>> result = GetListValueTraversal.GetValues(context);
-            GetListValueTraversal.Path = tempPath;
+            GetListValueTraversal.Path(tempPath);
 
             return result;
         }

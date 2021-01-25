@@ -29,5 +29,8 @@ namespace MappingFramework.Traversals.Json
 
             return result.Value;
         }
+
+        string GetValueTraversalPath.Path() => Path;
+        void GetValueTraversalPath.Path(string path) => Path = path;
     }
 }

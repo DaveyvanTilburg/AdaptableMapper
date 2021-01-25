@@ -26,12 +26,12 @@ namespace MappingFramework.Compositions
         {
             string searchValue = GetValueTraversalSearchValuePath.GetValue(context);
 
-            string tempPath = GetValueTraversalSearchPath.Path;
-            string actualPath = GetValueTraversalSearchPath.Path.Replace("{{searchValue}}", searchValue);
-            GetValueTraversalSearchPath.Path = actualPath;
+            string tempPath = GetValueTraversalSearchPath.Path();
+            string actualPath = tempPath.Replace("{{searchValue}}", searchValue);
+            GetValueTraversalSearchPath.Path(actualPath);
 
             string result = GetValueTraversalSearchPath.GetValue(context);
-            GetValueTraversalSearchPath.Path = tempPath;
+            GetValueTraversalSearchPath.Path(tempPath);
 
             return result;
         }

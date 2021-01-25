@@ -32,5 +32,8 @@ namespace MappingFramework.Traversals.DataStructure
             string value = pathTarget.GetValue(pathContainer.LastInPath, context);
             return value;
         }
+
+        string GetValueTraversalPath.Path() => Path;
+        void GetValueTraversalPath.Path(string path) => Path = path;
     }
 }

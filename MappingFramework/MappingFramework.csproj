@@ -80,7 +80,7 @@
     <Compile Include="Traversals\Dictionary\DictionaryValueTypes.cs" />
     <Compile Include="Traversals\GetListSearchPathValueTraversal.cs" />
     <Compile Include="Traversals\GetSearchPathValueTraversal.cs" />
-    <Compile Include="Traversals\GetValueTraversalPathProperty.cs" />
+    <Compile Include="Traversals\GetValueTraversalPath.cs" />
     <Compile Include="Compositions\IfConditionThenAElseBGetValueTraversal.cs" />
     <Compile Include="Compositions\GetNumberOfHits.cs" />
     <Compile Include="Compositions\GetValueTraversalDaysBetweenDates.cs" />
