@@ -1,6 +1,7 @@
 ﻿using MappingFramework.Configuration;
 using MappingFramework.Traversals.Json;
 using FluentAssertions;
+using MappingFramework.Traversals;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
@@ -58,7 +59,11 @@ namespace MappingFramework.TDD.Cases.JsonCases
             object source = Json.Stub(contextType);
             var context = new Context();
 
-            subject.GetTemplate(context, source, new MappingCaches());
+            Template template = subject.GetTemplate(context, source, new MappingCaches());
+
+            template.Parent.Should().BeAssignableTo<JArray>();
+            template.Child.Should().BeAssignableTo<JObject>();
+            
             context.Information().Count.Should().Be(informationCount, because);
         }
     }

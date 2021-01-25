@@ -60,8 +60,7 @@ namespace MappingFramework.MappingInterface
             string target = TargetTextBox.Text;
 
             MapResult mapResult = _mappingConfiguration.Map(source, target);
-            string result = mapResult.Result as string;
-            MessageBox.Show(result);
+            new ResultWindow(mapResult).Show();
         }
         
         private string GetResource(string name)

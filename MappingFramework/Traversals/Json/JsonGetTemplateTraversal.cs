@@ -61,14 +61,12 @@ namespace MappingFramework.Traversals.Json
             else if (!hasAccessed)
                 result.Remove();
 
-            
-            
             template.Child = storedTemplate;
 
             return template;
         }
 
         private static Template CreateNullTemplate()
-            => new Template { Parent = new JObject(), Child = new JObject() };
+            => new Template { Parent = new JArray(), Child = new JObject() };
     }
 }

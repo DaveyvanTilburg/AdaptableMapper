@@ -165,7 +165,10 @@ namespace MappingFramework.TDD.Cases.XmlCases
             object source = Xml.Stub(contextType);
             var context = new Context();
             
-            subject.GetTemplate(context, source, new MappingCaches());
+            Template template = subject.GetTemplate(context, source, new MappingCaches());
+
+            template.Parent.Should().BeAssignableTo<XElement>();
+            template.Child.Should().BeAssignableTo<XElement>();
 
             context.Information().Count.Should().Be(informationCount, because);
         }

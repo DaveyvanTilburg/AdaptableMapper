@@ -1,0 +1,21 @@
+﻿<Window x:Class="MappingFramework.MappingInterface.ResultWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MappingFramework.MappingInterface"
+        mc:Ignorable="d"
+        Title="ResultWindow" Height="1024" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.75*" />
+            <RowDefinition Height="0.25*" />
+        </Grid.RowDefinitions>
+        
+        <TextBox x:Name="TextBoxComponent" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="0"/>
+        
+        <StackPanel x:Name="InformationPanel" Grid.Row="1">
+            
+        </StackPanel>
+    </Grid>
+</Window>
