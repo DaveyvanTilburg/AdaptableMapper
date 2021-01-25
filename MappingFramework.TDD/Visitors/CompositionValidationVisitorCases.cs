@@ -26,7 +26,10 @@ namespace MappingFramework.TDD.Visitors
                         new List<Mapping>
                         {
                             new Mapping(
-                                new XmlGetThisValueTraversal(),
+                                new GetSearchValueTraversal(
+                                    new XmlGetValueTraversal(""),
+                                    new NullObject()
+                                ),
                                 new SetMutatedValueTraversal(
                                     new JsonSetValueTraversal(""),
                                     new ListOfValueMutations(
@@ -53,7 +56,10 @@ namespace MappingFramework.TDD.Visitors
                                 )
                             }
                         ),
-                        new XmlGetListValueTraversal(""), 
+                        new GetListSearchValueTraversal(
+                            new XmlGetListValueTraversal(""),
+                            new NullObject()
+                        ), 
                         new JsonGetTemplateTraversal(""),
                         new JsonChildCreator()
                     )
