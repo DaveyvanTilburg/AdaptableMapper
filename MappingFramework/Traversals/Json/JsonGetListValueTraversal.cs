@@ -8,7 +8,7 @@ using MappingFramework.Converters;
 namespace MappingFramework.Traversals.Json
 {
     [ContentType(ContentType.Json)]
-    public sealed class JsonGetListValueTraversal : GetListValueTraversal, ResolvableByTypeId, GetValueTraversalPathProperty
+    public sealed class JsonGetListValueTraversal : GetListSearchPathValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "5d1df2c9-6af6-45a5-81c4-c2885de4b5c1";
         public string TypeId => _typeId;
@@ -28,7 +28,7 @@ namespace MappingFramework.Traversals.Json
             IEnumerable<JToken> jTokens = jToken.TraverseAll(Path, context).ToList();
             if (!jTokens.Any())
             {
-                context.ResultIsEmpty(this);
+                context.NavigationResultIsEmpty(Path);
                 return new NullMethodResult<IEnumerable<object>>();
             }
 

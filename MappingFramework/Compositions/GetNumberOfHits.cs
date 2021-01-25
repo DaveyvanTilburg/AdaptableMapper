@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
 using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
+    [ContentType(ContentType.Any)]
     public class GetNumberOfHits : GetValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "5f9d1ca5-95a8-4a07-aa44-4ea6e8ec8fa9";

@@ -4,10 +4,12 @@ using MappingFramework.Configuration;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
 using System.Linq;
+using MappingFramework.ContentTypes;
 using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
+    [ContentType(ContentType.Any)]
     public class GetConditionedListValueTraversal : GetListValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "cddd440f-38d1-49ef-8108-4d412454baed";

@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 namespace MappingFramework.Traversals.Json
 {
     [ContentType(ContentType.Json)]
-    public sealed class JsonGetValueTraversal : GetValueTraversal, GetValueTraversalPathProperty, ResolvableByTypeId
+    public sealed class JsonGetValueTraversal : GetSearchPathValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "fb65549b-5593-42f9-9ffe-3eddf10913e6";
         public string TypeId => _typeId;

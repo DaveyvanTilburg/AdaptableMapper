@@ -10,7 +10,7 @@ namespace MappingFramework.TDD.Cases.Traversals
     {
         [Theory]
         [InlineData("Valid", "value", "value", 0)]
-        [InlineData("Empty", "value", "value", 1)]
+        [InlineData("EmptyIsValid", "", "", 0)]
         public void GetStaticValueTraversal(string because, string value, string expectedResult, int informationCount)
         {
             var subject = new GetStaticValue(value);
@@ -30,10 +30,10 @@ namespace MappingFramework.TDD.Cases.Traversals
             var subject = new NullObject();
             var context = new Context();
             
-            string result = subject.GetValue(context, null);
+            string result = subject.GetValue(context);
 
             context.Information().Count.Should().Be(0);
-            result.Should().BeEmpty();
+            result.Should().Be(string.Empty);
         }
 
         [Fact]
@@ -59,7 +59,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                                 new MappingFramework.Traversals.Xml.XmlSetValueTraversal("./Text")
                             )
                         },
-                        null,
+                        new NullObject(),
                         new MappingFramework.Traversals.Xml.XmlGetListValueTraversal("./Wheels/Wheel"),
                         new MappingFramework.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
                         new MappingFramework.Configuration.Xml.XmlChildCreator()
@@ -77,7 +77,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                                 new MappingFramework.Traversals.Xml.XmlSetValueTraversal("./Text")
                             )
                         },
-                        null,
+                        new NullObject(),
                         new MappingFramework.Traversals.Xml.XmlGetListValueTraversal("./Doors/Door"),
                         new MappingFramework.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
                         new MappingFramework.Configuration.Xml.XmlChildCreator()
@@ -95,7 +95,7 @@ namespace MappingFramework.TDD.Cases.Traversals
                                 new MappingFramework.Traversals.Xml.XmlSetValueTraversal("./Text")
                             )
                         },
-                        null,
+                        new NullObject(),
                         new MappingFramework.Traversals.Xml.XmlGetListValueTraversal("./Windows/Window"),
                         new MappingFramework.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
                         new MappingFramework.Configuration.Xml.XmlChildCreator()

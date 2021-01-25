@@ -8,7 +8,7 @@ using MappingFramework.DataStructure;
 namespace MappingFramework.Traversals.DataStructure
 {
     [ContentType(ContentType.DataStructure)]
-    public sealed class DataStructureGetListValueTraversal : GetListValueTraversal, ResolvableByTypeId, GetValueTraversalPathProperty
+    public sealed class DataStructureGetListValueTraversal : GetListSearchPathValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "0e07b7e3-95bd-4d35-aa9d-e89e3c51b1b4";
         public string TypeId => _typeId;

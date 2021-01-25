@@ -11,7 +11,7 @@ namespace MappingFramework.TDD.Cases.JsonCases
         [Theory]
         [InlineData("InvalidType", ContextType.InvalidType, 1)]
         [InlineData("InvalidSource", ContextType.InvalidSource, 1)]
-        [InlineData("Valid", ContextType.InvalidSource, 0)]
+        [InlineData("Valid", ContextType.ValidSource, 0)]
         public void JsonObjectConverter(string because, ContextType contextType, int informationCount)
         {
             var subject = new JsonObjectConverter();
@@ -21,7 +21,7 @@ namespace MappingFramework.TDD.Cases.JsonCases
 
             var result = subject.Convert(context, source);
             context.Information().Count.Should().Be(informationCount, because);
-            result.Should().BeOfType<JToken>();
+            result.Should().BeAssignableTo<JToken>();
         }
 
         [Theory]
@@ -37,7 +37,7 @@ namespace MappingFramework.TDD.Cases.JsonCases
 
             var result = subject.Create(context, source);
             context.Information().Count.Should().Be(informationCount, because);
-            result.Should().BeOfType<JToken>();
+            result.Should().BeAssignableTo<JToken>();
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System.Linq;
 using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.Process;
 
 namespace MappingFramework.ValueMutations
 {
+    [ContentType(ContentType.Any)]
     public class CreateSeparatedRangeFromNumberValueMutation : ValueMutation, ResolvableByTypeId
     {
         public const string _typeId = "40b770ff-d795-434a-a0a6-bb53bb6f5163";

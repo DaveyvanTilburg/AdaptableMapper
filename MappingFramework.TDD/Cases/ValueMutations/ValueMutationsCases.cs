@@ -81,14 +81,14 @@ namespace MappingFramework.TDD.Cases.ValueMutations
             
             string result = subject.Mutate(context, "36500");
 
-            context.Information().Count.Should().Be(1);
+            context.Information().Count.Should().Be(0);
             result.Should().Be("36500");
         }
 
         [Theory]
         [InlineData("Valid", "an old", "a new", "this is an old message", "this is a new message", 0)]
         [InlineData("Invalid", "an old", "a new", "this is an old message", "this is a new message", 0)]
-        [InlineData("InvalidEmpty", "an old", "a new", "", "this is a new message", 1)]
+        [InlineData("EmptyIsValid", "an old", "a new", "", "", 0)]
         public void ReplaceValueMutation(string because, string valueToReplace, string newValue, string value, string expectedResult, int informationCount)
         {
             var subject = new ReplaceValueMutation(
@@ -108,7 +108,7 @@ namespace MappingFramework.TDD.Cases.ValueMutations
         [InlineData("Valid1", "Old", "New", 0)]
         [InlineData("Valid2", "1", "2", 0)]
         [InlineData("No Hit", "Something", "Something", 0)]
-        [InlineData("Empty", "", "", 1)]
+        [InlineData("EmptyIsValid", "", "", 0)]
         public void DictionaryReplaceValueMutation(string because, string value, string expectedResult, int informationCount)
         {
             var subject = new DictionaryReplaceValueMutation(
@@ -200,7 +200,7 @@ namespace MappingFramework.TDD.Cases.ValueMutations
 
             subject.Mutate(context, string.Empty);
 
-            context.Information().Count.Should().Be(1);
+            context.Information().Count.Should().Be(0);
         }
 
         [Theory]

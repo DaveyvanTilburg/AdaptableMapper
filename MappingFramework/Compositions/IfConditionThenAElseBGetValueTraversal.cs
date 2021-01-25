@@ -1,11 +1,13 @@
 ﻿using MappingFramework.Conditions;
 using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
 using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
+    [ContentType(ContentType.Any)]
     public class IfConditionThenAElseBGetValueTraversal : GetValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "1a695959-fa19-482a-b6ee-01556d9d1688";

@@ -7,7 +7,7 @@ using MappingFramework.Xml;
 namespace MappingFramework.Traversals.Xml
 {
     [ContentType(ContentType.Xml)]
-    public sealed class XmlGetValueTraversal : GetValueTraversal, GetValueTraversalPathProperty, ResolvableByTypeId
+    public sealed class XmlGetValueTraversal : GetSearchPathValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "b3a8e531-2a44-42e3-bac4-1f6b0c1b80b3";
         public string TypeId => _typeId;

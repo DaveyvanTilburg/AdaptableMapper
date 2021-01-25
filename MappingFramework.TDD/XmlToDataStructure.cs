@@ -20,7 +20,7 @@ namespace MappingFramework.TDD
             var result = mapResult.Result as Root;
             result.Should().NotBeNull();
 
-            mapResult.Information.Count.Should().Be(2);
+            mapResult.Information.Count.Should().Be(0);
 
             result.Organization.Leaders.Count.Should().Be(3);
             result.Organization.Leaders[0].Reference.Should().Be("alpha-bravo-tango-delta");
@@ -77,7 +77,7 @@ namespace MappingFramework.TDD
                 {
                     crewMember
                 },
-                null,
+                new NullObject(),
                 new Traversals.Xml.XmlGetListValueTraversal("./crew/crewMember"),
                 new DataStructureGetTemplateTraversal("CrewMembers"),
                 new Configuration.DataStructure.DataStructureChildCreator()
@@ -97,7 +97,7 @@ namespace MappingFramework.TDD
                 {
                     memberName
                 },
-                null,
+                new NullObject(),
                 new Traversals.Xml.XmlGetListValueTraversal("./members/member"),
                 new DataStructureGetTemplateTraversal("Members"),
                 new Configuration.DataStructure.DataStructureChildCreator()
@@ -123,7 +123,7 @@ namespace MappingFramework.TDD
                     platoonCode,
                     leaderReference
                 },
-                null,
+                new NullObject(),
                 new Traversals.Xml.XmlGetListValueTraversal("./platoon"),
                 new DataStructureGetTemplateTraversal("Platoons"),
                 new Configuration.DataStructure.DataStructureChildCreator()
@@ -143,7 +143,7 @@ namespace MappingFramework.TDD
                 {
                     armyCode
                 },
-                null,
+                new NullObject(),
                 new Traversals.Xml.XmlGetListValueTraversal("./army"),
                 new DataStructureGetTemplateTraversal("Armies"),
                 new Configuration.DataStructure.DataStructureChildCreator()
@@ -166,7 +166,7 @@ namespace MappingFramework.TDD
                     reference,
                     leaderName
                 },
-                null,
+                new NullObject(),
                 new Traversals.Xml.XmlGetListValueTraversal("./leaders/leader"),
                 new DataStructureGetTemplateTraversal("Organization/Leaders"),
                 new Configuration.DataStructure.DataStructureChildCreator()
@@ -183,7 +183,7 @@ namespace MappingFramework.TDD
                 new Configuration.DataStructure.DataStructureTargetInstantiator()
             );
 
-            var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObjectConverter());
+            var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObject());
 
             return mappingConfiguration;
         }

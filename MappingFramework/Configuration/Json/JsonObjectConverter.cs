@@ -18,7 +18,7 @@ namespace MappingFramework.Configuration.Json
             if (!(source is string input))
             {
                 context.InvalidInput(source, typeof(string));
-                return string.Empty;
+                return new JObject();
             }
 
             JToken jToken;

@@ -8,7 +8,7 @@ namespace MappingFramework
         public MapResult(object result, IEnumerable<Information> information)
         {
             Result = result;
-            Information = new List<Information>(information);
+            Information = new List<Information>(information ?? new List<Information>());
         }
         
         public object Result { get; }

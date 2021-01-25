@@ -9,7 +9,7 @@ using MappingFramework.Xml;
 namespace MappingFramework.Traversals.Xml
 {
     [ContentType(ContentType.Xml)]
-    public sealed class XmlGetListValueTraversal : GetListValueTraversal, ResolvableByTypeId, GetValueTraversalPathProperty
+    public sealed class XmlGetListValueTraversal : GetListSearchPathValueTraversal, ResolvableByTypeId
     {
         public const string _typeId = "4b9876c8-8c60-40fd-9141-86688a44dbe1";
         public string TypeId => _typeId;

@@ -15,8 +15,8 @@ namespace MappingFramework.Visitors
     {
         private readonly List<Information> _information;
         
-        private ContentType _sourceType;
-        private ContentType _targetType;
+        private List<ContentType> _sourceTypes;
+        private List<ContentType> _targetTypes;
         
         public CompositionValidationVisitor()
         {
@@ -41,42 +41,42 @@ namespace MappingFramework.Visitors
 
 
         public void Visit(ObjectConverter objectConverter)
-            => _sourceType = ClassContentType(objectConverter);
+            => _sourceTypes = ClassContentType(objectConverter);
 
         public void Visit(TargetInstantiator targetInstantiator)
-            => _targetType = ClassContentType(targetInstantiator);
+            => _targetTypes = ClassContentType(targetInstantiator);
 
 
 
         public void Visit(ResultObjectConverter resultObjectConverter)
-            => Validate(_targetType, resultObjectConverter);
+            => Validate(_targetTypes, resultObjectConverter);
 
         public void Visit(GetValueTraversal getValueTraversal)
-            => Validate(_sourceType, getValueTraversal);
+            => Validate(_sourceTypes, getValueTraversal);
 
         public void Visit(GetListValueTraversal getListValueTraversal)
-            => Validate(_sourceType, getListValueTraversal);
+            => Validate(_sourceTypes, getListValueTraversal);
 
         public void Visit(SetValueTraversal setValueTraversal)
-            => Validate(_targetType, setValueTraversal);
+            => Validate(_targetTypes, setValueTraversal);
 
         public void Visit(Condition condition)
-            => Validate(_sourceType, condition);
+            => Validate(_sourceTypes, condition);
 
         public void Visit(ValueMutation valueMutation)
-            => Validate(_sourceType, valueMutation);
+            => Validate(_sourceTypes, valueMutation);
 
         public void Visit(GetTemplateTraversal getTemplateTraversal)
-            => Validate(_targetType, getTemplateTraversal);
+            => Validate(_targetTypes, getTemplateTraversal);
 
         public void Visit(ChildCreator childCreator)
-            => Validate(_targetType, childCreator);
+            => Validate(_targetTypes, childCreator);
 
-        private void Validate(ContentType contentType, object subject)
+        private void Validate<T>(List<ContentType> contentType, T subject)
         {
             if (subject == null)
             {
-                _information.Add(new Information($"Composition incomplete, required object is empty", InformationType.Error));
+                _information.Add(new Information($"Composition incomplete, required object is empty, type: {typeof(T).Name}", InformationType.Error));
                 return;
             }
 
@@ -88,12 +88,14 @@ namespace MappingFramework.Visitors
                 CompareTypes(contentType, subject);
         }
         
-        private void CompareTypes(ContentType contentType, object subject)
+        private void CompareTypes(List<ContentType> contentType, object subject)
         {
-            ContentType subjectContentType = ClassContentType(subject);
+            List<ContentType> subjectContentType = ClassContentType(subject);
 
-            if (contentType != subjectContentType)
-                _information.Add(new Information($"Inconsistent types in the composition, expected: {contentType}, found: {subjectContentType}, objectType: {subject.GetType().Name}", InformationType.Error));
+            if (subjectContentType.Contains(ContentType.Any) || subjectContentType.Intersect(contentType).Any())
+            {}
+            else
+                _information.Add(new Information($"Inconsistent types in the composition, expected: {string.Join(",", contentType)}, found: {string.Join(",", subjectContentType)}, objectType: {subject.GetType().Name}", InformationType.Error));
         }
         
         private void NullChecks(object subject)
@@ -106,12 +108,12 @@ namespace MappingFramework.Visitors
                         _information.Add(new Information($"Composition incomplete, object missing of type {propertyInfo.PropertyType.Name}", InformationType.Error));
         }
         
-        private ContentType ClassContentType(object subject)
+        private List<ContentType> ClassContentType(object subject)
         {
             Type type = subject.GetType();
 
             ContentTypeAttribute attribute = (ContentTypeAttribute)type.GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof(ContentTypeAttribute));
-            return attribute?.ContentType ?? ContentType.Undefined;
+            return attribute?.ContentType ?? new List<ContentType>{ ContentType.Undefined };
         }
     }
 }

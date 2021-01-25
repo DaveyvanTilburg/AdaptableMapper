@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
 using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
+    [ContentType(ContentType.Any)]
     public class GetConcatenatedValueTraversal : GetValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "0c64cc9e-4273-4440-b7b0-ddf42db8a8fb";

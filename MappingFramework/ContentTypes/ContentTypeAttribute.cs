@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MappingFramework.ContentTypes
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class ContentTypeAttribute : Attribute
     {
-        public ContentType ContentType { get; }
+        public List<ContentType> ContentType { get; }
         
-        public ContentTypeAttribute(ContentType contentType)
+        public ContentTypeAttribute(params ContentType[] contentTypes)
         {
-            ContentType = contentType;
+            ContentType = new List<ContentType>(contentTypes);
         }
     }
 }

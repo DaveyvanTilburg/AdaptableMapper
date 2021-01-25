@@ -15,39 +15,6 @@ namespace MappingFramework.TDD.Cases.Conditions
 {
     public class ConditionsCases
     {
-        [Fact]
-        public void IntegrationTest()
-        {
-            var condition = new Mock<Condition>();
-            condition.SetupSequence(c => c.Validate(It.IsAny<Context>()))
-                .Returns(false)
-                .Returns(false)
-                .Returns(true);
-
-            var getScopeTraversal = new Mock<GetListValueTraversal>();
-            getScopeTraversal
-                .Setup(g => g.GetValues(It.IsAny<Context>()))
-                .Returns(new MethodResult<IEnumerable<object>>(new List<object> { 1, 2, 3 }));
-
-            var getTemplateTraversal = new Mock<GetTemplateTraversal>();
-            var childCreator = new Mock<ChildCreator>();
-
-            var subject = new MappingScopeComposite(
-                new List<MappingScopeComposite>(),
-                new List<Mapping> { new Mapping(new GetStaticValue(""), new XmlSetThisValueTraversal()) },
-                null,
-                getScopeTraversal.Object,
-                getTemplateTraversal.Object,
-                childCreator.Object)
-            {
-                Condition = condition.Object
-            };
-
-            subject.Traverse(new Context(null, null, null), new MappingCaches());
-
-            childCreator.Verify(c => c.AddToParent(It.IsAny<Context>(), It.IsAny<Template>(), It.IsAny<object>()), Times.Once);
-        }
-
         [Theory]
         [InlineData("0", CompareOperator.Equals, "0", true, 0)]
         [InlineData("0", CompareOperator.Equals, "1", false, 0)]

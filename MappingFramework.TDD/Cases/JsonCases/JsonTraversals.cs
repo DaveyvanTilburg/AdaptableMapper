@@ -51,6 +51,7 @@ namespace MappingFramework.TDD.Cases.JsonCases
         [InlineData("NoParent", "../", ContextType.EmptyObject, 1)]
         [InlineData("InvalidCharacters", "[]", ContextType.EmptyObject, 2)]
         [InlineData("Valid", "$.SimpleItems[0]", ContextType.TestObject, 0)]
+        [InlineData("Did not end in an element that has a parent", "$", ContextType.TestObject, 1)]
         public void JsonGetTemplateTraversal(string because, string path, ContextType contextType, int informationCount)
         {
             var subject = new JsonGetTemplateTraversal(path);
@@ -59,18 +60,6 @@ namespace MappingFramework.TDD.Cases.JsonCases
 
             subject.GetTemplate(context, source, new MappingCaches());
             context.Information().Count.Should().Be(informationCount, because);
-        }
-
-        [Fact]
-        public void DoubleParentTraversal()
-        {
-            JToken source = ((JToken)Json.Stub(ContextType.TestObject)).SelectToken("$.SimpleItems[0]");
-            var context = new Context(null, null, null);
-
-            var subject = new JsonGetTemplateTraversal("../../");
-
-            subject.GetTemplate(context, source, null);
-            context.Information().Count.Should().Be(0);
         }
     }
 }

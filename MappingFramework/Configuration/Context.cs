@@ -12,17 +12,20 @@ namespace MappingFramework.Configuration
         public object Target { get; set; }
         public AdditionalSourceValues AdditionalSourceValues { get; set; }
         
-        public Context() {}
+        public Context()
+        {
+            _information = new List<Information>();
+        }
 
         public Context(
             object source,
             object target,
-            AdditionalSourceValues additionalSourceValues)
+            AdditionalSourceValues additionalSourceValues) : this()
         {
             Source = source;
             Target = target;
             AdditionalSourceValues = additionalSourceValues;
-            _information = new List<Information>();
+            
         }
 
         public void AddInformation(string message, InformationType type)
@@ -38,7 +41,7 @@ namespace MappingFramework.Configuration
             => _information.Add(new Information($"{subject.GetType().Name} resulted in a empty value", InformationType.Warning));
         
         public void NavigationResultIsEmpty(string path)
-            => _information.Add(new Information($"Path re: {path}", InformationType.Warning));
+            => _information.Add(new Information($"Path {path} resulted in a empty value", InformationType.Warning));
 
         public void TemplatePathNeedsAParent(string path)
             => _information.Add(new Information($"Path resulted in an item that has no parent, path: {path}", InformationType.Warning));

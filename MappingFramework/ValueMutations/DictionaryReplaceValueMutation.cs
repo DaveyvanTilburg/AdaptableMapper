@@ -2,10 +2,12 @@
 using MappingFramework.ValueMutations.Traversals;
 using System.Collections.Generic;
 using System.Linq;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 
 namespace MappingFramework.ValueMutations
 {
+    [ContentType(ContentType.Any)]
     public sealed class DictionaryReplaceValueMutation : ValueMutation, ResolvableByTypeId
     {
         public const string _typeId = "1a18c1a7-1799-4a56-85d2-2e2090252945";

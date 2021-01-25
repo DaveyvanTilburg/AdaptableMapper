@@ -41,7 +41,7 @@ namespace MappingFramework.TDD
                 {
                     memberName
                 },
-                null,
+                new NullObject(),
                 new DataStructureGetListValueTraversal("Members"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./memberNames/memberName"),
                 new Configuration.Xml.XmlChildCreator()
@@ -70,7 +70,7 @@ namespace MappingFramework.TDD
                     platoonCode,
                     leaderName
                 },
-                null,
+                new NullObject(),
                 new DataStructureGetListValueTraversal("Armies/Platoons"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./platoons/platoon"),
                 new Configuration.Xml.XmlChildCreator()
@@ -93,7 +93,7 @@ namespace MappingFramework.TDD
                 {
                     crewMemberName
                 },
-                null,
+                new NullObject(),
                 new DataStructureGetListValueTraversal("Armies/Platoons/Members/CrewMembers"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./crewMemberNames/crewMemberName"),
                 new Configuration.Xml.XmlChildCreator()
@@ -110,7 +110,7 @@ namespace MappingFramework.TDD
                 new Configuration.Xml.XmlTargetInstantiator()
             );
 
-            var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObjectConverter());
+            var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObject());
 
             return mappingConfiguration;
         }

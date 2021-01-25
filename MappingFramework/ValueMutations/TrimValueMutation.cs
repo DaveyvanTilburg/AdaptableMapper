@@ -1,8 +1,10 @@
 ﻿using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 
 namespace MappingFramework.ValueMutations
 {
+    [ContentType(ContentType.Any)]
     public sealed class TrimValueMutation : ValueMutation, ResolvableByTypeId
     {
         public const string _typeId = "0613c12c-65c5-4f62-98a0-ab8ccdc5e592";

@@ -40,6 +40,8 @@ namespace MappingFramework.MappingInterface.Generics
             _propertyInfo.PropertyType == typeof(GetListValueTraversal) ? ObjectComponentDisplayType.Item :
             _propertyInfo.PropertyType == typeof(GetTemplateTraversal) ? ObjectComponentDisplayType.Item :
             _propertyInfo.PropertyType == typeof(ChildCreator) ? ObjectComponentDisplayType.Item :
+            _propertyInfo.PropertyType == typeof(GetListSearchPathValueTraversal) ? ObjectComponentDisplayType.Item :
+            _propertyInfo.PropertyType == typeof(GetSearchPathValueTraversal) ? ObjectComponentDisplayType.Item :
 
             _propertyInfo.PropertyType == typeof(Mapping) ? ObjectComponentDisplayType.Direct :
             _propertyInfo.PropertyType == typeof(ContextFactory) ? ObjectComponentDisplayType.Direct :

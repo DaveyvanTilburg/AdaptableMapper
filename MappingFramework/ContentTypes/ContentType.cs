@@ -7,6 +7,7 @@
         Json,
         DataStructure,
         String,
-        Dictionary
+        Dictionary,
+        Any
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.Visitors;
 
 namespace MappingFramework.ValueMutations
 {
+    [ContentType(ContentType.Any)]
     public sealed class ListOfValueMutations : ValueMutation, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "6b40f249-b509-482a-b98a-15616e6526f2";

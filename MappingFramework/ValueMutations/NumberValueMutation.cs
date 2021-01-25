@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 
 namespace MappingFramework.ValueMutations
 {
+    [ContentType(ContentType.Any)]
     public sealed class NumberValueMutation : ValueMutation, ResolvableByTypeId
     {
         public const string _typeId = "1c8deaa9-d1c8-4ecc-8344-5eb8909afde1";

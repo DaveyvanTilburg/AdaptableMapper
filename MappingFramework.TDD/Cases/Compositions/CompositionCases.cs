@@ -49,7 +49,7 @@ namespace MappingFramework.TDD.Cases.Compositions
         }
 
         [Theory]
-        [InlineData("Items{'PropertyName':'Code','Value':'1'/Code", "", 2)]
+        [InlineData("Items{'PropertyName':'Code','Value':'1'/Code", "", 1)]
         [InlineData("Items{'PropertyName':'Code','Value':'3'}/Code", "", 1)]
         [InlineData("Items{'PropertyName':'Code','Value':'1'}/Code", "1", 0)]
         public void GetSearchValueTraversalWithDataStructure(string path, string expectedResult, int informationCount)
@@ -73,17 +73,6 @@ namespace MappingFramework.TDD.Cases.Compositions
                 context.Information().Count.Should().Be(informationCount);
                 result.Should().BeEmpty();
             }
-        }
-
-        [Fact]
-        public void GetSearchValueTraversalInvalidSearchPathType()
-        {
-            var subject = new GetSearchValueTraversal(new NullObject(), new NullObject());
-            var context = new Context();
-
-            subject.GetValue(context);
-
-            context.Information().Count.Should().Be(2);
         }
 
         [Fact]

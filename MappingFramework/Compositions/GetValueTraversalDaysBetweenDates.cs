@@ -1,5 +1,6 @@
 ﻿using System;
 using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.Process;
 using MappingFramework.Traversals;
@@ -7,6 +8,7 @@ using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
+    [ContentType(ContentType.Any)]
     public class GetValueTraversalDaysBetweenDates : GetValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "37ef235d-affc-40b2-8436-15bc73e83101";

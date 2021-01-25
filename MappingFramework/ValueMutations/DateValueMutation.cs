@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Globalization;
 using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.Process;
 
 namespace MappingFramework.ValueMutations
 {
+    [ContentType(ContentType.Any)]
     public sealed class DateValueMutation : ValueMutation, ResolvableByTypeId
     {
         public const string _typeId = "49c1f493-d14e-47cc-adef-43436898598c";

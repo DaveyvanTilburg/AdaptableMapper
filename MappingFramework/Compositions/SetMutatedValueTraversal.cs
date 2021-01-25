@@ -1,4 +1,5 @@
 ﻿using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
 using MappingFramework.ValueMutations;
@@ -6,6 +7,7 @@ using MappingFramework.Visitors;
 
 namespace MappingFramework.Compositions
 {
+    [ContentType(ContentType.Any)]
     public class SetMutatedValueTraversal : SetValueTraversal, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "1dfdbb1e-addc-4fb6-a197-e0c276f4fba0";

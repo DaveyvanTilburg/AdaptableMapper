@@ -1,4 +1,5 @@
 ﻿using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
 using MappingFramework.Traversals;
 using MappingFramework.ValueMutations.Traversals;
@@ -6,6 +7,7 @@ using MappingFramework.Visitors;
 
 namespace MappingFramework.ValueMutations
 {
+    [ContentType(ContentType.Any)]
     public sealed class ReplaceValueMutation : ValueMutation, ResolvableByTypeId, IVisitable
     {
         public const string _typeId = "ff9b3844-f3a9-4339-9fb9-d41133506391";

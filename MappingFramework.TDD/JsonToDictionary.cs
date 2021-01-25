@@ -32,7 +32,7 @@ namespace MappingFramework.TDD
                     new JsonObjectConverter(),
                     new DictionaryTargetInstantiator()
                 ),
-                new NullObjectConverter()
+                new NullObject()
             );
 
             string source = File.ReadAllText("./Resources/JsonSource_HardwareComposition.json");

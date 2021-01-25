@@ -25,15 +25,5 @@ namespace MappingFramework.TDD.Cases.DictionaryCases
             else
                 ((Dictionary<string, object>)context.Target)[key].Should().BeEquivalentTo(expectedValue);
         }
-
-        [Fact]
-        public void DictionarySetValueTraversalInvalidType()
-        {
-            var subject = new DictionarySetValueTraversal("Key");
-            Context context = new Context(null, "test", null);
-            subject.SetValue(context, null, null);
-
-            context.Information().Count.Should().Be(1);
-        }
     }
 }

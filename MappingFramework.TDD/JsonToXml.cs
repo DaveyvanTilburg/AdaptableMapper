@@ -43,7 +43,7 @@ namespace MappingFramework.TDD
                     cpuCores,
                     cpuSpeed
                 },
-                null,
+                new NullObject(),
                 new Traversals.Json.JsonGetListValueTraversal(".GraphicalCard[*]"),
                 new Traversals.Xml.XmlGetTemplateTraversal("./graphicalCard"),
                 new Configuration.Xml.XmlChildCreator()
@@ -81,7 +81,7 @@ namespace MappingFramework.TDD
                     motherboardTotalStorage,
                     motherboardPartner
                 },
-                null,
+                new NullObject(),
                 new Traversals.Json.JsonGetListValueTraversal("$.Computer.Motherboard[*]"),
                 new Traversals.Xml.XmlGetTemplateTraversal("//computers/computer"),
                 new Configuration.Xml.XmlChildCreator()
@@ -110,7 +110,7 @@ namespace MappingFramework.TDD
                     memoryBrand,
                     memoryMotherboardBrand
                 },
-                null,
+                new NullObject(),
                 new Traversals.Json.JsonGetListValueTraversal("$.Computer.Motherboard[*].Memory[*].MemoryChip[*]"),
                 new Traversals.Xml.XmlGetTemplateTraversal("//allMemories/memory"),
                 new Configuration.Xml.XmlChildCreator()
@@ -128,7 +128,7 @@ namespace MappingFramework.TDD
                     new Configuration.Json.JsonObjectConverter(),
                     new Configuration.Xml.XmlTargetInstantiator()
                 ),
-                new NullObjectConverter()
+                new NullObject()
             );
 
             return mappingConfiguration;

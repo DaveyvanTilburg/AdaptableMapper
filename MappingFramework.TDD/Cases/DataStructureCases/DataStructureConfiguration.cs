@@ -18,7 +18,7 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
             var context = new Context();
 
             var result = subject.Convert(context, source);
-            result.Should().BeOfType<TraversableDataStructure>();
+            result.Should().BeAssignableTo<TraversableDataStructure>();
 
             context.Information().Count.Should().Be(informationCount, because);
         }
@@ -36,7 +36,7 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
             var context = new Context();
 
             var result = subject.Create(context, source);
-            result.Should().BeOfType<TraversableDataStructure>();
+            result.Should().BeAssignableTo<TraversableDataStructure>();
 
             context.Information().Count.Should().Be(informationCount, because);
         }
@@ -51,7 +51,7 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
             var context = new Context();
 
             var result = subject.Convert(context, source);
-            result.Should().BeOfType<TraversableDataStructure>();
+            result.Should().BeAssignableTo<TraversableDataStructure>();
 
             context.Information().Count.Should().Be(informationCount, because);
         }
@@ -64,7 +64,7 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
             var context = new Context();
 
             var result = subject.Convert(context, "abcd");
-            result.Should().BeOfType<TraversableDataStructure>();
+            result.Should().BeAssignableTo<TraversableDataStructure>();
 
             context.Information().Count.Should().Be(1);
         }
@@ -78,7 +78,7 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
 
             string testSource = Newtonsoft.Json.JsonConvert.SerializeObject(testDataStructure);
             var result = subject.Convert(context, testSource);
-            result.Should().BeOfType<TraversableDataStructure>();
+            result.Should().BeAssignableTo<TraversableDataStructure>();
 
             context.Information().Count.Should().Be(1);
         }

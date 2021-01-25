@@ -30,8 +30,7 @@ namespace MappingFramework
             typeof(GetSearchValueTraversal),
             typeof(GetStaticValue),
             typeof(GetValueTraversalDaysBetweenDates),
-            typeof(IfConditionThenAElseBGetValueTraversal),
-            typeof(NullObject)
+            typeof(IfConditionThenAElseBGetValueTraversal)
         };
 
         private static List<Type> NewXmlGetValueTraversals => new List<Type>
@@ -152,6 +151,16 @@ namespace MappingFramework
             contentType == ContentType.Json ? typeof(JsonChildCreator) :
             contentType == ContentType.DataStructure ? typeof(DataStructureChildCreator) : null;
 
+        private static Type GetListSearchPathValueTraversal(ContentType contentType) =>
+            contentType == ContentType.Xml ? typeof(XmlGetListValueTraversal) :
+            contentType == ContentType.Json ? typeof(JsonGetListValueTraversal) :
+            contentType == ContentType.DataStructure ? typeof(DataStructureGetListValueTraversal) : null;
+
+        private static Type GetSearchPathValueTraversal(ContentType contentType) =>
+            contentType == ContentType.Xml ? typeof(XmlGetValueTraversal) :
+            contentType == ContentType.Json ? typeof(JsonGetValueTraversal) :
+            contentType == ContentType.DataStructure ? typeof(DataStructureGetValueTraversal) : null;
+
         public static List<Type> List(Type type, ContentType contentType)
         {
             if (!type.IsInterface)
@@ -167,6 +176,7 @@ namespace MappingFramework
             if (type == typeof(Condition))
                 return new List<Type>
                 {
+                    typeof(NullObject),
                     typeof(CompareCondition),
                     typeof(ListOfConditions),
                     typeof(NotEmptyCondition)
@@ -197,6 +207,10 @@ namespace MappingFramework
                 return SetValueTraversals(contentType);
             if (type == typeof(GetListValueTraversal))
                 return new List<Type> { GetListValueTraversal(contentType), typeof(GetConditionedListValueTraversal), typeof(GetListSearchValueTraversal) };
+            if (type == typeof(GetListSearchPathValueTraversal))
+                return new List<Type> { GetListSearchPathValueTraversal(contentType) };
+            if (type == typeof(GetSearchPathValueTraversal))
+                return new List<Type> { GetSearchPathValueTraversal(contentType) };
             if (type == typeof(GetTemplateTraversal))
                 return new List<Type> { GetTemplateTraversal(contentType) };
             if (type == typeof(ChildCreator))

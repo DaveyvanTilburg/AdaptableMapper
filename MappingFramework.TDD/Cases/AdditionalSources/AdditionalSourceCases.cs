@@ -16,9 +16,9 @@ namespace MappingFramework.TDD.Cases.AdditionalSources
         [InlineData("Valuesy", "Identifier", "", 1)]
         [InlineData("Valuesy", "Identifiery", "", 1)]
         [InlineData("Values", "Identifiery", "", 1)]
-        [InlineData("", "", "", 2)]
-        [InlineData("", "Identifier", "", 2)]
-        [InlineData("Values", "", "", 2)]
+        [InlineData("", "", "", 1)]
+        [InlineData("", "Identifier", "", 1)]
+        [InlineData("Values", "", "", 1)]
         public void GetAdditionalSourceValue(string name, string key, string value, int informationCount)
         {
             var subject = new GetAdditionalSourceValue(
@@ -86,7 +86,7 @@ namespace MappingFramework.TDD.Cases.AdditionalSources
                         new JsonSetValueTraversal(".DOB")
                     )
                 },
-                null,
+                new NullObject(),
                 new JsonGetListValueTraversal(".People[*]"),
                 new JsonGetTemplateTraversal(".People[0]"),
                 new JsonChildCreator()
@@ -112,9 +112,6 @@ namespace MappingFramework.TDD.Cases.AdditionalSources
             var contextFactory = new ContextFactory(new JsonObjectConverter(), new JsonTargetInstantiator(), additionalSources);
             var mappingConfiguration = new MappingConfiguration(new List<MappingScopeComposite> { mappingScopeComposite }, mappings, contextFactory, new JTokenToStringObjectConverter());
 
-
-            string result = string.Empty;
-
             var mapResult = mappingConfiguration.Map(
                 System.IO.File.ReadAllText("./Cases/AdditionalSources/AdditionalSourceValueFullSource.json"),
                 System.IO.File.ReadAllText("./Cases/AdditionalSources/AdditionalSourceValueFullTarget.json")
@@ -123,7 +120,7 @@ namespace MappingFramework.TDD.Cases.AdditionalSources
             mapResult.Information.Should().BeEmpty();
 
             string expectedResult = System.IO.File.ReadAllText("./Cases/AdditionalSources/AdditionalSourceValueFullExpectedResult.json");
-            result.Should().BeEquivalentTo(expectedResult);
+            mapResult.Result.Should().BeEquivalentTo(expectedResult);
         }
     }
 }

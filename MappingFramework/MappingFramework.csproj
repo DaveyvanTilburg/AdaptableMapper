@@ -78,6 +78,8 @@
     <Compile Include="Compositions\GetSearchValueTraversal.cs" />
     <Compile Include="Traversals\Dictionary\DictionarySetValueTraversal.cs" />
     <Compile Include="Traversals\Dictionary\DictionaryValueTypes.cs" />
+    <Compile Include="Traversals\GetListSearchPathValueTraversal.cs" />
+    <Compile Include="Traversals\GetSearchPathValueTraversal.cs" />
     <Compile Include="Traversals\GetValueTraversalPathProperty.cs" />
     <Compile Include="Compositions\IfConditionThenAElseBGetValueTraversal.cs" />
     <Compile Include="Compositions\GetNumberOfHits.cs" />
@@ -112,7 +114,6 @@
     <Compile Include="Configuration\DataStructure\DataStructureToStringObjectConverter.cs" />
     <Compile Include="Configuration\DataStructure\StringToDataStructureObjectConverter.cs" />
     <Compile Include="NullMethodResult.cs" />
-    <Compile Include="Configuration\NullObjectConverter.cs" />
     <Compile Include="MethodResult.cs" />
     <Compile Include="Configuration\ResultObjectConverter.cs" />
     <Compile Include="Configuration\ObjectConverter.cs" />

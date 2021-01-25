@@ -75,17 +75,6 @@ namespace MappingFramework.TDD.Cases.XmlCases
         }
 
         [Fact]
-        public void XmlSetThisValueTraversal()
-        {
-            var subject = new XmlSetThisValueTraversal();
-            var context = new Context(null, Xml.Stub(ContextType.EmptyString), null);
-
-            subject.SetValue(context, null, string.Empty);
-
-            context.Information().Count.Should().Be(1);
-        }
-
-        [Fact]
         public void XmlSetThisValueTraversalValid()
         {
             var subject = new XmlSetThisValueTraversal();
@@ -182,17 +171,6 @@ namespace MappingFramework.TDD.Cases.XmlCases
         }
 
         [Fact]
-        public void XmlSetGeneratedIdValueTraversalInvalidType()
-        {
-            var subject = new XmlSetGeneratedIdValueTraversal("") { XmlInterpretation = XmlInterpretation.Default, SetAsCData = false };
-            var context = new Context(null, 1, null);
-
-            subject.SetValue(context, null, "");
-
-            context.Information().Count.Should().Be(1);
-        }
-
-        [Fact]
         public void XmlGetNumberOfHits()
         {
             XElement source = XDocument.Load("./Resources/XmlGetNumberOfHits/MultipleComments.xml").Root;
@@ -230,7 +208,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
                                 new XmlSetThisValueTraversal()
                             )
                         },
-                        null,
+                        new NullObject(),
                         new XmlGetListValueTraversal("./InvalidPath"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator()),
@@ -243,7 +221,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
                                 new XmlSetThisValueTraversal()
                             )
                         },
-                        null,
+                        new NullObject(),
                         new XmlGetListValueTraversal("./Teachers/Teacher"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator()),
@@ -256,7 +234,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
                                 new XmlSetThisValueTraversal()
                             )
                         },
-                        null,
+                        new NullObject(),
                         new XmlGetListValueTraversal("./Students/Student"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator())
