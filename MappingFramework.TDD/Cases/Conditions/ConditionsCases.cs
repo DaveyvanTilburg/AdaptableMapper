@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using MappingFramework.Compositions;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
-using MappingFramework.Traversals;
 using FluentAssertions;
 using MappingFramework.Languages.Json.Traversals;
 using MappingFramework.Languages.Xml.Traversals;
-using Moq;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
