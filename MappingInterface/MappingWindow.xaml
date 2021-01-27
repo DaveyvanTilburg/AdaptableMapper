@@ -5,33 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mappingInterface="clr-namespace:MappingFramework.MappingInterface"
         mc:Ignorable="d"
-        Title="SettingsWindow" Height="1024" Width="1600" ResizeMode="NoResize">
+        Title="SettingsWindow" Height="1024" Width="1600" ResizeMode="CanResizeWithGrip">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.12*" />
-            <ColumnDefinition Width="0.76*" />
-            <ColumnDefinition Width="0.12*" />
+            <ColumnDefinition Width="0.18*" />
+            <ColumnDefinition Width="0.64*" />
+            <ColumnDefinition Width="0.18*" />
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
             <RowDefinition Height="0.95*" />
             <RowDefinition Height="0.05*" />
         </Grid.RowDefinitions>
-        
-        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="0" Grid.Row="0">
-            <TextBox x:Name="SourceTextBox" TextWrapping="Wrap" AcceptsReturn="True"/>
-        </Border>
-        
-        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1" Grid.Row="0">
-            <ScrollViewer>
-                <StackPanel x:Name="MainStackPanel">
-                </StackPanel>
-            </ScrollViewer>
-        </Border>
 
-        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="2" Grid.Row="0">
-            <TextBox x:Name="TargetTextBox" TextWrapping="Wrap" AcceptsReturn="True"/>
-        </Border>
+        <TextBox x:Name="SourceTextBox" Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" AcceptsReturn="True"/>
+
+        <GridSplitter Grid.Row="0" Grid.Column="0" Background="Green" Width="5" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+
+        <ScrollViewer Grid.Column="1" Grid.Row="0">
+            <StackPanel x:Name="MainStackPanel">
+            </StackPanel>
+        </ScrollViewer>
+
+        <GridSplitter Grid.Row="0" Grid.Column="1" Background="Green" Width="5" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+
+        <TextBox x:Name="TargetTextBox" Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" AcceptsReturn="True"/>
 
         <Button Grid.Column="2" Grid.Row="1" x:Name="ButtonTest" Content="Test" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Margin="0,0,0,0" Width="80"/>
     </Grid>
