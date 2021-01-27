@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29209.62
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MappingFramework", "MappingFramework\MappingFramework.csproj", "{67899DEC-EC73-4A4B-8E12-6915045573CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MappingFramework.TDD", "MappingFramework.TDD\MappingFramework.TDD.csproj", "{CA567CD1-EFC3-4ED4-B852-C7A0D103039A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MappingFramework.UnitTests", "MappingFramework.UnitTests\MappingFramework.UnitTests.csproj", "{CA567CD1-EFC3-4ED4-B852-C7A0D103039A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MappingInterface", "MappingInterface\MappingInterface.csproj", "{C3EBF298-C1EA-4DDC-A56A-6FA13A84BCD2}"
 EndProject
