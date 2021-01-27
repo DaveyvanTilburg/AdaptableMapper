@@ -1,15 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <message>
-  <nrOfToilets/>
-  <nrOfWashBins/>
-  <nrOfShowers/>
-  <nrOfBedRooms/>
-  <occupants>
-    <occupant/>
-  </occupants>
-  <windowSizes/>
-  <closetSizes/>
-  <beds>
-    <bed type="" occupant=""/>
-  </beds>
+  <person name="" dob="" gender="" type=""/>
+  <availableMondays>
+    <availability></availability>
+  </availableMondays>
+  <totalNrOfAvailableDays />
+  <availabilityAgenda>
+    <month nr="">
+      <day weekNr=""/>
+    </month>
+  </availabilityAgenda>
+  <appointments>
+    <appointment>
+      <date/>
+      <description/>
+    </appointment>
+  </appointments>
 </message>

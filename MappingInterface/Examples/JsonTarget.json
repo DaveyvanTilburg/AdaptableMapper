@@ -1,19 +1,31 @@
 {
-  "nrOfToilets": 0,
-  "nrOfWashBins": 0,
-  "nrOfShowers": 0,
-  "nrOfBedRooms": 0,
-  "occupants": [
+  "person": {
+    "name": "",
+    "dob": "",
+    "gender": "",
+    "type": ""
+  },
+  "availableMondays": [
     {
-      "occupant": ""
+      "availability": ""
     }
   ],
-  "windowSizes": "",
-  "closetSizes": "",
-  "beds": [
+  "totalNrOfAvailableDays": "",
+  "availabilityAgenda": [
     {
-      "type": "",
-      "occupant": ""
+      "monthNr": 0,
+      "days": [
+        {
+          "weekNr": 0,
+          "day": ""
+        }
+      ]
+    }
+  ],
+  "appointments": [
+    {
+      "date": "",
+      "description": ""
     }
   ]
 }

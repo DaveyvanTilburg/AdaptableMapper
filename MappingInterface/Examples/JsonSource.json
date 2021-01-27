@@ -1,83 +1,188 @@
 {
-  "house": {
-    "rooms": {
-      "bedrooms": [
-        {
-          "occupants": [
-            {
-              "name": "Johnny",
-              "gender": "Male"
-            }
-          ],
-          "beds": [
-            {
-              "name": "Single"
-            }
-          ],
-          "windows": [
-            {
-              "size": "2x4"
-            }
-          ]
-        },
-        {
-          "occupants": [
-            {
-              "name": "Emma"
-            }
-          ],
-          "beds": [
-            {
-              "name": "Single"
-            }
-          ],
-          "windows": [
-            {
-              "size": "2x4"
-            },
-            {
-              "size": "2x4"
-            }
-          ]
-        },
-        {
-          "occupants": [
-            {
-              "name": "Mom"
-            },
-            {
-              "name": "Dad"
-            }
-          ],
-          "beds": [
-            {
-              "name": "KingSize"
-            }
-          ],
-          "windows": [
-            {
-              "size": "4x4"
-            }
-          ],
-          "closets": [
-            {
-              "size": "1x4"
-            }
-          ]
-        }
-      ],
-      "bathrooms": [
-        {
-          "public": true,
-          "toilet": true,
-          "washBin": true,
-          "shower": true
-        },
-        {
-          "public": false,
-          "toilet": true
-        }
-      ] 
+  "personalData": {
+    "personType": 1,
+    "name": "Davey van Tilburg",
+    "birthDate": "11-09-1991",
+    "gender": "Male"
+  },
+  "agendaData": {
+    "months": [
+      {
+        "name": "Januari",
+        "weeks": [
+          {
+            "weekNr": 1,
+            "days": [
+              {
+                "dow": "monday",
+                "availability": "Available"
+              },
+              {
+                "dow": "tuesday",
+                "availability": "Available"
+              },
+              {
+                "dow": "wednesday",
+                "availability": "Not Available"
+              },
+              {
+                "dow": "thursday",
+                "availability": "Available"
+              },
+              {
+                "dow": "friday",
+                "availability": "Available"
+              },
+              {
+                "dow": "saturday",
+                "availability": "Not Available"
+              },
+              {
+                "dow": "sunday",
+                "availability": "Available"
+              }
+            ]
+          },
+          {
+            "weekNr": 2,
+            "days": [
+              {
+                "dow": "monday",
+                "availability": "Not Available"
+              },
+              {
+                "dow": "tuesday",
+                "availability": "Not Available"
+              },
+              {
+                "dow": "wednesday",
+                "availability": "Not Available"
+              },
+              {
+                "dow": "thursday",
+                "availability": "Not Available"
+              },
+              {
+                "dow": "friday",
+                "availability": "Not Available"
+              },
+              {
+                "dow": "saturday",
+                "availability": "Not Available"
+              },
+              {
+                "dow": "sunday",
+                "availability": "Not Available"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Februari",
+        "weeks": [
+          {
+            "weekNr": 5,
+            "days": [
+              {
+                "dow": "monday",
+                "availability": "Available"
+              },
+              {
+                "dow": "tuesday",
+                "availability": "Available"
+              },
+              {
+                "dow": "wednesday",
+                "availability": "Not Available"
+              },
+              {
+                "dow": "thursday",
+                "availability": "Available"
+              },
+              {
+                "dow": "friday",
+                "availability": "Not Available"
+              }
+            ]
+          },
+          {
+            "weekNr": 6,
+            "days": [
+              {
+                "dow": "monday",
+                "availability": "Not Available"
+              },
+              {
+                "dow": "tuesday",
+                "availability": "Available"
+              },
+              {
+                "dow": "wednesday",
+                "availability": "Not Available"
+              },
+              {
+                "dow": "thursday",
+                "availability": "Available"
+              },
+              {
+                "dow": "friday",
+                "availability": "Not Available"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "March",
+        "weeks": [
+          {
+            "weekNr": 7,
+            "days": [
+              {
+                "dow": "monday",
+                "availability": "Available"
+              },
+              {
+                "dow": "tuesday",
+                "availability": "Available"
+              },
+              {
+                "dow": "wednesday",
+                "availability": "Not Available"
+              },
+              {
+                "dow": "thursday",
+                "availability": "Not Available"
+              },
+              {
+                "dow": "friday",
+                "availability": "Not Available"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "appointments": [
+    {
+      "year": 2021,
+      "week": 2,
+      "day": 5,
+      "dow": "tuesday"
+    },
+    {
+      "year": 2021,
+      "week": 3,
+      "day": 15,
+      "dow": "friday"
+    },
+    {
+      "year": 2021,
+      "week": 4,
+      "day": 20,
+      "dow": "wednesday"
     }
-  } 
+  ]
 }
