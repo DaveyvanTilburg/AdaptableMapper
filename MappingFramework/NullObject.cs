@@ -16,7 +16,7 @@ namespace MappingFramework
 
         public string GetValue(Context context) => string.Empty;
 
-        public void SetValue(Context context, MappingCaches mappingCaches, string value) { }
+        public void SetValue(Context context, string value) { }
 
         public string Mutate(Context context, string value) => value;
 

@@ -19,7 +19,7 @@ namespace MappingFramework.Traversals.Json
 
         public string Path { get; set; }
 
-        public Template GetTemplate(Context context, object target, MappingCaches mappingCaches)
+        public Template GetTemplate(Context context, object target)
         {
             JToken jToken = (JToken)target;
             JToken result = jToken.Traverse(Path, context);
@@ -47,7 +47,7 @@ namespace MappingFramework.Traversals.Json
                 Parent = result.Parent
             };
 
-            var templateCache = mappingCaches.GetCache<TemplateCache>(nameof(TemplateCache));
+            var templateCache = context.MappingCaches.GetCache<TemplateCache>(nameof(TemplateCache));
 
             bool hasAccessed = templateCache.HasAccessed(Path, target);
             object storedTemplate = templateCache.GetTemplate(Path, target);

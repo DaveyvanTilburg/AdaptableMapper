@@ -58,7 +58,7 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
             var subject = new DataStructureSetValueOnPathTraversal(path);
             var context = new Context(null, DataStructure.Stub(contextType, createType), null);
 
-            subject.SetValue(context, null, string.Empty);
+            subject.SetValue(context, string.Empty);
 
             context.Information().Count.Should().Be(informationCount, because);
         }

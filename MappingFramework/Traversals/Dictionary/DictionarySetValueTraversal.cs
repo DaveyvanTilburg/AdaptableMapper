@@ -29,7 +29,7 @@ namespace MappingFramework.Traversals.Dictionary
         public DictionaryValueTypes DictionaryValueType { get; set; }
 
 
-        public void SetValue(Context context, MappingCaches mappingCaches, string value)
+        public void SetValue(Context context, string value)
         {
             if (string.IsNullOrWhiteSpace(Key))
             {

@@ -18,7 +18,7 @@ namespace MappingFramework.TDD.Cases.DictionaryCases
             var subject = new DictionarySetValueTraversal(key, dictionaryValueTypes);
             Context context = new Context(null, new Dictionary<string, object>(), null);
 
-            subject.SetValue(context, null, value);
+            subject.SetValue(context, value);
 
             if (informationCount > 0)
                 context.Information().Count.Should().Be(informationCount);

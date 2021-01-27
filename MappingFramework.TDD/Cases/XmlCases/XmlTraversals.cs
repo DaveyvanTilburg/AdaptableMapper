@@ -40,7 +40,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
             object source = Xml.Stub(ContextType.TestObject);
 
             var traversal = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem[@Id='1']/Name");
-            Template name = traversal.GetTemplate(new Context(), source, new MappingCaches());
+            Template name = traversal.GetTemplate(new Context(), source);
 
             var context = new Context(name.Child, null, null);
 
@@ -81,11 +81,11 @@ namespace MappingFramework.TDD.Cases.XmlCases
             object source = Xml.Stub(ContextType.TestObject);
 
             var traversal = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem[@Id='1']/Name");
-            Template name = traversal.GetTemplate(new Context(), source, new MappingCaches());
+            Template name = traversal.GetTemplate(new Context(), source);
 
             var context = new Context(null, name.Child, null);
 
-            subject.SetValue(context, null, "Test");
+            subject.SetValue(context, "Test");
             context.Information().Count.Should().Be(0);
 
             string value = new XmlGetThisValueTraversal().GetValue(new Context(context.Target, null, null));
@@ -100,7 +100,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
             var subject = new XmlSetValueTraversal(path) { XmlInterpretation = xmlInterpretation };
             var context = new Context(null, Xml.Stub(contextType), null);
 
-            subject.SetValue(context, null, value);
+            subject.SetValue(context, value);
 
             context.Information().Count.Should().Be(0,because);
             
@@ -117,7 +117,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
             var subject = new XmlSetValueTraversal("//SimpleItems/SimpleItem/@Id") { XmlInterpretation = XmlInterpretation.Default };
             var context = new Context(null, Xml.Stub(ContextType.TestObject), null);
 
-            subject.SetValue(context, null, "3");
+            subject.SetValue(context, "3");
 
             string value = new XmlGetValueTraversal("//SimpleItems/SimpleItem[@Id='3']/Name").GetValue(new Context(context.Target, null, null));
             value.Should().BeEquivalentTo("Davey");
@@ -129,7 +129,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
             var target = XDocument.Load("./Resources/XmlCData/CDataTemplate.xml").Root;
             var subject = new XmlSetValueTraversal("./item") { SetAsCData = true };
 
-            subject.SetValue(new Context(null, target, null), null, "Test");
+            subject.SetValue(new Context(null, target, null), "Test");
 
             var expectedResult = System.IO.File.ReadAllText("./Resources/XmlCData/CDataExpectedResult.xml");
             var result = new XElementToStringObjectConverter().Convert(target);
@@ -146,7 +146,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
 
             var subject = new XmlSetThisValueTraversal { SetAsCData = true };
 
-            subject.SetValue(new Context(null, target, null), null, "Test");
+            subject.SetValue(new Context(null, target, null), "Test");
 
             var expectedResult = System.IO.File.ReadAllText("./Resources/XmlCData/CDataExpectedResult.xml");
             var result = new XElementToStringObjectConverter().Convert(target);
@@ -165,7 +165,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
             object source = Xml.Stub(contextType);
             var context = new Context();
             
-            Template template = subject.GetTemplate(context, source, new MappingCaches());
+            Template template = subject.GetTemplate(context, source);
 
             template.Parent.Should().BeAssignableTo<XElement>();
             template.Child.Should().BeAssignableTo<XElement>();
@@ -300,7 +300,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
                 null
             );
 
-            mapping.Map(context, null);
+            mapping.Map(context);
 
             context.Information().Count.Should().Be(0);
             XElement xElementResult = context.Target as XElement;

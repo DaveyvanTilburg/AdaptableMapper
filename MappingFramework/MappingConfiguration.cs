@@ -12,13 +12,10 @@ namespace MappingFramework
         public List<Mapping> Mappings { get; set; }
         public List<MappingScopeComposite> MappingScopeComposites { get; set; }
 
-        private readonly MappingCaches _mappingCaches;
-
         public MappingConfiguration()
         {
             Mappings = new List<Mapping>();
             MappingScopeComposites = new List<MappingScopeComposite>();
-            _mappingCaches = new MappingCaches();
         }
 
         public MappingConfiguration(List<MappingScopeComposite> mappingScopeComposites, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
@@ -56,10 +53,10 @@ namespace MappingFramework
             Context context = ContextFactory.Create(source, targetSource);
 
             foreach (Mapping mapping in Mappings)
-                mapping.Map(context, _mappingCaches);
+                mapping.Map(context);
 
             foreach (MappingScopeComposite mappingScopeComposite in MappingScopeComposites)
-                mappingScopeComposite.Traverse(context, _mappingCaches);
+                mappingScopeComposite.Traverse(context);
 
             object result = ResultObjectConverter.Convert(context.Target);
             return new MapResult(result, context.Information());

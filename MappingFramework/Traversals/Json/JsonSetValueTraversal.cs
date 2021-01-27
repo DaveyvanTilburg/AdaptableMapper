@@ -21,7 +21,7 @@ namespace MappingFramework.Traversals.Json
 
         public string Path { get; set; }
 
-        public void SetValue(Context context, MappingCaches mappingCaches, string value)
+        public void SetValue(Context context, string value)
         {
             JToken jToken = (JToken)context.Target;
             IReadOnlyCollection<JToken> jTokens = jToken.TraverseAll(Path, context).ToList();

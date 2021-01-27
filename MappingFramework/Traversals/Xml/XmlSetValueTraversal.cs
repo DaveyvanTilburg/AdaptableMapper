@@ -22,7 +22,7 @@ namespace MappingFramework.Traversals.Xml
         public XmlInterpretation XmlInterpretation { get; set; }
         public bool SetAsCData { get; set; }
 
-        public void SetValue(Context context, MappingCaches mappingCaches, string value)
+        public void SetValue(Context context, string value)
         {
             XElement xElement = (XElement)context.Target;
             xElement.SetXPathValues(Path.ConvertToInterpretation(XmlInterpretation), value, SetAsCData, context);

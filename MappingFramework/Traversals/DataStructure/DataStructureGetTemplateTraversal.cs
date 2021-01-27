@@ -20,7 +20,7 @@ namespace MappingFramework.Traversals.DataStructure
 
         public string Path { get; set; }
 
-        public Template GetTemplate(Context context, object target, MappingCaches mappingCaches)
+        public Template GetTemplate(Context context, object target)
         {
             TraversableDataStructure dataStructure = (TraversableDataStructure)target;
 

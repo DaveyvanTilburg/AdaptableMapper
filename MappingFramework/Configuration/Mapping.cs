@@ -18,11 +18,11 @@ namespace MappingFramework.Configuration
             SetValueTraversal = setValueTraversal;
         }
 
-        public void Map(Context context, MappingCaches mappingCaches)
+        public void Map(Context context)
         {
             string value = GetValueTraversal.GetValue(context);
 
-            SetValueTraversal.SetValue(context, mappingCaches, value);
+            SetValueTraversal.SetValue(context, value);
         }
 
         void IVisitable.Receive(IVisitor visitor)

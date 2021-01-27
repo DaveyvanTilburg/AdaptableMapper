@@ -8,6 +8,6 @@ namespace MappingFramework.Traversals
     [JsonConverter(typeof(JsonTypeIdBasedConverter)), ContextType(ContextType.Target)]
     public interface SetValueTraversal
     {
-        void SetValue(Context context, MappingCaches mappingCaches, string value);
+        void SetValue(Context context, string value);
     }
 }

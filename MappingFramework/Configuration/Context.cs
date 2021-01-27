@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using MappingFramework.Process;
 
 namespace MappingFramework.Configuration
@@ -11,10 +12,12 @@ namespace MappingFramework.Configuration
         public object Source { get; set; }
         public object Target { get; set; }
         public AdditionalSourceValues AdditionalSourceValues { get; set; }
+        public MappingCaches MappingCaches { get; }
         
         public Context()
         {
             _information = new List<Information>();
+            MappingCaches = new MappingCaches();
         }
 
         public Context(
@@ -26,6 +29,21 @@ namespace MappingFramework.Configuration
             Target = target;
             AdditionalSourceValues = additionalSourceValues;
             
+        }
+
+        public Context(
+            object source,
+            object target,
+            AdditionalSourceValues additionalSourceValues,
+            MappingCaches mappingCaches,
+            List<Information> information)
+        {
+            Source = source;
+            Target = target;
+            AdditionalSourceValues = additionalSourceValues;
+            MappingCaches = mappingCaches;
+            _information = information;
+
         }
 
         public void AddInformation(string message, InformationType type)
@@ -71,5 +89,8 @@ namespace MappingFramework.Configuration
             => AdditionalSourceValues.GetValue(name, key, this);
 
         public List<Information> Information() => _information;
+
+        public Context Copy(object scope, object newTarget)
+            => new Context(scope, newTarget, AdditionalSourceValues, MappingCaches, _information);
     }
 }

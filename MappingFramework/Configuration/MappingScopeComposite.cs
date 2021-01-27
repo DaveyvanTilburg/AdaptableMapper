@@ -34,34 +34,34 @@ namespace MappingFramework.Configuration
             ChildCreator = childCreator;
         }
 
-        public void Traverse(Context context, MappingCaches mappingCaches)
+        public void Traverse(Context context)
         {
-            MethodResult<IEnumerable<object>> scope = GetListValueTraversal.GetValues(context);
-            if (!scope.IsValid)
+            MethodResult<IEnumerable<object>> scopes = GetListValueTraversal.GetValues(context);
+            if (!scopes.IsValid)
                 return;
 
-            Template template = GetTemplateTraversal.GetTemplate(context, context.Target, mappingCaches);
+            Template template = GetTemplateTraversal.GetTemplate(context, context.Target);
 
-            foreach (object item in scope.Value)
+            foreach (object scope in scopes.Value)
             {
-                object newChild = ChildCreator.CreateChild(context, template);
-                Context childContext = new Context(source: item, target: newChild, context.AdditionalSourceValues);
+                object newTargetChild = ChildCreator.CreateChild(context, template);
+                Context childContext = context.Copy(scope, newTargetChild);
 
                 if (Condition != null && !Condition.Validate(childContext))
                     continue;
 
-                ChildCreator.AddToParent(context, template, newChild);
-                TraverseChild(childContext, mappingCaches);
+                ChildCreator.AddToParent(context, template, newTargetChild);
+                TraverseChild(childContext);
             }
         }
 
-        private void TraverseChild(Context context, MappingCaches mappingCaches)
+        private void TraverseChild(Context context)
         {
             foreach (MappingScopeComposite mappingScopeComposite in MappingScopeComposites)
-                mappingScopeComposite.Traverse(context, mappingCaches);
+                mappingScopeComposite.Traverse(context);
 
             foreach (Mapping mapping in Mappings)
-                mapping.Map(context, mappingCaches);
+                mapping.Map(context);
         }
 
         void IVisitable.Receive(IVisitor visitor)

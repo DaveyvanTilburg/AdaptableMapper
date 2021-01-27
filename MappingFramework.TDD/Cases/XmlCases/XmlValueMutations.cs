@@ -20,7 +20,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
             var subject = new SetMutatedValueTraversal(new XmlSetValueTraversal(path) { XmlInterpretation = xmlInterpretation }, valueMutation);
             var context = new Context(null, XElement.Parse("<root><test></test></root>"), null);
 
-            subject.SetValue(context, null, value);
+            subject.SetValue(context, value);
 
             context.Information().Count.Should().Be(0);
             

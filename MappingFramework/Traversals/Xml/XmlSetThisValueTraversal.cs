@@ -15,7 +15,7 @@ namespace MappingFramework.Traversals.Xml
 
         public bool SetAsCData { get; set; }
 
-        public void SetValue(Context context, MappingCaches mappingCaches, string value)
+        public void SetValue(Context context, string value)
         {
             XElement xElement = (XElement)context.Target;
 

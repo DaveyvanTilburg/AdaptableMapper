@@ -19,7 +19,7 @@ namespace MappingFramework.Traversals.DataStructure
 
         public string PropertyName { get; set; }
 
-        public void SetValue(Context context, MappingCaches mappingCaches, string value)
+        public void SetValue(Context context, string value)
         {
             TraversableDataStructure dataStructure = (TraversableDataStructure)context.Target;
             dataStructure.SetValue(PropertyName, value);

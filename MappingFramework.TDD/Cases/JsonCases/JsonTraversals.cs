@@ -29,7 +29,7 @@ namespace MappingFramework.TDD.Cases.JsonCases
             var subject = new JsonSetValueTraversal(path);
             var context = new Context(null, Json.Stub(contextType), null);
 
-            subject.SetValue(context, null, string.Empty);
+            subject.SetValue(context, string.Empty);
             context.Information().Count.Should().Be(informationCount, because);
         }
 
@@ -59,7 +59,7 @@ namespace MappingFramework.TDD.Cases.JsonCases
             object source = Json.Stub(contextType);
             var context = new Context();
 
-            Template template = subject.GetTemplate(context, source, new MappingCaches());
+            Template template = subject.GetTemplate(context, source);
 
             template.Parent.Should().BeAssignableTo<JArray>();
             template.Child.Should().BeAssignableTo<JObject>();

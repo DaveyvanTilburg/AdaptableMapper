@@ -8,6 +8,6 @@ namespace MappingFramework.Traversals
     [JsonConverter(typeof(JsonTypeIdBasedConverter)), ContextType(ContextType.Target)]
     public interface GetTemplateTraversal
     {
-        Template GetTemplate(Context context, object target, MappingCaches mappingCache);
+        Template GetTemplate(Context context, object target);
     }
 }

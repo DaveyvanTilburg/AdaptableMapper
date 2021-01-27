@@ -23,17 +23,17 @@ namespace MappingFramework.Traversals.Xml
         public bool SetAsCData { get; set; }
         public int StartingNumber { get; set; }
 
-        public void SetValue(Context context, MappingCaches mappingCaches, string value)
+        public void SetValue(Context context, string value)
         {
             XElement xElement = (XElement)context.Target;
-            string number = GetId(xElement.Parent, mappingCaches);
+            string number = GetId(xElement.Parent, context);
 
             xElement.SetXPathValues(Path.ConvertToInterpretation(XmlInterpretation), number, SetAsCData, context);
         }
 
-        private string GetId(XElement parent, MappingCaches mappingCaches)
+        private string GetId(XElement parent, Context context)
         {
-            var cache = mappingCaches.GetCache<GenerateIdCache>(nameof(GenerateIdCache));
+            var cache = context.MappingCaches.GetCache<GenerateIdCache>(nameof(GenerateIdCache));
 
             int id = cache.GenerateNewId(parent, Path, StartingNumber);
             return id.ToString();

@@ -23,10 +23,10 @@ namespace MappingFramework.Compositions
         public SetValueTraversal SetValueTraversal { get; set; }
         public ValueMutation ValueMutation { get; set; }
 
-        public void SetValue(Context context, MappingCaches mappingCaches, string value)
+        public void SetValue(Context context, string value)
         {
             string mutatedValue = ValueMutation.Mutate(context, value);
-            SetValueTraversal.SetValue(context, mappingCaches, mutatedValue);
+            SetValueTraversal.SetValue(context, mutatedValue);
         }
 
         void IVisitable.Receive(IVisitor visitor)

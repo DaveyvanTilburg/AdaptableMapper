@@ -20,7 +20,7 @@ namespace MappingFramework.TDD
             var result = mapResult.Result as Root;
             result.Should().NotBeNull();
 
-            mapResult.Information.Count.Should().Be(0);
+            mapResult.Information.Count.Should().Be(2);
 
             result.Organization.Leaders.Count.Should().Be(3);
             result.Organization.Leaders[0].Reference.Should().Be("alpha-bravo-tango-delta");

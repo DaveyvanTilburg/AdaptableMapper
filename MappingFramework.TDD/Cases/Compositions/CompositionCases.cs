@@ -306,11 +306,11 @@ namespace MappingFramework.TDD.Cases.Compositions
             object source = XmlCases.Xml.Stub(ContextType.TestObject);
 
             var traversal = new XmlGetTemplateTraversal("//SimpleItems/SimpleItem[@Id='1']/Name");
-            Template name = traversal.GetTemplate(context, source, new MappingCaches());
+            Template name = traversal.GetTemplate(context, source);
 
             var setContext = new Context(null, name.Child, null);
 
-            subject.SetValue(setContext, null, "Test");
+            subject.SetValue(setContext, "Test");
             context.Information().Count.Should().Be(0);
 
             string value = new XmlGetThisValueTraversal().GetValue(new Context(setContext.Target, null, null));
