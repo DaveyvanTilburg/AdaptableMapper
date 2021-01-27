@@ -3,10 +3,10 @@ using FluentAssertions;
 using MappingFramework.Compositions;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
-using MappingFramework.Configuration.Json;
-using MappingFramework.Configuration.Xml;
-using MappingFramework.Traversals.Json;
-using MappingFramework.Traversals.Xml;
+using MappingFramework.Languages.Json.Configuration;
+using MappingFramework.Languages.Json.Traversals;
+using MappingFramework.Languages.Xml.Configuration;
+using MappingFramework.Languages.Xml.Traversals;
 using MappingFramework.ValueMutations;
 using MappingFramework.Visitors;
 using Xunit;
@@ -65,10 +65,10 @@ namespace MappingFramework.TDD.Visitors
                     )
                 },
                 new ContextFactory(
-                    new XmlObjectConverter(),
-                    new JsonTargetInstantiator()
+                    new XmlSourceCreator(),
+                    new JsonTargetCreator()
                 ),
-                new JTokenToStringObjectConverter()
+                new JTokenToStringResultObjectCreator()
             );
             
             var subject = new CompositionValidationVisitor();

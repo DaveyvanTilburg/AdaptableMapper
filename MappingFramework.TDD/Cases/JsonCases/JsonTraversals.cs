@@ -1,6 +1,6 @@
 ﻿using MappingFramework.Configuration;
-using MappingFramework.Traversals.Json;
 using FluentAssertions;
+using MappingFramework.Languages.Json.Traversals;
 using MappingFramework.Traversals;
 using Newtonsoft.Json.Linq;
 using Xunit;

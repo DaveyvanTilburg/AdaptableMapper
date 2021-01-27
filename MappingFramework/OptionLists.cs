@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using MappingFramework.Compositions;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
-using MappingFramework.Configuration.DataStructure;
-using MappingFramework.Configuration.Dictionary;
-using MappingFramework.Configuration.Json;
-using MappingFramework.Configuration.Xml;
 using MappingFramework.ContentTypes;
+using MappingFramework.Languages.DataStructure.Configuration;
+using MappingFramework.Languages.DataStructure.Traversals;
+using MappingFramework.Languages.Dictionary.Configuration;
+using MappingFramework.Languages.Dictionary.Traversals;
+using MappingFramework.Languages.Json.Configuration;
+using MappingFramework.Languages.Json.Traversals;
+using MappingFramework.Languages.Xml.Configuration;
+using MappingFramework.Languages.Xml.Traversals;
 using MappingFramework.Traversals;
-using MappingFramework.Traversals.DataStructure;
-using MappingFramework.Traversals.Dictionary;
-using MappingFramework.Traversals.Json;
-using MappingFramework.Traversals.Xml;
 using MappingFramework.ValueMutations;
 using MappingFramework.ValueMutations.Traversals;
 
@@ -119,22 +119,22 @@ namespace MappingFramework
         }
 
         private static Type ObjectConverter(ContentType contentType) =>
-            contentType == ContentType.Xml ? typeof(XmlObjectConverter) :
-            contentType == ContentType.Json ? typeof(JsonObjectConverter) :
-            contentType == ContentType.DataStructure ? typeof(DataStructureObjectConverter) :
-            contentType == ContentType.String ? typeof(StringToDataStructureObjectConverter) : null;
+            contentType == ContentType.Xml ? typeof(XmlSourceCreator) :
+            contentType == ContentType.Json ? typeof(JsonSourceCreator) :
+            contentType == ContentType.DataStructure ? typeof(DataStructureSourceCreator) :
+            contentType == ContentType.String ? typeof(StringToDataStructureSourceCreator) : null;
 
         private static Type TargetInstantiator(ContentType contentType) =>
-            contentType == ContentType.Xml ? typeof(XmlTargetInstantiator) :
-            contentType == ContentType.Json ? typeof(JsonTargetInstantiator) :
-            contentType == ContentType.DataStructure ? typeof(DataStructureTargetInstantiator) : 
-            contentType == ContentType.Dictionary ? typeof(DictionaryTargetInstantiator) : null;
+            contentType == ContentType.Xml ? typeof(XmlTargetCreator) :
+            contentType == ContentType.Json ? typeof(JsonTargetCreator) :
+            contentType == ContentType.DataStructure ? typeof(DataStructureTargetCreator) : 
+            contentType == ContentType.Dictionary ? typeof(DictionaryTargetCreator) : null;
 
         private static Type ResultObjectConverter(ContentType contentType) =>
-            contentType == ContentType.Xml ? typeof(XElementToStringObjectConverter) :
-            contentType == ContentType.Json ? typeof(JTokenToStringObjectConverter) :
-            contentType == ContentType.DataStructure ? typeof(ObjectToJsonResultObjectConverter):
-            contentType == ContentType.Dictionary ? typeof(ObjectToJsonResultObjectConverter) : null;
+            contentType == ContentType.Xml ? typeof(XElementToStringResultObjectCreator) :
+            contentType == ContentType.Json ? typeof(JTokenToStringResultObjectCreator) :
+            contentType == ContentType.DataStructure ? typeof(ObjectToJsonResultObjectCreator):
+            contentType == ContentType.Dictionary ? typeof(ObjectToJsonResultObjectCreator) : null;
 
         private static Type GetListValueTraversal(ContentType contentType) =>
             contentType == ContentType.Xml ? typeof(XmlGetListValueTraversal) :
@@ -166,11 +166,11 @@ namespace MappingFramework
             if (!type.IsInterface)
                 throw new Exception("List is meant to be called with an interface type as parameter");
 
-            if (type == typeof(ObjectConverter))
+            if (type == typeof(SourceCreator))
                 return new List<Type> { ObjectConverter(contentType) };
-            if (type == typeof(TargetInstantiator))
+            if (type == typeof(TargetCreator))
                 return new List<Type> { TargetInstantiator(contentType) };
-            if (type == typeof(ResultObjectConverter))
+            if (type == typeof(ResultObjectCreator))
                 return new List<Type> { ResultObjectConverter(contentType) };
 
             if (type == typeof(Condition))

@@ -9,9 +9,9 @@ namespace MappingFramework.Visitors
     {
         void Visit(MappingConfiguration mappingConfiguration);
         void Visit(ContextFactory contextFactory);
-        void Visit(ObjectConverter objectConverter);
-        void Visit(TargetInstantiator targetInstantiator);
-        void Visit(ResultObjectConverter resultObjectConverter);
+        void Visit(SourceCreator sourceCreator);
+        void Visit(TargetCreator targetCreator);
+        void Visit(ResultObjectCreator resultObjectCreator);
         void Visit(Mapping mapping);
         void Visit(GetValueTraversal getValueTraversal);
         void Visit(GetListValueTraversal getListValueTraversal);

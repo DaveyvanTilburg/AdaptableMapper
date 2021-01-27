@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using MappingFramework.Configuration.DataStructure;
-using MappingFramework.DataStructure;
+using MappingFramework.Languages.DataStructure;
+using MappingFramework.Languages.DataStructure.Configuration;
 using MappingFramework.TDD.DataStructureExamples.Simple;
 
 namespace MappingFramework.TDD.Cases.DataStructureCases
@@ -49,7 +49,7 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
                     result = "abcd";
                     break;
                 case ContextType.EmptySourceType:
-                    result = Newtonsoft.Json.JsonConvert.SerializeObject(new DataStructureTargetInstantiatorSource());
+                    result = Newtonsoft.Json.JsonConvert.SerializeObject(new DataStructureTargetCreatorSource());
                     break;
                 case ContextType.InvalidSourceType:
                     result = Newtonsoft.Json.JsonConvert.SerializeObject(CreateDataStructureTargetInstantiatorInvalidSource());
@@ -114,10 +114,10 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
             return result;
         }
 
-        public static DataStructureTargetInstantiatorSource CreateDataStructureTargetInstantiatorInvalidSource()
+        public static DataStructureTargetCreatorSource CreateDataStructureTargetInstantiatorInvalidSource()
         {
             var testType = typeof(NoItem);
-            var testValue = new DataStructureTargetInstantiatorSource
+            var testValue = new DataStructureTargetCreatorSource
             {
                 AssemblyFullName = testType.Assembly.FullName,
                 TypeFullName = testType.FullName
@@ -126,10 +126,10 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
             return testValue;
         }
 
-        public static DataStructureTargetInstantiatorSource CreateDataStructureTargetInstantiatorSource()
+        public static DataStructureTargetCreatorSource CreateDataStructureTargetInstantiatorSource()
         {
             var testType = typeof(Item);
-            var testValue = new DataStructureTargetInstantiatorSource
+            var testValue = new DataStructureTargetCreatorSource
             {
                 AssemblyFullName = testType.Assembly.FullName,
                 TypeFullName = testType.FullName

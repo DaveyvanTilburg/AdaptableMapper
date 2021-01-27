@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
-using MappingFramework.Process;
+using MappingFramework.Configuration;
 
 namespace MappingFramework.MappingInterface.Controls
 {

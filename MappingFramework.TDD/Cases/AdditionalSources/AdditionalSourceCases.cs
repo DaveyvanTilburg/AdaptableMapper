@@ -2,8 +2,8 @@
 using FluentAssertions;
 using MappingFramework.Compositions;
 using MappingFramework.Configuration;
-using MappingFramework.Configuration.Json;
-using MappingFramework.Traversals.Json;
+using MappingFramework.Languages.Json.Configuration;
+using MappingFramework.Languages.Json.Traversals;
 using MappingFramework.ValueMutations;
 using Xunit;
 
@@ -31,7 +31,7 @@ namespace MappingFramework.TDD.Cases.AdditionalSources
                 new TestExtraAdditionalSource()
             };
 
-            var contextFactory = new ContextFactory(new JsonObjectConverter(), new JsonTargetInstantiator(), additionalSources);
+            var contextFactory = new ContextFactory(new JsonSourceCreator(), new JsonTargetCreator(), additionalSources);
             Context context = contextFactory.Create("{}", "{}");
 
             string result = subject.GetValue(context);
@@ -48,7 +48,7 @@ namespace MappingFramework.TDD.Cases.AdditionalSources
                 new TestAdditionalSource()
             };
 
-            var contextFactory = new ContextFactory(new JsonObjectConverter(), new JsonTargetInstantiator(), additionalSources);
+            var contextFactory = new ContextFactory(new JsonSourceCreator(), new JsonTargetCreator(), additionalSources);
             var context = contextFactory.Create("{}", "{}");
 
             context.Information().Count.Should().Be(4);
@@ -109,8 +109,8 @@ namespace MappingFramework.TDD.Cases.AdditionalSources
                 new TestExtraAdditionalSource()
             };
 
-            var contextFactory = new ContextFactory(new JsonObjectConverter(), new JsonTargetInstantiator(), additionalSources);
-            var mappingConfiguration = new MappingConfiguration(new List<MappingScopeComposite> { mappingScopeComposite }, mappings, contextFactory, new JTokenToStringObjectConverter());
+            var contextFactory = new ContextFactory(new JsonSourceCreator(), new JsonTargetCreator(), additionalSources);
+            var mappingConfiguration = new MappingConfiguration(new List<MappingScopeComposite> { mappingScopeComposite }, mappings, contextFactory, new JTokenToStringResultObjectCreator());
 
             var mapResult = mappingConfiguration.Map(
                 System.IO.File.ReadAllText("./Cases/AdditionalSources/AdditionalSourceValueFullSource.json"),

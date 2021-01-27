@@ -2,7 +2,6 @@
 using MappingFramework.Configuration;
 using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
-using MappingFramework.Process;
 using MappingFramework.Traversals;
 using MappingFramework.Visitors;
 

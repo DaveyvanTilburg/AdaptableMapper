@@ -28,9 +28,9 @@ namespace MappingFramework.MappingInterface.Generics
             _propertyInfo.PropertyType == typeof(char) ? ObjectComponentDisplayType.CharBox :
             _propertyInfo.PropertyType.IsEnum ? ObjectComponentDisplayType.RadioGroupBox :
             
-            _propertyInfo.PropertyType == typeof(ObjectConverter) ? ObjectComponentDisplayType.Item :
-            _propertyInfo.PropertyType == typeof(TargetInstantiator) ? ObjectComponentDisplayType.Item :
-            _propertyInfo.PropertyType == typeof(ResultObjectConverter) ? ObjectComponentDisplayType.Item :
+            _propertyInfo.PropertyType == typeof(SourceCreator) ? ObjectComponentDisplayType.Item :
+            _propertyInfo.PropertyType == typeof(TargetCreator) ? ObjectComponentDisplayType.Item :
+            _propertyInfo.PropertyType == typeof(ResultObjectCreator) ? ObjectComponentDisplayType.Item :
 
             _propertyInfo.PropertyType == typeof(GetValueTraversal) ? ObjectComponentDisplayType.Item :
             _propertyInfo.PropertyType == typeof(SetValueTraversal) ? ObjectComponentDisplayType.Item :

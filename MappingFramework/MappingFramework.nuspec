@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>MappingFramework</id>
+    <version>0.0.0.1</version>
+    <title>MappingFramework</title>
+    <authors>Davey van Tilburg</authors>
+    <owners>Davey van Tilburg</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/DaveyvanTilburg/MappingFramework</projectUrl>
+    <description>
+A package for any to any mapping without hard-coding
+
+See https://github.com/DaveyvanTilburg/MappingFramework/ for documentation
+    </description>
+    <copyright>Copyright 2019</copyright>
+    <dependencies>
+      <group targetFramework="net472">
+        <dependency id="Newtonsoft.Json" version="12.0.2" />
+      </group>
+    </dependencies>
+    <releaseNotes>
+    </releaseNotes>
+  </metadata>
+</package>

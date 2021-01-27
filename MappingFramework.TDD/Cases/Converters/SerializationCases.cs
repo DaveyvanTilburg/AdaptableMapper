@@ -5,16 +5,15 @@ using System;
 using System.Collections.Generic;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
-using MappingFramework.Configuration.Dictionary;
-using MappingFramework.Configuration.Json;
-using MappingFramework.Configuration.DataStructure;
-using MappingFramework.Configuration.Xml;
 using MappingFramework.Converters;
-using MappingFramework.Process;
-using MappingFramework.Traversals.DataStructure;
-using MappingFramework.Traversals.Dictionary;
-using MappingFramework.Traversals.Json;
-using MappingFramework.Traversals.Xml;
+using MappingFramework.Languages.DataStructure.Configuration;
+using MappingFramework.Languages.DataStructure.Traversals;
+using MappingFramework.Languages.Dictionary.Configuration;
+using MappingFramework.Languages.Dictionary.Traversals;
+using MappingFramework.Languages.Json.Configuration;
+using MappingFramework.Languages.Json.Traversals;
+using MappingFramework.Languages.Xml.Configuration;
+using MappingFramework.Languages.Xml.Traversals;
 using MappingFramework.ValueMutations;
 using MappingFramework.ValueMutations.Traversals;
 using Xunit;
@@ -257,8 +256,8 @@ namespace MappingFramework.TDD.Cases.Converters
             //Configuration - Dictionary
             yield return new object[]
             {
-                typeof(TargetInstantiator),
-                new DictionaryTargetInstantiator()
+                typeof(TargetCreator),
+                new DictionaryTargetCreator()
             };
 
             //Configuration - Json
@@ -269,18 +268,18 @@ namespace MappingFramework.TDD.Cases.Converters
             };
             yield return new object[]
             {
-                typeof(ObjectConverter),
-                new JsonObjectConverter()
+                typeof(SourceCreator),
+                new JsonSourceCreator()
             };
             yield return new object[]
             {
-                typeof(TargetInstantiator),
-                new JsonTargetInstantiator()
+                typeof(TargetCreator),
+                new JsonTargetCreator()
             };
             yield return new object[]
             {
-                typeof(ResultObjectConverter),
-                new JTokenToStringObjectConverter()
+                typeof(ResultObjectCreator),
+                new JTokenToStringResultObjectCreator()
             };
 
             //Configuration - DataStructure
@@ -291,23 +290,23 @@ namespace MappingFramework.TDD.Cases.Converters
             };
             yield return new object[]
             {
-                typeof(ObjectConverter),
-                new DataStructureObjectConverter()
+                typeof(SourceCreator),
+                new DataStructureSourceCreator()
             };
             yield return new object[]
             {
-                typeof(TargetInstantiator),
-                new DataStructureTargetInstantiator()
+                typeof(TargetCreator),
+                new DataStructureTargetCreator()
             };
             yield return new object[]
             {
-                typeof(ResultObjectConverter),
-                new ObjectToJsonResultObjectConverter()
+                typeof(ResultObjectCreator),
+                new ObjectToJsonResultObjectCreator()
             };
             yield return new object[]
             {
-                typeof(ResultObjectConverter),
-                new StringToDataStructureObjectConverter()
+                typeof(ResultObjectCreator),
+                new StringToDataStructureSourceCreator()
             };
 
             //Configuration - Xml
@@ -318,18 +317,18 @@ namespace MappingFramework.TDD.Cases.Converters
             };
             yield return new object[]
             {
-                typeof(ObjectConverter),
-                new XmlObjectConverter()
+                typeof(SourceCreator),
+                new XmlSourceCreator()
             };
             yield return new object[]
             {
-                typeof(TargetInstantiator),
-                new XmlTargetInstantiator()
+                typeof(TargetCreator),
+                new XmlTargetCreator()
             };
             yield return new object[]
             {
-                typeof(ResultObjectConverter),
-                new XElementToStringObjectConverter()
+                typeof(ResultObjectCreator),
+                new XElementToStringResultObjectCreator()
             };
 
             //Traversal - Dictionary

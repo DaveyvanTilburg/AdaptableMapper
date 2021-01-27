@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using MappingFramework.Configuration;
+using MappingFramework.Languages.Json.Configuration;
+using MappingFramework.Languages.Json.Traversals;
+using MappingFramework.Languages.Xml.Configuration;
+using MappingFramework.Languages.Xml.Traversals;
 using Xunit;
 
 namespace MappingFramework.TDD
@@ -27,13 +31,13 @@ namespace MappingFramework.TDD
         private static MappingConfiguration GetMappingConfiguration()
         {
             var cpuCores = new Mapping(
-                new Traversals.Json.JsonGetValueTraversal(".CPU[0].Cores"),
-                new Traversals.Xml.XmlSetValueTraversal("./cpu/@cores")
+                new JsonGetValueTraversal(".CPU[0].Cores"),
+                new XmlSetValueTraversal("./cpu/@cores")
             );
 
             var cpuSpeed = new Mapping(
-                new Traversals.Json.JsonGetValueTraversal(".CPU[0].Speed"),
-                new Traversals.Xml.XmlSetValueTraversal("./cpu/@speed")
+                new JsonGetValueTraversal(".CPU[0].Speed"),
+                new XmlSetValueTraversal("./cpu/@speed")
             );
 
             var graphicalCardScope = new MappingScopeComposite(
@@ -44,29 +48,29 @@ namespace MappingFramework.TDD
                     cpuSpeed
                 },
                 new NullObject(),
-                new Traversals.Json.JsonGetListValueTraversal(".GraphicalCard[*]"),
-                new Traversals.Xml.XmlGetTemplateTraversal("./graphicalCard"),
-                new Configuration.Xml.XmlChildCreator()
+                new JsonGetListValueTraversal(".GraphicalCard[*]"),
+                new XmlGetTemplateTraversal("./graphicalCard"),
+                new XmlChildCreator()
             );
 
             var motherboardBrand = new Mapping(
-                new Traversals.Json.JsonGetValueTraversal(".Brand"),
-                new Traversals.Xml.XmlSetValueTraversal("./@motherboardBrand")
+                new JsonGetValueTraversal(".Brand"),
+                new XmlSetValueTraversal("./@motherboardBrand")
             );
             var motherboardCpuBrand = new Mapping(
-                new Traversals.Json.JsonGetValueTraversal(".CPU[0].Brand"),
-                new Traversals.Xml.XmlSetValueTraversal("./@cpuBrand")
+                new JsonGetValueTraversal(".CPU[0].Brand"),
+                new XmlSetValueTraversal("./@cpuBrand")
             );
             var motherboardTotalStorage = new Mapping(
-                new Traversals.Json.JsonGetValueTraversal(".HardDrive[0].Size"),
-                new Traversals.Xml.XmlSetValueTraversal("./@storage")
+                new JsonGetValueTraversal(".HardDrive[0].Size"),
+                new XmlSetValueTraversal("./@storage")
             );
             var motherboardPartner = new Mapping(
                 new Compositions.GetSearchValueTraversal(
-                    new Traversals.Json.JsonGetValueTraversal("../../../../../.Brand[?(@.Name=='{{searchValue}}')].Partner"),
-                    new Traversals.Json.JsonGetValueTraversal(".Brand")
+                    new JsonGetValueTraversal("../../../../../.Brand[?(@.Name=='{{searchValue}}')].Partner"),
+                    new JsonGetValueTraversal(".Brand")
                 ),
-                new Traversals.Xml.XmlSetValueTraversal("./@brandPartner")
+                new XmlSetValueTraversal("./@brandPartner")
             );
 
             var motherboardScope = new MappingScopeComposite(
@@ -82,24 +86,24 @@ namespace MappingFramework.TDD
                     motherboardPartner
                 },
                 new NullObject(),
-                new Traversals.Json.JsonGetListValueTraversal("$.Computer.Motherboard[*]"),
-                new Traversals.Xml.XmlGetTemplateTraversal("//computers/computer"),
-                new Configuration.Xml.XmlChildCreator()
+                new JsonGetListValueTraversal("$.Computer.Motherboard[*]"),
+                new XmlGetTemplateTraversal("//computers/computer"),
+                new XmlChildCreator()
             );
 
             var memorySize = new Mapping(
-                new Traversals.Json.JsonGetValueTraversal("$.Size"),
-                new Traversals.Xml.XmlSetValueTraversal("./@size")
+                new JsonGetValueTraversal("$.Size"),
+                new XmlSetValueTraversal("./@size")
             );
 
             var memoryBrand = new Mapping(
-                new Traversals.Json.JsonGetValueTraversal("../../../.Brand"),
-                new Traversals.Xml.XmlSetValueTraversal("./@brand")
+                new JsonGetValueTraversal("../../../.Brand"),
+                new XmlSetValueTraversal("./@brand")
             );
 
             var memoryMotherboardBrand = new Mapping(
-                new Traversals.Json.JsonGetValueTraversal("../../../../../../.Brand"),
-                new Traversals.Xml.XmlSetValueTraversal("./@onMotherboardWithBrand")
+                new JsonGetValueTraversal("../../../../../../.Brand"),
+                new XmlSetValueTraversal("./@onMotherboardWithBrand")
             );
 
             var memoriesScope = new MappingScopeComposite(
@@ -111,9 +115,9 @@ namespace MappingFramework.TDD
                     memoryMotherboardBrand
                 },
                 new NullObject(),
-                new Traversals.Json.JsonGetListValueTraversal("$.Computer.Motherboard[*].Memory[*].MemoryChip[*]"),
-                new Traversals.Xml.XmlGetTemplateTraversal("//allMemories/memory"),
-                new Configuration.Xml.XmlChildCreator()
+                new JsonGetListValueTraversal("$.Computer.Motherboard[*].Memory[*].MemoryChip[*]"),
+                new XmlGetTemplateTraversal("//allMemories/memory"),
+                new XmlChildCreator()
             );
 
             var scopes = new List<MappingScopeComposite>
@@ -125,8 +129,8 @@ namespace MappingFramework.TDD
             var mappingConfiguration = new MappingConfiguration(
                 scopes,
                 new ContextFactory(
-                    new Configuration.Json.JsonObjectConverter(),
-                    new Configuration.Xml.XmlTargetInstantiator()
+                    new JsonSourceCreator(),
+                    new XmlTargetCreator()
                 ),
                 new NullObject()
             );

@@ -1,8 +1,11 @@
 ﻿using FluentAssertions;
 using System.Collections.Generic;
 using MappingFramework.Configuration;
+using MappingFramework.Languages.DataStructure.Configuration;
+using MappingFramework.Languages.DataStructure.Traversals;
+using MappingFramework.Languages.Xml.Configuration;
+using MappingFramework.Languages.Xml.Traversals;
 using MappingFramework.TDD.DataStructureExamples.Armies;
-using MappingFramework.Traversals.DataStructure;
 using Xunit;
 
 namespace MappingFramework.TDD
@@ -40,7 +43,7 @@ namespace MappingFramework.TDD
         public void XmlToDataStructureToString()
         {
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
-            mappingConfiguration.ResultObjectConverter = new Configuration.DataStructure.ObjectToJsonResultObjectConverter();
+            mappingConfiguration.ResultObjectCreator = new ObjectToJsonResultObjectCreator();
             string dataStructureTargetInstantiatorSource = CreateDataStructureTargetInstantiatorSource();
 
             MapResult mapResult = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), dataStructureTargetInstantiatorSource);
@@ -55,7 +58,7 @@ namespace MappingFramework.TDD
         private string CreateDataStructureTargetInstantiatorSource()
         {
             var rootType = typeof(Root);
-            var result = new Configuration.DataStructure.DataStructureTargetInstantiatorSource
+            var result = new DataStructureTargetCreatorSource
             {
                 AssemblyFullName = rootType.Assembly.FullName,
                 TypeFullName = rootType.FullName
@@ -67,7 +70,7 @@ namespace MappingFramework.TDD
         public static MappingConfiguration GetMappingConfiguration()
         {
             var crewMember = new Mapping(
-                new Traversals.Xml.XmlGetThisValueTraversal(),
+                new XmlGetThisValueTraversal(),
                 new DataStructureSetValueOnPropertyTraversal("Name")
             );
 
@@ -78,13 +81,13 @@ namespace MappingFramework.TDD
                     crewMember
                 },
                 new NullObject(),
-                new Traversals.Xml.XmlGetListValueTraversal("./crew/crewMember"),
+                new XmlGetListValueTraversal("./crew/crewMember"),
                 new DataStructureGetTemplateTraversal("CrewMembers"),
-                new Configuration.DataStructure.DataStructureChildCreator()
+                new DataStructureChildCreator()
             );
 
             var memberName = new Mapping(
-                new Traversals.Xml.XmlGetValueTraversal("./@name"),
+                new XmlGetValueTraversal("./@name"),
                 new DataStructureSetValueOnPropertyTraversal("Name")
             );
 
@@ -98,18 +101,18 @@ namespace MappingFramework.TDD
                     memberName
                 },
                 new NullObject(),
-                new Traversals.Xml.XmlGetListValueTraversal("./members/member"),
+                new XmlGetListValueTraversal("./members/member"),
                 new DataStructureGetTemplateTraversal("Members"),
-                new Configuration.DataStructure.DataStructureChildCreator()
+                new DataStructureChildCreator()
             );
 
             var platoonCode = new Mapping(
-                new Traversals.Xml.XmlGetValueTraversal("./@code"),
+                new XmlGetValueTraversal("./@code"),
                 new DataStructureSetValueOnPropertyTraversal("Code")
             );
 
             var leaderReference = new Mapping(
-                new Traversals.Xml.XmlGetValueTraversal("./leaderReference"),
+                new XmlGetValueTraversal("./leaderReference"),
                 new DataStructureSetValueOnPropertyTraversal("LeaderReference")
             );
 
@@ -124,13 +127,13 @@ namespace MappingFramework.TDD
                     leaderReference
                 },
                 new NullObject(),
-                new Traversals.Xml.XmlGetListValueTraversal("./platoon"),
+                new XmlGetListValueTraversal("./platoon"),
                 new DataStructureGetTemplateTraversal("Platoons"),
-                new Configuration.DataStructure.DataStructureChildCreator()
+                new DataStructureChildCreator()
             );
 
             var armyCode = new Mapping(
-                new Traversals.Xml.XmlGetValueTraversal("./@code"),
+                new XmlGetValueTraversal("./@code"),
                 new DataStructureSetValueOnPropertyTraversal("Code")
             );
 
@@ -144,18 +147,18 @@ namespace MappingFramework.TDD
                     armyCode
                 },
                 new NullObject(),
-                new Traversals.Xml.XmlGetListValueTraversal("./army"),
+                new XmlGetListValueTraversal("./army"),
                 new DataStructureGetTemplateTraversal("Armies"),
-                new Configuration.DataStructure.DataStructureChildCreator()
+                new DataStructureChildCreator()
             );
 
             var reference = new Mapping(
-                new Traversals.Xml.XmlGetValueTraversal("./@reference"),
+                new XmlGetValueTraversal("./@reference"),
                 new DataStructureSetValueOnPropertyTraversal("Reference")
             );
 
             var leaderName = new Mapping(
-                new Traversals.Xml.XmlGetThisValueTraversal(),
+                new XmlGetThisValueTraversal(),
                 new DataStructureSetValueOnPathTraversal("LeaderPerson/Person/Name")
             );
 
@@ -167,9 +170,9 @@ namespace MappingFramework.TDD
                     leaderName
                 },
                 new NullObject(),
-                new Traversals.Xml.XmlGetListValueTraversal("./leaders/leader"),
+                new XmlGetListValueTraversal("./leaders/leader"),
                 new DataStructureGetTemplateTraversal("Organization/Leaders"),
-                new Configuration.DataStructure.DataStructureChildCreator()
+                new DataStructureChildCreator()
             );
 
             var scopes = new List<MappingScopeComposite>
@@ -179,8 +182,8 @@ namespace MappingFramework.TDD
             };
 
             var contextFactory = new ContextFactory(
-                new Configuration.Xml.XmlObjectConverter(),
-                new Configuration.DataStructure.DataStructureTargetInstantiator()
+                new XmlSourceCreator(),
+                new DataStructureTargetCreator()
             );
 
             var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObject());

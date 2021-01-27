@@ -5,13 +5,12 @@ using System.Xml.Linq;
 using MappingFramework.Compositions;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
-using MappingFramework.Process;
 using MappingFramework.Traversals;
-using MappingFramework.Traversals.Xml;
 using MappingFramework.ValueMutations;
-using MappingFramework.Xml;
 using FluentAssertions;
-using MappingFramework.Traversals.DataStructure;
+using MappingFramework.Languages.DataStructure.Traversals;
+using MappingFramework.Languages.Xml;
+using MappingFramework.Languages.Xml.Traversals;
 using Xunit;
 
 namespace MappingFramework.TDD.Cases.Compositions

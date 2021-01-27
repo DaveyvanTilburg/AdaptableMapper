@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using MappingFramework.Configuration;
-using MappingFramework.Configuration.DataStructure;
-using MappingFramework.DataStructure;
+using MappingFramework.Languages.DataStructure;
+using MappingFramework.Languages.DataStructure.Configuration;
 using Xunit;
 
 namespace MappingFramework.TDD.Cases.DataStructureCases
@@ -13,7 +13,7 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
         [InlineData("Valid", ContextType.EmptyObject, "item", 0)]
         public void DataStructureObjectConverter(string because, ContextType contextType, string createType, int informationCount)
         {
-            var subject = new DataStructureObjectConverter();
+            var subject = new DataStructureSourceCreator();
             object source = DataStructure.Stub(contextType, createType);
             var context = new Context();
 
@@ -31,7 +31,7 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
         [InlineData("Valid", ContextType.ValidSource, "", 0)]
         public void DataStructureTargetInstantiator(string because, ContextType contextType, string createType, int informationCount)
         {
-            var subject = new DataStructureTargetInstantiator();
+            var subject = new DataStructureTargetCreator();
             object source = DataStructure.Stub(contextType, createType);
             var context = new Context();
 
@@ -46,7 +46,7 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
         [InlineData("InvalidSourceType", ContextType.EmptyString, "", 1)]
         public void StringToDataStructureObjectConverterInvalidType(string because, ContextType contextType, string createType, int informationCount)
         {
-            var subject = new StringToDataStructureObjectConverter(null);
+            var subject = new StringToDataStructureSourceCreator(null);
             object source = DataStructure.Stub(contextType, createType);
             var context = new Context();
 
@@ -59,8 +59,8 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
         [Fact]
         public void StringToDataStructureObjectConverterInvalidSourceStringDeserialize()
         {
-            DataStructureTargetInstantiatorSource testDataStructure = DataStructure.CreateDataStructureTargetInstantiatorInvalidSource();
-            var subject = new StringToDataStructureObjectConverter(testDataStructure);
+            DataStructureTargetCreatorSource testDataStructure = DataStructure.CreateDataStructureTargetInstantiatorInvalidSource();
+            var subject = new StringToDataStructureSourceCreator(testDataStructure);
             var context = new Context();
 
             var result = subject.Convert(context, "abcd");
@@ -72,8 +72,8 @@ namespace MappingFramework.TDD.Cases.DataStructureCases
         [Fact]
         public void StringToDataStructureObjectConverterInvalidDeserializedType()
         {
-            DataStructureTargetInstantiatorSource testDataStructure = DataStructure.CreateDataStructureTargetInstantiatorInvalidSource();
-            var subject = new StringToDataStructureObjectConverter(testDataStructure);
+            DataStructureTargetCreatorSource testDataStructure = DataStructure.CreateDataStructureTargetInstantiatorInvalidSource();
+            var subject = new StringToDataStructureSourceCreator(testDataStructure);
             var context = new Context();
 
             string testSource = Newtonsoft.Json.JsonConvert.SerializeObject(testDataStructure);

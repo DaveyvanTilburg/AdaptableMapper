@@ -1,4 +1,4 @@
-﻿using MappingFramework.DataStructure;
+﻿using MappingFramework.Languages.DataStructure;
 
 namespace MappingFramework.TDD.DataStructureExamples.Armies
 {

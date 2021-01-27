@@ -5,30 +5,30 @@ namespace MappingFramework.Configuration
 {
     public class ContextFactory : IVisitable
     {
-        public ObjectConverter ObjectConverter { get; set; }
-        public TargetInstantiator TargetInstantiator { get; set; }
+        public SourceCreator SourceCreator { get; set; }
+        public TargetCreator TargetCreator { get; set; }
         public List<AdditionalSource> AdditionalSources { get; set; }
 
         public ContextFactory() { }
         
-        public ContextFactory(ObjectConverter objectConverter, TargetInstantiator targetInstantiator)
+        public ContextFactory(SourceCreator sourceCreator, TargetCreator targetCreator)
         {
-            ObjectConverter = objectConverter;
-            TargetInstantiator = targetInstantiator;
+            SourceCreator = sourceCreator;
+            TargetCreator = targetCreator;
         }
 
-        public ContextFactory(ObjectConverter objectConverter, TargetInstantiator targetInstantiator, List<AdditionalSource> additionalSources)
+        public ContextFactory(SourceCreator sourceCreator, TargetCreator targetCreator, List<AdditionalSource> additionalSources)
         {
-            ObjectConverter = objectConverter;
-            TargetInstantiator = targetInstantiator;
+            SourceCreator = sourceCreator;
+            TargetCreator = targetCreator;
             AdditionalSources = additionalSources;
         }
 
         public Context Create(object input, object targetSource)
         {
             var context = new Context();
-            var source = ObjectConverter.Convert(context, input);
-            var target = TargetInstantiator.Create(context, targetSource);
+            var source = SourceCreator.Convert(context, input);
+            var target = TargetCreator.Create(context, targetSource);
 
             context.Source = source;
             context.Target = target;
@@ -46,8 +46,8 @@ namespace MappingFramework.Configuration
 
         void IVisitable.Receive(IVisitor visitor)
         {
-            visitor.Visit(ObjectConverter);
-            visitor.Visit(TargetInstantiator);
+            visitor.Visit(SourceCreator);
+            visitor.Visit(TargetCreator);
         }
     }
 }

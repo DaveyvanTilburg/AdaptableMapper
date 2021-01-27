@@ -1,6 +1,5 @@
 ﻿using MappingFramework.Configuration;
 using MappingFramework.Converters;
-using MappingFramework.Process;
 using MappingFramework.Traversals;
 using MappingFramework.Visitors;
 

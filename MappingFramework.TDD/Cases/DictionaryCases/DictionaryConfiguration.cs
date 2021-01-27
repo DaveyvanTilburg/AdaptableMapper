@@ -3,8 +3,8 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using FluentAssertions;
 using MappingFramework.Configuration;
-using MappingFramework.Configuration.Dictionary;
-using MappingFramework.Dictionary;
+using MappingFramework.Languages.Dictionary;
+using MappingFramework.Languages.Dictionary.Configuration;
 using Xunit;
 
 namespace MappingFramework.TDD.Cases.DictionaryCases
@@ -17,7 +17,7 @@ namespace MappingFramework.TDD.Cases.DictionaryCases
         [InlineData(ContextType.InvalidObject)]
         public void DictionaryTargetInitiator(ContextType contextType)
         {
-            var subject = new DictionaryTargetInstantiator();
+            var subject = new DictionaryTargetCreator();
             var source = Dictionary.CreateTarget(contextType);
             var context = new Context();
             

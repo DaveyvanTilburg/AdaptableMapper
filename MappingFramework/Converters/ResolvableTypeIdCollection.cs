@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using MappingFramework.Compositions;
 using MappingFramework.Conditions;
-using MappingFramework.Configuration.Dictionary;
-using MappingFramework.Configuration.Json;
-using MappingFramework.Configuration.DataStructure;
-using MappingFramework.Configuration.Xml;
-using MappingFramework.Traversals.DataStructure;
-using MappingFramework.Traversals.Dictionary;
-using MappingFramework.Traversals.Json;
-using MappingFramework.Traversals.Xml;
+using MappingFramework.Languages.DataStructure.Configuration;
+using MappingFramework.Languages.DataStructure.Traversals;
+using MappingFramework.Languages.Dictionary.Configuration;
+using MappingFramework.Languages.Dictionary.Traversals;
+using MappingFramework.Languages.Json.Configuration;
+using MappingFramework.Languages.Json.Traversals;
+using MappingFramework.Languages.Xml.Configuration;
+using MappingFramework.Languages.Xml.Traversals;
 using MappingFramework.ValueMutations;
 using MappingFramework.ValueMutations.Traversals;
 
@@ -42,26 +42,26 @@ namespace MappingFramework.Converters
                 [NotEmptyCondition._typeId] = typeof(NotEmptyCondition),
 
                 //Configuration - Dictionary
-                [DictionaryTargetInstantiator._typeId] = typeof(DictionaryTargetInstantiator),
+                [DictionaryTargetCreator._typeId] = typeof(DictionaryTargetCreator),
 
                 //Configuration - Json
                 [JsonChildCreator._typeId] = typeof(JsonChildCreator),
-                [JsonObjectConverter._typeId] = typeof(JsonObjectConverter),
-                [JsonTargetInstantiator._typeId] = typeof(JsonTargetInstantiator),
-                [JTokenToStringObjectConverter._typeId] = typeof(JTokenToStringObjectConverter),
+                [JsonSourceCreator._typeId] = typeof(JsonSourceCreator),
+                [JsonTargetCreator._typeId] = typeof(JsonTargetCreator),
+                [JTokenToStringResultObjectCreator._typeId] = typeof(JTokenToStringResultObjectCreator),
 
                 //Configuration - DataStructure
                 [DataStructureChildCreator._typeId] = typeof(DataStructureChildCreator),
-                [DataStructureObjectConverter._typeId] = typeof(DataStructureObjectConverter),
-                [DataStructureTargetInstantiator._typeId] = typeof(DataStructureTargetInstantiator),
-                [ObjectToJsonResultObjectConverter._typeId] = typeof(ObjectToJsonResultObjectConverter),
-                [StringToDataStructureObjectConverter._typeId] = typeof(StringToDataStructureObjectConverter),
+                [DataStructureSourceCreator._typeId] = typeof(DataStructureSourceCreator),
+                [DataStructureTargetCreator._typeId] = typeof(DataStructureTargetCreator),
+                [ObjectToJsonResultObjectCreator._typeId] = typeof(ObjectToJsonResultObjectCreator),
+                [StringToDataStructureSourceCreator._typeId] = typeof(StringToDataStructureSourceCreator),
 
                 //Configuration - Xml
-                [XElementToStringObjectConverter._typeId] = typeof(XElementToStringObjectConverter),
+                [XElementToStringResultObjectCreator._typeId] = typeof(XElementToStringResultObjectCreator),
                 [XmlChildCreator._typeId] = typeof(XmlChildCreator),
-                [XmlObjectConverter._typeId] = typeof(XmlObjectConverter),
-                [XmlTargetInstantiator._typeId] = typeof(XmlTargetInstantiator),
+                [XmlSourceCreator._typeId] = typeof(XmlSourceCreator),
+                [XmlTargetCreator._typeId] = typeof(XmlTargetCreator),
 
                 //Traversals - Dictionary
                 [DictionarySetValueTraversal._typeId] = typeof(DictionarySetValueTraversal),

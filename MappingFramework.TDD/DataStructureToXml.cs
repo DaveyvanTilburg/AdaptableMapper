@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
-using MappingFramework.DataStructure;
-using MappingFramework.Traversals.DataStructure;
+using MappingFramework.Languages.DataStructure;
+using MappingFramework.Languages.DataStructure.Configuration;
+using MappingFramework.Languages.DataStructure.Traversals;
+using MappingFramework.Languages.Xml.Configuration;
+using MappingFramework.Languages.Xml.Traversals;
 using Xunit;
 
 namespace MappingFramework.TDD
@@ -32,7 +35,7 @@ namespace MappingFramework.TDD
         {
             var memberName = new Mapping(
                 new DataStructureGetValueTraversal("Name"),
-                new Traversals.Xml.XmlSetThisValueTraversal()
+                new XmlSetThisValueTraversal()
             );
 
             var memberScope = new MappingScopeComposite(
@@ -43,13 +46,13 @@ namespace MappingFramework.TDD
                 },
                 new NullObject(),
                 new DataStructureGetListValueTraversal("Members"),
-                new Traversals.Xml.XmlGetTemplateTraversal("./memberNames/memberName"),
-                new Configuration.Xml.XmlChildCreator()
+                new XmlGetTemplateTraversal("./memberNames/memberName"),
+                new XmlChildCreator()
             );
 
             var platoonCode = new Mapping(
                 new DataStructureGetValueTraversal("Code"),
-                new Traversals.Xml.XmlSetValueTraversal("./@code")
+                new XmlSetValueTraversal("./@code")
             );
 
             var leaderName = new Mapping(
@@ -57,7 +60,7 @@ namespace MappingFramework.TDD
                     new DataStructureGetValueTraversal("../../Organization/Leaders{'PropertyName':'Reference','Value':'{{searchValue}}'}/LeaderPerson/Person/Name"),
                     new DataStructureGetValueTraversal("LeaderReference")
                 ),
-                new Traversals.Xml.XmlSetValueTraversal("./leaderName")
+                new XmlSetValueTraversal("./leaderName")
             );
 
             var platoonScope = new MappingScopeComposite(
@@ -72,8 +75,8 @@ namespace MappingFramework.TDD
                 },
                 new NullObject(),
                 new DataStructureGetListValueTraversal("Armies/Platoons"),
-                new Traversals.Xml.XmlGetTemplateTraversal("./platoons/platoon"),
-                new Configuration.Xml.XmlChildCreator()
+                new XmlGetTemplateTraversal("./platoons/platoon"),
+                new XmlChildCreator()
             )
             {
                 Condition = new CompareCondition(
@@ -84,7 +87,7 @@ namespace MappingFramework.TDD
 
             var crewMemberName = new Mapping(
                 new DataStructureGetValueTraversal("Name"),
-                new Traversals.Xml.XmlSetThisValueTraversal()
+                new XmlSetThisValueTraversal()
             );
 
             var crewMemberNamesScope = new MappingScopeComposite(
@@ -95,8 +98,8 @@ namespace MappingFramework.TDD
                 },
                 new NullObject(),
                 new DataStructureGetListValueTraversal("Armies/Platoons/Members/CrewMembers"),
-                new Traversals.Xml.XmlGetTemplateTraversal("./crewMemberNames/crewMemberName"),
-                new Configuration.Xml.XmlChildCreator()
+                new XmlGetTemplateTraversal("./crewMemberNames/crewMemberName"),
+                new XmlChildCreator()
             );
 
             var scopes = new List<MappingScopeComposite>
@@ -106,8 +109,8 @@ namespace MappingFramework.TDD
             };
 
             var contextFactory = new ContextFactory(
-                new Configuration.DataStructure.DataStructureObjectConverter(),
-                new Configuration.Xml.XmlTargetInstantiator()
+                new DataStructureSourceCreator(),
+                new XmlTargetCreator()
             );
 
             var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObject());

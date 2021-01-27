@@ -2,11 +2,11 @@
 using System.IO;
 using FluentAssertions;
 using MappingFramework.Configuration;
-using MappingFramework.Configuration.Dictionary;
-using MappingFramework.Configuration.Json;
-using MappingFramework.Dictionary;
-using MappingFramework.Traversals.Dictionary;
-using MappingFramework.Traversals.Json;
+using MappingFramework.Languages.Dictionary;
+using MappingFramework.Languages.Dictionary.Configuration;
+using MappingFramework.Languages.Dictionary.Traversals;
+using MappingFramework.Languages.Json.Configuration;
+using MappingFramework.Languages.Json.Traversals;
 using Xunit;
 
 namespace MappingFramework.TDD
@@ -29,8 +29,8 @@ namespace MappingFramework.TDD
                     )
                 },
                 new ContextFactory(
-                    new JsonObjectConverter(),
-                    new DictionaryTargetInstantiator()
+                    new JsonSourceCreator(),
+                    new DictionaryTargetCreator()
                 ),
                 new NullObject()
             );

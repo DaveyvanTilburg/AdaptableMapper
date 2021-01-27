@@ -2,6 +2,8 @@
 using MappingFramework.Compositions;
 using MappingFramework.Configuration;
 using FluentAssertions;
+using MappingFramework.Languages.Xml.Configuration;
+using MappingFramework.Languages.Xml.Traversals;
 using Xunit;
 
 namespace MappingFramework.TDD.Cases.Traversals
@@ -52,17 +54,17 @@ namespace MappingFramework.TDD.Cases.Traversals
                         {
                             new Mapping(
                                 new NullObject(),
-                                new MappingFramework.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
+                                new XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
-                                new MappingFramework.Traversals.Xml.XmlGetThisValueTraversal(),
-                                new MappingFramework.Traversals.Xml.XmlSetValueTraversal("./Text")
+                                new XmlGetThisValueTraversal(),
+                                new XmlSetValueTraversal("./Text")
                             )
                         },
                         new NullObject(),
-                        new MappingFramework.Traversals.Xml.XmlGetListValueTraversal("./Wheels/Wheel"),
-                        new MappingFramework.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
-                        new MappingFramework.Configuration.Xml.XmlChildCreator()
+                        new XmlGetListValueTraversal("./Wheels/Wheel"),
+                        new XmlGetTemplateTraversal("./Parts/Part"),
+                        new XmlChildCreator()
                     ),
                     new MappingScopeComposite(
                         new List<MappingScopeComposite>(),
@@ -70,17 +72,17 @@ namespace MappingFramework.TDD.Cases.Traversals
                         {
                             new Mapping(
                                 new NullObject(),
-                                new MappingFramework.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
+                                new XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
-                                new MappingFramework.Traversals.Xml.XmlGetThisValueTraversal(),
-                                new MappingFramework.Traversals.Xml.XmlSetValueTraversal("./Text")
+                                new XmlGetThisValueTraversal(),
+                                new XmlSetValueTraversal("./Text")
                             )
                         },
                         new NullObject(),
-                        new MappingFramework.Traversals.Xml.XmlGetListValueTraversal("./Doors/Door"),
-                        new MappingFramework.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
-                        new MappingFramework.Configuration.Xml.XmlChildCreator()
+                        new XmlGetListValueTraversal("./Doors/Door"),
+                        new XmlGetTemplateTraversal("./Parts/Part"),
+                        new XmlChildCreator()
                     ),
                     new MappingScopeComposite(
                         new List<MappingScopeComposite>(),
@@ -88,24 +90,24 @@ namespace MappingFramework.TDD.Cases.Traversals
                         {
                             new Mapping(
                                 new NullObject(),
-                                new MappingFramework.Traversals.Xml.XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
+                                new XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
                             new Mapping(
-                                new MappingFramework.Traversals.Xml.XmlGetThisValueTraversal(),
-                                new MappingFramework.Traversals.Xml.XmlSetValueTraversal("./Text")
+                                new XmlGetThisValueTraversal(),
+                                new XmlSetValueTraversal("./Text")
                             )
                         },
                         new NullObject(),
-                        new MappingFramework.Traversals.Xml.XmlGetListValueTraversal("./Windows/Window"),
-                        new MappingFramework.Traversals.Xml.XmlGetTemplateTraversal("./Parts/Part"),
-                        new MappingFramework.Configuration.Xml.XmlChildCreator()
+                        new XmlGetListValueTraversal("./Windows/Window"),
+                        new XmlGetTemplateTraversal("./Parts/Part"),
+                        new XmlChildCreator()
                     )
                 },
                 new ContextFactory(
-                    new MappingFramework.Configuration.Xml.XmlObjectConverter(),
-                    new MappingFramework.Configuration.Xml.XmlTargetInstantiator()
+                    new XmlSourceCreator(),
+                    new XmlTargetCreator()
                 ),
-                new MappingFramework.Configuration.Xml.XElementToStringObjectConverter()
+                new XElementToStringResultObjectCreator()
             );
 
             MapResult mapResult = mappingConfiguration.Map(source, template);

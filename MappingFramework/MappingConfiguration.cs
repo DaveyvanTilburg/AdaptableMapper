@@ -7,7 +7,7 @@ namespace MappingFramework
     public sealed class MappingConfiguration : IVisitable
     {
         public ContextFactory ContextFactory { get; set; }
-        public ResultObjectConverter ResultObjectConverter { get; set; }
+        public ResultObjectCreator ResultObjectCreator { get; set; }
         
         public List<Mapping> Mappings { get; set; }
         public List<MappingScopeComposite> MappingScopeComposites { get; set; }
@@ -18,28 +18,28 @@ namespace MappingFramework
             MappingScopeComposites = new List<MappingScopeComposite>();
         }
 
-        public MappingConfiguration(List<MappingScopeComposite> mappingScopeComposites, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
+        public MappingConfiguration(List<MappingScopeComposite> mappingScopeComposites, ContextFactory contextFactory, ResultObjectCreator resultObjectCreator) : this()
         {
             MappingScopeComposites = new List<MappingScopeComposite>(mappingScopeComposites ?? new List<MappingScopeComposite>());
             Mappings = new List<Mapping>();
             ContextFactory = contextFactory;
-            ResultObjectConverter = resultObjectConverter;
+            ResultObjectCreator = resultObjectCreator;
         }
 
-        public MappingConfiguration(List<Mapping> mappings, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
+        public MappingConfiguration(List<Mapping> mappings, ContextFactory contextFactory, ResultObjectCreator resultObjectCreator) : this()
         {
             MappingScopeComposites = new List<MappingScopeComposite>();
             Mappings = new List<Mapping>(mappings ?? new List<Mapping>());
             ContextFactory = contextFactory;
-            ResultObjectConverter = resultObjectConverter;
+            ResultObjectCreator = resultObjectCreator;
         }
 
-        public MappingConfiguration(List<MappingScopeComposite> mappingScopeComposites, List<Mapping> mappings, ContextFactory contextFactory, ResultObjectConverter resultObjectConverter) : this()
+        public MappingConfiguration(List<MappingScopeComposite> mappingScopeComposites, List<Mapping> mappings, ContextFactory contextFactory, ResultObjectCreator resultObjectCreator) : this()
         {
             MappingScopeComposites = new List<MappingScopeComposite>(mappingScopeComposites ?? new List<MappingScopeComposite>());
             Mappings = new List<Mapping>(mappings ?? new List<Mapping>());
             ContextFactory = contextFactory;
-            ResultObjectConverter = resultObjectConverter;
+            ResultObjectCreator = resultObjectCreator;
         }
 
         public MapResult Map(object source, object targetSource)
@@ -58,14 +58,14 @@ namespace MappingFramework
             foreach (MappingScopeComposite mappingScopeComposite in MappingScopeComposites)
                 mappingScopeComposite.Traverse(context);
 
-            object result = ResultObjectConverter.Convert(context.Target);
+            object result = ResultObjectCreator.Convert(context.Target);
             return new MapResult(result, context.Information());
         }
 
         void IVisitable.Receive(IVisitor visitor)
         {
             visitor.Visit(ContextFactory);
-            visitor.Visit(ResultObjectConverter);
+            visitor.Visit(ResultObjectCreator);
 
             if (Mappings != null)
                 foreach (Mapping mapping in Mappings)

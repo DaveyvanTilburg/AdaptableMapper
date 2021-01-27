@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
-using MappingFramework.Xml;
+using MappingFramework.Languages.Xml;
+using MappingFramework.Languages.Xml.Configuration;
+using MappingFramework.Languages.Xml.Traversals;
 using Xunit;
 
 namespace MappingFramework.TDD
@@ -30,7 +32,7 @@ namespace MappingFramework.TDD
         public void XmlTestIfResultIsString()
         {
             MappingConfiguration mappingConfiguration = GetMappingConfiguration();
-            mappingConfiguration.ResultObjectConverter = new Configuration.Xml.XElementToStringObjectConverter();
+            mappingConfiguration.ResultObjectCreator = new XElementToStringResultObjectCreator();
 
             MapResult mapResult = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), System.IO.File.ReadAllText(@".\Resources\XmlTarget_ArmyTemplate.xml"));
 
@@ -44,8 +46,8 @@ namespace MappingFramework.TDD
         private static MappingConfiguration GetMappingConfiguration()
         {
             var crewMemberName = new Mapping(
-                new Traversals.Xml.XmlGetThisValueTraversal(),
-                new Traversals.Xml.XmlSetThisValueTraversal()
+                new XmlGetThisValueTraversal(),
+                new XmlSetThisValueTraversal()
             );
 
             var crewScope = new MappingScopeComposite(
@@ -55,14 +57,14 @@ namespace MappingFramework.TDD
                     crewMemberName
                 },
                 new NullObject(),
-                new Traversals.Xml.XmlGetListValueTraversal("./army/platoon/members/member/crew/crewMember"),
-                new Traversals.Xml.XmlGetTemplateTraversal("./crewMemberNames/crewMemberName"),
-                new Configuration.Xml.XmlChildCreator()
+                new XmlGetListValueTraversal("./army/platoon/members/member/crew/crewMember"),
+                new XmlGetTemplateTraversal("./crewMemberNames/crewMemberName"),
+                new XmlChildCreator()
             );
 
             var memberName = new Mapping(
-                new Traversals.Xml.XmlGetValueTraversal("./@name"),
-                new Traversals.Xml.XmlSetThisValueTraversal()
+                new XmlGetValueTraversal("./@name"),
+                new XmlSetThisValueTraversal()
             );
 
             var memberScope = new MappingScopeComposite(
@@ -72,22 +74,22 @@ namespace MappingFramework.TDD
                     memberName
                 },
                 new NullObject(),
-                new Traversals.Xml.XmlGetListValueTraversal("./members/member"),
-                new Traversals.Xml.XmlGetTemplateTraversal("./memberNames/memberName"),
-                new Configuration.Xml.XmlChildCreator()
+                new XmlGetListValueTraversal("./members/member"),
+                new XmlGetTemplateTraversal("./memberNames/memberName"),
+                new XmlChildCreator()
             );
 
             var platoonCode = new Mapping(
-                new Traversals.Xml.XmlGetValueTraversal("./@code"),
-                new Traversals.Xml.XmlSetValueTraversal("./@code")
+                new XmlGetValueTraversal("./@code"),
+                new XmlSetValueTraversal("./@code")
             );
 
             var leaderNameSearch = new Mapping(
                 new Compositions.GetSearchValueTraversal(
-                    new Traversals.Xml.XmlGetValueTraversal("../../leaders/leader[@reference='{{searchValue}}']"),
-                    new Traversals.Xml.XmlGetValueTraversal("./leaderReference")
+                    new XmlGetValueTraversal("../../leaders/leader[@reference='{{searchValue}}']"),
+                    new XmlGetValueTraversal("./leaderReference")
                 ),
-                new Traversals.Xml.XmlSetValueTraversal("./leaderName")
+                new XmlSetValueTraversal("./leaderName")
             );
 
             var platoonScope = new MappingScopeComposite(
@@ -101,13 +103,13 @@ namespace MappingFramework.TDD
                     leaderNameSearch
                 },
                 new NullObject(),
-                new Traversals.Xml.XmlGetListValueTraversal("./army/platoon"),
-                new Traversals.Xml.XmlGetTemplateTraversal("./platoons/platoon") { XmlInterpretation = XmlInterpretation.Default },
-                new Configuration.Xml.XmlChildCreator()
+                new XmlGetListValueTraversal("./army/platoon"),
+                new XmlGetTemplateTraversal("./platoons/platoon") { XmlInterpretation = XmlInterpretation.Default },
+                new XmlChildCreator()
             )
             {
                 Condition = new CompareCondition(
-                    new Traversals.Xml.XmlGetValueTraversal("./@deployed"), 
+                    new XmlGetValueTraversal("./@deployed"), 
                     CompareOperator.Equals, 
                     new Compositions.GetStaticValue("True"))
             };
@@ -119,8 +121,8 @@ namespace MappingFramework.TDD
             };
 
             var contextFactory = new ContextFactory(
-                new Configuration.Xml.XmlObjectConverter(),
-                new Configuration.Xml.XmlTargetInstantiator()
+                new XmlSourceCreator(),
+                new XmlTargetCreator()
             );
 
             var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObject());

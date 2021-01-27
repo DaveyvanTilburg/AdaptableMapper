@@ -1,20 +1,19 @@
-﻿using MappingFramework.Process;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using MappingFramework.Configuration;
-using MappingFramework.Configuration.Xml;
-using MappingFramework.Traversals.Xml;
 using MappingFramework.ValueMutations;
 using MappingFramework.ValueMutations.Traversals;
-using MappingFramework.Xml;
 using FluentAssertions;
 using Xunit;
 using MappingFramework.Traversals;
 using System.Xml.XPath;
 using System.Linq;
 using MappingFramework.Compositions;
+using MappingFramework.Languages.Xml;
+using MappingFramework.Languages.Xml.Configuration;
+using MappingFramework.Languages.Xml.Traversals;
 
 namespace MappingFramework.TDD.Cases.XmlCases
 {
@@ -106,7 +105,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
             
             XElement xElementResult = context.Target as XElement;
 
-            var converter = new XElementToStringObjectConverter();
+            var converter = new XElementToStringResultObjectCreator();
             var convertedResult = converter.Convert(xElementResult);
             convertedResult.Should().BeEquivalentTo(System.IO.File.ReadAllText(expectedResultPath), because);
         }
@@ -132,7 +131,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
             subject.SetValue(new Context(null, target, null), "Test");
 
             var expectedResult = System.IO.File.ReadAllText("./Resources/XmlCData/CDataExpectedResult.xml");
-            var result = new XElementToStringObjectConverter().Convert(target);
+            var result = new XElementToStringResultObjectCreator().Convert(target);
 
             result.Should().BeEquivalentTo(expectedResult);
         }
@@ -149,7 +148,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
             subject.SetValue(new Context(null, target, null), "Test");
 
             var expectedResult = System.IO.File.ReadAllText("./Resources/XmlCData/CDataExpectedResult.xml");
-            var result = new XElementToStringObjectConverter().Convert(target);
+            var result = new XElementToStringResultObjectCreator().Convert(target);
 
             result.Should().BeEquivalentTo(expectedResult);
         }
@@ -243,10 +242,10 @@ namespace MappingFramework.TDD.Cases.XmlCases
                         new XmlChildCreator())
                 },
                 new ContextFactory(
-                    new XmlObjectConverter(),
-                    new XmlTargetInstantiator()
+                    new XmlSourceCreator(),
+                    new XmlTargetCreator()
                 ),
-                new XElementToStringObjectConverter()
+                new XElementToStringResultObjectCreator()
             );
 
             string source = System.IO.File.ReadAllText("./Resources/MultipleScopesSource.xml");
@@ -305,7 +304,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
             context.Information().Count.Should().Be(0);
             XElement xElementResult = context.Target as XElement;
 
-            var converter = new XElementToStringObjectConverter();
+            var converter = new XElementToStringResultObjectCreator();
             var convertedResult = converter.Convert(xElementResult);
             convertedResult.Should().BeEquivalentTo(System.IO.File.ReadAllText("./Resources/SimpleProcessingInstructionExpectedResult.xml"));
         }

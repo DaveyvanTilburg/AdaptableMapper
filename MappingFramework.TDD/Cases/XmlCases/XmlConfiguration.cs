@@ -1,9 +1,9 @@
 ﻿using System.Xml.Linq;
-using MappingFramework.Configuration.Xml;
-using MappingFramework.Xml;
 using Xunit;
 using FluentAssertions;
 using MappingFramework.Configuration;
+using MappingFramework.Languages.Xml;
+using MappingFramework.Languages.Xml.Configuration;
 
 namespace MappingFramework.TDD.Cases.XmlCases
 {
@@ -15,7 +15,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
         [InlineData("Valid", ContextType.ValidAlternativeSource, XmlInterpretation.WithoutNamespace, "./Resources/SimpleRemovedNamespaceExpectedResult.xml", 0)]
         public void XmlObjectConverter(string because, ContextType contextType, XmlInterpretation xmlInterpretation, string expectedResultFile, int informationCount)
         {
-            var subject = new XmlObjectConverter { XmlInterpretation = xmlInterpretation };
+            var subject = new XmlSourceCreator { XmlInterpretation = xmlInterpretation };
             object source = Xml.Stub(contextType);
             var context = new Context();
 
@@ -30,7 +30,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
 
                 XElement xElementValue = value as XElement;
 
-                var converter = new XElementToStringObjectConverter();
+                var converter = new XElementToStringResultObjectCreator();
                 var convertedResult = converter.Convert(xElementValue);
                 convertedResult.Should().Be(expectedResult, because);
             }
@@ -42,7 +42,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
         [InlineData("Valid", ContextType.ValidAlternativeSource, XmlInterpretation.WithoutNamespace, "./Resources/SimpleRemovedNamespaceExpectedResult.xml", 0)]
         public void XmlTargetInstantiator(string because, ContextType contextType, XmlInterpretation xmlInterpretation, string expectedResultFile, int informationCount)
         {
-            var subject = new XmlTargetInstantiator { XmlInterpretation = xmlInterpretation };
+            var subject = new XmlTargetCreator { XmlInterpretation = xmlInterpretation };
             object source = Xml.Stub(contextType);
             var context = new Context();
 
@@ -57,7 +57,7 @@ namespace MappingFramework.TDD.Cases.XmlCases
 
                 XElement xElementValue = value as XElement;
 
-                var converter = new XElementToStringObjectConverter();
+                var converter = new XElementToStringResultObjectCreator();
                 var convertedResult = converter.Convert(xElementValue);
                 convertedResult.Should().Be(expectedResult, because);
             }

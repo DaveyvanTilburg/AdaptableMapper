@@ -4,9 +4,9 @@
 
 Mock up of structure and flow:
 
-![UML](Mapping.jpg)
+![UML](Diagram.jpg)
 
-See unit tests for examples on mappingConfiguration
+See unit tests for examples
 
 ### How to use searches
  * SearchPath : This path should have use for the placeholder {{searchValue}}, so that traversal is possible outside of this scope with values of inside this scope
@@ -127,5 +127,4 @@ How to use ModelTargetInitiatorSource
 
 ### License
 
-See the [License.txt](MappingFramework/License.txt) file for details.
-Do what ever the f*** you want! (But please respect eachother in the process)
+Do what ever you want! (But please respect eachother in the process)

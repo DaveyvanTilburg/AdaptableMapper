@@ -9,7 +9,7 @@ using MappingFramework.ValueMutations.Traversals;
 namespace MappingFramework
 {
     [ContentType(ContentType.Any)]
-    public class NullObject : GetSearchPathValueTraversal, GetListSearchPathValueTraversal, SetValueTraversal, ValueMutation, Condition, GetValueStringTraversal, ResultObjectConverter
+    public class NullObject : GetSearchPathValueTraversal, GetListSearchPathValueTraversal, SetValueTraversal, ValueMutation, Condition, GetValueStringTraversal, ResultObjectCreator
     {
         public const string _typeId = "8455065e-a596-413e-bb63-22cb0f34a87c";
         public string TypeId => _typeId;

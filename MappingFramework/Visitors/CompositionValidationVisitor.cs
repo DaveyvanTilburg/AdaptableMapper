@@ -5,7 +5,6 @@ using System.Reflection;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
 using MappingFramework.ContentTypes;
-using MappingFramework.Process;
 using MappingFramework.Traversals;
 using MappingFramework.ValueMutations;
 
@@ -40,16 +39,16 @@ namespace MappingFramework.Visitors
 
 
 
-        public void Visit(ObjectConverter objectConverter)
-            => _sourceTypes = ClassContentType(objectConverter);
+        public void Visit(SourceCreator sourceCreator)
+            => _sourceTypes = ClassContentType(sourceCreator);
 
-        public void Visit(TargetInstantiator targetInstantiator)
-            => _targetTypes = ClassContentType(targetInstantiator);
+        public void Visit(TargetCreator targetCreator)
+            => _targetTypes = ClassContentType(targetCreator);
 
 
 
-        public void Visit(ResultObjectConverter resultObjectConverter)
-            => Validate(_targetTypes, resultObjectConverter);
+        public void Visit(ResultObjectCreator resultObjectCreator)
+            => Validate(_targetTypes, resultObjectCreator);
 
         public void Visit(GetValueTraversal getValueTraversal)
             => Validate(_sourceTypes, getValueTraversal);

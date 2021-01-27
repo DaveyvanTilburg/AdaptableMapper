@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using MappingFramework.Configuration;
+using MappingFramework.Languages.DataStructure.Traversals;
 using MappingFramework.TDD.DataStructureExamples.Simple;
-using MappingFramework.Traversals.DataStructure;
 using Xunit;
 
 namespace MappingFramework.TDD.Cases.DataStructureCases

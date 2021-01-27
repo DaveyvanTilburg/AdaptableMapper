@@ -1,0 +1,19 @@
+{
+  "nrOfToilets": 0,
+  "nrOfWashBins": 0,
+  "nrOfShowers": 0,
+  "nrOfBedRooms": 0,
+  "occupants": [
+    {
+      "occupant": ""
+    }
+  ],
+  "windowSizes": "",
+  "closetSizes": "",
+  "beds": [
+    {
+      "type": "",
+      "occupant": ""
+    }
+  ]
+}

@@ -2,9 +2,12 @@
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using MappingFramework.Configuration;
-using MappingFramework.DataStructure;
+using MappingFramework.Languages.DataStructure;
+using MappingFramework.Languages.DataStructure.Configuration;
+using MappingFramework.Languages.DataStructure.Traversals;
+using MappingFramework.Languages.Json.Configuration;
+using MappingFramework.Languages.Json.Traversals;
 using MappingFramework.TDD.DataStructureExamples.Hardwares;
-using MappingFramework.Traversals.DataStructure;
 using Xunit;
 
 namespace MappingFramework.TDD
@@ -31,7 +34,7 @@ namespace MappingFramework.TDD
         public void DataStructureToJsonToString()
         {
             MappingConfiguration mappingConfiguration = GetFakedMappingConfiguration();
-            mappingConfiguration.ResultObjectConverter = new Configuration.Json.JTokenToStringObjectConverter();
+            mappingConfiguration.ResultObjectCreator = new JTokenToStringResultObjectCreator();
 
             TraversableDataStructure source = CreateHardwareDataStructure();
             MapResult mapResult = mappingConfiguration.Map(source, System.IO.File.ReadAllText(@".\Resources\JsonTarget_HardwareTemplate.json"));
@@ -139,17 +142,17 @@ namespace MappingFramework.TDD
         {
             var graphicalCardCpuBrand = new Mapping(
                 new DataStructureGetValueTraversal("Brand"),
-                new Traversals.Json.JsonSetValueTraversal(".Brand")
+                new JsonSetValueTraversal(".Brand")
             );
 
             var graphicalCardCpuCores = new Mapping(
                 new DataStructureGetValueTraversal("Cores"),
-                new Traversals.Json.JsonSetValueTraversal(".Cores")
+                new JsonSetValueTraversal(".Cores")
             );
 
             var graphicalCardCpuSpeed = new Mapping(
                 new DataStructureGetValueTraversal("Speed"),
-                new Traversals.Json.JsonSetValueTraversal(".Speed")
+                new JsonSetValueTraversal(".Speed")
             );
 
             var graphicalCardCpuScope = new MappingScopeComposite(
@@ -162,13 +165,13 @@ namespace MappingFramework.TDD
                 },
                 new NullObject(),
                 new DataStructureGetListValueTraversal("CPUs"),
-                new Traversals.Json.JsonGetTemplateTraversal("$.CPUs[0]"),
-                new Configuration.Json.JsonChildCreator()
+                new JsonGetTemplateTraversal("$.CPUs[0]"),
+                new JsonChildCreator()
             );
 
             var graphicalCardMemoryChipSize = new Mapping(
                 new DataStructureGetValueTraversal("Size"),
-                new Traversals.Json.JsonSetValueTraversal(".Size")
+                new JsonSetValueTraversal(".Size")
             );
 
             var graphicalCardMemoryChipScope = new MappingScopeComposite(
@@ -179,13 +182,13 @@ namespace MappingFramework.TDD
                 },
                 new NullObject(),
                 new DataStructureGetListValueTraversal("MemoryChips"),
-                new Traversals.Json.JsonGetTemplateTraversal(".MemoryChips[0]"),
-                new Configuration.Json.JsonChildCreator()
+                new JsonGetTemplateTraversal(".MemoryChips[0]"),
+                new JsonChildCreator()
             );
 
             var graphicalCardBrand = new Mapping(
                 new DataStructureGetValueTraversal("Brand"),
-                new Traversals.Json.JsonSetValueTraversal(".Brand")
+                new JsonSetValueTraversal(".Brand")
             );
 
             var graphicalCardsScope = new MappingScopeComposite(
@@ -200,13 +203,13 @@ namespace MappingFramework.TDD
                 },
                 new NullObject(),
                 new DataStructureGetListValueTraversal("GraphicalCards"),
-                new Traversals.Json.JsonGetTemplateTraversal(".GraphicalCards[0]"),
-                new Configuration.Json.JsonChildCreator()
+                new JsonGetTemplateTraversal(".GraphicalCards[0]"),
+                new JsonChildCreator()
             );
 
             var motherboardMemorySize = new Mapping(
                 new DataStructureGetValueTraversal("Size"),
-                new Traversals.Json.JsonSetValueTraversal(".Size")
+                new JsonSetValueTraversal(".Size")
             );
 
             var memoryChipsScope = new MappingScopeComposite(
@@ -217,28 +220,28 @@ namespace MappingFramework.TDD
                 },
                 new NullObject(),
                 new DataStructureGetListValueTraversal("Memories{'PropertyName':'Type','Value':'External'}/MemoryChips"),
-                new Traversals.Json.JsonGetTemplateTraversal(".CPUs[0].MemoryChips[0]"),
-                new Configuration.Json.JsonChildCreator()
+                new JsonGetTemplateTraversal(".CPUs[0].MemoryChips[0]"),
+                new JsonChildCreator()
             );
 
             var motherBoardCpuBrand = new Mapping(
                 new DataStructureGetValueTraversal("CPU/Brand"),
-                new Traversals.Json.JsonSetValueTraversal(".CPUs[0].Brand")
+                new JsonSetValueTraversal(".CPUs[0].Brand")
             );
 
             var motherBoardCpuCores = new Mapping(
                 new DataStructureGetValueTraversal("CPU/Cores"),
-                new Traversals.Json.JsonSetValueTraversal(".CPUs[0].Cores")
+                new JsonSetValueTraversal(".CPUs[0].Cores")
             );
 
             var motherBoardCpuSpeed = new Mapping(
                 new DataStructureGetValueTraversal("CPU/Speed"),
-                new Traversals.Json.JsonSetValueTraversal(".CPUs[0].Speed")
+                new JsonSetValueTraversal(".CPUs[0].Speed")
             );
 
             var motherboardBrand = new Mapping(
                 new DataStructureGetValueTraversal("Brand"),
-                new Traversals.Json.JsonSetValueTraversal(".Brand")
+                new JsonSetValueTraversal(".Brand")
             );
 
             var motherboardScope = new MappingScopeComposite(
@@ -256,23 +259,23 @@ namespace MappingFramework.TDD
                 },
                 new NullObject(),
                 new DataStructureGetListValueTraversal("Motherboards"),
-                new Traversals.Json.JsonGetTemplateTraversal("$.Motherboards[0]"),
-                new Configuration.Json.JsonChildCreator()
+                new JsonGetTemplateTraversal("$.Motherboards[0]"),
+                new JsonChildCreator()
             );
 
             var hardDriveBrand = new Mapping(
                 new DataStructureGetValueTraversal("Brand"),
-                new Traversals.Json.JsonSetValueTraversal(".Brand")
+                new JsonSetValueTraversal(".Brand")
             );
 
             var hardDriveSize = new Mapping(
                 new DataStructureGetValueTraversal("Size"),
-                new Traversals.Json.JsonSetValueTraversal(".Size")
+                new JsonSetValueTraversal(".Size")
             );
 
             var hardDriveSpeed = new Mapping(
                 new DataStructureGetValueTraversal("Speed"),
-                new Traversals.Json.JsonSetValueTraversal(".Speed")
+                new JsonSetValueTraversal(".Speed")
             );
 
             var hardDrivesScope = new MappingScopeComposite(
@@ -285,8 +288,8 @@ namespace MappingFramework.TDD
                 },
                 new NullObject(),
                 new DataStructureGetListValueTraversal("Motherboards/HardDrives"),
-                new Traversals.Json.JsonGetTemplateTraversal("$.AvailableHardDrives[0]"),
-                new Configuration.Json.JsonChildCreator()
+                new JsonGetTemplateTraversal("$.AvailableHardDrives[0]"),
+                new JsonChildCreator()
             );
 
             var scopes = new List<MappingScopeComposite>
@@ -296,8 +299,8 @@ namespace MappingFramework.TDD
             };
 
             var contextFactory = new ContextFactory(
-                new Configuration.DataStructure.DataStructureObjectConverter(),
-                new Configuration.Json.JsonTargetInstantiator()
+                new DataStructureSourceCreator(),
+                new JsonTargetCreator()
             );
 
             var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObject());

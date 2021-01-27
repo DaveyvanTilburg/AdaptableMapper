@@ -1,6 +1,6 @@
-﻿using MappingFramework.Configuration.Json;
-using FluentAssertions;
+﻿using FluentAssertions;
 using MappingFramework.Configuration;
+using MappingFramework.Languages.Json.Configuration;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
@@ -14,7 +14,7 @@ namespace MappingFramework.TDD.Cases.JsonCases
         [InlineData("Valid", ContextType.ValidSource, 0)]
         public void JsonObjectConverter(string because, ContextType contextType, int informationCount)
         {
-            var subject = new JsonObjectConverter();
+            var subject = new JsonSourceCreator();
             
             object source = Json.Stub(contextType);
             var context = new Context();
@@ -30,7 +30,7 @@ namespace MappingFramework.TDD.Cases.JsonCases
         [InlineData("ValidSource", ContextType.ValidSource, 0)]
         public void JsonTargetInstantiatorInvalidType(string because, ContextType contextType, int informationCount)
         {
-            var subject = new JsonTargetInstantiator();
+            var subject = new JsonTargetCreator();
             
             object source = Json.Stub(contextType);
             var context = new Context();

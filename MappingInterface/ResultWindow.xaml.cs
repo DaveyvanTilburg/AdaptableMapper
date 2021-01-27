@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
+using MappingFramework.Configuration;
 using MappingFramework.MappingInterface.Controls;
-using MappingFramework.Process;
 
 namespace MappingFramework.MappingInterface
 {

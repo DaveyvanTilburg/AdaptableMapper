@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using MappingFramework.Process;
+using MappingFramework.Configuration;
 using Newtonsoft.Json;
 
 namespace MappingFramework

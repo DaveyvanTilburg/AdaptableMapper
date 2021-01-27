@@ -3,9 +3,9 @@ using System.Xml.XPath;
 using MappingFramework.Compositions;
 using MappingFramework.Configuration;
 using MappingFramework.ValueMutations;
-using MappingFramework.Traversals.Xml;
-using MappingFramework.Xml;
 using FluentAssertions;
+using MappingFramework.Languages.Xml;
+using MappingFramework.Languages.Xml.Traversals;
 using Xunit;
 
 namespace MappingFramework.TDD.Cases.XmlCases
