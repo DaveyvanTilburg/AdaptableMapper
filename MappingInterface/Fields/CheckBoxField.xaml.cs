@@ -6,26 +6,27 @@ namespace MappingFramework.MappingInterface.Fields
 {
     public partial class CheckBoxField : UserControl
     {
-        private readonly ObjectComponentLink _objectComponentLink;
+        private readonly IObjectLink _objectLink;
 
-        public CheckBoxField(ObjectComponentLink objectComponentLink)
+        public CheckBoxField(IObjectLink objectLink)
         {
-            _objectComponentLink = objectComponentLink;
+            _objectLink = objectLink;
 
             Initialized += Load;
             InitializeComponent();
 
-            ComponentCheckBox.Click += OnClicked;
+            CheckBoxComponent.Click += OnClicked;
         }
 
         private void Load(object o, EventArgs e)
         {
-            ComponentLabel.Content = _objectComponentLink.Name();
+            LabelComponent.Content = _objectLink.Name();
+            CheckBoxComponent.IsChecked = (bool)_objectLink.Value();
         }
 
         private void OnClicked(object o, EventArgs e)
         {
-            _objectComponentLink.Update(ComponentCheckBox.IsChecked ?? false);
+            _objectLink.Update(CheckBoxComponent.IsChecked ?? false);
         }
     }
 }

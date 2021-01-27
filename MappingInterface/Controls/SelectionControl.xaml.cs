@@ -14,19 +14,12 @@ namespace MappingFramework.MappingInterface.Controls
 {
     public partial class SelectionControl : UserControl
     {
-        private readonly Action<object> _updateAction;
-        private readonly string _name;
-        private readonly Type _type;
+        private readonly IObjectLink _objectLink;
         private readonly IIdentifierLink _identifierLink;
 
-        public SelectionControl(ObjectComponentLink objectComponentLink, IIdentifierLink identifierLink) 
-            : this(objectComponentLink.UpdateAction(), objectComponentLink.Name(), objectComponentLink.PropertyType(), identifierLink) { }
-
-        public SelectionControl(Action<object> updateAction, string name, Type type, IIdentifierLink identifierLink)
+        public SelectionControl(IObjectLink objectLink, IIdentifierLink identifierLink)
         {
-            _updateAction = updateAction;
-            _name = name;
-            _type = type;
+            _objectLink = objectLink;
             _identifierLink = identifierLink;
 
             Initialized += Load;
@@ -37,9 +30,9 @@ namespace MappingFramework.MappingInterface.Controls
 
         private void Load(object o, EventArgs e)
         {
-            LabelComponent.Content = _name;
+            LabelComponent.Content = _objectLink.Name();
 
-            List<string> options = OptionLists.List(_type, ContentType()).Select(t => t.Name).ToList();
+            List<string> options = OptionLists.List(_objectLink.PropertyType(), ContentType()).Select(t => t.Name).ToList();
             
             if (options.Count > 1)
                 options.Insert(0, " ");
@@ -47,8 +40,15 @@ namespace MappingFramework.MappingInterface.Controls
             foreach (string option in options)
                 SelectionComboBox.Items.Add(option);
 
-            SelectionComboBox.SelectedIndex = 0;
-            ComboBoxChanged(null, null);
+            object value = _objectLink.Value();
+
+            if (value != null)
+                LoadCurrentValue(value);
+            else
+            {
+                SelectionComboBox.SelectedIndex = 0;
+                ComboBoxChanged(null, null);
+            }
         }
 
         private void ComboBoxChanged(object o, EventArgs e)
@@ -57,7 +57,7 @@ namespace MappingFramework.MappingInterface.Controls
             
             if(string.IsNullOrWhiteSpace(selectedValue))
             {
-                _updateAction(null);
+                _objectLink.Update(null);
 
                 UnSubscribeAll();
 
@@ -65,15 +65,26 @@ namespace MappingFramework.MappingInterface.Controls
             }
             else
             {
-                Type valueType = OptionLists.List(_type, ContentType()).FirstOrDefault(t => t.Name.Equals(selectedValue, StringComparison.OrdinalIgnoreCase));
+                Type valueType = OptionLists.List(_objectLink.PropertyType(), ContentType()).FirstOrDefault(t => t.Name.Equals(selectedValue, StringComparison.OrdinalIgnoreCase));
                 object value = Activator.CreateInstance(valueType);
-                _updateAction(value);
+                _objectLink.Update(value);
 
                 UnSubscribeAll();
 
                 StackPanelComponent.Children.Clear();
                 StackPanelComponent.Children.Add(new ComponentControl(value, _identifierLink));
             }
+        }
+        
+        private void LoadCurrentValue(object value)
+        {
+            string valueTypeName = value.GetType().Name;
+
+            foreach (string item in SelectionComboBox.Items)
+                if (item.Equals(valueTypeName))
+                    SelectionComboBox.SelectedIndex = SelectionComboBox.Items.IndexOf(item);
+
+            StackPanelComponent.Children.Add(new ComponentControl(value, _identifierLink));
         }
 
         private void UnSubscribeAll()
@@ -102,7 +113,7 @@ namespace MappingFramework.MappingInterface.Controls
 
         private ContentType ContentType()
         {
-            ContextTypeAttribute attribute = (ContextTypeAttribute)_type.GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof(ContextTypeAttribute));
+            ContextTypeAttribute attribute = (ContextTypeAttribute)_objectLink.PropertyType().GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof(ContextTypeAttribute));
             ContextType contextType = attribute?.ContextType == ContextType.Target ? ContextType.Target : ContextType.Source;
             ContentType contentType = contextType == ContextType.Source ? MappingWindow.SourceType : MappingWindow.TargetType;
 

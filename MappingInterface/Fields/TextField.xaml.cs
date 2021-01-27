@@ -7,30 +7,33 @@ namespace MappingFramework.MappingInterface.Fields
 {
     partial class TextField : UserControl, Publisher<IdentifierLinkUpdateEventArgs>
     {
-        private readonly ObjectComponentLink _objectComponentLink;
+        private readonly IObjectLink _objectLink;
 
         public event EventHandler<IdentifierLinkUpdateEventArgs> UpdateEvent;
 
-        public TextField(ObjectComponentLink objectComponentLink, IIdentifierLink identifierLink)
+        public TextField(IObjectLink objectLink, IIdentifierLink identifierLink)
         {
-            _objectComponentLink = objectComponentLink;
+            _objectLink = objectLink;
 
             Initialized += Load;
             InitializeComponent();
 
             identifierLink.SubscribeTo(this);
-            ComponentTextBox.KeyUp += OnKeyUp;
+            TextboxComponent.KeyUp += OnKeyUp;
         }
 
         private void Load(object o, EventArgs e)
         {
-            ComponentLabel.Content = _objectComponentLink.Name();
+            LabelComponent.Content = _objectLink.Name();
+            TextboxComponent.Text = _objectLink.Value() as string ?? string.Empty;
+
+            UpdateEvent?.Invoke(this, new IdentifierLinkUpdateEventArgs(TextboxComponent.Text));
         }
 
         private void OnKeyUp(object o, EventArgs e)
         {
-            _objectComponentLink.Update(ComponentTextBox.Text);
-            UpdateEvent?.Invoke(this, new IdentifierLinkUpdateEventArgs(ComponentTextBox.Text));
+            _objectLink.Update(TextboxComponent.Text);
+            UpdateEvent?.Invoke(this, new IdentifierLinkUpdateEventArgs(TextboxComponent.Text));
         }
     }
 }

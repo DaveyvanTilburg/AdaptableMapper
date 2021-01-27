@@ -10,12 +10,12 @@ using MappingFramework.ValueMutations.Traversals;
 
 namespace MappingFramework.MappingInterface.Generics
 {
-    public class ObjectComponentLink
+    public class ObjectComponentPropertyLink : IObjectLink
     {
         private readonly PropertyInfo _propertyInfo;
         private readonly object _subject;
 
-        public ObjectComponentLink(PropertyInfo propertyInfo, object subject)
+        public ObjectComponentPropertyLink(PropertyInfo propertyInfo, object subject)
         {
             _propertyInfo = propertyInfo;
             _subject = subject;
@@ -57,6 +57,8 @@ namespace MappingFramework.MappingInterface.Generics
         public Type PropertyType() => _propertyInfo.PropertyType;
 
         public void Update(object value) => _propertyInfo.SetValue(_subject, value);
+
+        public object Value() => _propertyInfo.GetValue(_subject);
 
         public Action<object> UpdateAction() => Update;
     }

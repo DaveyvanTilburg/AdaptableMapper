@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using MappingFramework.ContentTypes;
 
 namespace MappingFramework.MappingInterface
@@ -10,9 +11,12 @@ namespace MappingFramework.MappingInterface
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             InitializeComponent();
+
+            GoButton.Click += OnGoButtonClick;
+            LoadButton.Click += OnLoadButtonClick;
         }
 
-        private void Go_Click(object sender, RoutedEventArgs e)
+        private void OnGoButtonClick(object sender, EventArgs e)
         {
             ContentType sourceType =
                 SourceXml.IsChecked ?? false ? ContentType.Xml :
@@ -28,6 +32,12 @@ namespace MappingFramework.MappingInterface
             MappingWindow mappingWindow = new MappingWindow(sourceType, targetType);
             mappingWindow.Show();
 
+            Close();
+        }
+        
+        private void OnLoadButtonClick(object o, EventArgs e)
+        {
+            new LoadWindow().Show();
             Close();
         }
     }

@@ -12,7 +12,7 @@
             <ColumnDefinition Width="0.8*"/>
         </Grid.ColumnDefinitions>
         
-        <Label x:Name="ComponentLabel" Grid.Column="0"></Label>
-        <CheckBox x:Name="ComponentCheckBox" Grid.Column="1">Checked</CheckBox>
+        <Label x:Name="LabelComponent" Grid.Column="0"></Label>
+        <CheckBox x:Name="CheckBoxComponent" Grid.Column="1">Checked</CheckBox>
     </Grid>
 </UserControl>

@@ -12,7 +12,7 @@
             <ColumnDefinition Width="0.8*"/>
         </Grid.ColumnDefinitions>
         
-        <Label x:Name="ComponentLabel" Grid.Column="0"></Label>
-        <StackPanel x:Name="ComponentStackPanel" Grid.Column="1"></StackPanel>
+        <Label x:Name="LabelComponent" Grid.Column="0"></Label>
+        <StackPanel x:Name="StackPanelComponent" Grid.Column="1"></StackPanel>
     </Grid>
 </UserControl>

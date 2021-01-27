@@ -4,27 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="SettingsWindow" Height="120" Width="270" ResizeMode="NoResize">
+        Title="SettingsWindow" Height="150" Width="270" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.33*" />
             <ColumnDefinition Width="0.33*" />
             <ColumnDefinition Width="0.33*" />
         </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition Height="0.3*"/>
+        </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Label Content="Source" FontWeight="Bold" />
             <RadioButton x:Name="SourceXml" Content="Xml" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <RadioButton x:Name="SourceJson" Content="Json" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Label Content="Target" FontWeight="Bold" />
             <RadioButton x:Name="TargetXml" Content="Xml" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <RadioButton x:Name="TargetJson" Content="Json" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <RadioButton x:Name="TargetDictionary" Content="Dictionary" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </StackPanel>
 
-        <Button Grid.Column="2" Content="Go" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Click="Go_Click"/>
+        <Button x:Name="GoButton" Grid.Row="0" Grid.Column="2" Content="Go" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40"/>
+
+        <Button x:Name="LoadButton" Grid.Row="1" Grid.Column="1" Content="Load" HorizontalAlignment="Center" VerticalAlignment="Center" Width="60"/>
     </Grid>
 </Window>

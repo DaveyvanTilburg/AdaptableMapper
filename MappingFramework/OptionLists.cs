@@ -199,7 +199,8 @@ namespace MappingFramework
             if (type == typeof(GetValueStringTraversal))
                 return new List<Type>
                 {
-                    typeof(SplitByCharTakePositionStringTraversal)
+                    typeof(SplitByCharTakePositionStringTraversal),
+                    typeof(GetThisValueStringTraversal)
                 };
             if (type == typeof(GetValueTraversal))
                 return GetValueTraversals(contentType);

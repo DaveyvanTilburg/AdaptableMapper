@@ -23,6 +23,8 @@ namespace MappingFramework.MappingInterface.Controls
 
         public void UpdateIndex(int index) => _index = index;
 
+        public object Value() => _list[_index];
+        
         public void Remove()
         {
             _list.RemoveAt(_index);

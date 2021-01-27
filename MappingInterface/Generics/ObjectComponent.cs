@@ -13,14 +13,14 @@ namespace MappingFramework.MappingInterface.Generics
             _subject = subject;
         }
         
-        public IEnumerable<ObjectComponentLink> Links()
+        public IEnumerable<IObjectLink> Links()
         {
             Type subjectType = _subject.GetType();
             
-            IEnumerable<ObjectComponentLink> result = subjectType
+            IEnumerable<IObjectLink> result = subjectType
                 .GetProperties()
                 .Where(p => !p.Name.Equals("TypeId"))
-                .Select(p => new ObjectComponentLink(p, _subject));
+                .Select(p => new ObjectComponentPropertyLink(p, _subject));
 
             return result;
         }

@@ -24,42 +24,46 @@ namespace MappingFramework.MappingInterface.Controls
         {
             var interfaceComponent = new ObjectComponent(_subject);
 
-            foreach (ObjectComponentLink objectComponentLink in interfaceComponent.Links())
+            foreach (IObjectLink objectLink in interfaceComponent.Links())
             {
-                switch (objectComponentLink.Type())
+                switch (objectLink.Type())
                 {
                     case ObjectComponentDisplayType.TextBox:
-                        ComponentPanel.Children.Add(new TextField(objectComponentLink, IdentifierLink()));
+                        ComponentPanel.Children.Add(new TextField(objectLink, IdentifierLink()));
                         break;
                     case ObjectComponentDisplayType.NumberBox:
-                        ComponentPanel.Children.Add(new NumberField(objectComponentLink));
+                        ComponentPanel.Children.Add(new NumberField(objectLink));
                         break;
                     case ObjectComponentDisplayType.CheckBox:
-                        ComponentPanel.Children.Add(new CheckBoxField(objectComponentLink));
+                        ComponentPanel.Children.Add(new CheckBoxField(objectLink));
                         break;
                     case ObjectComponentDisplayType.RadioGroupBox:
-                        ComponentPanel.Children.Add(new RadioGroupField(objectComponentLink));
+                        ComponentPanel.Children.Add(new RadioGroupField(objectLink));
                         break;
                     case ObjectComponentDisplayType.CharBox:
-                        ComponentPanel.Children.Add(new CharField(objectComponentLink));
+                        ComponentPanel.Children.Add(new CharField(objectLink));
                         break;
 
 
                     case ObjectComponentDisplayType.Item:
-                        ComponentPanel.Children.Add(new SelectionControl(objectComponentLink.UpdateAction(), objectComponentLink.Name(), objectComponentLink.PropertyType(), IdentifierLink()));
+                        ComponentPanel.Children.Add(new SelectionControl(objectLink, IdentifierLink()));
                         break;
                     case ObjectComponentDisplayType.List:
-                        ComponentPanel.Children.Add(new ListOfTControl(objectComponentLink));
+                        ComponentPanel.Children.Add(new ListOfTControl(objectLink));
                         break;
                     case ObjectComponentDisplayType.Direct:
-                        var newValue = Activator.CreateInstance(objectComponentLink.PropertyType());
-                        objectComponentLink.Update(newValue);
-                        ComponentPanel.Children.Add(new DirectComponentControl(newValue, IdentifierLink()));
+                        if(objectLink.Value() == null)
+                        {
+                            var newValue = Activator.CreateInstance(objectLink.PropertyType());
+                            objectLink.Update(newValue);
+                        }
+                        
+                        ComponentPanel.Children.Add(new DirectComponentControl(objectLink.Value(), IdentifierLink()));
                         break;
 
 
                     default:
-                        throw new Exception($"Type is not supported: {objectComponentLink.PropertyType()}");
+                        throw new Exception($"Type is not supported: {objectLink.PropertyType()}");
                 }
             }
         }

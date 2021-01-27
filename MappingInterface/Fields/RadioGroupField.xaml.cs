@@ -8,11 +8,11 @@ namespace MappingFramework.MappingInterface.Fields
 {
     public partial class RadioGroupField : UserControl
     {
-        private readonly ObjectComponentLink _objectComponentLink;
+        private readonly IObjectLink _objectLink;
 
-        public RadioGroupField(ObjectComponentLink objectComponentLink)
+        public RadioGroupField(IObjectLink objectLink)
         {
-            _objectComponentLink = objectComponentLink;
+            _objectLink = objectLink;
 
             Initialized += Load;
             InitializeComponent();
@@ -20,30 +20,31 @@ namespace MappingFramework.MappingInterface.Fields
 
         private void Load(object o, EventArgs e)
         {
-            ComponentLabel.Content = _objectComponentLink.Name();
+            LabelComponent.Content = _objectLink.Name();
 
-            List<object> values = Enum.GetValues(_objectComponentLink.PropertyType()).OfType<object>().ToList();
+            object currentValue = _objectLink.Value();
+            List<object> values = Enum.GetValues(_objectLink.PropertyType()).OfType<object>().ToList();
             
             foreach(object value in values)
             {
                 var radioButton = new RadioButton
                 {
                     Content = value.ToString(),
-                    IsChecked = values.IndexOf(value) == 0
+                    IsChecked = value.Equals(currentValue)
                 };
 
                 radioButton.Click += OnClicked;
 
-                ComponentStackPanel.Children.Add(radioButton);
+                StackPanelComponent.Children.Add(radioButton);
             }
         }
 
         private void OnClicked(object o, EventArgs e)
         {
-            string value = ComponentStackPanel.Children.OfType<RadioButton>().FirstOrDefault(rb => rb.IsChecked ?? false)?.Content?.ToString() ?? string.Empty;
-            object enumValue = Enum.Parse(_objectComponentLink.PropertyType(), value);
+            string value = StackPanelComponent.Children.OfType<RadioButton>().FirstOrDefault(rb => rb.IsChecked ?? false)?.Content?.ToString() ?? string.Empty;
+            object enumValue = Enum.Parse(_objectLink.PropertyType(), value);
             
-            _objectComponentLink.Update(enumValue);
+            _objectLink.Update(enumValue);
         }
     }
 }

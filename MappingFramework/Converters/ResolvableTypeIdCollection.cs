@@ -90,6 +90,7 @@ namespace MappingFramework.Converters
 
                 //ValueMutations - Traversals
                 [SplitByCharTakePositionStringTraversal._typeId] = typeof(SplitByCharTakePositionStringTraversal),
+                [GetThisValueStringTraversal._typeId] = typeof(GetThisValueStringTraversal),
 
                 //ValueMutations
                 [CreateSeparatedRangeFromNumberValueMutation._typeId] = typeof(CreateSeparatedRangeFromNumberValueMutation),

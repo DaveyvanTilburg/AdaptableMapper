@@ -12,7 +12,7 @@
             <ColumnDefinition Width="0.8*"/>
         </Grid.ColumnDefinitions>
         
-        <Label x:Name="ComponentLabel" Grid.Column="0"></Label>
-        <TextBox x:Name="ComponentTextBox" Grid.Column="1" MaxLength="1"></TextBox>
+        <Label x:Name="LabelComponent" Grid.Column="0"></Label>
+        <TextBox x:Name="TextBoxComponent" Grid.Column="1" MaxLength="1"></TextBox>
     </Grid>
 </UserControl>

@@ -8,28 +8,29 @@ namespace MappingFramework.MappingInterface.Fields
 {
     public partial class NumberField : UserControl
     {
-        private readonly ObjectComponentLink _objectComponentLink;
+        private readonly IObjectLink _objectLink;
 
-        public NumberField(ObjectComponentLink objectComponentLink)
+        public NumberField(IObjectLink objectLink)
         {
-            _objectComponentLink = objectComponentLink;
+            _objectLink = objectLink;
 
             Initialized += Load;
             InitializeComponent();
 
-            ComponentTextBox.LostFocus += OnFocusLost;
-            ComponentTextBox.PreviewTextInput += NumericOnly;
+            TextBoxComponent.LostFocus += OnFocusLost;
+            TextBoxComponent.PreviewTextInput += NumericOnly;
         }
 
         private void Load(object o, EventArgs e)
         {
-            ComponentLabel.Content = _objectComponentLink.Name();
+            LabelComponent.Content = _objectLink.Name();
+            TextBoxComponent.Text = _objectLink.Value() as string ?? string.Empty;
         }
 
         private void OnFocusLost(object o, EventArgs e)
         {
-            int value = !string.IsNullOrWhiteSpace(ComponentTextBox.Text) ? int.Parse(ComponentTextBox.Text) : 0;
-            _objectComponentLink.Update(value);
+            int value = !string.IsNullOrWhiteSpace(TextBoxComponent.Text) ? int.Parse(TextBoxComponent.Text) : 0;
+            _objectLink.Update(value);
         }
 
         private void NumericOnly(object sender, TextCompositionEventArgs e)

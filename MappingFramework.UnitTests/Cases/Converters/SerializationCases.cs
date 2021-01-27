@@ -430,6 +430,11 @@ namespace MappingFramework.TDD.Cases.Converters
                 typeof(GetValueStringTraversal),
                 new SplitByCharTakePositionStringTraversal('c', 1)
             };
+            yield return new object[]
+            {
+                typeof(GetValueStringTraversal),
+                new GetThisValueStringTraversal()
+            };
 
             //ValueMutations
             yield return new object[]

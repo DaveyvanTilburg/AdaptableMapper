@@ -10,13 +10,13 @@ namespace MappingFramework.MappingInterface.Controls
     public partial class ListOfTEntryControl : UserControl
     {
         private readonly IIdentifierLink _identifierLink;
-        private readonly ObjectComponentLink _objectComponentLink;
+        private readonly IObjectLink _objectLink;
         private readonly ListOfTEntry _listOfTEntry;
         
-        public ListOfTEntryControl(ObjectComponentLink objectComponentLink, ListOfTEntry listOfTEntry)
+        public ListOfTEntryControl(IObjectLink objectLink, ListOfTEntry listOfTEntry)
         {
             _identifierLink = new IdentifierLink(UpdateLabel);
-            _objectComponentLink = objectComponentLink;
+            _objectLink = objectLink;
             _listOfTEntry = listOfTEntry;
 
             Initialized += Load;
@@ -33,23 +33,35 @@ namespace MappingFramework.MappingInterface.Controls
 
         private UserControl UserControl()
         {
-            Type type = _objectComponentLink.PropertyType().GetGenericArguments().First();
+            Type type = _objectLink.PropertyType().GetGenericArguments().First();
 
             if (type == typeof(AdditionalSource))
             {
-                var newValue = new AdditionalSourceList();
-                _listOfTEntry.Update(newValue);
-                return new ComponentControl(newValue, _identifierLink);
+                object value = _listOfTEntry.Value();
+                
+                if(value == null)
+                {
+                    value = new AdditionalSourceList();
+                    _listOfTEntry.Update(value);
+                }
+                
+                return new ComponentControl(value, _identifierLink);
             }
 
             if (type.IsInterface)
-                return new SelectionControl(_listOfTEntry.Update, ComponentName(), type, _identifierLink);
+                return new SelectionControl(new ListItemLink(_listOfTEntry.Update, _listOfTEntry.Value, ComponentName(), type), _identifierLink);
 
             if (type.IsClass)
             {
-                var newValue = Activator.CreateInstance(type);
-                _listOfTEntry.Update(newValue);
-                return new ComponentControl(newValue, _identifierLink);
+                object value = _listOfTEntry.Value();
+
+                if (value == null)
+                {
+                    value = Activator.CreateInstance(type);
+                    _listOfTEntry.Update(value);
+                }
+
+                return new ComponentControl(value, _identifierLink);
             }
 
             throw new Exception($"Type is not supported: {type}");
@@ -69,6 +81,6 @@ namespace MappingFramework.MappingInterface.Controls
             ((Panel)Parent).Children.Remove(this);
         }
         
-        private string ComponentName() => _objectComponentLink.PropertyType().GetGenericArguments().First().Name;
+        private string ComponentName() => _objectLink.PropertyType().GetGenericArguments().First().Name;
     }
 }

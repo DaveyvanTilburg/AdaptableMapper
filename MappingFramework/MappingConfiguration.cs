@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using MappingFramework.Configuration;
+using MappingFramework.ContentTypes;
 using MappingFramework.Visitors;
 
 namespace MappingFramework
@@ -75,5 +78,18 @@ namespace MappingFramework
                 foreach (MappingScopeComposite scope in MappingScopeComposites)
                     visitor.Visit(scope);
         }
+
+        public ContentType SourceType() => ClassContentType(ContextFactory.SourceCreator).FirstOrDefault();
+        public ContentType TargetType() => ClassContentType(ContextFactory.TargetCreator).FirstOrDefault();
+
+        private List<ContentType> ClassContentType(object subject)
+        {
+            Type type = subject.GetType();
+
+            ContentTypeAttribute attribute = (ContentTypeAttribute)type.GetCustomAttributes(true).FirstOrDefault(a => a.GetType() == typeof(ContentTypeAttribute));
+            return attribute?.ContentType ?? new List<ContentType> { ContentType.Undefined };
+        }
+
+        public override string ToString() => JsonSerializer.Serialize(this);
     }
 }
