@@ -94,6 +94,8 @@ namespace MappingFramework.MappingInterface
         {
             SaveFile saveFile = new Saves().NewSaveFile(_mappingConfiguration, NameTextBox.Text);
             saveFile.Save();
+
+            MessageBox.Show("Saved");
         }
 
         private string GetResource(string name)

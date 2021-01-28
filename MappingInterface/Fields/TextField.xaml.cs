@@ -14,11 +14,11 @@ namespace MappingFramework.MappingInterface.Fields
         public TextField(IObjectLink objectLink, IIdentifierLink identifierLink)
         {
             _objectLink = objectLink;
+            identifierLink.SubscribeTo(this);
 
             Initialized += Load;
             InitializeComponent();
-
-            identifierLink.SubscribeTo(this);
+            
             TextboxComponent.KeyUp += OnKeyUp;
         }
 

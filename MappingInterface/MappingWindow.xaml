@@ -23,14 +23,14 @@
         
         <TextBox x:Name="SourceTextBox" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" TextWrapping="Wrap" AcceptsReturn="True"/>
 
-        <GridSplitter Grid.Row="1" Grid.Column="0" Background="Green" Width="5" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+        <GridSplitter Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Background="Green" Width="5" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
 
         <ScrollViewer Grid.Row="1" Grid.Column="1">
             <StackPanel x:Name="MainStackPanel">
             </StackPanel>
         </ScrollViewer>
 
-        <GridSplitter Grid.Row="1" Grid.Column="1" Background="Green" Width="5" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+        <GridSplitter Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Background="Green" Width="5" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
 
         <TextBox x:Name="TargetTextBox" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" TextWrapping="Wrap" AcceptsReturn="True"/>
 

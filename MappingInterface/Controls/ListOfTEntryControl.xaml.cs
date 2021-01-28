@@ -27,8 +27,8 @@ namespace MappingFramework.MappingInterface.Controls
 
         private void Load(object o, EventArgs e)
         {
-            StackPanelComponent.Children.Add(UserControl());
             LabelComponent.Content = ComponentName();
+            StackPanelComponent.Children.Add(UserControl());
         }
 
         private UserControl UserControl()
