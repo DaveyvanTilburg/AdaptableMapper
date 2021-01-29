@@ -14,20 +14,46 @@ namespace MappingFramework.MappingInterface.Generics
     {
         private readonly PropertyInfo _propertyInfo;
         private readonly object _subject;
+        private readonly Lazy<ObjectComponentDisplayType> _type;
 
         public ObjectComponentPropertyLink(PropertyInfo propertyInfo, object subject)
         {
             _propertyInfo = propertyInfo;
             _subject = subject;
+            _type = new Lazy<ObjectComponentDisplayType>(ObjectComponentDisplayTypeAction);
         }
 
-        public ObjectComponentDisplayType Type() =>
+        public ObjectComponentDisplayType Type()
+            => _type.Value;
+
+        public string Name() => _propertyInfo.Name;
+
+        public Type PropertyType() => _propertyInfo.PropertyType;
+
+        public void Update(object value) => _propertyInfo.SetValue(_subject, value);
+
+        public object Value()
+        {
+            object value = _propertyInfo.GetValue(_subject);
+            ObjectComponentDisplayType type = Type();
+            if ((type == ObjectComponentDisplayType.Direct || type == ObjectComponentDisplayType.List) && value == null)
+            {
+                value = Activator.CreateInstance(PropertyType());
+                Update(value);
+            }
+
+            return value;
+        }
+
+        public Action<object> UpdateAction() => Update;
+
+        private ObjectComponentDisplayType ObjectComponentDisplayTypeAction() =>
             _propertyInfo.PropertyType == typeof(string) ? ObjectComponentDisplayType.TextBox :
             _propertyInfo.PropertyType == typeof(bool) ? ObjectComponentDisplayType.CheckBox :
             _propertyInfo.PropertyType == typeof(int) ? ObjectComponentDisplayType.NumberBox :
             _propertyInfo.PropertyType == typeof(char) ? ObjectComponentDisplayType.CharBox :
             _propertyInfo.PropertyType.IsEnum ? ObjectComponentDisplayType.RadioGroupBox :
-            
+
             _propertyInfo.PropertyType == typeof(SourceCreator) ? ObjectComponentDisplayType.Item :
             _propertyInfo.PropertyType == typeof(TargetCreator) ? ObjectComponentDisplayType.Item :
             _propertyInfo.PropertyType == typeof(ResultObjectCreator) ? ObjectComponentDisplayType.Item :
@@ -51,15 +77,5 @@ namespace MappingFramework.MappingInterface.Generics
             _propertyInfo.PropertyType == typeof(List<AdditionalSource>) ? ObjectComponentDisplayType.List :
             typeof(IEnumerable).IsAssignableFrom(_propertyInfo.PropertyType) ? ObjectComponentDisplayType.List :
             ObjectComponentDisplayType.Undefined;
-
-        public string Name() => _propertyInfo.Name;
-
-        public Type PropertyType() => _propertyInfo.PropertyType;
-
-        public void Update(object value) => _propertyInfo.SetValue(_subject, value);
-
-        public object Value() => _propertyInfo.GetValue(_subject);
-
-        public Action<object> UpdateAction() => Update;
     }
 }

@@ -30,7 +30,8 @@ namespace MappingFramework.MappingInterface.Storage
             return new LoadFile(path);
         }
         
-        private string SavesFolder() => Path.Combine(Directory.GetCurrentDirectory(), "Saves");
+        private string SavesFolder() 
+            => Path.Combine(Directory.GetCurrentDirectory(), "Saves");
         
         private void CreateSavesFolder()
         {

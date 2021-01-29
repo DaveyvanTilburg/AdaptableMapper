@@ -14,15 +14,14 @@ namespace MappingFramework.MappingInterface.Controls
             _subject = subject;
             _identifierLink = identifierLink;
 
-            Initialized += LoadObjectConverter;
+            Initialized += Load;
             InitializeComponent();
         }
 
-        private void LoadObjectConverter(object o, EventArgs e)
+        private void Load(object o, EventArgs e)
         {
             LabelComponent.Content = _subject.GetType().Name;
-
-            ComponentPanel.Children.Add(new ComponentControl(_subject, _identifierLink));
+            StackPanelComponent.Children.Add(new ComponentControl(_subject, _identifierLink));
         }
     }
 }
