@@ -7,7 +7,7 @@ using MappingFramework.Languages.Dictionary;
 using MappingFramework.Languages.Dictionary.Configuration;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases.DictionaryCases
+namespace MappingFramework.UnitTests.Cases.DictionaryCases
 {
     public class DictionaryConfiguration
     {

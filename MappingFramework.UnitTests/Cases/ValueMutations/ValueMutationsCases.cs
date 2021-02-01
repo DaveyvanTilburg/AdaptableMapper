@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
+using FluentAssertions;
 using MappingFramework.Compositions;
 using MappingFramework.Configuration;
 using MappingFramework.ValueMutations;
-using FluentAssertions;
-using Xunit;
 using MappingFramework.ValueMutations.Traversals;
+using Xunit;
 
-namespace MappingFramework.TDD.Cases.ValueMutations
+namespace MappingFramework.UnitTests.Cases.ValueMutations
 {
     public class ValueMutationsCases
     {

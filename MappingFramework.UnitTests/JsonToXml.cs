@@ -1,6 +1,6 @@
-﻿using FluentAssertions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Linq;
+using FluentAssertions;
 using MappingFramework.Configuration;
 using MappingFramework.Languages.Json.Configuration;
 using MappingFramework.Languages.Json.Traversals;
@@ -8,7 +8,7 @@ using MappingFramework.Languages.Xml.Configuration;
 using MappingFramework.Languages.Xml.Traversals;
 using Xunit;
 
-namespace MappingFramework.TDD
+namespace MappingFramework.UnitTests
 {
     public class JsonToXml
     {

@@ -2,7 +2,7 @@
 using MappingFramework.Configuration;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases
+namespace MappingFramework.UnitTests.Cases
 {
     public class Configuration
     {

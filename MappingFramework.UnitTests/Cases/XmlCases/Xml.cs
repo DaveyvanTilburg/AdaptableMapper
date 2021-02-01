@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace MappingFramework.TDD.Cases.XmlCases
+namespace MappingFramework.UnitTests.Cases.XmlCases
 {
     public class Xml
     {

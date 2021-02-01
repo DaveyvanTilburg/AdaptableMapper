@@ -1,6 +1,6 @@
 ﻿using MappingFramework.Languages.DataStructure;
 
-namespace MappingFramework.TDD.DataStructureExamples.Hardwares
+namespace MappingFramework.UnitTests.DataStructureExamples.Hardwares
 {
     public class Root : TraversableDataStructure
     {

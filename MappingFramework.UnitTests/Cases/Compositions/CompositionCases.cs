@@ -1,18 +1,18 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
+using FluentAssertions;
 using MappingFramework.Compositions;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
-using MappingFramework.Traversals;
-using MappingFramework.ValueMutations;
-using FluentAssertions;
 using MappingFramework.Languages.DataStructure.Traversals;
 using MappingFramework.Languages.Xml;
 using MappingFramework.Languages.Xml.Traversals;
+using MappingFramework.Traversals;
+using MappingFramework.ValueMutations;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases.Compositions
+namespace MappingFramework.UnitTests.Cases.Compositions
 {
     public class CompositionCases
     {

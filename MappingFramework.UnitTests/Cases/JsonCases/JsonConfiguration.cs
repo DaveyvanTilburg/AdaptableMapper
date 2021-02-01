@@ -4,7 +4,7 @@ using MappingFramework.Languages.Json.Configuration;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases.JsonCases
+namespace MappingFramework.UnitTests.Cases.JsonCases
 {
     public class JsonConfiguration
     {

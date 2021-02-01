@@ -4,7 +4,7 @@ using MappingFramework.Configuration;
 using MappingFramework.Languages.Dictionary.Traversals;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases.DictionaryCases
+namespace MappingFramework.UnitTests.Cases.DictionaryCases
 {
     public class DictionaryTraversals
     {

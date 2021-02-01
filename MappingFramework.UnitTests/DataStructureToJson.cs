@@ -1,16 +1,16 @@
-﻿using FluentAssertions;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using FluentAssertions;
 using MappingFramework.Configuration;
 using MappingFramework.Languages.DataStructure;
 using MappingFramework.Languages.DataStructure.Configuration;
 using MappingFramework.Languages.DataStructure.Traversals;
 using MappingFramework.Languages.Json.Configuration;
 using MappingFramework.Languages.Json.Traversals;
-using MappingFramework.TDD.DataStructureExamples.Hardwares;
+using MappingFramework.UnitTests.DataStructureExamples.Hardwares;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace MappingFramework.TDD
+namespace MappingFramework.UnitTests
 {
     public class DataStructureToJson
     {

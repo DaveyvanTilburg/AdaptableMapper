@@ -1,14 +1,14 @@
 ﻿using System.Xml.Linq;
 using System.Xml.XPath;
+using FluentAssertions;
 using MappingFramework.Compositions;
 using MappingFramework.Configuration;
-using MappingFramework.ValueMutations;
-using FluentAssertions;
 using MappingFramework.Languages.Xml;
 using MappingFramework.Languages.Xml.Traversals;
+using MappingFramework.ValueMutations;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases.XmlCases
+namespace MappingFramework.UnitTests.Cases.XmlCases
 {
     public class XmlValueMutations
     {

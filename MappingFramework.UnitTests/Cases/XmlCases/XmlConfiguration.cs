@@ -1,11 +1,11 @@
 ﻿using System.Xml.Linq;
-using Xunit;
 using FluentAssertions;
 using MappingFramework.Configuration;
 using MappingFramework.Languages.Xml;
 using MappingFramework.Languages.Xml.Configuration;
+using Xunit;
 
-namespace MappingFramework.TDD.Cases.XmlCases
+namespace MappingFramework.UnitTests.Cases.XmlCases
 {
     public class XmlConfiguration
     {

@@ -57,11 +57,11 @@ namespace MappingFramework.Configuration
 
         private void TraverseChild(Context context)
         {
-            foreach (MappingScopeComposite mappingScopeComposite in MappingScopeComposites)
-                mappingScopeComposite.Traverse(context);
-
             foreach (Mapping mapping in Mappings)
                 mapping.Map(context);
+
+            foreach (MappingScopeComposite mappingScopeComposite in MappingScopeComposites)
+                mappingScopeComposite.Traverse(context);
         }
 
         void IVisitable.Receive(IVisitor visitor)

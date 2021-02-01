@@ -1,14 +1,14 @@
-﻿using FluentAssertions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using FluentAssertions;
 using MappingFramework.Configuration;
 using MappingFramework.Languages.DataStructure.Configuration;
 using MappingFramework.Languages.DataStructure.Traversals;
 using MappingFramework.Languages.Xml.Configuration;
 using MappingFramework.Languages.Xml.Traversals;
-using MappingFramework.TDD.DataStructureExamples.Armies;
+using MappingFramework.UnitTests.DataStructureExamples.Armies;
 using Xunit;
 
-namespace MappingFramework.TDD
+namespace MappingFramework.UnitTests
 {
     public class XmlToDataStructure
     {

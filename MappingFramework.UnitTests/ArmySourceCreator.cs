@@ -1,6 +1,6 @@
-﻿using MappingFramework.TDD.DataStructureExamples.Armies;
+﻿using MappingFramework.UnitTests.DataStructureExamples.Armies;
 
-namespace MappingFramework.TDD
+namespace MappingFramework.UnitTests
 {
     internal static class ArmySourceCreator
     {

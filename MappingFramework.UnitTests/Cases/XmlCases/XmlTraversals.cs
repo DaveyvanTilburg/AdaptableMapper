@@ -1,20 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
-using MappingFramework.Configuration;
-using MappingFramework.ValueMutations;
-using MappingFramework.ValueMutations.Traversals;
-using FluentAssertions;
-using Xunit;
-using MappingFramework.Traversals;
-using System.Xml.XPath;
 using System.Linq;
+using System.Xml.Linq;
+using System.Xml.XPath;
+using FluentAssertions;
 using MappingFramework.Compositions;
+using MappingFramework.Configuration;
 using MappingFramework.Languages.Xml;
 using MappingFramework.Languages.Xml.Configuration;
 using MappingFramework.Languages.Xml.Traversals;
+using MappingFramework.Traversals;
+using MappingFramework.ValueMutations;
+using MappingFramework.ValueMutations.Traversals;
+using Xunit;
 
-namespace MappingFramework.TDD.Cases.XmlCases
+namespace MappingFramework.UnitTests.Cases.XmlCases
 {
     public class XmlTraversals
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AdaptableMapper.Traversals
+namespace MappingFramework.Traversals
 {
     public interface GetScopeTraversal
     {

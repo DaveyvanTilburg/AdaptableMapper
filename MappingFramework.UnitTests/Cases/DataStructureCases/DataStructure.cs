@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using MappingFramework.Languages.DataStructure;
 using MappingFramework.Languages.DataStructure.Configuration;
-using MappingFramework.TDD.DataStructureExamples.Simple;
+using MappingFramework.UnitTests.DataStructureExamples.Simple;
 
-namespace MappingFramework.TDD.Cases.DataStructureCases
+namespace MappingFramework.UnitTests.Cases.DataStructureCases
 {
     public class DataStructure
     {

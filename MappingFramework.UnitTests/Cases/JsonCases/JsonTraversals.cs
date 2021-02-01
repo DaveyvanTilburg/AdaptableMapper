@@ -1,11 +1,11 @@
-﻿using MappingFramework.Configuration;
-using FluentAssertions;
+﻿using FluentAssertions;
+using MappingFramework.Configuration;
 using MappingFramework.Languages.Json.Traversals;
 using MappingFramework.Traversals;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases.JsonCases
+namespace MappingFramework.UnitTests.Cases.JsonCases
 {
     public class JsonTraversals
     {

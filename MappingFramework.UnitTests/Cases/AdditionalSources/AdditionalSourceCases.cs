@@ -7,7 +7,7 @@ using MappingFramework.Languages.Json.Traversals;
 using MappingFramework.ValueMutations;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases.AdditionalSources
+namespace MappingFramework.UnitTests.Cases.AdditionalSources
 {
     public class AdditionalSourceCases
     {

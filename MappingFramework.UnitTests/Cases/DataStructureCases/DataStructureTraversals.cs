@@ -1,10 +1,10 @@
 ﻿using FluentAssertions;
 using MappingFramework.Configuration;
 using MappingFramework.Languages.DataStructure.Traversals;
-using MappingFramework.TDD.DataStructureExamples.Simple;
+using MappingFramework.UnitTests.DataStructureExamples.Simple;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases.DataStructureCases
+namespace MappingFramework.UnitTests.Cases.DataStructureCases
 {
     public class DataStructureTraversals
     {

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
+using FluentAssertions;
 using MappingFramework.Compositions;
 using MappingFramework.Configuration;
-using FluentAssertions;
 using MappingFramework.Languages.Xml.Configuration;
 using MappingFramework.Languages.Xml.Traversals;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases.Traversals
+namespace MappingFramework.UnitTests.Cases.Traversals
 {
     public class TraversalsCases
     {

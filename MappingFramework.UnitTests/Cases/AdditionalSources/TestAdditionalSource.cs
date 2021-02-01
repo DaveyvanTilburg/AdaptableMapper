@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MappingFramework.Configuration;
 
-namespace MappingFramework.TDD.Cases.AdditionalSources
+namespace MappingFramework.UnitTests.Cases.AdditionalSources
 {
     public class TestAdditionalSource : AdditionalSource
     {

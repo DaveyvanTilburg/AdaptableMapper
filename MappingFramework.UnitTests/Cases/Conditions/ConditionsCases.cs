@@ -1,14 +1,14 @@
 ﻿using System.Xml.Linq;
+using FluentAssertions;
 using MappingFramework.Compositions;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
-using FluentAssertions;
 using MappingFramework.Languages.Json.Traversals;
 using MappingFramework.Languages.Xml.Traversals;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases.Conditions
+namespace MappingFramework.UnitTests.Cases.Conditions
 {
     public class ConditionsCases
     {

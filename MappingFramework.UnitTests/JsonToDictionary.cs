@@ -9,7 +9,7 @@ using MappingFramework.Languages.Json.Configuration;
 using MappingFramework.Languages.Json.Traversals;
 using Xunit;
 
-namespace MappingFramework.TDD
+namespace MappingFramework.UnitTests
 {
     public class JsonToDictionary
     {

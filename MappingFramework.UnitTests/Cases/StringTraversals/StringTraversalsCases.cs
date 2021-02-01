@@ -1,9 +1,9 @@
-﻿using MappingFramework.ValueMutations.Traversals;
-using FluentAssertions;
+﻿using FluentAssertions;
 using MappingFramework.Configuration;
+using MappingFramework.ValueMutations.Traversals;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases.StringTraversals
+namespace MappingFramework.UnitTests.Cases.StringTraversals
 {
     public class StringTraversalsCases
     {

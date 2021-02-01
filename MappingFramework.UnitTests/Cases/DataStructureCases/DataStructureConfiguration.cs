@@ -4,7 +4,7 @@ using MappingFramework.Languages.DataStructure;
 using MappingFramework.Languages.DataStructure.Configuration;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases.DataStructureCases
+namespace MappingFramework.UnitTests.Cases.DataStructureCases
 {
     public class DataStructureConfiguration
     {

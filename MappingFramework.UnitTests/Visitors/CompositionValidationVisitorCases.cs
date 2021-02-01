@@ -8,10 +8,9 @@ using MappingFramework.Languages.Json.Traversals;
 using MappingFramework.Languages.Xml.Configuration;
 using MappingFramework.Languages.Xml.Traversals;
 using MappingFramework.ValueMutations;
-using MappingFramework.Visitors;
 using Xunit;
 
-namespace MappingFramework.TDD.Visitors
+namespace MappingFramework.UnitTests.Visitors
 {
     public class CompositionValidationVisitorCases
     {
@@ -70,12 +69,9 @@ namespace MappingFramework.TDD.Visitors
                 ),
                 new JTokenToStringResultObjectCreator()
             );
-            
-            var subject = new CompositionValidationVisitor();
-            subject.Visit(composition);
 
-            var result = subject.Feedback();
-            result.Count.Should().Be(2);
+            var result = composition.Map(null, null);
+            result.Information.Count.Should().Be(2);
         }
     }
 }

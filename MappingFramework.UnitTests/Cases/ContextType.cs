@@ -1,4 +1,4 @@
-﻿namespace MappingFramework.TDD.Cases
+﻿namespace MappingFramework.UnitTests.Cases
 {
     public enum ContextType
     {

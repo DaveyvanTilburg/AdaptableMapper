@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MappingFramework.TDD.Cases.DictionaryCases
+namespace MappingFramework.UnitTests.Cases.DictionaryCases
 {
     internal class Dictionary
     {

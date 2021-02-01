@@ -1,8 +1,7 @@
-﻿using MappingFramework.Compositions;
-using MappingFramework.Traversals;
-using FluentAssertions;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using FluentAssertions;
+using MappingFramework.Compositions;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
 using MappingFramework.Converters;
@@ -14,11 +13,12 @@ using MappingFramework.Languages.Json.Configuration;
 using MappingFramework.Languages.Json.Traversals;
 using MappingFramework.Languages.Xml.Configuration;
 using MappingFramework.Languages.Xml.Traversals;
+using MappingFramework.Traversals;
 using MappingFramework.ValueMutations;
 using MappingFramework.ValueMutations.Traversals;
 using Xunit;
 
-namespace MappingFramework.TDD.Cases.Converters
+namespace MappingFramework.UnitTests.Cases.Converters
 {
     public class SerializationCases
     {
