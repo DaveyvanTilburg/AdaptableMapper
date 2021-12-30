@@ -10,7 +10,7 @@ namespace MappingFramework.UnitTests.DataStructureExamples.Simple
             Items = new ChildList<Item>(this);
         }
 
-        public List<NoItem> NoItems { get; set; } = new List<NoItem>();
+        public List<NoItem> NoItems { get; set; } = new();
         public ChildList<Item> Items { get; set; }
         public string Code { get; set; } = string.Empty;
     }

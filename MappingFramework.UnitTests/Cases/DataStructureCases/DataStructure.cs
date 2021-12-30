@@ -71,12 +71,12 @@ namespace MappingFramework.UnitTests.Cases.DataStructureCases
 
             result.Items = new ChildList<Item>(result)
             {
-                new Item
+                new()
                 {
                     Code = "1",
                     Name = "Davey"
                 },
-                new Item
+                new()
                 {
                     Code = "2",
                     Name = "Joey"
@@ -104,8 +104,8 @@ namespace MappingFramework.UnitTests.Cases.DataStructureCases
 
             mix.Items = new ChildList<Item>(mix)
             {
-                new Item(),
-                new Item()
+                new(),
+                new()
             };
 
             mixes.Add(mix);

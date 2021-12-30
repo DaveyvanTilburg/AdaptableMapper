@@ -48,15 +48,15 @@ namespace MappingFramework.UnitTests.Cases.Traversals
             var mappingConfiguration = new MappingConfiguration(
                 new List<MappingScopeComposite>
                 {
-                    new MappingScopeComposite(
+                    new(
                         new List<MappingScopeComposite>(),
                         new List<Mapping>
                         {
-                            new Mapping(
+                            new(
                                 new NullObject(),
                                 new XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
-                            new Mapping(
+                            new(
                                 new XmlGetThisValueTraversal(),
                                 new XmlSetValueTraversal("./Text")
                             )
@@ -66,15 +66,15 @@ namespace MappingFramework.UnitTests.Cases.Traversals
                         new XmlGetTemplateTraversal("./Parts/Part"),
                         new XmlChildCreator()
                     ),
-                    new MappingScopeComposite(
+                    new(
                         new List<MappingScopeComposite>(),
                         new List<Mapping>
                         {
-                            new Mapping(
+                            new(
                                 new NullObject(),
                                 new XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
-                            new Mapping(
+                            new(
                                 new XmlGetThisValueTraversal(),
                                 new XmlSetValueTraversal("./Text")
                             )
@@ -84,15 +84,15 @@ namespace MappingFramework.UnitTests.Cases.Traversals
                         new XmlGetTemplateTraversal("./Parts/Part"),
                         new XmlChildCreator()
                     ),
-                    new MappingScopeComposite(
+                    new(
                         new List<MappingScopeComposite>(),
                         new List<Mapping>
                         {
-                            new Mapping(
+                            new(
                                 new NullObject(),
                                 new XmlSetGeneratedIdValueTraversal("./Id") { StartingNumber = 1}
                             ),
-                            new Mapping(
+                            new(
                                 new XmlGetThisValueTraversal(),
                                 new XmlSetValueTraversal("./Text")
                             )

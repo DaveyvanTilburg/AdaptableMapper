@@ -4,7 +4,7 @@ namespace MappingFramework.Configuration
 {
     public class AdditionalSourceValues
     {
-        private readonly Dictionary<string, Dictionary<string, string>> _values = new Dictionary<string, Dictionary<string, string>>();
+        private readonly Dictionary<string, Dictionary<string, string>> _values = new();
 
         public AdditionalSourceValues() { }
 

@@ -57,7 +57,7 @@ namespace MappingFramework.Languages.Xml.Traversals
             return template;
         }
 
-        private static Template CreateNullTemplate()
-            => new Template { Parent = NullElement.Create(), Child = NullElement.Create() };
+        private static Template CreateNullTemplate() 
+            => new() { Parent = NullElement.Create(), Child = NullElement.Create() };
     }
 }

@@ -29,7 +29,7 @@ namespace MappingFramework.MappingInterface
                 TargetDictionary.IsChecked ?? false ? ContentType.Dictionary :
                 ContentType.DataStructure;
 
-            MappingWindow mappingWindow = new MappingWindow(sourceType, targetType);
+            MappingWindow mappingWindow = new MappingWindow("New mapping configuration", new MappingConfiguration(), sourceType, targetType);
             mappingWindow.Show();
 
             Close();

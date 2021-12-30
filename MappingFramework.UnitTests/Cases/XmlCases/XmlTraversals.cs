@@ -200,11 +200,11 @@ namespace MappingFramework.UnitTests.Cases.XmlCases
             var mappingConfiguration = new MappingConfiguration(
                 new List<MappingScopeComposite>
                 {
-                    new MappingScopeComposite(
+                    new(
                         new List<MappingScopeComposite>(),
                         new List<Mapping>
                         {
-                            new Mapping(
+                            new(
                                 new XmlGetThisValueTraversal(),
                                 new XmlSetThisValueTraversal()
                             )
@@ -213,11 +213,11 @@ namespace MappingFramework.UnitTests.Cases.XmlCases
                         new XmlGetListValueTraversal("./InvalidPath"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator()),
-                    new MappingScopeComposite(
+                    new(
                         new List<MappingScopeComposite>(),
                         new List<Mapping>
                         {
-                            new Mapping(
+                            new(
                                 new XmlGetThisValueTraversal(),
                                 new XmlSetThisValueTraversal()
                             )
@@ -226,11 +226,11 @@ namespace MappingFramework.UnitTests.Cases.XmlCases
                         new XmlGetListValueTraversal("./Teachers/Teacher"),
                         new XmlGetTemplateTraversal("./People/Person"),
                         new XmlChildCreator()),
-                    new MappingScopeComposite(
+                    new(
                         new List<MappingScopeComposite>(),
                         new List<Mapping>
                         {
-                            new Mapping(
+                            new(
                                 new XmlGetThisValueTraversal(),
                                 new XmlSetThisValueTraversal()
                             )
@@ -272,7 +272,7 @@ namespace MappingFramework.UnitTests.Cases.XmlCases
                 new DictionaryReplaceValueMutation(
                     new List<DictionaryReplaceValueMutation.ReplaceValue>
                     {
-                        new DictionaryReplaceValueMutation.ReplaceValue
+                        new()
                         {
                             ValueToReplace = "value3",
                             NewValue = "SimpleItem"

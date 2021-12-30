@@ -61,11 +61,11 @@ namespace MappingFramework.UnitTests.Cases.AdditionalSources
                 new List<MappingScopeComposite>(),
                 new List<Mapping>
                 {
-                    new Mapping(
+                    new(
                         new JsonGetValueTraversal(".Name"),
                         new JsonSetValueTraversal(".Name")
                     ),
-                    new Mapping(
+                    new(
                         new GetAdditionalSourceValue(
                             new GetStaticValue("Mapping"),
                     new GetMutatedValueTraversal(
@@ -75,7 +75,7 @@ namespace MappingFramework.UnitTests.Cases.AdditionalSources
                         ),
                         new JsonSetValueTraversal(".Profession")
                     ),
-                    new Mapping(
+                    new(
                         new GetAdditionalSourceValue(
                             new GetStaticValue("Mapping"),
                             new GetMutatedValueTraversal(
@@ -94,7 +94,7 @@ namespace MappingFramework.UnitTests.Cases.AdditionalSources
 
             var mappings = new List<Mapping>
             {
-                new Mapping(
+                new(
                     new GetAdditionalSourceValue(
                         new GetStaticValue("Values"),
                         new GetStaticValue("Identifier")

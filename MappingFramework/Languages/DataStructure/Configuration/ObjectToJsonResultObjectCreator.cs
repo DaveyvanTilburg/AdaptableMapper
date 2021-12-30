@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace MappingFramework.Languages.DataStructure.Configuration
 {
-    [ContentType(ContentType.DataStructure)]
+    [ContentType(ContentType.DataStructure, ContentType.Dictionary)]
     public sealed class ObjectToJsonResultObjectCreator : ResultObjectCreator, ResolvableByTypeId
     {
         public const string _typeId = "5e251dd5-ba6e-4de4-8973-8ed67d0e1991";

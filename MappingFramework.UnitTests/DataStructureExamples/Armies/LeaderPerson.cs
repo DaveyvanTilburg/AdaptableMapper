@@ -4,6 +4,6 @@ namespace MappingFramework.UnitTests.DataStructureExamples.Armies
 {
     public class LeaderPerson : TraversableDataStructure
     {
-        public Person Person { get; set; } = new Person();
+        public Person Person { get; set; } = new();
     }
 }

@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="AvalonEdit\SyntaxHighlighting\json.xshd" />
+    <None Remove="AvalonEdit\SyntaxHighlighting\xml.xshd" />
     <None Remove="Examples\JsonSource.json" />
     <None Remove="Examples\JsonTarget.json" />
     <None Remove="Examples\XmlSource.xml" />
@@ -32,6 +34,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="AvalonEdit\SyntaxHighlighting\json.xshd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AvalonEdit\SyntaxHighlighting\xml.xshd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Examples\JsonSource.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -44,6 +52,10 @@
     <EmbeddedResource Include="Examples\XmlTarget.xml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.1.3.50" />
   </ItemGroup>
 
   <ItemGroup>

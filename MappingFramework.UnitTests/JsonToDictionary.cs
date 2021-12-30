@@ -19,11 +19,11 @@ namespace MappingFramework.UnitTests
             var mappingConfiguration = new MappingConfiguration(
                 new List<Mapping>
                 {
-                    new Mapping(
+                    new(
                         new JsonGetValueTraversal(".Computer.Motherboard[0].Brand"),
                         new DictionarySetValueTraversal("Brand")
                     ),
-                    new Mapping(
+                    new(
                         new JsonGetValueTraversal(".Computer.Motherboard[0].CPU[0].Cores"),
                         new DictionarySetValueTraversal("CPUs", DictionaryValueTypes.Integer)
                     )

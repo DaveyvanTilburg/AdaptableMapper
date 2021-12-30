@@ -178,7 +178,7 @@ namespace MappingFramework.Languages.DataStructure
                 if(!(property is TraversableDataStructure item))
                 {
                     context.NavigationFailed(propertyName);
-                    return new List<NullDataStructure> { new NullDataStructure() };
+                    return new List<NullDataStructure> { new() };
                 }
 
                 return new List<TraversableDataStructure> { item };

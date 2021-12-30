@@ -114,12 +114,12 @@ namespace MappingFramework.UnitTests.Cases.ValueMutations
             var subject = new DictionaryReplaceValueMutation(
                 new List<DictionaryReplaceValueMutation.ReplaceValue>
                 {
-                    new DictionaryReplaceValueMutation.ReplaceValue
+                    new()
                     {
                         ValueToReplace = "Old",
                         NewValue = "New"
                     },
-                    new DictionaryReplaceValueMutation.ReplaceValue
+                    new()
                     {
                         ValueToReplace = "1",
                         NewValue = "2"
@@ -143,17 +143,17 @@ namespace MappingFramework.UnitTests.Cases.ValueMutations
             var subject = new DictionaryReplaceValueMutation(
                 new List<DictionaryReplaceValueMutation.ReplaceValue>
                 {
-                    new DictionaryReplaceValueMutation.ReplaceValue
+                    new()
                     {
                         ValueToReplace = "value1",
                         NewValue = "bronze"
                     },
-                    new DictionaryReplaceValueMutation.ReplaceValue
+                    new()
                     {
                         ValueToReplace = "value2",
                         NewValue = "silver"
                     },
-                    new DictionaryReplaceValueMutation.ReplaceValue
+                    new()
                     {
                         ValueToReplace = "value3",
                         NewValue = "gold"

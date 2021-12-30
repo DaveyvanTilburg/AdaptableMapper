@@ -453,7 +453,7 @@ namespace MappingFramework.UnitTests.Cases.Converters
                 new DictionaryReplaceValueMutation(
                     new List<DictionaryReplaceValueMutation.ReplaceValue>
                     {
-                        new DictionaryReplaceValueMutation.ReplaceValue("x", "y")
+                        new("x", "y")
                     }
                 )
             };

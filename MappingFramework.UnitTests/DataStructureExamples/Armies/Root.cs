@@ -10,6 +10,6 @@ namespace MappingFramework.UnitTests.DataStructureExamples.Armies
         }
 
         public ChildList<Army> Armies { get; set; }
-        public Organization Organization { get; set; } = new Organization();
+        public Organization Organization { get; set; } = new();
     }
 }

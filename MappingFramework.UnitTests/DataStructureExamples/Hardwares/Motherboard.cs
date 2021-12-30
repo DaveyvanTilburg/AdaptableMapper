@@ -11,7 +11,7 @@ namespace MappingFramework.UnitTests.DataStructureExamples.Hardwares
             HardDrives = new ChildList<HardDrive>(this);
         }
 
-        public CPU CPU { get; set; } = new CPU();
+        public CPU CPU { get; set; } = new();
         public ChildList<GraphicalCard> GraphicalCards { get; set; }
         public ChildList<Memory> Memories { get; set; }
         public ChildList<HardDrive> HardDrives { get; set; }

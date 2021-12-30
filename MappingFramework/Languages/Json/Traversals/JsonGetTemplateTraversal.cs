@@ -68,7 +68,7 @@ namespace MappingFramework.Languages.Json.Traversals
             return template;
         }
 
-        private static Template CreateNullTemplate()
-            => new Template { Parent = new JArray(), Child = new JObject() };
+        private static Template CreateNullTemplate() 
+            => new() { Parent = new JArray(), Child = new JObject() };
     }
 }

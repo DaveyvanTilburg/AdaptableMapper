@@ -89,7 +89,7 @@ namespace MappingFramework.Configuration
 
         public List<Information> Information() => _information;
 
-        public Context Copy(object scope, object newTarget)
-            => new Context(scope, newTarget, AdditionalSourceValues, MappingCaches, _information);
+        public Context Copy(object scope, object newTarget) 
+            => new(scope, newTarget, AdditionalSourceValues, MappingCaches, _information);
     }
 }

@@ -38,7 +38,7 @@ namespace MappingFramework.MappingInterface.Fields
             e.Handled = IsNumeric(e.Text);
         }
 
-        private static readonly Regex Regex = new Regex("^[0-9]+");
+        private static readonly Regex Regex = new("^[0-9]+");
         private bool IsNumeric(string text) => !Regex.IsMatch(text);
     }
 }

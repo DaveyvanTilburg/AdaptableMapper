@@ -1,8 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Xml;
+using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Highlighting;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using MappingFramework.ContentTypes;
+using MappingFramework.MappingInterface.AvalonEdit;
 using MappingFramework.MappingInterface.Controls;
 using MappingFramework.MappingInterface.Storage;
 
@@ -14,29 +21,14 @@ namespace MappingFramework.MappingInterface
         public static ContentType TargetType;
         
         private readonly MappingConfiguration _mappingConfiguration;
+        private readonly Dictionary<string, FoldingSet> _foldingSets;
 
-        public MappingWindow(LoadFile loadFile)
+        public MappingWindow(string name, MappingConfiguration mappingConfiguration, ContentType sourceType, ContentType targetType)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            _mappingConfiguration = loadFile.MappingConfiguration();
 
-            SourceType = _mappingConfiguration.SourceType();
-            TargetType = _mappingConfiguration.TargetType();
-
-            Initialized += Load;
-            InitializeComponent();
-
-            BackButton.Click += OnBackButtonClick;
-            SaveButton.Click += OnSaveButtonClick;
-            TestButton.Click += OnTestButtonClick;
-
-            NameTextBox.Text = loadFile.Name();
-        }
-        
-        public MappingWindow(ContentType sourceType, ContentType targetType)
-        {
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            _mappingConfiguration = new MappingConfiguration();
+            _mappingConfiguration = mappingConfiguration;
+            _foldingSets = new Dictionary<string, FoldingSet>();
 
             SourceType = sourceType;
             TargetType = targetType;
@@ -48,39 +40,75 @@ namespace MappingFramework.MappingInterface
             SaveButton.Click += OnSaveButtonClick;
             TestButton.Click += OnTestButtonClick;
 
-            NameTextBox.Text = "New mapping configuration";
+            NameTextBox.Text = name;
         }
         
         private void Load(object o, EventArgs e)
         {
-            string sourceText = string.Empty;
             switch (SourceType)
             {
                 case ContentType.Xml:
-                    sourceText = GetResource("MappingFramework.MappingInterface.Examples.XmlSource.xml");
+                    SourceTextBox.Text = GetResource("MappingFramework.MappingInterface.Examples.XmlSource.xml");
+                    LoadSyntax(SourceTextBox, "xml.xshd");
+
+                    _foldingSets.Add(SourceTextBox.Name, FoldingSet.Create(SourceTextBox, ContentType.Xml));
+                    _foldingSets[SourceTextBox.Name].Update();
                     break;
                 case ContentType.Json:
-                    sourceText = GetResource("MappingFramework.MappingInterface.Examples.JsonSource.json");
+                    SourceTextBox.Text = GetResource("MappingFramework.MappingInterface.Examples.JsonSource.json");
+                    LoadSyntax(SourceTextBox, "json.xshd");
+
+                    _foldingSets.Add(SourceTextBox.Name, FoldingSet.Create(SourceTextBox, ContentType.Json));
+                    _foldingSets[SourceTextBox.Name].Update();
                     break;
             }
-
-            string targetText = string.Empty;
+            
             switch (TargetType)
             {
                 case ContentType.Xml:
-                    targetText = GetResource("MappingFramework.MappingInterface.Examples.XmlTarget.xml");
+                    TargetTextBox.Text = GetResource("MappingFramework.MappingInterface.Examples.XmlTarget.xml");
+                    LoadSyntax(TargetTextBox, "xml.xshd");
+
+                    _foldingSets.Add(TargetTextBox.Name, FoldingSet.Create(TargetTextBox, ContentType.Xml));
+                    _foldingSets[TargetTextBox.Name].Update();
                     break;
                 case ContentType.Json:
-                    targetText = GetResource("MappingFramework.MappingInterface.Examples.JsonTarget.json");
+                    TargetTextBox.Text = GetResource("MappingFramework.MappingInterface.Examples.JsonTarget.json");
+                    LoadSyntax(TargetTextBox, "json.xshd");
+
+                    _foldingSets.Add(TargetTextBox.Name, FoldingSet.Create(TargetTextBox, ContentType.Json));
+                    _foldingSets[TargetTextBox.Name].Update();
+                    
+                    break;
+                case ContentType.Dictionary:
+                    TargetTextBox.Visibility = Visibility.Hidden;
                     break;
             }
-
-            SourceTextBox.Text = sourceText;
-            TargetTextBox.Text = targetText;
-
+            
             MainStackPanel.Children.Add(new ComponentControl(_mappingConfiguration, null));
+
+            SourceTextBox.TextChanged += TextBoxOnTextChanged;
+            TargetTextBox.TextChanged += TextBoxOnTextChanged;
         }
-        
+
+        private void TextBoxOnTextChanged(object sender, EventArgs e)
+        {
+            if (sender is not TextEditor textEditor)
+                return;
+
+            _foldingSets[textEditor.Name].Update();
+        }
+
+        private void LoadSyntax(TextEditor textEditor, string fileName)
+        {
+            using Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream(LoadAssemblyFile(fileName));
+            using XmlTextReader reader = new XmlTextReader(s);
+            textEditor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+        }
+
+        private string LoadAssemblyFile(string fileName)
+            => Assembly.GetExecutingAssembly().GetManifestResourceNames().Single(f => f.EndsWith(fileName));
+
         private void OnTestButtonClick(object o, EventArgs e)
         {
             string source = SourceTextBox.Text;

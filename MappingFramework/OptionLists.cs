@@ -20,7 +20,7 @@ namespace MappingFramework
 {
     public static class OptionLists
     {
-        private static List<Type> ComposedGetValueTraversals => new List<Type>
+        private static List<Type> ComposedGetValueTraversals => new()
         {
             typeof(GetAdditionalSourceValue),
             typeof(GetConcatenatedByListValueTraversal),
@@ -33,18 +33,18 @@ namespace MappingFramework
             typeof(IfConditionThenAElseBGetValueTraversal)
         };
 
-        private static List<Type> NewXmlGetValueTraversals => new List<Type>
+        private static List<Type> NewXmlGetValueTraversals => new()
         {
             typeof(XmlGetValueTraversal),
             typeof(XmlGetThisValueTraversal)
         };
 
-        private static List<Type> NewJsonGetValueTraversals => new List<Type>
+        private static List<Type> NewJsonGetValueTraversals => new()
         {
             typeof(JsonGetValueTraversal)
         };
 
-        private static List<Type> NewDataStructureGetValueTraversals => new List<Type>
+        private static List<Type> NewDataStructureGetValueTraversals => new()
         {
             typeof(DataStructureGetValueTraversal)
         };
@@ -68,30 +68,30 @@ namespace MappingFramework
             }
         }
 
-        private static List<Type> ComposedSetValueTraversals => new List<Type>
+        private static List<Type> ComposedSetValueTraversals => new()
         {
             typeof(SetMutatedValueTraversal)
         };
 
-        private static List<Type> NewXmlSetValueTraversals => new List<Type>
+        private static List<Type> NewXmlSetValueTraversals => new()
         {
             typeof(XmlSetValueTraversal),
             typeof(XmlSetThisValueTraversal),
             typeof(XmlSetGeneratedIdValueTraversal)
         };
 
-        private static List<Type> NewJsonSetValueTraversals => new List<Type>
+        private static List<Type> NewJsonSetValueTraversals => new()
         {
             typeof(JsonSetValueTraversal)
         };
 
-        private static List<Type> NewDataStructureSetValueTraversals => new List<Type>
+        private static List<Type> NewDataStructureSetValueTraversals => new()
         {
             typeof(DataStructureSetValueOnPathTraversal),
             typeof(DataStructureSetValueOnPropertyTraversal)
         };
 
-        private static List<Type> NewDictionarySetValueTraversals => new List<Type>
+        private static List<Type> NewDictionarySetValueTraversals => new()
         {
             typeof(DictionarySetValueTraversal)
         };

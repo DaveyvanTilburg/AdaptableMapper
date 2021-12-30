@@ -20,11 +20,11 @@ namespace MappingFramework.UnitTests.Visitors
             var composition = new MappingConfiguration(
                 new List<MappingScopeComposite>
                 {
-                    new MappingScopeComposite(
+                    new(
                         null,
                         new List<Mapping>
                         {
-                            new Mapping(
+                            new(
                                 new GetSearchValueTraversal(
                                     new XmlGetValueTraversal(""),
                                     new NullObject()

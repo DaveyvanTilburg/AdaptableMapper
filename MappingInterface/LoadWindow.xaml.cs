@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using MappingFramework.Languages.DataStructure.Configuration;
 using MappingFramework.MappingInterface.Storage;
 
 namespace MappingFramework.MappingInterface
@@ -53,8 +52,9 @@ namespace MappingFramework.MappingInterface
         private void OnLoadButtonClick(object o, EventArgs e)
         {
             LoadFile loadFile = new Saves().Load(FileName());
+            MappingConfiguration mappingConfiguration = loadFile.MappingConfiguration();
 
-            new MappingWindow(loadFile).Show();
+            new MappingWindow(loadFile.Name(), mappingConfiguration, mappingConfiguration.SourceType(), mappingConfiguration.TargetType()).Show();
             Close();
         }
         
