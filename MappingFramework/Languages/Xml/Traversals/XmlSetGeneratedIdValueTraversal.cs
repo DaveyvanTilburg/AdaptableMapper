@@ -3,6 +3,7 @@ using MappingFramework.Caches;
 using MappingFramework.Configuration;
 using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
+using MappingFramework.Languages.Xml.Interpretation;
 using MappingFramework.Traversals;
 
 namespace MappingFramework.Languages.Xml.Traversals

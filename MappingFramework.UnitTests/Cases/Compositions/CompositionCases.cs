@@ -6,7 +6,7 @@ using MappingFramework.Compositions;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
 using MappingFramework.Languages.DataStructure.Traversals;
-using MappingFramework.Languages.Xml;
+using MappingFramework.Languages.Xml.Interpretation;
 using MappingFramework.Languages.Xml.Traversals;
 using MappingFramework.Traversals;
 using MappingFramework.ValueMutations;

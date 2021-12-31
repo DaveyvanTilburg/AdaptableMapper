@@ -3,7 +3,7 @@ using System.Xml.XPath;
 using FluentAssertions;
 using MappingFramework.Compositions;
 using MappingFramework.Configuration;
-using MappingFramework.Languages.Xml;
+using MappingFramework.Languages.Xml.Interpretation;
 using MappingFramework.Languages.Xml.Traversals;
 using MappingFramework.ValueMutations;
 using Xunit;

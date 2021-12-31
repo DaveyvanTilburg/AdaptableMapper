@@ -4,6 +4,7 @@ using System.Xml.Linq;
 using MappingFramework.Configuration;
 using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
+using MappingFramework.Languages.Xml.Interpretation;
 
 namespace MappingFramework.Languages.Xml.Configuration
 {

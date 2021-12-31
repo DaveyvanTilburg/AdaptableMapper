@@ -1,9 +1,8 @@
 ﻿using System.Xml.Linq;
 using FluentAssertions;
 using MappingFramework.Configuration;
-using MappingFramework.Languages.Xml;
 using MappingFramework.Languages.Xml.Configuration;
-using MappingFramework.Languages.Xml.Traversals;
+using MappingFramework.Languages.Xml.Interpretation;
 using Xunit;
 
 namespace MappingFramework.UnitTests.Cases.XmlCases
@@ -62,20 +61,6 @@ namespace MappingFramework.UnitTests.Cases.XmlCases
                 var convertedResult = converter.Convert(xElementValue);
                 convertedResult.Should().Be(expectedResult, because);
             }
-        }
-
-        [Theory]
-        [InlineData(".//month/day", ".//*[local-name()='month']/*[local-name()='day']")]
-        [InlineData("//month/day", "//*[local-name()='month']/*[local-name()='day']")]
-        [InlineData("./month/day", "./*[local-name()='month']/*[local-name()='day']")]
-        [InlineData("//month//day", "//*[local-name()='month']//*[local-name()='day']")]
-        [InlineData("./*", "./*")]
-        [InlineData("count(./SimpleItems/SimpleItem)", "count(./*[local-name()='SimpleItems']/*[local-name()='SimpleItem'])")]
-        [InlineData("concat(./SimpleItem[1]/Name,',',./SimpleItem[2]/Name)", "concat(./*[local-name()='SimpleItem'][1]/*[local-name()='Name'],',',./*[local-name()='SimpleItem'][2]/*[local-name()='Name'])")]
-        public void Test(string path, string expectedResult)
-        {
-            string result = path.ConvertToInterpretation(XmlInterpretation.WithoutNamespace);
-            result.Should().Be(expectedResult);
         }
     }
 }

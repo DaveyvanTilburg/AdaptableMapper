@@ -3,8 +3,8 @@ using System.Xml.Linq;
 using FluentAssertions;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
-using MappingFramework.Languages.Xml;
 using MappingFramework.Languages.Xml.Configuration;
+using MappingFramework.Languages.Xml.Interpretation;
 using MappingFramework.Languages.Xml.Traversals;
 using Xunit;
 
