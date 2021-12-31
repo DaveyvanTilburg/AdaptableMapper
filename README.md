@@ -112,7 +112,7 @@ Example target Json
     * SearchPathValue : professionId
     * Example JsonSetValue : .person.professionName
 
-How to use ModelTargetInitiatorSource
+How to use DataStructureTargetCreatorSource
 ```
 {
   "AssemblyFullName": "MappingFramework.MappingInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
