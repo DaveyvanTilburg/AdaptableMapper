@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace MappingFramework
+namespace MappingFramework.Json
 {
     public static class JsonSerializer
     {
@@ -9,7 +9,12 @@ namespace MappingFramework
 
         public static string Serialize(object source)
         {
-            string serialized = JsonConvert.SerializeObject(source, Indented);
+            var settings = new JsonSerializerSettings()
+            {
+                ContractResolver = new OrderedContractResolver()
+            };
+
+            string serialized = JsonConvert.SerializeObject(source, Indented, settings);
             return serialized;
         }
 

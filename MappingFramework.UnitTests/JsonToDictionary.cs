@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using FluentAssertions;
+using MappingFramework.Compositions;
 using MappingFramework.Configuration;
 using MappingFramework.Languages.Dictionary;
 using MappingFramework.Languages.Dictionary.Configuration;
@@ -21,11 +22,11 @@ namespace MappingFramework.UnitTests
                 {
                     new(
                         new JsonGetValueTraversal(".Computer.Motherboard[0].Brand"),
-                        new DictionarySetValueTraversal("Brand")
+                        new DictionarySetValueTraversal(new GetStaticValue("Brand"))
                     ),
                     new(
                         new JsonGetValueTraversal(".Computer.Motherboard[0].CPU[0].Cores"),
-                        new DictionarySetValueTraversal("CPUs", DictionaryValueTypes.Integer)
+                        new DictionarySetValueTraversal(new GetStaticValue("CPUs"), DictionaryValueTypes.Integer)
                     )
                 },
                 new ContextFactory(

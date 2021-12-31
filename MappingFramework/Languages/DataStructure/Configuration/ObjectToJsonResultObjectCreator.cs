@@ -1,7 +1,6 @@
 ﻿using MappingFramework.Configuration;
 using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
-using Newtonsoft.Json;
 
 namespace MappingFramework.Languages.DataStructure.Configuration
 {
@@ -14,6 +13,6 @@ namespace MappingFramework.Languages.DataStructure.Configuration
         public ObjectToJsonResultObjectCreator() { }
 
         public object Convert(object source)
-            => JsonConvert.SerializeObject(source);
+            => MappingFramework.Json.JsonSerializer.Serialize(source);
     }
 }

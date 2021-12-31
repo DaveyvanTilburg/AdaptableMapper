@@ -5,6 +5,7 @@ using MappingFramework.Compositions;
 using MappingFramework.Conditions;
 using MappingFramework.Configuration;
 using MappingFramework.Converters;
+using MappingFramework.Json;
 using MappingFramework.Languages.DataStructure.Configuration;
 using MappingFramework.Languages.DataStructure.Traversals;
 using MappingFramework.Languages.Dictionary.Configuration;
@@ -259,6 +260,11 @@ namespace MappingFramework.UnitTests.Cases.Converters
                 typeof(TargetCreator),
                 new DictionaryTargetCreator()
             };
+            yield return new object[]
+            {
+                typeof(ChildCreator),
+                new DictionaryChildCreator()
+            };
 
             //Configuration - Json
             yield return new object[]
@@ -336,6 +342,11 @@ namespace MappingFramework.UnitTests.Cases.Converters
             {
                 typeof(SetValueTraversal),
                 new DictionarySetValueTraversal()
+            };
+            yield return new object[]
+            {
+                typeof(GetTemplateTraversal),
+                new DictionaryGetTemplateTraversal()
             };
 
             //Traversal - Json

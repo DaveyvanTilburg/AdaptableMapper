@@ -43,6 +43,8 @@ namespace MappingFramework.Converters
 
                 //Configuration - Dictionary
                 [DictionaryTargetCreator._typeId] = typeof(DictionaryTargetCreator),
+                [DictionaryChildCreator._typeId] = typeof(DictionaryChildCreator),
+                [DictionaryChildToParent._typeId] = typeof(DictionaryChildToParent),
 
                 //Configuration - Json
                 [JsonChildCreator._typeId] = typeof(JsonChildCreator),
@@ -65,6 +67,7 @@ namespace MappingFramework.Converters
 
                 //Traversals - Dictionary
                 [DictionarySetValueTraversal._typeId] = typeof(DictionarySetValueTraversal),
+                [DictionaryGetTemplateTraversal._typeId] = typeof(DictionaryGetTemplateTraversal),
 
                 //Traversals - Json
                 [JsonGetListValueTraversal._typeId] = typeof(JsonGetListValueTraversal),

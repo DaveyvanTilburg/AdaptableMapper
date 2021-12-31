@@ -35,6 +35,7 @@
     <None Remove="Resources\XmlDaysBetweenDates.xml" />
     <None Remove="Resources\XmlGetNumberOfHits\MultipleComments.xml" />
     <None Remove="Resources\XmlSource_ArmyComposition.xml" />
+    <None Remove="Resources\XMLSource_Calendar.xml" />
     <None Remove="Resources\XmlTarget_ArmyExpected.xml" />
     <None Remove="Resources\XmlTarget_ArmyTemplate.xml" />
     <None Remove="Resources\XmlTarget_HardwareExpected.xml" />
@@ -130,6 +131,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\XmlSource_ArmyComposition.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\XMLSource_Calendar.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\XmlTarget_ArmyExpected.xml">

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<agenda>
+  <personalData personType="1">
+    <name>Davey van Tilburg</name>
+    <birthDate>11-09-1991</birthDate>
+    <gender>Male</gender>
+  </personalData>
+  <agendaData>
+    <months>
+      <month name="Januari">
+        <week weekNr="1">
+          <day dow="monday">Available</day>
+          <day dow="tuesday">Available</day>
+          <day dow="wednesday">Not Available</day>
+          <day dow="thursday">Available</day>
+          <day dow="friday">Available</day>
+          <day dow="saturday">Not Available</day>
+          <day dow="sunday">Available</day>
+        </week>
+        <week weekNr="2">
+          <day dow="monday">Not Available</day>
+          <day dow="tuesday">Not Available</day>
+          <day dow="wednesday">Not Available</day>
+          <day dow="Thursday">Not Available</day>
+          <day dow="friday">Not Available</day>
+          <day dow="saturday">Not Available</day>
+          <day dow="sunday">Not Available</day>
+        </week>
+      </month>
+      <month name="Februari">
+        <week weekNr="5">
+          <day dow="monday">Available</day>
+          <day dow="tuesday">Available</day>
+          <day dow="wednesday">Not Available</day>
+          <day dow="Thursday">Available</day>
+          <day dow="friday">Not Available</day>
+        </week>
+        <week weekNr="6">
+          <day dow="monday">Not Available</day>
+          <day dow="tuesday">Available</day>
+          <day dow="wednesday">Not Available</day>
+          <day dow="Thursday">Available</day>
+          <day dow="friday">Not Available</day>
+        </week>
+      </month>
+      <month name="March">
+        <week weekNr="7">
+          <day dow="monday">Not Available</day>
+          <day dow="tuesday">Available</day>
+          <day dow="wednesday">Not Available</day>
+          <day dow="Thursday">Not Available</day>
+          <day dow="friday">Not Available</day>
+        </week>
+      </month>
+    </months>
+    <appointments>
+      <appointment year="2021" week="2" day="5" dow="tuesday">
+        Bike ride
+      </appointment>
+      <appointment year="2021" week="3" day="15" dow="friday">
+        Doctor
+      </appointment>
+      <appointment year="2021" week="4" day="20" dow="wednesday">
+        Family
+      </appointment>
+    </appointments>
+  </agendaData>
+</agenda>

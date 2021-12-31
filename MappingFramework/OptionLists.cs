@@ -144,12 +144,28 @@ namespace MappingFramework
         private static Type GetTemplateTraversal(ContentType contentType) =>
             contentType == ContentType.Xml ? typeof(XmlGetTemplateTraversal) :
             contentType == ContentType.Json ? typeof(JsonGetTemplateTraversal) :
-            contentType == ContentType.DataStructure ? typeof(DataStructureGetTemplateTraversal) : null;
+            contentType == ContentType.DataStructure ? typeof(DataStructureGetTemplateTraversal) :
+            contentType == ContentType.Dictionary ? typeof(DictionaryGetTemplateTraversal) : null;
 
-        private static Type ChildCreator(ContentType contentType) =>
-            contentType == ContentType.Xml ? typeof(XmlChildCreator) :
-            contentType == ContentType.Json ? typeof(JsonChildCreator) :
-            contentType == ContentType.DataStructure ? typeof(DataStructureChildCreator) : null;
+        private static IEnumerable<Type> ChildCreator(ContentType contentType)
+        {
+            switch (contentType)
+            {
+                case ContentType.Xml:
+                    yield return typeof(XmlChildCreator);
+                    break;
+                case ContentType.Json:
+                    yield return typeof(JsonChildCreator);
+                    break;
+                case ContentType.DataStructure:
+                    yield return typeof(DataStructureChildCreator);
+                    break;
+                case ContentType.Dictionary:
+                    yield return typeof(DictionaryChildCreator);
+                    yield return typeof(DictionaryChildToParent);
+                    break;
+            }
+        }
 
         private static Type GetListSearchPathValueTraversal(ContentType contentType) =>
             contentType == ContentType.Xml ? typeof(XmlGetListValueTraversal) :
@@ -215,7 +231,7 @@ namespace MappingFramework
             if (type == typeof(GetTemplateTraversal))
                 return new List<Type> { GetTemplateTraversal(contentType) };
             if (type == typeof(ChildCreator))
-                return new List<Type> { ChildCreator(contentType) };
+                return new List<Type>(ChildCreator(contentType));
 
             throw new Exception($"{type.Name} is not supported");
         }

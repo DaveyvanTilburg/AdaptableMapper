@@ -1,1 +1,112 @@
-﻿{"Organization":{"Leaders":[{"Reference":"alpha-bravo-tango-delta","LeaderPerson":{"Person":{"Name":"Christopher columbus"}}},{"Reference":"Ween","LeaderPerson":{"Person":{"Name":"Ocean man"}}},{"Reference":"Pershing","LeaderPerson":{"Person":{"Name":"John J. Pershing"}}}]},"Armies":[{"Code":"naval","Platoons":[{"Code":"black-sky","LeaderReference":"alpha-bravo-tango-delta","Members":[{"Name":"FlagShip-Alpha","CrewMembers":[{"Name":"John"},{"Name":"Jane"}]}],"Deployed":""},{"Code":"clean-floors","LeaderReference":"Ween","Members":[{"Name":"Sub-Zero","CrewMembers":[{"Name":"Natasha"},{"Name":"Yuri"}]}],"Deployed":""}]},{"Code":"thunder-struck","Platoons":[{"Code":"death-rains-from-above","LeaderReference":"Pershing","Members":[{"Name":"Messerschmitt Bf 109","CrewMembers":[{"Name":"Hans"}]},{"Name":"Boeing B-17","CrewMembers":[{"Name":"John"}]}],"Deployed":""},{"Code":"air-soldier","LeaderReference":"","Members":[{"Name":"Pharah","CrewMembers":[]}],"Deployed":""}]}]}
+﻿{
+  "Armies": [
+    {
+      "Code": "naval",
+      "Platoons": [
+        {
+          "Code": "black-sky",
+          "Deployed": "",
+          "LeaderReference": "alpha-bravo-tango-delta",
+          "Members": [
+            {
+              "CrewMembers": [
+                {
+                  "Name": "John"
+                },
+                {
+                  "Name": "Jane"
+                }
+              ],
+              "Name": "FlagShip-Alpha"
+            }
+          ]
+        },
+        {
+          "Code": "clean-floors",
+          "Deployed": "",
+          "LeaderReference": "Ween",
+          "Members": [
+            {
+              "CrewMembers": [
+                {
+                  "Name": "Natasha"
+                },
+                {
+                  "Name": "Yuri"
+                }
+              ],
+              "Name": "Sub-Zero"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Code": "thunder-struck",
+      "Platoons": [
+        {
+          "Code": "death-rains-from-above",
+          "Deployed": "",
+          "LeaderReference": "Pershing",
+          "Members": [
+            {
+              "CrewMembers": [
+                {
+                  "Name": "Hans"
+                }
+              ],
+              "Name": "Messerschmitt Bf 109"
+            },
+            {
+              "CrewMembers": [
+                {
+                  "Name": "John"
+                }
+              ],
+              "Name": "Boeing B-17"
+            }
+          ]
+        },
+        {
+          "Code": "air-soldier",
+          "Deployed": "",
+          "LeaderReference": "",
+          "Members": [
+            {
+              "CrewMembers": [],
+              "Name": "Pharah"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Organization": {
+    "Leaders": [
+      {
+        "LeaderPerson": {
+          "Person": {
+            "Name": "Christopher columbus"
+          }
+        },
+        "Reference": "alpha-bravo-tango-delta"
+      },
+      {
+        "LeaderPerson": {
+          "Person": {
+            "Name": "Ocean man"
+          }
+        },
+        "Reference": "Ween"
+      },
+      {
+        "LeaderPerson": {
+          "Person": {
+            "Name": "John J. Pershing"
+          }
+        },
+        "Reference": "Pershing"
+      }
+    ]
+  }
+}

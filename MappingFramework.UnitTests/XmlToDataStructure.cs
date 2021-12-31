@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
 using MappingFramework.Configuration;
+using MappingFramework.Json;
 using MappingFramework.Languages.DataStructure.Configuration;
 using MappingFramework.Languages.DataStructure.Traversals;
 using MappingFramework.Languages.Xml.Configuration;

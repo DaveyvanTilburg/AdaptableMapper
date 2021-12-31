@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
+using MappingFramework.Compositions;
 using MappingFramework.Configuration;
 using MappingFramework.Languages.Dictionary.Traversals;
 using Xunit;
@@ -15,7 +16,7 @@ namespace MappingFramework.UnitTests.Cases.DictionaryCases
         [InlineData("Key", DictionaryValueTypes.Integer, "a", null, 1)]
         public void DictionarySetValueTraversal(string key, DictionaryValueTypes dictionaryValueTypes, string value, object expectedValue, int informationCount)
         {
-            var subject = new DictionarySetValueTraversal(key, dictionaryValueTypes);
+            var subject = new DictionarySetValueTraversal(new GetStaticValue(key), dictionaryValueTypes);
             Context context = new Context(null, new Dictionary<string, object>(), null);
 
             subject.SetValue(context, value);

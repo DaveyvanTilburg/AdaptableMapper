@@ -50,7 +50,7 @@ namespace MappingFramework.Configuration
                 if (Condition != null && !Condition.Validate(childContext))
                     continue;
 
-                ChildCreator.AddToParent(context, template, newTargetChild);
+                ChildCreator.AddToParent(childContext, template, newTargetChild);
                 TraverseChild(childContext);
             }
         }

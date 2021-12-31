@@ -2,6 +2,7 @@
 using MappingFramework.Configuration;
 using MappingFramework.ContentTypes;
 using MappingFramework.Converters;
+using MappingFramework.Json;
 
 namespace MappingFramework.Languages.DataStructure.Configuration
 {

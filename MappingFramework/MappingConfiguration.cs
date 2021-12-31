@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MappingFramework.Configuration;
 using MappingFramework.ContentTypes;
+using MappingFramework.Json;
 using MappingFramework.Visitors;
 
 namespace MappingFramework

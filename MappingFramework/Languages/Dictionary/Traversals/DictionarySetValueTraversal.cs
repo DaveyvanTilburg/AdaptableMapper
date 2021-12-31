@@ -15,41 +15,42 @@ namespace MappingFramework.Languages.Dictionary.Traversals
 
         public DictionarySetValueTraversal() { }
 
-        public DictionarySetValueTraversal(string key)
+        public DictionarySetValueTraversal(GetValueTraversal key)
         {
             Key = key;
         }
 
-        public DictionarySetValueTraversal(string key, DictionaryValueTypes dictionaryValueTypes)
+        public DictionarySetValueTraversal(GetValueTraversal key, DictionaryValueTypes dictionaryValueTypes)
         {
             Key = key;
             DictionaryValueType = dictionaryValueTypes;
         }
 
-        public string Key { get; set; }
+        public GetValueTraversal Key { get; set; }
         public DictionaryValueTypes DictionaryValueType { get; set; }
 
 
         public void SetValue(Context context, string value)
         {
-            if (string.IsNullOrWhiteSpace(Key))
+            IDictionary<string, object> dictionary = (IDictionary<string, object>)context.Target;
+
+            string key = Key.GetValue(context);
+            if (string.IsNullOrWhiteSpace(key))
             {
                 context.PropertyIsEmpty(this, nameof(Key));
                 return;
             }
 
-            IDictionary<string, object> dictionary = (IDictionary<string, object>)context.Target;
-
             switch (DictionaryValueType)
             {
                 case DictionaryValueTypes.String:
-                    dictionary[Key] = value;
+                    dictionary[key] = value;
                     break;
                 case DictionaryValueTypes.Integer:
                     if (!int.TryParse(value, out int integerValue))
                         context.OperationFailed(this, new Exception($"Value: '{value}' can not be parsed to an integer"));
                     else
-                        dictionary[Key] = integerValue;
+                        dictionary[key] = integerValue;
                     break;
             }
         }
