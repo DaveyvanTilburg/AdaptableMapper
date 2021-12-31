@@ -21,14 +21,14 @@ namespace MappingFramework.MappingInterface
         public static ContentType TargetType;
         
         private readonly MappingConfiguration _mappingConfiguration;
-        private readonly Dictionary<string, FoldingSet> _foldingSets;
+        private readonly Dictionary<string, IFoldingSet> _foldingSets;
 
         public MappingWindow(string name, MappingConfiguration mappingConfiguration, ContentType sourceType, ContentType targetType)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             _mappingConfiguration = mappingConfiguration;
-            _foldingSets = new Dictionary<string, FoldingSet>();
+            _foldingSets = new Dictionary<string, IFoldingSet>();
 
             SourceType = sourceType;
             TargetType = targetType;
@@ -50,40 +50,33 @@ namespace MappingFramework.MappingInterface
                 case ContentType.Xml:
                     SourceTextBox.Text = GetResource("MappingFramework.MappingInterface.Examples.XmlSource.xml");
                     LoadSyntax(SourceTextBox, "xml.xshd");
-
-                    _foldingSets.Add(SourceTextBox.Name, FoldingSet.Create(SourceTextBox, ContentType.Xml));
-                    _foldingSets[SourceTextBox.Name].Update();
                     break;
                 case ContentType.Json:
                     SourceTextBox.Text = GetResource("MappingFramework.MappingInterface.Examples.JsonSource.json");
                     LoadSyntax(SourceTextBox, "json.xshd");
-
-                    _foldingSets.Add(SourceTextBox.Name, FoldingSet.Create(SourceTextBox, ContentType.Json));
-                    _foldingSets[SourceTextBox.Name].Update();
                     break;
             }
+
+            _foldingSets.Add(SourceTextBox.Name, FoldingSet.Create(SourceTextBox, SourceType));
+            _foldingSets[SourceTextBox.Name].Update();
             
             switch (TargetType)
             {
                 case ContentType.Xml:
                     TargetTextBox.Text = GetResource("MappingFramework.MappingInterface.Examples.XmlTarget.xml");
                     LoadSyntax(TargetTextBox, "xml.xshd");
-
-                    _foldingSets.Add(TargetTextBox.Name, FoldingSet.Create(TargetTextBox, ContentType.Xml));
-                    _foldingSets[TargetTextBox.Name].Update();
                     break;
                 case ContentType.Json:
                     TargetTextBox.Text = GetResource("MappingFramework.MappingInterface.Examples.JsonTarget.json");
                     LoadSyntax(TargetTextBox, "json.xshd");
-
-                    _foldingSets.Add(TargetTextBox.Name, FoldingSet.Create(TargetTextBox, ContentType.Json));
-                    _foldingSets[TargetTextBox.Name].Update();
-                    
                     break;
                 case ContentType.Dictionary:
                     TargetTextBox.Visibility = Visibility.Hidden;
                     break;
             }
+
+            _foldingSets.Add(TargetTextBox.Name, FoldingSet.Create(TargetTextBox, TargetType));
+            _foldingSets[TargetTextBox.Name].Update();
             
             MainStackPanel.Children.Add(new ComponentControl(_mappingConfiguration, null));
 
@@ -115,7 +108,7 @@ namespace MappingFramework.MappingInterface
             string target = TargetTextBox.Text;
 
             MapResult mapResult = _mappingConfiguration.Map(source, target);
-            new ResultWindow(mapResult).Show();
+            new ResultWindow(mapResult, TargetType).Show();
         }
         
         private void OnSaveButtonClick(object o, EventArgs e)

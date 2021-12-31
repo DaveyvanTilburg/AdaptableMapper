@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using MappingFramework.Json;
 
 namespace MappingFramework.MappingInterface.Storage
 {

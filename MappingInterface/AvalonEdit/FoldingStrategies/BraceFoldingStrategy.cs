@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 
@@ -6,13 +7,28 @@ namespace MappingFramework.MappingInterface.AvalonEdit.FoldingStrategies
 {
     public class BraceFoldingStrategy : IFoldingStrategy
 	{
-        private char OpeningBrace { get; }
-        private char ClosingBrace { get; }
+        private class FoldingCharSet
+        {
+			public char OpeningBrace { get; }
+            public char ClosingBrace { get; }
+
+            public FoldingCharSet(char openingBrace, char closingBrace)
+            {
+                OpeningBrace = openingBrace;
+                ClosingBrace = closingBrace;
+            }
+        }
+
+        private List<FoldingCharSet> _foldingCharSets;
+        
         public BraceFoldingStrategy()
-		{
-			OpeningBrace = '{';
-			ClosingBrace = '}';
-		}
+        {
+            _foldingCharSets = new List<FoldingCharSet>
+            {
+                new('{', '}'),
+                new('[', ']')
+            };
+        }
 		
 		public void UpdateFoldings(FoldingManager manager, TextDocument document)
 		{
@@ -24,19 +40,19 @@ namespace MappingFramework.MappingInterface.AvalonEdit.FoldingStrategies
 		{
 			var newFoldings = new List<NewFolding>();
 			
-			Stack<int> startOffsets = new Stack<int>();
-			
-			char openingBrace = OpeningBrace;
-			char closingBrace = ClosingBrace;
+			var startOffsets = new Stack<(int, FoldingCharSet)>();
 
-			int lastNewLineOffset = 0;
+            int lastNewLineOffset = 0;
 			for (int i = 0; i < document.TextLength; i++) {
 				char c = document.GetCharAt(i);
-				if (c == openingBrace) {
-					startOffsets.Push(i);
-				} else if (c == closingBrace && startOffsets.Count > 0) {
-					int startOffset = startOffsets.Pop();
-					if (startOffset < lastNewLineOffset) {
+				
+				FoldingCharSet set = _foldingCharSets.FirstOrDefault(f => f.OpeningBrace == c);
+                
+                if (set != null) {
+					startOffsets.Push((i, set));
+				} else if (_foldingCharSets.Any(f => f.ClosingBrace == c) && startOffsets.Count > 0) {
+					(int startOffset, FoldingCharSet foundSet) = startOffsets.Pop();
+					if (startOffset < lastNewLineOffset && foundSet.ClosingBrace == c) {
 						newFoldings.Add(new NewFolding(startOffset, i + 1));
 					}
 				} else if (c == '\n' || c == '\r') {
