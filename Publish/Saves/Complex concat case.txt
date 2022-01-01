@@ -1,0 +1,33 @@
+{
+  "ContextFactory": {
+    "AdditionalSources": [],
+    "SourceCreator": {
+      "TypeId": "d695068f-499b-4189-aaf6-4bb86d564889",
+      "XmlInterpretation": "Default"
+    },
+    "TargetCreator": {
+      "TypeId": "e8a1efee-981d-443d-b363-4f1796491fab"
+    }
+  },
+  "Mappings": [
+    {
+      "GetValueTraversal": {
+        "Path": "concat(count(//month//day), ' days this year, and ', count(//month//day[@dow='sunday']), ' sundays')",
+        "TypeId": "b3a8e531-2a44-42e3-bac4-1f6b0c1b80b3",
+        "XmlInterpretation": "WithoutNamespace"
+      },
+      "SetValueTraversal": {
+        "DictionaryValueType": 0,
+        "Key": {
+          "TypeId": "136fe331-e3c2-496d-a7fc-e317b7eb80aa",
+          "Value": "test"
+        },
+        "TypeId": "0ea332ca-fe05-4cad-99f1-9cd1eb54be2e"
+      }
+    }
+  ],
+  "MappingScopeComposites": [],
+  "ResultObjectCreator": {
+    "TypeId": "5e251dd5-ba6e-4de4-8973-8ed67d0e1991"
+  }
+}

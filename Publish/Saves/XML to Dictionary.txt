@@ -1,0 +1,75 @@
+{
+  "ContextFactory": {
+    "AdditionalSources": [],
+    "SourceCreator": {
+      "TypeId": "d695068f-499b-4189-aaf6-4bb86d564889",
+      "XmlInterpretation": "Default"
+    },
+    "TargetCreator": {
+      "TypeId": "e8a1efee-981d-443d-b363-4f1796491fab"
+    }
+  },
+  "Mappings": [],
+  "MappingScopeComposites": [
+    {
+      "ChildCreator": {
+        "Key": {
+          "Path": "concat(../@name, '-', ./@weekNr)",
+          "TypeId": "b3a8e531-2a44-42e3-bac4-1f6b0c1b80b3",
+          "XmlInterpretation": "Default"
+        },
+        "TypeId": "c95700fe-4a24-4106-a746-e0682cf6b69c"
+      },
+      "Condition": {
+        "TypeId": "8455065e-a596-413e-bb63-22cb0f34a87c"
+      },
+      "GetListValueTraversal": {
+        "Path": "//month/week",
+        "TypeId": "4b9876c8-8c60-40fd-9141-86688a44dbe1",
+        "XmlInterpretation": "Default"
+      },
+      "GetTemplateTraversal": {
+        "TypeId": "0a7c1f55-1f97-4f47-834c-718ce11325c7"
+      },
+      "Mappings": [],
+      "MappingScopeComposites": [
+        {
+          "ChildCreator": {
+            "TypeId": "51bc0a8e-45e4-4c75-b338-99b3b9b91e97"
+          },
+          "Condition": {
+            "TypeId": "8455065e-a596-413e-bb63-22cb0f34a87c"
+          },
+          "GetListValueTraversal": {
+            "Path": "./day",
+            "TypeId": "4b9876c8-8c60-40fd-9141-86688a44dbe1",
+            "XmlInterpretation": "Default"
+          },
+          "GetTemplateTraversal": {
+            "TypeId": "0a7c1f55-1f97-4f47-834c-718ce11325c7"
+          },
+          "Mappings": [
+            {
+              "GetValueTraversal": {
+                "TypeId": "2be460d7-4f86-4b72-983b-09b323d63abf"
+              },
+              "SetValueTraversal": {
+                "DictionaryValueType": 0,
+                "Key": {
+                  "Path": "./@dow",
+                  "TypeId": "b3a8e531-2a44-42e3-bac4-1f6b0c1b80b3",
+                  "XmlInterpretation": "Default"
+                },
+                "TypeId": "0ea332ca-fe05-4cad-99f1-9cd1eb54be2e"
+              }
+            }
+          ],
+          "MappingScopeComposites": []
+        }
+      ]
+    }
+  ],
+  "ResultObjectCreator": {
+    "TypeId": "5e251dd5-ba6e-4de4-8973-8ed67d0e1991"
+  }
+}

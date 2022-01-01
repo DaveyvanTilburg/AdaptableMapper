@@ -1,0 +1,105 @@
+{
+  "ContextFactory": {
+    "AdditionalSources": [],
+    "SourceCreator": {
+      "TypeId": "d695068f-499b-4189-aaf6-4bb86d564889",
+      "XmlInterpretation": "Default"
+    },
+    "TargetCreator": {
+      "SerializedCreatorSource": "{ \"AssemblyFullName\": \"MappingFramework.MappingInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\", \"TypeFullName\": \"MappingFramework.MappingInterface.Examples.ExampleRootDataStructure\" }",
+      "TypeId": "6a36996c-2376-45f3-b556-a0e66da9a891"
+    }
+  },
+  "Mappings": [
+    {
+      "GetValueTraversal": {
+        "Path": "//personalData/@personType",
+        "TypeId": "b3a8e531-2a44-42e3-bac4-1f6b0c1b80b3",
+        "XmlInterpretation": "Default"
+      },
+      "SetValueTraversal": {
+        "Path": "SubStructure/Value1",
+        "TypeId": "05f91570-3786-40ce-8edd-b33e36762804"
+      }
+    },
+    {
+      "GetValueTraversal": {
+        "Path": "//personalData/name",
+        "TypeId": "b3a8e531-2a44-42e3-bac4-1f6b0c1b80b3",
+        "XmlInterpretation": "Default"
+      },
+      "SetValueTraversal": {
+        "Path": "SubStructure/Value2",
+        "TypeId": "05f91570-3786-40ce-8edd-b33e36762804"
+      }
+    }
+  ],
+  "MappingScopeComposites": [
+    {
+      "ChildCreator": {
+        "TypeId": "030fe21e-f4b9-4838-9aa0-960c3e8fa9a1"
+      },
+      "Condition": {
+        "TypeId": "8455065e-a596-413e-bb63-22cb0f34a87c"
+      },
+      "GetListValueTraversal": {
+        "Path": "//month",
+        "TypeId": "4b9876c8-8c60-40fd-9141-86688a44dbe1",
+        "XmlInterpretation": "Default"
+      },
+      "GetTemplateTraversal": {
+        "Path": "Children",
+        "TypeId": "e61aee0c-d8c9-4429-8c4b-d0f3fd63d72b"
+      },
+      "Mappings": [
+        {
+          "GetValueTraversal": {
+            "Path": "./@name",
+            "TypeId": "b3a8e531-2a44-42e3-bac4-1f6b0c1b80b3",
+            "XmlInterpretation": "Default"
+          },
+          "SetValueTraversal": {
+            "PropertyName": "Content",
+            "TypeId": "12151374-07cd-4a74-93e3-550e69ce61c0"
+          }
+        }
+      ],
+      "MappingScopeComposites": [
+        {
+          "ChildCreator": {
+            "TypeId": "030fe21e-f4b9-4838-9aa0-960c3e8fa9a1"
+          },
+          "Condition": {
+            "TypeId": "8455065e-a596-413e-bb63-22cb0f34a87c"
+          },
+          "GetListValueTraversal": {
+            "Path": ".//day",
+            "TypeId": "4b9876c8-8c60-40fd-9141-86688a44dbe1",
+            "XmlInterpretation": "Default"
+          },
+          "GetTemplateTraversal": {
+            "Path": "Children",
+            "TypeId": "e61aee0c-d8c9-4429-8c4b-d0f3fd63d72b"
+          },
+          "Mappings": [
+            {
+              "GetValueTraversal": {
+                "Path": "concat(../@weekNr, '-', ./@dow)",
+                "TypeId": "b3a8e531-2a44-42e3-bac4-1f6b0c1b80b3",
+                "XmlInterpretation": "Default"
+              },
+              "SetValueTraversal": {
+                "PropertyName": "Content",
+                "TypeId": "12151374-07cd-4a74-93e3-550e69ce61c0"
+              }
+            }
+          ],
+          "MappingScopeComposites": []
+        }
+      ]
+    }
+  ],
+  "ResultObjectCreator": {
+    "TypeId": "5e251dd5-ba6e-4de4-8973-8ed67d0e1991"
+  }
+}

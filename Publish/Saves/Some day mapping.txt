@@ -1,0 +1,53 @@
+{
+  "ContextFactory": {
+    "SourceCreator": {
+      "TypeId": "d695068f-499b-4189-aaf6-4bb86d564889",
+      "XmlInterpretation": "Default"
+    },
+    "TargetCreator": {
+      "TypeId": "137a2d0b-c49f-491b-b5b9-24413f9969ee",
+      "XmlInterpretation": "Default"
+    },
+    "AdditionalSources": []
+  },
+  "ResultObjectCreator": {
+    "TypeId": "37423a03-fdb3-4523-b94d-7ea1bd29f0b7",
+    "UseIndentation": true,
+    "IncludeDeclaration": true
+  },
+  "Mappings": [],
+  "MappingScopeComposites": [
+    {
+      "GetListValueTraversal": {
+        "TypeId": "4b9876c8-8c60-40fd-9141-86688a44dbe1",
+        "Path": ".//day",
+        "XmlInterpretation": "Default"
+      },
+      "Condition": {
+        "TypeId": "8455065e-a596-413e-bb63-22cb0f34a87c"
+      },
+      "GetTemplateTraversal": {
+        "TypeId": "f6459be3-8ff7-438a-bcee-832d17be9af0",
+        "Path": ".//date",
+        "XmlInterpretation": "Default"
+      },
+      "ChildCreator": {
+        "TypeId": "64df916a-8fef-46e1-9c34-6322365f6d22"
+      },
+      "Mappings": [
+        {
+          "GetValueTraversal": {
+            "TypeId": "b3a8e531-2a44-42e3-bac4-1f6b0c1b80b3",
+            "Path": "./@dow",
+            "XmlInterpretation": "Default"
+          },
+          "SetValueTraversal": {
+            "TypeId": "0e33e050-8da6-4d87-ad49-ff9bde9bf953",
+            "SetAsCData": false
+          }
+        }
+      ],
+      "MappingScopeComposites": []
+    }
+  ]
+}
