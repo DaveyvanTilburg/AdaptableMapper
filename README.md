@@ -112,12 +112,11 @@ Example target Json
     * SearchPathValue : professionId
     * Example JsonSetValue : .person.professionName
 
-How to use ModelTargetInitiatorSource
+How to use DataStructureTargetCreatorSource
 ```
 {
-  "$type": "AdaptableMapper.Model.ModelTargetInstantiatorSource, AdaptableMapper",
-  "AssemblyFullName": "Hercules.ModelObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
-  "TypeFullName": "Hercules.ModelObjects.Hardwares.Root"
+  "AssemblyFullName": "MappingFramework.MappingInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "TypeFullName": "MappingFramework.MappingInterface.Examples.ExampleRootDataStructure"
 }
 ```
 
@@ -127,4 +126,4 @@ How to use ModelTargetInitiatorSource
 
 ### License
 
-Do what ever you want! (But please respect eachother in the process)
+Do what ever you want! (But please respect each other in the process)
