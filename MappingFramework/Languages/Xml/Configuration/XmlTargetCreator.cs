@@ -23,7 +23,7 @@ namespace MappingFramework.Languages.Xml.Configuration
 
         public object Create(Context context, object source)
         {
-            if (!(source is string template))
+            if (source is not string template)
             {
                 context.InvalidInput(source, typeof(string));
                 return NullElement.Create();

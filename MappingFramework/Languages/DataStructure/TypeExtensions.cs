@@ -10,7 +10,7 @@ namespace MappingFramework.Languages.DataStructure
             Type listItemType = type.GetGenericArguments()[0];
             object instance = Activator.CreateInstance(listItemType);
 
-            if (!(instance is TraversableDataStructure result))
+            if (instance is not TraversableDataStructure result)
             {
                 context.InvalidType(instance, typeof(TraversableDataStructure));
                 return new NullDataStructure();

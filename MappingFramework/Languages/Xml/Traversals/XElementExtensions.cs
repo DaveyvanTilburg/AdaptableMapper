@@ -46,7 +46,7 @@ namespace MappingFramework.Languages.Xml.Traversals
                 return NullElement.Create();
             }
 
-            if (!(allMatches.First() is XElement result))
+            if (allMatches.First() is not XElement result)
             {
                 context.NavigationInvalid(xPath, "Path did not end in an element");
                 return NullElement.Create();

@@ -38,7 +38,7 @@ namespace MappingFramework.Languages.Json.Traversals
                 return CreateNullTemplate();
             }
 
-            if (!(result.Parent is JArray))
+            if (result.Parent is not JArray)
             {
                 context.NavigationInvalid(Path, "Path should end in a node whose parent is an array", this);
                 return CreateNullTemplate();

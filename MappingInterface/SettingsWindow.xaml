@@ -4,17 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="SettingsWindow" Height="150" Width="270" ResizeMode="NoResize">
+        Title="SettingsWindow" Height="284" Width="441" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.33*" />
-            <ColumnDefinition Width="0.33*" />
+            <ColumnDefinition Width="0.34*" />
             <ColumnDefinition Width="0.33*" />
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.7*"/>
-            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.45*"/>
+            <RowDefinition Height="0.15*"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">
@@ -25,13 +26,20 @@
 
         <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Label Content="Target" FontWeight="Bold" />
-            <RadioButton x:Name="TargetXml" Content="Xml" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <RadioButton x:Name="TargetJson" Content="Json" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <RadioButton x:Name="TargetDictionary" Content="Dictionary" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <RadioButton x:Name="TargetXml" Content="Xml" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Radio_OnClick"/>
+            <RadioButton x:Name="TargetJson" Content="Json" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Radio_OnClick"/>
+            <RadioButton x:Name="TargetDictionary" Content="Dictionary" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Radio_OnClick"/>
+            <RadioButton x:Name="TargetDataStructure" Content="DataStructure" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Radio_OnClick"/>
         </StackPanel>
 
-        <Button x:Name="GoButton" Grid.Row="0" Grid.Column="2" Content="Go" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40"/>
+        <TextBox x:Name="DataStructureSource" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" AcceptsReturn="True" TextWrapping="WrapWithOverflow" IsEnabled="False">
+            {
+  "AssemblyFullName": "MappingFramework.MappingInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "TypeFullName": "MappingFramework.MappingInterface.Examples.ExampleRootDataStructure"
+}
+        </TextBox>
 
-        <Button x:Name="LoadButton" Grid.Row="1" Grid.Column="1" Content="Load" HorizontalAlignment="Center" VerticalAlignment="Center" Width="60"/>
+        <Button x:Name="LoadButton" Grid.Row="2" Grid.Column="0" Content="Load" HorizontalAlignment="Center" VerticalAlignment="Center" Width="60"/>
+        <Button x:Name="GoButton" Grid.Row="2" Grid.Column="2" Content="Go" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40"/>
     </Grid>
 </Window>

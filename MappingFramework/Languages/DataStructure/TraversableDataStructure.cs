@@ -33,13 +33,13 @@ namespace MappingFramework.Languages.DataStructure
             }
 
             object propertyValue = propertyInfo.GetValue(this);
-            if (!(propertyValue is TraversableDataStructure next))
+            if (propertyValue is not TraversableDataStructure next)
             {
                 IList propertyList = GetIListFromProperty(propertyValue, context);
 
                 next = propertyInfo.PropertyType.CreateDataStructure(context);
 
-                if(!(next is NullDataStructure))
+                if(next is not NullDataStructure)
                     propertyList.Add(next);
             }
 
@@ -66,7 +66,7 @@ namespace MappingFramework.Languages.DataStructure
 
         private IList GetIListFromProperty(object propertyValue, Context context)
         {
-            if (!(propertyValue is IList listProperty))
+            if (propertyValue is not IList listProperty)
             {
                 context.InvalidType(propertyValue, typeof(IList));
                 return new List<NullDataStructure>();
@@ -173,9 +173,9 @@ namespace MappingFramework.Languages.DataStructure
         {
             object property = GetProperty(propertyName, context);
 
-            if (!(property is IEnumerable<TraversableDataStructure> enumerableProperty))
+            if (property is not IEnumerable<TraversableDataStructure> enumerableProperty)
             {
-                if(!(property is TraversableDataStructure item))
+                if(property is not TraversableDataStructure item)
                 {
                     context.NavigationFailed(propertyName);
                     return new List<NullDataStructure> { new() };

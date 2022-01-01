@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using MappingFramework.ContentTypes;
 
 namespace MappingFramework.MappingInterface
@@ -21,16 +22,28 @@ namespace MappingFramework.MappingInterface
             ContentType sourceType =
                 SourceXml.IsChecked ?? false ? ContentType.Xml :
                 SourceJson.IsChecked ?? false ? ContentType.Json :
-                ContentType.DataStructure;
+                ContentType.Undefined;
 
             ContentType targetType =
                 TargetXml.IsChecked ?? false ? ContentType.Xml :
                 TargetJson.IsChecked ?? false ? ContentType.Json :
                 TargetDictionary.IsChecked ?? false ? ContentType.Dictionary :
-                ContentType.DataStructure;
+                TargetDataStructure.IsChecked ?? false ? ContentType.DataStructure :
+                ContentType.Undefined;
 
-            MappingWindow mappingWindow = new MappingWindow("New mapping configuration", new MappingConfiguration(), sourceType, targetType);
-            mappingWindow.Show();
+            if (sourceType == ContentType.Undefined || targetType == ContentType.Undefined)
+                return;
+
+            if (targetType == ContentType.DataStructure)
+            {
+                MappingWindow mappingWindow = new MappingWindow("New mapping configuration", new MappingConfiguration(), sourceType, targetType, DataStructureSource.Text);
+                mappingWindow.Show();
+            }
+            else
+            {
+                MappingWindow mappingWindow = new MappingWindow("New mapping configuration", new MappingConfiguration(), sourceType, targetType);
+                mappingWindow.Show();
+            }
 
             Close();
         }
@@ -39,6 +52,12 @@ namespace MappingFramework.MappingInterface
         {
             new LoadWindow().Show();
             Close();
+        }
+
+        private void Radio_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton radioButton)
+                DataStructureSource.IsEnabled = radioButton.Name == "TargetDataStructure";
         }
     }
 }

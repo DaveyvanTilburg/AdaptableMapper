@@ -23,7 +23,7 @@ namespace MappingFramework.Languages.DataStructure.Configuration
 
         public object Convert(Context context, object source)
         {
-            if (!(source is string input))
+            if (source is not string input)
             {
                 context.InvalidInput(source, typeof(string));
                 return new NullDataStructure();
@@ -54,7 +54,7 @@ namespace MappingFramework.Languages.DataStructure.Configuration
                 return new NullDataStructure();
             }
 
-            if (!(result is TraversableDataStructure))
+            if (result is not TraversableDataStructure)
             {
                 context.InvalidType(result, typeof(TraversableDataStructure));
                 return new NullDataStructure();

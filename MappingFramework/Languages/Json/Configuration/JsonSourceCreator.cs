@@ -16,7 +16,7 @@ namespace MappingFramework.Languages.Json.Configuration
 
         public object Convert(Context context, object source)
         {
-            if (!(source is string input))
+            if (source is not string input)
             {
                 context.InvalidInput(source, typeof(string));
                 return new JObject();

@@ -8,7 +8,10 @@ using System.Xml;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using MappingFramework.Configuration;
 using MappingFramework.ContentTypes;
+using MappingFramework.Json;
+using MappingFramework.Languages.DataStructure.Configuration;
 using MappingFramework.MappingInterface.AvalonEdit;
 using MappingFramework.MappingInterface.Controls;
 using MappingFramework.MappingInterface.Storage;
@@ -22,6 +25,8 @@ namespace MappingFramework.MappingInterface
         
         private readonly MappingConfiguration _mappingConfiguration;
         private readonly Dictionary<string, IFoldingSet> _foldingSets;
+
+        private readonly string _dataStructureCreatorSource;
 
         public MappingWindow(string name, MappingConfiguration mappingConfiguration, ContentType sourceType, ContentType targetType)
         {
@@ -42,7 +47,16 @@ namespace MappingFramework.MappingInterface
 
             NameTextBox.Text = name;
         }
-        
+
+        public MappingWindow(string name, MappingConfiguration mappingConfiguration, ContentType sourceType, ContentType targetType, string dataStructureCreatorSource) 
+            : this(name, mappingConfiguration, sourceType, targetType)
+        {
+            _dataStructureCreatorSource = dataStructureCreatorSource;
+
+            object targetExample = new DataStructureTargetCreator().Create(new Context(null,null,null), _dataStructureCreatorSource);
+            TargetTextBox.Text = JsonSerializer.Serialize(targetExample);
+        }
+
         private void Load(object o, EventArgs e)
         {
             switch (SourceType)
@@ -68,6 +82,9 @@ namespace MappingFramework.MappingInterface
                     break;
                 case ContentType.Json:
                     TargetTextBox.Text = GetResource("MappingFramework.MappingInterface.Examples.JsonTarget.json");
+                    LoadSyntax(TargetTextBox, "json.xshd");
+                    break;
+                case ContentType.DataStructure:
                     LoadSyntax(TargetTextBox, "json.xshd");
                     break;
                 case ContentType.Dictionary:
@@ -105,7 +122,7 @@ namespace MappingFramework.MappingInterface
         private void OnTestButtonClick(object o, EventArgs e)
         {
             string source = SourceTextBox.Text;
-            string target = TargetTextBox.Text;
+            string target = TargetType == ContentType.DataStructure ? _dataStructureCreatorSource : TargetTextBox.Text;
 
             MapResult mapResult = _mappingConfiguration.Map(source, target);
             new ResultWindow(mapResult, TargetType).Show();

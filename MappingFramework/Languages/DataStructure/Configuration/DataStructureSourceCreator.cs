@@ -14,7 +14,7 @@ namespace MappingFramework.Languages.DataStructure.Configuration
 
         public object Convert(Context context, object source)
         {
-            if (!(source is TraversableDataStructure converted))
+            if (source is not TraversableDataStructure converted)
             {
                 context.InvalidType(source, typeof(TraversableDataStructure));
                 return new NullDataStructure();
