@@ -18,13 +18,15 @@ namespace MappingFramework.MappingInterface
     {
         private readonly MapResult _mapResult;
         private readonly ContentType _contentType;
+        private readonly TimeSpan _mapTimeSpan;
         
-        public ResultWindow(MapResult mapResult, ContentType contentType)
+        public ResultWindow(MapResult mapResult, ContentType contentType, TimeSpan mapTimeSpan)
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             _mapResult = mapResult;
             _contentType = contentType;
+            _mapTimeSpan = mapTimeSpan;
 
             Initialized += Load;
             InitializeComponent();
@@ -33,7 +35,8 @@ namespace MappingFramework.MappingInterface
         private void Load(object o, EventArgs e)
         {
             TextBoxComponent.Text = _mapResult.Result as string ?? string.Empty;
-
+            TimeTextBox.Text = _mapTimeSpan.ToString();
+            
             switch (_contentType)
             {
                 case ContentType.Xml:

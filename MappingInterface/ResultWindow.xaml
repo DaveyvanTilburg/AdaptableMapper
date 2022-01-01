@@ -9,8 +9,9 @@
         Title="ResultWindow" Height="1024" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.75*" />
+            <RowDefinition Height="0.65*" />
             <RowDefinition Height="0.25*" />
+            <RowDefinition Height="0.10*" />
         </Grid.RowDefinitions>
         
         <avalonedit:TextEditor Grid.Row="0" Grid.RowSpan="2" x:Name="TextBoxComponent" />
@@ -18,5 +19,7 @@
         <StackPanel x:Name="InformationPanel" Grid.Row="1">
             
         </StackPanel>
+
+        <TextBox Grid.Row="2" x:Name="TimeTextBox" />
     </Grid>
 </Window>

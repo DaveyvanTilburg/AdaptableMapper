@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -8,9 +9,7 @@ using System.Xml;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-using MappingFramework.Configuration;
 using MappingFramework.ContentTypes;
-using MappingFramework.Json;
 using MappingFramework.Languages.DataStructure.Configuration;
 using MappingFramework.MappingInterface.AvalonEdit;
 using MappingFramework.MappingInterface.Controls;
@@ -25,8 +24,6 @@ namespace MappingFramework.MappingInterface
         
         private readonly MappingConfiguration _mappingConfiguration;
         private readonly Dictionary<string, IFoldingSet> _foldingSets;
-
-        private readonly string _dataStructureCreatorSource;
 
         public MappingWindow(string name, MappingConfiguration mappingConfiguration, ContentType sourceType, ContentType targetType)
         {
@@ -51,10 +48,11 @@ namespace MappingFramework.MappingInterface
         public MappingWindow(string name, MappingConfiguration mappingConfiguration, ContentType sourceType, ContentType targetType, string dataStructureCreatorSource) 
             : this(name, mappingConfiguration, sourceType, targetType)
         {
-            _dataStructureCreatorSource = dataStructureCreatorSource;
+            if (_mappingConfiguration.ContextFactory.TargetCreator is not DataStructureTargetCreator creator) 
+                return;
 
-            object targetExample = new DataStructureTargetCreator().Create(new Context(null,null,null), _dataStructureCreatorSource);
-            TargetTextBox.Text = JsonSerializer.Serialize(targetExample);
+            creator.SerializedCreatorSource = dataStructureCreatorSource;
+            TargetTextBox.Text = creator.SerializeExample();
         }
 
         private void Load(object o, EventArgs e)
@@ -122,10 +120,13 @@ namespace MappingFramework.MappingInterface
         private void OnTestButtonClick(object o, EventArgs e)
         {
             string source = SourceTextBox.Text;
-            string target = TargetType == ContentType.DataStructure ? _dataStructureCreatorSource : TargetTextBox.Text;
+            string target = TargetTextBox.Text;
 
+            var stopWatch = Stopwatch.StartNew();
             MapResult mapResult = _mappingConfiguration.Map(source, target);
-            new ResultWindow(mapResult, TargetType).Show();
+            stopWatch.Stop();
+
+            new ResultWindow(mapResult, TargetType, stopWatch.Elapsed).Show();
         }
         
         private void OnSaveButtonClick(object o, EventArgs e)

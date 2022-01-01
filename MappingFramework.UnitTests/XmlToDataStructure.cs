@@ -16,7 +16,7 @@ namespace MappingFramework.UnitTests
         [Fact]
         public void XmlToDataStructureTest()
         {
-            MappingConfiguration mappingConfiguration = GetMappingConfiguration();
+            MappingConfiguration mappingConfiguration = GetMappingConfiguration(CreateDataStructureTargetInstantiatorSource());
             string targetInstantiatorSource = CreateDataStructureTargetInstantiatorSource();
 
             MapResult mapResult = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), targetInstantiatorSource);
@@ -43,11 +43,10 @@ namespace MappingFramework.UnitTests
         [Fact]
         public void XmlToDataStructureToString()
         {
-            MappingConfiguration mappingConfiguration = GetMappingConfiguration();
+            MappingConfiguration mappingConfiguration = GetMappingConfiguration(CreateDataStructureTargetInstantiatorSource());
             mappingConfiguration.ResultObjectCreator = new ObjectToJsonResultObjectCreator();
-            string dataStructureTargetInstantiatorSource = CreateDataStructureTargetInstantiatorSource();
 
-            MapResult mapResult = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), dataStructureTargetInstantiatorSource);
+            MapResult mapResult = mappingConfiguration.Map(System.IO.File.ReadAllText(@".\Resources\XmlSource_ArmyComposition.xml"), string.Empty);
             
             var result = mapResult.Result as string;
             result.Should().NotBeNull();
@@ -68,7 +67,7 @@ namespace MappingFramework.UnitTests
             return JsonSerializer.Serialize(result);
         }
 
-        public static MappingConfiguration GetMappingConfiguration()
+        public static MappingConfiguration GetMappingConfiguration(string source)
         {
             var crewMember = new Mapping(
                 new XmlGetThisValueTraversal(),
@@ -184,7 +183,7 @@ namespace MappingFramework.UnitTests
 
             var contextFactory = new ContextFactory(
                 new XmlSourceCreator(),
-                new DataStructureTargetCreator()
+                new DataStructureTargetCreator(source)
             );
 
             var mappingConfiguration = new MappingConfiguration(scopes, contextFactory, new NullObject());

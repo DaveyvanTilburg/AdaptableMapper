@@ -31,11 +31,11 @@ namespace MappingFramework.UnitTests.Cases.DataStructureCases
         [InlineData("Valid", ContextType.ValidSource, "", 0)]
         public void DataStructureTargetInstantiator(string because, ContextType contextType, string createType, int informationCount)
         {
-            var subject = new DataStructureTargetCreator();
-            object source = DataStructure.Stub(contextType, createType);
+            string source = DataStructure.Stub(contextType, createType) as string;
+            var subject = new DataStructureTargetCreator(source);
             var context = new Context();
 
-            var result = subject.Create(context, source);
+            var result = subject.Create(context, null);
             result.Should().BeAssignableTo<TraversableDataStructure>();
 
             context.Information().Count.Should().Be(informationCount, because);
